@@ -1,0 +1,128 @@
+{
+  "skins": {
+    "ultimate": {
+      "nome": "Ultimate Skin 3250 RP",
+      "preco": "20.99",
+      "desconto": "10.49"
+    },
+    "mythic": {
+      "nome": "Mythic Skin / Prestige",
+      "preco": "14.99",
+      "desconto": "7.50"
+    },
+    "legendary": {
+      "nome": "Legendary Skin 1820 RP",
+      "preco": "11.49",
+      "desconto": "5.75"
+    },
+    "epic": {
+      "nome": "Epic Skin 1350 RP",
+      "preco": "8.49",
+      "desconto": "4.25"
+    },
+    "common_975": {
+      "nome": "Common Skin 975 RP",
+      "preco": "6.49",
+      "desconto": "3.25"
+    },
+    "common_750": {
+      "nome": "Common Skin 750 RP",
+      "preco": "6.49",
+      "desconto": "3.25"
+    },
+    "common_520": {
+      "nome": "Common Skin 520 RP",
+      "preco": "3.49",
+      "desconto": "1.75"
+    },
+    "mystery_skin": {
+      "nome": "Mystery Skin 490 RP",
+      "preco": "3.19",
+      "desconto": "1.59"
+    },
+    "mystery_champ": {
+      "nome": "Mystery Champion 490 RP",
+      "preco": "3.19",
+      "desconto": "1.59"
+    }
+  },
+  "loot": {
+    "pass_1": {
+      "nome": "Pandemonium Pass 1650 RP",
+      "preco": "10.79",
+      "desconto": "5.39"
+    },
+    "pass_2": {
+      "nome": "Pandemonium Upgraded Pass 2650 RP",
+      "preco": "17.29",
+      "desconto": "8.64"
+    },
+    "pass_3": {
+      "nome": "Pandemonium Premium Pass 3650 RP",
+      "preco": "23.49",
+      "desconto": "11.74"
+    },
+    "orb_1": {
+      "nome": "Pandemonium Orb Bundle 2500 RP",
+      "preco": "15.99",
+      "desconto": "8.00"
+    },
+    "orb_2": {
+      "nome": "Premium Orb Bundle 6250 RP",
+      "preco": "40.49",
+      "desconto": "20.25"
+    },
+    "orb_3": {
+      "nome": "Mega Pandemonium Orb Bundle 12500 RP",
+      "preco": "81.49",
+      "desconto": "40.74"
+    },
+    "chest_1": {
+      "nome": "Hextech Chest 125 RP",
+      "preco": "0.79",
+      "desconto": "0.40"
+    },
+    "key_1": {
+      "nome": "Hextech Key 125 RP",
+      "preco": "0.79",
+      "desconto": "0.40"
+    },
+    "chest_key_1": {
+      "nome": "1 Hextech Chest & Key 225 RP",
+      "preco": "1.29",
+      "desconto": "0.65"
+    },
+    "chest_key_5": {
+      "nome": "5 Hextech Chests & Keys 1125 RP",
+      "preco": "6.29",
+      "desconto": "3.15"
+    },
+    "chest_key_10": {
+      "nome": "10 Hextech Chests & Keys 2250 RP",
+      "preco": "12.49",
+      "desconto": "6.25"
+    }
+  },
+  "banners": {
+    "skins": "https://i.pinimg.com/1200x/16/bb/3c/16bb3cfa10c2f94b8fd7850eb5afac4b.jpg",
+    "loot": "https://i.pinimg.com/736x/33/4a/02/334a02058aab6f668d33f104c7f23b9b.jpg",
+    "bundles": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901653_2.png"
+  },
+  "bundles": {
+    "signature_edition": {
+      "nome": "Signature Edition Bundle",
+      "preco": "29.99",
+      "desconto": "22.49"
+    },
+    "chroma_bundle": {
+      "nome": "Chroma Bundle",
+      "preco": "9.99",
+      "desconto": "7.49"
+    },
+    "set_bundle": {
+      "nome": "Complete Set Bundle",
+      "preco": "59.99",
+      "desconto": "44.99"
+    }
+  }
+}

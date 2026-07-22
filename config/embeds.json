@@ -1,0 +1,232 @@
+{
+  "ticket_welcome": {
+    "title": "<a:EstrelaDanante:1527368236759388324> **Buy skins and loot quickly and easily!**",
+    "description": "Welcome to **Kitsune Store**!\n<a:Yellow_arrow:1528201664652251187> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:Yellow_arrow:1528201664652251187> (The menu will only appear for you!)",
+    "color": "#FFC0CB",
+    "thumbnail": "",
+    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529266661415325868/image.png?ex=6a615010&is=6a5ffe90&hm=dfefe6100a775d39dffe9ab602e11fe4c88bf6ecbb598135f0c9eeb1769a8f27&=&format=webp&quality=lossless",
+    "buttonLabel": "Buy here",
+    "buttonEmoji": "<:dinheiro:1527368514057408713>",
+    "buttonStyle": "gray"
+  },
+  "store_authentication": {
+    "title": "<a:carregando:1529363904445026334> Authentication",
+    "description": "<a:whitearrow:1346152146814636032> Please select your **League of Legends** region below to start your purchase:",
+    "color": "#FF0000",
+    "thumbnail": "",
+    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529268062635692232/image.png?ex=6a61515e&is=6a5fffde&hm=c773119a4e53efbe0ef77364078c8031e7eeb283470617a99fd8769320353a63&=&format=webp&quality=lossless"
+  },
+  "store_sales_center": {
+    "title": "<a:planeta:1527672012825301054> League of Legends Shop",
+    "description": "<a:whitearrow:1346152146814636032> Please select the **category** of the product you wish to purchase below:",
+    "color": "#FF0000",
+    "thumbnail": "",
+    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529269275934593084/image.png?ex=6a61527f&is=6a6000ff&hm=69533a3349642761f84016933a84d8905ba81b3b0ab67e83bc885fb45b91522a&=&format=webp&quality=lossless"
+  },
+  "ticket_order_received": {
+    "title": "<a:planeta:1527672012825301054> Order Received",
+    "description": "<a:whitearrow:1346152146814636032> Please wait a moment. Our team will assist you shortly so you can proceed with your purchase.\n<a:whitearrow:1346152146814636032> {staffRoles}",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "fields": [
+      {
+        "name": "{eProduto} Product",
+        "value": "`{itemSelecionado}`",
+        "inline": false
+      },
+      {
+        "name": "{eVariacao} Rarity",
+        "value": "`{variacao}`",
+        "inline": false
+      },
+      {
+        "name": "{eRP} Value",
+        "value": "`{valorRP}`",
+        "inline": false
+      },
+      {
+        "name": "{eDinheiro} Price",
+        "value": "{valorDinheiro}",
+        "inline": false
+      },
+      {
+        "name": "{eRegiao} Region",
+        "value": "`{regiao}`",
+        "inline": false
+      },
+      {
+        "name": "{eRiotId} Riot ID",
+        "value": "`{riotId}`",
+        "inline": false
+      }
+    ]
+  },
+  "ticket_payment_methods": {
+    "title": "<:dinheiro:1527368514057408713> Formas de Pagamento | Payment Methods",
+    "description": "<a:whitearrow:1346152146814636032> Por favor, escolha e utilize a sua forma de pagamento preferida abaixo:\n\n💶 **MBWay / PIX / PayPal / Revolut / Crypto**\n> Mande uma mensagem neste canal para a equipe de suporte fornecer a chave de pagamento atualizada para o seu pedido!",
+    "color": "#10B981",
+    "thumbnail": "",
+    "image": ""
+  },
+  "admin_panel": {
+    "title": "",
+    "description": "# ⚙️ Admin Control Panel\\nUse the slash commands (/) to manage the server.\n\nExamples: `/lock`, `/slowmode`, `/limpar`.",
+    "color": "#2B2D31",
+    "thumbnail": "",
+    "image": ""
+  },
+  "support_panel": {
+    "title": "",
+    "description": "# {fox} Kitsune Store | Support Panel\\nWelcome to the support panel. Choose an action to perform.",
+    "color": "#2B2D31",
+    "thumbnail": "",
+    "image": ""
+  },
+  "catalog_highlights": {
+    "title": "<:box:1527369341161705622> {count} Highlights",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **highlights** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_passes": {
+    "title": "<:box:1527369341161705622> {count} Passes & Loots",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **passes / loots** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_skins": {
+    "title": "<:box:1527369341161705622> {count} skins of {campeao}",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **skin** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_cromas": {
+    "title": "<:box:1527369341161705622> {count} chromas of {campeao}",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **chroma** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_eternos": {
+    "title": "<:box:1527369341161705622> {count} eternals of {campeao}",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **eternal** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_champions": {
+    "title": "<:box:1527369341161705622> {count} champions of {campeao}",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **champion** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "tabela_skins": {
+    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> SKINS",
+    "color": "#FFC0CB",
+    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529258164946604252/image.png?ex=6a614826&is=6a5ff6a6&hm=9ecf0d7207cd204e72463e94ca0fb735595b2351175151167b7fdbdfdf43b520&=&format=webp&quality=lossless"
+  },
+  "tabela_loot": {
+    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> LOOTS",
+    "color": "#FFC0CB",
+    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529258252293111828/image.png?ex=6a61483b&is=6a5ff6bb&hm=c2cd1acd08f7650a5e96fdb84603d5ff7162e9a8ee8a246835d9f063218b57bf&=&format=webp&quality=lossless"
+  },
+  "login_loading_1": {
+    "title": "Login Process <:security:1329241635308638208>",
+    "description": "<a:loading:1527669507211137148> Initializing login process...",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_loading_2": {
+    "title": "Login Process <:security:1329241635308638208>",
+    "description": "<a:loading:1527669507211137148> Checking token validity...",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_loading_3": {
+    "title": "Login Process <:security:1329241635308638208>",
+    "description": "🟢 Reusing existing tokens and generating secure session data...",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_success": {
+    "title": "✅ Autenticado com Sucesso!",
+    "description": "Conectado na conta **{accountName}** (**{region}**)\n\n<a:whitearrow:1346152146814636032> Agora você pode utilizar os comandos de presente e navegar pelas opções abaixo.",
+    "color": "#10B981",
+    "thumbnail": "{userAvatar}",
+    "footerText": "© Kitsune Store • Painel de Controle"
+  },
+  "dashboard_rp": {
+    "title": "🪙 Saldo da Conta Riot",
+    "description": "Conta ativa: **{accountName}** (**{region}**)\n\nSeu saldo atual no League of Legends:",
+    "color": "#F59E0B",
+    "thumbnail": "{userAvatar}",
+    "fields": [
+      {
+        "name": "Saldo de RP",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "Essência Azul",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ],
+    "footerText": "© Kitsune Store • Painel de Controle"
+  },
+  "dashboard_account": {
+    "title": "ℹ️ Informações da Conta",
+    "description": "Detalhes da conta **{accountName}** vinculada no bot:",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "fields": [
+      {
+        "name": "Riot ID",
+        "value": "**{accountName}**",
+        "inline": true
+      },
+      {
+        "name": "Nível da Conta",
+        "value": "`Nv. {level}`",
+        "inline": true
+      },
+      {
+        "name": "Região",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "Conta Banida",
+        "value": "{banned}",
+        "inline": true
+      },
+      {
+        "name": "Tempo da Sessão",
+        "value": "{sessionTime}",
+        "inline": true
+      }
+    ],
+    "footerText": "© Kitsune Store • Painel de Controle"
+  },
+  "dashboard_friends": {
+    "title": "🫂 Lista de Amigos",
+    "description": "Amigos ativos na conta **{accountName}**:\n\n{friendText}",
+    "color": "#8B5CF6",
+    "thumbnail": "{userAvatar}",
+    "footerText": "© Kitsune Store • Lista de Amigos"
+  }
+}
