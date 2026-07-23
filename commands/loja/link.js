@@ -12,12 +12,19 @@ module.exports = {
             description: 'Cole a URL completa (http://localhost/redirect#access_token=...)',
             type: 3,
             required: true
+        },
+        {
+            name: 'ssid',
+            description: 'Cookie SSID da conta (opcional - para renovação automática 24/7 sem expirar)',
+            type: 3,
+            required: false
         }
     ],
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
         
         const url = interaction.options.getString('url');
+        const ssidParam = interaction.options.getString('ssid');
         
         if (!url.includes('access_token=')) {
             return interaction.editReply({ content: '❌ URL inválida! Certifique-se de copiar a URL inteira após fazer o login na Riot e ser redirecionado para o localhost.' });
@@ -68,6 +75,7 @@ module.exports = {
         }
         
         accounts[finalAccountName] = {
+            ...(accounts[finalAccountName] || {}),
             ...authData,
             region: region,
             geopasToken: geopasToken,
@@ -75,8 +83,18 @@ module.exports = {
             chatDom: chatDom,
             chatUri: chatUri,
             riotId: finalAccountName,
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
+            expired: false
         };
+
+        if (ssidParam) {
+            let cleanSsid = ssidParam.trim();
+            if (cleanSsid.includes('ssid=')) {
+                const match = cleanSsid.match(/ssid=([^;]+)/);
+                if (match) cleanSsid = match[1];
+            }
+            accounts[finalAccountName].ssid = cleanSsid;
+        }
 
         const userStoreSessions = global.userStoreSessions || new Map();
         userStoreSessions.set(interaction.user.id, {
