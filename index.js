@@ -1799,7 +1799,7 @@ client.login(process.env.DISCORD_TOKEN);
 async function refreshAccountsTask() {
     const fs = require('fs');
     const path = require('path');
-    const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getStoreBalance, getEntitlements, getFriendList } = require('./utils/riotAuth.js');
+    const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getStoreBalance, getEntitlements, getFriendList, reauthWithSSID, loginWithRiotCredentials } = require('./utils/riotAuth.js');
     const { friendlistCacheMap } = require('./commands/loja/gift.js');
     
     const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
@@ -1810,10 +1810,39 @@ async function refreshAccountsTask() {
     
     let updated = false;
     for (const [name, acc] of Object.entries(accounts)) {
-        if (!acc.accessToken) continue;
-        if (acc.expired) continue;
+        if (!acc.accessToken && !acc.ssid && !acc.username) continue;
         
         try {
+            // Auto re-authenticate with SSID or Username/Password if configured
+            if (acc.ssid) {
+                try {
+                    const freshTokens = await reauthWithSSID(acc.ssid);
+                    if (freshTokens && freshTokens.accessToken) {
+                        acc.accessToken = freshTokens.accessToken;
+                        if (freshTokens.idToken) acc.idToken = freshTokens.idToken;
+                        acc.expired = false;
+                        updated = true;
+                        console.log(`[RiotAuth] 🟢 Token renovado com sucesso via SSID para ${name}!`);
+                    }
+                } catch(ssidErr) {}
+            }
+
+            // Fallback to Username/Password if token expired or SSID failed
+            if ((acc.expired || !acc.accessToken) && acc.username && acc.password) {
+                try {
+                    const freshTokens = await loginWithRiotCredentials(acc.username, acc.password);
+                    if (freshTokens && freshTokens.accessToken) {
+                        acc.accessToken = freshTokens.accessToken;
+                        if (freshTokens.idToken) acc.idToken = freshTokens.idToken;
+                        if (freshTokens.ssid) acc.ssid = freshTokens.ssid;
+                        acc.expired = false;
+                        updated = true;
+                        console.log(`[RiotAuth] 🟢 Login automático 24/7 realizado com sucesso para ${name}!`);
+                    }
+                } catch(passErr) {}
+            }
+
+            if (acc.expired && !acc.ssid && !acc.username) continue;
             // Attempt to refresh entitlements token first
             try {
                 const freshEntitlements = await getEntitlements(acc.accessToken);
