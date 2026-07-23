@@ -413,6 +413,141 @@ async function checkAccountBan(accessToken, idToken) {
     return false;
 }
 
+async function reauthWithSSID(ssid) {
+    if (!ssid || typeof ssid !== 'string') return null;
+    let cleanSsid = ssid.trim();
+    if (cleanSsid.includes('ssid=')) {
+        const match = cleanSsid.match(/ssid=([^;]+)/);
+        if (match) cleanSsid = match[1];
+    }
+
+    const url = "https://auth.riotgames.com/authorize?redirect_uri=http://localhost/redirect&client_id=lol&response_type=token%20id_token&nonce=1&scope=openid%20link%20ban%20lol_region%20account";
+
+    try {
+        const res = await axios.get(url, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Cookie": `ssid=${cleanSsid}`
+            },
+            maxRedirects: 0,
+            validateStatus: (status) => status >= 200 && status < 400
+        });
+
+        const location = res.headers ? (res.headers.location || res.headers.Location) : null;
+        if (location && location.includes('access_token=')) {
+            return parseTokensFromUrl(location);
+        }
+    } catch(e) {
+        if (e.response && e.response.headers) {
+            const location = e.response.headers.location || e.response.headers.Location;
+            if (location && location.includes('access_token=')) {
+                return parseTokensFromUrl(location);
+            }
+        }
+    }
+    return null;
+}
+
+async function loginWithRiotCredentials(username, password) {
+    if (!username || !password) return null;
+    const userAgent = "RiotClient/93.0.1.1852 rso-auth (Windows;10;;Professional, x64)";
+    let cookies = [];
+
+    function updateCookies(res) {
+        if (res && res.headers && res.headers['set-cookie']) {
+            const setCookies = res.headers['set-cookie'];
+            setCookies.forEach(sc => {
+                const cookiePair = sc.split(';')[0];
+                const key = cookiePair.split('=')[0].trim();
+                cookies = cookies.filter(c => !c.startsWith(`${key}=`));
+                cookies.push(cookiePair);
+            });
+        }
+    }
+
+    function getCookieHeader() {
+        return cookies.join('; ');
+    }
+
+    try {
+        const loginRes = await axios.put('https://authenticate.riotgames.com/api/v1/login', {
+            type: "auth",
+            riot_identity: {
+                username,
+                password,
+                remember: true,
+                language: "en_GB"
+            }
+        }, {
+            headers: {
+                'User-Agent': userAgent,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+
+        updateCookies(loginRes);
+
+        if (!loginRes.data || loginRes.data.type !== 'success' || !loginRes.data.success) {
+            return { error: loginRes.data.type || 'login_failed' };
+        }
+
+        const loginToken = loginRes.data.success.login_token;
+
+        const tokenRes = await axios.post('https://auth.riotgames.com/api/v1/login-token', {
+            authentication_type: "RiotAuth",
+            code_verifier: "",
+            login_token: loginToken,
+            persist_login: true
+        }, {
+            headers: {
+                'User-Agent': userAgent,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Cookie': getCookieHeader()
+            }
+        });
+
+        updateCookies(tokenRes);
+
+        const authRes = await axios.post('https://auth.riotgames.com/api/v1/authorization', {
+            client_id: "lol",
+            nonce: "1",
+            redirect_uri: "http://localhost/redirect",
+            response_type: "token id_token",
+            scope: "account openid lol_region link ban"
+        }, {
+            headers: {
+                'User-Agent': userAgent,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Cookie': getCookieHeader()
+            }
+        });
+
+        updateCookies(authRes);
+
+        if (authRes.data && authRes.data.response && authRes.data.response.parameters && authRes.data.response.parameters.uri) {
+            const redirectUri = authRes.data.response.parameters.uri;
+            const parsed = parseTokensFromUrl(redirectUri);
+
+            const ssidCookie = cookies.find(c => c.startsWith('ssid='));
+            let ssidValue = null;
+            if (ssidCookie) {
+                ssidValue = ssidCookie.split('=')[1].trim();
+            }
+
+            return {
+                ...parsed,
+                ssid: ssidValue
+            };
+        }
+    } catch(e) {
+        return { error: e.response ? e.response.data : e.message };
+    }
+    return null;
+}
+
 module.exports = {
     getEntitlements,
     getUserInfo,
@@ -427,5 +562,7 @@ module.exports = {
     getChatUri,
     sendGift,
     sendGiftV3,
-    checkAccountBan
+    checkAccountBan,
+    reauthWithSSID,
+    loginWithRiotCredentials
 };
