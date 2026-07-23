@@ -5,31 +5,38 @@ const { getFriendList, getGeopasToken, decodeGeopasAffinity, getChatDom, getChat
 const { RiotChatClient } = require('../../utils/riotXmpp.js');
 
 module.exports = {
-    name: 'amigos',
-    description: 'Gerencia e aceita pedidos de amizade na conta Riot ativa.',
+    name: 'friendlist',
+    description: 'Manages, accepts, and sends friend requests on active Riot account.',
     options: [
         {
-            name: 'acao',
-            description: 'Escolha a ação desejada',
+            name: 'action',
+            description: 'Select action',
             type: 3,
             required: true,
             choices: [
-                { name: '📥 Ver Pedidos Pendentes', value: 'ver_pedidos' },
-                { name: '✅ Aceitar Todos os Pedidos', value: 'aceitar_todos' }
+                { name: '📥 View Pending Requests', value: 'ver_pedidos' },
+                { name: '✅ Accept All Requests', value: 'aceitar_todos' },
+                { name: '➕ Send Friend Request', value: 'enviar_pedido' }
             ]
+        },
+        {
+            name: 'riot_id',
+            description: 'Riot ID to add (Name#TAG) - Required when sending request',
+            type: 3,
+            required: false
         }
     ],
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
         if (!global.userStoreSessions || !global.userStoreSessions.has(interaction.user.id)) {
-            return interaction.editReply({ content: '❌ Nenhuma sessão ativa. Use `/login` ou `/link` primeiro para selecionar sua conta.' });
+            return interaction.editReply({ content: '❌ No active session. Use `/login` or `/link` first.' });
         }
 
         const session = global.userStoreSessions.get(interaction.user.id);
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
         if (!fs.existsSync(accountsPath)) {
-            return interaction.editReply({ content: '❌ Nenhuma conta salva encontrada.' });
+            return interaction.editReply({ content: '❌ No saved accounts found.' });
         }
 
         const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
@@ -37,12 +44,16 @@ module.exports = {
         const acc = accounts[accountName] || session.tokens || session;
 
         if (!acc || acc.expired || !acc.accessToken) {
-            return interaction.editReply({ content: '❌ A sessão da conta selecionada expirou. Use `/link` para renovar o acesso.' });
+            return interaction.editReply({ content: '❌ Active session expired. Use `/link` to refresh.' });
         }
 
-        const acao = interaction.options.getString('acao');
+        const acao = interaction.options.getString('action');
+        const targetRiotId = interaction.options.getString('riot_id');
 
-        // Ensure Geopas / Chat parameters are available
+        if (acao === 'enviar_pedido' && !targetRiotId) {
+            return interaction.editReply({ content: '❌ Please specify the `riot_id` parameter (Ex: `Name#TAG`) when sending a friend request.' });
+        }
+
         if (!acc.geopasToken) {
             try {
                 acc.geopasToken = await getGeopasToken(acc.accessToken);
@@ -55,23 +66,47 @@ module.exports = {
         }
 
         if (!acc.chatUri || !acc.chatDom || !acc.geopasToken) {
-            return interaction.editReply({ content: '⚠️ Não foi possível obter as credenciais de chat da Riot para gerenciar os pedidos de amizade no momento. Tente novamente em instantes.' });
+            return interaction.editReply({ content: '⚠️ Could not fetch Riot chat credentials at the moment.' });
         }
 
         const client = new RiotChatClient(acc.chatUri, acc.chatDom);
         let ok = false;
-        try {
-            ok = await client.initializeChat(acc.accessToken, acc.geopasToken);
-        } catch(e) {
-            ok = false;
-        }
+        try { ok = await client.initializeChat(acc.accessToken, acc.geopasToken); } catch(e) {}
 
         if (!ok) {
             client.disconnect();
-            return interaction.editReply({ content: '❌ Falha ao conectar ao servidor de chat da Riot. Verifique se o token da conta é recente.' });
+            return interaction.editReply({ content: '❌ Could not connect to Riot Chat server.' });
         }
 
         try {
+            if (acao === 'enviar_pedido') {
+                let name = targetRiotId.trim();
+                let tag = 'BR1';
+                if (targetRiotId.includes('#')) {
+                    const parts = targetRiotId.split('#');
+                    name = parts[0].trim();
+                    tag = parts[1].trim();
+                }
+
+                const result = await client.sendFriendRequest(name, tag);
+                client.disconnect();
+
+                if (result === 'User not found') {
+                    return interaction.editReply({ content: `❌ User **${targetRiotId}** was not found on Riot Games servers.` });
+                }
+                if (result === "User's friend list is full") {
+                    return interaction.editReply({ content: `⚠️ User **${targetRiotId}** has a full friend list.` });
+                }
+
+                const embed = new EmbedBuilder()
+                    .setTitle('➕ Friend Request Sent!')
+                    .setDescription(`Successfully sent friend request to **${name}#${tag}** from account **${accountName}**!`)
+                    .setColor('#2ECC71')
+                    .setFooter({ text: 'Kitsune V2 Bot • Friend Manager' });
+
+                return interaction.editReply({ embeds: [embed] });
+            }
+
             const roster = await client.getFriendList();
             const pendingIn = roster ? roster.filter(r => r.status === 'pending_in') : [];
 
@@ -80,23 +115,23 @@ module.exports = {
 
                 if (pendingIn.length === 0) {
                     const emptyEmbed = new EmbedBuilder()
-                        .setTitle(`👥 Pedidos de Amizade • ${accountName}`)
-                        .setDescription('🟢 **Nenhum pedido de amizade pendente no momento.**')
+                        .setTitle(`👥 Friend Requests • ${accountName}`)
+                        .setDescription('🟢 **No pending friend requests.**')
                         .setColor('#2ECC71')
-                        .setFooter({ text: 'Kitsune V2 Bot • Sistema de Amigos' });
+                        .setFooter({ text: 'Kitsune V2 Bot • Friend Manager' });
 
                     return interaction.editReply({ embeds: [emptyEmbed] });
                 }
 
                 const requestsList = pendingIn.map(r => `• **${r.name || r.puuid}**`).join('\n');
                 const embed = new EmbedBuilder()
-                    .setTitle(`📥 Pedidos Pendentes (${pendingIn.length}) • ${accountName}`)
-                    .setDescription(`Você possui **${pendingIn.length}** pedido(s) de amizade aguardando aprovação:\n\n${requestsList}`)
+                    .setTitle(`📥 Pending Requests (${pendingIn.length}) • ${accountName}`)
+                    .setDescription(`You have **${pendingIn.length}** pending friend request(s):\n\n${requestsList}`)
                     .setColor('#F1C40F')
-                    .setFooter({ text: 'Use a opção "Aceitar Todos" para aprovar todos os pedidos de uma só vez.' });
+                    .setFooter({ text: 'Select "Accept All Requests" to approve all at once.' });
 
                 const row = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setCustomId(`btn_accept_all_now_${accountName}`).setLabel(`Aceitar Todos (${pendingIn.length})`).setStyle(ButtonStyle.Success).setEmoji('✅')
+                    new ButtonBuilder().setCustomId(`btn_accept_all_now_${accountName}`).setLabel(`Accept All (${pendingIn.length})`).setStyle(ButtonStyle.Success).setEmoji('✅')
                 );
 
                 return interaction.editReply({ embeds: [embed], components: [row] });
@@ -105,7 +140,7 @@ module.exports = {
             if (acao === 'aceitar_todos') {
                 if (pendingIn.length === 0) {
                     client.disconnect();
-                    return interaction.editReply({ content: `🟢 A conta **${accountName}** não possui nenhum pedido de amizade pendente.` });
+                    return interaction.editReply({ content: `🟢 **${accountName}** has no pending friend requests.` });
                 }
 
                 let acceptedCount = 0;
@@ -120,7 +155,6 @@ module.exports = {
 
                 client.disconnect();
 
-                // Refresh friendlist cache
                 try {
                     const freshFriends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
                     const friendlistCacheMap = global.friendlistCacheMap || new Map();
@@ -132,17 +166,17 @@ module.exports = {
                 } catch(e) {}
 
                 const successEmbed = new EmbedBuilder()
-                    .setTitle('✅ Pedidos de Amizade Aceitos com Sucesso!')
-                    .setDescription(`Foram aceitos **${acceptedCount}** pedido(s) de amizade na conta **${accountName}**!\n\nAgora esses novos amigos já aparecem na lista para envio de presentes e orbes.`)
+                    .setTitle('✅ Friend Requests Accepted!')
+                    .setDescription(`Successfully accepted **${acceptedCount}** friend request(s) on **${accountName}**!`)
                     .setColor('#2ECC71')
-                    .setFooter({ text: 'Kitsune V2 Bot • Gerenciador de Amigos' });
+                    .setFooter({ text: 'Kitsune V2 Bot • Friend Manager' });
 
                 return interaction.editReply({ embeds: [successEmbed] });
             }
         } catch(err) {
             client.disconnect();
-            console.error('Erro no comando amigos:', err.message);
-            return interaction.editReply({ content: '❌ Ocorreu um erro ao processar os pedidos de amizade.' });
+            console.error('Error in friendlist command:', err.message);
+            return interaction.editReply({ content: '❌ An error occurred processing friend requests.' });
         }
     }
 };

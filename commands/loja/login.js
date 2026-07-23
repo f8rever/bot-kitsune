@@ -32,9 +32,10 @@ module.exports = {
             const acc = accounts[name];
             const rp = acc.rp || 0;
             const region = acc.region || 'BR1';
-            const prefix = acc.expired ? '[EXPIRADA - Use /link]' : `[${region}]`;
+            const statusEmoji = acc.expired ? '🔴' : '🟢';
+            const prefix = acc.expired ? '[Use /link]' : `[${region}]`;
             return {
-                name: `${prefix} ${name} - ${rp.toLocaleString('en-US')} RP`,
+                name: `${statusEmoji} ${prefix} ${name} - ${rp.toLocaleString('en-US')} RP`,
                 value: name
             };
         });

@@ -170,31 +170,31 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         }
     }
 
-    // 2. Check Skins in loja.skins
+    // 2. Check Skins in loja.skins with exact matches
     if (loja && loja.skins) {
         let catItem = null;
         if (rpCost === 3250) catItem = loja.skins.ultimate;
-        else if (rpCost >= 2000) catItem = loja.skins.mythic;
+        else if (rpCost === 2000) catItem = loja.skins.mythic;
         else if (rpCost === 1820) catItem = loja.skins.legendary;
         else if (rpCost === 1350) catItem = loja.skins.epic;
         else if (rpCost === 975) catItem = loja.skins.common_975;
         else if (rpCost === 750) catItem = loja.skins.common_750;
         else if (rpCost === 520) catItem = loja.skins.common_520;
         else if (rpCost === 290) catItem = loja.skins.croma;
+        else if (rpCost === 490) catItem = loja.skins.mystery_skin;
 
         if (catItem) {
             const res = getVal(catItem);
             if (res) return formatDiscountStr ? res.raw : res.final;
         }
 
-        const epicRes = getVal(loja.skins.epic);
-        if (epicRes) {
-            const calculated = parseFloat(epicRes.final) * (rpCost / 1350);
-            return formatDiscountStr ? `€${calculated.toFixed(2)}` : calculated.toFixed(2);
-        }
+        // Proportional calculation based on RP for Bundles / Custom RP items (RP * 0.0060 in Euro €)
+        const val = (rpCost * 0.0060).toFixed(2);
+        return formatDiscountStr ? `€${val}` : val;
     }
 
-    return (rpCost * 0.0065).toFixed(2);
+    const val = (rpCost * 0.0060).toFixed(2);
+    return formatDiscountStr ? `€${val}` : val;
 }
 
 const userStoreSessions = global.userStoreSessions = global.userStoreSessions || new Map();
@@ -982,7 +982,7 @@ client.on('interactionCreate', async interaction => {
                 
                 return await enviarPaginaCatalogo(interaction, tipoFiltro, page, true);
             }
-            if (['btn_rp', 'btn_account', 'btn_friend', 'btn_back'].includes(interaction.customId) || interaction.customId.startsWith('btn_friend_')) {
+            if (['btn_rp', 'btn_account', 'btn_friend', 'btn_back', 'btn_accept_all_friends'].includes(interaction.customId) || interaction.customId.startsWith('btn_friend_') || interaction.customId.startsWith('btn_accept_all_now_')) {
                 try {
                     await interaction.deferUpdate();
                 } catch (e) {
@@ -1163,10 +1163,64 @@ client.on('interactionCreate', async interaction => {
                         const row2 = new ActionRowBuilder().addComponents(
                             new ButtonBuilder().setCustomId(`btn_friend_prev_${prevPage}`).setLabel('Anterior').setStyle(ButtonStyle.Secondary).setEmoji('◀️').setDisabled(page <= 1),
                             new ButtonBuilder().setCustomId('btn_friend_indicator').setLabel(`Página ${page}/${totalPages} (${totalFriends} amigos)`).setStyle(ButtonStyle.Secondary).setDisabled(true),
-                            new ButtonBuilder().setCustomId(`btn_friend_next_${nextPage}`).setLabel('Próxima').setStyle(ButtonStyle.Secondary).setEmoji('▶️').setDisabled(page >= totalPages)
+                            new ButtonBuilder().setCustomId(`btn_friend_next_${nextPage}`).setLabel('Próxima').setStyle(ButtonStyle.Secondary).setEmoji('▶️').setDisabled(page >= totalPages),
+                            new ButtonBuilder().setCustomId('btn_accept_all_friends').setLabel('Aceitar Pedidos').setStyle(ButtonStyle.Success).setEmoji('📥')
                         );
 
                         await interaction.editReply({ embeds: [friendEmbed], components: [row1, row2] }).catch(err => console.error('editReply error:', err));
+                    }
+                    else if (interaction.customId === 'btn_accept_all_friends' || interaction.customId.startsWith('btn_accept_all_now_')) {
+                        const { RiotChatClient } = require('./utils/riotXmpp.js');
+                        const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getFriendList } = require('./utils/riotAuth.js');
+                        
+                        if (!acc.geopasToken) {
+                            acc.geopasToken = await getGeopasToken(acc.accessToken);
+                            acc.affinity = decodeGeopasAffinity(acc.geopasToken);
+                            acc.chatDom = getChatDom(acc.affinity);
+                            acc.chatUri = getChatUri(acc.region || 'BR1', acc.affinity);
+                        }
+                        
+                        if (!acc.chatUri || !acc.chatDom || !acc.geopasToken) {
+                            return interaction.followUp({ content: '⚠️ Não foi possível conectar ao chat da Riot para aceitar pedidos no momento.', ephemeral: true });
+                        }
+                        
+                        const client = new RiotChatClient(acc.chatUri, acc.chatDom);
+                        let ok = false;
+                        try { ok = await client.initializeChat(acc.accessToken, acc.geopasToken); } catch(e) {}
+                        
+                        if (!ok) {
+                            client.disconnect();
+                            return interaction.followUp({ content: '❌ Falha ao conectar ao chat da Riot.', ephemeral: true });
+                        }
+                        
+                        const roster = await client.getFriendList();
+                        const pendingIn = roster ? roster.filter(r => r.status === 'pending_in') : [];
+                        
+                        if (pendingIn.length === 0) {
+                            client.disconnect();
+                            return interaction.followUp({ content: '🟢 Nenhum pedido de amizade pendente para aceitar.', ephemeral: true });
+                        }
+                        
+                        let count = 0;
+                        for (const req of pendingIn) {
+                            if (req.puuid) {
+                                try {
+                                    await client.acceptFriendRequest(req.puuid);
+                                    count++;
+                                } catch(e) {}
+                            }
+                        }
+                        client.disconnect();
+                        
+                        try {
+                            const freshFriends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+                            if (freshFriends && freshFriends.length > 0) {
+                                const { friendlistCacheMap } = require('./commands/loja/gift.js');
+                                friendlistCacheMap.set(accountName, { timestamp: Date.now(), friends: freshFriends });
+                            }
+                        } catch(e) {}
+                        
+                        await interaction.followUp({ content: `✅ **${count}** pedido(s) de amizade aceito(s) com sucesso na conta **${accountName}**!`, ephemeral: true });
                     }
                     else if (interaction.customId === 'btn_back') {
                         const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
