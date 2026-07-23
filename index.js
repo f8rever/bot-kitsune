@@ -99,16 +99,20 @@ client.once('ready', () => {
 
     const { ActivityType } = require('discord.js');
     const activities = [
-        { name: 'League of Legends in Kitsune Store', type: ActivityType.Playing },
+        { name: 'League of Legends | /ticket', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' },
         { name: '70% OFF Skins & Passes | Kitsune Store', type: ActivityType.Watching },
-        { name: '24/7 Gifting delivery | Kitsune Store', type: ActivityType.Listening }
+        { name: '24/7 Gifting Delivery | /login', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' }
     ];
 
     let i = 0;
     setInterval(() => {
         const act = activities[i % activities.length];
         client.user.setPresence({
-            activities: [{ name: act.name, type: act.type }],
+            activities: [
+                act.url 
+                    ? { name: act.name, type: act.type, url: act.url }
+                    : { name: act.name, type: act.type }
+            ],
             status: 'online'
         });
         i++;
