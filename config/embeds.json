@@ -142,32 +142,64 @@
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_1.jpg"
   },
   "login_loading_1": {
-    "title": "Login Process <:security:1329241635308638208>",
+    "title": "Login Process",
     "description": "<a:loading:1527669507211137148> Initializing login process...",
     "color": "#3B82F6",
     "thumbnail": "",
     "image": ""
   },
   "login_loading_2": {
-    "title": "Login Process <:security:1329241635308638208>",
-    "description": "<a:loading:1527669507211137148> Checking token validity...",
+    "title": "Login Process",
+    "description": "☑️ **Token + Cookies updated**\n<a:loading:1527669507211137148> Retrieving friend list...",
     "color": "#3B82F6",
     "thumbnail": "",
     "image": ""
   },
   "login_loading_3": {
-    "title": "Login Process <:security:1329241635308638208>",
-    "description": "🟢 Reusing existing tokens and generating secure session data...",
-    "color": "#3B82F6",
+    "title": "Login Process",
+    "description": "☑️ **Token + Cookies updated**\n☑️ **Friend list retrieved successfully**",
+    "color": "#10B981",
     "thumbnail": "",
     "image": ""
   },
   "login_success": {
-    "title": "✅ Autenticado com Sucesso!",
-    "description": "Conectado na conta **{accountName}** (**{region}**)\n\n<a:whitearrow:1346152146814636032> Agora você pode utilizar os comandos de presente e navegar pelas opções abaixo.",
+    "title": "Account Information 🛡️",
+    "description": "Account **{accountName}** active session.",
     "color": "#10B981",
     "thumbnail": "{userAvatar}",
-    "footerText": "© Kitsune Store • Painel de Controle"
+    "fields": [
+      {
+        "name": "Riot ID",
+        "value": "`{accountName}`",
+        "inline": false
+      },
+      {
+        "name": "Username",
+        "value": "`{username}`",
+        "inline": false
+      },
+      {
+        "name": "RP Balance",
+        "value": "`{rp}`",
+        "inline": true
+      },
+      {
+        "name": "Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "Level",
+        "value": "`{level}`",
+        "inline": true
+      },
+      {
+        "name": "Banned",
+        "value": "`{banned}`",
+        "inline": true
+      }
+    ],
+    "footerText": "© Kitsune Store • Account Information"
   },
   "dashboard_rp": {
     "title": "🪙 Saldo da Conta Riot",

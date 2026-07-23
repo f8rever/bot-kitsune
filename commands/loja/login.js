@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { getStoreBalance, getFriendList, reauthWithSSID, loginWithRiotCredentials, checkAccountBan } = require('../../utils/riotAuth.js');
 
 module.exports = {
     name: 'login',
@@ -32,10 +33,9 @@ module.exports = {
             const acc = accounts[name];
             const rp = acc.rp || 0;
             const region = acc.region || 'BR1';
-            const statusEmoji = acc.expired ? '🔴' : '🟢';
-            const prefix = acc.expired ? '[Use /link]' : `[${region}]`;
+            const statusEmoji = acc.expired ? '🟡' : '🟢';
             return {
-                name: `${statusEmoji} ${prefix} ${name} - ${rp.toLocaleString('en-US')} RP`,
+                name: `${statusEmoji} [${region}] ${name} - ${rp.toLocaleString('en-US')} RP`,
                 value: name
             };
         });
@@ -48,65 +48,111 @@ module.exports = {
         
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
         if (!fs.existsSync(accountsPath)) {
-            return interaction.reply({ content: '❌ Nenhuma conta salva encontrada. Use `/link`.', ephemeral: true });
+            return interaction.reply({ content: '❌ No saved accounts found. Use `/link` or `/addaccount`.', ephemeral: true });
         }
         
-        const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
+        let accounts = {};
+        try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch(e) {}
         const acc = accounts[selected];
         
-        if (!acc || !acc.accessToken) {
-            return interaction.reply({ content: '❌ Conta não encontrada no cache.', ephemeral: true });
-        }
-        if (acc.expired) {
-            return interaction.reply({ content: '❌ O token desta conta expirou. Use `/link` novamente com um novo redirecionamento para renovar o acesso.', ephemeral: true });
+        if (!acc) {
+            return interaction.reply({ content: '❌ Account not found in cache.', ephemeral: true });
         }
         
         const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
         const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-        // Step 1: Initializing
+        // Step 1: Initializing Login Process
         const loading1 = buildCustomEmbed('login_loading_1', interaction.client, interaction);
         await interaction.reply({ embeds: [loading1], ephemeral: true });
-        await sleep(1500);
+        await sleep(800);
 
-        // Step 2: Checking
+        // Step 2: Auto Refresh Token & Cookies (reauthWithSSID or loginWithRiotCredentials)
+        let renewed = false;
+        if (acc.ssid) {
+            try {
+                const refreshed = await reauthWithSSID(acc.ssid);
+                if (refreshed && refreshed.accessToken) {
+                    acc.accessToken = refreshed.accessToken;
+                    if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                    if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                    if (refreshed.ssid) acc.ssid = refreshed.ssid;
+                    acc.expired = false;
+                    renewed = true;
+                }
+            } catch(e) {}
+        }
+
+        if (!renewed && acc.username && acc.password) {
+            try {
+                const refreshed = await loginWithRiotCredentials(acc.username, acc.password);
+                if (refreshed && refreshed.accessToken) {
+                    acc.accessToken = refreshed.accessToken;
+                    if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                    if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                    if (refreshed.ssid) acc.ssid = refreshed.ssid;
+                    acc.expired = false;
+                    renewed = true;
+                }
+            } catch(e) {}
+        }
+
+        accounts[selected] = acc;
+        fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+
+        // Step 2 Embed: Token + Cookies updated
         const loading2 = buildCustomEmbed('login_loading_2', interaction.client, interaction);
         await interaction.editReply({ embeds: [loading2] });
 
-        const { getStoreBalance } = require('../../utils/riotAuth.js');
-        let storeBalance = null;
+        // Step 3: Fetching Store Balance & Friends
         let rp = acc.rp || 0;
         let be = acc.be || 0;
-        try {
-            storeBalance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
-            if (storeBalance.error === 401) {
-                acc.expired = true;
-                fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
-                return interaction.editReply({ content: '❌ O token desta conta expirou no momento do login. Use `/link` novamente.', embeds: [] });
-            }
-            rp = storeBalance?.rp || storeBalance?.RP || 0;
-            be = storeBalance?.ip || storeBalance?.IP || 0;
-            
-            acc.rp = rp;
-            acc.be = be;
-            fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
-        } catch(e) {
-            console.error('Error fetching balance from cache:', e.message);
-        }
+        let level = acc.summonerLevel || 30;
+        let banned = 'No';
 
-        // Step 3: Reusing tokens
+        try {
+            const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+            if (balance && balance.rp !== undefined) {
+                rp = balance.rp;
+                be = balance.ip;
+                level = balance.summonerLevel || level;
+                acc.rp = rp;
+                acc.be = be;
+                acc.summonerLevel = level;
+            }
+
+            const isBanned = await checkAccountBan(acc.accessToken);
+            banned = isBanned ? 'Yes' : 'No';
+
+            const friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+            const friendlistCacheMap = global.friendlistCacheMap || new Map();
+            if (friends && friends.length > 0) {
+                friendlistCacheMap.set(selected, { timestamp: Date.now(), friends });
+                friendlistCacheMap.set(acc.accessToken, { timestamp: Date.now(), friends });
+                global.friendlistCacheMap = friendlistCacheMap;
+            }
+        } catch(e) {}
+
+        accounts[selected] = acc;
+        fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+
+        // Step 3 Embed: Friend List Retrieved
         const loading3 = buildCustomEmbed('login_loading_3', interaction.client, interaction);
         await interaction.editReply({ embeds: [loading3] });
-        await sleep(1500);
+        await sleep(800);
         
         const finalAccountName = selected;
         const region = acc.region || 'BR1';
+        const displayUsername = acc.username || acc.riotId || selected;
         
         const successEmbed = buildCustomEmbed('login_success', interaction.client, interaction, {
             accountName: finalAccountName,
+            username: displayUsername,
             region: region,
             rp: rp.toLocaleString('en-US'),
-            be: be.toLocaleString('en-US')
+            be: be.toLocaleString('en-US'),
+            level: level,
+            banned: banned
         });
         
         const accRow = new ActionRowBuilder().addComponents(
