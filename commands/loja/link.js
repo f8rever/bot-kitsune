@@ -5,17 +5,17 @@ const path = require('path');
 
 module.exports = {
     name: 'link',
-    description: 'Adiciona uma conta através do Link (URL) de redirecionamento da Riot.',
+    description: 'Links a Riot account using the redirect URL.',
     options: [
         {
             name: 'url',
-            description: 'Cole a URL completa (http://localhost/redirect#access_token=...)',
+            description: 'Paste the full redirect URL (http://localhost/redirect#access_token=...)',
             type: 3,
             required: true
         },
         {
             name: 'ssid',
-            description: 'Cookie SSID da conta (opcional - para renovação automática 24/7 sem expirar)',
+            description: 'SSID Cookie (optional - for automatic 24/7 infinite renewal)',
             type: 3,
             required: false
         }

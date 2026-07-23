@@ -4,11 +4,11 @@ const path = require('path');
 
 module.exports = {
     name: 'login',
-    description: 'Loga em uma conta já vinculada e abre o painel da loja/amigos.',
+    description: 'Logs in to a linked account and opens the store/friends dashboard.',
     options: [
         {
             name: 'account_name',
-            description: 'Selecione a sua conta',
+            description: 'Select your account',
             type: 3,
             required: true,
             autocomplete: true
