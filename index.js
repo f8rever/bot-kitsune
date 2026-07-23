@@ -144,21 +144,19 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         if (discountPrice && basePrice && discountPrice < basePrice) {
             return {
                 final: discountPrice.toFixed(2),
-                raw: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${discountPrice.toFixed(2)}**`,
-                ratio: discountPrice / rpCost
+                raw: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${discountPrice.toFixed(2)}**`
             };
         }
         if (basePrice) {
             return {
                 final: basePrice.toFixed(2),
-                raw: `€${basePrice.toFixed(2)}`,
-                ratio: basePrice / rpCost
+                raw: `€${basePrice.toFixed(2)}`
             };
         }
         return null;
     };
 
-    // 1. Check Loot / Pass / Orb / Hextech items in loja.loot
+    // 1. Check exact RP match in loja.loot
     if (loja && loja.loot) {
         for (const [key, item] of Object.entries(loja.loot)) {
             const nameLower = (item.nome || '').toLowerCase();
@@ -170,7 +168,7 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         }
     }
 
-    // 2. Check Skins in loja.skins with exact matches
+    // 2. Check exact RP match in loja.skins
     if (loja && loja.skins) {
         let catItem = null;
         if (rpCost === 3250) catItem = loja.skins.ultimate;
@@ -187,14 +185,36 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
             const res = getVal(catItem);
             if (res) return formatDiscountStr ? res.raw : res.final;
         }
-
-        // Proportional calculation based on RP for Bundles / Custom RP items (RP * 0.0060 in Euro €)
-        const val = (rpCost * 0.0060).toFixed(2);
-        return formatDiscountStr ? `€${val}` : val;
     }
 
-    const val = (rpCost * 0.0060).toFixed(2);
-    return formatDiscountStr ? `€${val}` : val;
+    // 3. Check exact RP match in loja.bundles
+    if (loja && loja.bundles) {
+        for (const [key, item] of Object.entries(loja.bundles)) {
+            const nameLower = (item.nome || '').toLowerCase();
+            const rpMatch = nameLower.match(/(\d+)\s*rp/);
+            if (rpMatch && parseInt(rpMatch[1], 10) === rpCost) {
+                const res = getVal(item);
+                if (res) return formatDiscountStr ? res.raw : res.final;
+            }
+        }
+    }
+
+    // 4. Fallback calculation with 50% promo discount if active in loja.skins
+    const baseVal = rpCost * 0.0060;
+    const isPromoActive = loja && loja.skins && loja.skins.epic && parseFloat(loja.skins.epic.desconto || '0') > 0;
+    
+    if (isPromoActive) {
+        const discountVal = baseVal * 0.50; // 50% discount
+        if (formatDiscountStr) {
+            return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}**`;
+        }
+        return discountVal.toFixed(2);
+    }
+
+    if (formatDiscountStr) {
+        return `€${baseVal.toFixed(2)}`;
+    }
+    return baseVal.toFixed(2);
 }
 
 const userStoreSessions = global.userStoreSessions = global.userStoreSessions || new Map();
