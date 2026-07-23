@@ -99,9 +99,9 @@ client.once('ready', () => {
 
     const { ActivityType } = require('discord.js');
     const activities = [
-        { name: 'League of Legends | /ticket', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' },
-        { name: '70% OFF Skins & Passes | Kitsune Store', type: ActivityType.Watching },
-        { name: '24/7 Gifting Delivery | /login', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' }
+        { name: '<a:pr_fire01:1527367612168802374> League of Legends', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' },
+        { name: '<a:raio:1527369241542656041> 70% OFF Skins & Passes', type: ActivityType.Watching },
+        { name: '<a:planeta:1527672012825301054> 24/7 Gifting Delivery ', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' }
     ];
 
     let i = 0;
@@ -109,7 +109,7 @@ client.once('ready', () => {
         const act = activities[i % activities.length];
         client.user.setPresence({
             activities: [
-                act.url 
+                act.url
                     ? { name: act.name, type: act.type, url: act.url }
                     : { name: act.name, type: act.type }
             ],
