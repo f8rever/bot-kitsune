@@ -104,9 +104,10 @@
     }
   },
   "banners": {
-    "skins": "https://i.pinimg.com/1200x/16/bb/3c/16bb3cfa10c2f94b8fd7850eb5afac4b.jpg",
-    "loot": "https://i.pinimg.com/736x/33/4a/02/334a02058aab6f668d33f104c7f23b9b.jpg",
-    "bundles": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901653_2.png"
+    "skins": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg",
+    "loot": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_1.jpg",
+    "bundles": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "tabela": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Pyke_25.jpg"
   },
   "bundles": {
     "signature_edition": {

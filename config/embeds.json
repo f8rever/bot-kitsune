@@ -4,7 +4,7 @@
     "description": "Welcome to **Kitsune Store**!\n<a:Yellow_arrow:1528201664652251187> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:Yellow_arrow:1528201664652251187> (The menu will only appear for you!)",
     "color": "#FFC0CB",
     "thumbnail": "",
-    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529266661415325868/image.png?ex=6a615010&is=6a5ffe90&hm=dfefe6100a775d39dffe9ab602e11fe4c88bf6ecbb598135f0c9eeb1769a8f27&=&format=webp&quality=lossless",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
     "buttonLabel": "Buy here",
     "buttonEmoji": "<:dinheiro:1527368514057408713>",
     "buttonStyle": "gray"
@@ -14,14 +14,14 @@
     "description": "<a:whitearrow:1346152146814636032> Please select your **League of Legends** region below to start your purchase:",
     "color": "#FF0000",
     "thumbnail": "",
-    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529268062635692232/image.png?ex=6a61515e&is=6a5fffde&hm=c773119a4e53efbe0ef77364078c8031e7eeb283470617a99fd8769320353a63&=&format=webp&quality=lossless"
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Pyke_25.jpg"
   },
   "store_sales_center": {
     "title": "<a:planeta:1527672012825301054> League of Legends Shop",
     "description": "<a:whitearrow:1346152146814636032> Please select the **category** of the product you wish to purchase below:",
     "color": "#FF0000",
     "thumbnail": "",
-    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529269275934593084/image.png?ex=6a61527f&is=6a6000ff&hm=69533a3349642761f84016933a84d8905ba81b3b0ab67e83bc885fb45b91522a&=&format=webp&quality=lossless"
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_21.jpg"
   },
   "ticket_order_received": {
     "title": "<a:planeta:1527672012825301054> Order Received",
@@ -134,12 +134,12 @@
   "tabela_skins": {
     "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> SKINS",
     "color": "#FFC0CB",
-    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529258164946604252/image.png?ex=6a614826&is=6a5ff6a6&hm=9ecf0d7207cd204e72463e94ca0fb735595b2351175151167b7fdbdfdf43b520&=&format=webp&quality=lossless"
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg"
   },
   "tabela_loot": {
     "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> LOOTS",
     "color": "#FFC0CB",
-    "image": "https://media.discordapp.net/attachments/1527052424886358156/1529258252293111828/image.png?ex=6a61483b&is=6a5ff6bb&hm=c2cd1acd08f7650a5e96fdb84603d5ff7162e9a8ee8a246835d9f063218b57bf&=&format=webp&quality=lossless"
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_1.jpg"
   },
   "login_loading_1": {
     "title": "Login Process <:security:1329241635308638208>",
