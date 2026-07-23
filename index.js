@@ -94,6 +94,27 @@ client.on('reloadEmbeds', () => {
     carregarEmbeds();
 });
 
+client.once('ready', () => {
+    console.log(`🟢 Kitsune Bot online como ${client.user.tag}!`);
+
+    const { ActivityType } = require('discord.js');
+    const activities = [
+        { name: 'League of Legends in Kitsune Store', type: ActivityType.Playing },
+        { name: '70% OFF Skins & Passes | Kitsune Store', type: ActivityType.Watching },
+        { name: '24/7 Gifting delivery | Kitsune Store', type: ActivityType.Listening }
+    ];
+
+    let i = 0;
+    setInterval(() => {
+        const act = activities[i % activities.length];
+        client.user.setPresence({
+            activities: [{ name: act.name, type: act.type }],
+            status: 'online'
+        });
+        i++;
+    }, 15000);
+});
+
 const getLoadStr = (context = 'default') => {
     switch (context) {
         case 'auth':
@@ -202,7 +223,7 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
     // 4. Fallback calculation with 50% promo discount if active in loja.skins
     const baseVal = rpCost * 0.0060;
     const isPromoActive = loja && loja.skins && loja.skins.epic && parseFloat(loja.skins.epic.desconto || '0') > 0;
-    
+
     if (isPromoActive) {
         const discountVal = baseVal * 0.50; // 50% discount
         if (formatDiscountStr) {
@@ -278,7 +299,7 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
 function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) {
     const emjRp = '💎';
     const emjDinheiro = '💶';
-    
+
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
     const precoReal = getCatalogPrice(calcRp, loja);
@@ -292,7 +313,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
             let bundleIcon = (customEmojis?.skins?.transcendent || '🌟').trim();
             return formatarStr('Signature Edition', bundleIcon);
         }
-        
+
         const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
         let rarityCode = skinsRarityMap[nomeLower];
         if (!rarityCode) {
@@ -303,7 +324,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
         }
         if (nome.toLowerCase().includes('prestige')) rarityCode = 'kMythic';
 
-        switch(rarityCode) {
+        switch (rarityCode) {
             case 'kTranscendent': return formatarStr('Transcendent', (customEmojis?.skins?.transcendent || '🔸').trim());
             case 'kExalted': return formatarStr('Exalted', (customEmojis?.skins?.exalted || '🔸').trim());
             case 'kUltimate': return formatarStr('Ultimate', (customEmojis?.skins?.ultimate || '🔸').trim());
@@ -313,13 +334,13 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
             case 'kRare': return formatarStr('Common', (customEmojis?.skins?.common || '🔵').trim());
             default: return formatarStr('Common', (customEmojis?.skins?.common || '🟢').trim());
         }
-    } 
+    }
     else if (tipoFiltro === 'cromas') {
         return formatarStr('Chroma', (customEmojis?.skins?.croma || '🎨').trim());
-    } 
+    }
     else if (tipoFiltro === 'eternos') {
         return formatarStr('Eternals Series', (customEmojis?.skins?.eternos || '🏆').trim());
-    } 
+    }
     else if (tipoFiltro === 'passes') {
         let lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
         let prefix = 'Pass & Loots';
@@ -335,7 +356,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
             else if (nome.toLowerCase().includes('key')) lootIcon = (customEmojis?.loot?.key || '🔑').trim();
         }
         return formatarStr(prefix, lootIcon);
-    } 
+    }
     else if (tipoFiltro === 'highlights') {
         if (rawItem && rawItem.inventoryType === 'CHAMPION_SKIN') {
             const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
@@ -348,7 +369,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
             }
             if (nome.toLowerCase().includes('prestige')) rarityCode = 'kMythic';
 
-            switch(rarityCode) {
+            switch (rarityCode) {
                 case 'kTranscendent': return formatarStr('Transcendent', (customEmojis?.skins?.transcendent || '🔸').trim());
                 case 'kExalted': return formatarStr('Exalted', (customEmojis?.skins?.exalted || '🔸').trim());
                 case 'kUltimate': return formatarStr('Ultimate', (customEmojis?.skins?.ultimate || '🔸').trim());
@@ -359,7 +380,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
                 default: return formatarStr('Common', (customEmojis?.skins?.common || '🟢').trim());
             }
         }
-        
+
         let bundleIcon = (customEmojis?.bundles?.bundle || '🌟').trim();
         let prefix = 'Highlight';
         if (nome.toLowerCase().includes('signature edition')) { prefix = 'Signature Edition'; bundleIcon = (customEmojis?.skins?.transcendent || '🌟').trim(); }
@@ -377,20 +398,20 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
 async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdate = false) {
     const cor = '#F43F5E';
     const ITEMS_PER_PAGE = 25;
-    
+
     let results = [];
     let titulo = '';
     let customId = '';
-    
+
     if (tipoFiltro === 'highlights') {
         results = riotCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const isBundle = (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE');
             const isTargetSkin = (x.tipo === 'CHAMPION_SKIN' && n === 'mvp t1 miss fortune');
             return (isBundle || isTargetSkin) &&
-                   x.rawItem?.active !== false &&
-                   n.includes('t1') &&
-                   (n.includes('signature') || n.includes('set') || n.includes('chroma pack') || n.includes('chroma bundle') || isTargetSkin);
+                x.rawItem?.active !== false &&
+                n.includes('t1') &&
+                (n.includes('signature') || n.includes('set') || n.includes('chroma pack') || n.includes('chroma bundle') || isTargetSkin);
         });
         titulo = `📦 ${results.length} Highlights`;
         customId = 'selecionar_highlight_menu';
@@ -413,17 +434,17 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         customId = 'selecionar_passe_menu';
     }
 
-    results = results.sort((a,b) => {
+    results = results.sort((a, b) => {
         const dateA = a.rawItem?.releaseDate ? new Date(a.rawItem.releaseDate).getTime() : 0;
         const dateB = b.rawItem?.releaseDate ? new Date(b.rawItem.releaseDate).getTime() : 0;
         if (dateA !== dateB) return dateB - dateA;
         return b.id - a.id;
     });
-    
+
     const totalPages = Math.ceil(results.length / ITEMS_PER_PAGE) || 1;
     if (pagina < 0) pagina = 0;
     if (pagina >= totalPages) pagina = totalPages - 1;
-    
+
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     if (pageItems.length === 0) {
@@ -438,11 +459,11 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         totalPages: totalPages.toString(),
         emoji: customEmojis?.utilidades?.[tipoFiltro] || '📦'
     });
-    
+
     if (!embed.data.title) {
         embed.setTitle(titulo);
     }
-    
+
     if (!embed.data.description) {
         let catName = tipoFiltro === 'passes' ? 'passes / loots' : tipoFiltro;
         embed.setDescription(`> Please select an **${catName}** from the **menu** below to continue:\n> ${pagina + 1} page of ${totalPages} pages`);
@@ -460,7 +481,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     }
 
     const loja = obterDadosLoja();
-    
+
     const opcoesMenu = [];
     for (const r of pageItems) {
         const info = obterDetalhesItem(r.nome, tipoFiltro, loja, '0.00', r.rawItem);
@@ -484,7 +505,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     actionRows.push(menu);
 
     const btnRow = new ActionRowBuilder();
-    
+
     btnRow.addComponents(
         new ButtonBuilder()
             .setCustomId(`voltar_menu_modal`)
@@ -522,13 +543,13 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     await interaction.reply({ content: `${loadEmj} ${getLoadStr('ticket')}`, ephemeral: true });
     await new Promise(resolve => setTimeout(resolve, 2500));
-    
+
     const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
 
     const { ChannelType } = require('discord.js');
     let category = interaction.guild.channels.cache.find(c => c.type === ChannelType.GuildCategory && c.name.toUpperCase() === `TICKETS - ${session.regiao.toUpperCase()}`);
     const staffRolesArray = (process.env.STAFF_ROLE_IDS || '').split(',').map(r => r.trim()).filter(r => r);
-    
+
     if (!category) {
         const categoryOverwrites = [
             { id: interaction.guild.id, deny: ['ViewChannel'] },
@@ -545,9 +566,9 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     }
 
     const ticketOverwrites = [
-        { id: interaction.guild.id, deny: ['ViewChannel'] }, 
-        { id: interaction.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] }, 
-        { id: client.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory', 'ManageChannels'] } 
+        { id: interaction.guild.id, deny: ['ViewChannel'] },
+        { id: interaction.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] },
+        { id: client.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory', 'ManageChannels'] }
     ];
     for (const roleId of staffRolesArray) {
         ticketOverwrites.push({ id: roleId, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] });
@@ -559,15 +580,15 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         topic: `Ticket-Owner: ${interaction.user.id}`,
         permissionOverwrites: ticketOverwrites
     });
-    
+
     const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(id => `<@&${id}>`).join(' ');
     const estrela = customEmojis?.utilidades?.estrela || '⭐';
-    
+
     const loja = obterDadosLoja();
     let variacao = 'Unknown';
     let valorRP = '';
     let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
-    
+
     let nomeReal = itemSelecionado;
     let itemId = null;
     if (itemSelecionado.includes('||')) {
@@ -606,7 +627,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
     const eDinheiro = '<:dinheiro:1527368514057408713>';
 
-    const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, { 
+    const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, {
         staffRoles,
         itemSelecionado: nomeReal,
         variacao,
@@ -621,11 +642,11 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         eRegiao,
         eRiotId
     });
-    
+
     try {
         const champMap = require('./data/championMap.json');
         let ddragonUrl = null;
-        
+
         const catItem = catItemEncontrado;
         if (tipoFiltro === 'skins' || tipoFiltro === 'cromas') {
             if (catItem && catItem.parent_id) {
@@ -652,7 +673,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
                 }
             }
         }
-        
+
         if (ddragonUrl) {
             embed.setImage(ddragonUrl);
         }
@@ -666,9 +687,9 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         new ButtonBuilder().setCustomId('btn_payment_methods').setLabel('Payment Methods').setStyle(ButtonStyle.Success).setEmoji(eDinheiro),
         new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️')
     );
-    
+
     await canal.send({ content: `${interaction.user}`, embeds: [embed], components: [btn] });
-    
+
     await interaction.editReply({ content: `✅ Your support ticket has been created: ${canal}`, embeds: [], components: [] });
 }
 
@@ -690,7 +711,7 @@ client.on('interactionCreate', async interaction => {
                     } else {
                         await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
                     }
-                } catch(e) { /* ignore */ }
+                } catch (e) { /* ignore */ }
                 return;
             }
         }
@@ -718,20 +739,20 @@ client.on('interactionCreate', async interaction => {
                 const fs = require('fs');
                 const path = require('path');
                 const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
-                
+
                 if (!fs.existsSync(accountsPath)) {
                     return interaction.reply({ content: '❌ Nenhuma conta salva encontrada.', ephemeral: true });
                 }
-                
+
                 const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
                 const acc = accounts[selected];
-                
+
                 if (!acc || !acc.accessToken) {
                     return interaction.reply({ content: '❌ Conta não encontrada no cache.', ephemeral: true });
                 }
-                
+
                 await interaction.deferReply({ ephemeral: true });
-                
+
                 const { getStoreBalance } = require('./utils/riotAuth.js');
                 let storeBalance = null;
                 let rp = acc.rp || 0;
@@ -745,35 +766,35 @@ client.on('interactionCreate', async interaction => {
                     }
                     rp = storeBalance?.rp || storeBalance?.RP || 0;
                     be = storeBalance?.ip || storeBalance?.IP || 0;
-                    
+
                     acc.rp = rp;
                     acc.be = be;
                     fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
-                } catch(e) {
+                } catch (e) {
                     console.error('Error fetching balance from cache:', e.message);
                 }
-                
+
                 const finalAccountName = selected;
                 const region = acc.region || 'BR1';
-                
+
                 const eRiotId = '<:RiotID:1329241635308638208>';
                 const eRP = '<:rp:1329188049283121172>';
                 const eAE = '<:EA:1329241193392439366>';
-                
+
                 const successEmbed = new EmbedBuilder()
                     .setTitle('✅ Success!')
                     .setColor('#23A559')
                     .setDescription(`Logged in to **${finalAccountName}**\n\n` +
-                                    `> ${eRiotId} **Region:** \`${region}\`\n` +
-                                    `> ${eRP} **RP:** \`${rp}\`\n\n` +
-                                    `* You may now use any of the account commands.`);
-                
+                        `> ${eRiotId} **Region:** \`${region}\`\n` +
+                        `> ${eRP} **RP:** \`${rp}\`\n\n` +
+                        `* You may now use any of the account commands.`);
+
                 const accRow = new ActionRowBuilder().addComponents(
                     new ButtonBuilder().setCustomId('btn_rp').setLabel('Atualizar RP').setStyle(ButtonStyle.Secondary).setEmoji('💎'),
                     new ButtonBuilder().setCustomId('btn_account').setLabel('Account').setStyle(ButtonStyle.Secondary).setEmoji('ℹ️'),
                     new ButtonBuilder().setCustomId('btn_friend').setLabel('Friend').setStyle(ButtonStyle.Secondary).setEmoji('🫂')
                 );
-                
+
                 global.userStoreSessions = global.userStoreSessions || new Map();
                 global.userStoreSessions.set(interaction.user.id, {
                     accessToken: acc.accessToken,
@@ -782,14 +803,14 @@ client.on('interactionCreate', async interaction => {
                     region: region,
                     riotId: finalAccountName
                 });
-                
+
                 return await interaction.followUp({ embeds: [successEmbed], components: [accRow], ephemeral: true });
             }
 
             if (interaction.customId === 'menu_regiao') {
                 const regiao = interaction.values[0];
                 userStoreSessions.set(interaction.user.id, { regiao });
-                
+
                 const modal = new ModalBuilder().setCustomId('modal_riot_id').setTitle('🎮 Riot ID Configuration');
                 modal.addComponents(new ActionRowBuilder().addComponents(
                     new TextInputBuilder()
@@ -799,7 +820,7 @@ client.on('interactionCreate', async interaction => {
                         .setStyle(TextInputStyle.Short)
                         .setRequired(true)
                 ));
-                await interaction.showModal(modal).catch(() => {});
+                await interaction.showModal(modal).catch(() => { });
                 return;
             }
 
@@ -843,7 +864,7 @@ client.on('interactionCreate', async interaction => {
                 const [cat, key] = val.split('__');
 
                 const currentVal = customEmojis[cat]?.[key] || '';
-                
+
                 const modal = new ModalBuilder().setCustomId(`modal_emoji_edit__${val}`).setTitle(`Edit Emoji: ${key}`);
                 modal.addComponents(new ActionRowBuilder().addComponents(
                     new TextInputBuilder()
@@ -854,7 +875,7 @@ client.on('interactionCreate', async interaction => {
                         .setStyle(TextInputStyle.Short)
                         .setRequired(true)
                 ));
-                
+
                 await interaction.showModal(modal).catch(e => console.error(e));
                 return;
             }
@@ -881,8 +902,8 @@ client.on('interactionCreate', async interaction => {
                 } else if (opcao === 'compra_eternos') {
                     abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
                 }
-            } 
-            
+            }
+
             else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
@@ -891,18 +912,18 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_champion_menu') tipo = 'champions';
                 else if (interaction.customId === 'selecionar_passe_menu') tipo = 'passes';
                 else if (interaction.customId === 'selecionar_highlight_menu') tipo = 'highlights';
-                
+
                 let itemSelecionado = interaction.values[0];
                 if (tipo === 'bundles' && itemSelecionado.includes('||')) {
                     itemSelecionado = itemSelecionado.split('||')[0];
                 }
-                
+
                 await criarCanalTicket(interaction, itemSelecionado, tipo);
             }
 
             if (interaction.customId === 'menu_embed_select') {
                 const embedId = interaction.values[0];
-                
+
                 const embed = formatEmbed(new EmbedBuilder(), interaction.client)
                     .setTitle(`🦊 Kitsune | Edit Embed`)
                     .setColor('#F43F5E')
@@ -921,18 +942,18 @@ client.on('interactionCreate', async interaction => {
                     { label: 'Button Color (Red/Green/Blue/Gray)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
                     { label: 'Sync Dynamic Image (True/False)', description: 'Sync embed image with the store product', value: `${embedId}__syncImage`, emoji: '🔄' }
                 ];
-                
+
                 if (embedId.startsWith('tabela_')) {
                     opts.push({ label: 'Global Discount (%)', description: 'Apply a global discount to all items', value: `${embedId}__globalDiscount`, emoji: '🎉' });
                 }
-                
+
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_embed_field')
                         .setPlaceholder('Select a field to edit')
                         .addOptions(opts)
                 );
-                
+
                 const btnVoltar = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
                         .setCustomId('voltar_menu_embeds_inicio')
@@ -947,9 +968,9 @@ client.on('interactionCreate', async interaction => {
 
             if (interaction.customId === 'menu_embed_field') {
                 const [embedId, field] = interaction.values[0].split('__');
-                
+
                 let currentValue = customEmbeds[embedId]?.[field] || '';
-                
+
                 if (!currentValue) {
                     if (embedId.startsWith('catalog_') && field === 'description') {
                         currentValue = `Por favor, selecione o item no menu abaixo para prosseguir:\\n(Página {page} de {totalPages})`;
@@ -990,16 +1011,16 @@ client.on('interactionCreate', async interaction => {
                 const tipoFiltro = parts[1]; // 'bundles' or 'passes' or 'skins' or 'cromas' or 'eternos'
                 const pageStr = parts[2];
                 const champName = parts[3];
-                if (!pageStr) return interaction.deferUpdate().catch(()=>null);
-                
+                if (!pageStr) return interaction.deferUpdate().catch(() => null);
+
                 const page = parseInt(pageStr);
-                
+
                 if (champName) {
                     const cor = '#F43F5E';
-                    const menuId = `selecionar_${tipoFiltro.slice(0,-1)}_menu`; // e.g. selecionar_skin_menu
+                    const menuId = `selecionar_${tipoFiltro.slice(0, -1)}_menu`; // e.g. selecionar_skin_menu
                     return await buscarEExibirItens(champName.replace(/-/g, ' '), interaction, cor, menuId, tipoFiltro, page, true);
                 }
-                
+
                 return await enviarPaginaCatalogo(interaction, tipoFiltro, page, true);
             }
             if (['btn_rp', 'btn_account', 'btn_friend', 'btn_back', 'btn_accept_all_friends'].includes(interaction.customId) || interaction.customId.startsWith('btn_friend_') || interaction.customId.startsWith('btn_accept_all_now_')) {
@@ -1008,13 +1029,13 @@ client.on('interactionCreate', async interaction => {
                 } catch (e) {
                     return; // Ignora se a interação já tiver expirado
                 }
-                
+
                 try {
                     const fs = require('fs');
                     const path = require('path');
                     const { getUserInfo, getStoreBalance, getFriendList } = require('./utils/riotAuth.js');
                     const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-                    
+
                     const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
                     if (!fs.existsSync(accountsPath)) return interaction.followUp({ content: '❌ No accounts saved.', ephemeral: true });
                     const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
@@ -1022,7 +1043,7 @@ client.on('interactionCreate', async interaction => {
                     if (global.userStoreSessions && global.userStoreSessions.has(interaction.user.id)) {
                         accountName = global.userStoreSessions.get(interaction.user.id).accountName;
                     }
-                    
+
                     if (!accountName && interaction.message.embeds.length > 0) {
                         const embed = interaction.message.embeds[0];
                         const fullText = `${embed.title || ''} ${embed.description || ''} ${embed.footer?.text || ''}`;
@@ -1033,7 +1054,7 @@ client.on('interactionCreate', async interaction => {
                             }
                         }
                     }
-                    
+
                     if (!accountName) {
                         const accEntries = Object.entries(accounts);
                         const validAcc = accEntries.find(([n, a]) => !a.expired) || accEntries[0];
@@ -1041,13 +1062,13 @@ client.on('interactionCreate', async interaction => {
                             accountName = validAcc[0];
                         }
                     }
-                    
+
                     if (!accountName || !accounts[accountName]) {
                         return interaction.followUp({ content: '❌ Account session not found or expired.', ephemeral: true });
                     }
-                    
+
                     const acc = accounts[accountName];
-                    
+
                     if (!global.userStoreSessions) global.userStoreSessions = new Map();
                     global.userStoreSessions.set(interaction.user.id, {
                         accountName: accountName,
@@ -1062,7 +1083,7 @@ client.on('interactionCreate', async interaction => {
                         const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
                         const rp = balance?.rp || 0;
                         console.log('btn_rp got rp:', rp);
-                        
+
                         acc.rp = rp;
                         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
@@ -1072,7 +1093,7 @@ client.on('interactionCreate', async interaction => {
                             rp: rp.toLocaleString('en-US'),
                             be: (acc.be || 0).toLocaleString('en-US')
                         });
-                        
+
                         await interaction.editReply({ embeds: [rpEmbed] }).catch(err => console.error('editReply error:', err));
                         console.log('btn_rp finished.');
                     }
@@ -1089,20 +1110,20 @@ client.on('interactionCreate', async interaction => {
                                 acc.summonerLevel = level;
                                 fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
                             }
-                        } catch(e) {}
+                        } catch (e) { }
 
                         let expMs = null;
                         if (acc.accessToken) {
                             try {
                                 const payload = JSON.parse(Buffer.from(acc.accessToken.split('.')[1], 'base64').toString('utf8'));
                                 if (payload.exp) expMs = payload.exp * 1000;
-                            } catch(e) {}
+                            } catch (e) { }
                         }
                         if (!expMs && acc.idToken) {
                             try {
                                 const payload = JSON.parse(Buffer.from(acc.idToken.split('.')[1], 'base64').toString('utf8'));
                                 if (payload.exp) expMs = payload.exp * 1000;
-                            } catch(e) {}
+                            } catch (e) { }
                         }
 
                         let sessionTimeStr = '🟢 **Ativo**';
@@ -1122,7 +1143,7 @@ client.on('interactionCreate', async interaction => {
                         }
 
                         const bannedStr = isBanned ? '🔴 **Sim (Banida)**' : '🟢 **Não (Ativa)**';
-                        
+
                         const accEmbed = buildCustomEmbed('dashboard_account', interaction.client, interaction, {
                             accountName: accountName,
                             region: acc.region || 'BR1',
@@ -1192,54 +1213,54 @@ client.on('interactionCreate', async interaction => {
                     else if (interaction.customId === 'btn_accept_all_friends' || interaction.customId.startsWith('btn_accept_all_now_')) {
                         const { RiotChatClient } = require('./utils/riotXmpp.js');
                         const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getFriendList } = require('./utils/riotAuth.js');
-                        
+
                         if (!acc.geopasToken) {
                             acc.geopasToken = await getGeopasToken(acc.accessToken);
                             acc.affinity = decodeGeopasAffinity(acc.geopasToken);
                             acc.chatDom = getChatDom(acc.affinity);
                             acc.chatUri = getChatUri(acc.region || 'BR1', acc.affinity);
                         }
-                        
+
                         if (!acc.chatUri || !acc.chatDom || !acc.geopasToken) {
                             return interaction.followUp({ content: '⚠️ Não foi possível conectar ao chat da Riot para aceitar pedidos no momento.', ephemeral: true });
                         }
-                        
+
                         const client = new RiotChatClient(acc.chatUri, acc.chatDom);
                         let ok = false;
-                        try { ok = await client.initializeChat(acc.accessToken, acc.geopasToken); } catch(e) {}
-                        
+                        try { ok = await client.initializeChat(acc.accessToken, acc.geopasToken); } catch (e) { }
+
                         if (!ok) {
                             client.disconnect();
                             return interaction.followUp({ content: '❌ Falha ao conectar ao chat da Riot.', ephemeral: true });
                         }
-                        
+
                         const roster = await client.getFriendList();
                         const pendingIn = roster ? roster.filter(r => r.status === 'pending_in') : [];
-                        
+
                         if (pendingIn.length === 0) {
                             client.disconnect();
                             return interaction.followUp({ content: '🟢 Nenhum pedido de amizade pendente para aceitar.', ephemeral: true });
                         }
-                        
+
                         let count = 0;
                         for (const req of pendingIn) {
                             if (req.puuid) {
                                 try {
                                     await client.acceptFriendRequest(req.puuid);
                                     count++;
-                                } catch(e) {}
+                                } catch (e) { }
                             }
                         }
                         client.disconnect();
-                        
+
                         try {
                             const freshFriends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
                             if (freshFriends && freshFriends.length > 0) {
                                 const { friendlistCacheMap } = require('./commands/loja/gift.js');
                                 friendlistCacheMap.set(accountName, { timestamp: Date.now(), friends: freshFriends });
                             }
-                        } catch(e) {}
-                        
+                        } catch (e) { }
+
                         await interaction.followUp({ content: `✅ **${count}** pedido(s) de amizade aceito(s) com sucesso na conta **${accountName}**!`, ephemeral: true });
                     }
                     else if (interaction.customId === 'btn_back') {
@@ -1268,31 +1289,31 @@ client.on('interactionCreate', async interaction => {
 
             if (interaction.customId === 'btn_payment_methods') {
                 const embedPay = buildCustomEmbed('ticket_payment_methods', interaction.client, interaction);
-                return await interaction.reply({ embeds: [embedPay], ephemeral: true }).catch(()=>{});
+                return await interaction.reply({ embeds: [embedPay], ephemeral: true }).catch(() => { });
             }
 
             if (['adicionar_saldo', 'meu_perfil', 'backup'].includes(interaction.customId)) {
-                return interaction.reply({ content: '🛠️ **Em breve!** Este sistema está em desenvolvimento.', ephemeral: true }).catch(()=>{});
+                return interaction.reply({ content: '🛠️ **Em breve!** Este sistema está em desenvolvimento.', ephemeral: true }).catch(() => { });
             }
             if (interaction.customId === 'abrir_loja') {
                 const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                 await interaction.reply({ content: `${loadEmj} ${getLoadStr('auth')}`, ephemeral: true });
-                
+
                 await new Promise(resolve => setTimeout(resolve, 2500));
-                
+
                 if (!userStoreSessions.has(interaction.user.id)) {
                     userStoreSessions.set(interaction.user.id, { regiao: 'NA', riotId: 'Unknown' });
                 }
 
                 const embed = buildCustomEmbed('store_authentication', interaction.client, interaction);
-                
+
                 const regionNames = {
                     'br': 'Brazil', 'na': 'North America', 'euw': 'Europe West', 'eune': 'Europe Nordic & East',
                     'lan': 'Latin America North', 'las': 'Latin America South', 'oce': 'Oceania', 'tr': 'Turkey',
                     'ru': 'Russia', 'jp': 'Japan', 'kr': 'South Korea', 'ph': 'Philippines', 'sg': 'Singapore, Malaysia, & Indonesia',
                     'tw': 'Taiwan, Hong Kong, & Macao', 'th': 'Thailand', 'vn': 'Vietnam'
                 };
-                
+
                 const objRegioes = customEmojis?.lol_regions || {};
                 const opcoesRegiao = Object.keys(objRegioes).map(k => {
                     const emjStr = (objRegioes[k] || '').trim();
@@ -1340,7 +1361,7 @@ client.on('interactionCreate', async interaction => {
                 await new Promise(resolve => setTimeout(resolve, 2500));
 
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
-                
+
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
@@ -1357,7 +1378,7 @@ client.on('interactionCreate', async interaction => {
 
             else if (interaction.customId === 'voltar_menu_modal') {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
-                
+
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
@@ -1394,13 +1415,13 @@ client.on('interactionCreate', async interaction => {
             }
             else if (interaction.customId === 'tentar_novamente_skins') {
                 abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
-            } 
+            }
             else if (interaction.customId === 'tentar_novamente_cromas') {
                 abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🔍 Search Chromas', 'Enter the champion\'s name:');
-            } 
+            }
             else if (interaction.customId === 'tentar_novamente_eternos') {
                 abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
-            } 
+            }
             else if (interaction.customId === 'tentar_novamente_campeao') {
                 abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
             }
@@ -1467,7 +1488,7 @@ client.on('interactionCreate', async interaction => {
                     const embedId = match[1];
                     const field = match[2];
                     let finalValue = interaction.fields.getTextInputValue('novo_valor');
-                    
+
                     if (field === 'color') {
                         const colorMap = { 'yellow': '#FFFF00', 'red': '#FF0000', 'green': '#00FF00', 'blue': '#0000FF', 'black': '#000000', 'white': '#FFFFFF', 'purple': '#800080', 'pink': '#FFC0CB', 'orange': '#FFA500', 'gray': '#808080', 'blurple': '#5865F2' };
                         const lower = finalValue.toLowerCase().trim();
@@ -1481,7 +1502,7 @@ client.on('interactionCreate', async interaction => {
                         const lojaPath = path.join(__dirname, 'config', 'loja.json');
                         let lojaFile = {};
                         if (fs.existsSync(lojaPath)) lojaFile = JSON.parse(fs.readFileSync(lojaPath, 'utf8'));
-                        
+
                         let targetCategories = [];
                         if (embedId === 'tabela_skins') targetCategories = ['skins', 'bundles'];
                         else if (embedId === 'tabela_loot') targetCategories = ['loot'];
@@ -1509,38 +1530,38 @@ client.on('interactionCreate', async interaction => {
 
                     if (!customEmbeds[embedId]) customEmbeds[embedId] = {};
                     customEmbeds[embedId][field] = finalValue;
-                    
+
                     fs.writeFileSync(path.join(__dirname, 'config', 'embeds.json'), JSON.stringify(customEmbeds, null, 2), 'utf8');
                     client.emit('reloadEmbeds');
-                    
+
                     await interaction.reply({ content: `✅ Embed **${embedId}** field **${field}** successfully updated!`, ephemeral: true });
                 }
                 return;
             }
-            
+
             if (interaction.customId.startsWith('modal_riot_login__')) {
                 const accountName = interaction.customId.replace('modal_riot_login__', '');
                 const password = interaction.fields.getTextInputValue('riot_password');
-                
+
                 await interaction.reply({ content: `⏳ Initiating Riot authentication for **${accountName}**... This might take up to 30 seconds.`, ephemeral: true });
-                
+
                 try {
                     const { riotLogin } = require('./utils/riotAuth.js');
                     const authData = await riotLogin(accountName, password);
-                    
+
                     const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
                     let accounts = {};
                     if (fs.existsSync(accountsPath)) {
                         accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
                     }
-                    
+
                     accounts[accountName] = {
                         ...authData,
                         updatedAt: new Date().toISOString()
                     };
-                    
+
                     fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
-                    
+
                     await interaction.editReply({ content: `✅ Successfully authenticated **${accountName}**! Tokens have been securely saved.` });
                 } catch (error) {
                     console.error('[RiotAuth Error]', error);
@@ -1548,7 +1569,7 @@ client.on('interactionCreate', async interaction => {
                 }
                 return;
             }
-            
+
             if (interaction.customId.startsWith('modal_emoji_edit__')) {
                 const val = interaction.customId.split('__').slice(1).join('__'); // "skins__ultimate"
                 const [cat, key] = val.split('__');
@@ -1557,13 +1578,13 @@ client.on('interactionCreate', async interaction => {
                 try {
                     const emojisPath = path.join(__dirname, 'config', 'emojis.json');
                     const fileData = JSON.parse(fs.readFileSync(emojisPath, 'utf8'));
-                    
+
                     if (!fileData[cat]) fileData[cat] = {};
                     fileData[cat][key] = novoEmoji;
-                    
+
                     fs.writeFileSync(emojisPath, JSON.stringify(fileData, null, 2), 'utf8');
                     client.emit('reloadEmojis');
-                    
+
                     await interaction.reply({ content: `✅ Emoji for **${cat} -> ${key}** successfully updated to: ${novoEmoji}`, ephemeral: true });
                 } catch (e) {
                     console.error(e);
@@ -1577,7 +1598,7 @@ client.on('interactionCreate', async interaction => {
                     if (!interaction.deferred && !interaction.replied) {
                         await interaction.deferReply({ ephemeral: true });
                     }
-                } catch(e) {
+                } catch (e) {
                     if (e.code === 10062) return;
                 }
 
@@ -1585,13 +1606,13 @@ client.on('interactionCreate', async interaction => {
                 const session = userStoreSessions.get(interaction.user.id) || { regiao: 'BR' };
                 session.riotId = riotId;
                 userStoreSessions.set(interaction.user.id, session);
-                
+
                 const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                await interaction.editReply({ content: `${loadEmj} ${getLoadStr('sales')}` }).catch(() => {});
+                await interaction.editReply({ content: `${loadEmj} ${getLoadStr('sales')}` }).catch(() => { });
                 await new Promise(resolve => setTimeout(resolve, 1500));
-                
+
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
-                
+
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
@@ -1609,27 +1630,27 @@ client.on('interactionCreate', async interaction => {
                     await interaction.editReply({ content: "❌ **Erro Interno:** Alguns emojis configurados em `emojis.json` são inválidos ou o bot não tem acesso a eles. Verifique o console." });
                 }
             }
-            
+
             else if (interaction.customId === 'buscar_campeao_modal') {
                 const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_skin_menu', 'skins');
-            } 
+            }
             else if (interaction.customId === 'buscar_campeao_chromas_modal') {
                 const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_chroma_menu', 'cromas');
-            } 
+            }
             else if (interaction.customId === 'buscar_campeao_eternos_modal') {
                 const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_eterno_menu', 'eternos');
-            } 
+            }
 
             else if (interaction.customId === 'buscar_compra_campeao_modal') {
                 const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_champion_menu', 'champions');
-            } 
+            }
             else if (interaction.customId === 'modal_fechar_ticket') {
                 const motivo = interaction.fields.getTextInputValue('ticket_motivo_fechamento');
-                
+
                 let ownerId = null;
                 if (interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner: ')) {
                     ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
@@ -1652,7 +1673,7 @@ client.on('interactionCreate', async interaction => {
                                 .setColor('#F43F5E')
                                 .setTitle('Obrigado por usar nossos serviços! 🦊')
                                 .setDescription(`Seu ticket foi fechado pelo motivo: *"${motivo}"*\n\nComo você avaliaria o nosso atendimento hoje?`);
-                            await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => {});
+                            await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => { });
                         }
                     } catch (err) {
                         console.error('Failed to send DM to ticket owner:', err);
@@ -1670,20 +1691,20 @@ client.on('interactionCreate', async interaction => {
             else if (interaction.customId === 'modal_editar_pedido') {
                 const newRegion = interaction.fields.getTextInputValue('new_region').toUpperCase();
                 const newRiotId = interaction.fields.getTextInputValue('new_riotid');
-                
+
                 const oldEmbed = interaction.message.embeds[0];
                 const newEmbed = EmbedBuilder.from(oldEmbed);
-                
+
                 if (newEmbed.data.fields && newEmbed.data.fields.length >= 4) {
                     newEmbed.data.fields[2].value = `\`${newRegion}\``;
                     newEmbed.data.fields[3].value = `\`${newRiotId}\``;
                 }
-                
+
                 await interaction.update({ embeds: [newEmbed] });
             }
         }
-    } catch (e) { 
-        console.error('ERRO INTERNO:', e); 
+    } catch (e) {
+        console.error('ERRO INTERNO:', e);
     }
 });
 
@@ -1697,7 +1718,7 @@ function abrirModalBusca(interaction, id, titulo, label) {
             .setStyle(TextInputStyle.Short)
             .setRequired(true)
     ));
-    interaction.showModal(modal).catch(() => {});
+    interaction.showModal(modal).catch(() => { });
 }
 
 async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 'skins', pagina = 0, isUpdate = false) {
@@ -1707,7 +1728,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         await interaction.reply({ content: `${loadEmj} ${getLoadStr('search')}`, ephemeral: true });
         await new Promise(resolve => setTimeout(resolve, 2500));
     }
-    
+
     const buscaLimpa = busca.trim();
 
     let campeaoFinal = riotCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa.toLowerCase()) && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
@@ -1715,9 +1736,9 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     if (!campeaoFinal) {
         const skinCamp = riotCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa.toLowerCase()) && x.tipo === 'CHAMPION_SKIN');
         if (skinCamp && skinCamp.parent_id) {
-            campeaoFinal = { 
-                id: skinCamp.parent_id, 
-                nome: buscaLimpa.charAt(0).toUpperCase() + buscaLimpa.slice(1) 
+            campeaoFinal = {
+                id: skinCamp.parent_id,
+                nome: buscaLimpa.charAt(0).toUpperCase() + buscaLimpa.slice(1)
             };
         }
     }
@@ -1735,8 +1756,8 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     let results = [];
     if (tipoFiltro === 'skins') {
         const skins = riotCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType !== 'RECOLOR');
-        const signatureBundles = riotCatalog.filter(x => 
-            (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') && 
+        const signatureBundles = riotCatalog.filter(x =>
+            (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
             x.nome.toLowerCase().includes('signature edition') &&
             x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase())
         );
@@ -1765,7 +1786,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     }
 
     // Sort active ones first, then by ID descending
-    results = results.sort((a,b) => {
+    results = results.sort((a, b) => {
         const aActive = a.rawItem?.active !== false ? 1 : 0;
         const bActive = b.rawItem?.active !== false ? 1 : 0;
         if (aActive !== bActive) return bActive - aActive;
@@ -1775,11 +1796,11 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     const totalPages = Math.ceil(results.length / ITEMS_PER_PAGE) || 1;
     if (pagina < 0) pagina = 0;
     if (pagina >= totalPages) pagina = totalPages - 1;
-    
+
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     const embedId = 'catalog_' + tipoFiltro;
-    
+
     let embedConfirmacao = buildCustomEmbed(embedId, interaction?.client, interaction, {
         count: results.length.toString(),
         page: (pagina + 1).toString(),
@@ -1787,12 +1808,12 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         campeao: campeaoFinal.nome,
         emoji: '✨'
     });
-    
+
     if (!embedConfirmacao.data.title) {
         let catTitle = tipoFiltro === 'skins' ? 'skins' : tipoFiltro === 'cromas' ? 'chromas' : tipoFiltro === 'eternos' ? 'eternals' : 'champions';
         embedConfirmacao.setTitle(`📦 ${results.length} ${catTitle} of ${campeaoFinal.nome}`);
     }
-    
+
     if (!embedConfirmacao.data.description) {
         let catDesc = tipoFiltro === 'skins' ? 'skin' : tipoFiltro === 'cromas' ? 'chroma' : tipoFiltro === 'eternos' ? 'eternal' : 'champion';
         embedConfirmacao.setDescription(`> Please select an **${catDesc}** from the **menu** below to continue:\n> ${pagina + 1} page of ${totalPages} pages`);
@@ -1810,7 +1831,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     const loja = obterDadosLoja();
     const opcoesMenu = [];
-    
+
     for (const row of pageItems) {
         const info = obterDetalhesItem(row.nome, tipoFiltro, loja, '0.00', row.rawItem);
         const baseName = row.nome.length > 90 ? row.nome.substring(0, 90) : row.nome;
@@ -1833,7 +1854,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     actionRows.push(menu);
 
     const btnRow = new ActionRowBuilder();
-    
+
     btnRow.addComponents(
         new ButtonBuilder()
             .setCustomId(`voltar_menu_modal`)
@@ -1875,17 +1896,17 @@ async function refreshAccountsTask() {
     const path = require('path');
     const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getStoreBalance, getEntitlements, getFriendList, reauthWithSSID, loginWithRiotCredentials } = require('./utils/riotAuth.js');
     const { friendlistCacheMap } = require('./commands/loja/gift.js');
-    
+
     const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
     if (!fs.existsSync(accountsPath)) return;
-    
+
     let accounts;
-    try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch(e) { return; }
-    
+    try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch (e) { return; }
+
     let updated = false;
     for (const [name, acc] of Object.entries(accounts)) {
         if (!acc.accessToken && !acc.ssid && !acc.username) continue;
-        
+
         try {
             // Auto re-authenticate with SSID or Username/Password if configured
             if (acc.ssid) {
@@ -1898,7 +1919,7 @@ async function refreshAccountsTask() {
                         updated = true;
                         console.log(`[RiotAuth] 🟢 Token renovado com sucesso via SSID para ${name}!`);
                     }
-                } catch(ssidErr) {}
+                } catch (ssidErr) { }
             }
 
             // Fallback to Username/Password if token expired or SSID failed
@@ -1913,7 +1934,7 @@ async function refreshAccountsTask() {
                         updated = true;
                         console.log(`[RiotAuth] 🟢 Login automático 24/7 realizado com sucesso para ${name}!`);
                     }
-                } catch(passErr) {}
+                } catch (passErr) { }
             }
 
             if (acc.expired && !acc.ssid && !acc.username) continue;
@@ -1925,7 +1946,7 @@ async function refreshAccountsTask() {
                     acc.expired = false;
                     updated = true;
                 }
-            } catch(e) {}
+            } catch (e) { }
 
             // Check balance to see if token is valid and update RP
             const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
@@ -1935,7 +1956,7 @@ async function refreshAccountsTask() {
                 console.log(`[RiotAuth] 🔴 Token expirado para a conta ${name}. Copie a nova URL de login e use /link para renovar.`);
                 continue;
             }
-            
+
             if (balance && balance.rp !== undefined) {
                 acc.rp = balance.rp;
                 acc.be = balance.ip;
@@ -1961,13 +1982,13 @@ async function refreshAccountsTask() {
                     friendlistCacheMap.set(name, { timestamp: Date.now(), friends });
                     if (acc.accessToken) friendlistCacheMap.set(acc.accessToken, { timestamp: Date.now(), friends });
                 }
-            } catch(fErr) {}
+            } catch (fErr) { }
 
-        } catch(e) {
+        } catch (e) {
             console.error(`[Background Task] Erro ao atualizar conta ${name}:`, e.message);
         }
     }
-    
+
     const timeStr = new Date().toLocaleTimeString('pt-BR');
     let summaryList = [];
     for (const [name, acc] of Object.entries(accounts)) {
@@ -1975,7 +1996,7 @@ async function refreshAccountsTask() {
         summaryList.push(`${name}: ${acc.rp || 0} RP (${status})`);
     }
     console.log(`[${timeStr}] 🔄 [Refresh 20s] Contas atualizadas: ${summaryList.join(' | ')}`);
-    
+
     if (updated) {
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
     }
