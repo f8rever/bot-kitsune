@@ -5,17 +5,17 @@ const path = require('path');
 
 module.exports = {
     name: 'link',
-    description: 'Links a Riot account using the redirect URL.',
+    description: 'Vincula uma conta Riot utilizando a URL de redirecionamento do navegador.',
     options: [
         {
             name: 'url',
-            description: 'Paste the full redirect URL (http://localhost/redirect#access_token=...)',
+            description: 'URL completa do redirecionamento (http://localhost/redirect#access_token=...)',
             type: 3,
             required: true
         },
         {
             name: 'ssid',
-            description: 'SSID Cookie (optional - for automatic 24/7 infinite renewal)',
+            description: 'Cookie SSID da conta (opcional - para renovação 24/7 sem expirar)',
             type: 3,
             required: false
         }
@@ -135,16 +135,16 @@ module.exports = {
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
         const successEmbed = new EmbedBuilder()
-            .setTitle('🔗 Conta Linkada & Conectada com Sucesso!')
+            .setTitle('🔗 Conta Vinculada com Sucesso!')
             .setColor('#23A559')
             .setDescription(`A conta **${finalAccountName}** (\`${region}\`) foi vinculada ao bot e definida como sua **conta ativa**!`)
             .addFields(
                 { name: 'Riot ID', value: `**${finalAccountName}**`, inline: true },
                 { name: 'Região', value: `\`${region}\``, inline: true },
                 { name: 'Nível da Conta', value: `\`Nv. ${fetchedLevel}\``, inline: true },
-                { name: 'Saldo Atual', value: `\`${fetchedRp.toLocaleString('en-US')} RP\` | \`${fetchedBe.toLocaleString('en-US')} BE\``, inline: false }
+                { name: 'Saldo Atual', value: `\`${fetchedRp.toLocaleString('pt-BR')} RP\` | \`${fetchedBe.toLocaleString('pt-BR')} BE\``, inline: false }
             )
-            .setFooter({ text: '© Kitsune Store • Link de Conta', iconURL: interaction.client.user.displayAvatarURL() })
+            .setFooter({ text: '© Kitsune Store • Vinculação de Conta', iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
             
         await interaction.editReply({ embeds: [successEmbed] });

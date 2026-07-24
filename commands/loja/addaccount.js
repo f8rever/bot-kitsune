@@ -5,17 +5,17 @@ const { loginWithRiotCredentials, getEntitlements, getStoreBalance, getGeopasTok
 
 module.exports = {
     name: 'addaccount',
-    description: 'Adds a Riot account via Username and Password for 24/7 Infinite Session.',
+    description: 'Adiciona uma conta Riot por Usuário e Senha com sessão 24/7 sem expirar.',
     options: [
         {
             name: 'username',
-            description: 'Riot Account Username',
+            description: 'Nome de usuário da conta Riot',
             type: 3,
             required: true
         },
         {
             name: 'password',
-            description: 'Riot Account Password',
+            description: 'Senha da conta Riot',
             type: 3,
             required: true
         }
@@ -29,7 +29,7 @@ module.exports = {
         const authData = await loginWithRiotCredentials(username, password);
 
         if (!authData || !authData.accessToken) {
-            return interaction.editReply({ content: '❌ Failed to perform automatic login. Please check username/password or 2FA status.' });
+            return interaction.editReply({ content: '❌ Falha ao realizar o login automático na Riot. Verifique o usuário e senha ou o status de 2FA.' });
         }
 
         let finalAccountName = '';
@@ -108,10 +108,10 @@ module.exports = {
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
         const embed = new EmbedBuilder()
-            .setTitle('♾️ Account Added Successfully!')
-            .setDescription(`Account **${finalAccountName}** has been authenticated and registered!\n\n- **Region:** \`${region}\`\n- **RP:** \`${fetchedRp.toLocaleString()}\` | **BE:** \`${fetchedBe.toLocaleString()}\`\n- **Status:** 🟢 **24/7 INFINITE SESSION ACTIVE**\n\nThe bot will automatically refresh Riot tokens 24/7 in the cloud without ever expiring!`)
+            .setTitle('♾️ Conta Adicionada com Sucesso!')
+            .setDescription(`A conta **${finalAccountName}** foi autenticada e cadastrada com sucesso!\n\n- **Região:** \`${region}\`\n- **Saldo:** \`${fetchedRp.toLocaleString()} RP\` | \`${fetchedBe.toLocaleString()} BE\`\n- **Status:** 🟢 **SESSÃO INFINITA 24/7 ATIVA**\n\nO bot renovará os tokens da Riot automaticamente 24/7 na nuvem sem expirar!`)
             .setColor('#2ECC71')
-            .setFooter({ text: 'Kitsune V2 Bot • 24/7 Authentication' });
+            .setFooter({ text: 'Kitsune V2 Bot • Autenticação 24/7' });
 
         return interaction.editReply({ embeds: [embed] });
     }

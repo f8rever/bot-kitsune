@@ -6,11 +6,11 @@ const { RiotChatClient } = require('../../utils/riotXmpp.js');
 
 module.exports = {
     name: 'addfriend',
-    description: 'Sends a friend request from the active Riot account to specified Riot ID.',
+    description: 'Envia um pedido de amizade da conta Riot ativa para um Riot ID (Nome#TAG).',
     options: [
         {
             name: 'riot_id',
-            description: 'Target Riot ID (Name#TAG)',
+            description: 'Nome#TAG do amigo na Riot Games',
             type: 3,
             required: true
         }
@@ -19,13 +19,13 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         if (!global.userStoreSessions || !global.userStoreSessions.has(interaction.user.id)) {
-            return interaction.editReply({ content: '❌ No active session. Use `/login` or `/link` first.' });
+            return interaction.editReply({ content: '❌ Nenhuma sessão ativa. Use `/login` ou `/link` primeiro.' });
         }
 
         const session = global.userStoreSessions.get(interaction.user.id);
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
         if (!fs.existsSync(accountsPath)) {
-            return interaction.editReply({ content: '❌ No saved accounts found.' });
+            return interaction.editReply({ content: '❌ Nenhuma conta salva encontrada.' });
         }
 
         const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
@@ -33,7 +33,7 @@ module.exports = {
         const acc = accounts[accountName] || session.tokens || session;
 
         if (!acc || acc.expired || !acc.accessToken) {
-            return interaction.editReply({ content: '❌ Active session expired. Use `/link` to refresh.' });
+            return interaction.editReply({ content: '❌ A sessão da conta expirou. Use `/link` ou `/addaccount` para renovar.' });
         }
 
         const targetRiotId = interaction.options.getString('riot_id').trim();
@@ -50,7 +50,7 @@ module.exports = {
         }
 
         if (!acc.chatUri || !acc.chatDom || !acc.geopasToken) {
-            return interaction.editReply({ content: '⚠️ Could not fetch Riot chat credentials at the moment.' });
+            return interaction.editReply({ content: '⚠️ Não foi possível obter as credenciais de chat da Riot no momento.' });
         }
 
         const client = new RiotChatClient(acc.chatUri, acc.chatDom);
@@ -59,7 +59,7 @@ module.exports = {
 
         if (!ok) {
             client.disconnect();
-            return interaction.editReply({ content: '❌ Could not connect to Riot Chat server.' });
+            return interaction.editReply({ content: '❌ Falha ao conectar ao servidor de chat da Riot.' });
         }
 
         let name = targetRiotId;
@@ -75,22 +75,22 @@ module.exports = {
             client.disconnect();
 
             if (result === 'User not found') {
-                return interaction.editReply({ content: `❌ User **${targetRiotId}** was not found on Riot Games servers.` });
+                return interaction.editReply({ content: `❌ O jogador **${targetRiotId}** não foi encontrado nos servidores da Riot.` });
             }
             if (result === "User's friend list is full") {
-                return interaction.editReply({ content: `⚠️ User **${targetRiotId}** has a full friend list.` });
+                return interaction.editReply({ content: `⚠️ A lista de amigos do jogador **${targetRiotId}** está cheia.` });
             }
 
             const embed = new EmbedBuilder()
-                .setTitle('➕ Friend Request Sent!')
-                .setDescription(`Successfully sent friend request to **${name}#${tag}** from account **${accountName}**!`)
+                .setTitle('➕ Pedido de Amizade Enviado!')
+                .setDescription(`Solicitação de amizade enviada com sucesso para **${name}#${tag}** através da conta **${accountName}**!`)
                 .setColor('#2ECC71')
-                .setFooter({ text: 'Kitsune V2 Bot • Friend Manager' });
+                .setFooter({ text: 'Kitsune V2 Bot • Gerenciador de Amigos' });
 
             return interaction.editReply({ embeds: [embed] });
         } catch(err) {
             client.disconnect();
-            return interaction.editReply({ content: '❌ An error occurred sending the friend request.' });
+            return interaction.editReply({ content: '❌ Ocorreu um erro ao enviar o pedido de amizade.' });
         }
     }
 };

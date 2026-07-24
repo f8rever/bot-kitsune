@@ -2,7 +2,7 @@ const friendlistCmd = require('./friendlist.js');
 
 module.exports = {
     name: 'friends',
-    description: 'Alias for /friendlist - Manages and accepts pending friend requests.',
+    description: 'Atalho para o /friendlist - Gerencia e aceita pedidos de amizade.',
     options: friendlistCmd.options,
     async execute(interaction) {
         return friendlistCmd.execute(interaction);

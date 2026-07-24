@@ -5,11 +5,11 @@ const { getStoreBalance, getFriendList, reauthWithSSID, loginWithRiotCredentials
 
 module.exports = {
     name: 'login',
-    description: 'Logs in to a linked account and opens the store/friends dashboard.',
+    description: 'Conecta em uma conta salva e abre o painel da loja e amigos.',
     options: [
         {
             name: 'account_name',
-            description: 'Select your account',
+            description: 'Selecione a sua conta Riot',
             type: 3,
             required: true,
             autocomplete: true
@@ -35,7 +35,7 @@ module.exports = {
             const region = acc.region || 'BR1';
             const statusEmoji = acc.expired ? '🔴' : '🟢';
             return {
-                name: `${statusEmoji} [${region}] ${name} - ${rp.toLocaleString('en-US')} RP`,
+                name: `${statusEmoji} [${region}] ${name} - ${rp.toLocaleString('pt-BR')} RP`,
                 value: name
             };
         });
@@ -48,7 +48,7 @@ module.exports = {
         
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
         if (!fs.existsSync(accountsPath)) {
-            return interaction.reply({ content: '❌ No saved accounts found. Use `/link` or `/addaccount`.', ephemeral: true });
+            return interaction.reply({ content: '❌ Nenhuma conta salva encontrada. Use `/link` ou `/addaccount`.', ephemeral: true });
         }
         
         let accounts = {};
@@ -56,7 +56,7 @@ module.exports = {
         const acc = accounts[selected];
         
         if (!acc) {
-            return interaction.reply({ content: '❌ Account not found in cache.', ephemeral: true });
+            return interaction.reply({ content: '❌ Conta não encontrada no cache.', ephemeral: true });
         }
         
         const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
@@ -101,7 +101,7 @@ module.exports = {
         let rp = acc.rp || 0;
         let be = acc.be || 0;
         let level = acc.summonerLevel || 30;
-        let banned = 'No';
+        let banned = 'Não';
 
         const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
         if (balance && balance.rp !== undefined) {
@@ -117,7 +117,7 @@ module.exports = {
             accounts[selected] = acc;
             fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
             return interaction.editReply({ 
-                content: `🔴 **Session Expired:** The access token for **${selected}** has expired and could not be auto-renewed. Please use \`/link\` or \`/addaccount\` to reconnect.`, 
+                content: `🔴 **Sessão Expirada:** O token da conta **${selected}** expirou e não pôde ser renovado automaticamente. Use \`/link\` ou \`/addaccount\` para reconectar.`, 
                 embeds: [] 
             });
         }
@@ -131,7 +131,7 @@ module.exports = {
 
         try {
             const isBanned = await checkAccountBan(acc.accessToken);
-            banned = isBanned ? 'Yes' : 'No';
+            banned = isBanned ? 'Sim (Banida)' : 'Não';
 
             const friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
             const friendlistCacheMap = global.friendlistCacheMap || new Map();
@@ -155,8 +155,8 @@ module.exports = {
             accountName: finalAccountName,
             username: displayUsername,
             region: region,
-            rp: rp.toLocaleString('en-US'),
-            be: be.toLocaleString('en-US'),
+            rp: rp.toLocaleString('pt-BR'),
+            be: be.toLocaleString('pt-BR'),
             level: level,
             banned: banned
         });
