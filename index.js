@@ -1083,23 +1083,56 @@ client.on('interactionCreate', async interaction => {
                     const { buildCustomEmbed } = require('./utils/customEmbeds.js');
 
                     if (interaction.customId === 'btn_rp') {
-                        console.log('btn_rp clicked, fetching balance...');
-                        const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
-                        const rp = balance?.rp || 0;
-                        console.log('btn_rp got rp:', rp);
+                        let balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
+                        if (balance && balance.error === 401) {
+                            const { reauthWithSSID, loginWithRiotCredentials } = require('./utils/riotAuth.js');
+                            let renewed = false;
+                            if (acc.ssid) {
+                                try {
+                                    const refreshed = await reauthWithSSID(acc.ssid);
+                                    if (refreshed && refreshed.accessToken) {
+                                        acc.accessToken = refreshed.accessToken;
+                                        if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                                        if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                                        acc.expired = false;
+                                        renewed = true;
+                                    }
+                                } catch (e) { }
+                            }
+                            if (!renewed && acc.username && acc.password) {
+                                try {
+                                    const refreshed = await loginWithRiotCredentials(acc.username, acc.password);
+                                    if (refreshed && refreshed.accessToken) {
+                                        acc.accessToken = refreshed.accessToken;
+                                        if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                                        if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                                        acc.expired = false;
+                                        renewed = true;
+                                    }
+                                } catch (e) { }
+                            }
+                            if (renewed) {
+                                balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region);
+                            } else {
+                                acc.expired = true;
+                            }
+                        }
+
+                        let rp = (balance && balance.rp !== undefined) ? balance.rp : (acc.rp || 0);
+                        let be = (balance && balance.ip !== undefined) ? balance.ip : (acc.be || 0);
 
                         acc.rp = rp;
+                        acc.be = be;
                         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
                         const rpEmbed = buildCustomEmbed('dashboard_rp', interaction.client, interaction, {
                             accountName: accountName,
                             region: acc.region || 'BR1',
                             rp: rp.toLocaleString('en-US'),
-                            be: (acc.be || 0).toLocaleString('en-US')
+                            be: be.toLocaleString('en-US')
                         });
 
                         await interaction.editReply({ embeds: [rpEmbed] }).catch(err => console.error('editReply error:', err));
-                        console.log('btn_rp finished.');
                     }
                     else if (interaction.customId === 'btn_account') {
                         const { checkAccountBan } = require('./utils/riotAuth.js');

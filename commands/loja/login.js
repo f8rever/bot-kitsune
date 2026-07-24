@@ -33,7 +33,7 @@ module.exports = {
             const acc = accounts[name];
             const rp = acc.rp || 0;
             const region = acc.region || 'BR1';
-            const statusEmoji = acc.expired ? '🟡' : '🟢';
+            const statusEmoji = acc.expired ? '🔴' : '🟢';
             return {
                 name: `${statusEmoji} [${region}] ${name} - ${rp.toLocaleString('en-US')} RP`,
                 value: name
@@ -97,6 +97,31 @@ module.exports = {
             } catch(e) {}
         }
 
+        // Step 3: Fetching Store Balance & Friends
+        let rp = acc.rp || 0;
+        let be = acc.be || 0;
+        let level = acc.summonerLevel || 30;
+        let banned = 'No';
+
+        const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+        if (balance && balance.rp !== undefined) {
+            rp = balance.rp;
+            be = balance.ip;
+            level = balance.summonerLevel || level;
+            acc.rp = rp;
+            acc.be = be;
+            acc.summonerLevel = level;
+            acc.expired = false;
+        } else if (balance && balance.error === 401) {
+            acc.expired = true;
+            accounts[selected] = acc;
+            fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+            return interaction.editReply({ 
+                content: `🔴 **Session Expired:** The access token for **${selected}** has expired and could not be auto-renewed. Please use \`/link\` or \`/addaccount\` to reconnect.`, 
+                embeds: [] 
+            });
+        }
+
         accounts[selected] = acc;
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
@@ -104,23 +129,7 @@ module.exports = {
         const loading2 = buildCustomEmbed('login_loading_2', interaction.client, interaction);
         await interaction.editReply({ embeds: [loading2] });
 
-        // Step 3: Fetching Store Balance & Friends
-        let rp = acc.rp || 0;
-        let be = acc.be || 0;
-        let level = acc.summonerLevel || 30;
-        let banned = 'No';
-
         try {
-            const balance = await getStoreBalance(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
-            if (balance && balance.rp !== undefined) {
-                rp = balance.rp;
-                be = balance.ip;
-                level = balance.summonerLevel || level;
-                acc.rp = rp;
-                acc.be = be;
-                acc.summonerLevel = level;
-            }
-
             const isBanned = await checkAccountBan(acc.accessToken);
             banned = isBanned ? 'Yes' : 'No';
 
@@ -132,9 +141,6 @@ module.exports = {
                 global.friendlistCacheMap = friendlistCacheMap;
             }
         } catch(e) {}
-
-        accounts[selected] = acc;
-        fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 
         // Step 3 Embed: Friend List Retrieved
         const loading3 = buildCustomEmbed('login_loading_3', interaction.client, interaction);
