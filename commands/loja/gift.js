@@ -182,10 +182,53 @@ module.exports = {
     async execute(interaction) {
         const session = getActiveSession(interaction.user.id);
         if (!session) {
-            return interaction.reply({ content: '❌ Nenhuma conta configurada. Use o comando `/link` para vincular uma conta.', ephemeral: true });
+            return interaction.reply({ content: '❌ No account configured. Use `/link` or `/addaccount` first.', ephemeral: true });
         }
         
         await interaction.deferReply({ ephemeral: true });
+
+        // Auto-renew token if expired or before gifting
+        const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
+        if (fs.existsSync(accountsPath)) {
+            try {
+                const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
+                const acc = accounts[session.accountName];
+                if (acc) {
+                    const { reauthWithSSID, loginWithRiotCredentials } = require('../../utils/riotAuth.js');
+                    let renewed = false;
+                    if (acc.ssid) {
+                        try {
+                            const refreshed = await reauthWithSSID(acc.ssid);
+                            if (refreshed && refreshed.accessToken) {
+                                acc.accessToken = refreshed.accessToken;
+                                if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                                if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                                session.accessToken = refreshed.accessToken;
+                                session.entitlementsToken = refreshed.entitlementsToken;
+                                acc.expired = false;
+                                renewed = true;
+                            }
+                        } catch(e) {}
+                    }
+                    if (!renewed && acc.username && acc.password) {
+                        try {
+                            const refreshed = await loginWithRiotCredentials(acc.username, acc.password);
+                            if (refreshed && refreshed.accessToken) {
+                                acc.accessToken = refreshed.accessToken;
+                                if (refreshed.idToken) acc.idToken = refreshed.idToken;
+                                if (refreshed.entitlementsToken) acc.entitlementsToken = refreshed.entitlementsToken;
+                                session.accessToken = refreshed.accessToken;
+                                session.entitlementsToken = refreshed.entitlementsToken;
+                                acc.expired = false;
+                                renewed = true;
+                            }
+                        } catch(e) {}
+                    }
+                    accounts[session.accountName] = acc;
+                    fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+                }
+            } catch(e) {}
+        }
         
         const riotId = interaction.options.getString('riot_id');
         const itemName = interaction.options.getString('item');

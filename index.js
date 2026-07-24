@@ -94,14 +94,38 @@ client.on('reloadEmbeds', () => {
     carregarEmbeds();
 });
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log(`🟢 Kitsune Bot online como ${client.user.tag}!`);
+
+    // Automatic Slash Commands Deployment to Discord API
+    try {
+        const { REST, Routes } = require('discord.js');
+        if (process.env.DISCORD_TOKEN) {
+            const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+            const commandsBody = [];
+            client.commands.forEach(cmd => {
+                if (cmd.name && cmd.description) {
+                    commandsBody.push({
+                        name: cmd.name,
+                        description: cmd.description,
+                        options: cmd.options || []
+                    });
+                }
+            });
+            if (commandsBody.length > 0) {
+                await rest.put(Routes.applicationCommands(client.user.id), { body: commandsBody });
+                console.log(`✅ [Deploy] Successfully registered ${commandsBody.length} slash commands to Discord API!`);
+            }
+        }
+    } catch (deployErr) {
+        console.error('❌ [Deploy Error] Failed to register slash commands:', deployErr.message);
+    }
 
     const { ActivityType } = require('discord.js');
     const activities = [
-        { name: '<a:pr_fire01:1527367612168802374> League of Legends', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' },
-        { name: '<a:raio:1527369241542656041> 70% OFF Skins & Passes', type: ActivityType.Watching },
-        { name: '<a:planeta:1527672012825301054> 24/7 Gifting Delivery ', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' }
+        { name: '🧙‍♂️ League of Legends', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' },
+        { name: '🎁 70% OFF Skins & Passes', type: ActivityType.Watching },
+        { name: '⚡ 24/7 Gifting Delivery ', type: ActivityType.Streaming, url: 'https://twitch.tv/kitsunestore' }
     ];
 
     let i = 0;
