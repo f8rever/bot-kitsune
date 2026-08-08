@@ -1,0 +1,28 @@
+# Security & Credentials
+.env
+.env.*
+config/riot_accounts.json
+python_backend/cap_keys.txt
+
+# Node Dependencies
+node_modules/
+npm-debug.log*
+
+# Python Environments & Cache
+.venv/
+python_backend/.venv/
+__pycache__/
+*/__pycache__/
+*.pyc
+
+# Temporary & Debug Files
+scratch/
+*.png
+*.jpg
+*.jpeg
+*.html
+*.log
+config/riot_browser_profile/
+
+# Redundant duplicate folder if kept locally
+lol_giftapi-main/

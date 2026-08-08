@@ -1,0 +1,84 @@
+
+
+
+
+
+Mudar bearer, x-id, offerid e receiver
+
+
+curl 'https://br-red.lol.sgp.pvp.net/services/cap/orders/orders-api/v2/products/d1c2664a-5938-4c41-8d1b-61fd51052c22/orders' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer eyJraWQiOiJzMSIsImFsZyI6IlJTMjU2In0.eyJwcCI6eyJjIjoiYW0ifSwic3ViIjoiMTU0ZDJmZDMtOTViOS01YjQ4LTk2YzEtYTQ2ZWE4MzA4ZDFiIiwic2NwIjpbImFjY291bnQiLCJsb2xfcmVnaW9uIiwib3BlbmlkIiwib2ZmbGluZV9hY2Nlc3MiLCJsb2wiLCJiYW4iLCJzdW1tb25lciJdLCJjbG0iOlsibG9sX2FjY291bnQiLCJlbWFpbF92ZXJpZmllZCIsIm9wZW5pZCIsInB3IiwibG9sIiwib3JpZ2luYWxfcGxhdGZvcm1faWQiLCJvcmlnaW5hbF9hY2NvdW50X2lkIiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIiwicGhvdG8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiLCJsb2NhbGUiLCJiYW4iLCJmZWRlcmF0ZWRfaWRlbnRpdHlfZGV0YWlscyIsImFjY291bnRfdmVyaWZpZWQiLCJmZWRlcmF0ZWRfaWRlbnRpdHlfcHJvdmlkZXJzIiwibG9sX3JlZ2lvbiIsInJnbl9CUjEiLCJhY2N0X2dudCIsInJlZ2lvbiIsInB2cG5ldF9hY2NvdW50X2lkIiwiYWNjdCIsImFnZSIsImFmZmluaXR5IiwidXNlcm5hbWUiXSwiZGF0Ijp7InAiOm51bGwsInIiOiJCUjEiLCJjIjoidXcxIiwidSI6MjAyMjIxMTkzLCJsaWQiOiJlOWFYV1BTTXBQbldvdmttZzRQRXVBIn0sImlzcyI6Imh0dHBzOi8vYXV0aC5yaW90Z2FtZXMuY29tIiwicGx0Ijp7ImRldiI6InVua25vd24iLCJpZCI6IndpbmRvd3MifSwiZXhwIjoxNzEzMDYzNTU4LCJpYXQiOjE3MTMwNTk5NTgsImp0aSI6IjFNS05LU21FNkxRIiwiY2lkIjoibG9sIn0.A9khhwCqzz2uos4mCj7kRnrVB0argpNgpV8xaivza_OiHiqjJURG3FF4m-ypumx9XXzN4tj-6HMBQ6iUOnIusEHWrXArG9kq_93b8ibJ3kVNleFtjkC38ZwihT3GkFjxUqMwm9XuxCsqJflfEIwXU1Jy_Dvx3IVCBked0D6JVMI' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "data": {
+        "id": "",
+        "customMessage": "Fodase o Storb",
+        "location": "lolriot.aws-usw2-prod.br1",
+        "purchaser": {
+            "id": "154d2fd3-95b9-5b48-96c1-a46ea8308d1b"
+                    },
+        "source": "lol.store.purchase",
+        "subOrders": [
+            {
+                "offer": {
+                    "id": "ecf2bc8e-d3b4-4954-90a0-5d4437766d94",
+                    "productId": "d1c2664a-5938-4c41-8d1b-61fd51052c22"
+                },
+                "offerContext": {
+                    "paymentOption": "RP",
+                    "quantity": 1
+                },
+                "recipientId": "a4fe8b0c-500b-5097-9ff7-03c414247e45"
+            }
+        ]
+    },
+    "meta": {
+        "correlationId": "",
+        "jwt": "",
+        "xid": "84eae99a-fc0b-47c4-ad23-afa550f15bc4"
+    }
+}' \
+  --compressed \
+  --insecure
+
+
+
+
+
+
+
+curl 'https://euw-red.lol.sgp.pvp.net/services/cap/orders/orders-api/v2/products/d1c2664a-5938-4c41-8d1b-61fd51052c22/orders' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer eyJraWQiOiJzMSIsImFsZyI6IlJTMjU2In0.eyJwcCI6eyJjIjoiZXUifSwic3ViIjoiZWU3MjAyNmMtZmIwOS01MjVjLTgzOWItOGMyYzMyZTVmMmM0Iiwic2NwIjpbImFjY291bnQiLCJsb2xfcmVnaW9uIiwib3BlbmlkIiwib2ZmbGluZV9hY2Nlc3MiLCJsb2wiLCJiYW4iLCJzdW1tb25lciJdLCJjbG0iOlsibG9sX2FjY291bnQiLCJlbWFpbF92ZXJpZmllZCIsIm9wZW5pZCIsInB3IiwibG9sIiwib3JpZ2luYWxfcGxhdGZvcm1faWQiLCJyZ25fRVVXMSIsIm9yaWdpbmFsX2FjY291bnRfaWQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiLCJwaG90byIsInByZWZlcnJlZF91c2VybmFtZSIsImxvY2FsZSIsImJhbiIsImZlZGVyYXRlZF9pZGVudGl0eV9kZXRhaWxzIiwiYWNjb3VudF92ZXJpZmllZCIsImZlZGVyYXRlZF9pZGVudGl0eV9wcm92aWRlcnMiLCJsb2xfcmVnaW9uIiwiYWNjdF9nbnQiLCJyZWdpb24iLCJwdnBuZXRfYWNjb3VudF9pZCIsImFjY3QiLCJhZ2UiLCJhZmZpbml0eSIsInVzZXJuYW1lIl0sImRhdCI6eyJwIjpudWxsLCJyIjoiRVVXMSIsImMiOiJ1dzEiLCJ1IjoyNzIyMDY2MjgyMjc2NTEyLCJsaWQiOiIyR0JJYlFHLXgyMXB3cFhtMThia1FnIn0sImlzcyI6Imh0dHBzOi8vYXV0aC5yaW90Z2FtZXMuY29tIiwicGx0Ijp7ImRldiI6InVua25vd24iLCJpZCI6IndpbmRvd3MifSwiZXhwIjoxNzEyOTg2NzU4LCJpYXQiOjE3MTI5ODMxNTgsImp0aSI6InBzTXhldl96anJFIiwiY2lkIjoibG9sIn0.SZMS6w7qd1l_MbUCWufdd7Nv6cQQU9KQKGyuBWjcgq7BSJVeWpmodIjExO0BkQ6wolFwXNvh3fEMqlThsENEk1LxtPjbaf0AsaZSZbFnMffGFGhovxKSDPqwxpZDTGxAqfr-PWw9rXtjzzbdTpy6WMl1L3Zrj4rNn4iv6J7P4MY' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "data": {
+        "id": "",
+        "location": "lolriot.aws-euc1-prod.euw1",
+        "purchaser": {
+            "id": "ee72026c-fb09-525c-839b-8c2c32e5f2c4",
+        },
+        "source": "lol.store.purchase",
+        "subOrders": [
+            {
+                "offer": {
+                    "id": "6379d743-79fc-425e-ab5e-9cc161f45b29",
+                    "productId": "d1c2664a-5938-4c41-8d1b-61fd51052c22"
+                },
+                "offerContext": {
+                    "paymentOption": "RP",
+                    "quantity": 1
+                },
+                "recipientId": "8713d7d4-96ad-573c-baf2-05360b76d9bd"
+            }
+        ]
+    },
+    "meta": {
+        "correlationId": "",
+        "jwt": "",
+        "xid": "ea1701ca-b0a1-4c39-9600-86c589b27809"
+    }
+}' \
+  --compressed \
+  --insecure

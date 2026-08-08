@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="goldEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe259" />
+      <stop offset="50%" stop-color="#ffa751" />
+      <stop offset="100%" stop-color="#e59800" />
+    </linearGradient>
+    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ffe259" flood-opacity="0.95"/>
+    </filter>
+  </defs>
+  <g filter="url(#goldGlow)">
+    <!-- Outer Hextech Crest Wings -->
+    <path d="M50 12 L82 30 L82 70 L50 88 L18 70 L18 30 Z" fill="none" stroke="url(#goldEmblemGrad)" stroke-width="7" stroke-linejoin="round" />
+    <!-- Inner Gold Gem Pillars -->
+    <path d="M50 22 L68 32 L68 52 L50 42 Z" fill="url(#goldEmblemGrad)" />
+    <path d="M50 22 L32 32 L32 52 L50 42 Z" fill="url(#goldEmblemGrad)" opacity="0.85" />
+    <path d="M36 56 L50 47 L64 56 L50 78 Z" fill="url(#goldEmblemGrad)" />
+  </g>
+</svg>

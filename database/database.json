@@ -1,0 +1,17 @@
+{
+  "config": {
+    "cor": "#FF4500",
+    "staff_id": "",
+    "cargo_verif": "Viajante"
+  },
+  "usuarios": {
+    "472488098614214671": {
+      "xp": 9,
+      "nivel": 1,
+      "moedas": 1000,
+      "ultimoDaily": 1778750653446
+    }
+  },
+  "warns": {},
+  "tickets": []
+}

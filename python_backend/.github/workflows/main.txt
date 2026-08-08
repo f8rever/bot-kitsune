@@ -1,0 +1,17 @@
+/*
+name: Update Catalog
+
+on:
+  schedule:
+    - cron: '*/20 * * * *' # Executa a cada 10 minutos
+  workflow_dispatch:
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Call update-catalog endpoint
+      run: |
+        curl -X POST "https://lol-giftapi.rj.r.appspot.com/update-catalog" \
+             -H "x-api-key: key_for_update_catalog"

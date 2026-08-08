@@ -1,0 +1,109 @@
+{
+  "skins": {
+    "ultimate": "<:ultimate:1342089843534069770>",
+    "mythic": "<:mythic:1528443568924917850>",
+    "legendary": "<:legendary:1342089845559791650>",
+    "epic": "<:epic:1342089847287844914>",
+    "common": "<:11default:1527518898654806157>",
+    "mystery": "<:mskin:1342089825271943178>",
+    "champion": "<:mchamp:1342089827071561728>",
+    "croma": "<:15croma:1527527027043729561>",
+    "eternos": "<:eternos:1527526797913231412>",
+    "prestige": "🌟",
+    "hextech": "⚙️",
+    "transcendent": "<:transcendent:1528443593822437417>",
+    "exalted": "<:exalted:1528443544405020712>"
+  },
+  "loot": {
+    "pass": "<:pass2:1374209227161337980>",
+    "orb": "<:orb:1528415461010575511>",
+    "megaorb": "<:megaorb:1528415704389521418>",
+    "chest": "<:hextech:1133606219181981789>",
+    "key": "<:key1:1342089831299420210>",
+    "chestkey": "<:chestkey:1342089828787028039>",
+    "masterwork_chest": "<:masterwork:1133606556643119204>",
+    "token": "🪙",
+    "capsule": "💊",
+    "grab_bag": "🛍️",
+    "premium": "<:premium:1528415634805756024>",
+    "deluxe": "<:deluxe:1528415562558865441>"
+  },
+  "utilidades": {
+    "sucesso": "<a:Verificado_OK:1527367161574854778>",
+    "erro": "<a:aXnao:1196412669670994021>",
+    "carregando": "<a:greenLoad:1528404823903568044>",
+    "fogo": "<a:pr_fire01:1527367612168802374>",
+    "ticket": "🎫",
+    "fechar": "<a:aXnao:1527367267434627082>",
+    "estrela": "<a:EstrelaDanante:1431841476345729024>",
+    "pino": "📌",
+    "documento": "📝",
+    "fox": "<a:coracao_preto:1527554434077560902>",
+    "left": "<:redarrowleft:1446251032287121459>",
+    "right": "<:redarrowright:1446251435917312132>",
+    "aviso": "⚠️",
+    "info": "ℹ️",
+    "check": "<a:Verificado_OK:1527367161574854778>",
+    "cross": "<a:aXnao:1196412669670994021>"
+  },
+  "loja_produtos": {
+    "vip": "💎",
+    "moeda": "<:rp:1342089868909477940>",
+    "cupom": "🎫",
+    "carrinho": "<:carrinho:1222629787483246724>",
+    "dinheiro": "<:dinheiro:1527368514057408713>",
+    "blue_essence": "🔵",
+    "orange_essence": "🟠",
+    "mythic_essence": "🟣",
+    "card": "💳",
+    "tag": "🏷️",
+    "bag": "🛍️"
+  },
+  "loja_status": {
+    "estoque": "📦",
+    "esgotado": "❌",
+    "entrega_rapida": "⚡",
+    "seguro": "🛡️",
+    "novidade": "🆕",
+    "promocao": "📉"
+  },
+  "staff_e_suporte": {
+    "dono": "👑",
+    "moderador": "🔨",
+    "ajuda": "❓",
+    "feedback": "💬",
+    "anuncio": "📢",
+    "admin": "🛡️",
+    "suporte": "🎧"
+  },
+  "lol_roles": {
+    "assassin": "🗡️",
+    "fighter": "🥊",
+    "mage": "🧙",
+    "marksman": "🏹",
+    "support": "🩹",
+    "tank": "🛡️"
+  },
+  "lol_regions": {
+    "br": "🇧🇷",
+    "na": "🇺🇸",
+    "euw": "🇪🇺",
+    "eune": "🌍",
+    "lan": "🇲🇽",
+    "las": "🇦🇷",
+    "oce": "🇦🇺",
+    "tr": "🇹🇷"
+  },
+  "ticket": {
+    "produto": "<:box:1527369341161705622>",
+    "variacao": "<:transcendent:1528443593822437417>",
+    "regiao": "<a:planeta:1527672012825301054>",
+    "riot_id": "<:riotzz:1528676647908278342>"
+  },
+  "bundles": {
+    "bundle": "<:transcendent:1528443593822437417>",
+    "signature": "<:MSP_Autograph:1528463134044459129>",
+    "chroma": "<:15croma:1527527027043729561>",
+    "set": "✨"
+  }
+}

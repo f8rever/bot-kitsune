@@ -1,0 +1,16 @@
+{
+  "en": {
+    "username": "Tuan8539",
+    "password": "cucudz001",
+    "region": "RU",
+    "file_name": "catalog_cache_en.json",
+    "enabled": true
+  },
+  "pt": {
+    "username": "lucasgg112",
+    "password": "lucas4002",
+    "region": "BR1",
+    "file_name": "catalog_cache_pt.json",
+    "enabled": true
+  }
+}

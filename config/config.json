@@ -1,0 +1,28 @@
+{
+  "cores": {
+    "admin": "#000000",
+    "moderacao": "#ED4245",
+    "economia": "#F1C40F",
+    "social": "#EB459E",
+    "utilidade": "#3498DB",
+    "suporte": "#5865F2",
+    "anuncios": "#2ECC71",
+    "erro": "#FF0000"
+  },
+  "emojis": {
+    "admin": "⚙️",
+    "moderacao": "🛡️",
+    "economia": "💰",
+    "social": "🎈",
+    "utilidade": "🛠️",
+    "suporte": "🎫",
+    "anuncios": "📢",
+    "erro": "❌",
+    "sucesso": "✅",
+    "loading": "⏳"
+  },
+  "links": {
+    "logo": "URL_DA_IMAGEM_DA_KITSUNE",
+    "footer": "Kitsune V3 • Sistema Inteligente"
+  }
+}
