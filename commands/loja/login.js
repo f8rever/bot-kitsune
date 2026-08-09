@@ -12,9 +12,43 @@ module.exports = {
             name: 'conta',
             description: 'Nome da conta Riot cadastrada (Ex: Invocador#BR1)',
             type: 3,
-            required: false
+            required: false,
+            autocomplete: true
         }
     ],
+    async autocomplete(interaction) {
+        try {
+            const focusedValue = (interaction.options.getFocused() || '').toLowerCase();
+            const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
+            let accounts = {};
+            if (fs.existsSync(accountsPath)) {
+                try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch(e) {}
+            }
+            const choices = Object.keys(accounts);
+
+            if (choices.length === 0) {
+                return await interaction.respond([
+                    { name: '❌ Nenhuma conta vinculada. Use o comando /link para cadastrar!', value: 'none' }
+                ]);
+            }
+
+            const filtered = choices
+                .filter(accName => accName.toLowerCase().includes(focusedValue))
+                .slice(0, 25)
+                .map(accName => ({ name: accName, value: accName }));
+
+            if (filtered.length === 0) {
+                return await interaction.respond([
+                    { name: `❌ Nenhuma conta encontrada correspondente a "${focusedValue}"`, value: 'none' }
+                ]);
+            }
+
+            await interaction.respond(filtered);
+        } catch(err) {
+            console.error('[Login Autocomplete Error]', err);
+            try { await interaction.respond([]); } catch(e) {}
+        }
+    },
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
@@ -33,6 +67,12 @@ module.exports = {
         }
 
         const selectedInput = interaction.options.getString('conta');
+
+        if (selectedInput === 'none') {
+            return interaction.editReply({ 
+                content: '❌ Nenhuma conta válida foi selecionada. Use o comando `/link` para cadastrar sua conta Riot.' 
+            });
+        }
 
         // If user specified a target account name
         if (selectedInput) {
