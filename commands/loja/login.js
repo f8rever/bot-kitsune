@@ -4,6 +4,20 @@ const path = require('path');
 const { getStoreBalance, reauthWithSSID, getEntitlements } = require('../../utils/riotAuth.js');
 const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
+function getAccountsFilePath() {
+    return path.resolve(__dirname, '../../config/riot_accounts.json');
+}
+
+function loadAccountsFromDisk() {
+    const accountsPath = getAccountsFilePath();
+    if (fs.existsSync(accountsPath)) {
+        try {
+            return { accountsPath, accounts: JSON.parse(fs.readFileSync(accountsPath, 'utf8')) };
+        } catch(e) {}
+    }
+    return { accountsPath, accounts: {} };
+}
+
 module.exports = {
     name: 'login',
     description: 'Seleciona e conecta a uma conta Riot salva para usar nos comandos de loja, presentes e amigos.',
@@ -18,12 +32,8 @@ module.exports = {
     ],
     async autocomplete(interaction) {
         try {
-            const focusedValue = (interaction.options.getFocused() || '').toLowerCase();
-            const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
-            let accounts = {};
-            if (fs.existsSync(accountsPath)) {
-                try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch(e) {}
-            }
+            const focusedValue = (interaction.options.getFocused() || '').toLowerCase().trim();
+            const { accounts } = loadAccountsFromDisk();
             const choices = Object.keys(accounts);
 
             if (choices.length === 0) {
@@ -37,7 +47,7 @@ module.exports = {
                     const accData = accounts[accName] || {};
                     const region = accData.region || '';
                     const fullSearch = `${accName} ${region}`.toLowerCase();
-                    return fullSearch.includes(focusedValue);
+                    return fullSearch.includes(focusedValue) || accName.toLowerCase().split('#')[0].includes(focusedValue);
                 })
                 .slice(0, 25)
                 .map(accName => {
@@ -70,17 +80,12 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
-        const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
-        let accounts = {};
-        if (fs.existsSync(accountsPath)) {
-            try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch(e) {}
-        }
-
+        const { accountsPath, accounts } = loadAccountsFromDisk();
         const accountList = Object.keys(accounts);
 
         if (accountList.length === 0) {
             return interaction.editReply({ 
-                content: '❌ Nenhuma conta Riot vinculada encontrada. Use o comando `/link` para cadastrar e vincular uma conta.' 
+                content: '❌ Nenhuma conta Riot vinculada encontrada no bot. Por favor, use o comando `/link` com a URL do navegador para cadastrar sua conta Riot!' 
             });
         }
 
@@ -95,15 +100,19 @@ module.exports = {
         // If user specified a target account name
         if (selectedInput) {
             const cleanInput = selectedInput.trim().toLowerCase();
-            const targetKey = accountList.find(k => 
-                k.toLowerCase() === cleanInput ||
-                cleanInput.includes(k.toLowerCase())
-            );
+            const targetKey = accountList.find(k => {
+                const kLower = k.toLowerCase();
+                const nameWithoutTag = kLower.split('#')[0];
+                return kLower === cleanInput || 
+                       cleanInput.includes(kLower) || 
+                       kLower.includes(cleanInput) || 
+                       nameWithoutTag === cleanInput.split('#')[0];
+            });
             
             if (!targetKey) {
                 const availableStr = accountList.map(a => `• **${a}**`).join('\n');
                 return interaction.editReply({ 
-                    content: `❌ A conta **${selectedInput}** não foi encontrada.\n\n**Contas disponíveis:**\n${availableStr}` 
+                    content: `❌ A conta **${selectedInput}** não foi encontrada no banco do bot.\n\n**Contas disponíveis:**\n${availableStr}` 
                 });
             }
 
@@ -156,13 +165,13 @@ module.exports = {
             collector.stop();
 
             if (accounts[chosenAccName]) {
-                await activateAccountSession(interaction, chosenAccName, accounts[chosenAccName], accountsPath, accounts);
+                await activateAccountSession(i, chosenAccName, accounts[chosenAccName], accountsPath, accounts);
             }
         });
     }
 };
 
-async function activateAccountSession(interaction, accountName, accData, accountsPath, allAccounts) {
+async function activateAccountSession(targetInt, accountName, accData, accountsPath, allAccounts) {
     let accessToken = accData.accessToken;
     let entitlementsToken = accData.entitlementsToken;
     let region = accData.region || 'BR1';
@@ -200,7 +209,7 @@ async function activateAccountSession(interaction, accountName, accData, account
 
     // Store in global sessions map
     const userStoreSessions = global.userStoreSessions || new Map();
-    userStoreSessions.set(interaction.user.id, {
+    userStoreSessions.set(targetInt.user.id, {
         accountName: accountName,
         accessToken: accessToken,
         entitlementsToken: entitlementsToken,
@@ -209,7 +218,7 @@ async function activateAccountSession(interaction, accountName, accData, account
     });
     global.userStoreSessions = userStoreSessions;
 
-    const successEmbed = buildCustomEmbed('login_success', interaction.client, interaction, {
+    const successEmbed = buildCustomEmbed('login_success', targetInt.client, targetInt, {
         accountName: accountName,
         region: region,
         rp: rp.toLocaleString('pt-BR'),
@@ -218,5 +227,9 @@ async function activateAccountSession(interaction, accountName, accData, account
         banned: accData.expired ? 'Sim (Expirado)' : 'Não'
     });
 
-    return interaction.editReply({ embeds: [successEmbed], components: [] });
+    if (targetInt.deferred || targetInt.replied) {
+        return targetInt.editReply({ embeds: [successEmbed], components: [] });
+    } else {
+        return targetInt.reply({ embeds: [successEmbed], components: [], ephemeral: true });
+    }
 }
