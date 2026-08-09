@@ -33,9 +33,27 @@ module.exports = {
             }
 
             const filtered = choices
-                .filter(accName => accName.toLowerCase().includes(focusedValue))
+                .filter(accName => {
+                    const accData = accounts[accName] || {};
+                    const region = accData.region || '';
+                    const fullSearch = `${accName} ${region}`.toLowerCase();
+                    return fullSearch.includes(focusedValue);
+                })
                 .slice(0, 25)
-                .map(accName => ({ name: accName, value: accName }));
+                .map(accName => {
+                    const acc = accounts[accName] || {};
+                    const isExpired = acc.expired === true;
+                    const statusDot = isExpired ? '🔴' : '🟢';
+                    const region = acc.region || 'BR1';
+                    const rpStr = typeof acc.rp === 'number' ? `${acc.rp.toLocaleString('pt-BR')} RP` : '0 RP';
+                    const infoStr = isExpired ? 'Expirado' : rpStr;
+
+                    const displayName = `${statusDot} ${accName} [${region} • ${infoStr}]`.substring(0, 100);
+                    return {
+                        name: displayName,
+                        value: accName
+                    };
+                });
 
             if (filtered.length === 0) {
                 return await interaction.respond([
@@ -76,7 +94,11 @@ module.exports = {
 
         // If user specified a target account name
         if (selectedInput) {
-            const targetKey = accountList.find(k => k.toLowerCase() === selectedInput.trim().toLowerCase());
+            const cleanInput = selectedInput.trim().toLowerCase();
+            const targetKey = accountList.find(k => 
+                k.toLowerCase() === cleanInput ||
+                cleanInput.includes(k.toLowerCase())
+            );
             
             if (!targetKey) {
                 const availableStr = accountList.map(a => `• **${a}**`).join('\n');
@@ -99,8 +121,9 @@ module.exports = {
             const accData = accounts[accName];
             const region = accData.region || 'BR1';
             const rp = accData.rp || 0;
+            const statusDot = accData.expired ? '🔴' : '🟢';
             return {
-                label: accName,
+                label: `${statusDot} ${accName}`,
                 description: `Região: ${region} | RP: ${rp.toLocaleString('pt-BR')}`,
                 value: accName,
                 emoji: '🎮'
