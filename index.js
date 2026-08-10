@@ -494,6 +494,30 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
     else if (tipoFiltro === 'champions') {
         return formatarStr('Champion', (customEmojis?.skins?.champion || '⚔️').trim());
     }
+    else if (tipoFiltro === 'emotes') {
+        return formatarStr('Emote', (customEmojis?.utilidades?.emotes || '😃').trim());
+    }
+    else if (tipoFiltro === 'icones') {
+        return formatarStr('Icon', (customEmojis?.utilidades?.icones || '🖼️').trim());
+    }
+    else if (tipoFiltro === 'wards') {
+        return formatarStr('Ward', (customEmojis?.utilidades?.wards || '👁️').trim());
+    }
+    else if (tipoFiltro === 'little_legends') {
+        return formatarStr('Little Legend', (customEmojis?.utilidades?.lendas || '🐥').trim());
+    }
+    else if (tipoFiltro === 'tft_arena') {
+        return formatarStr('TFT Arena', (customEmojis?.utilidades?.tabuleiros || '🏟️').trim());
+    }
+    else if (tipoFiltro === 'boosts') {
+        return formatarStr('Boost', (customEmojis?.utilidades?.boosts || '⚡').trim());
+    }
+    else if (tipoFiltro === 'misterio') {
+        return formatarStr('Mystery Gift', (customEmojis?.loot?.pass || '🎁').trim());
+    }
+    else if (tipoFiltro === 'hextech') {
+        return formatarStr('Hextech', (customEmojis?.loot?.chest || '🔑').trim());
+    }
 
     return formatarStr('Item', '📦');
 }
@@ -509,21 +533,18 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     if (tipoFiltro === 'highlights') {
         results = riotCatalog.filter(x => {
             const n = x.nome.toLowerCase();
-            const isBundle = (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE');
-            const isTargetSkin = (x.tipo === 'CHAMPION_SKIN' && n === 'mvp t1 miss fortune');
-            return (isBundle || isTargetSkin) &&
-                x.rawItem?.active !== false &&
-                n.includes('t1') &&
-                (n.includes('signature') || n.includes('set') || n.includes('chroma pack') || n.includes('chroma bundle') || isTargetSkin);
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'BUNDLES' || t === 'BUNDLE') && x.rawItem?.active !== false;
         });
-        titulo = `📦 ${results.length} Highlights`;
+        titulo = `📦 ${results.length} Highlights & Bundles`;
         customId = 'selecionar_highlight_menu';
     } else if (tipoFiltro === 'passes') {
         results = riotCatalog.filter(x => {
             const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (x.tipo === 'EVENT_PASS' || x.tipo === 'HEXTECH_CRAFTING' || x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
-                (n.includes('pass') || n.includes('orb') || n.includes('chest') || n.includes('key')) &&
+                (t === 'EVENT_PASS' || t === 'HEXTECH_CRAFTING' || t === 'BUNDLES' || t === 'BUNDLE' || t === 'PASS' || t === 'LOOT') &&
+                (n.includes('pass') || n.includes('passe') || n.includes('orb') || n.includes('orbe') || n.includes('chest') || n.includes('baú') || n.includes('key') || n.includes('chave')) &&
                 !n.includes('clash') &&
                 !n.includes('new player') &&
                 !n.includes('mystery') &&
@@ -535,19 +556,57 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         });
         titulo = `📦 ${results.length} Passes & Loots`;
         customId = 'selecionar_passe_menu';
+    } else if (tipoFiltro === 'emotes') {
+        results = riotCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE');
+        titulo = `😃 ${results.length} Emotes`;
+        customId = 'selecionar_emote_menu';
+    } else if (tipoFiltro === 'icones') {
+        results = riotCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'SUMMONER_ICON' || t === 'ICON') && x.nome && x.nome !== 'Null';
+        });
+        titulo = `🖼️ ${results.length} Ícones de Invocador`;
+        customId = 'selecionar_icone_menu';
+    } else if (tipoFiltro === 'wards') {
+        results = riotCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return t === 'WARD_SKIN' || t === 'WARD';
+        });
+        titulo = `👁️ ${results.length} Sentinelas`;
+        customId = 'selecionar_ward_menu';
+    } else if (tipoFiltro === 'little_legends') {
+        results = riotCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return t === 'COMPANION' || t === 'LITTLELEGENDS';
+        });
+        titulo = `🐥 ${results.length} Pequenas Lendas & Chibis`;
+        customId = 'selecionar_lenda_menu';
+    } else if (tipoFiltro === 'tft_arena') {
+        results = riotCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
+        });
+        titulo = `🏟️ ${results.length} Tabuleiros & Arenas TFT`;
+        customId = 'selecionar_arena_menu';
+    } else if (tipoFiltro === 'boosts') {
+        results = riotCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BOOST');
+        titulo = `⚡ ${results.length} Boosts de XP / IP`;
+        customId = 'selecionar_boost_menu';
     } else if (tipoFiltro === 'misterio') {
         results = riotCatalog.filter(x => {
             const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (x.tipo === 'MYSTERY' || n.includes('misterio') || n.includes('mystery'));
+                (t === 'MYSTERY' || n.includes('mistério') || n.includes('mystery'));
         });
         titulo = `🎁 ${results.length} Presentes Mistério`;
         customId = 'selecionar_misterio_menu';
     } else if (tipoFiltro === 'hextech') {
         results = riotCatalog.filter(x => {
             const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) &&
+                (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) &&
                 !n.includes('clash');
         });
         titulo = `🔑 ${results.length} Hextec & Baús`;
@@ -1031,10 +1090,40 @@ client.on('interactionCreate', async interaction => {
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'hextech', 0, false);
+                } else if (opcao === 'compra_emotes') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'emotes', 0, false);
+                } else if (opcao === 'compra_icones') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'icones', 0, false);
+                } else if (opcao === 'compra_wards') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'wards', 0, false);
+                } else if (opcao === 'compra_little_legends') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'little_legends', 0, false);
+                } else if (opcao === 'compra_tft_arena') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'tft_arena', 0, false);
+                } else if (opcao === 'compra_boosts') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'boosts', 0, false);
                 }
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu'].includes(interaction.customId)) {
+            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
                 if (interaction.customId === 'selecionar_chroma_menu') tipo = 'cromas';
@@ -1044,6 +1133,12 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_highlight_menu') tipo = 'highlights';
                 else if (interaction.customId === 'selecionar_misterio_menu') tipo = 'misterio';
                 else if (interaction.customId === 'selecionar_hextech_menu') tipo = 'hextech';
+                else if (interaction.customId === 'selecionar_emote_menu') tipo = 'emotes';
+                else if (interaction.customId === 'selecionar_icone_menu') tipo = 'icones';
+                else if (interaction.customId === 'selecionar_ward_menu') tipo = 'wards';
+                else if (interaction.customId === 'selecionar_lenda_menu') tipo = 'little_legends';
+                else if (interaction.customId === 'selecionar_arena_menu') tipo = 'tft_arena';
+                else if (interaction.customId === 'selecionar_boost_menu') tipo = 'boosts';
 
                 let itemSelecionado = interaction.values[0];
                 if (tipo === 'bundles' && itemSelecionado.includes('||')) {
@@ -1549,9 +1644,15 @@ client.on('interactionCreate', async interaction => {
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
+                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Highlights', description: 'Purchase featured store items (Signatures, Sets, etc.)', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
+                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
+                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
+                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
+                        { label: 'Little Legends', description: 'Purchase little legends & chibis', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() },
+                        { label: 'TFT Arenas', description: 'Purchase TFT map skins & arenas', value: 'compra_tft_arena', emoji: (customEmojis?.utilidades?.tabuleiros || '🏟️').trim() },
+                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
                         { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
@@ -1568,9 +1669,15 @@ client.on('interactionCreate', async interaction => {
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
+                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Highlights', description: 'Purchase featured store items (Signatures, Sets, etc.)', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
+                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
+                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
+                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
+                        { label: 'Little Legends', description: 'Purchase little legends & chibis', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() },
+                        { label: 'TFT Arenas', description: 'Purchase TFT map skins & arenas', value: 'compra_tft_arena', emoji: (customEmojis?.utilidades?.tabuleiros || '🏟️').trim() },
+                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
                         { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
@@ -1839,9 +1946,15 @@ client.on('interactionCreate', async interaction => {
                     new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
+                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Highlights', description: 'Purchase exclusive signature and chroma bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
+                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
+                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
+                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
+                        { label: 'Little Legends', description: 'Purchase little legends & chibis', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() },
+                        { label: 'TFT Arenas', description: 'Purchase TFT map skins & arenas', value: 'compra_tft_arena', emoji: (customEmojis?.utilidades?.tabuleiros || '🏟️').trim() },
+                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
                         { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
