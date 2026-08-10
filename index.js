@@ -23,21 +23,59 @@ const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
-let riotCatalog = [];
-try {
-    const rawCatalog = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'catalogo.json'), 'utf8'));
-    riotCatalog = Object.values(rawCatalog).map(x => ({
-        id: x.itemId,
-        nome: x.localizations?.en_US?.name || '',
-        tipo: x.inventoryType,
-        parent_id: x.parent?.itemId || null,
-        iconUrl: x.iconUrl ? 'https:' + x.iconUrl : null,
-        price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || 0,
-        rawItem: x
-    }));
-} catch (e) {
-    console.error("Erro ao carregar catalogo.json", e);
+function loadFullRiotCatalog() {
+    let catalogPath = [
+        path.join(__dirname, 'lol_giftapi-main', 'catalog_cache_pt.json'),
+        path.join(__dirname, 'config', 'catalog_cache_pt.json'),
+        path.join(__dirname, 'python_backend', 'catalog.json'),
+        path.join(__dirname, 'data', 'catalogo.json')
+    ].find(p => fs.existsSync(p));
+
+    if (!catalogPath) return [];
+
+    try {
+        const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+        let items = [];
+
+        if (Array.isArray(raw)) {
+            items = raw.map(x => ({
+                id: x.itemId || x.id,
+                nome: x.localizations?.pt_BR?.name || x.localizations?.en_US?.name || x.name || x.nome || '',
+                tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
+                parent_id: x.parent?.itemId || x.parent_id || null,
+                iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
+                price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
+                rawItem: x
+            }));
+        } else if (typeof raw === 'object' && raw !== null) {
+            for (const catName in raw) {
+                const catObj = raw[catName];
+                if (typeof catObj === 'object' && catObj !== null) {
+                    for (const itemName in catObj) {
+                        const info = catObj[itemName];
+                        let priceRp = info.price_rp;
+                        if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
+                        items.push({
+                            id: info.offer_id || info.item_id || itemName,
+                            nome: itemName,
+                            tipo: (info.inventory_type || catName).toUpperCase(),
+                            parent_id: info.parent_id || null,
+                            iconUrl: info.icon_url || null,
+                            price_rp: Number(priceRp) || 0,
+                            rawItem: info
+                        });
+                    }
+                }
+            }
+        }
+        return items;
+    } catch (e) {
+        console.error("Erro ao carregar catálogo:", e);
+        return [];
+    }
 }
+
+let riotCatalog = loadFullRiotCatalog();
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
