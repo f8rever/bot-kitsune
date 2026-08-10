@@ -497,6 +497,23 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         });
         titulo = `📦 ${results.length} Passes & Loots`;
         customId = 'selecionar_passe_menu';
+    } else if (tipoFiltro === 'misterio') {
+        results = riotCatalog.filter(x => {
+            const n = x.nome.toLowerCase();
+            return x.rawItem?.active !== false &&
+                (x.tipo === 'MYSTERY' || n.includes('misterio') || n.includes('mystery'));
+        });
+        titulo = `🎁 ${results.length} Presentes Mistério`;
+        customId = 'selecionar_misterio_menu';
+    } else if (tipoFiltro === 'hextech') {
+        results = riotCatalog.filter(x => {
+            const n = x.nome.toLowerCase();
+            return x.rawItem?.active !== false &&
+                (n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) &&
+                !n.includes('clash');
+        });
+        titulo = `🔑 ${results.length} Hextec & Baús`;
+        customId = 'selecionar_hextech_menu';
     }
 
     results = results.sort((a, b) => {
@@ -966,10 +983,20 @@ client.on('interactionCreate', async interaction => {
                     await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
                 } else if (opcao === 'compra_eternos') {
                     abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
+                } else if (opcao === 'compra_misterio') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'misterio', 0, false);
+                } else if (opcao === 'compra_hextech') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'hextech', 0, false);
                 }
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu'].includes(interaction.customId)) {
+            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
                 if (interaction.customId === 'selecionar_chroma_menu') tipo = 'cromas';
@@ -977,6 +1004,8 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_champion_menu') tipo = 'champions';
                 else if (interaction.customId === 'selecionar_passe_menu') tipo = 'passes';
                 else if (interaction.customId === 'selecionar_highlight_menu') tipo = 'highlights';
+                else if (interaction.customId === 'selecionar_misterio_menu') tipo = 'misterio';
+                else if (interaction.customId === 'selecionar_hextech_menu') tipo = 'hextech';
 
                 let itemSelecionado = interaction.values[0];
                 if (tipo === 'bundles' && itemSelecionado.includes('||')) {
@@ -1485,7 +1514,9 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Highlights', description: 'Purchase featured store items (Signatures, Sets, etc.)', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() }
+                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
+                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
                     ])
                 );
                 await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
@@ -1502,7 +1533,9 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Highlights', description: 'Purchase featured store items (Signatures, Sets, etc.)', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() }
+                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
+                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
                     ])
                 );
                 await interaction.update({ content: '', embeds: [embed], components: [menu] });
@@ -1771,7 +1804,9 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Highlights', description: 'Purchase exclusive signature and chroma bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() }
+                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
+                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
                     ])
                 );
                 try {

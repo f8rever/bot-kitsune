@@ -48,32 +48,32 @@
   },
   "loot": {
     "pass_1": {
-      "nome": "Pandemonium Pass 1650 RP",
+      "nome": "Passe de Evento 1650 RP",
       "preco": "10.79",
       "desconto": "5.39"
     },
     "pass_2": {
-      "nome": "Pandemonium Upgraded Pass 2650 RP",
+      "nome": "Combo Passe de Evento 2650 RP",
       "preco": "17.29",
       "desconto": "8.64"
     },
     "pass_3": {
-      "nome": "Pandemonium Premium Pass 3650 RP",
+      "nome": "Combo Passe Premium 3650 RP",
       "preco": "23.49",
       "desconto": "11.74"
     },
     "orb_1": {
-      "nome": "Pandemonium Orb Bundle 2500 RP",
+      "nome": "Pacote de Orbes de Evento 2500 RP",
       "preco": "15.99",
       "desconto": "8.00"
     },
     "orb_2": {
-      "nome": "Premium Orb Bundle 6250 RP",
+      "nome": "Pacote de Orbes Premium 6250 RP",
       "preco": "40.49",
       "desconto": "20.25"
     },
     "orb_3": {
-      "nome": "Mega Pandemonium Orb Bundle 12500 RP",
+      "nome": "Mega Pacote de Orbes 12500 RP",
       "preco": "81.49",
       "desconto": "40.74"
     },
