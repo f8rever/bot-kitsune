@@ -65,21 +65,20 @@ async function getStoreBalance(accessToken, entitlementsToken, region = 'BR1') {
 }
 
 function getGiftId(inventoryType, itemId) {
-    if (inventoryType === "CHAMPION") return 1;
-    if (inventoryType === "MYSTERY") {
+    const inv = String(inventoryType || '').toUpperCase();
+    if (inv === "CHAMPION") return 1;
+    if (inv === "CHAMPION_SKIN") return 2;
+    if (inv === "MYSTERY") {
         if (itemId === 1) return 3;
         if (itemId === 4) return 9;
         if (itemId === 3) return 4;
         if (itemId === 50) return 100;
         if (itemId === 60) return 110;
+        return 3;
     }
-    if (inventoryType === "CHAMPION_SKIN") return 2;
-    if (inventoryType === "WARD_SKIN") return 8;
-    if (inventoryType === "SUMMONER_ICON") return 5;
-    if (["BUNDLES", "HEXTECH_CRAFTING"].includes(inventoryType)) return 1010;
-    if (inventoryType === "SPELL_BOOK_PAGE") return 6;
-    if (inventoryType === "RP") return 7;
-    return 0;
+    if (inv === "HEXTECH_CRAFTING" || inv === "EVENT_PASS" || inv === "BUNDLES" || inv === "BUNDLE") return 5;
+    if (inv === "ETERNAL" || inv === "STATCHANGE") return 7;
+    return 2;
 }
 
 async function sendGift(accessToken, region, purchaserPuuid, receiverPuuid, offerId, giftMessage = "", quantity = 1) {
