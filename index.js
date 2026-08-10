@@ -23,11 +23,25 @@ const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
-function loadFullRiotCatalog() {
+const catalogCacheMap = new Map();
+
+function loadFullRiotCatalog(lang = 'pt') {
+    const isPt = (lang === 'pt' || lang === 'br' || lang === 'pt-br');
+    const cacheKey = isPt ? 'pt' : 'en';
+
+    if (catalogCacheMap.has(cacheKey)) {
+        return catalogCacheMap.get(cacheKey);
+    }
+
+    const targetFile = isPt ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
+    const fallbackFile = isPt ? 'catalog_cache_en.json' : 'catalog_cache_pt.json';
+
     let catalogPath = [
-        path.join(__dirname, 'lol_giftapi-main', 'catalog_cache_pt.json'),
-        path.join(__dirname, 'config', 'catalog_cache_pt.json'),
-        path.join(__dirname, 'python_backend', 'catalog.json'),
+        path.join(__dirname, 'config', targetFile),
+        path.join(__dirname, 'lol_giftapi-main', targetFile),
+        path.join(__dirname, 'python_backend', targetFile),
+        path.join(__dirname, 'python_backend', 'api_files', targetFile),
+        path.join(__dirname, 'config', fallbackFile),
         path.join(__dirname, 'data', 'catalogo.json')
     ].find(p => fs.existsSync(p));
 
@@ -40,7 +54,7 @@ function loadFullRiotCatalog() {
         if (Array.isArray(raw)) {
             items = raw.map(x => ({
                 id: x.itemId || x.id,
-                nome: x.localizations?.pt_BR?.name || x.localizations?.en_US?.name || x.name || x.nome || '',
+                nome: isPt ? (x.localizations?.pt_BR?.name || x.name || x.nome || '') : (x.localizations?.en_US?.name || x.name || x.nome || ''),
                 tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
                 parent_id: x.parent?.itemId || x.parent_id || null,
                 iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
@@ -68,14 +82,15 @@ function loadFullRiotCatalog() {
                 }
             }
         }
+        catalogCacheMap.set(cacheKey, items);
         return items;
     } catch (e) {
-        console.error("Erro ao carregar catálogo:", e);
+        console.error(`Erro ao carregar catálogo (${lang}):`, e);
         return [];
     }
 }
 
-let riotCatalog = loadFullRiotCatalog();
+let riotCatalog = loadFullRiotCatalog('pt');
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
@@ -526,90 +541,91 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     const cor = '#F43F5E';
     const ITEMS_PER_PAGE = 25;
 
+    const session = userStoreSessions.get(interaction.user.id);
+    const userRegiao = (session?.regiao || 'BR').toUpperCase();
+    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+    const currentCatalog = loadFullRiotCatalog(lang);
+
     let results = [];
     let titulo = '';
     let customId = '';
 
     if (tipoFiltro === 'highlights') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return (t === 'BUNDLES' || t === 'BUNDLE') && x.rawItem?.active !== false;
         });
-        titulo = `📦 ${results.length} Highlights & Bundles`;
+        titulo = lang === 'pt' ? `📦 ${results.length} Destaques & Pacotes` : `📦 ${results.length} Highlights & Bundles`;
         customId = 'selecionar_highlight_menu';
     } else if (tipoFiltro === 'passes') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (t === 'EVENT_PASS' || t === 'HEXTECH_CRAFTING' || t === 'BUNDLES' || t === 'BUNDLE' || t === 'PASS' || t === 'LOOT') &&
-                (n.includes('pass') || n.includes('passe') || n.includes('orb') || n.includes('orbe') || n.includes('chest') || n.includes('baú') || n.includes('key') || n.includes('chave')) &&
-                !n.includes('clash') &&
-                !n.includes('new player') &&
-                !n.includes('mystery') &&
-                !n.includes('three-peat') &&
-                !n.includes('banner') &&
-                !n.includes('chroma') &&
-                !n.includes('signature') &&
+                (t === 'EVENT_PASS' || t === 'BUNDLES' || t === 'BUNDLE' || t === 'PASS' || t === 'LOOT') &&
+                (n.includes('pass') || n.includes('passe') || n.includes('orb') || n.includes('orbe')) &&
+                !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
+                !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
+                !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
                 !n.includes('missions token bank pass');
         });
-        titulo = `📦 ${results.length} Passes & Loots`;
+        titulo = lang === 'pt' ? `📦 ${results.length} Passes & Orbes de Evento` : `📦 ${results.length} Event Passes & Orbs`;
         customId = 'selecionar_passe_menu';
     } else if (tipoFiltro === 'emotes') {
-        results = riotCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE');
+        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE');
         titulo = `😃 ${results.length} Emotes`;
         customId = 'selecionar_emote_menu';
     } else if (tipoFiltro === 'icones') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
             return (t === 'SUMMONER_ICON' || t === 'ICON') && x.nome && x.nome !== 'Null';
         });
-        titulo = `🖼️ ${results.length} Ícones de Invocador`;
+        titulo = lang === 'pt' ? `🖼️ ${results.length} Ícones de Invocador` : `🖼️ ${results.length} Summoner Icons`;
         customId = 'selecionar_icone_menu';
     } else if (tipoFiltro === 'wards') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
             return t === 'WARD_SKIN' || t === 'WARD';
         });
-        titulo = `👁️ ${results.length} Sentinelas`;
+        titulo = lang === 'pt' ? `👁️ ${results.length} Sentinelas` : `👁️ ${results.length} Ward Skins`;
         customId = 'selecionar_ward_menu';
     } else if (tipoFiltro === 'little_legends') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
             return t === 'COMPANION' || t === 'LITTLELEGENDS';
         });
-        titulo = `🐥 ${results.length} Pequenas Lendas & Chibis`;
+        titulo = lang === 'pt' ? `🐥 ${results.length} Pequenas Lendas & Chibis` : `🐥 ${results.length} Little Legends & Chibis`;
         customId = 'selecionar_lenda_menu';
     } else if (tipoFiltro === 'tft_arena') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
             return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
         });
-        titulo = `🏟️ ${results.length} Tabuleiros & Arenas TFT`;
+        titulo = lang === 'pt' ? `🏟️ ${results.length} Tabuleiros & Arenas TFT` : `🏟️ ${results.length} TFT Arenas`;
         customId = 'selecionar_arena_menu';
     } else if (tipoFiltro === 'boosts') {
-        results = riotCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BOOST');
-        titulo = `⚡ ${results.length} Boosts de XP / IP`;
+        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BOOST');
+        titulo = `⚡ ${results.length} Boosts`;
         customId = 'selecionar_boost_menu';
     } else if (tipoFiltro === 'misterio') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
                 (t === 'MYSTERY' || n.includes('mistério') || n.includes('mystery'));
         });
-        titulo = `🎁 ${results.length} Presentes Mistério`;
+        titulo = lang === 'pt' ? `🎁 ${results.length} Presentes Mistério` : `🎁 ${results.length} Mystery Gifts`;
         customId = 'selecionar_misterio_menu';
     } else if (tipoFiltro === 'hextech') {
-        results = riotCatalog.filter(x => {
+        results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
                 (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) &&
-                !n.includes('clash');
+                !n.includes('pass') && !n.includes('passe') && !n.includes('orb') && !n.includes('orbe') && !n.includes('clash');
         });
-        titulo = `🔑 ${results.length} Hextec & Baús`;
+        titulo = lang === 'pt' ? `🔑 ${results.length} Hextec, Baús & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
         customId = 'selecionar_hextech_menu';
     }
 
