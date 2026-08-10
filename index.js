@@ -219,23 +219,28 @@ function getCatalogRp(item) {
 function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
     if (!rpCost || isNaN(rpCost)) return '0.00';
 
+    const discountPercent = (loja && (loja.promocao_porcentagem !== undefined && loja.promocao_porcentagem !== null))
+        ? parseFloat(loja.promocao_porcentagem)
+        : 70;
+    const multiplier = (100 - discountPercent) / 100;
+
     const getVal = (item) => {
         if (!item) return null;
         const basePrice = item.preco ? parseFloat(item.preco) : null;
-        const discountPrice = (item.desconto && parseFloat(item.desconto) > 0) ? parseFloat(item.desconto) : null;
-        if (discountPrice && basePrice && discountPrice < basePrice) {
+        if (!basePrice) return null;
+
+        const calculatedDiscountPrice = basePrice * multiplier;
+
+        if (discountPercent > 0 && discountPercent < 100) {
             return {
-                final: discountPrice.toFixed(2),
-                raw: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${discountPrice.toFixed(2)}**`
+                final: calculatedDiscountPrice.toFixed(2),
+                raw: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${calculatedDiscountPrice.toFixed(2)}**`
             };
         }
-        if (basePrice) {
-            return {
-                final: basePrice.toFixed(2),
-                raw: `€${basePrice.toFixed(2)}`
-            };
-        }
-        return null;
+        return {
+            final: basePrice.toFixed(2),
+            raw: `€${basePrice.toFixed(2)}`
+        };
     };
 
     // 1. Check exact RP match in loja.loot
@@ -283,14 +288,9 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
 
     // 4. Fallback calculation with dynamic promo discount
     const baseVal = rpCost * 0.0060;
-    
-    const discountPercent = (loja && loja.promocao_porcentagem) ? loja.promocao_porcentagem : 70;
-    const multiplier = (100 - discountPercent) / 100;
 
-    const isPromoActive = loja && loja.skins && loja.skins.epic && parseFloat(loja.skins.epic.desconto || '0') > 0;
-
-    if (isPromoActive) {
-        const discountVal = baseVal * multiplier; // dynamic discount
+    if (discountPercent > 0 && discountPercent < 100) {
+        const discountVal = baseVal * multiplier;
         if (formatDiscountStr) {
             return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}**`;
         }
