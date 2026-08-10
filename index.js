@@ -281,12 +281,16 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         }
     }
 
-    // 4. Fallback calculation with 50% promo discount if active in loja.skins
+    // 4. Fallback calculation with dynamic promo discount
     const baseVal = rpCost * 0.0060;
+    
+    const discountPercent = (loja && loja.promocao_porcentagem) ? loja.promocao_porcentagem : 70;
+    const multiplier = (100 - discountPercent) / 100;
+
     const isPromoActive = loja && loja.skins && loja.skins.epic && parseFloat(loja.skins.epic.desconto || '0') > 0;
 
     if (isPromoActive) {
-        const discountVal = baseVal * 0.50; // 50% discount
+        const discountVal = baseVal * multiplier; // dynamic discount
         if (formatDiscountStr) {
             return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}**`;
         }
