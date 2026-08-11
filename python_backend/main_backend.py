@@ -861,7 +861,11 @@ async def gift_send():
             user_document = users_key_collection.find_one({"key_api": key})
             if user_document:
                 key_balance = user_document.get("balance", 0)  # Obtendo o saldo atual
-            if key_balance < data.get("price"):
+            try:
+                price_val = int(data.get("price") or 0)
+            except (ValueError, TypeError):
+                price_val = 0
+            if key_balance < price_val:
                 return jsonify({"status": "error", "message": "Insufficient key balance"}), 401
 
 
@@ -1050,7 +1054,11 @@ async def gift_send():
                 document = users_key_collection.find_one({"key_api": key})
                 if document:
                     key_balance = document.get("balance", 0)  # Obtendo o saldo atual
-                if key_balance < data.get("price"):
+                try:
+                    price_val = int(data.get("price") or 0)
+                except (ValueError, TypeError):
+                    price_val = 0
+                if key_balance < price_val:
                     return jsonify({"status": "error", "message": "Insufficient key balance"}), 401
                 
 
