@@ -100,23 +100,23 @@
     "syncImage": true
   },
   "catalog_skins": {
-    "title": "<:box:1527369341161705622> {count} skins of {campeao}",
-    "description": "<a:whitearrow:1346152146814636032> Please select an **skin** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "title": "<:box:1527369341161705622> {count} Champion Skins",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **skin** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",
     "syncImage": true
   },
   "catalog_cromas": {
-    "title": "<:box:1527369341161705622> {count} chromas of {campeao}",
-    "description": "<a:whitearrow:1346152146814636032> Please select an **chroma** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "title": "<:box:1527369341161705622> {count} Chromas",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **chroma** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",
     "syncImage": true
   },
   "catalog_eternos": {
-    "title": "<:box:1527369341161705622> {count} eternals of {campeao}",
+    "title": "<:box:1527369341161705622> {count} Eternals Series",
     "description": "<a:whitearrow:1346152146814636032> Please select an **eternal** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
@@ -124,8 +124,8 @@
     "syncImage": true
   },
   "catalog_champions": {
-    "title": "<:box:1527369341161705622> {count} champions of {campeao}",
-    "description": "<a:whitearrow:1346152146814636032> Please select an **champion** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "title": "<:box:1527369341161705622> {count} Champions",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **champion** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",

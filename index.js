@@ -90,6 +90,16 @@ function loadFullRiotCatalog(lang = 'pt') {
     }
 }
 
+function isChroma(x) {
+    if (!x) return false;
+    const sub = (x.rawItem?.subInventoryType || x.rawItem?.sub_inventory_type || x.subInventoryType || '').toUpperCase();
+    if (sub === 'RECOLOR' || sub.includes('CHROMA')) return true;
+    const name = (x.nome || x.name || '').toLowerCase();
+    if (name.includes('(chroma') || name.includes(' chroma') || name.includes(' croma') || name.includes('(croma')) return true;
+    if (/\((emerald|ruby|pearl|sapphire|catseye|tanzanite|obsidian|rose quartz|citrine|turquoise|amethyst|aquamarine|rainbow|sandstone|granite|meteorite|merc|chroma|croma)\)/i.test(name)) return true;
+    return false;
+}
+
 let riotCatalog = loadFullRiotCatalog('pt');
 
 const client = new Client({
@@ -564,14 +574,14 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     if (tipoFiltro === 'skins') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && x.rawItem?.subInventoryType !== 'RECOLOR' && x.rawItem?.active !== false;
+            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && !isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `👕 ${results.length} Skins de Campeões` : `👕 ${results.length} Champion Skins`;
         customId = 'selecionar_skin_menu';
     } else if (tipoFiltro === 'cromas') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && x.rawItem?.subInventoryType === 'RECOLOR' && x.rawItem?.active !== false;
+            return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA') && isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
         customId = 'selecionar_chroma_menu';
@@ -2185,7 +2195,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     let results = [];
     if (tipoFiltro === 'skins') {
         if (campeaoFinal) {
-            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.rawItem?.subInventoryType !== 'RECOLOR');
+            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && !isChroma(x));
             const signatureBundles = currentCatalog.filter(x =>
                 (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
                 x.nome.toLowerCase().includes('signature edition') &&
@@ -2194,13 +2204,13 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
             results = [...skins, ...signatureBundles];
         }
         if (results.length === 0) {
-            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa) && x.rawItem?.subInventoryType !== 'RECOLOR');
+            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa) && !isChroma(x));
         }
     } else if (tipoFiltro === 'cromas') {
         if (campeaoFinal) {
-            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType === 'RECOLOR');
+            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN' || x.tipo === 'CHROMA') && isChroma(x));
         } else {
-            results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa) && (x.rawItem?.subInventoryType === 'RECOLOR' || x.nome.toLowerCase().includes('chroma')));
+            results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa) && isChroma(x));
         }
     } else if (tipoFiltro === 'eternos') {
         if (campeaoFinal) {
