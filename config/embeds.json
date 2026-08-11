@@ -132,14 +132,31 @@
     "syncImage": true
   },
   "tabela_skins": {
-    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> SKINS",
-    "color": "#FFC0CB",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg"
+    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> PREÇOS DE SKINS ({skinsDiscount}% OFF)",
+    "description": "Abaixo está a tabela oficial de preços de skins com **{skinsDiscount}% DE DESCONTO** em Euro (€)!",
+    "color": "#F59E0B",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_16.jpg",
+    "footerText": "Kitsune Store • Tabela de Skins",
+    "fields": [
+      { "name": "🟢 Skin 750 RP", "value": "De ~~€4.50~~ por apenas **€{price_750}**", "inline": true },
+      { "name": "🔵 Skin 975 RP", "value": "De ~~€5.85~~ por apenas **€{price_975}**", "inline": true },
+      { "name": "🟣 Skin Épica 1350 RP", "value": "De ~~€8.10~~ por apenas **€{price_1350}**", "inline": true },
+      { "name": "🟠 Skin Lendária 1820 RP", "value": "De ~~€10.92~~ por apenas **€{price_1820}**", "inline": true },
+      { "name": "🔴 Skin Ultimate 3250 RP", "value": "De ~~€19.50~~ por apenas **€{price_3250}**", "inline": true }
+    ]
   },
   "tabela_loot": {
-    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> LOOTS",
-    "color": "#FFC0CB",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_1.jpg"
+    "title": "🎁 PREÇOS DE LOOTS & ORBES",
+    "description": "Orbes, baús e passes de evento com entrega imediata em Euro (€)!",
+    "color": "#10B981",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_26.jpg",
+    "footerText": "Kitsune Store • Tabela de Loots",
+    "fields": [
+      { "name": "📦 1x Orbe / Baú (250 RP)", "value": "Apenas **€{price_250}** (desc: {lootDiscount}%)", "inline": true },
+      { "name": "📦 5x Orbes + Baú (1250 RP)", "value": "Apenas **€{price_1250}** (desc: {lootDiscount}%)", "inline": true },
+      { "name": "📦 10x Orbes + Baú (2500 RP)", "value": "Apenas **€{price_2500}** (desc: {lootDiscount}%)", "inline": true },
+      { "name": "🎟️ Passe de Evento (1650 RP)", "value": "Apenas **€{price_1650}** (desc: {passesDiscount}%)", "inline": true }
+    ]
   },
   "login_loading_1": {
     "title": "⏳ Processo de Login",
