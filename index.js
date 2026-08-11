@@ -838,6 +838,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     let totalRP = 0;
     let itemSelecionadoLines = [];
     let valorRPLines = [];
+    let valorDinheiroLines = [];
     
     let totalBasePrice = 0;
     let totalFinalPrice = 0;
@@ -857,21 +858,42 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         
         totalBasePrice += basePrice;
         totalFinalPrice += finalPrice;
+        
+        let itemPriceStr = '';
+        if (basePrice > finalPrice) {
+            const itemDiscount = Math.round((1 - (finalPrice / basePrice)) * 100);
+            itemPriceStr = `~~€${basePrice.toFixed(2)}~~ 🔥 **€${finalPrice.toFixed(2)}** (-${itemDiscount}%)`;
+        } else {
+            itemPriceStr = `€${finalPrice.toFixed(2)}`;
+        }
+        valorDinheiroLines.push(`${index + 1}. ${itemPriceStr}`);
     });
     
     if (cart.items.length > 1) {
         valorRPLines.push('---');
         valorRPLines.push(`Total: ${totalRP} RP`);
+        
+        valorDinheiroLines.push('---');
+        let totalValDinheiro = '';
+        if (totalBasePrice > totalFinalPrice) {
+            const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
+            totalValDinheiro = `Total: ~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
+        } else {
+            totalValDinheiro = `Total: €${totalFinalPrice.toFixed(2)}`;
+        }
+        valorDinheiroLines.push(totalValDinheiro);
     }
     
-    // Now format the total cash price
-    let valorDinheiro = '';
-    const wasLabel = lang === 'en' ? 'Was' : 'De';
-    if (totalBasePrice > totalFinalPrice) {
-        const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
-        valorDinheiro = `~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
+    let finalValorDinheiro = '';
+    if (cart.items.length > 1) {
+        finalValorDinheiro = valorDinheiroLines.join('\n');
     } else {
-        valorDinheiro = `€${totalFinalPrice.toFixed(2)}`;
+        if (totalBasePrice > totalFinalPrice) {
+            const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
+            finalValorDinheiro = `~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
+        } else {
+            finalValorDinheiro = `€${totalFinalPrice.toFixed(2)}`;
+        }
     }
     
     const firstItemRarity = cart.items[0] ? cart.items[0].variacao : 'Unknown';
@@ -880,7 +902,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         itemSelecionado: itemSelecionadoLines.join('\n'),
         variacao: firstItemRarity,
         valorRP: valorRPLines.join('\n'),
-        valorDinheiro: valorDinheiro
+        valorDinheiro: finalValorDinheiro
     };
 }
 
@@ -974,8 +996,9 @@ async function atualizarEmbedTicket(channel, client) {
             if (ddragonUrl) {
                 if (index === 0) {
                     embed.setImage(ddragonUrl);
+                    embed.setURL('https://discord.com');
                 } else {
-                    const extraEmbed = new EmbedBuilder().setURL(embed.data.url || 'https://discord.com').setImage(ddragonUrl);
+                    const extraEmbed = new EmbedBuilder().setURL('https://discord.com').setImage(ddragonUrl);
                     if (embed.data.color) extraEmbed.setColor(embed.data.color);
                     embedsArray.push(extraEmbed);
                 }
