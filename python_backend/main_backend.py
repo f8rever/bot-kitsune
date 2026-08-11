@@ -1176,7 +1176,7 @@ async def gift_send():
                         print("V2 gift failed or balance unchanged. Attempting send_gift_v3 fallback...")
                         try:
                             gift_info = await auth.friendlist_gift_info()
-                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
+                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}", ChatXmpp.receiver_puuid)
                             item_id = data.get("item_id")
                             inventory_type = data.get("inventory_type") or "BUNDLES"
                             item_price_rp = data.get("price")
@@ -1279,7 +1279,7 @@ async def gift_send():
                         print("V2 gift failed. Attempting send_gift_v3 fallback...")
                         try:
                             gift_info = await auth.friendlist_gift_info()
-                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
+                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}", ChatXmpp.receiver_puuid)
                             item_id = data.get("item_id")
                             inventory_type = data.get("inventory_type") or "BUNDLES"
                             item_price_rp = data.get("price")
@@ -1506,22 +1506,48 @@ def format_time_difference(time_difference):
     # Formata a saída para mostrar dias e horas
     return f"{days} days and {hours} hours"
 
-def get_summoner_id(gift_info, receiver_riotId):
-    if not gift_info or not isinstance(gift_info, dict) or 'friends' not in gift_info:
+def get_summoner_id(gift_info, receiver_riotId, receiver_puuid=None):
+    if not gift_info or not isinstance(gift_info, dict):
         return None
     
+    friends = gift_info.get('friends', [])
+    if not isinstance(friends, list):
+        return None
+
+    if receiver_puuid:
+        for friend in friends:
+            if friend.get('puuid') == receiver_puuid or friend.get('sub') == receiver_puuid:
+                sid = friend.get('summonerId') or friend.get('id')
+                if sid: return sid
+
     target_clean = (receiver_riotId or '').replace(" ", "").lower()
-    
-    for friend in gift_info.get('friends', []):
+    target_name = target_clean.split('#')[0] if '#' in target_clean else target_clean
+
+    for friend in friends:
         nick = (friend.get('nick') or '').replace(" ", "").lower()
-        if nick == target_clean:
-            return friend.get('summonerId') or friend.get('id')
-            
-    for friend in gift_info.get('friends', []):
+        fname = (friend.get('name') or '').replace(" ", "").lower()
+        gname = (friend.get('gameName') or '').replace(" ", "").lower()
+        tag = (friend.get('tagLine') or '').replace(" ", "").lower()
+        combined = f"{gname}#{tag}" if (gname and tag) else ""
+
+        if target_clean in [nick, fname, combined] or (gname and tag and target_clean == f"{gname}#{tag}"):
+            sid = friend.get('summonerId') or friend.get('id')
+            if sid: return sid
+
+    for friend in friends:
+        gname = (friend.get('gameName') or '').replace(" ", "").lower()
         nick = (friend.get('nick') or '').replace(" ", "").lower()
-        if target_clean in nick or nick in target_clean:
-            return friend.get('summonerId') or friend.get('id')
-            
+        if target_name and (target_name == gname or target_name == nick):
+            sid = friend.get('summonerId') or friend.get('id')
+            if sid: return sid
+
+    for friend in friends:
+        nick = (friend.get('nick') or '').replace(" ", "").lower()
+        gname = (friend.get('gameName') or '').replace(" ", "").lower()
+        if (target_name and target_name in nick) or (gname and gname in target_clean):
+            sid = friend.get('summonerId') or friend.get('id')
+            if sid: return sid
+
     return None
 
 
