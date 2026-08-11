@@ -299,7 +299,7 @@ function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt') {
             return {
                 final: calculatedDiscountPrice.toFixed(2),
                 rawEmbed: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${calculatedDiscountPrice.toFixed(2)}** (-${discountPercent}%)`,
-                rawSelect: `€${calculatedDiscountPrice.toFixed(2)} 🔥 (${wasLabel} €${basePrice.toFixed(2)})`
+                rawSelect: `€${calculatedDiscountPrice.toFixed(2)} 🔥 (${wasLabel} €${basePrice.toFixed(2)}) (-${discountPercent}%)`
             };
         }
         return {
@@ -366,7 +366,7 @@ function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt') {
             return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}** (-${discountPercent}%)`;
         }
         if (formatMode === 'select' || formatMode === true) {
-            return `€${discountVal.toFixed(2)} 🔥 (${wasLabel} €${baseVal.toFixed(2)})`;
+            return `€${discountVal.toFixed(2)} 🔥 (${wasLabel} €${baseVal.toFixed(2)}) (-${discountPercent}%)`;
         }
         return discountVal.toFixed(2);
     }
@@ -798,13 +798,11 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     let totalRP = 0;
     let itemSelecionadoLines = [];
-    let variacaoLines = [];
     let valorRPLines = [];
     
     cart.items.forEach((item, index) => {
         totalRP += item.rp;
         itemSelecionadoLines.push(`${index + 1}. ${item.nome}`);
-        variacaoLines.push(`${index + 1}. ${item.variacao}`);
         valorRPLines.push(`${index + 1}. ${item.rp} RP`);
     });
     
@@ -816,9 +814,11 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     const precoRealStr = getCatalogPrice(totalRP, loja, 'embed', lang);
     const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
     
+    const firstItemRarity = cart.items[0] ? cart.items[0].variacao : 'Unknown';
+    
     return {
         itemSelecionado: itemSelecionadoLines.join('\n'),
-        variacao: variacaoLines.join('\n'),
+        variacao: firstItemRarity,
         valorRP: valorRPLines.join('\n'),
         valorDinheiro: valorDinheiro
     };
@@ -835,6 +835,7 @@ async function atualizarEmbedTicket(channel, client) {
     const eRiotId = (customEmojis?.ticket?.riot_id || '🎮').trim();
     const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
     const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
+    const eVariacao = cart.items[0] ? cart.items[0].eVariacao : (customEmojis?.ticket?.variacao || '🌟').trim();
     const eDinheiro = '<:dinheiro:1527368514057408713>';
 
     const userRegiao = (cart.regiao || 'BR').toUpperCase();
@@ -853,6 +854,7 @@ async function atualizarEmbedTicket(channel, client) {
         regiao: cart.regiao,
         riotId: cart.riotId,
         eProduto,
+        eVariacao,
         eRP,
         eDinheiro,
         eRegiao,
@@ -1377,7 +1379,7 @@ client.on('interactionCreate', async interaction => {
 
                 const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
                 if (isInsideTicket) {
-                    await interaction.deferUpdate().catch(e => {});
+                    await interaction.update({ content: '✅ Item added to cart successfully!', embeds: [], components: [] }).catch(e => {});
                     let nomeReal = itemSelecionado;
                     let itemId = null;
                     if (itemSelecionado.includes('||')) {
