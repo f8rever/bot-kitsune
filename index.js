@@ -269,7 +269,7 @@ function getCatalogRp(item) {
     return cost;
 }
 
-function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
+function getCatalogPrice(rpCost, loja, formatMode = false) {
     if (!rpCost || isNaN(rpCost)) return '0.00';
 
     const discountPercent = (loja && (loja.promocao_porcentagem !== undefined && loja.promocao_porcentagem !== null))
@@ -287,14 +287,18 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         if (discountPercent > 0 && discountPercent < 100) {
             return {
                 final: calculatedDiscountPrice.toFixed(2),
-                raw: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${calculatedDiscountPrice.toFixed(2)}**`
+                rawEmbed: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${calculatedDiscountPrice.toFixed(2)}** (-${discountPercent}%)`,
+                rawSelect: `€${calculatedDiscountPrice.toFixed(2)} 🔥 (De €${basePrice.toFixed(2)})`
             };
         }
         return {
             final: basePrice.toFixed(2),
-            raw: `€${basePrice.toFixed(2)}`
+            rawEmbed: `€${basePrice.toFixed(2)}`,
+            rawSelect: `€${basePrice.toFixed(2)}`
         };
     };
+
+    let catRes = null;
 
     // 1. Check exact RP match in loja.loot
     if (loja && loja.loot) {
@@ -302,14 +306,14 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
             const nameLower = (item.nome || '').toLowerCase();
             const rpMatch = nameLower.match(/(\d+)\s*rp/);
             if (rpMatch && parseInt(rpMatch[1], 10) === rpCost) {
-                const res = getVal(item);
-                if (res) return formatDiscountStr ? res.raw : res.final;
+                catRes = getVal(item);
+                break;
             }
         }
     }
 
     // 2. Check exact RP match in loja.skins
-    if (loja && loja.skins) {
+    if (!catRes && loja && loja.skins) {
         let catItem = null;
         if (rpCost === 3250) catItem = loja.skins.ultimate;
         else if (rpCost === 2000) catItem = loja.skins.mythic;
@@ -321,22 +325,25 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
         else if (rpCost === 290) catItem = loja.skins.croma;
         else if (rpCost === 490) catItem = loja.skins.mystery_skin;
 
-        if (catItem) {
-            const res = getVal(catItem);
-            if (res) return formatDiscountStr ? res.raw : res.final;
-        }
+        if (catItem) catRes = getVal(catItem);
     }
 
     // 3. Check exact RP match in loja.bundles
-    if (loja && loja.bundles) {
+    if (!catRes && loja && loja.bundles) {
         for (const [key, item] of Object.entries(loja.bundles)) {
             const nameLower = (item.nome || '').toLowerCase();
             const rpMatch = nameLower.match(/(\d+)\s*rp/);
             if (rpMatch && parseInt(rpMatch[1], 10) === rpCost) {
-                const res = getVal(item);
-                if (res) return formatDiscountStr ? res.raw : res.final;
+                catRes = getVal(item);
+                break;
             }
         }
+    }
+
+    if (catRes) {
+        if (formatMode === 'embed') return catRes.rawEmbed;
+        if (formatMode === 'select' || formatMode === true) return catRes.rawSelect;
+        return catRes.final;
     }
 
     // 4. Fallback calculation with dynamic promo discount
@@ -344,13 +351,16 @@ function getCatalogPrice(rpCost, loja, formatDiscountStr = false) {
 
     if (discountPercent > 0 && discountPercent < 100) {
         const discountVal = baseVal * multiplier;
-        if (formatDiscountStr) {
-            return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}**`;
+        if (formatMode === 'embed') {
+            return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}** (-${discountPercent}%)`;
+        }
+        if (formatMode === 'select' || formatMode === true) {
+            return `€${discountVal.toFixed(2)} 🔥 (De €${baseVal.toFixed(2)})`;
         }
         return discountVal.toFixed(2);
     }
 
-    if (formatDiscountStr) {
+    if (formatMode === 'embed' || formatMode === 'select' || formatMode === true) {
         return `€${baseVal.toFixed(2)}`;
     }
     return baseVal.toFixed(2);
@@ -812,7 +822,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     }
 
     const calcRp = getItemRpValue(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
-    const precoRealStr = getCatalogPrice(calcRp, loja, true);
+    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed');
     const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
 
     const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
