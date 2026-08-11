@@ -581,7 +581,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
                 !n.includes('missions token bank pass');
         });
-        titulo = lang === 'pt' ? `📦 ${results.length} Passes & Orbes de Evento` : `📦 ${results.length} Event Passes & Orbs`;
+        titulo = lang === 'pt' ? `🎫 ${results.length} Passes de Evento` : `🎫 ${results.length} Event Passes`;
         customId = 'selecionar_passe_menu';
     } else if (tipoFiltro === 'emotes') {
         results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE');
@@ -671,7 +671,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     }
 
     if (!embed.data.description) {
-        let catName = tipoFiltro === 'passes' ? 'passes / loots' : tipoFiltro;
+        let catName = tipoFiltro === 'passes' ? 'event pass' : tipoFiltro;
         embed.setDescription(`> Please select an **${catName}** from the **menu** below to continue:\n> ${pagina + 1} page of ${totalPages} pages`);
     }
 
@@ -1249,7 +1249,7 @@ client.on('interactionCreate', async interaction => {
                     } else if (field === 'title') {
                         if (embedId === 'catalog_skins') currentValue = `✨ {campeao} Skins ({count})`;
                         else if (embedId === 'catalog_cromas') currentValue = `✨ {campeao} Cromas ({count})`;
-                        else if (embedId === 'catalog_passes') currentValue = `🎫 Passes & Loots ({count} itens)`;
+                        else if (embedId === 'catalog_passes') currentValue = `🎫 Passes ({count} itens)`;
                         else if (embedId === 'catalog_highlights') currentValue = `🌟 Highlights ({count} itens)`;
                         else if (embedId === 'catalog_champions') currentValue = `✨ {campeao} Champions ({count})`;
                         else if (embedId === 'catalog_eternos') currentValue = `✨ {campeao} Eternos ({count})`;
@@ -1672,7 +1672,7 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
                         { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
                         { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
                         { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
@@ -1697,7 +1697,7 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
                         { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
                         { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
                         { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
@@ -1771,7 +1771,7 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Catálogo de Destaques', description: 'Página de destaques e pacotes da loja', value: 'catalog_highlights', emoji: '🌟' },
                             { label: 'Catálogo de Skins', description: 'Página de skins de campeões', value: 'catalog_skins', emoji: '👕' },
                             { label: 'Catálogo de Cromas', description: 'Página de cromas de campeões', value: 'catalog_cromas', emoji: '🎨' },
-                            { label: 'Catálogo de Passes e Loots', description: 'Página de passes, orbes e baús', value: 'catalog_passes', emoji: '🎫' },
+                            { label: 'Catálogo de Passes', description: 'Página de passes de evento', value: 'catalog_passes', emoji: '🎫' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed exibida para a tabela de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed exibida para a tabela de loots', value: 'tabela_loot', emoji: '📦' }
                         ])
@@ -1974,7 +1974,7 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
                         { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
                         { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes & Loots', description: 'Purchase event passes & loots', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                         { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
                         { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
                         { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },

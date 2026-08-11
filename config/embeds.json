@@ -92,8 +92,8 @@
     "syncImage": true
   },
   "catalog_passes": {
-    "title": "<:box:1527369341161705622> {count} Passes & Loots",
-    "description": "<a:whitearrow:1346152146814636032> Please select an **passes / loots** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "title": "<:box:1527369341161705622> {count} Passes",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **event pass** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",
