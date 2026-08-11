@@ -39,10 +39,10 @@ const rest = new REST({ version: '10' }).setToken(token);
         const clientId = process.env.CLIENT_ID || (token ? Buffer.from(token.split('.')[0], 'base64').toString() : null);
 
         if (process.env.GUILD_ID && clientId) {
-            console.log(`⚡ Registrando comandos na Guild (${process.env.GUILD_ID})...`);
+            console.log(`⚡ Limpando comandos da Guild (${process.env.GUILD_ID}) para evitar duplicados...`);
             await rest.put(
                 Routes.applicationGuildCommands(clientId, process.env.GUILD_ID),
-                { body: commands }
+                { body: [] }
             );
         }
 
