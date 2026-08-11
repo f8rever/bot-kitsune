@@ -191,7 +191,21 @@ def login_page():
     return render_template("login_tab.html")
 
 
+def parse_identity(identity):
+    if not identity:
+        return identity
+    if isinstance(identity, str):
+        try:
+            return json.loads(identity)
+        except Exception:
+            return identity.split(":")
+    return identity
+
+
 def validate_session(current_identity):
+    current_identity = parse_identity(current_identity)
+    if not current_identity or not isinstance(current_identity, (list, tuple)) or len(current_identity) < 3:
+        return False, jsonify({"message": "Invalid session format"}), 401
     login = current_identity[0]
     key = current_identity[1]
     session_id = current_identity[2]
@@ -309,6 +323,7 @@ def login():
 def logout():
     # Obtém a identidade do JWT, que inclui o login, key e session_id
     current_identity = get_jwt_identity()
+    current_identity = parse_identity(current_identity)
     login, key, session_id = current_identity
 
     # Atualiza o documento do usuário no banco de dados para remover o session_id
@@ -1151,14 +1166,13 @@ async def gift_send():
                     await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_ip,inventory_type, gift_message) 
                 else:
                     v2_success = False
+                    v3_success = False
                     try:
                         v2_success = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
                     except Exception as e:
                         print(f"V2 send_gift error: {e}")
                     
-                    await asyncio.sleep(2)
-                    check_rp, _ = await auth.get_saldo_rp()
-                    if not v2_success or check_rp >= auth.rp_amount:
+                    if not v2_success:
                         print("V2 gift failed or balance unchanged. Attempting send_gift_v3 fallback...")
                         try:
                             gift_info = await auth.friendlist_gift_info()
@@ -1166,35 +1180,31 @@ async def gift_send():
                             item_id = data.get("item_id")
                             inventory_type = data.get("inventory_type") or "BUNDLES"
                             item_price_rp = data.get("price")
-                            await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
+                            v3_success = await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
                         except Exception as e3:
                             print(f"send_gift_v3 fallback error: {e3}")
 
-                #await Giftobj.session.close()
-                #await Giftobj.tcp_connector.close()
-
-                await asyncio.sleep(3)
+                await asyncio.sleep(2)
                 new_saldo_rp, new_saldo_ip = await auth.get_saldo_rp()
                 if currencySelected == 'RP':
-                    if new_saldo_rp<auth.rp_amount:
-                        rp_spent = auth.rp_amount - new_saldo_rp
+                    if v2_success or v3_success or (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount):
+                        rp_spent = (auth.rp_amount - new_saldo_rp) if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (data.get("price") or 0)
+                        final_saldo = new_saldo_rp if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (auth.rp_amount - rp_spent)
 
                         new_transaction["status"] = "Completed"
 
                         if new_transaction["user"] not in ['domas', 'elogator']:
                             new_transaction.pop('sender_pass', None)
 
-
                         new_transaction.pop('date_finished', None)
                         new_transaction.pop('retry', None)
 
                         gift_log.insert_one(new_transaction)
 
-
                         print("\nGift bem sucedido")
-                        logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
+                        logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {final_saldo}")
                         
-                        return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": new_saldo_rp, "rp_spent": rp_spent }), 200
+                        return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": final_saldo, "rp_spent": rp_spent }), 200
                     else:
                         print("Falha ao enviar presente")
                         return jsonify({"status": "error", "message": "Failed to send gift"}), 401
@@ -1259,40 +1269,35 @@ async def gift_send():
                     await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price,inventory_type, gift_message) 
                 else:
                     v2_success = False
+                    v3_success = False
                     try:
                         v2_success = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
                     except Exception as e:
                         print(f"V2 send_gift error: {e}")
 
-                    await asyncio.sleep(2)
-                    check_rp, _ = await auth.get_saldo_rp()
-                    if not v2_success or check_rp >= auth.rp_amount:
-                        print("V2 gift failed or balance unchanged. Attempting send_gift_v3 fallback...")
+                    if not v2_success:
+                        print("V2 gift failed. Attempting send_gift_v3 fallback...")
                         try:
                             gift_info = await auth.friendlist_gift_info()
                             receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
                             item_id = data.get("item_id")
                             inventory_type = data.get("inventory_type") or "BUNDLES"
                             item_price_rp = data.get("price")
-                            await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
+                            v3_success = await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
                         except Exception as e3:
                             print(f"send_gift_v3 fallback error: {e3}")
 
-
-                #await Giftobj.session.close()
-                #await Giftobj.tcp_connector.close()
-
-                await asyncio.sleep(3)
+                await asyncio.sleep(2)
                 new_saldo_rp, new_saldo_ip = await auth.get_saldo_rp()
                 
-                if new_saldo_rp<auth.rp_amount:
-                    rp_spent = auth.rp_amount - new_saldo_rp
+                if v2_success or v3_success or (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount):
+                    rp_spent = (auth.rp_amount - new_saldo_rp) if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (data.get("price") or 0)
+                    final_saldo = new_saldo_rp if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (auth.rp_amount - rp_spent)
 
                     new_transaction["status"] = "Completed"
                     
                     if new_transaction["user"] not in ['domas', 'elogator']:
                         new_transaction.pop('sender_pass', None)
-
 
                     new_transaction.pop('date_finished', None)
                     new_transaction.pop('retry', None)
@@ -1300,9 +1305,9 @@ async def gift_send():
                     gift_log.insert_one(new_transaction)
 
                     print("\nGift bem sucedido")
-                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
+                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {final_saldo}")
                                         
-                    return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": new_saldo_rp, "rp_spent": rp_spent }), 200
+                    return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": final_saldo, "rp_spent": rp_spent }), 200
                 else:
                     print("Falha ao enviar presente")
                     return jsonify({"status": "error", "message": "Failed to send gift (Check if the receiver is already a friend)"}), 401
