@@ -861,16 +861,17 @@ async function atualizarEmbedTicket(channel, client) {
         eRiotId
     });
 
+    const embedsArray = [embed];
+
     try {
         const champMap = require('./data/championMap.json');
-        let ddragonUrl = null;
-        const firstItem = cart.items[0];
-        if (firstItem) {
-            const catItemEncontrado = firstItem.itemId 
-                ? riotCatalog.find(x => x.id === firstItem.itemId) 
-                : riotCatalog.find(x => x.nome === firstItem.nome);
+        cart.items.forEach((item, index) => {
+            let ddragonUrl = null;
+            const catItemEncontrado = item.itemId 
+                ? riotCatalog.find(x => x.id === item.itemId) 
+                : riotCatalog.find(x => x.nome === item.nome);
             
-            if (firstItem.tipo === 'skins' || firstItem.tipo === 'cromas') {
+            if (item.tipo === 'skins' || item.tipo === 'cromas') {
                 if (catItemEncontrado && catItemEncontrado.parent_id) {
                     const champKey = champMap[catItemEncontrado.parent_id];
                     if (champKey) {
@@ -880,12 +881,12 @@ async function atualizarEmbedTicket(channel, client) {
                 } else if (catItemEncontrado && catItemEncontrado.iconUrl) {
                     ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
                 }
-            } else if (firstItem.tipo === 'champions') {
+            } else if (item.tipo === 'champions') {
                 if (catItemEncontrado) {
                     const champKey = champMap[catItemEncontrado.id];
                     if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
                 }
-            } else if (firstItem.tipo === 'highlights') {
+            } else if (item.tipo === 'highlights' || item.tipo === 'passes') {
                 if (catItemEncontrado && catItemEncontrado.iconUrl) {
                     ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
                 } else {
@@ -894,11 +895,22 @@ async function atualizarEmbedTicket(channel, client) {
                         ddragonUrl = lojaConfig.banners.bundles;
                     }
                 }
+            } else {
+                if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                }
             }
-        }
-        if (ddragonUrl) {
-            embed.setImage(ddragonUrl);
-        }
+
+            if (ddragonUrl) {
+                if (index === 0) {
+                    embed.setImage(ddragonUrl);
+                } else {
+                    const extraEmbed = new EmbedBuilder().setURL(embed.data.url || 'https://discord.com').setImage(ddragonUrl);
+                    if (embed.data.color) extraEmbed.setColor(embed.data.color);
+                    embedsArray.push(extraEmbed);
+                }
+            }
+        });
     } catch (err) {
         console.error("Erro ao buscar imagem no update:", err);
     }
@@ -913,9 +925,9 @@ async function atualizarEmbedTicket(channel, client) {
     const messages = await channel.messages.fetch({ limit: 100 });
     const botMsg = messages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
     if (botMsg) {
-        await botMsg.edit({ embeds: [embed], components: [btn] });
+        await botMsg.edit({ embeds: embedsArray, components: [btn] });
     } else {
-        await channel.send({ embeds: [embed], components: [btn] });
+        await channel.send({ embeds: embedsArray, components: [btn] });
     }
 }
 
@@ -1025,44 +1037,6 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         eRiotId
     });
 
-    try {
-        const champMap = require('./data/championMap.json');
-        let ddragonUrl = null;
-
-        const catItem = catItemEncontrado;
-        if (tipoFiltro === 'skins' || tipoFiltro === 'cromas') {
-            if (catItem && catItem.parent_id) {
-                const champKey = champMap[catItem.parent_id];
-                if (champKey) {
-                    const skinNum = catItem.id % 1000;
-                    ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_${skinNum}.jpg`;
-                }
-            } else if (catItem && catItem.iconUrl) {
-                ddragonUrl = catItem.iconUrl.startsWith('//') ? 'https:' + catItem.iconUrl : catItem.iconUrl;
-            }
-        } else if (tipoFiltro === 'champions') {
-            if (catItem) {
-                const champKey = champMap[catItem.id];
-                if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
-            }
-        } else if (tipoFiltro === 'highlights') {
-            if (catItem && catItem.iconUrl) {
-                ddragonUrl = catItem.iconUrl.startsWith('//') ? 'https:' + catItem.iconUrl : catItem.iconUrl;
-            } else {
-                const lojaConfig = obterDadosLoja();
-                if (lojaConfig?.banners?.bundles) {
-                    ddragonUrl = lojaConfig.banners.bundles;
-                }
-            }
-        }
-
-        if (ddragonUrl) {
-            embed.setImage(ddragonUrl);
-        }
-    } catch (err) {
-        console.error("Erro ao buscar imagem da skin/campeao:", err);
-    }
-
     if (!global.ticketCarts) global.ticketCarts = new Map();
     global.ticketCarts.set(canal.id, {
         ownerId: interaction.user.id,
@@ -1080,14 +1054,8 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         ]
     });
 
-    const btn = new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId('fechar_ticket').setLabel('Close Ticket').setStyle(ButtonStyle.Danger).setEmoji(eFechar),
-        new ButtonBuilder().setCustomId('btn_payment_methods').setLabel('Payment Methods').setStyle(ButtonStyle.Success).setEmoji(eDinheiro),
-        new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️'),
-        new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Primary).setEmoji('➕')
-    );
-
-    await canal.send({ content: `${interaction.user}`, embeds: [embed], components: [btn] });
+    await canal.send({ content: `${interaction.user}` });
+    await atualizarEmbedTicket(canal, interaction.client);
 
     await interaction.editReply({ content: `✅ Your support ticket has been created: ${canal}`, embeds: [], components: [] });
 }
