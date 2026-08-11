@@ -795,6 +795,128 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     }
 }
 
+function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
+    let totalRP = 0;
+    let itemSelecionadoLines = [];
+    let variacaoLines = [];
+    let valorRPLines = [];
+    
+    cart.items.forEach((item, index) => {
+        totalRP += item.rp;
+        itemSelecionadoLines.push(`${index + 1}. ${item.nome}`);
+        variacaoLines.push(`${index + 1}. ${item.variacao}`);
+        valorRPLines.push(`${index + 1}. ${item.rp} RP`);
+    });
+    
+    if (cart.items.length > 1) {
+        valorRPLines.push('---');
+        valorRPLines.push(`Total: ${totalRP} RP`);
+    }
+    
+    const precoRealStr = getCatalogPrice(totalRP, loja, 'embed', lang);
+    const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
+    
+    return {
+        itemSelecionado: itemSelecionadoLines.join('\n'),
+        variacao: variacaoLines.join('\n'),
+        valorRP: valorRPLines.join('\n'),
+        valorDinheiro: valorDinheiro
+    };
+}
+
+async function atualizarEmbedTicket(channel, client) {
+    if (!global.ticketCarts) global.ticketCarts = new Map();
+    const cart = global.ticketCarts.get(channel.id);
+    if (!cart) return;
+
+    const loja = obterDadosLoja();
+    const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
+    const eRegiao = (customEmojis?.ticket?.regiao || '🌍').trim();
+    const eRiotId = (customEmojis?.ticket?.riot_id || '🎮').trim();
+    const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
+    const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
+    const eDinheiro = '<:dinheiro:1527368514057408713>';
+
+    const userRegiao = (cart.regiao || 'BR').toUpperCase();
+    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+
+    const details = obterDetalhesCarrinho(cart, loja, lang);
+
+    const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(id => `<@&${id}>`).join(' ');
+
+    const embed = buildCustomEmbed('ticket_order_received', client, null, {
+        staffRoles,
+        itemSelecionado: details.itemSelecionado,
+        variacao: details.variacao,
+        valorRP: details.valorRP,
+        valorDinheiro: details.valorDinheiro,
+        regiao: cart.regiao,
+        riotId: cart.riotId,
+        eProduto,
+        eRP,
+        eDinheiro,
+        eRegiao,
+        eRiotId
+    });
+
+    try {
+        const champMap = require('./data/championMap.json');
+        let ddragonUrl = null;
+        const firstItem = cart.items[0];
+        if (firstItem) {
+            const catItemEncontrado = firstItem.itemId 
+                ? riotCatalog.find(x => x.id === firstItem.itemId) 
+                : riotCatalog.find(x => x.nome === firstItem.nome);
+            
+            if (firstItem.tipo === 'skins' || firstItem.tipo === 'cromas') {
+                if (catItemEncontrado && catItemEncontrado.parent_id) {
+                    const champKey = champMap[catItemEncontrado.parent_id];
+                    if (champKey) {
+                        const skinNum = catItemEncontrado.id % 1000;
+                        ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_${skinNum}.jpg`;
+                    }
+                } else if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                }
+            } else if (firstItem.tipo === 'champions') {
+                if (catItemEncontrado) {
+                    const champKey = champMap[catItemEncontrado.id];
+                    if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
+                }
+            } else if (firstItem.tipo === 'highlights') {
+                if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                } else {
+                    const lojaConfig = obterDadosLoja();
+                    if (lojaConfig?.banners?.bundles) {
+                        ddragonUrl = lojaConfig.banners.bundles;
+                    }
+                }
+            }
+        }
+        if (ddragonUrl) {
+            embed.setImage(ddragonUrl);
+        }
+    } catch (err) {
+        console.error("Erro ao buscar imagem no update:", err);
+    }
+
+    const btn = new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setCustomId('fechar_ticket').setLabel('Close Ticket').setStyle(ButtonStyle.Danger).setEmoji(eFechar),
+        new ButtonBuilder().setCustomId('btn_payment_methods').setLabel('Payment Methods').setStyle(ButtonStyle.Success).setEmoji(eDinheiro),
+        new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️'),
+        new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Primary).setEmoji('➕')
+    );
+
+    const messages = await channel.messages.fetch({ limit: 100 });
+    const botMsg = messages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
+    if (botMsg) {
+        await botMsg.edit({ embeds: [embed], components: [btn] });
+    } else {
+        await channel.send({ embeds: [embed], components: [btn] });
+    }
+}
+
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     await interaction.reply({ content: `${loadEmj} ${getLoadStr('ticket')}`, ephemeral: true });
@@ -939,11 +1061,28 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         console.error("Erro ao buscar imagem da skin/campeao:", err);
     }
 
+    if (!global.ticketCarts) global.ticketCarts = new Map();
+    global.ticketCarts.set(canal.id, {
+        ownerId: interaction.user.id,
+        regiao: session.regiao.toUpperCase(),
+        riotId: session.riotId,
+        items: [
+            {
+                nome: nomeReal,
+                itemId: itemId,
+                rp: calcRp,
+                tipo: tipoFiltro,
+                variacao: variacao,
+                eVariacao: eVariacao
+            }
+        ]
+    });
 
     const btn = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('fechar_ticket').setLabel('Close Ticket').setStyle(ButtonStyle.Danger).setEmoji(eFechar),
         new ButtonBuilder().setCustomId('btn_payment_methods').setLabel('Payment Methods').setStyle(ButtonStyle.Success).setEmoji(eDinheiro),
-        new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️')
+        new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️'),
+        new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Primary).setEmoji('➕')
     );
 
     await canal.send({ content: `${interaction.user}`, embeds: [embed], components: [btn] });
@@ -1236,7 +1375,64 @@ client.on('interactionCreate', async interaction => {
                     itemSelecionado = itemSelecionado.split('||')[0];
                 }
 
-                await criarCanalTicket(interaction, itemSelecionado, tipo);
+                const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
+                if (isInsideTicket) {
+                    await interaction.deferUpdate().catch(e => {});
+                    let nomeReal = itemSelecionado;
+                    let itemId = null;
+                    if (itemSelecionado.includes('||')) {
+                        const p = itemSelecionado.split('||');
+                        nomeReal = p[0];
+                        itemId = parseInt(p[1], 10);
+                    }
+                    const catItemEncontrado = itemId ? riotCatalog.find(x => x.id === itemId) : riotCatalog.find(x => x.nome === nomeReal);
+                    
+                    let variacao = 'Unknown';
+                    let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
+                    if (tipo === 'champions') {
+                        variacao = 'Champion';
+                        eVariacao = (customEmojis?.skins?.champion || '⚔️').trim();
+                    } else {
+                        const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
+                        const userRegiao = interaction.channel.name.split('-')[1] || 'BR';
+                        const lang = (userRegiao.toUpperCase() === 'BR' || userRegiao.toUpperCase() === 'BR1') ? 'pt' : 'en';
+                        const details = obterDetalhesItem(nomeReal, tipo, obterDadosLoja(), '0.00', raw, lang);
+                        const partes = details.desc.split('|');
+                        variacao = partes[0].trim();
+                        if (details.emoji) {
+                            eVariacao = details.emoji;
+                        }
+                    }
+                    
+                    const calcRp = getItemRpValue(nomeReal, tipo, catItemEncontrado ? catItemEncontrado.rawItem : null);
+                    
+                    if (!global.ticketCarts) global.ticketCarts = new Map();
+                    let cart = global.ticketCarts.get(interaction.channel.id);
+                    if (!cart) {
+                        let ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
+                        const session = userStoreSessions.get(ownerId) || { regiao: 'BR', riotId: 'Unknown' };
+                        cart = {
+                            ownerId,
+                            regiao: session.regiao.toUpperCase(),
+                            riotId: session.riotId,
+                            items: []
+                        };
+                        global.ticketCarts.set(interaction.channel.id, cart);
+                    }
+                    
+                    cart.items.push({
+                        nome: nomeReal,
+                        itemId: itemId,
+                        rp: calcRp,
+                        tipo,
+                        variacao,
+                        eVariacao
+                    });
+                    
+                    await atualizarEmbedTicket(interaction.channel, interaction.client);
+                } else {
+                    await criarCanalTicket(interaction, itemSelecionado, tipo);
+                }
             }
 
             if (interaction.customId === 'menu_embed_select') {
@@ -1796,6 +1992,28 @@ client.on('interactionCreate', async interaction => {
                     new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('new_riotid').setLabel('New Riot ID').setPlaceholder('Ex: Name#Tag').setStyle(TextInputStyle.Short).setRequired(true))
                 );
                 interaction.showModal(modal).catch(e => { if (e.code !== 10062 && e.code !== 40060) console.error("Erro ao abrir modal_editar_pedido:", e); });
+            }
+            else if (interaction.customId === 'btn_add_item_ticket') {
+                const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
+                const menu = new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option to add').addOptions([
+                        { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
+                        { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
+                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
+                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                        { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
+                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
+                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
+                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
+                        { label: 'Little Legends', description: 'Purchase little legends & chibis', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() },
+                        { label: 'TFT Arenas', description: 'Purchase TFT map skins & arenas', value: 'compra_tft_arena', emoji: (customEmojis?.utilidades?.tabuleiros || '🏟️').trim() },
+                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
+                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
+                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
+                    ])
+                );
+                await interaction.reply({ content: 'Select a category to add more items to your ticket:', embeds: [embed], components: [menu], ephemeral: true });
             }
             else if (interaction.customId.startsWith('rate_')) {
                 const stars = interaction.customId.split('_')[1];
