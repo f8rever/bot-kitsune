@@ -269,13 +269,14 @@ function getCatalogRp(item) {
     return cost;
 }
 
-function getCatalogPrice(rpCost, loja, formatMode = false) {
+function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt') {
     if (!rpCost || isNaN(rpCost)) return '0.00';
 
     const discountPercent = (loja && (loja.promocao_porcentagem !== undefined && loja.promocao_porcentagem !== null))
         ? parseFloat(loja.promocao_porcentagem)
         : 70;
     const multiplier = (100 - discountPercent) / 100;
+    const wasLabel = lang === 'en' ? 'Was' : 'De';
 
     const getVal = (item) => {
         if (!item) return null;
@@ -288,7 +289,7 @@ function getCatalogPrice(rpCost, loja, formatMode = false) {
             return {
                 final: calculatedDiscountPrice.toFixed(2),
                 rawEmbed: `~~€${basePrice.toFixed(2)}~~ 🔥 **€${calculatedDiscountPrice.toFixed(2)}** (-${discountPercent}%)`,
-                rawSelect: `€${calculatedDiscountPrice.toFixed(2)} 🔥 (De €${basePrice.toFixed(2)})`
+                rawSelect: `€${calculatedDiscountPrice.toFixed(2)} 🔥 (${wasLabel} €${basePrice.toFixed(2)})`
             };
         }
         return {
@@ -355,7 +356,7 @@ function getCatalogPrice(rpCost, loja, formatMode = false) {
             return `~~€${baseVal.toFixed(2)}~~ 🔥 **€${discountVal.toFixed(2)}** (-${discountPercent}%)`;
         }
         if (formatMode === 'select' || formatMode === true) {
-            return `€${discountVal.toFixed(2)} 🔥 (De €${baseVal.toFixed(2)})`;
+            return `€${discountVal.toFixed(2)} 🔥 (${wasLabel} €${baseVal.toFixed(2)})`;
         }
         return discountVal.toFixed(2);
     }
@@ -424,13 +425,13 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
     return 1350;
 }
 
-function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) {
+function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, lang = 'pt') {
     const emjRp = '💎';
     const emjDinheiro = '💶';
 
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
-    const precoReal = getCatalogPrice(calcRp, loja, true);
+    const precoReal = getCatalogPrice(calcRp, loja, 'select', lang);
 
     const formatarStr = (prefixo, emoji) => {
         return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
@@ -689,7 +690,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
     const opcoesMenu = [];
     for (const r of pageItems) {
-        const info = obterDetalhesItem(r.nome, tipoFiltro, loja, '0.00', r.rawItem);
+        const info = obterDetalhesItem(r.nome, tipoFiltro, loja, '0.00', r.rawItem, lang);
         const baseName = r.nome.length > 90 ? r.nome.substring(0, 90) : r.nome;
         opcoesMenu.push({
             label: r.nome.substring(0, 100) || 'Unknown Item',
