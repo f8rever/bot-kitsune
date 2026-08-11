@@ -857,8 +857,9 @@ async def gift_send():
         
             
 
-        if data.get("task") in ( "gift","order"):
+        if data.get("task") == "order":
             user_document = users_key_collection.find_one({"key_api": key})
+            key_balance = 0
             if user_document:
                 key_balance = user_document.get("balance", 0)  # Obtendo o saldo atual
             try:
