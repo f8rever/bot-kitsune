@@ -1329,10 +1329,16 @@ async def gift_send():
             return jsonify({"status": "error", "message": "Internal Server Error", "exception": str(e)}), 500
     finally:
         if auth is not None:
-            await auth.close_resources()
+            try:
+                await auth.close_resources()
+            except Exception as e:
+                print(f"Error closing auth resources: {e}")
         if Giftobj is not None:
-            await Giftobj.session.close()
-            await Giftobj.tcp_connector.close()
+            try:
+                if hasattr(Giftobj, 'session') and Giftobj.session and not Giftobj.session.closed:
+                    await Giftobj.session.close()
+            except Exception as e:
+                print(f"Error closing Giftobj session: {e}")
 
 
 
