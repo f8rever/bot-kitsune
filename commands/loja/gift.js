@@ -155,9 +155,18 @@ module.exports = {
                 
                 return interaction.respond(
                     matches.slice(0, 25).map(f => {
-                        const displayName = f.name || f.nick;
+                        const displayName = f.name || f.nick || 'Invocador';
+                        let badge = '✅ Elegível';
+                        if (f.friendsSince) {
+                            const sinceDate = new Date(f.friendsSince);
+                            const diffHours = (Date.now() - sinceDate.getTime()) / (1000 * 3600);
+                            if (diffHours < 24) {
+                                const remainHours = Math.ceil(24 - diffHours);
+                                badge = `⏱️ Faltam ${remainHours}h`;
+                            }
+                        }
                         return {
-                            name: displayName,
+                            name: `${displayName} [${badge}]`,
                             value: displayName
                         };
                     })

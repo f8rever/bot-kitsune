@@ -289,7 +289,7 @@ def login():
     # Criar access token com o novo session_id
     #access_token = create_access_token(identity=[login, key, session_id], expires_delta=dt.timedelta(days=30, hours=0, minutes=0))
     
-    access_token = create_access_token(identity=[login, key, new_session_id], expires_delta=timedelta(days=30))
+    access_token = create_access_token(identity=json.dumps([login, key, new_session_id]), expires_delta=timedelta(days=30))
     response = jsonify(access_token=access_token)
     set_access_cookies(response, access_token, max_age=timedelta(days=30))
 

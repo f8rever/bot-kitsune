@@ -70,8 +70,33 @@ module.exports = {
         if (acao === 'ver_amigos') {
             try {
                 const friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+                
+                const formatTimer = (friendsSince) => {
+                    if (!friendsSince) return '⏳ Amizade recente';
+                    const sinceDate = new Date(friendsSince);
+                    if (isNaN(sinceDate.getTime())) return '⏳ Amizade recente';
+                    const diffMs = Date.now() - sinceDate.getTime();
+                    if (diffMs < 0) return '✅ Elegível para Presentes';
+                    const totalHours = diffMs / (1000 * 60 * 60);
+                    if (totalHours >= 24) {
+                        const days = Math.floor(totalHours / 24);
+                        const hours = Math.floor(totalHours % 24);
+                        const timeStr = days > 0 ? `${days}d ${hours}h` : `${hours}h`;
+                        return `✅ **Elegível para Presentes** (${timeStr})`;
+                    } else {
+                        const remainMs = (24 * 3600 * 1000) - diffMs;
+                        const remainHours = Math.floor(remainMs / (1000 * 60 * 60));
+                        const remainMins = Math.floor((remainMs % (1000 * 60 * 60)) / (1000 * 60));
+                        return `⏱️ **Aguardando 24h** (Faltam ${remainHours}h ${remainMins}m)`;
+                    }
+                };
+
                 const friendListStr = (friends && friends.length > 0)
-                    ? friends.slice(0, 25).map((f, idx) => `${idx + 1}. **${f.gameName || f.name || 'Invocador'}#${f.tagLine || 'BR1'}**`).join('\n')
+                    ? friends.slice(0, 25).map((f, idx) => {
+                        const rName = f.gameName ? `${f.gameName}#${f.tagLine}` : f.name;
+                        const timer = formatTimer(f.friendsSince);
+                        return `${idx + 1}. **${rName}**\n   └ ${timer}`;
+                    }).join('\n\n')
                     : '🟢 **Nenhum amigo adicionado nesta conta ainda.**';
 
                 const embed = buildCustomEmbed('friendlist_main', interaction.client, interaction, {
