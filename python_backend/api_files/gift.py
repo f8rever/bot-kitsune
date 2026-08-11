@@ -23,39 +23,40 @@ class Gift:
 
 
     async def send_gift(self, auth:RiotAuth , receiver_puuid, offer_id, gift_message, quantity = 1):
+        if not auth.my_puuid and auth.lol_token:
+            try:
+                import jwt
+                decoded = jwt.decode(auth.lol_token, algorithms=['HS256'], options={"verify_signature": False})
+                auth.my_puuid = decoded.get("sub")
+            except Exception:
+                pass
 
         headers = {
-            "Accept": "application/json",
-            "Authorization": f"Bearer {auth.lol_token}",
+            "accept": "application/json",
+            "authorization": f"Bearer {auth.lol_token}",
             "Content-Type": "application/json",
         }
 
         gift_body = {
             "data": {
-                "id": "ed4a64fc-4b08-411e-a2cc-7a91a6d7d834",
+                "id": "",
+                "customMessage": gift_message or "",
                 "location": auth.aws_prod,
                 "purchaser": {
-                    "id": auth.my_puuid,
-                    "typeId": "fdcaeaaf-e7c1-4e68-995c-9470e1d92aa3"
+                    "id": auth.my_puuid
                 },
-                "waitForRMS": True,
                 "source": "lol.store.purchase",
                 "subOrders": [
                     {
-                        "id": "",
-                        "recipientId": receiver_puuid,
                         "offer": {
                             "id": offer_id,
-                            "typeId": "fb035c2d-7203-4fa8-9722-f947bc5a7a1d",
-                            "label": "proxied",
-                            "productId": "d1c2664a-5938-4c41-8d1b-61fd51052c22",
-                            "active": True
+                            "productId": "d1c2664a-5938-4c41-8d1b-61fd51052c22"
                         },
                         "offerContext": {
                             "paymentOption": "RP",
-                            "quantity": quantity,
-                            "giftMessage": f"{gift_message}"
+                            "quantity": quantity
                         },
+                        "recipientId": receiver_puuid
                     }
                 ]
             },
@@ -70,7 +71,6 @@ class Gift:
             'url': f"https://{auth.league_edge_url}/services/cap/orders/orders-api/v2/products/d1c2664a-5938-4c41-8d1b-61fd51052c22/orders",
             'headers': headers,
             'json': gift_body
-
         }
 
         async with self.session.post(**post_args) as response:
