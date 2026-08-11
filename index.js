@@ -306,7 +306,9 @@ function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt', tipo = n
         else if (t === 'cromas' || t === 'chromas') catKey = 'desconto_cromas';
         else if (t === 'highlights' || t === 'bundles') catKey = 'desconto_highlights';
         else if (t === 'passes') catKey = 'desconto_passes';
-        else if (t === 'chests' || t === 'loot') catKey = 'desconto_chests';
+        else if (t === 'chests' || t === 'loot') {
+            catKey = (loja.desconto_chests !== undefined && loja.desconto_chests !== null) ? 'desconto_chests' : 'desconto_hextech';
+        }
         else if (t === 'emotes') catKey = 'desconto_emotes';
         else if (t === 'icones' || t === 'icons') catKey = 'desconto_icones';
         else if (t === 'wards' || t === 'ward') catKey = 'desconto_wards';
@@ -315,7 +317,9 @@ function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt', tipo = n
         else if (t === 'boosts') catKey = 'desconto_boosts';
         else if (t === 'eternos' || t === 'eternals') catKey = 'desconto_eternos';
         else if (t === 'misterio' || t === 'mystery') catKey = 'desconto_misterio';
-        else if (t === 'hextech') catKey = 'desconto_hextech';
+        else if (t === 'hextech') {
+            catKey = (loja.desconto_hextech !== undefined && loja.desconto_hextech !== null) ? 'desconto_hextech' : 'desconto_chests';
+        }
 
         if (catKey && loja[catKey] !== undefined && loja[catKey] !== null) {
             discountPercent = parseFloat(loja[catKey]);
