@@ -565,10 +565,21 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
+            return x.rawItem?.active !== false &&
+                (t === 'FEATURED' || t === 'HIGHLIGHT' || n.includes('signature edition') || n.includes('spotlight') || n.includes('exalted') || n.includes('transcendent'));
+        });
+        if (results.length === 0) {
+            results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE').slice(0, 30);
+        }
+        titulo = lang === 'pt' ? `🌟 ${results.length} Destaques da Loja` : `🌟 ${results.length} Store Highlights`;
+        customId = 'selecionar_highlight_menu';
+    } else if (tipoFiltro === 'bundles') {
+        results = currentCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
             return (t === 'BUNDLES' || t === 'BUNDLE') && x.rawItem?.active !== false;
         });
-        titulo = lang === 'pt' ? `📦 ${results.length} Destaques & Pacotes` : `📦 ${results.length} Highlights & Bundles`;
-        customId = 'selecionar_highlight_menu';
+        titulo = lang === 'pt' ? `📦 ${results.length} Pacotes & Conjuntos` : `📦 ${results.length} Bundles & Sets`;
+        customId = 'selecionar_bundle_menu';
     } else if (tipoFiltro === 'passes') {
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
@@ -715,9 +726,14 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     btnRow.addComponents(
         new ButtonBuilder()
             .setCustomId(`voltar_menu_modal`)
-            .setLabel('Back to Menu')
+            .setLabel('Menu')
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
+            .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim()),
+        new ButtonBuilder()
+            .setCustomId(`btn_search_cat_${tipoFiltro}`)
+            .setLabel('Search')
+            .setStyle(ButtonStyle.Success)
+            .setEmoji('🔍')
     );
 
     if (totalPages > 1) {
@@ -1105,6 +1121,11 @@ client.on('interactionCreate', async interaction => {
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
                     await new Promise(resolve => setTimeout(resolve, 2500));
                     await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
+                } else if (opcao === 'compra_bundles') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    await enviarPaginaCatalogo(interaction, 'bundles', 0, false);
                 } else if (opcao === 'compra_eternos') {
                     abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
                 } else if (opcao === 'compra_misterio') {
@@ -1150,7 +1171,7 @@ client.on('interactionCreate', async interaction => {
                 }
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
+            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
                 if (interaction.customId === 'selecionar_chroma_menu') tipo = 'cromas';
@@ -1158,6 +1179,7 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_champion_menu') tipo = 'champions';
                 else if (interaction.customId === 'selecionar_passe_menu') tipo = 'passes';
                 else if (interaction.customId === 'selecionar_highlight_menu') tipo = 'highlights';
+                else if (interaction.customId === 'selecionar_bundle_menu') tipo = 'bundles';
                 else if (interaction.customId === 'selecionar_misterio_menu') tipo = 'misterio';
                 else if (interaction.customId === 'selecionar_hextech_menu') tipo = 'hextech';
                 else if (interaction.customId === 'selecionar_emote_menu') tipo = 'emotes';
@@ -1278,6 +1300,10 @@ client.on('interactionCreate', async interaction => {
             }
         }
         else if (interaction.isButton()) {
+            if (interaction.customId.startsWith('btn_search_cat_')) {
+                const cat = interaction.customId.replace('btn_search_cat_', '');
+                return abrirModalBusca(interaction, `buscar_generico_modal_${cat}`, `🔍 Search in ${cat.toUpperCase()}`, 'Enter item name or champion:');
+            }
             if (interaction.customId.startsWith('pag_')) {
                 const parts = interaction.customId.split('_');
                 const tipoFiltro = parts[1]; // 'bundles' or 'passes' or 'skins' or 'cromas' or 'eternos'
@@ -2008,6 +2034,29 @@ client.on('interactionCreate', async interaction => {
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_eterno_menu', 'eternos');
             }
 
+            else if (interaction.customId.startsWith('buscar_generico_modal_')) {
+                const cat = interaction.customId.replace('buscar_generico_modal_', '');
+                const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
+                const selectMap = {
+                    'skins': 'selecionar_skin_menu',
+                    'cromas': 'selecionar_chroma_menu',
+                    'highlights': 'selecionar_highlight_menu',
+                    'bundles': 'selecionar_bundle_menu',
+                    'passes': 'selecionar_passe_menu',
+                    'champions': 'selecionar_champion_menu',
+                    'emotes': 'selecionar_emote_menu',
+                    'icones': 'selecionar_icone_menu',
+                    'wards': 'selecionar_ward_menu',
+                    'little_legends': 'selecionar_lenda_menu',
+                    'tft_arena': 'selecionar_arena_menu',
+                    'boosts': 'selecionar_boost_menu',
+                    'eternos': 'selecionar_eterno_menu',
+                    'misterio': 'selecionar_misterio_menu',
+                    'hextech': 'selecionar_hextech_menu'
+                };
+                const menuId = selectMap[cat] || 'selecionar_item_menu';
+                await buscarEExibirItens(busca, interaction, cor, menuId, cat);
+            }
             else if (interaction.customId === 'buscar_compra_campeao_modal') {
                 const busca = interaction.fields.getTextInputValue('nome_campeao_busca');
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_champion_menu', 'champions');
@@ -2093,57 +2142,85 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         await new Promise(resolve => setTimeout(resolve, 2500));
     }
 
-    const buscaLimpa = busca.trim();
+    const buscaLimpa = busca.trim().toLowerCase();
 
-    let campeaoFinal = riotCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa.toLowerCase()) && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
+    const session = userStoreSessions.get(interaction.user.id);
+    const userRegiao = (session?.regiao || 'BR').toUpperCase();
+    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+    const currentCatalog = loadFullRiotCatalog(lang);
+
+    let campeaoFinal = currentCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa) && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
 
     if (!campeaoFinal) {
-        const skinCamp = riotCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa.toLowerCase()) && x.tipo === 'CHAMPION_SKIN');
+        const skinCamp = currentCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa) && x.tipo === 'CHAMPION_SKIN');
         if (skinCamp && skinCamp.parent_id) {
             campeaoFinal = {
                 id: skinCamp.parent_id,
-                nome: buscaLimpa.charAt(0).toUpperCase() + buscaLimpa.slice(1)
+                nome: busca.trim()
             };
         }
     }
 
-    if (!campeaoFinal) {
-        const btnTentar = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId(`tentar_novamente_${tipoFiltro}`).setLabel('Try Again').setStyle(ButtonStyle.Primary).setEmoji('🔄')
-        );
-        const msg = `❌ Could not find any champion matching **"${buscaLimpa}"**.`;
-        if (interaction.replied || interaction.deferred) return interaction.editReply({ content: msg, embeds: [], components: [btnTentar] });
-        if (isUpdate) return interaction.update({ content: msg, embeds: [], components: [btnTentar] });
-        return interaction.reply({ content: msg, embeds: [], components: [btnTentar], ephemeral: true });
-    }
-
     let results = [];
     if (tipoFiltro === 'skins') {
-        const skins = riotCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType !== 'RECOLOR');
-        const signatureBundles = riotCatalog.filter(x =>
-            (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
-            x.nome.toLowerCase().includes('signature edition') &&
-            x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase())
-        );
-        results = [...skins, ...signatureBundles];
+        if (campeaoFinal) {
+            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType !== 'RECOLOR');
+            const signatureBundles = currentCatalog.filter(x =>
+                (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
+                x.nome.toLowerCase().includes('signature edition') &&
+                x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase())
+            );
+            results = [...skins, ...signatureBundles];
+        } else {
+            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa));
+        }
     } else if (tipoFiltro === 'cromas') {
-        results = riotCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType === 'RECOLOR');
+        if (campeaoFinal) {
+            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType === 'RECOLOR');
+        } else {
+            results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa) && (x.rawItem?.subInventoryType === 'RECOLOR' || x.nome.toLowerCase().includes('chroma')));
+        }
     } else if (tipoFiltro === 'eternos') {
-        results = riotCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'STATSTONE');
+        if (campeaoFinal) {
+            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'STATSTONE');
+        } else {
+            results = currentCatalog.filter(x => x.tipo === 'STATSTONE' && x.nome.toLowerCase().includes(buscaLimpa));
+        }
     } else if (tipoFiltro === 'champions') {
-        const c = riotCatalog.find(x => x.id === campeaoFinal.id && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
-        if (c) results = [c];
-    }
-
-    if (results.length === 0 && tipoFiltro === 'skins') {
-        return buscarEExibirItens(campeaoFinal.nome, interaction, cor, 'selecionar_chroma_menu', 'cromas', 0, isUpdate);
+        if (campeaoFinal) {
+            const c = currentCatalog.find(x => x.id === campeaoFinal.id && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
+            if (c) results = [c];
+        }
+        if (results.length === 0) {
+            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS') && x.nome.toLowerCase().includes(buscaLimpa));
+        }
+    } else if (tipoFiltro === 'emotes') {
+        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE' && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'icones') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'SUMMONER_ICON' || (x.tipo || '').toUpperCase() === 'ICON') && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'wards') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'WARD_SKIN' || (x.tipo || '').toUpperCase() === 'WARD') && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'little_legends') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'COMPANION' || (x.tipo || '').toUpperCase() === 'LITTLELEGENDS') && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'tft_arena') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'TFT_MAP_SKIN' || (x.tipo || '').toUpperCase() === 'TFTARENA' || (x.tipo || '').toUpperCase() === 'TFT_DAMAGE_SKIN') && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'boosts') {
+        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BOOST' && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'misterio') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'MYSTERY' || x.nome.toLowerCase().includes('mystery') || x.nome.toLowerCase().includes('mistério')) && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'hextech') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'HEXTECH_CRAFTING' || (x.tipo || '').toUpperCase() === 'HEXTECH' || x.nome.toLowerCase().includes('hextech')) && x.nome.toLowerCase().includes(buscaLimpa));
+    } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && x.nome.toLowerCase().includes(buscaLimpa));
+    } else {
+        results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa));
     }
 
     if (results.length === 0) {
         const btnTentar = new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId(`tentar_novamente_${tipoFiltro}`).setLabel('Try Again').setStyle(ButtonStyle.Primary).setEmoji('🔄')
         );
-        const msg = `❌ No ${tipoFiltro} found for **${campeaoFinal.nome}**.`;
+        const msg = `❌ Could not find any item matching **"${busca.trim()}"** in **${tipoFiltro}**.`;
         if (interaction.replied || interaction.deferred) return interaction.editReply({ content: msg, embeds: [], components: [btnTentar] });
         if (isUpdate) return interaction.update({ content: msg, embeds: [], components: [btnTentar] });
         return interaction.reply({ content: msg, embeds: [], components: [btnTentar], ephemeral: true });
