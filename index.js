@@ -60,7 +60,7 @@ function loadFullRiotCatalog(lang = 'en') {
                         let priceRp = info.price_rp;
                         if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
                         items.push({
-                            id: info.offer_id || info.item_id || itemName,
+                            id: info.item_id || info.offer_id || itemName,
                             nome: itemName,
                             tipo: (info.inventory_type || catName).toUpperCase(),
                             parent_id: info.parent_id || null,
@@ -952,18 +952,22 @@ async function atualizarEmbedTicket(channel, client) {
                     const champKey = champMap[catItemEncontrado.id];
                     if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
                 }
-            } else if (item.tipo === 'highlights' || item.tipo === 'passes') {
-                if (catItemEncontrado && catItemEncontrado.iconUrl) {
-                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
-                } else {
-                    const lojaConfig = obterDadosLoja();
-                    if (lojaConfig?.banners?.bundles) {
-                        ddragonUrl = lojaConfig.banners.bundles;
-                    }
-                }
             } else {
-                if (catItemEncontrado && catItemEncontrado.iconUrl) {
-                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                // Construct Cloudfront bundle URL for passes, orbs, hextech bundles, highlights, and others if they have valid numeric IDs
+                const itemIdNum = parseInt(item.itemId || catItemEncontrado?.id, 10);
+                if (itemIdNum && !isNaN(itemIdNum) && itemIdNum >= 10000) {
+                    ddragonUrl = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemIdNum}.png`;
+                }
+
+                if (!ddragonUrl) {
+                    if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                        ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                    } else {
+                        const lojaConfig = obterDadosLoja();
+                        if (lojaConfig?.banners?.bundles) {
+                            ddragonUrl = lojaConfig.banners.bundles;
+                        }
+                    }
                 }
             }
 
