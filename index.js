@@ -561,7 +561,21 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     let titulo = '';
     let customId = '';
 
-    if (tipoFiltro === 'highlights') {
+    if (tipoFiltro === 'skins') {
+        results = currentCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && x.rawItem?.subInventoryType !== 'RECOLOR' && x.rawItem?.active !== false;
+        });
+        titulo = lang === 'pt' ? `👕 ${results.length} Skins de Campeões` : `👕 ${results.length} Champion Skins`;
+        customId = 'selecionar_skin_menu';
+    } else if (tipoFiltro === 'cromas') {
+        results = currentCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && x.rawItem?.subInventoryType === 'RECOLOR' && x.rawItem?.active !== false;
+        });
+        titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
+        customId = 'selecionar_chroma_menu';
+    } else if (tipoFiltro === 'highlights') {
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
@@ -1106,9 +1120,15 @@ client.on('interactionCreate', async interaction => {
                 const opcao = interaction.values[0];
 
                 if (opcao === 'compra_skins') {
-                    abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'skins', 0, false);
                 } else if (opcao === 'compra_chromas') {
-                    abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🔍 Search Chromas', 'Enter the champion\'s name:');
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'cromas', 0, false);
                 } else if (opcao === 'compra_champions') {
                     abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_passes') {
@@ -2149,30 +2169,32 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
     const currentCatalog = loadFullRiotCatalog(lang);
 
-    let campeaoFinal = currentCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa) && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
+    let campeaoFinal = currentCatalog.find(x =>
+        (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS') &&
+        (x.nome.toLowerCase() === buscaLimpa || x.nome.toLowerCase().includes(buscaLimpa))
+    );
 
     if (!campeaoFinal) {
         const skinCamp = currentCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa) && x.tipo === 'CHAMPION_SKIN');
         if (skinCamp && skinCamp.parent_id) {
-            campeaoFinal = {
-                id: skinCamp.parent_id,
-                nome: busca.trim()
-            };
+            const champMatch = currentCatalog.find(x => x.id === skinCamp.parent_id && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
+            if (champMatch) campeaoFinal = champMatch;
         }
     }
 
     let results = [];
     if (tipoFiltro === 'skins') {
         if (campeaoFinal) {
-            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'CHAMPION_SKIN' && x.rawItem?.subInventoryType !== 'RECOLOR');
+            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.rawItem?.subInventoryType !== 'RECOLOR');
             const signatureBundles = currentCatalog.filter(x =>
                 (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
                 x.nome.toLowerCase().includes('signature edition') &&
                 x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase())
             );
             results = [...skins, ...signatureBundles];
-        } else {
-            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa));
+        }
+        if (results.length === 0) {
+            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa) && x.rawItem?.subInventoryType !== 'RECOLOR');
         }
     } else if (tipoFiltro === 'cromas') {
         if (campeaoFinal) {
@@ -2241,18 +2263,19 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     const embedId = 'catalog_' + tipoFiltro;
+    const champNome = campeaoFinal ? campeaoFinal.nome : busca.trim();
 
     let embedConfirmacao = buildCustomEmbed(embedId, interaction?.client, interaction, {
         count: results.length.toString(),
         page: (pagina + 1).toString(),
         totalPages: totalPages.toString(),
-        campeao: campeaoFinal.nome,
+        campeao: champNome,
         emoji: '✨'
     });
 
     if (!embedConfirmacao.data.title) {
         let catTitle = tipoFiltro === 'skins' ? 'skins' : tipoFiltro === 'cromas' ? 'chromas' : tipoFiltro === 'eternos' ? 'eternals' : 'champions';
-        embedConfirmacao.setTitle(`📦 ${results.length} ${catTitle} of ${campeaoFinal.nome}`);
+        embedConfirmacao.setTitle(`📦 ${results.length} ${catTitle} matching "${champNome}"`);
     }
 
     if (!embedConfirmacao.data.description) {
@@ -2262,7 +2285,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     if (!customEmbeds[embedId]?.color) embedConfirmacao.setColor(cor);
 
-    if (customEmbeds[embedId]?.syncImage !== false) {
+    if (customEmbeds[embedId]?.syncImage !== false && campeaoFinal) {
         const champMap = require('./data/championMap.json');
         const champKey = champMap[campeaoFinal.id];
         if (champKey) {
