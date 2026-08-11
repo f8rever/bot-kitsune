@@ -587,10 +587,20 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         customId = 'selecionar_chroma_menu';
     } else if (tipoFiltro === 'highlights') {
         results = currentCatalog.filter(x => {
-            const n = x.nome.toLowerCase();
+            const n = (x.nome || '').toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return x.rawItem?.active !== false &&
-                (t === 'FEATURED' || t === 'HIGHLIGHT' || n.includes('signature edition') || n.includes('spotlight') || n.includes('exalted') || n.includes('transcendent'));
+            if (x.rawItem?.active === false) return false;
+            if (n.includes('prestige') && (n.includes('veigar') || n.includes('cripta'))) return false;
+
+            return (
+                t === 'FEATURED' || t === 'HIGHLIGHT' ||
+                n.includes('pass') || n.includes('passe') ||
+                n.includes('orb') || n.includes('orbe') ||
+                n.includes('mystery') || n.includes('misteri') ||
+                n.includes('signature') || n.includes('autograf') ||
+                n.includes('mvp') || n.includes('t1') ||
+                n.includes('spotlight') || n.includes('exalted') || n.includes('transcendent')
+            );
         });
         if (results.length === 0) {
             results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE').slice(0, 30);
@@ -849,7 +859,9 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         eVariacao = (customEmojis?.skins?.champion || '🌟').trim();
     } else {
         const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
-        const detalhes = obterDetalhesItem(nomeReal, tipoFiltro, loja, '0.00', raw);
+        const userRegiao = (session?.regiao || 'BR').toUpperCase();
+        const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+        const detalhes = obterDetalhesItem(nomeReal, tipoFiltro, loja, '0.00', raw, lang);
         const partes = detalhes.desc.split('|');
         variacao = partes[0].trim();
         if (detalhes.emoji) {
@@ -2307,7 +2319,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     const opcoesMenu = [];
 
     for (const row of pageItems) {
-        const info = obterDetalhesItem(row.nome, tipoFiltro, loja, '0.00', row.rawItem);
+        const info = obterDetalhesItem(row.nome, tipoFiltro, loja, '0.00', row.rawItem, lang);
         const baseName = row.nome.length > 90 ? row.nome.substring(0, 90) : row.nome;
         opcoesMenu.push({
             label: row.nome.substring(0, 100),
