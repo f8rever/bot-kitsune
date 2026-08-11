@@ -150,9 +150,10 @@ class Gift:
     
     def get_gift_id(self, inventory_type, item_id):
         # Verifica as condições especificadas e retorna o GiftId apropriado
-        if inventory_type == "CHAMPION":
+        inv_type = (str(inventory_type) if inventory_type else '').upper()
+        if inv_type == "CHAMPION":
             return 1
-        elif inventory_type == "MYSTERY":
+        elif inv_type == "MYSTERY":
             if item_id == 1:
                 return 3
             elif item_id == 4:
@@ -163,20 +164,21 @@ class Gift:
                 return 100
             elif item_id == 60:
                 return 110
-        elif inventory_type == "CHAMPION_SKIN":
+            return 3
+        elif inv_type == "CHAMPION_SKIN":
             return 2
-        elif inventory_type == "WARD_SKIN":
+        elif inv_type == "WARD_SKIN":
             return 8
-        elif inventory_type == "SUMMONER_ICON":
+        elif inv_type == "SUMMONER_ICON":
             return 5
-        elif inventory_type in ["BUNDLES", "HEXTECH_CRAFTING"]:
+        elif inv_type in ["BUNDLES", "BUNDLE", "HEXTECH_CRAFTING", "EVENT_PASS", "PASS", "FEATURED", "HIGHLIGHT", "COMPANION", "LITTLELEGENDS", "EMOTE", "EMOTES", "STATSTONE"]:
             return 1010
-        elif inventory_type == "SPELL_BOOK_PAGE":
+        elif inv_type == "SPELL_BOOK_PAGE":
             return 6
-        elif inventory_type == "RP":
+        elif inv_type == "RP":
             return 7
         else:
-            return 0
+            return 1010
         
 
     async def send_rp(self, receiver_puuid):

@@ -1150,14 +1150,25 @@ async def gift_send():
 
                     await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_ip,inventory_type, gift_message) 
                 else:
-                    await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
+                    v2_success = False
+                    try:
+                        v2_success = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
+                    except Exception as e:
+                        print(f"V2 send_gift error: {e}")
                     
-                    #gift_info = await auth.friendlist_gift_info()
-                    #receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
-                    #item_id = data.get("item_id")
-                    #inventory_type = data.get("inventory_type")
-                    #item_price_rp = data.get("price")
-                    #await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp,inventory_type, gift_message)
+                    await asyncio.sleep(2)
+                    check_rp, _ = await auth.get_saldo_rp()
+                    if not v2_success or check_rp >= auth.rp_amount:
+                        print("V2 gift failed or balance unchanged. Attempting send_gift_v3 fallback...")
+                        try:
+                            gift_info = await auth.friendlist_gift_info()
+                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
+                            item_id = data.get("item_id")
+                            inventory_type = data.get("inventory_type") or "BUNDLES"
+                            item_price_rp = data.get("price")
+                            await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
+                        except Exception as e3:
+                            print(f"send_gift_v3 fallback error: {e3}")
 
                 #await Giftobj.session.close()
                 #await Giftobj.tcp_connector.close()
