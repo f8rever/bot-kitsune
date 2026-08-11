@@ -74,15 +74,18 @@ class Gift:
         }
 
         async with self.session.post(**post_args) as response:
-            gift_response = await response.json()
+            try:
+                gift_response = await response.json()
+            except Exception:
+                gift_response = await response.text()
             gift_status = response.status
-            gift_response_json = json.dumps(gift_response, ensure_ascii=False)
-            print(f"\n {gift_status}")
-            print(f"\n {gift_response}")
+            print(f"\n Gift Status V2: {gift_status}")
+            print(f"\n Gift Response V2: {gift_response}")
             print("\n Gift Finished")
-            if gift_response:
+            if gift_status in [200, 201, 202, 204] and not (isinstance(gift_response, dict) and (gift_response.get("error") or gift_response.get("errorCode"))):
                 self.status = True
-
+            else:
+                self.status = False
 
         return self.status
     
@@ -109,8 +112,6 @@ class Gift:
             "Accept-Language": "en-US,en;q=0.9"
         }
 
-
-
         gift_body = {
             "customMessage": gift_message,
             "receiverSummonerId": summoner_id,
@@ -136,15 +137,18 @@ class Gift:
 
         print(f"\n {gift_body}")
         async with self.session.post(**post_args) as response:
-            gift_response = await response.json()
+            try:
+                gift_response = await response.json()
+            except Exception:
+                gift_response = await response.text()
             gift_status = response.status
-            gift_response_json = json.dumps(gift_response, ensure_ascii=False)
-            print(f"\n {gift_status}")
-            print(f"\n {gift_response}")
+            print(f"\n Gift Status V3: {gift_status}")
+            print(f"\n Gift Response V3: {gift_response}")
             print("\n Gift Finished (v3)")
-            if gift_response:
+            if gift_status in [200, 201, 202, 204] and not (isinstance(gift_response, dict) and (gift_response.get("error") or gift_response.get("errorCode"))):
                 self.status = True
-
+            else:
+                self.status = False
 
         return self.status
     

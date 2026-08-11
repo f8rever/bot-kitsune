@@ -1502,21 +1502,22 @@ def format_time_difference(time_difference):
     return f"{days} days and {hours} hours"
 
 def get_summoner_id(gift_info, receiver_riotId):
-
-    for friend in gift_info['friends']:
-        
-        #print(f"\n Comparing {friend['nick']} with {new_transaction["receiver"]} ")
-        friend_key = friend['nick'].replace(" ", "").lower()
-
-        if friend_key == receiver_riotId.replace(" ", "").lower():
-            found_flag = True
-            if friend['friendsSince'] is None or friend['friendsSince'] == "":
-                return "No Time"
-            else:
-                summonerId = friend['summonerId']
-                return summonerId
+    if not gift_info or not isinstance(gift_info, dict) or 'friends' not in gift_info:
+        return None
     
-    return "Not giftable"
+    target_clean = (receiver_riotId or '').replace(" ", "").lower()
+    
+    for friend in gift_info.get('friends', []):
+        nick = (friend.get('nick') or '').replace(" ", "").lower()
+        if nick == target_clean:
+            return friend.get('summonerId') or friend.get('id')
+            
+    for friend in gift_info.get('friends', []):
+        nick = (friend.get('nick') or '').replace(" ", "").lower()
+        if target_clean in nick or nick in target_clean:
+            return friend.get('summonerId') or friend.get('id')
+            
+    return None
 
 
 
