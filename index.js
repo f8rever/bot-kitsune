@@ -23,71 +23,91 @@ const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
-const catalogCacheMap = new Map();
+function loadFullRiotCatalog() {
+    const loadFile = (lang) => {
+        const isPt = (lang === 'pt' || lang === 'br' || lang === 'pt-br');
+        const targetFile = isPt ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
+        const fallbackFile = isPt ? 'catalog_cache_en.json' : 'catalog_cache_pt.json';
 
-function loadFullRiotCatalog(lang = 'pt') {
-    const isPt = (lang === 'pt' || lang === 'br' || lang === 'pt-br');
-    const cacheKey = isPt ? 'pt' : 'en';
+        let catalogPath = [
+            path.join(__dirname, 'config', targetFile),
+            path.join(__dirname, 'lol_giftapi-main', targetFile),
+            path.join(__dirname, 'python_backend', targetFile),
+            path.join(__dirname, 'python_backend', 'api_files', targetFile),
+            path.join(__dirname, 'config', fallbackFile),
+            path.join(__dirname, 'data', 'catalogo.json')
+        ].find(p => fs.existsSync(p));
 
-    if (catalogCacheMap.has(cacheKey)) {
-        return catalogCacheMap.get(cacheKey);
-    }
+        if (!catalogPath) return [];
 
-    const targetFile = isPt ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
-    const fallbackFile = isPt ? 'catalog_cache_en.json' : 'catalog_cache_pt.json';
+        try {
+            const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+            let items = [];
 
-    let catalogPath = [
-        path.join(__dirname, 'config', targetFile),
-        path.join(__dirname, 'lol_giftapi-main', targetFile),
-        path.join(__dirname, 'python_backend', targetFile),
-        path.join(__dirname, 'python_backend', 'api_files', targetFile),
-        path.join(__dirname, 'config', fallbackFile),
-        path.join(__dirname, 'data', 'catalogo.json')
-    ].find(p => fs.existsSync(p));
-
-    if (!catalogPath) return [];
-
-    try {
-        const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
-        let items = [];
-
-        if (Array.isArray(raw)) {
-            items = raw.map(x => ({
-                id: x.itemId || x.id,
-                nome: isPt ? (x.localizations?.pt_BR?.name || x.name || x.nome || '') : (x.localizations?.en_US?.name || x.name || x.nome || ''),
-                tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
-                parent_id: x.parent?.itemId || x.parent_id || null,
-                iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
-                price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
-                rawItem: x
-            }));
-        } else if (typeof raw === 'object' && raw !== null) {
-            for (const catName in raw) {
-                const catObj = raw[catName];
-                if (typeof catObj === 'object' && catObj !== null) {
-                    for (const itemName in catObj) {
-                        const info = catObj[itemName];
-                        let priceRp = info.price_rp;
-                        if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
-                        items.push({
-                            id: info.offer_id || info.item_id || itemName,
-                            nome: itemName,
-                            tipo: (info.inventory_type || catName).toUpperCase(),
-                            parent_id: info.parent_id || null,
-                            iconUrl: info.icon_url || null,
-                            price_rp: Number(priceRp) || 0,
-                            rawItem: info
-                        });
+            if (Array.isArray(raw)) {
+                items = raw.map(x => ({
+                    id: x.itemId || x.id,
+                    nome: isPt ? (x.localizations?.pt_BR?.name || x.name || x.nome || '') : (x.localizations?.en_US?.name || x.name || x.nome || ''),
+                    tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
+                    parent_id: x.parent?.itemId || x.parent_id || null,
+                    iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
+                    price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
+                    rawItem: x
+                }));
+            } else if (typeof raw === 'object' && raw !== null) {
+                for (const catName in raw) {
+                    const catObj = raw[catName];
+                    if (typeof catObj === 'object' && catObj !== null) {
+                        for (const itemName in catObj) {
+                            const info = catObj[itemName];
+                            let priceRp = info.price_rp;
+                            if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
+                            items.push({
+                                id: info.offer_id || info.item_id || itemName,
+                                nome: itemName,
+                                tipo: (info.inventory_type || catName).toUpperCase(),
+                                parent_id: info.parent_id || null,
+                                iconUrl: info.icon_url || null,
+                                price_rp: Number(priceRp) || 0,
+                                rawItem: info
+                            });
+                        }
                     }
                 }
             }
+            return items;
+        } catch (e) {
+            console.error(`Erro ao carregar catálogo (${lang}):`, e);
+            return [];
         }
-        catalogCacheMap.set(cacheKey, items);
-        return items;
-    } catch (e) {
-        console.error(`Erro ao carregar catálogo (${lang}):`, e);
-        return [];
-    }
+    };
+
+    const ptItems = loadFile('pt');
+    const enItems = loadFile('en');
+    const mergedMap = new Map();
+
+    const addItems = (list) => {
+        list.forEach(item => {
+            if (!item.id) return;
+            const existing = mergedMap.get(item.id);
+            if (existing) {
+                if (!existing.names) {
+                    existing.names = new Set([existing.nome.toLowerCase()]);
+                }
+                if (item.nome) {
+                    existing.names.add(item.nome.toLowerCase());
+                }
+            } else {
+                item.names = new Set([item.nome.toLowerCase()]);
+                mergedMap.set(item.id, item);
+            }
+        });
+    };
+
+    addItems(ptItems);
+    addItems(enItems);
+
+    return Array.from(mergedMap.values());
 }
 
 function isChroma(x) {
@@ -100,7 +120,24 @@ function isChroma(x) {
     return false;
 }
 
-let riotCatalog = loadFullRiotCatalog('pt');
+let riotCatalog = loadFullRiotCatalog();
+
+function findCatalogItem(itemId, name) {
+    if (itemId) {
+        const found = riotCatalog.find(x => x.id === itemId);
+        if (found) return found;
+    }
+    if (name) {
+        const nameLower = name.toLowerCase();
+        const found = riotCatalog.find(x => {
+            if (x.nome && x.nome.toLowerCase() === nameLower) return true;
+            if (x.names && x.names.has(nameLower)) return true;
+            return false;
+        });
+        if (found) return found;
+    }
+    return null;
+}
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
@@ -279,12 +316,35 @@ function getCatalogRp(item) {
     return cost;
 }
 
-function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt') {
+function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt', tipo = null) {
     if (!rpCost || isNaN(rpCost)) return '0.00';
 
-    const discountPercent = (loja && (loja.promocao_porcentagem !== undefined && loja.promocao_porcentagem !== null))
-        ? parseFloat(loja.promocao_porcentagem)
-        : 70;
+    let discountPercent = 70;
+    if (loja) {
+        const t = (tipo || '').toLowerCase();
+        let catKey = null;
+        if (t === 'skins') catKey = 'desconto_skins';
+        else if (t === 'cromas' || t === 'chromas') catKey = 'desconto_cromas';
+        else if (t === 'highlights' || t === 'bundles') catKey = 'desconto_highlights';
+        else if (t === 'passes') catKey = 'desconto_passes';
+        else if (t === 'chests' || t === 'loot') catKey = 'desconto_chests';
+        else if (t === 'emotes') catKey = 'desconto_emotes';
+        else if (t === 'icones' || t === 'icons') catKey = 'desconto_icones';
+        else if (t === 'wards' || t === 'ward') catKey = 'desconto_wards';
+        else if (t === 'little_legends') catKey = 'desconto_little_legends';
+        else if (t === 'tft_arena' || t === 'tft') catKey = 'desconto_tft_arena';
+        else if (t === 'boosts') catKey = 'desconto_boosts';
+        else if (t === 'eternos' || t === 'eternals') catKey = 'desconto_eternos';
+        else if (t === 'misterio' || t === 'mystery') catKey = 'desconto_misterio';
+        else if (t === 'hextech') catKey = 'desconto_hextech';
+
+        if (catKey && loja[catKey] !== undefined && loja[catKey] !== null) {
+            discountPercent = parseFloat(loja[catKey]);
+        } else if (loja.promocao_porcentagem !== undefined && loja.promocao_porcentagem !== null) {
+            discountPercent = parseFloat(loja.promocao_porcentagem);
+        }
+    }
+
     const multiplier = (100 - discountPercent) / 100;
     const wasLabel = lang === 'en' ? 'Was' : 'De';
 
@@ -800,10 +860,24 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     let itemSelecionadoLines = [];
     let valorRPLines = [];
     
+    let totalBasePrice = 0;
+    let totalFinalPrice = 0;
+    
     cart.items.forEach((item, index) => {
         totalRP += item.rp;
         itemSelecionadoLines.push(`${index + 1}. ${item.nome}`);
         valorRPLines.push(`${index + 1}. ${item.rp} RP`);
+        
+        // Calculate individual prices
+        const dummyLoja = { ...loja, promocao_porcentagem: 0 };
+        for (const k in dummyLoja) {
+            if (k.startsWith('desconto_')) dummyLoja[k] = 0;
+        }
+        const basePrice = parseFloat(getCatalogPrice(item.rp, dummyLoja, false, lang, item.tipo));
+        const finalPrice = parseFloat(getCatalogPrice(item.rp, loja, false, lang, item.tipo));
+        
+        totalBasePrice += basePrice;
+        totalFinalPrice += finalPrice;
     });
     
     if (cart.items.length > 1) {
@@ -811,8 +885,15 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         valorRPLines.push(`Total: ${totalRP} RP`);
     }
     
-    const precoRealStr = getCatalogPrice(totalRP, loja, 'embed', lang);
-    const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
+    // Now format the total cash price
+    let valorDinheiro = '';
+    const wasLabel = lang === 'en' ? 'Was' : 'De';
+    if (totalBasePrice > totalFinalPrice) {
+        const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
+        valorDinheiro = `~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
+    } else {
+        valorDinheiro = `€${totalFinalPrice.toFixed(2)}`;
+    }
     
     const firstItemRarity = cart.items[0] ? cart.items[0].variacao : 'Unknown';
     
@@ -867,9 +948,7 @@ async function atualizarEmbedTicket(channel, client) {
         const champMap = require('./data/championMap.json');
         cart.items.forEach((item, index) => {
             let ddragonUrl = null;
-            const catItemEncontrado = item.itemId 
-                ? riotCatalog.find(x => x.id === item.itemId) 
-                : riotCatalog.find(x => x.nome === item.nome);
+            const catItemEncontrado = findCatalogItem(item.itemId, item.nome);
             
             if (item.tipo === 'skins' || item.tipo === 'cromas') {
                 if (catItemEncontrado && catItemEncontrado.parent_id) {
@@ -988,7 +1067,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         nomeReal = p[0];
         itemId = parseInt(p[1], 10);
     }
-    const catItemEncontrado = itemId ? riotCatalog.find(x => x.id === itemId) : riotCatalog.find(x => x.nome === nomeReal);
+    const catItemEncontrado = findCatalogItem(itemId, nomeReal);
 
     if (tipoFiltro === 'champions') {
         variacao = 'Champion';
@@ -1011,7 +1090,8 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     }
 
     const calcRp = getItemRpValue(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
-    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed');
+    const lang = (session.regiao.toUpperCase() === 'BR' || session.regiao.toUpperCase() === 'BR1') ? 'pt' : 'en';
+    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed', lang, tipoFiltro);
     const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
 
     const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
@@ -1355,7 +1435,7 @@ client.on('interactionCreate', async interaction => {
                         nomeReal = p[0];
                         itemId = parseInt(p[1], 10);
                     }
-                    const catItemEncontrado = itemId ? riotCatalog.find(x => x.id === itemId) : riotCatalog.find(x => x.nome === nomeReal);
+                    const catItemEncontrado = findCatalogItem(itemId, nomeReal);
                     
                     let variacao = 'Unknown';
                     let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
