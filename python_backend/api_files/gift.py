@@ -91,9 +91,28 @@ class Gift:
     
 
     async def send_gift_v3(self, auth:RiotAuth , summoner_id, item_id, item_price,inventory_type , gift_message, Qtd = 1):
+        if not auth.accountId:
+            try:
+                await auth.get_saldo_rp()
+            except Exception as e:
+                print(f"Error fetching accountId in send_gift_v3: {e}")
 
-        giftId = 0
         giftId = self.get_gift_id(inventory_type, item_id)
+
+        try:
+            rec_id = int(summoner_id)
+        except (ValueError, TypeError):
+            rec_id = summoner_id
+
+        try:
+            itm_id = int(item_id)
+        except (ValueError, TypeError):
+            itm_id = item_id
+
+        try:
+            rp_cost = int(item_price)
+        except (ValueError, TypeError):
+            rp_cost = item_price
 
         headers = {
             "Host": f"{auth.league_edge_url}",
@@ -113,19 +132,19 @@ class Gift:
         }
 
         gift_body = {
-            "customMessage": gift_message,
-            "receiverSummonerId": summoner_id,
+            "customMessage": gift_message or "",
+            "receiverSummonerId": rec_id,
             "giftItemId": giftId,
             "accountId": auth.accountId,
             "items":[
                 {
-                    "inventoryType": inventory_type,
-                    "itemId":item_id,
+                    "inventoryType": str(inventory_type),
+                    "itemId": itm_id,
                     "ipCost": 0,
-                    "rpCost": item_price,
-                    "quantity":1,
+                    "rpCost": rp_cost,
+                    "quantity": 1,
                 }
-                   ]
+            ]
         }
         
         post_args = {
