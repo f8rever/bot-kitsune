@@ -838,6 +838,10 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     }
 }
 
+function strike(text) {
+    return text.split('').map(char => char + '\u0336').join('');
+}
+
 function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     let totalRP = 0;
     let itemSelecionadoLines = [];
@@ -866,7 +870,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         let itemPriceStr = '';
         if (basePrice > finalPrice) {
             const itemDiscount = Math.round((1 - (finalPrice / basePrice)) * 100);
-            itemPriceStr = `~~€${basePrice.toFixed(2)}~~ 🔥 **€${finalPrice.toFixed(2)}** (-${itemDiscount}%)`;
+            itemPriceStr = `${strike(`€${basePrice.toFixed(2)}`)} 🔥 €${finalPrice.toFixed(2)} (-${itemDiscount}%)`;
         } else {
             itemPriceStr = `€${finalPrice.toFixed(2)}`;
         }
@@ -878,14 +882,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         valorRPLines.push(`Total: ${totalRP} RP`);
         
         valorDinheiroLines.push('---');
-        let totalValDinheiro = '';
-        if (totalBasePrice > totalFinalPrice) {
-            const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
-            totalValDinheiro = `Total: ~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
-        } else {
-            totalValDinheiro = `Total: €${totalFinalPrice.toFixed(2)}`;
-        }
-        valorDinheiroLines.push(totalValDinheiro);
+        valorDinheiroLines.push(`💵 Total: €${totalFinalPrice.toFixed(2)}`);
     }
     
     let finalValorDinheiro = '';
@@ -894,7 +891,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     } else {
         if (totalBasePrice > totalFinalPrice) {
             const averageDiscount = Math.round((1 - (totalFinalPrice / totalBasePrice)) * 100);
-            finalValorDinheiro = `~~€${totalBasePrice.toFixed(2)}~~ 🔥 **€${totalFinalPrice.toFixed(2)}** (-${averageDiscount}%)`;
+            finalValorDinheiro = `${strike(`€${totalBasePrice.toFixed(2)}`)} 🔥 €${totalFinalPrice.toFixed(2)} (-${averageDiscount}%)`;
         } else {
             finalValorDinheiro = `€${totalFinalPrice.toFixed(2)}`;
         }
