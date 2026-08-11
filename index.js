@@ -23,100 +23,79 @@ const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
-function loadFullRiotCatalog() {
-    const loadFile = (lang) => {
-        const isPt = (lang === 'pt' || lang === 'br' || lang === 'pt-br');
-        const targetFile = isPt ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
-        const fallbackFile = isPt ? 'catalog_cache_en.json' : 'catalog_cache_pt.json';
+function loadFullRiotCatalog(lang = 'en') {
+    // Force English catalog as requested by user to prevent any localization/rarity issues
+    const targetFile = 'catalog_cache_en.json';
 
-        let catalogPath = [
-            path.join(__dirname, 'config', targetFile),
-            path.join(__dirname, 'lol_giftapi-main', targetFile),
-            path.join(__dirname, 'python_backend', targetFile),
-            path.join(__dirname, 'python_backend', 'api_files', targetFile),
-            path.join(__dirname, 'config', fallbackFile),
-            path.join(__dirname, 'data', 'catalogo.json')
-        ].find(p => fs.existsSync(p));
+    let catalogPath = [
+        path.join(__dirname, 'config', targetFile),
+        path.join(__dirname, 'lol_giftapi-main', targetFile),
+        path.join(__dirname, 'python_backend', targetFile),
+        path.join(__dirname, 'python_backend', 'api_files', targetFile),
+        path.join(__dirname, 'data', 'catalogo.json')
+    ].find(p => fs.existsSync(p));
 
-        if (!catalogPath) return [];
+    if (!catalogPath) return [];
 
-        try {
-            const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
-            let items = [];
+    try {
+        const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+        let items = [];
 
-            if (Array.isArray(raw)) {
-                items = raw.map(x => ({
-                    id: x.itemId || x.id,
-                    nome: isPt ? (x.localizations?.pt_BR?.name || x.name || x.nome || '') : (x.localizations?.en_US?.name || x.name || x.nome || ''),
-                    tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
-                    parent_id: x.parent?.itemId || x.parent_id || null,
-                    iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
-                    price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
-                    rawItem: x
-                }));
-            } else if (typeof raw === 'object' && raw !== null) {
-                for (const catName in raw) {
-                    const catObj = raw[catName];
-                    if (typeof catObj === 'object' && catObj !== null) {
-                        for (const itemName in catObj) {
-                            const info = catObj[itemName];
-                            let priceRp = info.price_rp;
-                            if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
-                            items.push({
-                                id: info.offer_id || info.item_id || itemName,
-                                nome: itemName,
-                                tipo: (info.inventory_type || catName).toUpperCase(),
-                                parent_id: info.parent_id || null,
-                                iconUrl: info.icon_url || null,
-                                price_rp: Number(priceRp) || 0,
-                                rawItem: info
-                            });
-                        }
+        if (Array.isArray(raw)) {
+            items = raw.map(x => ({
+                id: x.itemId || x.id,
+                nome: x.localizations?.en_US?.name || x.name || x.nome || '',
+                tipo: (x.inventoryType || x.tipo || 'DEFAULT').toUpperCase(),
+                parent_id: x.parent?.itemId || x.parent_id || null,
+                iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
+                price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
+                rawItem: x
+            }));
+        } else if (typeof raw === 'object' && raw !== null) {
+            for (const catName in raw) {
+                const catObj = raw[catName];
+                if (typeof catObj === 'object' && catObj !== null) {
+                    for (const itemName in catObj) {
+                        const info = catObj[itemName];
+                        let priceRp = info.price_rp;
+                        if (priceRp === 'Null' || priceRp === null || priceRp === undefined) priceRp = 0;
+                        items.push({
+                            id: info.offer_id || info.item_id || itemName,
+                            nome: itemName,
+                            tipo: (info.inventory_type || catName).toUpperCase(),
+                            parent_id: info.parent_id || null,
+                            iconUrl: info.icon_url || null,
+                            price_rp: Number(priceRp) || 0,
+                            rawItem: info
+                        });
                     }
                 }
             }
-            return items;
-        } catch (e) {
-            console.error(`Erro ao carregar catálogo (${lang}):`, e);
-            return [];
         }
-    };
 
-    const ptItems = loadFile('pt');
-    const enItems = loadFile('en');
-    const mergedMap = new Map();
-
-    const addItems = (list) => {
-        list.forEach(item => {
+        const mergedMap = new Map();
+        items.forEach(item => {
             if (!item.id) return;
-            const existing = mergedMap.get(item.id);
-            if (existing) {
-                if (!existing.names) {
-                    existing.names = new Set([existing.nome.toLowerCase()]);
-                }
-                if (item.nome) {
-                    existing.names.add(item.nome.toLowerCase());
-                }
-            } else {
-                item.names = new Set([item.nome.toLowerCase()]);
-                mergedMap.set(item.id, item);
-            }
+            item.names = new Set([item.nome.toLowerCase()]);
+            mergedMap.set(item.id, item);
         });
-    };
 
-    addItems(ptItems);
-    addItems(enItems);
-
-    return Array.from(mergedMap.values());
+        return Array.from(mergedMap.values());
+    } catch (e) {
+        console.error(`Erro ao carregar catálogo:`, e);
+        return [];
+    }
 }
 
 function isChroma(x) {
     if (!x) return false;
-    const sub = (x.rawItem?.subInventoryType || x.rawItem?.sub_inventory_type || x.subInventoryType || '').toUpperCase();
+    const raw = x.rawItem || x;
+    const sub = (raw.subInventoryType || raw.sub_inventory_type || x.subInventoryType || '').toUpperCase();
     if (sub === 'RECOLOR' || sub.includes('CHROMA')) return true;
+    if (x.parent_id || raw.parent_id || raw.parentId) return true;
     const name = (x.nome || x.name || '').toLowerCase();
-    if (name.includes('(chroma') || name.includes(' chroma') || name.includes(' croma') || name.includes('(croma')) return true;
-    if (/\((emerald|ruby|pearl|sapphire|catseye|tanzanite|obsidian|rose quartz|citrine|turquoise|amethyst|aquamarine|rainbow|sandstone|granite|meteorite|merc|chroma|croma)\)/i.test(name)) return true;
+    if (name.includes('chroma') || name.includes('croma')) return true;
+    if (/\((.*?)\)/.test(name)) return true;
     return false;
 }
 
@@ -501,7 +480,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
 
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
-    const precoReal = getCatalogPrice(calcRp, loja, 'select', lang);
+    const precoReal = getCatalogPrice(calcRp, loja, 'select', lang, tipoFiltro);
 
     const formatarStr = (prefixo, emoji) => {
         return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
@@ -951,13 +930,21 @@ async function atualizarEmbedTicket(channel, client) {
             const catItemEncontrado = findCatalogItem(item.itemId, item.nome);
             
             if (item.tipo === 'skins' || item.tipo === 'cromas') {
-                if (catItemEncontrado && catItemEncontrado.parent_id) {
-                    const champKey = champMap[catItemEncontrado.parent_id];
-                    if (champKey) {
-                        const skinNum = catItemEncontrado.id % 1000;
-                        ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_${skinNum}.jpg`;
+                if (catItemEncontrado) {
+                    let skinId = parseInt(catItemEncontrado.id, 10);
+                    if (item.tipo === 'cromas' && catItemEncontrado.parent_id) {
+                        skinId = parseInt(catItemEncontrado.parent_id, 10);
                     }
-                } else if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    if (skinId && !isNaN(skinId)) {
+                        const champId = Math.floor(skinId / 1000);
+                        const champKey = champMap[champId];
+                        if (champKey) {
+                            const skinNum = skinId % 1000;
+                            ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_${skinNum}.jpg`;
+                        }
+                    }
+                }
+                if (!ddragonUrl && catItemEncontrado && catItemEncontrado.iconUrl) {
                     ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
                 }
             } else if (item.tipo === 'champions') {
