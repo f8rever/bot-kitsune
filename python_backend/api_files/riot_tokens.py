@@ -336,8 +336,7 @@ class RiotAuth:
             except Exception as geopas_error:
                 print(f"Erro ao obter o token do GeoPas: {geopas_error}")
 
-            # Verificando se todos os tokens foram obtidos com sucesso
-            if self.riot_token and self.lol_token and self.geopas_token and self.geopas_afinity:
+            if self.lol_token:
                 self.auth_result = True
 
                 # Salva os tokens no cache com o timestamp atual
