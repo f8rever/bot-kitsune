@@ -420,10 +420,10 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null) 
 
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
-    const precoReal = getCatalogPrice(calcRp, loja);
+    const precoReal = getCatalogPrice(calcRp, loja, true);
 
     const formatarStr = (prefixo, emoji) => {
-        return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} €${precoReal}`, emoji };
+        return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
     };
 
     if (tipoFiltro === 'skins') {
