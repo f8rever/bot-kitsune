@@ -328,35 +328,46 @@ def logout():
 @jwt_required()
 def gift_page():
     try:
-        
-
         # Obtém a identidade do usuário a partir do token JWT
-        current_identity = get_jwt_identity()  # Isso deve retornar uma lista como ["fourier", "socafofo"]
+        current_identity = get_jwt_identity()
+        current_identity = parse_identity(current_identity)
         if current_identity:
-
             valid, error_response, status_code = validate_session(current_identity)
             if valid is not True:
-                return error_response, status_code  # Retorna o erro se a sessão for inválida
+                response = make_response(redirect('/'))
+                unset_jwt_cookies(response)
+                return response
             
-
-            user_name = current_identity[0]  # Assumindo que o nome do usuário está no primeiro índice
+            user_name = current_identity[0]
             key = current_identity[1]
             document = users_key_collection.find_one({"key_api": key})
             avatar_url = document.get(f"avatar_url_{user_name}", "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235c6a7a'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E") if document else "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235c6a7a'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E"
             return render_template("gift_tab.html", user=user_name, avatar_url=avatar_url)
-    except jwt_manager.ExpiredSignatureError:
-        # O token expirou, redireciona para a tela de login
-        return redirect(url_for('login_page'))
-    
+        response = make_response(redirect('/'))
+        unset_jwt_cookies(response)
+        return response
+    except Exception as e:
+        response = make_response(redirect('/'))
+        unset_jwt_cookies(response)
+        return response
+
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_payload):
-    # Redireciona o usuário para a tela de login
-    return redirect(url_for('login_page'))
+    response = make_response(redirect('/'))
+    unset_jwt_cookies(response)
+    return response
 
+@jwt.invalid_token_loader
+def invalid_token_callback(error_string):
+    response = make_response(redirect('/'))
+    unset_jwt_cookies(response)
+    return response
 
 @jwt.unauthorized_loader
 def unauthorized_callback(callback):
-    return redirect('/')
+    response = make_response(redirect('/'))
+    unset_jwt_cookies(response)
+    return response
 
 
 @app.route('/update_balance', methods=['POST'])
