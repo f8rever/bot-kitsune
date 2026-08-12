@@ -506,6 +506,9 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
         }
         if (invType === 'BUNDLES' || invType === 'BUNDLE') {
             const nameLower = (nome || '').toLowerCase();
+            if (isChroma(rawItem) || nameLower.includes('chroma') || nameLower.includes('croma')) {
+                return 'cromas';
+            }
             if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('statstone')) {
                 return 'eternos';
             }
@@ -742,7 +745,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     } else if (tipoFiltro === 'cromas') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA') && isChroma(x) && x.rawItem?.active !== false;
+            return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA' || t === 'BUNDLES' || t === 'BUNDLE') && isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
         customId = 'selecionar_chroma_menu';
@@ -764,14 +767,14 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             );
         });
         if (results.length === 0) {
-            results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE').slice(0, 30);
+            results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && !isChroma(x)).slice(0, 30);
         }
         titulo = lang === 'pt' ? `🌟 ${results.length} Destaques da Loja` : `🌟 ${results.length} Store Highlights`;
         customId = 'selecionar_highlight_menu';
     } else if (tipoFiltro === 'bundles') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'BUNDLES' || t === 'BUNDLE') && x.rawItem?.active !== false;
+            return (t === 'BUNDLES' || t === 'BUNDLE') && !isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `📦 ${results.length} Pacotes & Conjuntos` : `📦 ${results.length} Bundles & Sets`;
         customId = 'selecionar_bundle_menu';
@@ -2713,7 +2716,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         }
     } else if (tipoFiltro === 'cromas') {
         if (campeaoFinal) {
-            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN' || x.tipo === 'CHROMA') && isChroma(x));
+            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN' || x.tipo === 'CHROMA' || x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') && isChroma(x));
         }
         if (results.length === 0) {
             results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa) && isChroma(x));
@@ -2821,7 +2824,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
                 n.includes(buscaLimpa);
         });
     } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && !isChroma(x) && x.nome.toLowerCase().includes(buscaLimpa));
     } else {
         results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa));
     }
