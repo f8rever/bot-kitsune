@@ -1,5 +1,17 @@
 {
   "promocao_porcentagem": 50,
+  "desconto_skins": 50,
+  "desconto_cromas": 30,
+  "desconto_passes": 50,
+  "desconto_chests": 55,
+  "desconto_emotes": 30,
+  "desconto_icones": 30,
+  "desconto_wards": 30,
+  "desconto_little_legends": 30,
+  "desconto_tft_arena": 30,
+  "desconto_boosts": 30,
+  "desconto_eternos": 30,
+  "desconto_hextech": 30,
   "skins": {
     "ultimate": {
       "nome": "Ultimate Skin 3250 RP",
