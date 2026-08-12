@@ -478,20 +478,92 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
     return 1350;
 }
 
+function getActualItemType(nome, tipoFiltro, rawItem = null) {
+    if (rawItem) {
+        const invType = (rawItem.inventoryType || rawItem.inventory_type || rawItem.tipo || '').toUpperCase();
+        if (invType === 'CHAMPION_SKIN' || invType === 'SKIN') {
+            return isChroma(rawItem) ? 'cromas' : 'skins';
+        }
+        if (invType === 'CHAMPION' || invType === 'CHAMPIONS') {
+            return 'champions';
+        }
+        if (invType === 'STATSTONE') {
+            return 'eternos';
+        }
+        if (invType === 'BUNDLES' || invType === 'BUNDLE') {
+            return 'hextech';
+        }
+        if (invType === 'EVENT_PASS' || invType === 'PASS') {
+            return 'passes';
+        }
+        if (invType === 'EMOTE') {
+            return 'emotes';
+        }
+        if (invType === 'SUMMONER_ICON' || invType === 'ICON') {
+            return 'icones';
+        }
+        if (invType === 'WARD_SKIN' || invType === 'WARD') {
+            return 'wards';
+        }
+        if (invType === 'COMPANION' || invType === 'LITTLELEGENDS') {
+            return 'little_legends';
+        }
+        if (invType === 'TFT_MAP_SKIN' || invType === 'TFTARENA' || invType === 'TFT_DAMAGE_SKIN') {
+            return 'tft_arena';
+        }
+        if (invType === 'BOOST') {
+            return 'boosts';
+        }
+        if (invType === 'MYSTERY') {
+            return 'misterio';
+        }
+        if (invType === 'HEXTECH_CRAFTING' || invType === 'HEXTECH') {
+            return 'hextech';
+        }
+    }
+
+    const nameLower = (nome || '').toLowerCase();
+    if (nameLower.includes('chroma') || nameLower.includes('croma') || (/\((.*?)\)/.test(nameLower) && tipoFiltro !== 'skins')) {
+        return 'cromas';
+    }
+    if (nameLower.includes('pass')) {
+        return 'passes';
+    }
+    if (nameLower.includes('orb') || nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('capsule') || nameLower.includes('espolio') || nameLower.includes('espólio')) {
+        return 'hextech';
+    }
+    if (nameLower.includes('emote')) {
+        return 'emotes';
+    }
+    if (nameLower.includes('icon')) {
+        return 'icones';
+    }
+    if (nameLower.includes('ward')) {
+        return 'wards';
+    }
+    if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series 1') || nameLower.includes('série 1')) {
+        return 'eternos';
+    }
+    if (nameLower.includes('boost') || nameLower.includes('xp') || nameLower.includes('ip')) {
+        return 'boosts';
+    }
+    if (nameLower.includes('little legend') || nameLower.includes('lenda lendária') || nameLower.includes('chibi')) {
+        return 'little_legends';
+    }
+    if (nameLower.includes('arena') || nameLower.includes('board') || nameLower.includes('tabuleiro')) {
+        return 'tft_arena';
+    }
+
+    return tipoFiltro || 'skins';
+}
+
 function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, lang = 'pt') {
     const emjRp = '💎';
     const emjDinheiro = '💶';
 
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
-    let actualTipo = tipoFiltro;
-    if (tipoFiltro === 'passes') {
-        const itemNameLower = nome.toLowerCase();
-        if (!itemNameLower.includes('pass')) {
-            actualTipo = 'hextech';
-        }
-    }
-
+    const actualTipo = getActualItemType(nome, tipoFiltro, rawItem);
     const precoReal = getCatalogPrice(calcRp, loja, 'select', lang, actualTipo);
 
     const formatarStr = (prefixo, emoji) => {
@@ -1444,27 +1516,19 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_boost_menu') tipo = 'boosts';
 
                 let itemSelecionado = interaction.values[0];
-                if (tipo === 'passes') {
-                    const itemNameLower = itemSelecionado.toLowerCase();
-                    if (!itemNameLower.includes('pass')) {
-                        tipo = 'hextech';
-                    }
+                let nomeReal = itemSelecionado;
+                let itemId = null;
+                if (itemSelecionado.includes('||')) {
+                    const p = itemSelecionado.split('||');
+                    nomeReal = p[0];
+                    itemId = parseInt(p[1], 10);
                 }
-                if (tipo === 'bundles' && itemSelecionado.includes('||')) {
-                    itemSelecionado = itemSelecionado.split('||')[0];
-                }
+                const catItemEncontrado = findCatalogItem(itemId, nomeReal);
+                tipo = getActualItemType(nomeReal, tipo, catItemEncontrado ? catItemEncontrado.rawItem : null);
 
                 const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
                 if (isInsideTicket) {
                     await interaction.update({ content: '✅ Item added to cart successfully!', embeds: [], components: [] }).catch(e => {});
-                    let nomeReal = itemSelecionado;
-                    let itemId = null;
-                    if (itemSelecionado.includes('||')) {
-                        const p = itemSelecionado.split('||');
-                        nomeReal = p[0];
-                        itemId = parseInt(p[1], 10);
-                    }
-                    const catItemEncontrado = findCatalogItem(itemId, nomeReal);
                     
                     let variacao = 'Unknown';
                     let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
