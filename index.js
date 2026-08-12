@@ -2504,13 +2504,15 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     } else if (tipoFiltro === 'cromas') {
         if (campeaoFinal) {
             results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN' || x.tipo === 'CHROMA') && isChroma(x));
-        } else {
+        }
+        if (results.length === 0) {
             results = currentCatalog.filter(x => x.nome.toLowerCase().includes(buscaLimpa) && isChroma(x));
         }
     } else if (tipoFiltro === 'eternos') {
         if (campeaoFinal) {
             results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'STATSTONE');
-        } else {
+        }
+        if (results.length === 0) {
             results = currentCatalog.filter(x => x.tipo === 'STATSTONE' && x.nome.toLowerCase().includes(buscaLimpa));
         }
     } else if (tipoFiltro === 'champions') {
@@ -2633,14 +2635,15 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     );
 
     if (totalPages > 1) {
+        const queryTerm = (campeaoFinal ? campeaoFinal.nome : busca.trim()).replace(/\s+/g, '-');
         btnRow.addComponents(
             new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina - 1}_${campeaoFinal.nome.replace(/\s+/g, '-')}`)
+                .setCustomId(`pag_${tipoFiltro}_${pagina - 1}_${queryTerm}`)
                 .setLabel('Previous')
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(pagina === 0),
             new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina + 1}_${campeaoFinal.nome.replace(/\s+/g, '-')}`)
+                .setCustomId(`pag_${tipoFiltro}_${pagina + 1}_${queryTerm}`)
                 .setLabel('Next')
                 .setStyle(ButtonStyle.Primary)
                 .setDisabled(pagina === totalPages - 1)
