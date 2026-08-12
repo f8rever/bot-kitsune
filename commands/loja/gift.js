@@ -3,6 +3,7 @@ const { searchItems, getItemByName } = require('../../utils/catalog.js');
 const { sendGiftV3, getFriendList } = require('../../utils/riotAuth.js');
 const fs = require('fs');
 const path = require('path');
+const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 const friendlistCacheMap = new Map();
 
@@ -405,44 +406,36 @@ module.exports = {
                 } catch(e) {}
             }
 
-            const embed = new EmbedBuilder()
-                .setTitle('🎁 Presente Enviado com Sucesso!')
-                .setColor('#10B981')
-                .setDescription(`Você enviou **${quantity}x ${item.name}** para **${riotId}**!`)
-                .addFields(
-                    { name: 'Item', value: `${item.name}`, inline: true },
-                    { name: 'Para (Riot ID)', value: `**${riotId}**`, inline: true },
-                    { name: 'Quantidade', value: `${quantity}`, inline: true },
-                    { name: 'Mensagem', value: giftMessage ? `"${giftMessage}"` : '---', inline: false },
-                    { name: 'Descontado (Custo Total)', value: `\`-${totalPrice.toLocaleString('en-US')} RP\``, inline: true },
-                    { name: 'Novo Saldo de RP', value: `\`${newRp.toLocaleString('en-US')} RP\``, inline: true }
-                )
-                .setTimestamp();
+            const embed = buildCustomEmbed('gift_sent', interaction.client, interaction, {
+                itemName: item.name,
+                receiverName: riotId,
+                quantity: String(quantity),
+                giftMessage: giftMessage ? `"${giftMessage}"` : '---',
+                totalPrice: totalPrice.toLocaleString('en-US'),
+                newRp: newRp.toLocaleString('en-US')
+            });
 
-            if (item.iconUrl || item.image) {
+            if ((item.iconUrl || item.image) && !embed.data.thumbnail) {
                 embed.setThumbnail(item.iconUrl || item.image);
             }
 
             // Send Staff Audit Log via DM to Server Administrators / Staff
             try {
                 const { PermissionsBitField } = require('discord.js');
-                const staffLogEmbed = new EmbedBuilder()
-                    .setTitle('🎁 Log de Presente Enviado (Staff Audit)')
-                    .setColor('#F59E0B')
-                    .setDescription(`Um novo presente foi enviado com sucesso!`)
-                    .addFields(
-                        { name: 'Comprador (Discord)', value: `<@${interaction.user.id}> (\`${interaction.user.tag}\`)`, inline: true },
-                        { name: 'Conta Enviadora (Alt)', value: `**${session.accountName}** (\`${session.region || 'BR1'}\`)`, inline: true },
-                        { name: 'Destinatário (Riot ID)', value: `**${riotId}**`, inline: true },
-                        { name: 'Item Enviado', value: `**${quantity}x ${item.name}**`, inline: true },
-                        { name: 'Valor Descontado', value: `\`-${totalPrice.toLocaleString('en-US')} RP\``, inline: true },
-                        { name: 'Novo Saldo de RP', value: `\`${newRp.toLocaleString('en-US')} RP\``, inline: true },
-                        { name: 'Mensagem', value: giftMessage ? `"${giftMessage}"` : '---', inline: false }
-                    )
-                    .setFooter({ text: '© Kitsune Store • Staff Audit Log', iconURL: interaction.client.user.displayAvatarURL() })
-                    .setTimestamp();
+                const staffLogEmbed = buildCustomEmbed('gift_staff_log', interaction.client, interaction, {
+                    discordId: interaction.user.id,
+                    discordTag: interaction.user.tag,
+                    senderAccount: session.accountName,
+                    region: session.region || 'BR1',
+                    receiverName: riotId,
+                    itemName: item.name,
+                    quantity: String(quantity),
+                    totalPrice: totalPrice.toLocaleString('en-US'),
+                    newRp: newRp.toLocaleString('en-US'),
+                    giftMessage: giftMessage ? `"${giftMessage}"` : '---'
+                });
 
-                if (item.iconUrl || item.image) {
+                if ((item.iconUrl || item.image) && !staffLogEmbed.data.thumbnail) {
                     staffLogEmbed.setThumbnail(item.iconUrl || item.image);
                 }
 
@@ -462,11 +455,11 @@ module.exports = {
             return interaction.followUp({ embeds: [embed], ephemeral: true });
         } else {
             const errorMsg = typeof result.error === 'object' ? (result.error.message || JSON.stringify(result.error)) : result.error;
-            const failEmbed = new EmbedBuilder()
-                .setTitle('❌ Falha no Envio do Presente')
-                .setColor('#EF4444')
-                .setDescription(`Não foi possível enviar **${item.name}** para **${riotId}**.\n\n**Motivo do Erro (Riot API):**\n\`\`\`${errorMsg}\`\`\``)
-                .setTimestamp();
+            const failEmbed = buildCustomEmbed('gift_failed', interaction.client, interaction, {
+                itemName: item.name,
+                receiverName: riotId,
+                errorMsg: errorMsg
+            });
             return interaction.followUp({ embeds: [failEmbed], ephemeral: true });
         }
     }

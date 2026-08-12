@@ -161,19 +161,14 @@ module.exports = {
 
         const isInfinite = accounts[finalAccountName].ssid ? '🟢 **RENOVAÇÃO 24/7 ATIVA (SSID)**' : '🟢 **SESSÃO ATIVA (HEARTBEAT)**';
 
-        const successEmbed = new EmbedBuilder()
-            .setTitle('🔗 Conta Vinculada com Sucesso!')
-            .setColor('#23A559')
-            .setDescription(`A conta **${finalAccountName}** (\`${region}\`) foi vinculada e salva permanentemente no bot!`)
-            .addFields(
-                { name: 'Riot ID', value: `**${finalAccountName}**`, inline: true },
-                { name: 'Região', value: `\`${region}\``, inline: true },
-                { name: 'Nível da Conta', value: `\`Nv. ${fetchedLevel}\``, inline: true },
-                { name: 'Status 24/7', value: isInfinite, inline: false },
-                { name: 'Saldo Atual', value: `\`${fetchedRp.toLocaleString('pt-BR')} RP\` | \`${fetchedBe.toLocaleString('pt-BR')} BE\``, inline: false }
-            )
-            .setFooter({ text: '© Kitsune Store • Vinculação de Conta', iconURL: interaction.client.user.displayAvatarURL() })
-            .setTimestamp();
+        const successEmbed = buildCustomEmbed('link_success', interaction.client, interaction, {
+            accountName: finalAccountName,
+            region: region,
+            level: String(fetchedLevel),
+            status247: isInfinite,
+            rp: fetchedRp.toLocaleString('pt-BR'),
+            be: fetchedBe.toLocaleString('pt-BR')
+        });
             
         await interaction.editReply({ embeds: [successEmbed] });
     }

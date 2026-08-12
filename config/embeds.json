@@ -283,26 +283,98 @@
   },
   "gift_sent": {
     "title": "🎁 Presente Enviado com Sucesso!",
-    "description": "O item **{itemName}** foi enviado com sucesso para **{receiverName}**!",
-    "color": "#2ECC71",
+    "description": "Você enviou **{quantity}x {itemName}** para **{receiverName}**!",
+    "color": "#10B981",
     "thumbnail": "",
     "fields": [
       {
-        "name": "Item Enviado",
+        "name": "Item",
         "value": "{itemName}",
         "inline": true
       },
       {
-        "name": "Destinatário",
-        "value": "{receiverName}",
+        "name": "Para (Riot ID)",
+        "value": "**{receiverName}**",
         "inline": true
       },
       {
-        "name": "Preço RP",
-        "value": "{priceRp} RP",
+        "name": "Quantidade",
+        "value": "{quantity}",
+        "inline": true
+      },
+      {
+        "name": "Mensagem",
+        "value": "{giftMessage}",
+        "inline": false
+      },
+      {
+        "name": "Descontado (Custo Total)",
+        "value": "`-{totalPrice} RP`",
+        "inline": true
+      },
+      {
+        "name": "Novo Saldo de RP",
+        "value": "`{newRp} RP`",
         "inline": true
       }
+    ]
+  },
+  "link_success": {
+    "title": "🔗 Conta Vinculada com Sucesso!",
+    "description": "A conta **{accountName}** (`{region}`) foi vinculada e salva permanentemente no bot!",
+    "color": "#23A559",
+    "thumbnail": "{userAvatar}",
+    "fields": [
+      { "name": "Riot ID", "value": "**{accountName}**", "inline": true },
+      { "name": "Região", "value": "`{region}`", "inline": true },
+      { "name": "Nível da Conta", "value": "`Nv. {level}`", "inline": true },
+      { "name": "Status 24/7", "value": "{status247}", "inline": false },
+      { "name": "Saldo Atual", "value": "`{rp} RP` | `{be} BE`", "inline": false }
     ],
-    "footerText": "© Kitsune Store • Envio de Presentes"
+    "footerText": "© Kitsune Store • Vinculação de Conta"
+  },
+  "gift_failed": {
+    "title": "❌ Falha no Envio do Presente",
+    "description": "Não foi possível enviar **{itemName}** para **{receiverName}**.\n\n**Motivo do Erro (Riot API):**\n```\n{errorMsg}\n```",
+    "color": "#EF4444"
+  },
+  "gift_staff_log": {
+    "title": "🎁 Log de Presente Enviado (Staff Audit)",
+    "description": "Um novo presente foi enviado com sucesso!",
+    "color": "#F59E0B",
+    "fields": [
+      { "name": "Comprador (Discord)", "value": "<@{discordId}> (`{discordTag}`)", "inline": true },
+      { "name": "Conta Enviadora (Alt)", "value": "**{senderAccount}** (`{region}`)", "inline": true },
+      { "name": "Destinatário (Riot ID)", "value": "**{receiverName}**", "inline": true },
+      { "name": "Item Enviado", "value": "**{quantity}x {itemName}**", "inline": true },
+      { "name": "Valor Descontado", "value": "`-{totalPrice} RP`", "inline": true },
+      { "name": "Novo Saldo de RP", "value": "`{newRp} RP`", "inline": true },
+      { "name": "Mensagem", "value": "{giftMessage}", "inline": false }
+    ],
+    "footerText": "© Kitsune Store • Staff Audit Log"
+  },
+  "config_success": {
+    "title": "⚙️ Configurações Atualizadas!",
+    "description": "As novas definições foram aplicadas a todos os comandos do sistema.",
+    "color": "#F43F5E",
+    "thumbnail": "{logo}",
+    "fields": [
+      { "name": "Cor Atual", "value": "`{cor}`", "inline": true },
+      { "name": "Emojis", "value": "Sucesso: {emoji_sucesso} | Erro: {emoji_erro}", "inline": true }
+    ]
+  },
+  "emojis_panel": {
+    "title": "🦊 Kitsune | Emoji Manager",
+    "description": "Select an emoji category below to begin editing the bot emojis.",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
+  },
+  "embeds_panel": {
+    "title": "🦊 Kitsune | Gerenciador de Embeds",
+    "description": "Bem-vindo ao **Gerenciador de Embeds**! Aqui você pode customizar 100% dos títulos, descrições, cores, imagens, thumbnails, campos e rodapés de **todas as mensagens e comandos do bot**.\n\nSelecione a embed que deseja editar no menu abaixo:",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
   }
 }

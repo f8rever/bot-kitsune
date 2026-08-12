@@ -1,6 +1,7 @@
 const { EmbedBuilder, MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'config',
@@ -41,15 +42,12 @@ module.exports = {
 
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 
-        const embed = new EmbedBuilder()
-            .setTitle('⚙️ Configurações Atualizadas!')
-            .setColor(config.cor)
-            .setThumbnail(config.logo)
-            .setDescription('As novas definições foram aplicadas a todos os comandos do sistema.')
-            .addFields(
-                { name: 'Cor Atual', value: `\`${config.cor}\``, inline: true },
-                { name: 'Emojis', value: `Sucesso: ${config.emoji_sucesso} | Erro: ${config.emoji_erro}`, inline: true }
-            );
+        const embed = buildCustomEmbed('config_success', interaction.client, interaction, {
+            logo: config.logo,
+            cor: config.cor,
+            emoji_sucesso: config.emoji_sucesso,
+            emoji_erro: config.emoji_erro
+        });
 
         await interaction.reply({ embeds: [embed] });
     }

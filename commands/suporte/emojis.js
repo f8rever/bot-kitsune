@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, PermissionsBitField } = require('discord.js');
-const formatEmbed = require("../../utils/embedFormat.js");
+const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'emojis',
@@ -9,10 +9,7 @@ module.exports = {
             return interaction.reply({ content: '❌ You must be an Administrator to use this command.', ephemeral: true });
         }
 
-        const embed = formatEmbed(new EmbedBuilder(), interaction.client)
-            .setTitle('🦊 Kitsune | Emoji Manager')
-            .setColor('#F43F5E')
-            .setDescription('Select an emoji category below to begin editing the bot emojis.');
+        const embed = buildCustomEmbed('emojis_panel', interaction.client, interaction);
 
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder()
