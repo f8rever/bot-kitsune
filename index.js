@@ -484,7 +484,15 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
 
     let calcRp = getItemRpValue(nome, tipoFiltro, rawItem);
 
-    const precoReal = getCatalogPrice(calcRp, loja, 'select', lang, tipoFiltro);
+    let actualTipo = tipoFiltro;
+    if (tipoFiltro === 'passes') {
+        const itemNameLower = nome.toLowerCase();
+        if (!itemNameLower.includes('pass')) {
+            actualTipo = 'hextech';
+        }
+    }
+
+    const precoReal = getCatalogPrice(calcRp, loja, 'select', lang, actualTipo);
 
     const formatarStr = (prefixo, emoji) => {
         return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
@@ -1436,6 +1444,12 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_boost_menu') tipo = 'boosts';
 
                 let itemSelecionado = interaction.values[0];
+                if (tipo === 'passes') {
+                    const itemNameLower = itemSelecionado.toLowerCase();
+                    if (!itemNameLower.includes('pass')) {
+                        tipo = 'hextech';
+                    }
+                }
                 if (tipo === 'bundles' && itemSelecionado.includes('||')) {
                     itemSelecionado = itemSelecionado.split('||')[0];
                 }
