@@ -89,13 +89,24 @@ function loadFullRiotCatalog(lang = 'en') {
 
 function isChroma(x) {
     if (!x) return false;
+    const t = (x.tipo || '').toUpperCase();
+    if (t !== 'CHAMPION_SKIN' && t !== 'SKIN' && t !== 'CHROMA' && t !== 'BUNDLES' && t !== 'BUNDLE') return false;
     const raw = x.rawItem || x;
     const sub = (raw.subInventoryType || raw.sub_inventory_type || x.subInventoryType || '').toUpperCase();
     if (sub === 'RECOLOR' || sub.includes('CHROMA')) return true;
-    if (x.parent_id || raw.parent_id || raw.parentId) return true;
+    if (x.parent_id || raw.parent_id || raw.parentId) {
+        if (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA') return true;
+    }
     const name = (x.nome || x.name || '').toLowerCase();
     if (name.includes('chroma') || name.includes('croma')) return true;
-    if (/\((.*?)\)/.test(name)) return true;
+    if (x.tipo === 'CHROMA') return true;
+    if (/\((.*?)\)/.test(name)) {
+        const content = name.match(/\((.*?)\)/)?.[1] || '';
+        if (content === 'hextech' || content === 'prestige' || content === 'prestigiosa' || content.includes('2022') || content.includes('2023') || content.includes('2024') || content.includes('2025') || content.includes('2026')) {
+            return false;
+        }
+        return true;
+    }
     return false;
 }
 
@@ -752,6 +763,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
                 (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
+                t !== 'PROGRESSION' && !n.includes('level-up') && !n.includes('level up') &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
@@ -807,11 +819,37 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         customId = 'selecionar_misterio_menu';
     } else if (tipoFiltro === 'hextech') {
         results = currentCatalog.filter(x => {
+            if (x.rawItem?.active === false) return false;
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return x.rawItem?.active !== false &&
-                (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key') || n.includes('orb') || n.includes('orbe') || n.includes('capsule')) &&
-                !n.includes('pass') && !n.includes('passe') && !n.includes('clash');
+            
+            const matchesHextech = (
+                t === 'HEXTECH_CRAFTING' || 
+                t === 'HEXTECH' || 
+                n.includes('hextech') || 
+                n.includes('baú') || 
+                n.includes('chest') || 
+                n.includes('chave') || 
+                (n.includes('key') && !n.includes('monkey') && !n.includes('okey')) ||
+                (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
+                n.includes('orbe') || 
+                n.includes('capsule') ||
+                n.includes('cápsula')
+            );
+
+            if (!matchesHextech) return false;
+
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
+            if (t === 'EMOTE') return false;
+            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
+            if (t === 'WARD_SKIN' || t === 'WARD') return false;
+            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
+            if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
+            
+            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+
+            return true;
         });
         titulo = lang === 'pt' ? `🔑 ${results.length} Hextec, Baús & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
         customId = 'selecionar_hextech_menu';
@@ -2657,13 +2695,41 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key') || n.includes('orb') || n.includes('orbe') || n.includes('capsule')) && n.includes(buscaLimpa);
+            
+            const matchesHextech = (
+                t === 'HEXTECH_CRAFTING' || 
+                t === 'HEXTECH' || 
+                n.includes('hextech') || 
+                n.includes('baú') || 
+                n.includes('chest') || 
+                n.includes('chave') || 
+                (n.includes('key') && !n.includes('monkey') && !n.includes('okey')) ||
+                (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
+                n.includes('orbe') || 
+                n.includes('capsule') ||
+                n.includes('cápsula')
+            );
+
+            if (!matchesHextech) return false;
+
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
+            if (t === 'EMOTE') return false;
+            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
+            if (t === 'WARD_SKIN' || t === 'WARD') return false;
+            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
+            if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
+            
+            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+
+            return n.includes(buscaLimpa);
         });
     } else if (tipoFiltro === 'passes') {
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
+                t !== 'PROGRESSION' && !n.includes('level-up') && !n.includes('level up') &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
