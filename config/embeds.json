@@ -188,8 +188,16 @@
     "syncImage": true
   },
   "catalog_hextech": {
-    "title": "<:box:1527369341161705622> {count} Hextech Chests & Orbs",
-    "description": "<a:whitearrow:1346152146814636032> Please select a **hextech item or orb** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "title": "<:box:1527369341161705622> {count} Hextech Chests & Keys",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **hextech chest or key** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_orbes": {
+    "title": "<:box:1527369341161705622> {count} Loot Orbs & Capsules",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **loot orb or capsule** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",

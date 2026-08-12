@@ -487,6 +487,7 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
     if (tipoFiltro === 'eternos') return 600;
     if (tipoFiltro === 'passes') return 1650;
     if (tipoFiltro === 'champions') return 975;
+    if (tipoFiltro === 'orbes') return 250;
 
     return 1350;
 }
@@ -505,7 +506,13 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
         }
         if (invType === 'BUNDLES' || invType === 'BUNDLE') {
             const nameLower = (nome || '').toLowerCase();
-            if (nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('orb') || nameLower.includes('capsule') || nameLower.includes('baú') || nameLower.includes('chave')) {
+            if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('statstone')) {
+                return 'eternos';
+            }
+            if (nameLower.includes('orb') || nameLower.includes('capsule') || nameLower.includes('orbe') || nameLower.includes('cápsula')) {
+                return 'orbes';
+            }
+            if (nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('baú') || nameLower.includes('chave')) {
                 return 'hextech';
             }
             if (nameLower.includes('pass') || nameLower.includes('passe')) {
@@ -514,6 +521,10 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
             return 'highlights';
         }
         if (invType === 'EVENT_PASS' || invType === 'PASS') {
+            const nameLower = (nome || '').toLowerCase();
+            if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('statstone')) {
+                return 'eternos';
+            }
             return 'passes';
         }
         if (invType === 'EMOTE') {
@@ -538,6 +549,10 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
             return 'misterio';
         }
         if (invType === 'HEXTECH_CRAFTING' || invType === 'HEXTECH') {
+            const nameLower = (nome || '').toLowerCase();
+            if (nameLower.includes('orb') || nameLower.includes('capsule') || nameLower.includes('orbe') || nameLower.includes('cápsula')) {
+                return 'orbes';
+            }
             return 'hextech';
         }
     }
@@ -546,10 +561,16 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
     if (nameLower.includes('chroma') || nameLower.includes('croma') || (/\((.*?)\)/.test(nameLower) && tipoFiltro !== 'skins')) {
         return 'cromas';
     }
-    if (nameLower.includes('pass')) {
+    if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('statstone')) {
+        return 'eternos';
+    }
+    if (nameLower.includes('pass') || nameLower.includes('passe')) {
         return 'passes';
     }
-    if (nameLower.includes('orb') || nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('capsule') || nameLower.includes('espolio') || nameLower.includes('espólio')) {
+    if (nameLower.includes('orb') || nameLower.includes('capsule') || nameLower.includes('orbe') || nameLower.includes('cápsula')) {
+        return 'orbes';
+    }
+    if (nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('baú') || nameLower.includes('chave') || nameLower.includes('espolio') || nameLower.includes('espólio')) {
         return 'hextech';
     }
     if (nameLower.includes('emote')) {
@@ -560,9 +581,6 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
     }
     if (nameLower.includes('ward')) {
         return 'wards';
-    }
-    if (nameLower.includes('eterno') || nameLower.includes('eternal') || nameLower.includes('series 1') || nameLower.includes('série 1')) {
-        return 'eternos';
     }
     if (nameLower.includes('boost') || nameLower.includes('xp') || nameLower.includes('ip')) {
         return 'boosts';
@@ -767,7 +785,9 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
                 !n.includes('missions token bank pass') &&
-                !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule');
+                !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule') &&
+                !n.includes('eterno') && !n.includes('eternal') && !n.includes('statstone') && !n.includes('series') && !n.includes('série') &&
+                t !== 'STATSTONE';
         });
         titulo = lang === 'pt' ? `🎫 ${results.length} Passes de Evento` : `🎫 ${results.length} Event Passes`;
         customId = 'selecionar_passe_menu';
@@ -829,11 +849,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 n.includes('baú') || 
                 n.includes('chest') || 
                 n.includes('chave') || 
-                (n.includes('key') && !n.includes('monkey') && !n.includes('okey')) ||
-                (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
-                n.includes('orbe') || 
-                n.includes('capsule') ||
-                n.includes('cápsula')
+                (n.includes('key') && !n.includes('monkey') && !n.includes('okey'))
             );
 
             if (!matchesHextech) return false;
@@ -852,6 +868,35 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         });
         titulo = lang === 'pt' ? `🔑 ${results.length} Hextec, Baús & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
         customId = 'selecionar_hextech_menu';
+    } else if (tipoFiltro === 'orbes') {
+        results = currentCatalog.filter(x => {
+            if (x.rawItem?.active === false) return false;
+            const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
+            
+            const matchesOrbs = (
+                (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
+                n.includes('orbe') || 
+                n.includes('capsule') ||
+                n.includes('cápsula')
+            );
+
+            if (!matchesOrbs) return false;
+
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
+            if (t === 'EMOTE') return false;
+            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
+            if (t === 'WARD_SKIN' || t === 'WARD') return false;
+            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
+            if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
+            
+            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+
+            return true;
+        });
+        titulo = lang === 'pt' ? `🔮 ${results.length} Orbes & Cápsulas` : `🔮 ${results.length} Orbs & Capsules`;
+        customId = 'selecionar_orbes_menu';
     }
 
     results = results.sort((a, b) => {
@@ -1512,6 +1557,11 @@ client.on('interactionCreate', async interaction => {
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'hextech', 0, false);
+                } else if (opcao === 'compra_orbes') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'orbes', 0, false);
                 } else if (opcao === 'compra_emotes') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
@@ -1545,7 +1595,7 @@ client.on('interactionCreate', async interaction => {
                 }
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
+            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
                 if (interaction.customId === 'selecionar_chroma_menu') tipo = 'cromas';
@@ -1556,6 +1606,7 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_bundle_menu') tipo = 'bundles';
                 else if (interaction.customId === 'selecionar_misterio_menu') tipo = 'misterio';
                 else if (interaction.customId === 'selecionar_hextech_menu') tipo = 'hextech';
+                else if (interaction.customId === 'selecionar_orbes_menu') tipo = 'orbes';
                 else if (interaction.customId === 'selecionar_emote_menu') tipo = 'emotes';
                 else if (interaction.customId === 'selecionar_icone_menu') tipo = 'icones';
                 else if (interaction.customId === 'selecionar_ward_menu') tipo = 'wards';
@@ -2137,7 +2188,8 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
                     ])
                 );
                 await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
@@ -2162,7 +2214,8 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
                     ])
                 );
                 await interaction.update({ content: '', embeds: [embed], components: [menu] });
@@ -2201,7 +2254,8 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
                     ])
                 );
                 await interaction.reply({ content: 'Select a category to add more items to your ticket:', embeds: [embed], components: [menu], ephemeral: true });
@@ -2248,7 +2302,8 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Catálogo de Arenas TFT', description: 'Página de tabuleiros e arenas TFT', value: 'catalog_tft_arena', emoji: '🏟️' },
                             { label: 'Catálogo de Boosts', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
                             { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
-                            { label: 'Catálogo de Hextech / Orbes', description: 'Página de baús, chaves, orbes e hextech', value: 'catalog_hextech', emoji: '🔑' },
+                            { label: 'Catálogo de Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
+                            { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                             { label: 'Painel Principal Emojis Manager', description: 'Embed do comando /emojis', value: 'emojis_panel', emoji: '✨' },
@@ -2488,7 +2543,8 @@ client.on('interactionCreate', async interaction => {
                         { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
                         { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
                         { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() }
+                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
                     ])
                 );
                 try {
@@ -2530,7 +2586,8 @@ client.on('interactionCreate', async interaction => {
                     'boosts': 'selecionar_boost_menu',
                     'eternos': 'selecionar_eterno_menu',
                     'misterio': 'selecionar_misterio_menu',
-                    'hextech': 'selecionar_hextech_menu'
+                    'hextech': 'selecionar_hextech_menu',
+                    'orbes': 'selecionar_orbes_menu'
                 };
                 const menuId = selectMap[cat] || 'selecionar_item_menu';
                 await buscarEExibirItens(busca, interaction, cor, menuId, cat);
@@ -2663,10 +2720,14 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         }
     } else if (tipoFiltro === 'eternos') {
         if (campeaoFinal) {
-            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && x.tipo === 'STATSTONE');
+            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'STATSTONE' || x.nome.toLowerCase().includes('eterno') || x.nome.toLowerCase().includes('eternal') || x.nome.toLowerCase().includes('statstone')));
         }
         if (results.length === 0) {
-            results = currentCatalog.filter(x => x.tipo === 'STATSTONE' && x.nome.toLowerCase().includes(buscaLimpa));
+            results = currentCatalog.filter(x => {
+                const n = x.nome.toLowerCase();
+                const t = (x.tipo || '').toUpperCase();
+                return (t === 'STATSTONE' || n.includes('eterno') || n.includes('eternal') || n.includes('statstone') || n.includes('series') || n.includes('série')) && n.includes(buscaLimpa);
+            });
         }
     } else if (tipoFiltro === 'champions') {
         if (campeaoFinal) {
@@ -2702,14 +2763,36 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
                 n.includes('baú') || 
                 n.includes('chest') || 
                 n.includes('chave') || 
-                (n.includes('key') && !n.includes('monkey') && !n.includes('okey')) ||
+                (n.includes('key') && !n.includes('monkey') && !n.includes('okey'))
+            );
+
+            if (!matchesHextech) return false;
+
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
+            if (t === 'EMOTE') return false;
+            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
+            if (t === 'WARD_SKIN' || t === 'WARD') return false;
+            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
+            if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
+            
+            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+
+            return n.includes(buscaLimpa);
+        });
+    } else if (tipoFiltro === 'orbes') {
+        results = currentCatalog.filter(x => {
+            const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
+            
+            const matchesOrbs = (
                 (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
                 n.includes('orbe') || 
                 n.includes('capsule') ||
                 n.includes('cápsula')
             );
 
-            if (!matchesHextech) return false;
+            if (!matchesOrbs) return false;
 
             if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
             if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
@@ -2733,6 +2816,8 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
                 !n.includes('missions token bank pass') &&
                 !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule') &&
+                !n.includes('eterno') && !n.includes('eternal') && !n.includes('statstone') && !n.includes('series') && !n.includes('série') &&
+                t !== 'STATSTONE' &&
                 n.includes(buscaLimpa);
         });
     } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {

@@ -33,7 +33,8 @@ module.exports = {
                 { name: 'Boosts', value: 'boosts' },
                 { name: 'Eternos', value: 'eternos' },
                 { name: 'Mystery Gifts', value: 'misterio' },
-                { name: 'Hextech', value: 'hextech' }
+                { name: 'Hextech', value: 'hextech' },
+                { name: 'Orbes & Cápsulas', value: 'orbes' }
             ]
         }
     ],
@@ -90,7 +91,8 @@ module.exports = {
                 { name: 'Boosts', value: 'boosts' },
                 { name: 'Eternos', value: 'eternos' },
                 { name: 'Mystery Gifts', value: 'misterio' },
-                { name: 'Hextech', value: 'hextech' }
+                { name: 'Hextech', value: 'hextech' },
+                { name: 'Orbes & Cápsulas', value: 'orbes' }
             ];
             const catLabel = catChoices.find(c => c.value === categoria)?.name || categoria;
             embed.setDescription(pct > 0
