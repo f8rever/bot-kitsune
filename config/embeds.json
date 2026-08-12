@@ -131,6 +131,70 @@
     "image": "",
     "syncImage": true
   },
+  "catalog_emotes": {
+    "title": "<:box:1527369341161705622> {count} Emotes",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **emote** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_icones": {
+    "title": "<:box:1527369341161705622> {count} Summoner Icons",
+    "description": "<a:whitearrow:1346152146814636032> Please select an **icon** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_wards": {
+    "title": "<:box:1527369341161705622> {count} Ward Skins",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **ward skin** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_little_legends": {
+    "title": "<:box:1527369341161705622> {count} Little Legends",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **little legend** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_tft_arena": {
+    "title": "<:box:1527369341161705622> {count} TFT Arenas",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **TFT arena** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_boosts": {
+    "title": "<:box:1527369341161705622> {count} Boosts",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **boost** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_misterio": {
+    "title": "<:box:1527369341161705622> {count} Mystery Gifts",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **mystery gift** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_hextech": {
+    "title": "<:box:1527369341161705622> {count} Hextech Chests & Orbs",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **hextech item or orb** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#FFFFFF",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
   "tabela_skins": {
     "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> PREÇOS DE SKINS ({skinsDiscount}% OFF)",
     "description": "Abaixo está a tabela oficial de preços de skins com **{skinsDiscount}% DE DESCONTO** em Euro (€)!",

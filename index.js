@@ -493,7 +493,14 @@ function getActualItemType(nome, tipoFiltro, rawItem = null) {
             return 'eternos';
         }
         if (invType === 'BUNDLES' || invType === 'BUNDLE') {
-            return 'hextech';
+            const nameLower = (nome || '').toLowerCase();
+            if (nameLower.includes('chest') || nameLower.includes('key') || nameLower.includes('orb') || nameLower.includes('capsule') || nameLower.includes('baú') || nameLower.includes('chave')) {
+                return 'hextech';
+            }
+            if (nameLower.includes('pass') || nameLower.includes('passe')) {
+                return 'passes';
+            }
+            return 'highlights';
         }
         if (invType === 'EVENT_PASS' || invType === 'PASS') {
             return 'passes';
@@ -744,12 +751,12 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (t === 'EVENT_PASS' || t === 'BUNDLES' || t === 'BUNDLE' || t === 'PASS' || t === 'LOOT') &&
-                (n.includes('pass') || n.includes('passe') || n.includes('orb') || n.includes('orbe')) &&
+                (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
-                !n.includes('missions token bank pass');
+                !n.includes('missions token bank pass') &&
+                !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule');
         });
         titulo = lang === 'pt' ? `🎫 ${results.length} Passes de Evento` : `🎫 ${results.length} Event Passes`;
         customId = 'selecionar_passe_menu';
@@ -803,8 +810,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
-                (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) &&
-                !n.includes('pass') && !n.includes('passe') && !n.includes('orb') && !n.includes('orbe') && !n.includes('clash');
+                (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key') || n.includes('orb') || n.includes('orbe') || n.includes('capsule')) &&
+                !n.includes('pass') && !n.includes('passe') && !n.includes('clash');
         });
         titulo = lang === 'pt' ? `🔑 ${results.length} Hextec, Baús & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
         customId = 'selecionar_hextech_menu';
@@ -943,8 +950,9 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
         for (const k in dummyLoja) {
             if (k.startsWith('desconto_')) dummyLoja[k] = 0;
         }
-        const basePrice = parseFloat(getCatalogPrice(item.rp, dummyLoja, false, lang, item.tipo));
-        const finalPrice = parseFloat(getCatalogPrice(item.rp, loja, false, lang, item.tipo));
+        const actualType = getActualItemType(item.nome, item.tipo);
+        const basePrice = parseFloat(getCatalogPrice(item.rp, dummyLoja, false, lang, actualType));
+        const finalPrice = parseFloat(getCatalogPrice(item.rp, loja, false, lang, actualType));
         
         totalBasePrice += basePrice;
         totalFinalPrice += finalPrice;
@@ -1188,7 +1196,8 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
 
     const calcRp = getItemRpValue(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
     const lang = (session.regiao.toUpperCase() === 'BR' || session.regiao.toUpperCase() === 'BR1') ? 'pt' : 'en';
-    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed', lang, tipoFiltro);
+    const actualTipo = getActualItemType(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
+    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed', lang, actualTipo);
     const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
 
     const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
@@ -2191,10 +2200,18 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Central de Vendas (Categorias)', description: 'Menu de categorias (Skins, Loots, etc.)', value: 'store_sales_center', emoji: '🛒' },
                             { label: 'Catálogo de Destaques', description: 'Página de destaques e pacotes da loja', value: 'catalog_highlights', emoji: '🌟' },
                             { label: 'Catálogo de Skins', description: 'Página de skins de campeões', value: 'catalog_skins', emoji: '👕' },
-                            { label: 'Catálogo de Passes e Loots', description: 'Página de passes, orbes e baús', value: 'catalog_passes', emoji: '🎫' },
+                            { label: 'Catálogo de Passes', description: 'Página de passes de evento', value: 'catalog_passes', emoji: '🎫' },
                             { label: 'Catálogo de Cromas', description: 'Página de cromas de campeões', value: 'catalog_cromas', emoji: '🎨' },
                             { label: 'Catálogo de Eternos', description: 'Página de eternos', value: 'catalog_eternos', emoji: '🏆' },
                             { label: 'Catálogo de Campeões', description: 'Página de campeões', value: 'catalog_champions', emoji: '⚔️' },
+                            { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
+                            { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
+                            { label: 'Catálogo de Sentinelas', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
+                            { label: 'Catálogo de Lendas / Chibis', description: 'Página de Little Legends e Chibis', value: 'catalog_little_legends', emoji: '🐥' },
+                            { label: 'Catálogo de Arenas TFT', description: 'Página de tabuleiros e arenas TFT', value: 'catalog_tft_arena', emoji: '🏟️' },
+                            { label: 'Catálogo de Boosts', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
+                            { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
+                            { label: 'Catálogo de Hextech / Orbes', description: 'Página de baús, chaves, orbes e hextech', value: 'catalog_hextech', emoji: '🔑' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                             { label: 'Painel Principal Emojis Manager', description: 'Embed do comando /emojis', value: 'emojis_panel', emoji: '✨' },
@@ -2637,7 +2654,23 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     } else if (tipoFiltro === 'misterio') {
         results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'MYSTERY' || x.nome.toLowerCase().includes('mystery') || x.nome.toLowerCase().includes('mistério')) && x.nome.toLowerCase().includes(buscaLimpa));
     } else if (tipoFiltro === 'hextech') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'HEXTECH_CRAFTING' || (x.tipo || '').toUpperCase() === 'HEXTECH' || x.nome.toLowerCase().includes('hextech')) && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => {
+            const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'HEXTECH_CRAFTING' || t === 'HEXTECH' || n.includes('hextech') || n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key') || n.includes('orb') || n.includes('orbe') || n.includes('capsule')) && n.includes(buscaLimpa);
+        });
+    } else if (tipoFiltro === 'passes') {
+        results = currentCatalog.filter(x => {
+            const n = x.nome.toLowerCase();
+            const t = (x.tipo || '').toUpperCase();
+            return (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
+                !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
+                !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
+                !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
+                !n.includes('missions token bank pass') &&
+                !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule') &&
+                n.includes(buscaLimpa);
+        });
     } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {
         results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && x.nome.toLowerCase().includes(buscaLimpa));
     } else {
