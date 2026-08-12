@@ -763,7 +763,6 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const t = (x.tipo || '').toUpperCase();
             return x.rawItem?.active !== false &&
                 (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
-                t !== 'PROGRESSION' && !n.includes('level-up') && !n.includes('level up') &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
@@ -2729,7 +2728,6 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             return (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
-                t !== 'PROGRESSION' && !n.includes('level-up') && !n.includes('level up') &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
                 !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
