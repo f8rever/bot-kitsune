@@ -289,6 +289,8 @@ function getCatalogRp(item) {
     if (item.prices && item.prices.length) {
         const p = item.prices.find(x => x.currency === 'RP');
         if (p) cost = p.cost;
+    } else if (item.price_rp !== undefined && item.price_rp !== null && item.price_rp !== 'Null') {
+        cost = Number(item.price_rp);
     } else if (item.bundleItems) {
         cost = item.bundleItems.reduce((acc, curr) => acc + (curr.price && curr.price.currency === 'RP' ? curr.price.cost : 0), 0);
     }
@@ -446,8 +448,8 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
 
     if (n.includes('orbe') || n.includes('orb')) {
         if (n.includes('mega') || n.includes('50') || n.includes('12500')) return 12500;
-        if (n.includes('premium') || n.includes('deluxe') || n.includes('25') || n.includes('6250')) return 6250;
-        if (n.includes('10') || n.includes('2500')) return 2500;
+        if (n.includes('premium') || n.includes('25') || n.includes('6250')) return 6250;
+        if (n.includes('deluxe') || n.includes('10') || n.includes('2500')) return 2500;
         return 250;
     }
 
