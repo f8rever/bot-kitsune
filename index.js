@@ -141,9 +141,13 @@ function findCatalogItem(itemId, name) {
 }
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
     partials: [Partials.Channel, Partials.Message]
 });
+
+client.on('error', err => console.error('❌ [Discord Client Error]:', err));
+client.on('warn', info => console.warn('⚠️ [Discord Client Warn]:', info));
+client.on('shardError', (err, shardId) => console.error(`❌ [Discord Shard Error ${shardId}]:`, err));
 
 client.commands = new Collection();
 
