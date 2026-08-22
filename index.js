@@ -2998,7 +2998,14 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     }
 }
 
-client.login(process.env.DISCORD_TOKEN);
+if (!process.env.DISCORD_TOKEN) {
+    console.error('❌ [FATAL] Variável DISCORD_TOKEN não está definida no ambiente!');
+} else {
+    console.log(`🔑 Tentando conectar ao Discord com token de tamanho ${process.env.DISCORD_TOKEN.trim().length}...`);
+    client.login(process.env.DISCORD_TOKEN.trim()).catch(err => {
+        console.error('❌ [FATAL] Erro ao fazer login no Discord:', err);
+    });
+}
 
 // Background loop to refresh accounts and check tokens
 async function refreshAccountsTask() {
