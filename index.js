@@ -141,13 +141,9 @@ function findCatalogItem(itemId, name) {
 }
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
     partials: [Partials.Channel, Partials.Message]
 });
-
-client.on('error', err => console.error('❌ [Discord Client Error]:', err));
-client.on('warn', info => console.warn('⚠️ [Discord Client Warn]:', info));
-client.on('shardError', (err, shardId) => console.error(`❌ [Discord Shard Error ${shardId}]:`, err));
 
 client.commands = new Collection();
 
@@ -3002,14 +2998,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     }
 }
 
-if (!process.env.DISCORD_TOKEN) {
-    console.error('❌ [FATAL] Variável DISCORD_TOKEN não está definida no ambiente!');
-} else {
-    console.log(`🔑 Tentando conectar ao Discord com token de tamanho ${process.env.DISCORD_TOKEN.trim().length}...`);
-    client.login(process.env.DISCORD_TOKEN.trim()).catch(err => {
-        console.error('❌ [FATAL] Erro ao fazer login no Discord:', err);
-    });
-}
+client.login(process.env.DISCORD_TOKEN);
 
 // Background loop to refresh accounts and check tokens
 async function refreshAccountsTask() {
