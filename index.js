@@ -17,7 +17,7 @@ process.on('uncaughtException', (err) => {
     console.error('[Uncaught Exception]', err);
 });
 
-const { Client, GatewayIntentBits, Partials, Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
@@ -218,7 +218,7 @@ client.on('reloadEmbeds', () => {
     carregarEmbeds();
 });
 
-client.once('ready', async () => {
+client.once(Events.ClientReady, async () => {
     console.log(`🟢 Kitsune Bot online como ${client.user.tag}!`);
 
     // Automatic Slash Commands Deployment to Discord API
@@ -3002,9 +3002,13 @@ console.log('🤖 Tentando autenticar bot no Discord...');
 if (!process.env.DISCORD_TOKEN) {
     console.error('❌ [ERRO CRÍTICO] process.env.DISCORD_TOKEN não está definido no Render!');
 } else {
-    client.login(process.env.DISCORD_TOKEN.trim()).catch(err => {
-        console.error('❌ [ERRO AO LOGAR NO DISCORD]:', err);
-    });
+    client.login(process.env.DISCORD_TOKEN.trim())
+        .then(() => {
+            console.log('🔑 Token validado e aceito pelo Discord!');
+        })
+        .catch(err => {
+            console.error('❌ [ERRO AO LOGAR NO DISCORD]:', err);
+        });
 }
 
 // Background loop to refresh accounts and check tokens
