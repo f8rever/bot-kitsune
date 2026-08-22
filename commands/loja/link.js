@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { parseTokensFromUrl, getEntitlements, getUserInfo, getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getStoreBalance, getFriendList } = require('../../utils/riotAuth.js');
 const fs = require('fs');
 const path = require('path');
+const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'link',

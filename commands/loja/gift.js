@@ -5,7 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
-const friendlistCacheMap = new Map();
+if (!global.friendlistCacheMap) {
+    global.friendlistCacheMap = new Map();
+}
+const friendlistCacheMap = global.friendlistCacheMap;
 
 function getActiveSession(userId) {
     if (global.userStoreSessions && global.userStoreSessions.has(userId)) {
@@ -55,6 +58,7 @@ function getActiveSession(userId) {
 module.exports = {
     name: 'gift',
     description: 'Envia um presente para um amigo.',
+    friendlistCacheMap: friendlistCacheMap,
     options: [
         {
             name: 'riot_id',

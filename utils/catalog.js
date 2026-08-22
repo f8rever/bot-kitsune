@@ -42,7 +42,7 @@ function loadCatalog(lang = 'pt') {
                     items.push({
                         name: itemName,
                         itemId: info.offer_id || itemName,
-                        inventoryType: catName.toUpperCase(),
+                        inventoryType: info.inventory_type || catName.toUpperCase(),
                         price: Number(price) || 0
                     });
                 }

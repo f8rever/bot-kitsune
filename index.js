@@ -76,8 +76,14 @@ function loadFullRiotCatalog(lang = 'en') {
         const mergedMap = new Map();
         items.forEach(item => {
             if (!item.id) return;
-            item.names = new Set([item.nome.toLowerCase()]);
-            mergedMap.set(item.id, item);
+            const uniqueKey = item.rawItem?.offer_id || item.id;
+            if (mergedMap.has(uniqueKey)) {
+                const existing = mergedMap.get(uniqueKey);
+                if (item.nome) existing.names.add(item.nome.toLowerCase());
+            } else {
+                item.names = new Set([item.nome.toLowerCase()]);
+                mergedMap.set(uniqueKey, item);
+            }
         });
 
         return Array.from(mergedMap.values());
@@ -113,6 +119,11 @@ function isChroma(x) {
 let riotCatalog = loadFullRiotCatalog();
 
 function findCatalogItem(itemId, name) {
+    if (itemId && name) {
+        const nameLower = name.toLowerCase();
+        const found = riotCatalog.find(x => x.id === itemId && (x.nome?.toLowerCase() === nameLower || x.names?.has(nameLower)));
+        if (found) return found;
+    }
     if (itemId) {
         const found = riotCatalog.find(x => x.id === itemId);
         if (found) return found;
@@ -644,19 +655,27 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
     else if (tipoFiltro === 'eternos') {
         return formatarStr('Eternals Series', (customEmojis?.skins?.eternos || '🏆').trim());
     }
-    else if (tipoFiltro === 'passes') {
+    else if (tipoFiltro === 'passes' || tipoFiltro === 'orbes' || tipoFiltro === 'hextech') {
         let lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
-        let prefix = 'Pass & Loots';
-        if (nome.toLowerCase().includes('pass')) { prefix = 'Pass'; lootIcon = (customEmojis?.loot?.pass || '🎫').trim(); }
-        else {
-            prefix = 'Loot';
-            if (nome.toLowerCase().includes('mega') && nome.toLowerCase().includes('orb')) lootIcon = (customEmojis?.loot?.megaorb || '📦').trim();
-            else if (nome.toLowerCase().includes('deluxe') && nome.toLowerCase().includes('orb')) lootIcon = (customEmojis?.loot?.deluxe || '📦').trim();
-            else if (nome.toLowerCase().includes('premium') && nome.toLowerCase().includes('orb')) lootIcon = (customEmojis?.loot?.premium || '📦').trim();
-            else if (nome.toLowerCase().includes('orb')) lootIcon = (customEmojis?.loot?.orb || '📦').trim();
-            else if (nome.toLowerCase().includes('chest') && nome.toLowerCase().includes('key')) lootIcon = (customEmojis?.loot?.chestkey || '📦').trim();
-            else if (nome.toLowerCase().includes('chest')) lootIcon = (customEmojis?.loot?.chest || '📦').trim();
-            else if (nome.toLowerCase().includes('key')) lootIcon = (customEmojis?.loot?.key || '🔑').trim();
+        let prefix = tipoFiltro === 'passes' ? 'Pass' : (tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule');
+        const nameLower = nome.toLowerCase();
+
+        if (nameLower.includes('pass') || nameLower.includes('passe')) {
+            prefix = 'Pass';
+            lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
+        } else {
+            prefix = tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule';
+            if (nameLower.includes('mega') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.megaorb || '🔮').trim();
+            else if (nameLower.includes('deluxe') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.deluxe || '🔮').trim();
+            else if (nameLower.includes('premium') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.premium || '🔮').trim();
+            else if (nameLower.includes('orb') || nameLower.includes('orbe')) lootIcon = (customEmojis?.loot?.orb || '🔮').trim();
+            else if (nameLower.includes('capsule') || nameLower.includes('cápsula')) lootIcon = (customEmojis?.loot?.capsule || '💊').trim();
+            else if (nameLower.includes('masterwork') && nameLower.includes('chest')) lootIcon = (customEmojis?.loot?.masterwork_chest || '🎁').trim();
+            else if (nameLower.includes('chest') && nameLower.includes('key')) lootIcon = (customEmojis?.loot?.chestkey || '📦').trim();
+            else if (nameLower.includes('chest') || nameLower.includes('baú')) lootIcon = (customEmojis?.loot?.chest || '🔑').trim();
+            else if (nameLower.includes('key') || nameLower.includes('chave')) lootIcon = (customEmojis?.loot?.key || '🔑').trim();
+            else if (nameLower.includes('pack') || nameLower.includes('pacote')) lootIcon = (customEmojis?.loot?.pack || '📦').trim();
+            else lootIcon = (customEmojis?.loot?.orb || '🔮').trim();
         }
         return formatarStr(prefix, lootIcon);
     }
@@ -715,9 +734,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
     else if (tipoFiltro === 'misterio') {
         return formatarStr('Mystery Gift', (customEmojis?.loot?.pass || '🎁').trim());
     }
-    else if (tipoFiltro === 'hextech') {
-        return formatarStr('Hextech', (customEmojis?.loot?.chest || '🔑').trim());
-    }
+
 
     return formatarStr('Item', '📦');
 }
@@ -837,6 +854,19 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             return x.rawItem?.active !== false &&
                 (t === 'MYSTERY' || n.includes('mistério') || n.includes('mystery'));
         });
+        const nameMap = new Map();
+        results.forEach(item => {
+            const nameLower = item.nome.toLowerCase();
+            if (!nameMap.has(nameLower)) {
+                nameMap.set(nameLower, item);
+            } else {
+                const existing = nameMap.get(nameLower);
+                if (item.tipo === 'MYSTERY' && existing.tipo !== 'MYSTERY') {
+                    nameMap.set(nameLower, item);
+                }
+            }
+        });
+        results = Array.from(nameMap.values());
         titulo = lang === 'pt' ? `🎁 ${results.length} Presentes Mistério` : `🎁 ${results.length} Mystery Gifts`;
         customId = 'selecionar_misterio_menu';
     } else if (tipoFiltro === 'hextech') {
@@ -1202,133 +1232,157 @@ async function atualizarEmbedTicket(channel, client) {
 
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-    await interaction.reply({ content: `${loadEmj} ${getLoadStr('ticket')}`, ephemeral: true });
-    await new Promise(resolve => setTimeout(resolve, 2500));
+    if (!interaction.deferred && !interaction.replied) {
+        await interaction.reply({ content: `${loadEmj} ${getLoadStr('ticket')}`, ephemeral: true }).catch(() => {});
+    } else {
+        await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
+    }
 
-    const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
+    try {
+        const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
+        const regiaoStr = (session.regiao || 'NA').toUpperCase();
 
-    const { ChannelType } = require('discord.js');
-    let category = interaction.guild.channels.cache.find(c => c.type === ChannelType.GuildCategory && c.name.toUpperCase() === `TICKETS - ${session.regiao.toUpperCase()}`);
-    const staffRolesArray = (process.env.STAFF_ROLE_IDS || '').split(',').map(r => r.trim()).filter(r => r);
+        const { ChannelType, PermissionFlagsBits } = require('discord.js');
+        const staffRolesArray = (process.env.STAFF_ROLE_IDS || '')
+            .split(',')
+            .map(r => r.trim())
+            .filter(r => r && interaction.guild.roles.cache.has(r));
 
-    if (!category) {
-        const categoryOverwrites = [
-            { id: interaction.guild.id, deny: ['ViewChannel'] },
-            { id: client.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory', 'ManageChannels'] }
+        let category = interaction.guild.channels.cache.find(c => c.type === ChannelType.GuildCategory && c.name.toUpperCase() === `TICKETS - ${regiaoStr}`);
+
+        if (!category) {
+            try {
+                const categoryOverwrites = [
+                    { id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
+                    { id: client.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ManageChannels] }
+                ];
+                for (const roleId of staffRolesArray) {
+                    categoryOverwrites.push({ id: roleId, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] });
+                }
+                category = await interaction.guild.channels.create({
+                    name: `TICKETS - ${regiaoStr}`,
+                    type: ChannelType.GuildCategory,
+                    permissionOverwrites: categoryOverwrites
+                });
+            } catch (catErr) {
+                console.error('[Ticket Error] Não foi possível criar categoria, criando canal solto:', catErr.message);
+                category = null;
+            }
+        }
+
+        const ticketOverwrites = [
+            { id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
+            { id: interaction.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks] },
+            { id: client.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ManageChannels, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks] }
         ];
         for (const roleId of staffRolesArray) {
-            categoryOverwrites.push({ id: roleId, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] });
+            ticketOverwrites.push({ id: roleId, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] });
         }
-        category = await interaction.guild.channels.create({
-            name: `TICKETS - ${session.regiao.toUpperCase()}`,
-            type: ChannelType.GuildCategory,
-            permissionOverwrites: categoryOverwrites
-        });
-    }
 
-    const ticketOverwrites = [
-        { id: interaction.guild.id, deny: ['ViewChannel'] },
-        { id: interaction.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] },
-        { id: client.user.id, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory', 'ManageChannels'] }
-    ];
-    for (const roleId of staffRolesArray) {
-        ticketOverwrites.push({ id: roleId, allow: ['ViewChannel', 'SendMessages', 'ReadMessageHistory'] });
-    }
-
-    const canal = await interaction.guild.channels.create({
-        name: `🎫-${interaction.user.username}`,
-        parent: category.id,
-        topic: `Ticket-Owner: ${interaction.user.id}`,
-        permissionOverwrites: ticketOverwrites
-    });
-
-    const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(id => `<@&${id}>`).join(' ');
-    const estrela = customEmojis?.utilidades?.estrela || '⭐';
-
-    const loja = obterDadosLoja();
-    let variacao = 'Unknown';
-    let valorRP = '';
-    let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
-
-    let nomeReal = itemSelecionado;
-    let itemId = null;
-    if (itemSelecionado.includes('||')) {
-        const p = itemSelecionado.split('||');
-        nomeReal = p[0];
-        itemId = parseInt(p[1], 10);
-    }
-    const catItemEncontrado = findCatalogItem(itemId, nomeReal);
-
-    if (tipoFiltro === 'champions') {
-        variacao = 'Champion';
-        eVariacao = (customEmojis?.skins?.champion || '🌟').trim();
-    } else {
-        const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
-        const userRegiao = (session?.regiao || 'BR').toUpperCase();
-        const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
-        const detalhes = obterDetalhesItem(nomeReal, tipoFiltro, loja, '0.00', raw, lang);
-        const partes = detalhes.desc.split('|');
-        variacao = partes[0].trim();
-        if (detalhes.emoji) {
-            eVariacao = detalhes.emoji;
+        const canalOptions = {
+            name: `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''),
+            topic: `Ticket-Owner: ${interaction.user.id}`,
+            permissionOverwrites: ticketOverwrites
+        };
+        if (category) {
+            canalOptions.parent = category.id;
         }
-        if (partes.length > 2) {
-            valorRP = partes[1].trim().replace('💎', '').trim();
-        } else if (partes.length === 2 && partes[0].includes('RP')) {
-            valorRP = partes[0].trim().replace('💎', '').trim();
+
+        const canal = await interaction.guild.channels.create(canalOptions);
+
+        const staffRolesMention = staffRolesArray.map(id => `<@&${id}>`).join(' ');
+        const loja = obterDadosLoja();
+        let variacao = 'Unknown';
+        let valorRP = '';
+        let eVariacao = (customEmojis?.ticket?.variacao || '🌟').trim();
+
+        let nomeReal = itemSelecionado;
+        let itemId = null;
+        if (itemSelecionado.includes('||')) {
+            const p = itemSelecionado.split('||');
+            nomeReal = p[0];
+            itemId = parseInt(p[1], 10);
         }
-    }
+        const catItemEncontrado = findCatalogItem(itemId, nomeReal);
 
-    const calcRp = getItemRpValue(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
-    const lang = (session.regiao.toUpperCase() === 'BR' || session.regiao.toUpperCase() === 'BR1') ? 'pt' : 'en';
-    const actualTipo = getActualItemType(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
-    const precoRealStr = getCatalogPrice(calcRp, loja, 'embed', lang, actualTipo);
-    const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
-
-    const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
-    const eRegiao = (customEmojis?.ticket?.regiao || '🌍').trim();
-    const eRiotId = (customEmojis?.ticket?.riot_id || '🎮').trim();
-    const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
-    const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
-    const eDinheiro = '<:dinheiro:1527368514057408713>';
-
-    const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, {
-        staffRoles,
-        itemSelecionado: nomeReal,
-        variacao,
-        valorRP,
-        valorDinheiro,
-        regiao: session.regiao.toUpperCase(),
-        riotId: session.riotId,
-        eProduto,
-        eVariacao,
-        eRP,
-        eDinheiro,
-        eRegiao,
-        eRiotId
-    });
-
-    if (!global.ticketCarts) global.ticketCarts = new Map();
-    global.ticketCarts.set(canal.id, {
-        ownerId: interaction.user.id,
-        regiao: session.regiao.toUpperCase(),
-        riotId: session.riotId,
-        items: [
-            {
-                nome: nomeReal,
-                itemId: itemId,
-                rp: calcRp,
-                tipo: tipoFiltro,
-                variacao: variacao,
-                eVariacao: eVariacao
+        if (tipoFiltro === 'champions') {
+            variacao = 'Champion';
+            eVariacao = (customEmojis?.skins?.champion || '🌟').trim();
+        } else {
+            const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
+            const lang = (regiaoStr === 'BR' || regiaoStr === 'BR1') ? 'pt' : 'en';
+            const detalhes = obterDetalhesItem(nomeReal, tipoFiltro, loja, '0.00', raw, lang);
+            const partes = detalhes.desc.split('|');
+            variacao = partes[0].trim();
+            if (detalhes.emoji) {
+                eVariacao = detalhes.emoji;
             }
-        ]
-    });
+            if (partes.length > 2) {
+                valorRP = partes[1].trim().replace('💎', '').trim();
+            } else if (partes.length === 2 && partes[0].includes('RP')) {
+                valorRP = partes[0].trim().replace('💎', '').trim();
+            }
+        }
 
-    await canal.send({ content: `${interaction.user}` });
-    await atualizarEmbedTicket(canal, interaction.client);
+        const calcRp = getItemRpValue(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
+        const lang = (regiaoStr === 'BR' || regiaoStr === 'BR1') ? 'pt' : 'en';
+        const actualTipo = getActualItemType(nomeReal, tipoFiltro, catItemEncontrado ? catItemEncontrado.rawItem : null);
+        const precoRealStr = getCatalogPrice(calcRp, loja, 'embed', lang, actualTipo);
+        const valorDinheiro = precoRealStr.includes('€') ? precoRealStr : `€${precoRealStr}`;
 
-    await interaction.editReply({ content: `✅ Your support ticket has been created: ${canal}`, embeds: [], components: [] });
+        const eProduto = (customEmojis?.ticket?.produto || '🛒').trim();
+        const eRegiao = (customEmojis?.ticket?.regiao || '🌍').trim();
+        const eRiotId = (customEmojis?.ticket?.riot_id || '🎮').trim();
+        const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
+        const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
+        const eDinheiro = '<:dinheiro:1527368514057408713>';
+
+        const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, {
+            staffRoles: staffRolesMention,
+            itemSelecionado: nomeReal,
+            variacao,
+            valorRP,
+            valorDinheiro,
+            regiao: regiaoStr,
+            riotId: session.riotId || 'Unknown',
+            eProduto,
+            eVariacao,
+            eRP,
+            eDinheiro,
+            eRegiao,
+            eRiotId
+        });
+
+        if (!global.ticketCarts) global.ticketCarts = new Map();
+        global.ticketCarts.set(canal.id, {
+            ownerId: interaction.user.id,
+            regiao: regiaoStr,
+            riotId: session.riotId || 'Unknown',
+            items: [
+                {
+                    nome: nomeReal,
+                    itemId: itemId,
+                    rp: calcRp,
+                    tipo: tipoFiltro,
+                    variacao: variacao,
+                    eVariacao: eVariacao
+                }
+            ]
+        });
+
+        const initialMention = staffRolesMention ? `${interaction.user} | ${staffRolesMention}` : `${interaction.user}`;
+        await canal.send({ content: initialMention });
+        await atualizarEmbedTicket(canal, interaction.client);
+
+        await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [] });
+    } catch (err) {
+        console.error('[Ticket Create Fatal Error]:', err);
+        await interaction.editReply({ 
+            content: `❌ **Não foi possível criar o canal do ticket.**\nVerifique se o bot possui permissão de **Gerenciar Canais (Manage Channels)** e **Ver Canais** neste servidor.\n\`Detalhes: ${err.message}\``, 
+            embeds: [], 
+            components: [] 
+        }).catch(() => {});
+    }
 }
 
 client.on('interactionCreate', async interaction => {
@@ -1464,7 +1518,7 @@ client.on('interactionCreate', async interaction => {
 
             if (interaction.customId === 'menu_emojis_categorias') {
                 const cat = interaction.values[0];
-                const items = customEmojis[cat];
+                const itens = customEmojis[cat];
                 if (!itens) return interaction.reply({ content: 'Category not found.', ephemeral: true });
 
                 const opcoes = Object.keys(itens).slice(0, 25).map(k => ({

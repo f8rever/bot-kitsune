@@ -1,0 +1,52 @@
+---
+description: Startup workflow — restaura o contexto persistente do projeto
+---
+
+---
+description: Startup workflow — restaura o contexto persistente do projeto
+---
+
+# Startup — Restauração de Contexto
+
+Este workflow serve SOMENTE para restaurar contexto.
+
+NÃO execute tarefas antigas.
+NÃO continue automaticamente uma tarefa anterior.
+NÃO altere arquivos do projeto.
+NÃO execute comandos.
+NÃO implemente funcionalidades.
+NÃO corrija bugs.
+
+Ao iniciar uma nova sessão:
+
+1. Leia `AI_MEMORY.md`.
+
+2. Use o conteúdo de `AI_MEMORY.md` para entender:
+   - objetivo do projeto;
+   - estado atual;
+   - funcionalidades existentes;
+   - decisões importantes;
+   - problemas conhecidos;
+   - tarefas pendentes.
+
+3. Verifique os arquivos atuais do projeto somente quando necessário para entender o contexto.
+
+4. Se o histórico da conversa tiver sido cortado, use `AI_MEMORY.md` para reconstruir o contexto.
+
+5. NÃO continue automaticamente o último TODO.
+
+6. Aguarde a nova instrução do usuário.
+
+7. A instrução atual do usuário sempre tem prioridade sobre qualquer tarefa registrada anteriormente.
+
+IMPORTANTE:
+
+Este workflow NÃO deve executar nenhuma tarefa por conta própria.
+
+Se `AI_MEMORY.md` disser:
+
+"Próximo passo: corrigir o sistema X"
+
+isso é apenas informação de contexto.
+
+NÃO corrija o sistema X até que o usuário solicite explicitamente.
