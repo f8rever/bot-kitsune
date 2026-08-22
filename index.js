@@ -224,8 +224,9 @@ client.once(Events.ClientReady, async () => {
     // Automatic Slash Commands Deployment to Discord API
     try {
         const { REST, Routes } = require('discord.js');
-        if (process.env.DISCORD_TOKEN) {
-            const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+        const token = process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN.replace(/[\s\r\n"']/g, '') : null;
+        if (token) {
+            const rest = new REST({ version: '10' }).setToken(token);
 
             // 1. Wipe old guild commands from all servers to eliminate duplicates
             for (const guild of client.guilds.cache.values()) {
@@ -2999,10 +3000,11 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 }
 
 console.log('🤖 Tentando autenticar bot no Discord...');
-if (!process.env.DISCORD_TOKEN) {
+const cleanToken = process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN.replace(/[\s\r\n"']/g, '') : null;
+if (!cleanToken) {
     console.error('❌ [ERRO CRÍTICO] process.env.DISCORD_TOKEN não está definido no Render!');
 } else {
-    client.login(process.env.DISCORD_TOKEN.trim())
+    client.login(cleanToken)
         .then(() => {
             console.log('🔑 Token validado e aceito pelo Discord!');
         })
