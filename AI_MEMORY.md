@@ -199,6 +199,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - [x] **Correção do Carregamento Infinito de Tickets:** Blindada a função `criarCanalTicket` com `try/catch` e validação dinâmica dos cargos em `guild.roles.cache`. Caso um cargo configurado no `.env` pertença a outro servidor, ele é ignorado com segurança sem travar a interação.
 - [x] **Criação de Categorias Dinâmicas por Região:** Mantida a criação automática de categorias (`TICKETS - BR`, `TICKETS - NA`, etc.) com fallback seguro caso o bot não tenha permissões globais na guilda.
 - [x] **Notificação de Suporte:** Adicionada menção automática do cargo de Suporte/Staff configurado e do usuário ao abrir o ticket.
+- [x] **Estabilidade do Gateway / Intents Discord:** Removida a intent privilegiada `MessageContent` (que bloqueava a conexão do bot caso não estivesse marcada no Discord Developer Portal) e adicionados handlers de erro `client.on('error')` e `client.on('shardError')`.
 - [x] **Deploy no GitHub:** Alterações comitadas e enviadas para `origin/main` (deploy automático no Render).
 
 Arquivos principais:
