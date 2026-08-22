@@ -3152,6 +3152,8 @@ async function refreshAccountsTask() {
     }
 }
 
-// Run active RP Balance Keepalive Store Heartbeat on startup and every 60 seconds (1 min)
-refreshAccountsTask();
-setInterval(refreshAccountsTask, 60 * 1000);
+// Run active RP Balance Keepalive Store Heartbeat every 60 seconds (1 min)
+setTimeout(() => {
+    refreshAccountsTask();
+    setInterval(refreshAccountsTask, 60 * 1000);
+}, 5000);
