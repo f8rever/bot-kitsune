@@ -195,10 +195,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 ## O QUE JÁ FOI FEITO
 
-### Até 2026-08-13
-
-Resumo:
-Projeto de bot Discord completo e funcional para loja de gifting de League of Legends. Inclui fluxo completo de compra (painel → região → categoria → item → ticket → pagamento → gift), sistema de autenticação Riot com sessão 24/7, catálogo completo com ~15 categorias de itens, sistema de descontos configuráveis, embeds e emojis 100% customizáveis pelo admin via Discord, heartbeat automático de contas Riot, e backend Python legado com MongoDB.
+### 2026-08-22
+- [x] **Correção do Carregamento Infinito de Tickets:** Blindada a função `criarCanalTicket` com `try/catch` e validação dinâmica dos cargos em `guild.roles.cache`. Caso um cargo configurado no `.env` pertença a outro servidor, ele é ignorado com segurança sem travar a interação.
+- [x] **Criação de Categorias Dinâmicas por Região:** Mantida a criação automática de categorias (`TICKETS - BR`, `TICKETS - NA`, etc.) com fallback seguro caso o bot não tenha permissões globais na guilda.
+- [x] **Notificação de Suporte:** Adicionada menção automática do cargo de Suporte/Staff configurado e do usuário ao abrir o ticket.
+- [x] **Deploy no GitHub:** Alterações comitadas e enviadas para `origin/main` (deploy automático no Render).
 
 Arquivos principais:
 - `index.js` — lógica principal do bot (3123 linhas)
