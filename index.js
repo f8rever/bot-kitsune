@@ -2998,7 +2998,14 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     }
 }
 
-client.login(process.env.DISCORD_TOKEN);
+console.log('🤖 Tentando autenticar bot no Discord...');
+if (!process.env.DISCORD_TOKEN) {
+    console.error('❌ [ERRO CRÍTICO] process.env.DISCORD_TOKEN não está definido no Render!');
+} else {
+    client.login(process.env.DISCORD_TOKEN.trim()).catch(err => {
+        console.error('❌ [ERRO AO LOGAR NO DISCORD]:', err);
+    });
+}
 
 // Background loop to refresh accounts and check tokens
 async function refreshAccountsTask() {
