@@ -1,7 +1,7 @@
-const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { getStoreBalance, reauthWithSSID, getEntitlements } = require('../../utils/riotAuth.js');
+const { getStoreBalance, getEntitlements, reauthWithSSID } = require('../../utils/riotAuth.js');
 const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 function getAccountsFilePath() {
@@ -13,14 +13,24 @@ function loadAccountsFromDisk() {
     if (fs.existsSync(accountsPath)) {
         try {
             return { accountsPath, accounts: JSON.parse(fs.readFileSync(accountsPath, 'utf8')) };
-        } catch(e) {}
+        } catch (e) {}
     }
     return { accountsPath, accounts: {} };
 }
 
+/** Monta a action row com os botões do painel da conta */
+function buildDashboardButtons() {
+    return new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setCustomId('btn_rp').setLabel('RP').setStyle(ButtonStyle.Secondary).setEmoji('🪙'),
+        new ButtonBuilder().setCustomId('btn_account').setLabel('Account').setStyle(ButtonStyle.Secondary).setEmoji('ℹ️'),
+        new ButtonBuilder().setCustomId('btn_friend').setLabel('Friends').setStyle(ButtonStyle.Primary).setEmoji('🫂'),
+        new ButtonBuilder().setCustomId('btn_back').setStyle(ButtonStyle.Secondary).setEmoji('🔄')
+    );
+}
+
 module.exports = {
     name: 'login',
-    description: 'Seleciona e conecta a uma conta Riot salva para usar nos comandos de loja, presentes e amigos.',
+    description: 'Seleciona e conecta a uma conta Riot salva. Exibe o painel completo da conta após autenticar.',
     options: [
         {
             name: 'conta',
@@ -30,6 +40,8 @@ module.exports = {
             autocomplete: true
         }
     ],
+
+    // ── Autocomplete ─────────────────────────────────────────────────────────
     async autocomplete(interaction) {
         try {
             const focusedValue = (interaction.options.getFocused() || '').toLowerCase().trim();
@@ -38,7 +50,7 @@ module.exports = {
 
             if (choices.length === 0) {
                 return await interaction.respond([
-                    { name: '❌ Nenhuma conta vinculada. Use o comando /link para cadastrar!', value: 'none' }
+                    { name: '❌ Nenhuma conta vinculada. Use /link para cadastrar!', value: 'none' }
                 ]);
             }
 
@@ -57,26 +69,24 @@ module.exports = {
                     const region = acc.region || 'BR1';
                     const rpStr = typeof acc.rp === 'number' ? `${acc.rp.toLocaleString('pt-BR')} RP` : '0 RP';
                     const infoStr = isExpired ? 'Expirado' : rpStr;
-
                     const displayName = `${statusDot} ${accName} [${region} • ${infoStr}]`.substring(0, 100);
-                    return {
-                        name: displayName,
-                        value: accName
-                    };
+                    return { name: displayName, value: accName };
                 });
 
             if (filtered.length === 0) {
                 return await interaction.respond([
-                    { name: `❌ Nenhuma conta encontrada correspondente a "${focusedValue}"`, value: 'none' }
+                    { name: `❌ Nenhuma conta encontrada para "${focusedValue}"`, value: 'none' }
                 ]);
             }
 
             await interaction.respond(filtered);
-        } catch(err) {
+        } catch (err) {
             console.error('[Login Autocomplete Error]', err);
-            try { await interaction.respond([]); } catch(e) {}
+            try { await interaction.respond([]); } catch (e) {}
         }
     },
+
+    // ── Execute ───────────────────────────────────────────────────────────────
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
@@ -84,55 +94,55 @@ module.exports = {
         const accountList = Object.keys(accounts);
 
         if (accountList.length === 0) {
-            return interaction.editReply({ 
-                content: '❌ Nenhuma conta Riot vinculada encontrada no bot. Por favor, use o comando `/link` com a URL do navegador para cadastrar sua conta Riot!' 
+            return interaction.editReply({
+                content: '❌ Nenhuma conta Riot vinculada encontrada no bot. Use `/link` para cadastrar sua conta Riot primeiro!'
             });
         }
 
         const selectedInput = interaction.options.getString('conta');
 
+        // Valor inválido do autocomplete (digitou algo que não existe)
         if (selectedInput === 'none') {
-            return interaction.editReply({ 
-                content: '❌ Nenhuma conta válida foi selecionada. Use o comando `/link` para cadastrar sua conta Riot.' 
+            return interaction.editReply({
+                content: '❌ Nenhuma conta válida selecionada. Use `/link` para cadastrar sua conta Riot.'
             });
         }
 
-        // If user specified a target account name
+        // ── Conta especificada via autocomplete ──────────────────────────────
         if (selectedInput) {
             const cleanInput = selectedInput.trim().toLowerCase();
             const targetKey = accountList.find(k => {
                 const kLower = k.toLowerCase();
                 const nameWithoutTag = kLower.split('#')[0];
-                return kLower === cleanInput || 
-                       cleanInput.includes(kLower) || 
-                       kLower.includes(cleanInput) || 
-                       nameWithoutTag === cleanInput.split('#')[0];
+                return kLower === cleanInput ||
+                    cleanInput.includes(kLower) ||
+                    kLower.includes(cleanInput) ||
+                    nameWithoutTag === cleanInput.split('#')[0];
             });
-            
+
             if (!targetKey) {
                 const availableStr = accountList.map(a => `• **${a}**`).join('\n');
-                return interaction.editReply({ 
-                    content: `❌ A conta **${selectedInput}** não foi encontrada no banco do bot.\n\n**Contas disponíveis:**\n${availableStr}` 
+                return interaction.editReply({
+                    content: `❌ Conta **${selectedInput}** não encontrada.\n\n**Contas disponíveis:**\n${availableStr}`
                 });
             }
 
             return await activateAccountSession(interaction, targetKey, accounts[targetKey], accountsPath, accounts);
         }
 
-        // If user has only 1 account registered, select it automatically
+        // ── Só 1 conta → seleciona automaticamente ───────────────────────────
         if (accountList.length === 1) {
-            const targetKey = accountList[0];
-            return await activateAccountSession(interaction, targetKey, accounts[targetKey], accountsPath, accounts);
+            return await activateAccountSession(interaction, accountList[0], accounts[accountList[0]], accountsPath, accounts);
         }
 
-        // If multiple accounts exist and no option specified, present a Select Menu using custom embed
+        // ── Múltiplas contas → mostra menu de seleção ────────────────────────
         const selectOptions = accountList.slice(0, 25).map(accName => {
             const accData = accounts[accName];
             const region = accData.region || 'BR1';
             const rp = accData.rp || 0;
             const statusDot = accData.expired ? '🔴' : '🟢';
             return {
-                label: `${statusDot} ${accName}`,
+                label: `${statusDot} ${accName}`.substring(0, 100),
                 description: `Região: ${region} | RP: ${rp.toLocaleString('pt-BR')}`,
                 value: accName,
                 emoji: '🎮'
@@ -141,7 +151,7 @@ module.exports = {
 
         const selectMenu = new StringSelectMenuBuilder()
             .setCustomId('select_active_riot_account')
-            .setPlaceholder('Selecione a conta Riot para ativar na sessão...')
+            .setPlaceholder('Selecione a conta Riot para ativar...')
             .addOptions(selectOptions);
 
         const row = new ActionRowBuilder().addComponents(selectMenu);
@@ -152,84 +162,112 @@ module.exports = {
 
         const msg = await interaction.editReply({ embeds: [embed], components: [row] });
 
-        // Component Collector for Select Menu interaction
         const collector = msg.createMessageComponentCollector({ time: 60000 });
 
         collector.on('collect', async i => {
             if (i.user.id !== interaction.user.id) {
                 return i.reply({ content: '❌ Apenas você pode interagir com este menu.', ephemeral: true });
             }
-
             await i.deferUpdate();
             const chosenAccName = i.values[0];
             collector.stop();
-
             if (accounts[chosenAccName]) {
                 await activateAccountSession(i, chosenAccName, accounts[chosenAccName], accountsPath, accounts);
+            }
+        });
+
+        collector.on('end', (_, reason) => {
+            if (reason === 'time') {
+                interaction.editReply({ components: [] }).catch(() => {});
             }
         });
     }
 };
 
+// ── Função principal: autentica, sincroniza e exibe o painel ──────────────────
 async function activateAccountSession(targetInt, accountName, accData, accountsPath, allAccounts) {
     let accessToken = accData.accessToken;
     let entitlementsToken = accData.entitlementsToken;
-    let region = accData.region || 'BR1';
+    const region = accData.region || 'BR1';
 
-    // Attempt token refresh via SSID if stored
+    // ── 1. Renovar token via SSID ────────────────────────────────────────────
     if (accData.ssid) {
         try {
             const refreshed = await reauthWithSSID(accData.ssid);
             if (refreshed && refreshed.accessToken) {
                 accessToken = refreshed.accessToken;
-                entitlementsToken = await getEntitlements(accessToken);
+                if (refreshed.idToken) accData.idToken = refreshed.idToken;
+                // Renovar entitlements com o novo token
+                try {
+                    entitlementsToken = await getEntitlements(accessToken);
+                } catch (e) {}
                 accData.accessToken = accessToken;
                 accData.entitlementsToken = entitlementsToken;
                 accData.expired = false;
+                // Limpar cache XMPP para forçar renovação
+                delete accData.geopasToken;
+                delete accData.chatUri;
+                delete accData.chatDom;
                 allAccounts[accountName] = accData;
-                fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8');
+                try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
+                console.log(`[Login] Token renovado via SSID para: ${accountName}`);
             }
-        } catch(e) {}
+        } catch (e) {
+            console.warn(`[Login] Aviso: falha ao renovar via SSID para ${accountName}:`, e.message);
+        }
     }
 
-    // Try fetching fresh balance
+    // ── 2. Sincronizar saldo (RP + BE) ───────────────────────────────────────
     let rp = accData.rp || 0;
     let be = accData.be || 0;
     try {
         const bal = await getStoreBalance(accessToken, entitlementsToken, region);
         if (bal && typeof bal.rp === 'number') {
             rp = bal.rp;
-            be = bal.be || be;
+            be = bal.ip ?? bal.be ?? accData.be ?? 0;
+            if (bal.summonerLevel) accData.summonerLevel = bal.summonerLevel;
             accData.rp = rp;
             accData.be = be;
+            accData.expired = false;
             allAccounts[accountName] = accData;
-            fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8');
+            try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
+        } else if (bal && bal.error === 401) {
+            // Token inválido mesmo após tentativa de renovação
+            accData.expired = true;
+            allAccounts[accountName] = accData;
+            try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
         }
-    } catch(e) {}
+    } catch (e) {
+        console.warn(`[Login] Aviso: não foi possível buscar saldo para ${accountName}:`, e.message);
+    }
 
-    // Store in global sessions map
-    const userStoreSessions = global.userStoreSessions || new Map();
-    userStoreSessions.set(targetInt.user.id, {
-        accountName: accountName,
-        accessToken: accessToken,
-        entitlementsToken: entitlementsToken,
-        region: region,
+    // ── 3. Registrar sessão na memória global ────────────────────────────────
+    if (!global.userStoreSessions) global.userStoreSessions = new Map();
+    global.userStoreSessions.set(targetInt.user.id, {
+        accountName,
+        accessToken,
+        entitlementsToken,
+        region,
         tokens: accData
     });
-    global.userStoreSessions = userStoreSessions;
 
-    const successEmbed = buildCustomEmbed('login_success', targetInt.client, targetInt, {
-        accountName: accountName,
-        region: region,
-        rp: rp.toLocaleString('pt-BR'),
-        be: be.toLocaleString('pt-BR'),
-        level: accData.summonerLevel ? String(accData.summonerLevel) : '30',
-        banned: accData.expired ? 'Sim (Expirado)' : 'Não'
+    // ── 4. Montar e exibir painel com botões ─────────────────────────────────
+    const panelEmbed = buildCustomEmbed('login_success', targetInt.client, targetInt, {
+        accountName,
+        region,
+        rp: rp.toLocaleString('en-US'),
+        be: be.toLocaleString('en-US'),
+        level: accData.summonerLevel ? String(accData.summonerLevel) : '?',
+        banned: accData.expired ? '🔴 **Expirado**' : '🟢 **Ativa**'
     });
 
+    const dashboardRow = buildDashboardButtons();
+
+    const replyPayload = { embeds: [panelEmbed], components: [dashboardRow] };
+
     if (targetInt.deferred || targetInt.replied) {
-        return targetInt.editReply({ embeds: [successEmbed], components: [] });
+        return targetInt.editReply(replyPayload);
     } else {
-        return targetInt.reply({ embeds: [successEmbed], components: [], ephemeral: true });
+        return targetInt.reply({ ...replyPayload, ephemeral: true });
     }
 }

@@ -467,5 +467,96 @@
         "inline": true
       }
     ]
+  },
+  "login_select": {
+    "title": "🦊 Kitsune | Select Account",
+    "description": "<a:whitearrow:1346152146814636032> You have **{accountCount}** accounts linked to the bot.\n<a:whitearrow:1346152146814636032> Select the account you want to activate in the menu below:",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_success": {
+    "title": "🦊 Kitsune | Account Panel",
+    "description": "<a:whitearrow:1346152146814636032> Logged in as **{accountName}**\n<a:whitearrow:1346152146814636032> Use the buttons below to manage your Riot account.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 RP",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Blue Essence",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
+  },
+  "dashboard_rp": {
+    "title": "🦊 Kitsune | Balance",
+    "description": "<a:whitearrow:1346152146814636032> Current balance for account **{accountName}**:",
+    "color": "#F59E0B",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 Riot Points",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Blue Essence",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
+  },
+  "dashboard_account": {
+    "title": "🦊 Kitsune | Account Info",
+    "description": "<a:whitearrow:1346152146814636032> Information for account **{accountName}**:",
+    "color": "#6366F1",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "⭐ Level",
+        "value": "`{level}`",
+        "inline": true
+      },
+      {
+        "name": "🛡️ Ban Status",
+        "value": "{banned}",
+        "inline": true
+      },
+      {
+        "name": "⏰ Session",
+        "value": "{sessionTime}",
+        "inline": false
+      }
+    ]
+  },
+  "dashboard_friends": {
+    "title": "🦊 Kitsune | Friend List",
+    "description": "<a:whitearrow:1346152146814636032> Friends of account **{accountName}**:\n\n{friendText}",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "image": ""
   }
 }
