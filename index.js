@@ -4,6 +4,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 app.get('/', (req, res) => res.send('Bot Kitsune está Online e rodando!'));
+app.get('/status', (req, res) => res.json({
+    online: client.isReady(),
+    tag: client.user ? client.user.tag : null,
+    uptime: client.uptime,
+    servers: client.guilds ? client.guilds.cache.map(g => ({ id: g.id, name: g.name })) : []
+}));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🌐 Servidor Web iniciado na porta ${PORT} para UptimeRobot.`));
 
@@ -277,6 +283,20 @@ client.once(Events.ClientReady, async () => {
         i++;
     }, 15000);
 });
+
+console.log('🤖 Tentando autenticar bot no Discord...');
+const cleanToken = process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN.replace(/[\s\r\n"']/g, '') : null;
+if (!cleanToken) {
+    console.error('❌ [ERRO CRÍTICO] process.env.DISCORD_TOKEN não está definido no Render!');
+} else {
+    client.login(cleanToken)
+        .then(() => {
+            console.log('🔑 Token validado e aceito pelo Discord!');
+        })
+        .catch(err => {
+            console.error('❌ [ERRO AO LOGAR NO DISCORD]:', err);
+        });
+}
 
 const getLoadStr = (context = 'default') => {
     switch (context) {
@@ -2032,26 +2052,79 @@ client.on('interactionCreate', async interaction => {
                             page = parseInt(interaction.customId.split('_next_')[1]) || 1;
                         }
 
-                        const friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+                        // ── Buscar TODOS os amigos via XMPP roster (sem filtro de região) ──
+                        const { RiotChatClient } = require('./utils/riotXmpp.js');
+                        const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri } = require('./utils/riotAuth.js');
+
+                        let friends = [];
+                        let usedXmpp = false;
+
+                        // Garantir tokens XMPP disponíveis
+                        if (!acc.geopasToken || !acc.chatUri || !acc.chatDom) {
+                            try {
+                                acc.geopasToken = await getGeopasToken(acc.accessToken);
+                                acc.affinity = decodeGeopasAffinity(acc.geopasToken);
+                                acc.chatDom = getChatDom(acc.affinity);
+                                acc.chatUri = getChatUri(acc.region || 'BR1', acc.affinity);
+                                accounts[accountName] = acc;
+                                fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+                            } catch (e) {
+                                console.warn('[btn_friend] Aviso: não foi possível obter Geopas token:', e.message);
+                            }
+                        }
+
+                        if (acc.chatUri && acc.chatDom && acc.geopasToken) {
+                            const xmppClient = new RiotChatClient(acc.chatUri, acc.chatDom);
+                            try {
+                                const connected = await xmppClient.initializeChat(acc.accessToken, acc.geopasToken);
+                                if (connected) {
+                                    const roster = await xmppClient.getFriendList();
+                                    // Filtrar apenas amigos mútuos (subscription = 'both')
+                                    const mutualFriends = (roster || []).filter(r => r.status === 'both' || !r.status);
+                                    friends = mutualFriends.map(f => ({
+                                        name: f.name || f.puuid || 'Desconhecido',
+                                        nick: f.name || '',
+                                        puuid: f.puuid
+                                    }));
+                                    usedXmpp = true;
+                                }
+                            } catch (e) {
+                                console.warn('[btn_friend] Aviso: falha no XMPP roster, tentando fallback REST:', e.message);
+                            } finally {
+                                xmppClient.disconnect();
+                            }
+                        }
+
+                        // Fallback: endpoint REST de gifting (apenas mesma região)
+                        if (!usedXmpp) {
+                            try {
+                                friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1') || [];
+                            } catch (e) {
+                                friends = [];
+                            }
+                        }
+
                         let friendText = 'Nenhum amigo encontrado.';
-                        const totalFriends = friends ? friends.length : 0;
+                        const totalFriends = friends.length;
                         const pageSize = 12;
                         const totalPages = Math.max(1, Math.ceil(totalFriends / pageSize));
                         if (page > totalPages) page = totalPages;
                         if (page < 1) page = 1;
 
-                        if (friends && friends.length > 0) {
+                        if (friends.length > 0) {
                             const startIdx = (page - 1) * pageSize;
                             const pageFriends = friends.slice(startIdx, startIdx + pageSize);
                             friendText = pageFriends.map(f => {
                                 let timeStr = '';
                                 if (f.friendsSince) {
-                                    const since = new Date(f.friendsSince.replace(' ', 'T') + 'Z');
-                                    const diffMs = Date.now() - since.getTime();
-                                    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-                                    timeStr = ` (${diffDays}d)`;
+                                    try {
+                                        const since = new Date(f.friendsSince.replace(' ', 'T') + 'Z');
+                                        const diffMs = Date.now() - since.getTime();
+                                        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                                        timeStr = ` (${diffDays}d)`;
+                                    } catch (e) {}
                                 }
-                                return `• **${f.name || f.nick}**${timeStr}`;
+                                return `• **${f.name || f.nick || 'Desconhecido'}**${timeStr}`;
                             }).join('\n');
                         }
 
