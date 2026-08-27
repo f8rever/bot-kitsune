@@ -448,5 +448,24 @@
     "color": "#F43F5E",
     "thumbnail": "",
     "image": ""
+  },
+  "addfriend_sent": {
+    "title": "🦊 Friend Request Sent!",
+    "description": "<a:whitearrow:1346152146814636032> The friend request was successfully sent to **{targetRiotId}**!\n<a:whitearrow:1346152146814636032> Wait for the player to accept the request so you can proceed with the gift.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "👤 Player",
+        "value": "`{name}#{tag}`",
+        "inline": true
+      },
+      {
+        "name": "🏦 Sent from account",
+        "value": "`{accountName}`",
+        "inline": true
+      }
+    ]
   }
 }
