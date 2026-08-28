@@ -230,25 +230,34 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Tratamento de erro limpo para mensagens com mais de 14 dias.
 - [x] **Comando `/deploy` Sanitizado:**
   - Remoção automática de espaços/quebras de linha no `DISCORD_TOKEN` e sincronização global de comandos.
+- [x] **Comando `/table` Completo e Interativo:**
+  - Separado em abas navegáveis via botões: `[🎨 Skins]`, `[📦 Espólios]`, `[👑 Acessórios]`, `[📑 Todas]`.
+  - Conversão dinâmica com descontos aplicados e exibição de preços originais vs com desconto em Euros (€).
+  - Remoção de skins míticas (pois não são enviáveis por presente na Riot).
+- [x] **Remoção do comando `/lock`:**
+  - Removido `commands/moderacao/lock.js` a pedido do usuário.
+- [x] **Limpeza de Categorias não-presenteáveis:**
+  - Removidas categorias de TFT e Classic da loja e dos menus de vendas.
 - [x] **Templates de Embeds Atualizados (`config/embeds.json`):**
-  - Adicionados `friendlist_main`, `friendlist_requests`, `friendlist_accepted`, `link_success`.
+  - Adicionados `friendlist_main`, `friendlist_requests`, `friendlist_accepted`, `link_success`, `tabela_skins`, `tabela_loot`, `tabela_acessorios`.
 
 ---
 
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy` e `/link` revisados e 100% integrados.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link` e `/table` revisados e 100% integrados.
 - Persistência 24/7 de contas no MongoDB Atlas ativa.
-- Todos os embeds estilizados no padrão Kitsune Store.
+- Comandos não utilizados (`/lock`) removidos.
+- Menus da loja alinhados com o cliente oficial do LoL (sem Classic/TFT não-presenteáveis).
 
 ---
 
 ## PRÓXIMO PASSO
 
-1. Fazer o deploy das alterações para o GitHub (`git push`).
-2. Testar no Discord o `/friendlist` e o fluxo da loja/tickets.
-3. Revisar o comando `/gift` e o catálogo de compras.
+1. Enviar as alterações para o GitHub (`origin/main`).
+2. Testar o `/table` e navegar entre as abas.
+3. Seguir para a revisão do próximo comando (ex: `/gift` ou `/ticket`).
 
 ---
 

@@ -611,5 +611,147 @@
         "inline": true
       }
     ]
+  },
+  "tabela_skins": {
+    "title": "🎨 Kitsune Store | Tabela de Preços de Skins",
+    "description": "<a:whitearrow:1346152146814636032> Desconto Aplicado: **{skinsDiscount}% OFF**\n<a:whitearrow:1346152146814636032> Receba skins diretamente em sua conta via presente no LoL!",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg",
+    "fields": [
+      {
+        "name": "✨ Ultimate (3250 RP)",
+        "value": "~~€ 19.50~~ ➔ **€ {price_3250}**",
+        "inline": true
+      },
+      {
+        "name": "🌟 Lendária (1820 RP)",
+        "value": "~~€ 10.92~~ ➔ **€ {price_1820}**",
+        "inline": true
+      },
+      {
+        "name": "🔥 Épica (1350 RP)",
+        "value": "~~€ 8.10~~ ➔ **€ {price_1350}**",
+        "inline": true
+      },
+      {
+        "name": "💎 Comum (975 RP)",
+        "value": "~~€ 5.85~~ ➔ **€ {price_975}**",
+        "inline": true
+      },
+      {
+        "name": "💠 Padrão (750 RP)",
+        "value": "~~€ 4.50~~ ➔ **€ {price_750}**",
+        "inline": true
+      },
+      {
+        "name": "🔰 Básica (520 RP)",
+        "value": "~~€ 3.12~~ ➔ **€ {price_520}**",
+        "inline": true
+      },
+      {
+        "name": "🎁 Skin Misteriosa (490 RP)",
+        "value": "~~€ 2.94~~ ➔ **€ {price_490}**",
+        "inline": true
+      },
+      {
+        "name": "👤 Campeão Misterioso (490 RP)",
+        "value": "~~€ 2.94~~ ➔ **€ {price_champ_490}**",
+        "inline": true
+      }
+    ]
+  },
+  "tabela_loot": {
+    "title": "📦 Kitsune Store | Tabela de Espólios e Passes",
+    "description": "<a:whitearrow:1346152146814636032> Desconto em Espólios: **{lootDiscount}% OFF** | Passes: **{passesDiscount}% OFF**\n<a:whitearrow:1346152146814636032> Todos os passes e orbes oficiais do League of Legends:",
+    "color": "#F59E0B",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_1.jpg",
+    "fields": [
+      {
+        "name": "🎫 Passe de Evento (1650 RP)",
+        "value": "~~€ 9.90~~ ➔ **€ {price_1650}**",
+        "inline": true
+      },
+      {
+        "name": "🎟️ Combo Passe (2650 RP)",
+        "value": "~~€ 15.90~~ ➔ **€ {price_2650}**",
+        "inline": true
+      },
+      {
+        "name": "👑 Passe Premium (3650 RP)",
+        "value": "~~€ 21.90~~ ➔ **€ {price_3650}**",
+        "inline": true
+      },
+      {
+        "name": "🔮 10x Orbes + Tokens (2500 RP)",
+        "value": "~~€ 15.00~~ ➔ **€ {price_2500}**",
+        "inline": true
+      },
+      {
+        "name": "🔮 25x Orbes + Sacola (6250 RP)",
+        "value": "~~€ 37.50~~ ➔ **€ {price_6250}**",
+        "inline": true
+      },
+      {
+        "name": "🔮 50x Orbes + 2x Sacolas (12500 RP)",
+        "value": "~~€ 75.00~~ ➔ **€ {price_12500}**",
+        "inline": true
+      },
+      {
+        "name": "🗝️ 1x Baú Hextec + Chave (225 RP)",
+        "value": "~~€ 1.35~~ ➔ **€ {price_225}**",
+        "inline": true
+      },
+      {
+        "name": "🗝️ 5x Baús Hextec + Chaves (1125 RP)",
+        "value": "~~€ 6.75~~ ➔ **€ {price_1125}**",
+        "inline": true
+      },
+      {
+        "name": "🗝️ 10x Baús Hextec + Chaves (2250 RP)",
+        "value": "~~€ 13.50~~ ➔ **€ {price_2250}**",
+        "inline": true
+      }
+    ]
+  },
+  "tabela_acessorios": {
+    "title": "👑 Kitsune Store | Tabela de Acessórios & Cromas",
+    "description": "<a:whitearrow:1346152146814636032> Desconto em Acessórios: **{acessoriosDiscount}% OFF**\n<a:whitearrow:1346152146814636032> Emotes, Cromas, Sentinelas, Ícones e Bônus de XP:",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "fields": [
+      {
+        "name": "🎨 Cromas Individuais (290 RP)",
+        "value": "~~€ 1.74~~ ➔ **€ {price_290}**",
+        "inline": true
+      },
+      {
+        "name": "🎭 Emotes (350 RP)",
+        "value": "~~€ 2.10~~ ➔ **€ {price_350}**",
+        "inline": true
+      },
+      {
+        "name": "👁️ Skins de Sentinela (640 RP)",
+        "value": "~~€ 3.84~~ ➔ **€ {price_640}**",
+        "inline": true
+      },
+      {
+        "name": "🖼️ Ícones de Invocador (250 RP)",
+        "value": "~~€ 1.50~~ ➔ **€ {price_250}**",
+        "inline": true
+      },
+      {
+        "name": "🏆 Bilhete Clash Premium (975 RP)",
+        "value": "~~€ 5.85~~ ➔ **€ {price_clash_975}**",
+        "inline": true
+      },
+      {
+        "name": "⚡ Bônus de XP 30 Dias (3490 RP)",
+        "value": "~~€ 20.94~~ ➔ **€ {price_boost_3490}**",
+        "inline": true
+      }
+    ]
   }
 }
