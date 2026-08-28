@@ -278,24 +278,35 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - [x] **Comando `/config` com Painel Geral e Suporte a Cargos/Canais:**
   - Exibição de resumo visual completo das configurações ativas caso executado sem opções.
   - Opções para configurar: Cor HEX, Cargo de Verificação, Cargos de Staff, Canal de Boas-Vindas/Convites, Canal de Logs de Auditoria, Logo da Loja e Link do RestoreCord.
-  - Persistência sincronizada em `config/config.json` e `database/database.json`.
+- [x] **Comando `/join` & `/leave` (Conexão de Voz 24/7):**
+  - Entrada automática no canal de voz do usuário ou em canal especificado.
+  - Suporte a Stage e Voice Channels, auto-reconect, self-deaf e intents de voz adicionados.
+  - Embed informativo e encerramento limpo com `/leave`.
+- [x] **Comando `/clear` Inteligente & Filtros Avançados:**
+  - Filtros por quantidade (1 a 100), por usuário específico ou apenas mensagens de bots.
+  - Envio automático de log de moderação no canal de auditoria configurado no `/config`.
+- [x] **Comando `/ticket` com Destino Flexível:**
+  - Opção de enviar o painel fixo de compras em qualquer canal selecionado (ex: `#loja` ou `#compras`).
 
 ---
 
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto`, `/config-store`, `/ticket`, `/embeds`, `/emojis` e `/config` revisados e 100% integrados.
-- Persistência 24/7 ativa no MongoDB Atlas.
+- **100% dos Comandos do Bot Revisados, Blindados e Integrados:**
+  - 🛒 **Loja & Riot:** `/addfriend`, `/login`, `/friendlist`, `/link`, `/gift`, `/desconto`, `/config-store`, `/table`, `/ticket`.
+  - ⚙️ **Administração & Servidor:** `/config`, `/embeds`, `/emojis`, `/deploy`, `/verify-panel`.
+  - 👥 **Utilidade & Moderação:** `/invites`, `/clear`, `/join`, `/leave`.
+- Persistência 24/7 ativa no MongoDB Atlas para Contas Riot, Convites e Verificações.
+- Live Preview de Embeds e gerenciador visual de Emojis.
 - Tickets com verificação de amizade e cooldown de 24h em tempo real.
-- `/embeds` e `/emojis` com live preview e interface aprimorada.
 
 ---
 
 ## PRÓXIMO PASSO
 
 1. Fazer o deploy para o GitHub (`origin/main`).
-2. Finalizar comandos de voz/música restantes caso desejado (`/join`, `/leave`).
+2. Pronto para produção e uso diário!
 
 ---
 

@@ -147,8 +147,15 @@ function findCatalogItem(itemId, name) {
 }
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
-    partials: [Partials.Channel, Partials.Message]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildInvites
+    ],
+    partials: [Partials.Channel, Partials.Message, Partials.GuildMember]
 });
 
 client.commands = new Collection();

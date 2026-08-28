@@ -1,30 +1,53 @@
-const { joinVoiceChannel } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, PermissionsBitField } = require('discord.js');
+const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'join',
-    description: 'Escolha um canal de voz para o bot entrar.',
+    description: '🦊 Conecta o bot a um canal de voz (Call 24/7 do servidor).',
     options: [
         {
             name: 'canal',
-            description: 'Selecione o canal de voz',
-            type: 7, // Tipo 7 é específico para CANAIS
-            channel_types: [2], // Filtra para mostrar apenas canais de VOZ
-            required: true
+            description: 'Canal de voz desejado (deixe vazio para entrar na sua call atual)',
+            type: 7, // CHANNEL
+            channel_types: [ChannelType.GuildVoice, ChannelType.GuildStageVoice],
+            required: false
         }
     ],
     async execute(interaction) {
-        const voiceChannel = interaction.options.getChannel('canal');
+        const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member.roles.cache.has(roleId));
 
-        // Verifica se o canal selecionado é mesmo de voz
-        if (voiceChannel.type !== 2) {
-            return interaction.reply({ 
-                content: '❌ Por favor, selecione um canal de **voz**.', 
-                ephemeral: true 
+        if (!isAdmin && !hasStaffRole && !interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
+            return interaction.reply({ content: '🚫 Você precisa ser Staff ou Administrador para gerenciar as conexões de voz.', ephemeral: true });
+        }
+
+        let voiceChannel = interaction.options.getChannel('canal');
+
+        // Se nenhum canal foi passado, pegar o canal onde o usuário está
+        if (!voiceChannel) {
+            voiceChannel = interaction.member.voice.channel;
+        }
+
+        if (!voiceChannel) {
+            return interaction.reply({
+                content: '⚠️ Você não está em nenhum canal de voz! Por favor, entre em uma call ou selecione um canal na opção `canal`.',
+                ephemeral: true
             });
         }
 
+        if (voiceChannel.type !== ChannelType.GuildVoice && voiceChannel.type !== ChannelType.GuildStageVoice) {
+            return interaction.reply({
+                content: '❌ Por favor, selecione um canal de **voz** válido.',
+                ephemeral: true
+            });
+        }
+
+        await interaction.deferReply({ ephemeral: true });
+
         try {
-            joinVoiceChannel({
+            const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: interaction.guild.id,
                 adapterCreator: interaction.guild.voiceAdapterCreator,
@@ -32,16 +55,27 @@ module.exports = {
                 selfMute: false
             });
 
-            await interaction.reply({ 
-                content: `🎙️ Conectado com sucesso ao canal **${voiceChannel.name}**!`, 
-                ephemeral: true 
-            });
+            await entersState(connection, VoiceConnectionStatus.Ready, 5_000);
 
+            const embed = new EmbedBuilder()
+                .setTitle('🎙️ Conectado ao Canal de Voz!')
+                .setColor('#F43F5E')
+                .setThumbnail(interaction.client.user.displayAvatarURL())
+                .setDescription(
+                    `<a:whitearrow:1346152146814636032> O bot Kitsune entrou com sucesso na call:\n\n` +
+                    `> 🔊 **Canal:** ${voiceChannel} (\`${voiceChannel.name}\`)\n` +
+                    `> 👥 **Membros na Call:** \`${voiceChannel.members.size}\` membro(s)\n` +
+                    `> 🛡️ **Status:** \`Conectado (Call 24/7 Ativa)\`\n` +
+                    `> 🎧 **Ensordecido:** \`Sim (Self-Deaf)\``
+                )
+                .setFooter({ text: 'Kitsune Voice • Use /leave para desconectar a qualquer momento', iconURL: interaction.client.user.displayAvatarURL() })
+                .setTimestamp();
+
+            return interaction.editReply({ embeds: [embed] });
         } catch (error) {
-            console.error(error);
-            await interaction.reply({ 
-                content: '❌ Erro ao tentar entrar no canal selecionado.', 
-                ephemeral: true 
+            console.error('[Voice Join Error]', error);
+            return interaction.editReply({
+                content: `❌ Erro ao tentar conectar ao canal ${voiceChannel}: \`${error.message}\``
             });
         }
     }
