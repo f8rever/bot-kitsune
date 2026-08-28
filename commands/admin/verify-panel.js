@@ -7,18 +7,18 @@ const DEFAULT_RESTORECORD_URL = 'https://discord.com/oauth2/authorize?client_id=
 
 module.exports = {
     name: 'verify-panel',
-    description: '🦊 Sends the official verification panel with the direct RestoreCord link.',
+    description: '🦊 Envia o painel oficial de verificação com link direto para o RestoreCord.',
     options: [
         {
-            name: 'channel',
-            description: 'Channel where the verification panel will be sent (Optional)',
+            name: 'canal',
+            description: 'Canal onde o painel de verificação será enviado (Opcional)',
             type: 7, // CHANNEL
             channel_types: [ChannelType.GuildText, ChannelType.GuildAnnouncement],
             required: false
         },
         {
             name: 'restorecord_url',
-            description: 'Custom RestoreCord OAuth2 URL (Optional)',
+            description: 'URL customizada do RestoreCord / OAuth2 (Opcional)',
             type: 3, // STRING
             required: false,
             autocomplete: true
@@ -68,7 +68,7 @@ module.exports = {
 
         await interaction.deferReply({ ephemeral: true });
 
-        const targetChannel = interaction.options.getChannel('channel') || interaction.channel;
+        const targetChannel = interaction.options.getChannel('canal') || interaction.options.getChannel('channel') || interaction.channel;
         const customUrl = interaction.options.getString('restorecord_url');
 
         // Check configured URL from config.json or fallback

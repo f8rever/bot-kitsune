@@ -68,10 +68,10 @@
     ]
   },
   "ticket_payment_methods": {
-    "title": "<:dinheiro:1527368514057408713> Formas de Pagamento | Payment Methods",
-    "description": "<a:whitearrow:1346152146814636032> Por favor, escolha e utilize a sua forma de pagamento preferida abaixo:\n\n💶 **MBWay / PIX / PayPal / Revolut / Crypto**\n> Mande uma mensagem neste canal para a equipe de suporte fornecer a chave de pagamento atualizada para o seu pedido!",
+    "title": "<:dinheiro:1527368514057408713> Kitsune Store | Payment Methods",
+    "description": "<a:whitearrow:1346152146814636032> Choose your preferred payment method below to complete your order:\n\n💳 **PayPal (EUR / USD)**\n> `Send as Friends & Family or ask staff for invoice.`\n\n🏦 **Revolut (Instant Transfer)**\n> `Ask staff for active Revtag or payment link.`\n\n⚡ **Crypto (USDT / BTC / LTC / SOL)**\n> `Instant crypto transfers supported. Ask staff for wallet address.`\n\n🇵🇹 **MBWay / Multibanco / PIX**\n> `Contact our support team in this ticket for direct payment keys.`\n\n📸 *After payment, please send the confirmation receipt screenshot in this channel.*",
     "color": "#10B981",
-    "thumbnail": "",
+    "thumbnail": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
     "image": ""
   },
   "admin_panel": {

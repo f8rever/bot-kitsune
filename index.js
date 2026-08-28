@@ -2379,7 +2379,37 @@ client.on('interactionCreate', async interaction => {
 
             if (interaction.customId === 'btn_payment_methods') {
                 const embedPay = buildCustomEmbed('ticket_payment_methods', interaction.client, interaction);
-                return await interaction.reply({ embeds: [embedPay], ephemeral: true }).catch(() => { });
+                const payRow = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('btn_notify_paid')
+                        .setLabel('I Have Paid / Notificar Pagamento')
+                        .setStyle(ButtonStyle.Success)
+                        .setEmoji('📩')
+                );
+                return await interaction.reply({ embeds: [embedPay], components: [payRow], ephemeral: true }).catch(() => { });
+            }
+
+            if (interaction.customId === 'btn_notify_paid') {
+                await interaction.deferReply({ ephemeral: true });
+
+                const staffRolesArray = (process.env.STAFF_ROLE_IDS || '')
+                    .split(',')
+                    .map(id => id.trim())
+                    .filter(id => id && interaction.guild.roles.cache.has(id));
+                const staffMention = staffRolesArray.length > 0 ? staffRolesArray.map(id => `<@&${id}>`).join(' ') : 'Staff';
+
+                const notifyEmbed = new EmbedBuilder()
+                    .setTitle('🔔 Payment Notification | Pagamento Informado')
+                    .setColor('#10B981')
+                    .setDescription(
+                        `<a:whitearrow:1346152146814636032> The customer **${interaction.user}** has marked this order as **PAID**!\n\n` +
+                        `> 📸 **Next Step:** Please upload the payment screenshot/receipt in this channel.\n` +
+                        `> 🛡️ **Staff:** ${staffMention} has been alerted to verify and deliver your order.`
+                    )
+                    .setTimestamp();
+
+                await interaction.channel.send({ content: `${interaction.user} | ${staffMention}`, embeds: [notifyEmbed] });
+                return await interaction.editReply({ content: '✅ **Payment notified!** Please attach your payment screenshot in this channel.' });
             }
 
             if (['adicionar_saldo', 'meu_perfil', 'backup'].includes(interaction.customId)) {

@@ -4,11 +4,11 @@ const path = require('path');
 
 module.exports = {
     name: 'config-store',
-    description: 'Configures store items, prices, discounts, or banner images.',
+    description: '🦊 Configura itens, preços, descontos e banners da loja.',
     options: [
         {
-            name: 'category',
-            description: 'Select item or banner category',
+            name: 'categoria',
+            description: 'Selecione a categoria de itens ou banners',
             type: ApplicationCommandOptionType.String,
             required: true,
             choices: [
@@ -18,39 +18,39 @@ module.exports = {
         },
         {
             name: 'item_id',
-            description: 'Select item to configure',
+            description: 'Selecione o item para configurar',
             type: ApplicationCommandOptionType.String,
             required: false,
             autocomplete: true
         },
         {
-            name: 'new_name',
-            description: 'Change item name (optional)',
+            name: 'novo_nome',
+            description: 'Novo nome do item (opcional)',
             type: ApplicationCommandOptionType.String,
             required: false
         },
         {
-            name: 'new_price',
-            description: 'Change standard item price (Ex: 19.99)',
+            name: 'novo_preco',
+            description: 'Novo preço padrão do item (Ex: 19.99)',
             type: ApplicationCommandOptionType.String,
             required: false
         },
         {
-            name: 'discount_percentage',
-            description: 'Discount percentage (Ex: 15 for 15%). Enter 0 to remove.',
+            name: 'desconto_porcentagem',
+            description: 'Porcentagem de desconto (Ex: 15 para 15%). Digite 0 para remover.',
             type: ApplicationCommandOptionType.String,
             required: false
         },
         {
-            name: 'new_banner',
-            description: 'Direct image link for category banner',
+            name: 'novo_banner',
+            description: 'URL da nova imagem de banner da categoria',
             type: ApplicationCommandOptionType.String,
             required: false
         }
     ],
 
     async autocomplete(interaction) {
-        const categoryFocus = interaction.options.getString('category');
+        const categoryFocus = interaction.options.getString('categoria') || interaction.options.getString('category');
         const focused = interaction.options.getFocused();
 
         const itensSkins = [
@@ -99,12 +99,12 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
-        const category = interaction.options.getString('category');
+        const category = interaction.options.getString('categoria') || interaction.options.getString('category');
         const itemId = interaction.options.getString('item_id');
-        const newName = interaction.options.getString('new_name');
-        const newPrice = interaction.options.getString('new_price');
-        const discountPercentage = interaction.options.getString('discount_percentage');
-        const newBanner = interaction.options.getString('new_banner');
+        const newName = interaction.options.getString('novo_nome') || interaction.options.getString('new_name');
+        const newPrice = interaction.options.getString('novo_preco') || interaction.options.getString('new_price');
+        const discountPercentage = interaction.options.getString('desconto_porcentagem') || interaction.options.getString('discount_percentage');
+        const newBanner = interaction.options.getString('novo_banner') || interaction.options.getString('new_banner');
 
         const lojaPath = path.join(__dirname, '../../config/loja.json');
         let loja = {};
