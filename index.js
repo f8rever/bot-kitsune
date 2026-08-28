@@ -1596,30 +1596,47 @@ client.on('interactionCreate', async interaction => {
             if (interaction.customId === 'menu_emojis_categorias') {
                 const cat = interaction.values[0];
                 const itens = customEmojis[cat];
-                if (!itens) return interaction.reply({ content: 'Category not found.', ephemeral: true });
+                if (!itens) return interaction.reply({ content: '❌ Categoria de emojis não encontrada.', ephemeral: true });
 
-                const opcoes = Object.keys(itens).slice(0, 25).map(k => ({
-                    label: k,
-                    value: `${cat}__${k}`,
-                    emoji: '✏️'
-                }));
+                const opcoes = Object.keys(itens).slice(0, 25).map(k => {
+                    const emj = (itens[k] || '').trim();
+                    let emojiObj = '✏️';
+                    const match = emj.match(/<a?:(\w+):(\d+)>/);
+                    if (match) {
+                        emojiObj = { name: match[1], id: match[2] };
+                    } else if (emj) {
+                        emojiObj = emj;
+                    }
+                    return {
+                        label: `${k}`.substring(0, 25),
+                        description: `Atual: ${emj}`.substring(0, 50),
+                        value: `${cat}__${k}`,
+                        ...(emojiObj ? { emoji: emojiObj } : {})
+                    };
+                });
+
+                const previewList = Object.entries(itens).map(([k, v]) => `> \`${k}\`: ${v}`).join('\n');
 
                 const embed = formatEmbed(new EmbedBuilder(), interaction.client)
-                    .setTitle(`🦊 Emoji Manager | ${cat.toUpperCase()}`)
+                    .setTitle(`🦊 Kitsune | Editor de Emojis (${cat.toUpperCase()})`)
                     .setColor('#F43F5E')
-                    .setDescription(`Select the specific emoji you want to edit in the **${cat}** category.`);
+                    .setDescription(
+                        `Aqui estão os emojis atualmente cadastrados na categoria **${cat}**:\n\n` +
+                        `${previewList}\n\n` +
+                        `*Selecione abaixo o emoji que você deseja editar ou alterar:*`
+                    );
 
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_emojis_items')
-                        .setPlaceholder('Select an emoji to edit')
+                        .setPlaceholder('Escolha um emoji para alterar...')
                         .addOptions(opcoes)
                 );
 
                 const btnVoltar = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
                         .setCustomId('voltar_menu_emojis_categorias')
-                        .setLabel('Back')
+                        .setLabel('Voltar para Categorias')
                         .setStyle(ButtonStyle.Secondary)
                         .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
                 );
@@ -1815,29 +1832,32 @@ client.on('interactionCreate', async interaction => {
                 const embedId = interaction.values[0];
 
                 const embed = formatEmbed(new EmbedBuilder(), interaction.client)
-                    .setTitle(`🦊 Kitsune | Edit Embed`)
+                    .setTitle(`🦊 Kitsune | Editor de Embeds`)
                     .setColor('#F43F5E')
-                    .setDescription(`You are editing the embed: **${embedId}**.\n\nSelect which field you want to modify below:`);
+                    .setDescription(
+                        `Você está personalizando o template: **\`${embedId}\`**.\n\n` +
+                        `*Abaixo você pode conferir a **Prévia em Tempo Real** deste embed e selecionar no menu o campo que deseja alterar:*`
+                    );
 
                 const opts = [
-                    { label: 'Title', value: `${embedId}__title`, emoji: '📝' },
-                    { label: 'Description', value: `${embedId}__description`, emoji: '📄' },
-                    { label: 'Color (HEX/Name)', value: `${embedId}__color`, emoji: '🎨' },
-                    { label: 'Thumbnail URL', value: `${embedId}__thumbnail`, emoji: '🖼️' },
-                    { label: 'Image URL', value: `${embedId}__image`, emoji: '🖼️' },
-                    { label: 'Footer Text', value: `${embedId}__footerText`, emoji: '📝' },
-                    { label: 'Footer Icon URL', value: `${embedId}__footerIcon`, emoji: '🖼️' },
-                    { label: 'Button Label', value: `${embedId}__buttonLabel`, emoji: '🔘' },
-                    { label: 'Button Emoji', value: `${embedId}__buttonEmoji`, emoji: '😀' },
-                    { label: 'Button Color (Red/Green/Blue/Gray)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
-                    { label: 'Sync Dynamic Image (True/False)', description: 'Sync embed image with the store product', value: `${embedId}__syncImage`, emoji: '🔄' }
+                    { label: 'Título', value: `${embedId}__title`, emoji: '📝' },
+                    { label: 'Descrição', value: `${embedId}__description`, emoji: '📄' },
+                    { label: 'Cor (HEX)', value: `${embedId}__color`, emoji: '🎨' },
+                    { label: 'Miniatura (Thumbnail URL)', value: `${embedId}__thumbnail`, emoji: '🖼️' },
+                    { label: 'Banner (Image URL)', value: `${embedId}__image`, emoji: '🖼️' },
+                    { label: 'Texto do Rodapé (Footer Text)', value: `${embedId}__footerText`, emoji: '📝' },
+                    { label: 'Ícone do Rodapé (Footer Icon)', value: `${embedId}__footerIcon`, emoji: '🖼️' },
+                    { label: 'Rótulo do Botão (Button Label)', value: `${embedId}__buttonLabel`, emoji: '🔘' },
+                    { label: 'Emoji do Botão', value: `${embedId}__buttonEmoji`, emoji: '😀' },
+                    { label: 'Cor do Botão (Red/Green/Blue/Gray)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
+                    { label: 'Sincronizar Imagem Dinâmica (true/false)', value: `${embedId}__syncImage`, emoji: '🔄' }
                 ];
 
                 const targetCfg = customEmbeds[embedId] || {};
                 if (targetCfg.fields && Array.isArray(targetCfg.fields)) {
                     targetCfg.fields.forEach((f, idx) => {
                         opts.push({
-                            label: `Field ${idx + 1} Label: ${f.name}`.substring(0, 50),
+                            label: `Campo ${idx + 1}: ${f.name}`.substring(0, 50),
                             value: `${embedId}__field_${idx}_name`,
                             emoji: '🏷️'
                         });
@@ -1845,25 +1865,58 @@ client.on('interactionCreate', async interaction => {
                 }
 
                 if (embedId.startsWith('tabela_')) {
-                    opts.push({ label: 'Global Discount (%)', description: 'Apply a global discount to all items', value: `${embedId}__globalDiscount`, emoji: '🎉' });
+                    opts.push({ label: 'Desconto Global (%)', description: 'Aplica desconto global na tabela', value: `${embedId}__globalDiscount`, emoji: '🎉' });
                 }
 
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_embed_field')
-                        .setPlaceholder('Select a field to edit')
+                        .setPlaceholder('Selecione qual campo deseja alterar...')
                         .addOptions(opts.slice(0, 25))
                 );
 
                 const btnVoltar = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
                         .setCustomId('voltar_menu_embeds_inicio')
-                        .setLabel('Back')
+                        .setLabel('Voltar para Todos os Embeds')
                         .setStyle(ButtonStyle.Secondary)
                         .setEmoji('⬅️')
                 );
 
-                await interaction.update({ embeds: [embed], components: [menu, btnVoltar] });
+                let previewEmbed = null;
+                try {
+                    previewEmbed = buildCustomEmbed(embedId, interaction.client, interaction, {
+                        user: interaction.user.tag,
+                        staffRoles: '@Staff',
+                        itemSelecionado: 'Skin de Exemplo',
+                        variacao: 'Épica',
+                        valorRP: '1350 RP',
+                        valorDinheiro: '€ 4.50',
+                        regiao: 'BR',
+                        riotId: 'Kitsune#BR1',
+                        friendshipStatus: '🟢 Elegível para presente',
+                        count: '15',
+                        page: '1',
+                        totalPages: '3',
+                        roleName: 'Viajante',
+                        inviter: interaction.user.tag,
+                        totalInvites: '12',
+                        regular: '10',
+                        left: '1',
+                        fake: '1',
+                        code: 'discord.gg/kitsune',
+                        recipient: 'Amigo#BR1',
+                        product: 'Skin Lendária',
+                        cost: '1820 RP',
+                        account: 'KitsuneStore',
+                        reason: 'Dados incorretos'
+                    });
+                } catch(e) {}
+
+                const embedsToSend = [embed];
+                if (previewEmbed) embedsToSend.push(previewEmbed);
+
+                await interaction.update({ embeds: embedsToSend, components: [menu, btnVoltar] });
                 return;
             }
 
@@ -2751,24 +2804,24 @@ client.on('interactionCreate', async interaction => {
 
             else if (interaction.customId === 'voltar_menu_emojis_categorias') {
                 const embed = formatEmbed(new EmbedBuilder(), interaction.client)
-                    .setTitle('🦊 Kitsune | Emoji Manager')
+                    .setTitle('🦊 Kitsune | Gerenciador de Emojis')
                     .setColor('#F43F5E')
-                    .setDescription('Select an emoji category below to begin editing the bot emojis.');
+                    .setDescription('Selecione uma categoria de emojis abaixo para começar a editar:');
 
                 const menu = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_emojis_categorias')
-                        .setPlaceholder('Select a category')
+                        .setPlaceholder('Selecione uma categoria de emojis')
                         .addOptions([
-                            { label: 'Skins', value: 'skins', emoji: '✨' },
-                            { label: 'Loot', value: 'loot', emoji: '📦' },
-                            { label: 'Utilities', value: 'utilidades', emoji: '🛠️' },
-                            { label: 'Store Products', value: 'loja_produtos', emoji: '🛒' },
-                            { label: 'Store Status', value: 'loja_status', emoji: '📊' },
-                            { label: 'Staff Roles', value: 'staff_roles', emoji: '🛡️' },
-                            { label: 'LoL Roles', value: 'lol_roles', emoji: '⚔️' },
-                            { label: 'LoL Regions', value: 'lol_regions', emoji: '🌍' },
-                            { label: 'Ticket', value: 'ticket', emoji: '🎫' }
+                            { label: '✨ Skins & Tiers', description: 'Emojis de Ultimate, Lendária, Épica, Cromas, etc.', value: 'skins', emoji: '✨' },
+                            { label: '📦 Espólios & Loot', description: 'Emojis de Passes, Orbes, Baús, Chaves, Cápsulas', value: 'loot', emoji: '📦' },
+                            { label: '🛠️ Utilidades Gerais', description: 'Setas, Sucesso, Erro, Fogo, Carregamento, etc.', value: 'utilidades', emoji: '🛠️' },
+                            { label: '🛒 Loja & Moedas', description: 'Emojis de RP, Dinheiro, Essências, Carrinho', value: 'loja_produtos', emoji: '🛒' },
+                            { label: '📊 Status da Loja', description: 'Estoque, Promoção, Novidade, Entrega Rápida', value: 'loja_status', emoji: '📊' },
+                            { label: '🛡️ Staff & Suporte', description: 'Emojis de Dono, Moderador, Ajuda, Suporte', value: 'staff_e_suporte', emoji: '🛡️' },
+                            { label: '⚔️ Roles do LoL', description: 'Assassino, Mago, Atirador, Suporte, Tank, Lutador', value: 'lol_roles', emoji: '⚔️' },
+                            { label: '🌍 Regiões do LoL', description: 'Bandeiras e ícones de BR, NA, EUW, EUNE, KR, etc.', value: 'lol_regions', emoji: '🌍' },
+                            { label: '🎫 Sistema de Tickets', description: 'Emojis exibidos dentro do embed dos tickets', value: 'ticket', emoji: '🎫' }
                         ])
                 );
 
@@ -2853,11 +2906,44 @@ client.on('interactionCreate', async interaction => {
                     fs.writeFileSync(embedsPath, JSON.stringify(fileData, null, 2), 'utf8');
                     try { client.emit('reloadEmbeds'); } catch(e) {}
 
-                    const successMsg = `✅ Embed **${embedId}** - campo **${field}** atualizado com sucesso!`;
+                    let previewEmbed = null;
+                    try {
+                        previewEmbed = buildCustomEmbed(embedId, interaction.client, interaction, {
+                            user: interaction.user.tag,
+                            staffRoles: '@Staff',
+                            itemSelecionado: 'Skin de Exemplo',
+                            variacao: 'Épica',
+                            valorRP: '1350 RP',
+                            valorDinheiro: '€ 4.50',
+                            regiao: 'BR',
+                            riotId: 'Kitsune#BR1',
+                            friendshipStatus: '🟢 Elegível para presente',
+                            count: '15',
+                            page: '1',
+                            totalPages: '3',
+                            roleName: 'Viajante',
+                            inviter: interaction.user.tag,
+                            totalInvites: '12',
+                            regular: '10',
+                            left: '1',
+                            fake: '1',
+                            code: 'discord.gg/kitsune',
+                            recipient: 'Amigo#BR1',
+                            product: 'Skin Lendária',
+                            cost: '1820 RP',
+                            account: 'KitsuneStore',
+                            reason: 'Dados incorretos'
+                        });
+                    } catch(e) {}
+
+                    const successMsg = `✅ Template **${embedId}** atualizado com sucesso no campo **${field}**!\n*Veja a nova prévia abaixo:*`;
+                    const respData = { content: successMsg, ephemeral: true };
+                    if (previewEmbed) respData.embeds = [previewEmbed];
+
                     if (interaction.replied || interaction.deferred) {
-                        await interaction.followUp({ content: successMsg, ephemeral: true }).catch(() => {});
+                        await interaction.followUp(respData).catch(() => {});
                     } else {
-                        await interaction.reply({ content: successMsg, ephemeral: true }).catch(() => {});
+                        await interaction.reply(respData).catch(() => {});
                     }
                 }
                 return;
@@ -3348,20 +3434,6 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     } else {
         await interaction.reply({ content: '', embeds: [embedConfirmacao], components: actionRows, ephemeral: true });
     }
-}
-
-console.log('🤖 Tentando autenticar bot no Discord...');
-const cleanToken = process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN.replace(/[\s\r\n"']/g, '') : null;
-if (!cleanToken) {
-    console.error('❌ [ERRO CRÍTICO] process.env.DISCORD_TOKEN não está definido no Render!');
-} else {
-    client.login(cleanToken)
-        .then(() => {
-            console.log('🔑 Token validado e aceito pelo Discord!');
-        })
-        .catch(err => {
-            console.error('❌ [ERRO AO LOGAR NO DISCORD]:', err);
-        });
 }
 
 // Background loop to refresh accounts and check tokens

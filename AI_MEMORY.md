@@ -268,25 +268,34 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Eliminação de menções quebradas `@unknown-role`.
   - Novo botão **`[ ⏱️ Checar Amizade & 24h ]`**: Verifica se o cliente já é amigo no LoL e calcula o tempo restante de cooldown de 24h para envio de presente.
   - Botão automático **`[ ➕ Enviar Pedido de Amizade ]`** caso o cliente ainda não esteja adicionado.
-- [x] **Templates de Embeds 100% Editáveis (`/embeds`):**
-  - Cadastrados todos os novos templates em `config/embeds.json` e no menu visual do comando `/embeds`.
+- [x] **Comando `/embeds` Completo com Live Preview:**
+  - Menus divididos por categorias (`🛒 Loja & Catálogos` e `🎮 Comandos, Verificação & Convites`).
+  - **Live Preview em Tempo Real:** Exibe o embed exato com dados de exemplo ao selecionar e após cada edição.
+  - Edição de títulos, descrições, cores HEX, banners, thumbnails, rodapés e botões.
+- [x] **Comando `/emojis` com Lista e Validação Visual:**
+  - Menu categorizado com listagem completa e preview do emoji atual ao lado de cada chave.
+  - Suporte a todas as categorias: Skins, Loot, Utilidades, Loja Produtos, Status, Staff/Suporte, Roles e Regiões do LoL.
+- [x] **Comando `/config` com Painel Geral e Suporte a Cargos/Canais:**
+  - Exibição de resumo visual completo das configurações ativas caso executado sem opções.
+  - Opções para configurar: Cor HEX, Cargo de Verificação, Cargos de Staff, Canal de Boas-Vindas/Convites, Canal de Logs de Auditoria, Logo da Loja e Link do RestoreCord.
+  - Persistência sincronizada em `config/config.json` e `database/database.json`.
 
 ---
 
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto`, `/config-store` e `/ticket` revisados e 100% integrados.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto`, `/config-store`, `/ticket`, `/embeds`, `/emojis` e `/config` revisados e 100% integrados.
 - Persistência 24/7 ativa no MongoDB Atlas.
 - Tickets com verificação de amizade e cooldown de 24h em tempo real.
-- Todos os embeds personalizáveis via `/embeds`.
+- `/embeds` e `/emojis` com live preview e interface aprimorada.
 
 ---
 
 ## PRÓXIMO PASSO
 
 1. Fazer o deploy para o GitHub (`origin/main`).
-2. Seguir para os comandos restantes: `/embeds`, `/config`, `/emojis`, `/join`, `/leave`.
+2. Finalizar comandos de voz/música restantes caso desejado (`/join`, `/leave`).
 
 ---
 
