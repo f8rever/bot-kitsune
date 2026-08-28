@@ -806,5 +806,81 @@
     "thumbnail": "{userAvatar}",
     "image": "",
     "fields": []
+  },
+  "gift_sent": {
+    "title": "🎁 Presente Enviado com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> O presente **{itemName}** foi enviado com sucesso pela Riot Games!\n<a:whitearrow:1346152146814636032> Destinatário: **{receiverName}**",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "📦 Item",
+        "value": "`{itemName}` (x{quantity})",
+        "inline": true
+      },
+      {
+        "name": "🪙 Valor Total",
+        "value": "`{totalPrice} RP`",
+        "inline": true
+      },
+      {
+        "name": "🏦 Novo Saldo",
+        "value": "`{newRp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💬 Mensagem Enviada",
+        "value": "{giftMessage}",
+        "inline": false
+      }
+    ]
+  },
+  "gift_failed": {
+    "title": "❌ Falha no Envio do Presente",
+    "description": "<a:whitearrow:1346152146814636032> Não foi possível enviar o item **{itemName}** para **{receiverName}**.\n<a:whitearrow:1346152146814636032> Detalhes do erro da Riot: `{errorMsg}`",
+    "color": "#ED4245",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "gift_staff_log": {
+    "title": "📊 Log de Auditoria | Presente Enviado",
+    "description": "<a:whitearrow:1346152146814636032> Um presente foi enviado via Kitsune Bot:",
+    "color": "#5865F2",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "👤 Staff Responsável",
+        "value": "`{discordTag}` (<@{discordId}>)",
+        "inline": true
+      },
+      {
+        "name": "🏦 Conta Riot Origem",
+        "value": "`{senderAccount}` [{region}]",
+        "inline": true
+      },
+      {
+        "name": "🎯 Destinatário",
+        "value": "`{receiverName}`",
+        "inline": true
+      },
+      {
+        "name": "📦 Item Enviado",
+        "value": "`{itemName}` (x{quantity})",
+        "inline": true
+      },
+      {
+        "name": "🪙 Valor Gasto",
+        "value": "`{totalPrice} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Saldo Restante",
+        "value": "`{newRp} RP`",
+        "inline": true
+      }
+    ]
   }
 }

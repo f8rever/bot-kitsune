@@ -406,6 +406,10 @@ module.exports = {
                     if (accounts[session.accountName]) {
                         accounts[session.accountName].rp = newRp;
                         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+
+                        // Sincronizar instantaneamente no MongoDB Atlas
+                        const { saveAccountToMongo } = require('../../utils/mongoStorage.js');
+                        saveAccountToMongo(session.accountName, accounts[session.accountName]).catch(() => {});
                     }
                 } catch(e) {}
             }
@@ -423,7 +427,7 @@ module.exports = {
                 embed.setThumbnail(item.iconUrl || item.image);
             }
 
-            // Send Staff Audit Log via DM to Server Administrators / Staff
+            // Enviar Log de Auditoria no Canal e para a Staff
             try {
                 const { PermissionsBitField } = require('discord.js');
                 const staffLogEmbed = buildCustomEmbed('gift_staff_log', interaction.client, interaction, {
@@ -444,12 +448,23 @@ module.exports = {
                 }
 
                 if (interaction.guild) {
-                    const members = await interaction.guild.members.fetch();
-                    const staffMembers = members.filter(m => !m.user.bot && (m.permissions.has(PermissionsBitField.Flags.Administrator) || m.permissions.has(PermissionsBitField.Flags.ManageGuild)));
-                    for (const [id, member] of staffMembers) {
-                        try {
-                            await member.send({ embeds: [staffLogEmbed] });
-                        } catch(dmErr) {}
+                    // Enviar no canal de logs do servidor se existir
+                    const logChannel = interaction.guild.channels.cache.find(c => 
+                        c.isTextBased() && (c.name.includes('log') || c.name.includes('auditoria') || c.name.includes('presentes'))
+                    );
+                    if (logChannel) {
+                        logChannel.send({ embeds: [staffLogEmbed] }).catch(() => {});
+                    }
+
+                    // Enviar por DM para os administradores
+                    const members = await interaction.guild.members.fetch().catch(() => null);
+                    if (members) {
+                        const staffMembers = members.filter(m => !m.user.bot && (m.permissions.has(PermissionsBitField.Flags.Administrator) || m.permissions.has(PermissionsBitField.Flags.ManageGuild)));
+                        for (const [id, member] of staffMembers) {
+                            try {
+                                await member.send({ embeds: [staffLogEmbed] });
+                            } catch(dmErr) {}
+                        }
                     }
                 }
             } catch(e) {

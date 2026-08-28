@@ -249,6 +249,12 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Mensagem efêmera de sucesso (`verify_success`).
 - [x] **Carregamento Automático de Eventos no `index.js`:**
   - Implementado `loadEvents()` para carregar dinamicamente todos os eventos em `events/` (`guildMemberAdd.js`, `guildMemberRemove.js`, `messageCreate.js`).
+- [x] **Comando `/gift` Completo & Blindado:**
+  - Compatibilidade idêntica à especificação do `gift.txt` (CAP V2 Orders API com fallback para Storefront V3 API).
+  - Autocomplete inteligente de amigos elegíveis com badge de timer (`[✅ Elegível]` vs `[⏱️ Faltam Xh]`).
+  - Autocomplete de itens em tempo real no catálogo multilíngue.
+  - Sincronização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e no disco.
+  - Notificação de presente (`gift_sent`), falha com motivo detalhado (`gift_failed`) e log de auditoria no canal e DM da staff (`gift_staff_log`).
 - [x] **Templates de Embeds 100% Editáveis (`/embeds`):**
   - Cadastrados todos os novos templates em `config/embeds.json` e no menu visual do comando `/embeds`.
 
@@ -257,8 +263,8 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel` revisados e 100% integrados.
-- Invite Tracker e Sistema de Verificação operacionais com MongoDB Atlas.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel` e `/gift` revisados e 100% integrados.
+- Persistência 24/7 ativa no MongoDB Atlas.
 - Todos os embeds personalizáveis via `/embeds`.
 
 ---
@@ -266,8 +272,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## PRÓXIMO PASSO
 
 1. Fazer o deploy para o GitHub (`origin/main`).
-2. Testar o `/verify-panel` e o `/invites` no Discord.
-3. Seguir para o comando `/gift` (envio de presentes).
+2. Seguir para o comando `/ticket` (painel de compras, seleção de produtos e abertura de tickets) e os comandos de configuração (`/config-store`, `/desconto`, `/embeds`, `/config`, `/emojis`).
 
 ---
 
