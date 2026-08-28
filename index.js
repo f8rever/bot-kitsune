@@ -2557,12 +2557,22 @@ client.on('interactionCreate', async interaction => {
                 const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
                 const regUpper = (cart.regiao || 'BR1').toUpperCase();
 
-                let bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
+                // 1. Prioridade: Conta ativa da sessão do usuário que deu /login
+                let bestAcc = null;
+                const userSession = global.userStoreSessions ? global.userStoreSessions.get(interaction.user.id) : null;
+                if (userSession && userSession.tokens && userSession.tokens.accessToken) {
+                    bestAcc = userSession.tokens;
+                }
+
+                // 2. Fallback: Conta que corresponde à região do ticket ou qualquer conta válida salva
+                if (!bestAcc) {
+                    bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
                               Object.values(accounts).find(a => !a.expired) ||
                               Object.values(accounts)[0];
+                }
 
                 if (!bestAcc || !bestAcc.accessToken) {
-                    return interaction.editReply({ content: '❌ Nenhuma conta Riot com sessão ativa para verificar a amizade.' });
+                    return interaction.editReply({ content: '❌ Nenhuma conta Riot com sessão ativa para verificar a amizade. Use `/login` para autenticar a conta da loja primeiro.' });
                 }
 
                 const { getFriendList } = require('./utils/riotAuth.js');
@@ -2653,12 +2663,23 @@ client.on('interactionCreate', async interaction => {
                 const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
                 const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
                 const regUpper = (cart.regiao || 'BR1').toUpperCase();
-                let bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
+
+                // 1. Prioridade: Conta da sessão ativa do /login
+                let bestAcc = null;
+                const userSession = global.userStoreSessions ? global.userStoreSessions.get(interaction.user.id) : null;
+                if (userSession && userSession.tokens && userSession.tokens.accessToken) {
+                    bestAcc = userSession.tokens;
+                }
+
+                // 2. Fallback: Conta por região ou conta salva
+                if (!bestAcc) {
+                    bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
                               Object.values(accounts).find(a => !a.expired) ||
                               Object.values(accounts)[0];
+                }
 
                 if (!bestAcc || !bestAcc.accessToken) {
-                    return interaction.editReply({ content: '❌ Nenhuma conta Riot disponível para enviar pedido.' });
+                    return interaction.editReply({ content: '❌ Nenhuma conta Riot disponível para enviar pedido. Use `/login` primeiro.' });
                 }
 
                 const { RiotChatClient } = require('./utils/riotXmpp.js');
