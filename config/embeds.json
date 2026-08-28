@@ -558,5 +558,58 @@
     "color": "#3B82F6",
     "thumbnail": "{userAvatar}",
     "image": ""
+  },
+  "friendlist_main": {
+    "title": "🦊 Kitsune | Lista de Amigos",
+    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Total de Amigos: **{count}**\n\n{friendListStr}",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "friendlist_requests": {
+    "title": "📥 Kitsune | Pedidos de Amizade Pendentes",
+    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Pedidos Recebidos: **{count}**\n\n{requestsList}",
+    "color": "#F59E0B",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "friendlist_accepted": {
+    "title": "✅ Kitsune | Pedidos Aceitos com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> Foram aceitos **{acceptedCount}** novos pedidos de amizade na conta **{accountName}**!\n<a:whitearrow:1346152146814636032> O timer de 24 horas para presentes começou a contar.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "link_success": {
+    "title": "🦊 Kitsune | Conta Riot Vinculada com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> A conta **{accountName}** foi autenticada e salva permanentemente na nuvem!\n<a:whitearrow:1346152146814636032> Status da Sessão: {status247}",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Região",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "⭐ Nível",
+        "value": "`{level}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 Saldo RP",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Essência Azul",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
   }
 }

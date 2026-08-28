@@ -2083,40 +2083,61 @@ client.on('interactionCreate', async interaction => {
                             }
                         }
 
+                        let friends = [];
+                        let storeFriendsMap = new Map();
+
+                        // 1. Buscar da Store API para obter os timestamps de friendsSince
+                        try {
+                            const storeFriends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1');
+                            if (Array.isArray(storeFriends)) {
+                                for (const sf of storeFriends) {
+                                    const key = (sf.name || sf.nick || '').toLowerCase().trim();
+                                    storeFriendsMap.set(key, sf);
+                                    if (sf.puuid) storeFriendsMap.set(sf.puuid, sf);
+                                }
+                            }
+                        } catch (e) {}
+
+                        // 2. Buscar do XMPP Roster (todos os amigos de todas as regiões)
                         if (acc.chatUri && acc.chatDom && acc.geopasToken) {
                             const xmppClient = new RiotChatClient(acc.chatUri, acc.chatDom);
                             try {
                                 const connected = await xmppClient.initializeChat(acc.accessToken, acc.geopasToken);
                                 if (connected) {
                                     const roster = await xmppClient.getFriendList();
-                                    // Filtrar apenas amigos mútuos (subscription = 'both')
                                     const mutualFriends = (roster || []).filter(r => r.status === 'both' || !r.status);
-                                    friends = mutualFriends.map(f => ({
-                                        name: f.name || f.puuid || 'Desconhecido',
-                                        nick: f.name || '',
-                                        puuid: f.puuid
-                                    }));
-                                    usedXmpp = true;
+                                    friends = mutualFriends.map(f => {
+                                        const key = (f.name || '').toLowerCase().trim();
+                                        const sf = storeFriendsMap.get(key) || (f.puuid ? storeFriendsMap.get(f.puuid) : null);
+                                        return {
+                                            name: f.name || sf?.name || 'Amigo',
+                                            nick: f.name || sf?.nick || '',
+                                            puuid: f.puuid,
+                                            friendsSince: sf?.friendsSince || null
+                                        };
+                                    });
                                 }
                             } catch (e) {
-                                console.warn('[btn_friend] Aviso: falha no XMPP roster, tentando fallback REST:', e.message);
+                                console.warn('[btn_friend] Aviso: falha no XMPP roster, usando dados da loja:', e.message);
                             } finally {
                                 xmppClient.disconnect();
                             }
                         }
 
-                        // Fallback: endpoint REST de gifting (apenas mesma região)
-                        if (!usedXmpp) {
-                            try {
-                                friends = await getFriendList(acc.accessToken, acc.entitlementsToken, acc.region || 'BR1') || [];
-                            } catch (e) {
-                                friends = [];
-                            }
+                        // 3. Fallback para Store API se XMPP estiver vazio
+                        if (friends.length === 0 && storeFriendsMap.size > 0) {
+                            const unique = Array.from(new Set(storeFriendsMap.values()));
+                            friends = unique.map(f => ({
+                                name: f.name || f.nick || 'Amigo',
+                                nick: f.nick || '',
+                                puuid: f.puuid,
+                                friendsSince: f.friendsSince
+                            }));
                         }
 
                         let friendText = 'Nenhum amigo encontrado.';
                         const totalFriends = friends.length;
-                        const pageSize = 12;
+                        const pageSize = 10;
                         const totalPages = Math.max(1, Math.ceil(totalFriends / pageSize));
                         if (page > totalPages) page = totalPages;
                         if (page < 1) page = 1;
@@ -2124,17 +2145,29 @@ client.on('interactionCreate', async interaction => {
                         if (friends.length > 0) {
                             const startIdx = (page - 1) * pageSize;
                             const pageFriends = friends.slice(startIdx, startIdx + pageSize);
-                            friendText = pageFriends.map(f => {
-                                let timeStr = '';
+                            friendText = pageFriends.map((f, i) => {
+                                let timerStr = ' • 🌍 *Global*';
                                 if (f.friendsSince) {
                                     try {
-                                        const since = new Date(f.friendsSince.replace(' ', 'T') + 'Z');
+                                        const cleanDate = f.friendsSince.includes('T') ? f.friendsSince : f.friendsSince.replace(' ', 'T') + 'Z';
+                                        const since = new Date(cleanDate);
                                         const diffMs = Date.now() - since.getTime();
-                                        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-                                        timeStr = ` (${diffDays}d)`;
+                                        if (diffMs >= 24 * 3600 * 1000) {
+                                            const totalSecs = Math.floor(diffMs / 1000);
+                                            const days = Math.floor(totalSecs / 86400);
+                                            const hours = Math.floor((totalSecs % 86400) / 3600);
+                                            const timePart = days > 0 ? `${days}d ${hours}h` : `${hours}h`;
+                                            timerStr = ` • ✅ *Elegível (${timePart})*`;
+                                        } else {
+                                            const remainMs = (24 * 3600 * 1000) - diffMs;
+                                            const remainHours = Math.floor(remainMs / 3600000);
+                                            const remainMins = Math.floor((remainMs % 3600000) / 60000);
+                                            timerStr = ` • ⏱️ *Faltam ${remainHours}h ${remainMins}m*`;
+                                        }
                                     } catch (e) {}
                                 }
-                                return `• **${f.name || f.nick || 'Desconhecido'}**${timeStr}`;
+                                const globalNum = startIdx + i + 1;
+                                return `**${globalNum}.** \`${f.name || f.nick || 'Amigo'}\`${timerStr}`;
                             }).join('\n');
                         }
 

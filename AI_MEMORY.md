@@ -220,23 +220,35 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Sincronização automática no boot do bot em `index.js`: restaura todas as contas Riot da nuvem para o disco local, garantindo que reinicializações ou deploys no Render não percam contas vinculadas.
   - Salvamento instantâneo no MongoDB ao executar `/link` e durante atualizações de tokens/saldo no `/login`.
   - Heartbeat em segundo plano (`refreshAccountsTask`) agora sincroniza renovações via SSID e alterações de saldo diretamente na nuvem.
+- [x] **Comando `/friendlist` Completo e Multi-Região:**
+  - Suporte a amigos de todas as regiões via XMPP Roster integrado com os timestamps de `friendsSince` da Riot Store API.
+  - Cálculo de timer detalhado em dias, horas, minutos e segundos (`✅ Elegível para presentes` vs `⏱️ Aguardando 24h`).
+  - Paginação interativa com botões de Próxima/Anterior.
+  - Subações funcionais: Ver Amigos, Ver Pedidos Recebidos, Aceitar Todos os Pedidos e Enviar Pedido de Amizade.
+- [x] **Comando `/clear` Blindado:**
+  - Verificação de permissões de Gerenciar Mensagens / Administrador / Cargo de Staff configurado.
+  - Tratamento de erro limpo para mensagens com mais de 14 dias.
+- [x] **Comando `/deploy` Sanitizado:**
+  - Remoção automática de espaços/quebras de linha no `DISCORD_TOKEN` e sincronização global de comandos.
+- [x] **Templates de Embeds Atualizados (`config/embeds.json`):**
+  - Adicionados `friendlist_main`, `friendlist_requests`, `friendlist_accepted`, `link_success`.
 
 ---
 
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login` e painel de controle (RP/BE/Amigos) estão 100% operacionais.
-- Persistência na nuvem ativa via MongoDB Atlas (nunca mais perde contas vinculadas ao reiniciar).
-- O bot está pronto para testar o fluxo de `/link` e seguir para os próximos comandos.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy` e `/link` revisados e 100% integrados.
+- Persistência 24/7 de contas no MongoDB Atlas ativa.
+- Todos os embeds estilizados no padrão Kitsune Store.
 
 ---
 
 ## PRÓXIMO PASSO
 
-1. Fazer o deploy dessas alterações no GitHub (`git push`).
-2. Testar o comando `/link` e confirmar que a conta permanece salva mesmo após reiniciar.
-3. Seguir para a revisão e melhoria do próximo comando da fila (ex: `/gift`, `/friendlist`, etc.).
+1. Fazer o deploy das alterações para o GitHub (`git push`).
+2. Testar no Discord o `/friendlist` e o fluxo da loja/tickets.
+3. Revisar o comando `/gift` e o catálogo de compras.
 
 ---
 
