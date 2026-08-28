@@ -1,28 +1,9 @@
 {
-  "cores": {
-    "admin": "#000000",
-    "moderacao": "#ED4245",
-    "economia": "#F1C40F",
-    "social": "#EB459E",
-    "utilidade": "#3498DB",
-    "suporte": "#5865F2",
-    "anuncios": "#2ECC71",
-    "erro": "#FF0000"
-  },
-  "emojis": {
-    "admin": "⚙️",
-    "moderacao": "🛡️",
-    "economia": "💰",
-    "social": "🎈",
-    "utilidade": "🛠️",
-    "suporte": "🎫",
-    "anuncios": "📢",
-    "erro": "❌",
-    "sucesso": "✅",
-    "loading": "⏳"
-  },
-  "links": {
-    "logo": "URL_DA_IMAGEM_DA_KITSUNE",
-    "footer": "Kitsune V3 • Sistema Inteligente"
-  }
+  "cor": "#F43F5E",
+  "cargo_verif": "Viajante",
+  "staff_role_id": "1540159601830526998",
+  "canal_welcome_id": "",
+  "canal_logs_id": "",
+  "logo_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+  "restorecord_url": "https://discord.com/oauth2/authorize?client_id=1527499371971870740&redirect_uri=https%3A%2F%2Frestorecord.com%2Fapi%2Fcallback&response_type=code&scope=identify+guilds.join&state=1540159601817817168&prompt=none"
 }
