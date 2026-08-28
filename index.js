@@ -1198,7 +1198,13 @@ async function atualizarEmbedTicket(channel, client) {
 
     const details = obterDetalhesCarrinho(cart, loja, lang);
 
-    const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(id => `<@&${id}>`).join(' ');
+    const staffRolesArray = (process.env.STAFF_ROLE_IDS || '')
+        .split(',')
+        .map(id => id.trim())
+        .filter(id => id && channel.guild.roles.cache.has(id));
+    const staffRoles = staffRolesArray.length > 0 ? staffRolesArray.map(id => `<@&${id}>`).join(' ') : '';
+
+    const friendshipStatus = cart.friendshipStatus || '> ⏳ Clique em **⏱️ Checar Amizade & 24h** abaixo para verificar se o prazo de 24h já está ativo.';
 
     const embed = buildCustomEmbed('ticket_order_received', client, null, {
         staffRoles,
@@ -1208,6 +1214,7 @@ async function atualizarEmbedTicket(channel, client) {
         valorDinheiro: details.valorDinheiro,
         regiao: cart.regiao,
         riotId: cart.riotId,
+        friendshipStatus: friendshipStatus,
         eProduto,
         eVariacao,
         eRP,
@@ -1248,7 +1255,6 @@ async function atualizarEmbedTicket(channel, client) {
                     if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
                 }
             } else {
-                // Construct Cloudfront bundle URL for passes, orbs, hextech bundles, highlights, and others if they have valid numeric IDs
                 const itemIdNum = parseInt(item.itemId || catItemEncontrado?.id, 10);
                 if (itemIdNum && !isNaN(itemIdNum) && itemIdNum >= 10000) {
                     ddragonUrl = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemIdNum}.png`;
@@ -1281,19 +1287,23 @@ async function atualizarEmbedTicket(channel, client) {
         console.error("Erro ao buscar imagem no update:", err);
     }
 
-    const btn = new ActionRowBuilder().addComponents(
+    const row1 = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('fechar_ticket').setLabel('Close Ticket').setStyle(ButtonStyle.Danger).setEmoji(eFechar),
         new ButtonBuilder().setCustomId('btn_payment_methods').setLabel('Payment Methods').setStyle(ButtonStyle.Success).setEmoji(eDinheiro),
+        new ButtonBuilder().setCustomId('btn_check_friendship').setLabel('Checar Amizade & 24h').setStyle(ButtonStyle.Primary).setEmoji('⏱️')
+    );
+
+    const row2 = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('editar_pedido').setLabel('Edit Order').setStyle(ButtonStyle.Secondary).setEmoji('✏️'),
-        new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Primary).setEmoji('➕')
+        new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Secondary).setEmoji('➕')
     );
 
     const messages = await channel.messages.fetch({ limit: 100 });
     const botMsg = messages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
     if (botMsg) {
-        await botMsg.edit({ embeds: embedsArray, components: [btn] });
+        await botMsg.edit({ embeds: embedsArray, components: [row1, row2] });
     } else {
-        await channel.send({ embeds: embedsArray, components: [btn] });
+        await channel.send({ embeds: embedsArray, components: [row1, row2] });
     }
 }
 
@@ -2119,7 +2129,6 @@ client.on('interactionCreate', async interaction => {
                             }
                         }
 
-                        let friends = [];
                         let storeFriendsMap = new Map();
 
                         // 1. Buscar da Store API para obter os timestamps de friendsSince
@@ -2442,6 +2451,150 @@ client.on('interactionCreate', async interaction => {
                     new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('new_riotid').setLabel('New Riot ID').setPlaceholder('Ex: Name#Tag').setStyle(TextInputStyle.Short).setRequired(true))
                 );
                 interaction.showModal(modal).catch(e => { if (e.code !== 10062 && e.code !== 40060) console.error("Erro ao abrir modal_editar_pedido:", e); });
+            }
+            else if (interaction.customId === 'btn_check_friendship') {
+                await interaction.deferReply({ ephemeral: true });
+                const cart = global.ticketCarts ? global.ticketCarts.get(interaction.channel.id) : null;
+                if (!cart || !cart.riotId || cart.riotId === 'Unknown') {
+                    return interaction.editReply({ content: '❌ Informações do pedido não encontradas neste ticket. Use **✏️ Edit Order** para definir o Riot ID.' });
+                }
+
+                const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
+                if (!fs.existsSync(accountsPath)) {
+                    return interaction.editReply({ content: '❌ Nenhuma conta Riot vinculada no bot.' });
+                }
+
+                const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
+                const regUpper = (cart.regiao || 'BR1').toUpperCase();
+
+                let bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
+                              Object.values(accounts).find(a => !a.expired) ||
+                              Object.values(accounts)[0];
+
+                if (!bestAcc || !bestAcc.accessToken) {
+                    return interaction.editReply({ content: '❌ Nenhuma conta Riot com sessão ativa para verificar a amizade.' });
+                }
+
+                const { getFriendList } = require('./utils/riotAuth.js');
+                let friends = await getFriendList(bestAcc.accessToken, bestAcc.entitlementsToken, bestAcc.region || regUpper).catch(() => []);
+
+                const cleanStr = str => (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                const targetClean = cleanStr(cart.riotId);
+                const targetBase = cleanStr(cart.riotId.split('#')[0]);
+
+                let matchedFriend = (friends || []).find(f => {
+                    if (!f) return false;
+                    const fNameClean = cleanStr(f.name);
+                    const fNickClean = cleanStr(f.nick);
+                    const fGameClean = cleanStr(f.gameName);
+
+                    return fNameClean === targetClean ||
+                           fNickClean === targetClean ||
+                           fGameClean === targetClean ||
+                           fNameClean === targetBase ||
+                           fNickClean === targetBase ||
+                           fGameClean === targetBase ||
+                           (targetClean.length > 2 && (fNameClean.includes(targetClean) || targetClean.includes(fNameClean)));
+                });
+
+                if (!matchedFriend) {
+                    cart.friendshipStatus = '🔴 **Pendente:** O Riot ID ainda não é amigo da conta da loja.';
+                    await atualizarEmbedTicket(interaction.channel, interaction.client);
+
+                    const addRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder()
+                            .setCustomId(`btn_send_friend_ticket`)
+                            .setLabel(`Enviar Pedido de Amizade (${cart.riotId})`)
+                            .setStyle(ButtonStyle.Success)
+                            .setEmoji('➕')
+                    );
+
+                    return interaction.editReply({
+                        content: `⚠️ O Riot ID **${cart.riotId}** **NÃO** foi encontrado na lista de amigos da conta **${bestAcc.accountName || 'Riot Store'}** [${bestAcc.region || regUpper}].\n\nClique no botão abaixo para o bot enviar o pedido de amizade automaticamente agora mesmo!`,
+                        components: [addRow]
+                    });
+                }
+
+                let statusBadge = '';
+                let replyMsg = '';
+
+                if (matchedFriend.friendsSince) {
+                    try {
+                        const cleanDate = matchedFriend.friendsSince.includes('T') ? matchedFriend.friendsSince : matchedFriend.friendsSince.replace(' ', 'T') + 'Z';
+                        const since = new Date(cleanDate);
+                        const diffMs = Date.now() - since.getTime();
+                        if (diffMs >= 24 * 3600 * 1000) {
+                            const totalHours = Math.floor(diffMs / 3600000);
+                            statusBadge = `🟢 **Elegível:** Amizade ativa há **${totalHours}h** (Presente pronto para envio!)`;
+                            replyMsg = `✅ **Tudo pronto!** O cliente **${cart.riotId}** é amigo da conta da loja há mais de 24 horas (${totalHours}h). O presente já pode ser enviado pelo comando \`/gift\`!`;
+                        } else {
+                            const remainMs = (24 * 3600 * 1000) - diffMs;
+                            const remainHours = Math.floor(remainMs / 3600000);
+                            const remainMins = Math.floor((remainMs % 3600000) / 60000);
+                            statusBadge = `🟡 **Aguardando 24h:** Faltam **${remainHours}h ${remainMins}m** para desbloquear o envio.`;
+                            replyMsg = `⏱️ **Aguardando Cooldown:** O cliente **${cart.riotId}** foi adicionado recentemente. Faltam ainda **${remainHours}h ${remainMins}m** para liberar o envio de presentes pela Riot Games.`;
+                        }
+                    } catch (e) {
+                        statusBadge = '🟢 **Amigo Confirmado:** Amizade ativa na conta.';
+                        replyMsg = `✅ O cliente **${cart.riotId}** já está na lista de amigos da loja!`;
+                    }
+                } else {
+                    statusBadge = '🟢 **Amigo Confirmado:** Amizade ativa na lista.';
+                    replyMsg = `✅ O cliente **${cart.riotId}** já está na lista de amigos da conta da loja!`;
+                }
+
+                cart.friendshipStatus = statusBadge;
+                await atualizarEmbedTicket(interaction.channel, interaction.client);
+
+                return interaction.editReply({ content: replyMsg });
+            }
+            else if (interaction.customId === 'btn_send_friend_ticket') {
+                await interaction.deferReply({ ephemeral: true });
+                const cart = global.ticketCarts ? global.ticketCarts.get(interaction.channel.id) : null;
+                if (!cart || !cart.riotId) {
+                    return interaction.editReply({ content: '❌ Riot ID não encontrado.' });
+                }
+
+                const parts = cart.riotId.split('#');
+                if (parts.length !== 2) {
+                    return interaction.editReply({ content: '❌ Formato de Riot ID inválido. Use `Nome#TAG` (Ex: `Faker#KR1`).' });
+                }
+
+                const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
+                const accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8'));
+                const regUpper = (cart.regiao || 'BR1').toUpperCase();
+                let bestAcc = Object.values(accounts).find(a => !a.expired && (a.region || '').toUpperCase() === regUpper) ||
+                              Object.values(accounts).find(a => !a.expired) ||
+                              Object.values(accounts)[0];
+
+                if (!bestAcc || !bestAcc.accessToken) {
+                    return interaction.editReply({ content: '❌ Nenhuma conta Riot disponível para enviar pedido.' });
+                }
+
+                const { RiotChatClient } = require('./utils/riotXmpp.js');
+                const { getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri } = require('./utils/riotAuth.js');
+
+                let geopasToken = bestAcc.geopasToken || await getGeopasToken(bestAcc.accessToken);
+                let affinity = decodeGeopasAffinity(geopasToken);
+                let chatDom = getChatDom(affinity);
+                let chatUri = getChatUri(bestAcc.region || regUpper, affinity);
+
+                const xmppClient = new RiotChatClient(chatUri, chatDom);
+                const connected = await xmppClient.initializeChat(bestAcc.accessToken, geopasToken);
+                if (!connected) {
+                    return interaction.editReply({ content: '❌ Falha ao conectar ao chat da Riot para enviar pedido de amizade.' });
+                }
+
+                const result = await xmppClient.sendFriendRequest(parts[0], parts[1]);
+                xmppClient.disconnect();
+
+                if (result.success) {
+                    cart.friendshipStatus = '🟡 **Pedido Enviado:** Aguardando o cliente aceitar no LoL.';
+                    await atualizarEmbedTicket(interaction.channel, interaction.client);
+                    return interaction.editReply({ content: `✅ **Pedido de amizade enviado com sucesso** para **${cart.riotId}** a partir da conta **${bestAcc.accountName || 'Riot'}**! Peça para o cliente aceitar no LoL.` });
+                } else {
+                    return interaction.editReply({ content: `❌ Falha ao enviar pedido para **${cart.riotId}**: ${result.error || 'Erro desconhecido'}` });
+                }
             }
             else if (interaction.customId === 'btn_add_item_ticket') {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
@@ -2893,18 +3046,18 @@ client.on('interactionCreate', async interaction => {
                 }, 5000);
             }
             else if (interaction.customId === 'modal_editar_pedido') {
-                const newRegion = interaction.fields.getTextInputValue('new_region').toUpperCase();
-                const newRiotId = interaction.fields.getTextInputValue('new_riotid');
+                const newRegion = interaction.fields.getTextInputValue('new_region').toUpperCase().trim();
+                const newRiotId = interaction.fields.getTextInputValue('new_riotid').trim();
 
-                const oldEmbed = interaction.message.embeds[0];
-                const newEmbed = EmbedBuilder.from(oldEmbed);
-
-                if (newEmbed.data.fields && newEmbed.data.fields.length >= 4) {
-                    newEmbed.data.fields[2].value = `\`${newRegion}\``;
-                    newEmbed.data.fields[3].value = `\`${newRiotId}\``;
+                const cart = global.ticketCarts ? global.ticketCarts.get(interaction.channel.id) : null;
+                if (cart) {
+                    cart.regiao = newRegion;
+                    cart.riotId = newRiotId;
+                    delete cart.friendshipStatus;
                 }
 
-                await interaction.update({ embeds: [newEmbed] });
+                await atualizarEmbedTicket(interaction.channel, interaction.client);
+                return await interaction.reply({ content: `✅ Detalhes do pedido atualizados!\n> 🌐 **Região:** \`${newRegion}\`\n> 🎮 **Riot ID:** \`${newRiotId}\``, ephemeral: true });
             }
         }
     } catch (e) {

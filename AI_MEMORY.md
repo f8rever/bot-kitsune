@@ -262,6 +262,12 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Blindagem de permissões para Administradores e Staff.
 - [x] **Comando `/config-store` Atualizado:**
   - Removidas opções inválidas (skins míticas) e alinhado com as categorias presentes no catálogo.
+- [x] **Comando `/ticket` & Painel de Compras Aprimorados:**
+  - Correção total dos campos no embed do ticket (`Product`, `Rarity`, `Value/RP`, `Price/€`, `Region`, `Riot ID`).
+  - Correção do modal `Edit Order` para atualizar o carrinho no `global.ticketCarts` sem corromper posições.
+  - Eliminação de menções quebradas `@unknown-role`.
+  - Novo botão **`[ ⏱️ Checar Amizade & 24h ]`**: Verifica se o cliente já é amigo no LoL e calcula o tempo restante de cooldown de 24h para envio de presente.
+  - Botão automático **`[ ➕ Enviar Pedido de Amizade ]`** caso o cliente ainda não esteja adicionado.
 - [x] **Templates de Embeds 100% Editáveis (`/embeds`):**
   - Cadastrados todos os novos templates em `config/embeds.json` e no menu visual do comando `/embeds`.
 
@@ -270,9 +276,9 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto` e `/config-store` revisados e 100% integrados.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto`, `/config-store` e `/ticket` revisados e 100% integrados.
 - Persistência 24/7 ativa no MongoDB Atlas.
-- Sistema de descontos automatizado com recálculo instantâneo de preços.
+- Tickets com verificação de amizade e cooldown de 24h em tempo real.
 - Todos os embeds personalizáveis via `/embeds`.
 
 ---
@@ -280,7 +286,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## PRÓXIMO PASSO
 
 1. Fazer o deploy para o GitHub (`origin/main`).
-2. Seguir para o comando `/ticket` (painel de compras, seleção de produtos e abertura de tickets) e comandos restantes (`/embeds`, `/config`, `/emojis`, `/join`, `/leave`).
+2. Seguir para os comandos restantes: `/embeds`, `/config`, `/emojis`, `/join`, `/leave`.
 
 ---
 

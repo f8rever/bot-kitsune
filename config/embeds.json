@@ -59,6 +59,11 @@
         "name": "{eRiotId} Riot ID",
         "value": "`{riotId}`",
         "inline": false
+      },
+      {
+        "name": "⏱️ Status de Gifting (24h)",
+        "value": "{friendshipStatus}",
+        "inline": false
       }
     ]
   },
