@@ -20,9 +20,40 @@ module.exports = {
             name: 'restorecord_url',
             description: 'Custom RestoreCord OAuth2 URL (Optional)',
             type: 3, // STRING
-            required: false
+            required: false,
+            autocomplete: true
         }
     ],
+
+    async autocomplete(interaction) {
+        const focusedValue = interaction.options.getFocused();
+        const configPath = path.join(__dirname, '../../config/config.json');
+        let savedUrl = DEFAULT_RESTORECORD_URL;
+
+        if (fs.existsSync(configPath)) {
+            try {
+                const cfg = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                if (cfg.restorecord_url && cfg.restorecord_url.startsWith('http')) {
+                    savedUrl = cfg.restorecord_url;
+                }
+            } catch (e) {}
+        }
+
+        const choices = [
+            {
+                name: `🔗 RestoreCord URL (Configured Link)`,
+                value: savedUrl
+            }
+        ];
+
+        const filtered = choices.filter(choice =>
+            choice.name.toLowerCase().includes(focusedValue.toLowerCase()) ||
+            choice.value.toLowerCase().includes(focusedValue.toLowerCase())
+        );
+
+        await interaction.respond(filtered.slice(0, 25)).catch(() => {});
+    },
+
     async execute(interaction) {
         const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
         const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
