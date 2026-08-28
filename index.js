@@ -813,6 +813,26 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
     return formatarStr('Item', '📦');
 }
 
+function isPrestigeOrMythic(item) {
+    if (!item) return false;
+    const name = (item.nome || item.name || '').toLowerCase();
+    const raw = item.rawItem || item || {};
+    const t = (raw.inventoryType || raw.inventory_type || item.tipo || '').toUpperCase();
+    if (t === 'MYTHIC') return true;
+    if (name.includes('prestige') || name.includes('prestígio') || name.includes('prestigio')) return true;
+    if (name.includes('hextech') && (
+        name.includes('annie') || name.includes('poppy') || name.includes('alistar') ||
+        name.includes('jarvan') || name.includes('kassadin') || name.includes('kog\'maw') ||
+        name.includes('malzahar') || name.includes('rammus') || name.includes('renekton') ||
+        name.includes('sejuani') || name.includes('swain') || name.includes('tristana') ||
+        name.includes('vayne') || name.includes('ziggs') || name.includes('amumu') || name.includes('nocturne')
+    )) return true;
+    if (name.includes('ashen knight') || name.includes('cavaleiro das cinzas') || name.includes('crystalis') || name.includes('cristalis')) return true;
+    if (name.includes('victorious') || name.includes('vitoriosa')) return true;
+    if (name.includes('pax ') || name.includes('neo pax') || name.includes('black alistar') || name.includes('silver kayle') || name.includes('young ryze') || name.includes('human ryze') || name.includes('ufo corki') || name.includes('king rammus') || name.includes('judgement kayle') || name.includes('urf the manatee') || name.includes('triumphant ryze') || name.includes('championship riven 2012')) return true;
+    return false;
+}
+
 async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdate = false) {
     const cor = '#F43F5E';
     const ITEMS_PER_PAGE = 25;
@@ -829,6 +849,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     if (tipoFiltro === 'skins') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
+            if (isPrestigeOrMythic(x)) return false; // NUNCA EXIBIR SKINS MÍTICAS / PRESTÍGIO NÃO-PRESENTEEÁVEIS
             return (t === 'CHAMPION_SKIN' || t === 'SKIN') && !isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `👕 ${results.length} Skins de Campeões` : `👕 ${results.length} Champion Skins`;
@@ -836,6 +857,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     } else if (tipoFiltro === 'cromas') {
         results = currentCatalog.filter(x => {
             const t = (x.tipo || '').toUpperCase();
+            if (isPrestigeOrMythic(x)) return false;
             return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA' || t === 'BUNDLES' || t === 'BUNDLE') && isChroma(x) && x.rawItem?.active !== false;
         });
         titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
@@ -845,7 +867,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const n = (x.nome || '').toLowerCase();
             const t = (x.tipo || '').toUpperCase();
             if (x.rawItem?.active === false) return false;
-            if (n.includes('prestige') && (n.includes('veigar') || n.includes('cripta'))) return false;
+            if (isPrestigeOrMythic(x)) return false;
 
             return (
                 t === 'FEATURED' || t === 'HIGHLIGHT' ||

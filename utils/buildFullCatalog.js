@@ -2,14 +2,90 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
+function isUnpurchasableOrMythic(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('prestige') || n.includes('prestígio') || n.includes('prestigio')) return true;
+    if (n.includes('hextech') && (
+        n.includes('annie') || n.includes('poppy') || n.includes('alistar') ||
+        n.includes('jarvan') || n.includes('kassadin') || n.includes('kog\'maw') ||
+        n.includes('malzahar') || n.includes('rammus') || n.includes('renekton') ||
+        n.includes('sejuani') || n.includes('swain') || n.includes('tristana') ||
+        n.includes('vayne') || n.includes('ziggs') || n.includes('amumu') || n.includes('nocturne')
+    )) return true;
+    if (n.includes('ashen knight') || n.includes('cavaleiro das cinzas') || n.includes('crystalis') || n.includes('cristalis')) return true;
+    if (n.includes('victorious') || n.includes('vitoriosa')) return true;
+    if (n.includes('pax ') || n.includes('neo pax') || n.includes('black alistar') || n.includes('silver kayle') || n.includes('young ryze') || n.includes('human ryze') || n.includes('ufo corki') || n.includes('king rammus') || n.includes('judgement kayle') || n.includes('urf the manatee') || n.includes('triumphant ryze') || n.includes('championship riven 2012')) return true;
+    return false;
+}
+
+// Map of known Legendary (1820 RP) and Ultimate (3250 RP) skins
+const knownLegendaries = new Set([
+    'battle dove seraphine', 'seraphine ave de batalha',
+    'heartsong seraphine', 'seraphine hino ao amor',
+    'project: vane', 'projeto: vayne',
+    'project: mordekaiser', 'projeto: mordekaiser',
+    'project: pyke', 'projeto: pyke',
+    'project: renekton', 'projeto: renekton',
+    'project: ashe', 'projeto: ashe',
+    'nightbringer yasuo', 'yasuo emissário da escuridão',
+    'god fist lee sin', 'lee sin punhos divinos',
+    'storm dragon lee sin', 'lee sin dragão da tormenta',
+    'spirit blossom ahri', 'ahri florescer espiritual',
+    'star guardian ahri', 'ahri guardiã estelar',
+    'star guardian jinx', 'jinx guardiã estelar',
+    'star guardian kaisa', 'kai\'sa guardiã estelar',
+    'star guardian akali', 'akali guardiã estelar',
+    'cosmic lux', 'lux cósmica',
+    'dark cosmic lux', 'lux estrela negra',
+    'dark cosmic jhin', 'jhin estrela negra',
+    'dark star thresh', 'thresh estrela negra',
+    'spirit blossom thresh', 'thresh florescer espiritual',
+    'battle academia ezreal', 'ezreal academia de batalha',
+    'pulsefire caitlyn', 'caitlyn curtindo o verão',
+    'battle queen katarina', 'katarina rainha de batalha',
+    'coven evelynn', 'evelynn congregação das bruxas',
+    'coven morgana', 'morgana congregação das bruxas',
+    'dawnbringer riven', 'riven emissária da luz',
+    'broken covenant vladimir', 'vladimir pacto quebrado',
+    'mecha kingdoms jax', 'jax reinos mecha',
+    'high noon lucian', 'lucian velho oeste',
+    'high noon senna', 'senna velho oeste',
+    'high noon ashe', 'ashe velho oeste',
+    'high noon leona', 'leona velho oeste',
+    'high noon yone', 'yone velho oeste',
+    'soul fighter viego', 'viego lutador espiritual',
+    'soul fighter samira', 'samira lutadora espiritual',
+    'empyrean pyke', 'pyke empíreo',
+    'empyrean varus', 'varus empíreo',
+    'winterblessed diana', 'diana bênção do inverno',
+    'winterblessed senna', 'senna bênção do inverno',
+    'aether wing kayle', 'kayle asas etéreas',
+    'galaxy slayer zed', 'zed dizimador de galáxias',
+    'odyssey kayn', 'kayn odisseia',
+    'blood lord vladimir', 'vladimir lorde do sangue',
+    'dunkmaster darius', 'darius mestre da enterrada',
+    'god-king garen', 'garen rei do trovão', 'garen deus-rei',
+    'god-king darius', 'darius deus-rei',
+    'elementalist lux', 'dj sona', 'spirit guard udyr', 'pulsefire ezreal', 'gun goddess miss fortune',
+    'k/da all out seraphine', 'k/da all out seraphine indie', 'k/da all out seraphine superstar', 'k/da all out seraphine rising star'
+]);
+
+const knownUltimates = new Set([
+    'elementalist lux', 'lux elementalista',
+    'dj sona',
+    'spirit guard udyr', 'udyr guardião espiritual',
+    'pulsefire ezreal', 'ezreal pulsefire',
+    'gun goddess miss fortune', 'miss fortune vingadora exocósmica',
+    'k/da all out seraphine', 'seraphine k/da all out'
+]);
+
 async function buildFullCatalog() {
-    console.log('[Catalog Builder] 🚀 Iniciando sincronização completa do catálogo com a Riot Games...');
+    console.log('[Catalog Builder] 🚀 Sincronizando catálogo completo oficial da Riot Games...');
     const startTime = Date.now();
 
     // 1. Obter a versão mais recente do LoL
     const verRes = await axios.get('https://ddragon.leagueoflegends.com/api/versions.json');
     const version = verRes.data[0];
-    console.log(`[Catalog Builder] 📦 Versão ativa da Riot: ${version}`);
 
     // 2. Baixar todos os campeões e skins (PT e EN)
     const [ptRes, enRes] = await Promise.all([
@@ -20,7 +96,7 @@ async function buildFullCatalog() {
     const ptChamps = ptRes.data.data;
     const enChamps = enRes.data.data;
 
-    // 3. Ler catalog.json bruto existente se houver para mapear preços de RP e passes/orbes
+    // 3. Ler catalog.json bruto da Storefront API da Riot para preços exatos
     let rawStoreItems = {};
     const rawCatalogPath = path.join(__dirname, '../lol_giftapi-main/catalog.json');
     if (fs.existsSync(rawCatalogPath)) {
@@ -50,36 +126,14 @@ async function buildFullCatalog() {
         } catch(e) {}
     }
 
-    const catalogPt = {
-        Skins: {},
-        Chromas: {},
-        Champions: {},
-        Passes: {},
-        Loot: {},
-        Emotes: {},
-        Icons: {},
-        Wards: {},
-        Others: {}
-    };
-
-    const catalogEn = {
-        Skins: {},
-        Chromas: {},
-        Champions: {},
-        Passes: {},
-        Loot: {},
-        Emotes: {},
-        Icons: {},
-        Wards: {},
-        Others: {}
-    };
+    const catalogPt = { Skins: {}, Chromas: {}, Champions: {}, Passes: {}, Loot: {}, Emotes: {}, Icons: {}, Wards: {}, Others: {} };
+    const catalogEn = { Skins: {}, Chromas: {}, Champions: {}, Passes: {}, Loot: {}, Emotes: {}, Icons: {}, Wards: {}, Others: {} };
 
     // 4. Processar todos os campeões e skins do Data Dragon
     for (const champKey in ptChamps) {
         const ptC = ptChamps[champKey];
         const enC = enChamps[champKey] || ptC;
 
-        // Adicionar Campeão
         const champPtName = ptC.name;
         const champEnName = enC.name;
         const champId = Number(ptC.key);
@@ -97,7 +151,6 @@ async function buildFullCatalog() {
             inventory_type: 'CHAMPION'
         };
 
-        // Processar Skins & Cromas do campeão
         if (ptC.skins && Array.isArray(ptC.skins)) {
             ptC.skins.forEach((skinPt, idx) => {
                 if (skinPt.num === 0) return; // Pular skin padrão (default)
@@ -107,6 +160,11 @@ async function buildFullCatalog() {
                 const nameEn = skinEn.name === 'default' ? `${champEnName} Default` : skinEn.name;
                 const skinId = skinPt.id;
 
+                // FILTRAR SKINS MÍTICAS / PRESTÍGIO / LIMITADAS (NÃO PRESENTEEÁVEIS VIA RP)
+                if (isUnpurchasableOrMythic(namePt) || isUnpurchasableOrMythic(nameEn)) {
+                    return; // NÃO ADICIONAR NO CATÁLOGO!
+                }
+
                 const isChroma = namePt.includes('(') && namePt.includes(')');
                 const storeMatchPt = rawStoreItems[namePt.toLowerCase().trim()];
                 const storeMatchEn = rawStoreItems[nameEn.toLowerCase().trim()];
@@ -114,8 +172,24 @@ async function buildFullCatalog() {
                 let priceRp = isChroma ? 290 : 1350;
                 let offerId = (storeMatchPt && storeMatchPt.offerId) || (storeMatchEn && storeMatchEn.offerId) || `skin_${skinId}`;
 
-                if (storeMatchPt && storeMatchPt.priceRp) priceRp = storeMatchPt.priceRp;
-                else if (storeMatchEn && storeMatchEn.priceRp) priceRp = storeMatchEn.priceRp;
+                if (storeMatchPt && storeMatchPt.priceRp) {
+                    priceRp = storeMatchPt.priceRp;
+                } else if (storeMatchEn && storeMatchEn.priceRp) {
+                    priceRp = storeMatchEn.priceRp;
+                } else {
+                    // Preço de acordo com categoria
+                    const cleanEn = nameEn.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
+                    const cleanPt = namePt.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
+                    if (isChroma) {
+                        priceRp = 290;
+                    } else if (knownUltimates.has(cleanEn) || knownUltimates.has(cleanPt) || cleanEn.includes('ultimate')) {
+                        priceRp = 3250;
+                    } else if (knownLegendaries.has(cleanEn) || knownLegendaries.has(cleanPt)) {
+                        priceRp = 1820;
+                    } else {
+                        priceRp = 1350; // Epic default
+                    }
+                }
 
                 const itemDataPt = {
                     offer_id: offerId,
@@ -142,7 +216,7 @@ async function buildFullCatalog() {
         }
     }
 
-    // 5. Adicionar Passes, Espólios (Orbes, Baús) e Acessórios Oficiais
+    // 5. Adicionar Passes e Espólios Presenteáveis
     const defaultLootPt = {
         "Passe de Evento": { offer_id: "pass_1650", item_id: 1650, price_rp: 1650, inventory_type: "EVENT_PASS" },
         "Pacote Passe de Evento + Skin": { offer_id: "pass_2650", item_id: 2650, price_rp: 2650, inventory_type: "BUNDLES" },
@@ -178,7 +252,7 @@ async function buildFullCatalog() {
     catalogPt.Loot = defaultLootPt;
     catalogEn.Loot = defaultLootEn;
 
-    // 6. Salvar arquivos nos caminhos do bot e do backend Python
+    // 6. Salvar arquivos
     const botConfigDir = path.join(__dirname, '../config');
     const pyDir = path.join(__dirname, '../lol_giftapi-main');
 
@@ -202,7 +276,7 @@ async function buildFullCatalog() {
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`[Catalog Builder] ✅ Sincronização concluída em ${elapsed}s!`);
-    console.log(`[Catalog Builder] 📊 Totais: ${totalSkins} Skins, ${totalChromas} Cromas, ${totalChamps} Campeões (${totalAll} itens no total).`);
+    console.log(`[Catalog Builder] 📊 Totais: ${totalSkins} Skins (Míticas/Prestígio Removidas), ${totalChromas} Cromas, ${totalChamps} Campeões.`);
 
     return {
         version,
@@ -210,9 +284,7 @@ async function buildFullCatalog() {
         totalChromas,
         totalChamps,
         totalAll,
-        elapsed,
-        catalogPt,
-        catalogEn
+        elapsed
     };
 }
 

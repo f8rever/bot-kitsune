@@ -24,18 +24,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Aatrox Lua Sangrenta de Prestígio": {
-      "offer_id": "20215b54-fd9e-44ea-b0b4-94cdde9be667",
-      "item_id": "266008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Aatrox Vitorioso": {
-      "offer_id": "skin_266009",
-      "item_id": "266009",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Aatrox Odisseia": {
       "offer_id": "c8731791-fae2-45f6-b289-3ef85c6925b7",
       "item_id": "266011",
@@ -51,12 +39,6 @@
     "Aatrox DRX": {
       "offer_id": "skin_266030",
       "item_id": "266030",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Aatrox DRX de Prestígio": {
-      "offer_id": "skin_266031",
-      "item_id": "266031",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -117,12 +99,6 @@
     "Ahri K/DA": {
       "offer_id": "f353a965-578a-4f3a-9640-9b039accf573",
       "item_id": "103015",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Ahri K/DA de Prestígio": {
-      "offer_id": "skin_103016",
-      "item_id": "103016",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -240,12 +216,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Akali K/DA de Prestígio": {
-      "offer_id": "skin_84013",
-      "item_id": "84013",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJETO: Akali": {
       "offer_id": "ec5a584c-6d73-4121-9e8e-333827001525",
       "item_id": "84014",
@@ -288,12 +258,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Akali Congregação das Bruxas de Prestígio": {
-      "offer_id": "skin_84071",
-      "item_id": "84071",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Akali Empírea": {
       "offer_id": "892bfaac-6068-4a0a-bd98-76cf0b76798b",
       "item_id": "84082",
@@ -327,12 +291,6 @@
     "Akshan Velho Oeste": {
       "offer_id": "24b51a37-5cbf-4714-abb8-c439215b65a0",
       "item_id": "166021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Alistar Negro": {
-      "offer_id": "skin_12001",
-      "item_id": "12001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -390,12 +348,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Alistar Hextec": {
-      "offer_id": "skin_12019",
-      "item_id": "12019",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Alistar Conquistador": {
       "offer_id": "skin_12020",
       "item_id": "12020",
@@ -417,12 +369,6 @@
     "Alistar Sabugueiro": {
       "offer_id": "a4bdebbd-3781-48e2-a12a-5e3967bb7589",
       "item_id": "12040",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Alistar Negro Moderno": {
-      "offer_id": "85c403d4-b44d-4211-8f9a-2d0c6a9af630",
-      "item_id": "12049",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -489,12 +435,6 @@
     "Amumu Infernal": {
       "offer_id": "0049ca51-7ce7-4bf5-90c2-0a483f14432c",
       "item_id": "32017",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Amumu Hextec": {
-      "offer_id": "skin_32023",
-      "item_id": "32023",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -588,12 +528,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Anivia Vitoriosa": {
-      "offer_id": "199a8f8e-d4c0-46cc-9aa9-df747d69357f",
-      "item_id": "34046",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Annie Gótica": {
       "offer_id": "skin_1001",
       "item_id": "1001",
@@ -646,12 +580,6 @@
       "offer_id": "2d1e7c13-9e20-4516-8eff-4fcaadaeaf5b",
       "item_id": "1009",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Annie Hextec": {
-      "offer_id": "skin_1010",
-      "item_id": "1010",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Annie Supergaláctica": {
@@ -735,12 +663,6 @@
     "Aphelios HEARTSTEEL": {
       "offer_id": "c694a5d5-b9e7-4eeb-b19d-19bd5696097c",
       "item_id": "523030",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Aphelios Termas do Florescer Espiritual de Prestígio": {
-      "offer_id": "skin_523040",
-      "item_id": "523040",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -843,12 +765,6 @@
     "Ashe DRX": {
       "offer_id": "skin_22063",
       "item_id": "22063",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Ashe Crystalis Motus": {
-      "offer_id": "skin_22065",
-      "item_id": "22065",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1146,12 +1062,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Blitzcrank Vitorioso": {
-      "offer_id": "skin_53036",
-      "item_id": "53036",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Blitzcrank Zenith Games": {
       "offer_id": "db4ebe66-c851-4be8-80d9-94d3d3b4616c",
       "item_id": "53047",
@@ -1236,12 +1146,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Brand Galante de Prestígio": {
-      "offer_id": "skin_63022",
-      "item_id": "63022",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Brand Demônios Urbanos": {
       "offer_id": "88e0fa7f-885c-4ace-9742-4ccbc6781031",
       "item_id": "63033",
@@ -1305,12 +1209,6 @@
     "Braum Churrasquinho": {
       "offer_id": "bdd23871-692c-4331-9846-ba1124e0fe45",
       "item_id": "201042",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Braum Vitorioso": {
-      "offer_id": "skin_201051",
-      "item_id": "201051",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1410,12 +1308,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Caitlyn Fliperama de Prestígio": {
-      "offer_id": "skin_51020",
-      "item_id": "51020",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Caitlyn Academia de Batalha": {
       "offer_id": "a206d8fe-3581-4b06-88a4-bf3a77fa6b64",
       "item_id": "51022",
@@ -1449,12 +1341,6 @@
     "Caitlyn Comandante de Arcane": {
       "offer_id": "skin_51050",
       "item_id": "51050",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Caitlyn Comandante de Arcane de Prestígio": {
-      "offer_id": "skin_51051",
-      "item_id": "51051",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1497,12 +1383,6 @@
     "Camille Bênção do Inverno": {
       "offer_id": "47250281-f206-4954-bcfc-3640e6ffef0d",
       "item_id": "164031",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Camille Bênção do Inverno de Prestígio": {
-      "offer_id": "skin_164032",
-      "item_id": "164032",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1578,12 +1458,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Cassiopeia Criadora Mítica de Prestígio": {
-      "offer_id": "skin_69038",
-      "item_id": "69038",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Cho'Gath Terror Noturno": {
       "offer_id": "skin_31001",
       "item_id": "31001",
@@ -1647,12 +1521,6 @@
     "Cho'Gath de Petricita": {
       "offer_id": "skin_31041",
       "item_id": "31041",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Corki OVNI": {
-      "offer_id": "skin_42001",
-      "item_id": "42001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1812,12 +1680,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Darius General Triunfante de Prestígio": {
-      "offer_id": "skin_122065",
-      "item_id": "122065",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Darius Reinos Mech": {
       "offer_id": "ff3b7c15-d98f-458f-8f42-d5499bca54cf",
       "item_id": "122067",
@@ -1866,12 +1728,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Diana Rainha de Batalha de Prestígio": {
-      "offer_id": "skin_131026",
-      "item_id": "131026",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Diana Sentinela": {
       "offer_id": "16f1acc0-2957-4ebc-b09b-16b888ecb1f2",
       "item_id": "131027",
@@ -1899,12 +1755,6 @@
     "Diana Cosmos Negro": {
       "offer_id": "5d9a219e-cec1-4976-9e5f-b016b055564c",
       "item_id": "131064",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Diana Cosmos Negro de Prestígio": {
-      "offer_id": "skin_131065",
-      "item_id": "131065",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1995,12 +1845,6 @@
     "Draven Desafio Grandioso": {
       "offer_id": "ba183765-ff98-4aab-b234-2f9a97f249c2",
       "item_id": "119058",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Draven Vitorioso": {
-      "offer_id": "skin_119068",
-      "item_id": "119068",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2124,12 +1968,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Ekko Guardião Estelar de Prestígio": {
-      "offer_id": "skin_245046",
-      "item_id": "245046",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Ekko True Damage Revelação": {
       "offer_id": "skin_245056",
       "item_id": "245056",
@@ -2146,12 +1984,6 @@
       "offer_id": "42e629c3-f7f5-4fd9-ad82-76cf40969b03",
       "item_id": "60001",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Elise Vitoriosa": {
-      "offer_id": "skin_60002",
-      "item_id": "60002",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Elise Lua Sangrenta": {
@@ -2232,12 +2064,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Evelynn K/DA de Prestígio": {
-      "offer_id": "skin_28007",
-      "item_id": "28007",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Evelynn Frenesi Açucarado": {
       "offer_id": "9643c742-5b4c-4df6-ba39-10fb74edab45",
       "item_id": "28008",
@@ -2271,12 +2097,6 @@
     "Evelynn Velho Oeste": {
       "offer_id": "2376bbfb-f56f-4202-8645-f3e0d2950147",
       "item_id": "28052",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Evelynn Velho Oeste de Prestígio": {
-      "offer_id": "skin_28053",
-      "item_id": "28053",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2370,12 +2190,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Ezreal PsyOps de Prestígio": {
-      "offer_id": "skin_81023",
-      "item_id": "81023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Ezreal Protetor de Porcelana": {
       "offer_id": "80b23960-29cf-4f62-8ceb-df72a0aad183",
       "item_id": "81025",
@@ -2397,12 +2211,6 @@
     "Ezreal Escamas Celestiais": {
       "offer_id": "58058b80-8f7a-4fd0-aeed-dc18290d30c1",
       "item_id": "81044",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Ezreal Escamas Celestiais de Prestígio": {
-      "offer_id": "skin_81054",
-      "item_id": "81054",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2544,12 +2352,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Fiora Fera Lunar de Prestígio": {
-      "offer_id": "skin_114051",
-      "item_id": "114051",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Fiora Feiticeira": {
       "offer_id": "skin_114060",
       "item_id": "114060",
@@ -2571,12 +2373,6 @@
     "Fiora Rainha de Batalha": {
       "offer_id": "a9938918-a12a-40e6-929f-81102ec8d9ed",
       "item_id": "114089",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Fiora Vitoriosa": {
-      "offer_id": "skin_114098",
-      "item_id": "114098",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2643,12 +2439,6 @@
     "Fizz Doguinho": {
       "offer_id": "3056ec0f-d855-4870-9e1f-53c896aa7416",
       "item_id": "105014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Fizz Doguinho de Prestígio": {
-      "offer_id": "skin_105015",
-      "item_id": "105015",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2892,12 +2682,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Garen Reinos Mech de Prestígio": {
-      "offer_id": "skin_86023",
-      "item_id": "86023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Garen Academia de Batalha": {
       "offer_id": "0b289e60-3ead-4275-8dd4-3dba85663e10",
       "item_id": "86024",
@@ -3105,12 +2889,6 @@
     "Graves Dia Nevado": {
       "offer_id": "skin_104007",
       "item_id": "104007",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Graves Vitorioso": {
-      "offer_id": "skin_104014",
-      "item_id": "104014",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -3408,12 +3186,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "PROJETO: Irelia de Prestígio": {
-      "offer_id": "skin_39017",
-      "item_id": "39017",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Irelia Velho Oeste": {
       "offer_id": "a2e06952-6593-4d47-a1a8-fecd7ab2d8fe",
       "item_id": "39018",
@@ -3504,12 +3276,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Janna Vitoriosa": {
-      "offer_id": "skin_40004",
-      "item_id": "40004",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Janna Previsão do Tempo": {
       "offer_id": "96142b6b-d606-424e-b24f-5b529c1a415d",
       "item_id": "40005",
@@ -3564,12 +3330,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Janna Aura Cibernética de Prestígio": {
-      "offer_id": "skin_40046",
-      "item_id": "40046",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Janna Escamas Celestiais": {
       "offer_id": "skin_40056",
       "item_id": "40056",
@@ -3600,12 +3360,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Jarvan IV Vitorioso": {
-      "offer_id": "skin_59004",
-      "item_id": "59004",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Jarvan IV Reinos Combatentes": {
       "offer_id": "0d808b31-9aa9-4e98-b4b4-88a4668a4b7f",
       "item_id": "59005",
@@ -3627,12 +3381,6 @@
     "SSG Jarvan IV": {
       "offer_id": "skin_59008",
       "item_id": "59008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Jarvan IV Hextec": {
-      "offer_id": "skin_59009",
-      "item_id": "59009",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -3666,12 +3414,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Jarvan IV Visões dos Caídos de Prestígio": {
-      "offer_id": "skin_59054",
-      "item_id": "59054",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "O Super Jax": {
       "offer_id": "skin_24001",
       "item_id": "24001",
@@ -3688,12 +3430,6 @@
       "offer_id": "37b347b1-4946-419a-9f75-856ad8d80f09",
       "item_id": "24003",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "PAX Jax": {
-      "offer_id": "skin_24004",
-      "item_id": "24004",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Jaximus": {
@@ -3762,33 +3498,15 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Jax Conquistador de Prestígio": {
-      "offer_id": "skin_24021",
-      "item_id": "24021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Jax Empíreo": {
       "offer_id": "23cf493c-08c0-4d56-9ee2-c2b613920638",
       "item_id": "24022",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Neo PAX Jax": {
-      "offer_id": "skin_24032",
-      "item_id": "24032",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJETO: Jax": {
       "offer_id": "27a7fffc-9c18-4d17-840f-2c8cead5604b",
       "item_id": "24033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Jax Cripta de Magma de Prestígio": {
-      "offer_id": "skin_24042",
-      "item_id": "24042",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -3849,12 +3567,6 @@
     "Jayce Sobrevivente de Arcane": {
       "offer_id": "skin_126035",
       "item_id": "126035",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Jayce T1 de Prestígio": {
-      "offer_id": "skin_126036",
-      "item_id": "126036",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4002,12 +3714,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Jinx Felina de Batalha de Prestígio": {
-      "offer_id": "skin_222040",
-      "item_id": "222040",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Jinx Kawaii Café": {
       "offer_id": "55922588-9e9c-4f42-99f6-89782107c77c",
       "item_id": "222051",
@@ -4044,12 +3750,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kai'Sa K/DA de Prestígio": {
-      "offer_id": "skin_145015",
-      "item_id": "145015",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "IG Kai'Sa": {
       "offer_id": "skin_145016",
       "item_id": "145016",
@@ -4065,12 +3765,6 @@
     "Kai'Sa K/DA ALL OUT": {
       "offer_id": "fc17de2c-5db8-4847-99a0-7048b7eeca22",
       "item_id": "145026",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Kai'Sa K/DA ALL OUT de Prestígio": {
-      "offer_id": "skin_145027",
-      "item_id": "145027",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4356,12 +4050,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kassadin Hextec": {
-      "offer_id": "skin_38014",
-      "item_id": "38014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Kassadin Lâmina do Trovão": {
       "offer_id": "1b2e46c3-0427-4803-bc63-93703a47081a",
       "item_id": "38015",
@@ -4464,33 +4152,15 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Katarina Corte das Fadas de Prestígio": {
-      "offer_id": "skin_55048",
-      "item_id": "55048",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Katarina Escolhida do Lobo": {
       "offer_id": "9d5652de-913c-4435-80dc-5b6e3772988a",
       "item_id": "55059",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Katarina Baile da Rosa Negra de Prestígio": {
-      "offer_id": "skin_55060",
-      "item_id": "55060",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Katarina Pétalas da Primavera": {
       "offer_id": "skin_55070",
       "item_id": "55070",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Kayle Prateada": {
-      "offer_id": "skin_10001",
-      "item_id": "10001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4578,21 +4248,9 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kayle Empírea de Prestígio": {
-      "offer_id": "skin_10067",
-      "item_id": "10067",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Kayle Florescer Espiritual": {
       "offer_id": "74874b22-c6ff-48a0-94f0-4af74ffed0cc",
       "item_id": "10078",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Kayle Prateada Fundadora": {
-      "offer_id": "skin_10088",
-      "item_id": "10088",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4611,12 +4269,6 @@
     "Kayn Emissário da Escuridão": {
       "offer_id": "7f6a434b-5de9-464f-9a45-a0e7ca8f53af",
       "item_id": "141008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Kayn Emissário da Escuridão de Prestígio": {
-      "offer_id": "skin_141009",
-      "item_id": "141009",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4740,12 +4392,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kha'Zix Crystalis Indomitus": {
-      "offer_id": "skin_121079",
-      "item_id": "121079",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Kindred Fogo Sombrio": {
       "offer_id": "66e56189-b0a9-4ab9-8f20-081fdaf2a496",
       "item_id": "203001",
@@ -4779,12 +4425,6 @@
     "Kindred DRX": {
       "offer_id": "skin_203023",
       "item_id": "203023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Kindred de Porcelana de Prestígio": {
-      "offer_id": "skin_203033",
-      "item_id": "203033",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4878,12 +4518,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kog'Maw Hextec": {
-      "offer_id": "skin_96010",
-      "item_id": "96010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Kog'Maw Arcanista": {
       "offer_id": "0653ac1d-53ee-4b91-b0c0-09c0117d01ed",
       "item_id": "96019",
@@ -4908,21 +4542,9 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Kog'Maw Vitorioso": {
-      "offer_id": "skin_96055",
-      "item_id": "96055",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "K'Sante Empíreo": {
       "offer_id": "2f6a7724-0cb9-49b0-8ffc-56c0e9d4d5b0",
       "item_id": "897001",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "K'Sante Empíreo de Prestígio": {
-      "offer_id": "skin_897002",
-      "item_id": "897002",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4935,12 +4557,6 @@
     "LeBlanc Cruel": {
       "offer_id": "186bfa13-35e4-464d-b165-67dc967102bf",
       "item_id": "7001",
-      "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "LeBlanc Prestigiosa": {
-      "offer_id": "fc3af44f-9af0-457e-9fc0-763075cd72d7",
-      "item_id": "7002",
       "price_rp": 750,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4986,12 +4602,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "LeBlanc Congregação das Bruxas de Prestígio": {
-      "offer_id": "skin_7033",
-      "item_id": "7033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "LeBlanc Galante": {
       "offer_id": "c3289898-ebaa-4d01-b808-f532a7e87e70",
       "item_id": "7035",
@@ -5007,12 +4617,6 @@
     "LeBlanc Lenda Ascendida": {
       "offer_id": "skin_7055",
       "item_id": "7055",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "LeBlanc Praias Pecaminosas de Prestígio": {
-      "offer_id": "skin_7059",
-      "item_id": "7059",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5091,12 +4695,6 @@
     "Lee Sin Emissário da Escuridão": {
       "offer_id": "6617625c-cb7c-4409-b331-ff959ccd92ba",
       "item_id": "64027",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Lee Sin Emissário da Escuridão de Prestígio": {
-      "offer_id": "skin_64028",
-      "item_id": "64028",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5226,12 +4824,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Leona Academia de Batalha de Prestígio": {
-      "offer_id": "skin_89023",
-      "item_id": "89023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Leona Galante": {
       "offer_id": "7ea83535-3cbf-49c4-8ea2-932c99c16b6f",
       "item_id": "89033",
@@ -5244,21 +4836,9 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Leona Crystalis Motus": {
-      "offer_id": "skin_89050",
-      "item_id": "89050",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Leona Leoa de Batalha": {
       "offer_id": "a46e146b-6dc6-45ff-a355-2e7a9a1d840d",
       "item_id": "89052",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Leona Leoa de Batalha de Prestígio": {
-      "offer_id": "skin_89053",
-      "item_id": "89053",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5340,12 +4920,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Lissandra de Porcelana de Prestígio": {
-      "offer_id": "skin_127033",
-      "item_id": "127033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Lissandra Embalos no Espaço": {
       "offer_id": "232ea57c-dd39-4a75-8e75-86d40f6cfcc1",
       "item_id": "127034",
@@ -5421,18 +4995,6 @@
     "Pulsefire Lucian": {
       "offer_id": "23ca4325-0193-4e4e-8887-e6302de8e609",
       "item_id": "236018",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Pulsefire Lucian de Prestígio": {
-      "offer_id": "skin_236019",
-      "item_id": "236019",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Lucian Vitorioso": {
-      "offer_id": "skin_236025",
-      "item_id": "236025",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5520,12 +5082,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Lulu Embalos no Espaço de Prestígio": {
-      "offer_id": "skin_117027",
-      "item_id": "117027",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Lulu Domadora de Monstros": {
       "offer_id": "3eaef137-a339-40c3-b3c9-a18d2aabddcc",
       "item_id": "117037",
@@ -5610,12 +5166,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Lux Academia de Batalha de Prestígio": {
-      "offer_id": "skin_99016",
-      "item_id": "99016",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Lux Cosmos Negro": {
       "offer_id": "aa3d5d68-b721-48e3-b099-13745c0bd586",
       "item_id": "99017",
@@ -5646,12 +5196,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Lux de Porcelana de Prestígio": {
-      "offer_id": "skin_99040",
-      "item_id": "99040",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Lux Empírea": {
       "offer_id": "5dbe5126-860a-4dbe-9537-3c6997bbbede",
       "item_id": "99042",
@@ -5661,12 +5205,6 @@
     "Lux Corte das Fadas": {
       "offer_id": "faedc900-d380-4b06-b09e-56a1b24d9693",
       "item_id": "99061",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Lux Florescer Espiritual de Prestígio": {
-      "offer_id": "skin_99070",
-      "item_id": "99070",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5730,12 +5268,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Malphite Estrela Negra de Prestígio": {
-      "offer_id": "skin_54024",
-      "item_id": "54024",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "FPX Malphite": {
       "offer_id": "skin_54025",
       "item_id": "54025",
@@ -5793,12 +5325,6 @@
     "Malzahar Chefão": {
       "offer_id": "6ee215ff-0cb4-4268-9d31-5c83cd479a09",
       "item_id": "90006",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Malzahar Hextec": {
-      "offer_id": "skin_90007",
-      "item_id": "90007",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5871,12 +5397,6 @@
     "Miaukai": {
       "offer_id": "08484401-aa52-4737-aeff-892a8da34592",
       "item_id": "57006",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Maokai Vitorioso": {
-      "offer_id": "skin_57007",
-      "item_id": "57007",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6000,12 +5520,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Master Yi Florescer Espiritual de Prestígio": {
-      "offer_id": "skin_11053",
-      "item_id": "11053",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Master Yi Tinta Sombria": {
       "offer_id": "1b6f76cb-b3d2-4f78-8756-54cc9fea6dd3",
       "item_id": "11089",
@@ -6015,12 +5529,6 @@
     "Master Yi Escamas Celestiais": {
       "offer_id": "skin_11096",
       "item_id": "11096",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Master Yi Vitorioso": {
-      "offer_id": "skin_11106",
-      "item_id": "11106",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6034,12 +5542,6 @@
       "offer_id": "aa262b6a-2502-43a7-83ac-7f7f117fd2bc",
       "item_id": "800001",
       "price_rp": 810,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Mel Bênção do Inverno de Prestígio": {
-      "offer_id": "skin_800010",
-      "item_id": "800010",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Milio Corte das Fadas": {
@@ -6138,12 +5640,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Miss Fortune Feiticeira de Prestígio": {
-      "offer_id": "skin_21020",
-      "item_id": "21020",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Miss Fortune Destruída": {
       "offer_id": "1c67e558-83b1-44b8-9176-c40b2c33a7e4",
       "item_id": "21021",
@@ -6165,12 +5661,6 @@
     "Miss Fortune Pacto Quebrado": {
       "offer_id": "252cdd5d-b7da-4a4d-a9e9-59db9eaf4819",
       "item_id": "21040",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Miss Fortune Pacto Quebrado de Prestígio": {
-      "offer_id": "skin_21041",
-      "item_id": "21041",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6318,12 +5808,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Mordekaiser Avarento de Prestígio": {
-      "offer_id": "skin_82055",
-      "item_id": "82055",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Morgana Exilada": {
       "offer_id": "skin_25001",
       "item_id": "25001",
@@ -6352,12 +5836,6 @@
       "offer_id": "d56b01e7-a7ad-4802-80b7-26294c5317db",
       "item_id": "25005",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Morgana Vitoriosa": {
-      "offer_id": "skin_25006",
-      "item_id": "25006",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Morgana Assombrosa Venenosa": {
@@ -6408,12 +5886,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Morgana Feiticeira de Prestígio": {
-      "offer_id": "skin_25041",
-      "item_id": "25041",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Morgana Nêmesis Estelar": {
       "offer_id": "b0fd09da-a1a6-4342-89e3-b1c4d5fc378e",
       "item_id": "25050",
@@ -6435,12 +5907,6 @@
     "Morgana Florescer Espiritual": {
       "offer_id": "skin_25080",
       "item_id": "25080",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Morgana Redentora Velada de Prestígio": {
-      "offer_id": "skin_25081",
-      "item_id": "25081",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6543,12 +6009,6 @@
     "Nami Embalos no Espaço": {
       "offer_id": "c67ed71f-3f98-42a4-9501-e2582111cc07",
       "item_id": "267041",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Nami Embalos no Espaço de Prestígio": {
-      "offer_id": "skin_267042",
-      "item_id": "267042",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6720,12 +6180,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Nautilus Crystalis Indomitus": {
-      "offer_id": "skin_111036",
-      "item_id": "111036",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Nautilus de Petricita": {
       "offer_id": "9b2d070c-454a-42d1-bf19-0db5262d86b4",
       "item_id": "111039",
@@ -6741,12 +6195,6 @@
     "Neeko Guardiã Estelar": {
       "offer_id": "3363b52c-783f-4863-9aec-c9b46dbb2cc2",
       "item_id": "518010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Neeko Guardiã Estelar de Prestígio": {
-      "offer_id": "skin_518011",
-      "item_id": "518011",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6933,12 +6381,6 @@
     "Nocturne Deus Antigo": {
       "offer_id": "52313d21-924d-4336-a87b-1e3453df34fd",
       "item_id": "56007",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Nocturne Hextec": {
-      "offer_id": "skin_56016",
-      "item_id": "56016",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7134,12 +6576,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Orianna Vitoriosa": {
-      "offer_id": "skin_61008",
-      "item_id": "61008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Orianna Curtindo o Verão": {
       "offer_id": "4c16a8c2-a8f8-4983-81e3-29058538d9d0",
       "item_id": "61011",
@@ -7254,12 +6690,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Pantheon Ascendente de Prestígio": {
-      "offer_id": "skin_80026",
-      "item_id": "80026",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Pantheon Conquistador das Cinzas": {
       "offer_id": "skin_80036",
       "item_id": "80036",
@@ -7320,12 +6750,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Poppy Hextec": {
-      "offer_id": "skin_78015",
-      "item_id": "78015",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Poppy Astronauta": {
       "offer_id": "9ff8cc64-6e16-4b6a-a56c-0705fc704238",
       "item_id": "78016",
@@ -7380,12 +6804,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Pyke Guerreiro das Cinzas": {
-      "offer_id": "skin_555044",
-      "item_id": "555044",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Pyke Empíreo": {
       "offer_id": "492c58a1-f262-4532-be96-4a98b25f4805",
       "item_id": "555045",
@@ -7395,12 +6813,6 @@
     "Pyke Soul Fighter": {
       "offer_id": "0658ae8b-c644-4a03-80fb-1b0979ba44f4",
       "item_id": "555053",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Pyke Soul Fighter de Prestígio": {
-      "offer_id": "skin_555054",
-      "item_id": "555054",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7434,12 +6846,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Qiyana True Damage de Prestígio": {
-      "offer_id": "skin_246010",
-      "item_id": "246010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Qiyana Rainha de Batalha": {
       "offer_id": "b71e4ae3-d5d8-429c-8599-36a08b37f0a4",
       "item_id": "246011",
@@ -7461,12 +6867,6 @@
     "Qiyana La Ilusión": {
       "offer_id": "cb936182-aeff-418f-a7e0-abbc383adbf9",
       "item_id": "246040",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Qiyana Academia de Batalha de Prestígio": {
-      "offer_id": "skin_246050",
-      "item_id": "246050",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7572,21 +6972,9 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Rakan Dracomante de Prestígio": {
-      "offer_id": "skin_497038",
-      "item_id": "497038",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Rakan Academia de Batalha": {
       "offer_id": "028a153d-ee45-4aa0-b79a-b5e402d356d7",
       "item_id": "497047",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Rammus Rei": {
-      "offer_id": "skin_33001",
-      "item_id": "33001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7629,12 +7017,6 @@
     "Rammus Zagueiro": {
       "offer_id": "skin_33008",
       "item_id": "33008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Rammus Hextec": {
-      "offer_id": "skin_33016",
-      "item_id": "33016",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7728,12 +7110,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Renata Glasc La Ilusión de Prestígio": {
-      "offer_id": "skin_888021",
-      "item_id": "888021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Renata Glasc Baile da Rosa Negra": {
       "offer_id": "skin_888031",
       "item_id": "888031",
@@ -7792,12 +7168,6 @@
       "offer_id": "b2f3f73d-891b-41db-bd9f-fc119ce237a1",
       "item_id": "58009",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Renekton Hextec": {
-      "offer_id": "skin_58017",
-      "item_id": "58017",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Renekton Gelo Sombrio": {
@@ -7878,12 +7248,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Rengar Vitorioso": {
-      "offer_id": "skin_107049",
-      "item_id": "107049",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Riven Redimida": {
       "offer_id": "d7468c43-4665-4ed1-92f1-2d202b98d216",
       "item_id": "92001",
@@ -7941,12 +7305,6 @@
     "Riven Espada Valorosa": {
       "offer_id": "d00d7e2a-35ab-43e4-8cf9-eba1bdecc76f",
       "item_id": "92020",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Riven Espada Valorosa de Prestígio": {
-      "offer_id": "skin_92022",
-      "item_id": "92022",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8016,12 +7374,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Ryze Jovem": {
-      "offer_id": "skin_13001",
-      "item_id": "13001",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Ryze Tribal": {
       "offer_id": "skin_13002",
       "item_id": "13002",
@@ -8032,12 +7384,6 @@
       "offer_id": "3b4d52d1-3fce-4261-87aa-7809ee4d9c20",
       "item_id": "13003",
       "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Ryze Triunfante": {
-      "offer_id": "skin_13004",
-      "item_id": "13004",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Mestre Ryze": {
@@ -8184,12 +7530,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Sejuani Hextec": {
-      "offer_id": "skin_113015",
-      "item_id": "113015",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJETO: Sejuani": {
       "offer_id": "b46ec389-84c3-4cd9-843a-1e950e46f9fc",
       "item_id": "113016",
@@ -8202,12 +7542,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Sejuani Vitoriosa": {
-      "offer_id": "skin_113036",
-      "item_id": "113036",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Sejuani Treinadora de Pugs": {
       "offer_id": "a5ca6f29-8a84-4fba-9868-05abb4f90b16",
       "item_id": "113048",
@@ -8217,12 +7551,6 @@
     "Senna True Damage": {
       "offer_id": "018eed88-799b-4c82-a046-dfb022249e4b",
       "item_id": "235001",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Senna True Damage de Prestígio": {
-      "offer_id": "skin_235009",
-      "item_id": "235009",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8241,12 +7569,6 @@
     "Senna Eclipse Lunar": {
       "offer_id": "44d30838-2781-4b97-8707-a68fbc948e2c",
       "item_id": "235026",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Senna Eclipse Lunar de Prestígio": {
-      "offer_id": "skin_235027",
-      "item_id": "235027",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8283,19 +7605,19 @@
     "Seraphine K/DA ALL OUT Indie": {
       "offer_id": "skin_147001",
       "item_id": "147001",
-      "price_rp": 1350,
+      "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Seraphine K/DA ALL OUT Rumo ao Estrelato": {
       "offer_id": "skin_147002",
       "item_id": "147002",
-      "price_rp": 1350,
+      "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Seraphine K/DA ALL OUT Superstar": {
       "offer_id": "skin_147003",
       "item_id": "147003",
-      "price_rp": 1350,
+      "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Seraphine Fênix Graciosa": {
@@ -8307,12 +7629,6 @@
     "Seraphine Canção do Oceano": {
       "offer_id": "2e5505a9-3920-4620-8bf0-3463391a79c5",
       "item_id": "147014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Seraphine Canção do Oceano de Prestígio": {
-      "offer_id": "6108f538-2e48-4817-98fe-6bd36537de2d",
-      "item_id": "147015",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8355,7 +7671,7 @@
     "Seraphine Hino ao Amor": {
       "offer_id": "skin_147069",
       "item_id": "147069",
-      "price_rp": 1350,
+      "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Sett Reinos Mech": {
@@ -8367,12 +7683,6 @@
     "Sett Dragão de Obsidiana": {
       "offer_id": "6662a33c-a87f-42fe-a1d0-9827188a5564",
       "item_id": "875008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sett Dragão de Obsidiana de Prestígio": {
-      "offer_id": "skin_875009",
-      "item_id": "875009",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8490,12 +7800,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Shaco Soul Fighter de Prestígio": {
-      "offer_id": "skin_35044",
-      "item_id": "35044",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Shaco Noite Apavorante": {
       "offer_id": "44eadd1d-4b7e-4607-b58d-15f3a7f5df09",
       "item_id": "35054",
@@ -8506,12 +7810,6 @@
       "offer_id": "6b49dd72-d690-4367-ad6f-a749d6d8e374",
       "item_id": "35064",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Shaco Pandemônio de Prestígio": {
-      "offer_id": "skin_35071",
-      "item_id": "35071",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Shen Gélido": {
@@ -8802,12 +8100,6 @@
       "price_rp": 750,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "PAX Sivir": {
-      "offer_id": "skin_15005",
-      "item_id": "15005",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Sivir Tempestade de Neve": {
       "offer_id": "skin_15006",
       "item_id": "15006",
@@ -8818,18 +8110,6 @@
       "offer_id": "7bfddf46-8f65-4772-a4eb-4349037da45b",
       "item_id": "15007",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sivir Vitoriosa": {
-      "offer_id": "skin_15008",
-      "item_id": "15008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Neo PAX Sivir": {
-      "offer_id": "skin_15009",
-      "item_id": "15009",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Sivir Entregadora de Pizza": {
@@ -8865,12 +8145,6 @@
     "Sivir Criadora Mítica": {
       "offer_id": "skin_15050",
       "item_id": "15050",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sivir Criadora Mítica de Prestígio": {
-      "offer_id": "b4d4b92d-a31a-4495-8dfa-003f01234862",
-      "item_id": "15051",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9012,27 +8286,9 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Sona Jornada Imortal de Prestígio": {
-      "offer_id": "skin_37046",
-      "item_id": "37046",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sona Vitoriosa": {
-      "offer_id": "skin_37056",
-      "item_id": "37056",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Sona Termas do Florescer Espiritual": {
       "offer_id": "128caabf-6ab9-4970-b37b-bcef4ac61fc9",
       "item_id": "37066",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sona Réquiem de Prestígio": {
-      "offer_id": "skin_37075",
-      "item_id": "37075",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9102,12 +8358,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Soraka Guardiã Estelar de Prestígio": {
-      "offer_id": "skin_16017",
-      "item_id": "16017",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Soraka Kawaii Café": {
       "offer_id": "b50fb0c9-718e-454d-87ce-8d020e995ad6",
       "item_id": "16018",
@@ -9168,12 +8418,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Swain Hextec": {
-      "offer_id": "skin_50011",
-      "item_id": "50011",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Swain Rosa de Cristal": {
       "offer_id": "765471f8-e10d-4ab2-834b-88c5529863d2",
       "item_id": "50012",
@@ -9189,12 +8433,6 @@
     "Swain Escolhido do Lobo": {
       "offer_id": "1ed8fe03-f992-43ee-97d4-ef706ee06fb3",
       "item_id": "50032",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Swain Escolhido do Lobo de Prestígio": {
-      "offer_id": "skin_50033",
-      "item_id": "50033",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9222,12 +8460,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "PROJETO: Sylas de Prestígio": {
-      "offer_id": "skin_517014",
-      "item_id": "517014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Sylas Lobo de Batalha": {
       "offer_id": "61f4fa3c-2cd7-42c8-9c1b-014f7ec55191",
       "item_id": "517024",
@@ -9250,12 +8482,6 @@
       "offer_id": "68aac7e8-58a5-497f-874b-a5ed2a9d86a9",
       "item_id": "517046",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sylas T1 de Prestígio": {
-      "offer_id": "skin_517053",
-      "item_id": "517053",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Syndra Justiceira": {
@@ -9309,12 +8535,6 @@
     "Syndra Feiticeira": {
       "offer_id": "skin_134025",
       "item_id": "134025",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Syndra Guardiã Estelar de Prestígio": {
-      "offer_id": "skin_134034",
-      "item_id": "134034",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9402,12 +8622,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Taliyah Crystalis Motus": {
-      "offer_id": "skin_163021",
-      "item_id": "163021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Taliyah Legado de Durand": {
       "offer_id": "skin_163024",
       "item_id": "163024",
@@ -9465,12 +8679,6 @@
     "Talon Velho Oeste": {
       "offer_id": "77334412-f701-4329-ac6e-5162bb394875",
       "item_id": "91038",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Talon Velho Oeste de Prestígio": {
-      "offer_id": "skin_91039",
-      "item_id": "91039",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9594,12 +8802,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Teemo Florescer Espiritual de Prestígio": {
-      "offer_id": "skin_17027",
-      "item_id": "17027",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Teemo Fogos de Artifício": {
       "offer_id": "skin_17037",
       "item_id": "17037",
@@ -9657,12 +8859,6 @@
     "Pulsefire Thresh": {
       "offer_id": "a0ba9bce-fb64-4c78-ab71-fdb0525bdf4a",
       "item_id": "412013",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Pulsefire Thresh de Prestígio": {
-      "offer_id": "skin_412014",
-      "item_id": "412014",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9771,12 +8967,6 @@
     "Tristana Cosplay de Pingu": {
       "offer_id": "d82ceac4-8a7e-428f-9d8e-904684a53e33",
       "item_id": "18033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Tristana Hextec": {
-      "offer_id": "skin_18040",
-      "item_id": "18040",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9918,21 +9108,9 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Tryndamere Vitorioso": {
-      "offer_id": "skin_23027",
-      "item_id": "23027",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Tryndamere Visões dos Caídos": {
       "offer_id": "a9edf520-5011-4424-920c-b78c6d100561",
       "item_id": "23037",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "PAX Twisted Fate": {
-      "offer_id": "skin_4001",
-      "item_id": "4001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10017,12 +9195,6 @@
     "Twisted Fate Embalos no Espaço": {
       "offer_id": "c6f1cc9b-8a50-4f4f-b0be-a788b046ffff",
       "item_id": "4036",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Twisted Fate Vitorioso": {
-      "offer_id": "skin_4045",
-      "item_id": "4045",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10350,12 +9522,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Vayne Fogos de Artifício de Prestígio": {
-      "offer_id": "skin_67013",
-      "item_id": "67013",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Vayne Florescer Espiritual": {
       "offer_id": "732bff91-394f-4069-be69-bbd1ded5f0f7",
       "item_id": "67014",
@@ -10492,12 +9658,6 @@
       "offer_id": "8bc402c6-1546-43c3-a202-214033fb1c03",
       "item_id": "45060",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Veigar Cripta de Magma de Prestígio": {
-      "offer_id": "skin_45067",
-      "item_id": "45067",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Vel'Koz Máquina de Combate": {
@@ -10860,12 +10020,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Volibear Dragão da Dualidade de Prestígio": {
-      "offer_id": "skin_106009",
-      "item_id": "106009",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Volibear Tinta Sombria": {
       "offer_id": "c70cdb43-c369-4c92-b0f5-62781b101511",
       "item_id": "106019",
@@ -10881,12 +10035,6 @@
     "Warwick Cinzento": {
       "offer_id": "skin_19001",
       "item_id": "19001",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Urf, o Peixe-Boi": {
-      "offer_id": "skin_19002",
-      "item_id": "19002",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10956,12 +10104,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Warwick Bênção do Inverno de Prestígio": {
-      "offer_id": "skin_19046",
-      "item_id": "19046",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Warwick Vander de Arcane": {
       "offer_id": "skin_19056",
       "item_id": "19056",
@@ -11007,12 +10149,6 @@
     "Xayah Fênix Corajosa": {
       "offer_id": "69a0fbe7-03a8-4381-a38d-a7c0177fb7d1",
       "item_id": "498017",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Xayah Fênix Corajosa de Prestígio": {
-      "offer_id": "skin_498026",
-      "item_id": "498026",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11085,12 +10221,6 @@
     "Xerath Astronauta": {
       "offer_id": "33b1ffeb-a33c-4e35-8da8-1bbcd8d2710f",
       "item_id": "101021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Xerath Crystalis Indomitus": {
-      "offer_id": "skin_101030",
-      "item_id": "101030",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11214,12 +10344,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Yasuo True Damage de Prestígio": {
-      "offer_id": "skin_157035",
-      "item_id": "157035",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Yasuo Florescer Espiritual": {
       "offer_id": "e7c656a7-5cc7-45bd-9fda-70afdead48cf",
       "item_id": "157036",
@@ -11247,12 +10371,6 @@
     "Yasuo Tinta Sombria": {
       "offer_id": "b5afd41d-7e38-4a4a-9945-8ac05382ed67",
       "item_id": "157056",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Yasuo Tinta Sombria de Prestígio": {
-      "offer_id": "skin_157057",
-      "item_id": "157057",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11313,12 +10431,6 @@
     "Yone HEARTSTEEL": {
       "offer_id": "f1be1063-6a70-4581-ada9-1e083d5e812d",
       "item_id": "777045",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Yone HEARTSTEEL de Prestígio": {
-      "offer_id": "skin_777046",
-      "item_id": "777046",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11454,12 +10566,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Yuumi Gata Cibernética de Prestígio": {
-      "offer_id": "skin_350050",
-      "item_id": "350050",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Yuumi Emissária da Escuridão": {
       "offer_id": "898ca8e4-bb6e-47d0-91ac-9f62adc82449",
       "item_id": "350061",
@@ -11580,12 +10686,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "PROJETO: Zed de Prestígio": {
-      "offer_id": "skin_238030",
-      "item_id": "238030",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Zed Galante": {
       "offer_id": "8e6c4de0-59c4-4b47-ae59-8af6484e0a36",
       "item_id": "238031",
@@ -11616,12 +10716,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Zed Florescer Espiritual de Prestígio": {
-      "offer_id": "skin_238069",
-      "item_id": "238069",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Zeri Rosa Definhada": {
       "offer_id": "422df4b8-4241-46d2-8d2e-d669b7ff439f",
       "item_id": "221001",
@@ -11643,12 +10737,6 @@
     "Zeri Noite Apavorante": {
       "offer_id": "e7b3fb81-42df-4b1a-a6dc-244dc90b959d",
       "item_id": "221028",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Zeri Noite Apavorante de Prestígio": {
-      "offer_id": "skin_221029",
-      "item_id": "221029",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11703,12 +10791,6 @@
     "Ziggs Frenesi Açucarado": {
       "offer_id": "427164ca-2965-44ef-8cca-cc29cdbc6868",
       "item_id": "115014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Ziggs Hextec": {
-      "offer_id": "skin_115023",
-      "item_id": "115023",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11802,12 +10884,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Zoe Arcanista de Prestígio": {
-      "offer_id": "skin_142019",
-      "item_id": "142019",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Zoe EDG": {
       "offer_id": "skin_142020",
       "item_id": "142020",
@@ -11823,12 +10899,6 @@
     "Zoe Estrela Negra": {
       "offer_id": "2b8de4cf-bf0d-4f5d-a490-93ca4f4f81c3",
       "item_id": "142033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Zoe Aspecto Eterno de Prestígio": {
-      "offer_id": "skin_142043",
-      "item_id": "142043",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11859,12 +10929,6 @@
     "Zyra Congregação das Bruxas": {
       "offer_id": "bcfcce98-42d7-45fa-8379-50ab7d14c495",
       "item_id": "143005",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Zyra Congregação das Bruxas de Prestígio": {
-      "offer_id": "skin_143006",
-      "item_id": "143006",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -11924,12 +10988,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Aatrox Vitorioso (Âmbar)": {
-      "offer_id": "skin_266010",
-      "item_id": "266010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Aatrox Odisseia (Rubi)": {
       "offer_id": "skin_266012",
       "item_id": "266012",
@@ -11975,12 +11033,6 @@
     "Aatrox Odisseia (Mercenário)": {
       "offer_id": "skin_266019",
       "item_id": "266019",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Aatrox Lua Sangrenta de Prestígio (2022)": {
-      "offer_id": "skin_266020",
-      "item_id": "266020",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -12377,12 +11429,6 @@
     "Ahri Congregação das Bruxas (Ahriversário)": {
       "offer_id": "8bdd24b6-c598-4d1f-82ab-6bcb6b425e0f",
       "item_id": "103064",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Ahri K/DA de Prestígio (2022)": {
-      "offer_id": "skin_103065",
-      "item_id": "103065",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -12785,12 +11831,6 @@
     "Akali Pesadelo na Cidade do Crime (Clandestino)": {
       "offer_id": "skin_84059",
       "item_id": "84059",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Akali K/DA de Prestígio (2022)": {
-      "offer_id": "skin_84060",
-      "item_id": "84060",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -13892,54 +12932,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Anivia Vitoriosa (Bronze)": {
-      "offer_id": "skin_34047",
-      "item_id": "34047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Prata)": {
-      "offer_id": "skin_34048",
-      "item_id": "34048",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Ouro)": {
-      "offer_id": "skin_34049",
-      "item_id": "34049",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Platina)": {
-      "offer_id": "skin_34050",
-      "item_id": "34050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Diamante)": {
-      "offer_id": "skin_34051",
-      "item_id": "34051",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Mestre)": {
-      "offer_id": "skin_34052",
-      "item_id": "34052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Grão-Mestre)": {
-      "offer_id": "skin_34053",
-      "item_id": "34053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Anivia Vitoriosa (Desafiante)": {
-      "offer_id": "skin_34054",
-      "item_id": "34054",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Annie Fera Lunar (Rubi)": {
       "offer_id": "skin_1014",
       "item_id": "1014",
@@ -14657,12 +13649,6 @@
     "Ashe DRX (Elite)": {
       "offer_id": "skin_22064",
       "item_id": "22064",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Ashe Crystalis Motus (Regenerada)": {
-      "offer_id": "skin_22066",
-      "item_id": "22066",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -15782,66 +14768,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Blitzcrank Vitorioso (Solo/Duo – Platina)": {
-      "offer_id": "skin_53037",
-      "item_id": "53037",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Solo/Duo – Diamante)": {
-      "offer_id": "skin_53038",
-      "item_id": "53038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Solo/Duo – Mestre)": {
-      "offer_id": "skin_53039",
-      "item_id": "53039",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Solo/Duo – Grão-Mestre)": {
-      "offer_id": "skin_53040",
-      "item_id": "53040",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Solo/Duo – Desafiante)": {
-      "offer_id": "skin_53041",
-      "item_id": "53041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Flex – Platina)": {
-      "offer_id": "skin_53042",
-      "item_id": "53042",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Flex – Diamante)": {
-      "offer_id": "skin_53043",
-      "item_id": "53043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Flex – Mestre)": {
-      "offer_id": "skin_53044",
-      "item_id": "53044",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Flex – Grão-Mestre)": {
-      "offer_id": "skin_53045",
-      "item_id": "53045",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Blitzcrank Vitorioso (Flex – Desafiante)": {
-      "offer_id": "skin_53046",
-      "item_id": "53046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Blitzcrank Zenith Games (Rubi)": {
       "offer_id": "skin_53048",
       "item_id": "53048",
@@ -16478,60 +15404,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Braum Vitorioso (Bronze)": {
-      "offer_id": "skin_201052",
-      "item_id": "201052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Prata)": {
-      "offer_id": "skin_201053",
-      "item_id": "201053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Ouro)": {
-      "offer_id": "skin_201054",
-      "item_id": "201054",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Platina)": {
-      "offer_id": "skin_201055",
-      "item_id": "201055",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Esmeralda)": {
-      "offer_id": "skin_201056",
-      "item_id": "201056",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Diamante)": {
-      "offer_id": "skin_201057",
-      "item_id": "201057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Mestre)": {
-      "offer_id": "skin_201058",
-      "item_id": "201058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_201059",
-      "item_id": "201059",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Braum Vitorioso (Desafiante)": {
-      "offer_id": "skin_201060",
-      "item_id": "201060",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Briar Demônios Urbanos (Rubi)": {
       "offer_id": "skin_233002",
       "item_id": "233002",
@@ -16754,12 +15626,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Caitlyn Fliperama de Prestígio (2022)": {
-      "offer_id": "skin_51029",
-      "item_id": "51029",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Caitlyn Lua Nevada (Rubi)": {
       "offer_id": "skin_51031",
       "item_id": "51031",
@@ -16865,12 +15731,6 @@
     "Caitlyn Comandante de Arcane (Redentor)": {
       "offer_id": "skin_51052",
       "item_id": "51052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Caitlyn Comandante de Arcane de Prestígio (Estelar)": {
-      "offer_id": "skin_51053",
-      "item_id": "51053",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -17996,12 +16856,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Darius General Triunfante de Prestígio (Vívido)": {
-      "offer_id": "skin_122066",
-      "item_id": "122066",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Darius Reinos Mech (Rubi)": {
       "offer_id": "skin_122068",
       "item_id": "122068",
@@ -18758,60 +17612,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Draven Vitorioso (Bronze)": {
-      "offer_id": "skin_119069",
-      "item_id": "119069",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Prata)": {
-      "offer_id": "skin_119070",
-      "item_id": "119070",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Ouro)": {
-      "offer_id": "skin_119071",
-      "item_id": "119071",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Platina)": {
-      "offer_id": "skin_119072",
-      "item_id": "119072",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Esmeralda)": {
-      "offer_id": "skin_119073",
-      "item_id": "119073",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Diamante)": {
-      "offer_id": "skin_119074",
-      "item_id": "119074",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Mestre)": {
-      "offer_id": "skin_119075",
-      "item_id": "119075",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_119076",
-      "item_id": "119076",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Draven Vitorioso (Desafiante)": {
-      "offer_id": "skin_119077",
-      "item_id": "119077",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Mundo Príncipe Congelado (Rubi)": {
       "offer_id": "skin_36011",
       "item_id": "36011",
@@ -19469,12 +18269,6 @@
     "Evelynn Congregação das Bruxas (Ritual Sombrio)": {
       "offer_id": "skin_28030",
       "item_id": "28030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Evelynn K/DA de Prestígio (2022)": {
-      "offer_id": "skin_28031",
-      "item_id": "28031",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -20666,60 +19460,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Fiora Vitoriosa (Bronze)": {
-      "offer_id": "skin_114099",
-      "item_id": "114099",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Prata)": {
-      "offer_id": "skin_114100",
-      "item_id": "114100",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Ouro)": {
-      "offer_id": "skin_114101",
-      "item_id": "114101",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Platina)": {
-      "offer_id": "skin_114102",
-      "item_id": "114102",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Esmeralda)": {
-      "offer_id": "skin_114103",
-      "item_id": "114103",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Diamante)": {
-      "offer_id": "skin_114104",
-      "item_id": "114104",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Mestre)": {
-      "offer_id": "skin_114105",
-      "item_id": "114105",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Grão-Mestre)": {
-      "offer_id": "skin_114106",
-      "item_id": "114106",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fiora Vitoriosa (Desafiante)": {
-      "offer_id": "skin_114107",
-      "item_id": "114107",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "IG Fiora (Elite)": {
       "offer_id": "skin_114108",
       "item_id": "114108",
@@ -20789,12 +19529,6 @@
     "Lúcifizz (Safira)": {
       "offer_id": "skin_105024",
       "item_id": "105024",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Fizz Doguinho de Prestígio (2022)": {
-      "offer_id": "skin_105025",
-      "item_id": "105025",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -21953,24 +20687,6 @@
     "Graves Curtindo o Verão (Turquesa)": {
       "offer_id": "71d61633-fa4f-4c3c-aeab-eaa52f0d8e95",
       "item_id": "104013",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Graves Vitorioso (Flex)": {
-      "offer_id": "skin_104015",
-      "item_id": "104015",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Graves Vitorioso (Solo/Duo)": {
-      "offer_id": "skin_104016",
-      "item_id": "104016",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Graves Vitorioso (3v3)": {
-      "offer_id": "skin_104017",
-      "item_id": "104017",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -23270,12 +21986,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "PROJETO: Irelia de Prestígio (2022)": {
-      "offer_id": "skin_39036",
-      "item_id": "39036",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Irelia Criadora Mítica (Rubi)": {
       "offer_id": "skin_39038",
       "item_id": "39038",
@@ -24182,12 +22892,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Jarvan IV Visões dos Caídos de Prestígio (Vívido)": {
-      "offer_id": "skin_59055",
-      "item_id": "59055",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "SSG Jarvan IV (Elite)": {
       "offer_id": "skin_59056",
       "item_id": "59056",
@@ -24323,12 +23027,6 @@
     "PROJETO: Jax (Arenito)": {
       "offer_id": "b3415e6c-4a4c-45c0-bfe6-7130dfb2879d",
       "item_id": "24041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Jax Cripta de Magma de Prestígio (Vívido)": {
-      "offer_id": "skin_24043",
-      "item_id": "24043",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -25325,12 +24023,6 @@
     "Kai'Sa Dragoa da Laguna (Garras Ardentes)": {
       "offer_id": "skin_145038",
       "item_id": "145038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kai'Sa K/DA de Prestígio (2022)": {
-      "offer_id": "skin_145039",
-      "item_id": "145039",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -26678,12 +25370,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Katarina Baile da Rosa Negra de Prestígio (Enigma)": {
-      "offer_id": "skin_55069",
-      "item_id": "55069",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Katarina Pétalas da Primavera (Rubi)": {
       "offer_id": "skin_55071",
       "item_id": "55071",
@@ -27716,12 +26402,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Kha'Zix Crystalis Indomitus (Fraturado)": {
-      "offer_id": "skin_121080",
-      "item_id": "121080",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Kindred Florescer Espiritual (Rubi)": {
       "offer_id": "skin_203004",
       "item_id": "203004",
@@ -28298,60 +26978,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Kog'Maw Vitorioso (Bronze)": {
-      "offer_id": "skin_96056",
-      "item_id": "96056",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Prata)": {
-      "offer_id": "skin_96057",
-      "item_id": "96057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Ouro)": {
-      "offer_id": "skin_96058",
-      "item_id": "96058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Platina)": {
-      "offer_id": "skin_96059",
-      "item_id": "96059",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Esmeralda)": {
-      "offer_id": "skin_96060",
-      "item_id": "96060",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Diamante)": {
-      "offer_id": "skin_96061",
-      "item_id": "96061",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Mestre)": {
-      "offer_id": "skin_96062",
-      "item_id": "96062",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_96063",
-      "item_id": "96063",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Kog'Maw Vitorioso (Desafiante)": {
-      "offer_id": "skin_96064",
-      "item_id": "96064",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "K'Sante Empíreo (Rubi)": {
       "offer_id": "skin_897003",
       "item_id": "897003",
@@ -28433,42 +27059,6 @@
     "K'Sante HEARTSTEEL (Astro do Rock)": {
       "offer_id": "skin_897017",
       "item_id": "897017",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Ametista)": {
-      "offer_id": "6cc13ef5-cb09-49ca-b2dd-802055feee80",
-      "item_id": "7006",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Tanzanita)": {
-      "offer_id": "4b090c7d-0faa-407a-9f7a-338fcabaddce",
-      "item_id": "7007",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Quartzo-rosa)": {
-      "offer_id": "a1c8dd0a-f73e-4683-b0ac-7203f1d12a1e",
-      "item_id": "7008",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Olho de Gato)": {
-      "offer_id": "c4e28415-a7bf-486e-9648-b4f7fc027ea0",
-      "item_id": "7009",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Pérola)": {
-      "offer_id": "7561ed9d-25ea-4ee1-a716-d1f6fe632cb9",
-      "item_id": "7010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "LeBlanc Prestigiosa (Turquesa)": {
-      "offer_id": "9afb50ad-844f-4c03-a2f7-1826f3f3dc86",
-      "item_id": "7011",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -28706,12 +27296,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "LeBlanc Praias Pecaminosas de Prestígio (Vívido)": {
-      "offer_id": "skin_7060",
-      "item_id": "7060",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Lee Sin Armador de Jogadas (Pérola)": {
       "offer_id": "skin_64013",
       "item_id": "64013",
@@ -28835,12 +27419,6 @@
     "Lee Sin Dragão da Tormenta (Garras Ardentes)": {
       "offer_id": "skin_64038",
       "item_id": "64038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lee Sin Emissário da Escuridão de Prestígio (2022)": {
-      "offer_id": "skin_64039",
-      "item_id": "64039",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -29249,12 +27827,6 @@
     "Leona Velho Oeste (Safira)": {
       "offer_id": "68a406bd-5aa3-4348-acb9-d52a2dfe56e4",
       "item_id": "89049",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Leona Crystalis Motus (Regenerada)": {
-      "offer_id": "skin_89051",
-      "item_id": "89051",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -30014,36 +28586,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Lucian Vitorioso (Platina)": {
-      "offer_id": "skin_236026",
-      "item_id": "236026",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lucian Vitorioso (Diamante)": {
-      "offer_id": "skin_236027",
-      "item_id": "236027",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lucian Vitorioso (Mestre)": {
-      "offer_id": "skin_236028",
-      "item_id": "236028",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lucian Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_236029",
-      "item_id": "236029",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lucian Vitorioso (Desafiante)": {
-      "offer_id": "skin_236030",
-      "item_id": "236030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Lucian Arcana (Rubi)": {
       "offer_id": "skin_236032",
       "item_id": "236032",
@@ -30698,12 +29240,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Lux Academia de Batalha de Prestígio (2022)": {
-      "offer_id": "skin_99039",
-      "item_id": "99039",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Lux de Porcelana (Tigre Dourado)": {
       "offer_id": "skin_99041",
       "item_id": "99041",
@@ -30863,12 +29399,6 @@
     "Lux Corte das Fadas (Turquesa)": {
       "offer_id": "301dc519-f259-4736-8edb-944c014d414b",
       "item_id": "99069",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Lux Florescer Espiritual de Prestígio (Vívido)": {
-      "offer_id": "skin_99071",
-      "item_id": "99071",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -31940,60 +30470,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Master Yi Vitorioso (Bronze)": {
-      "offer_id": "skin_11107",
-      "item_id": "11107",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Prata)": {
-      "offer_id": "skin_11108",
-      "item_id": "11108",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Ouro)": {
-      "offer_id": "skin_11109",
-      "item_id": "11109",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Platina)": {
-      "offer_id": "skin_11110",
-      "item_id": "11110",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Esmeralda)": {
-      "offer_id": "skin_11111",
-      "item_id": "11111",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Diamante)": {
-      "offer_id": "skin_11112",
-      "item_id": "11112",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Mestre)": {
-      "offer_id": "skin_11113",
-      "item_id": "11113",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_11114",
-      "item_id": "11114",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Master Yi Vitorioso (Desafiante)": {
-      "offer_id": "skin_11115",
-      "item_id": "11115",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Mel Conselheira de Arcane (Rubi)": {
       "offer_id": "skin_800002",
       "item_id": "800002",
@@ -32039,12 +30515,6 @@
     "Mel Conselheira de Arcane (Pérola)": {
       "offer_id": "264e54ca-1278-40ae-ab83-362d3c88b15f",
       "item_id": "800009",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Mel Bênção do Inverno de Prestígio (Vívido)": {
-      "offer_id": "skin_800011",
-      "item_id": "800011",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -32285,12 +30755,6 @@
     "Miss Fortune Destruída (Amaldiçoado)": {
       "offer_id": "skin_21030",
       "item_id": "21030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Miss Fortune Feiticeira de Prestígio (2022)": {
-      "offer_id": "skin_21033",
-      "item_id": "21033",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -32924,12 +31388,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Mordekaiser Avarento de Prestígio (Vívido)": {
-      "offer_id": "skin_82058",
-      "item_id": "82058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Morgana Espinhos Negros (Tanzanita)": {
       "offer_id": "6d34487d-d17c-4720-86d4-4aefad046e1d",
       "item_id": "25012",
@@ -33287,12 +31745,6 @@
     "Morgana de Porcelana (Luxuoso)": {
       "offer_id": "skin_25079",
       "item_id": "25079",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Morgana Redentora Velada de Prestígio (Vívido)": {
-      "offer_id": "skin_25082",
-      "item_id": "25082",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -34220,12 +32672,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Nautilus Crystalis Indomitus (Fraturado)": {
-      "offer_id": "skin_111037",
-      "item_id": "111037",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Nautilus de Petricita (Rubi)": {
       "offer_id": "skin_111040",
       "item_id": "111040",
@@ -34367,12 +32813,6 @@
     "Neeko Pergaminhos Shan Hai (Granito)": {
       "offer_id": "10c3b858-2bbb-4cdb-a79a-895b2757efdc",
       "item_id": "518020",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Neeko Guardiã Estelar de Prestígio (2022)": {
-      "offer_id": "skin_518021",
-      "item_id": "518021",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -35618,18 +34058,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Orianna Vitoriosa (Âmbar)": {
-      "offer_id": "skin_61009",
-      "item_id": "61009",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Orianna Vitoriosa (Peridoto)": {
-      "offer_id": "skin_61010",
-      "item_id": "61010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Orianna Estrela Negra (Antimatéria)": {
       "offer_id": "skin_61012",
       "item_id": "61012",
@@ -36620,12 +35048,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Pyke Guerreiro das Cinzas (Brasa Viva)": {
-      "offer_id": "skin_555046",
-      "item_id": "555046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Pyke Empíreo (Rubi)": {
       "offer_id": "skin_555047",
       "item_id": "555047",
@@ -36911,12 +35333,6 @@
     "Qiyana Rainha de Batalha (Obsidiana)": {
       "offer_id": "e8107fc2-8ccc-42c0-92d7-c5f09c8aebd1",
       "item_id": "246019",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Qiyana True Damage de Prestígio (2022)": {
-      "offer_id": "skin_246021",
-      "item_id": "246021",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -38612,60 +37028,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Rengar Vitorioso (Bronze)": {
-      "offer_id": "skin_107050",
-      "item_id": "107050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Prata)": {
-      "offer_id": "skin_107051",
-      "item_id": "107051",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Ouro)": {
-      "offer_id": "skin_107052",
-      "item_id": "107052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Platina)": {
-      "offer_id": "skin_107053",
-      "item_id": "107053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Esmeralda)": {
-      "offer_id": "skin_107054",
-      "item_id": "107054",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Diamante)": {
-      "offer_id": "skin_107055",
-      "item_id": "107055",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Mestre)": {
-      "offer_id": "skin_107056",
-      "item_id": "107056",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_107057",
-      "item_id": "107057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Rengar Vitorioso (Desafiante)": {
-      "offer_id": "skin_107058",
-      "item_id": "107058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Riven Coelha de Batalha (Olho de Gato)": {
       "offer_id": "fbe86fc5-65dd-4449-85a8-147ce1b9a964",
       "item_id": "92008",
@@ -38843,12 +37205,6 @@
     "Riven Sentinela (Resoluto)": {
       "offer_id": "skin_92043",
       "item_id": "92043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Riven Espada Valorosa de Prestígio (2022)": {
-      "offer_id": "skin_92045",
-      "item_id": "92045",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -39647,66 +38003,6 @@
     "Sejuani Eclipse Solar (Obsidiana)": {
       "offer_id": "55d617ac-09b7-4f19-921b-d4f86d760eea",
       "item_id": "113035",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Solo/Duo – Platina)": {
-      "offer_id": "skin_113037",
-      "item_id": "113037",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Solo/Duo – Diamante)": {
-      "offer_id": "skin_113038",
-      "item_id": "113038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Solo/Duo – Mestre)": {
-      "offer_id": "skin_113039",
-      "item_id": "113039",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Solo/Duo – Grão-Mestre)": {
-      "offer_id": "skin_113040",
-      "item_id": "113040",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Solo/Duo – Desafiante)": {
-      "offer_id": "skin_113041",
-      "item_id": "113041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Flex – Platina)": {
-      "offer_id": "skin_113042",
-      "item_id": "113042",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Flex – Diamante)": {
-      "offer_id": "skin_113043",
-      "item_id": "113043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Flex – Mestre)": {
-      "offer_id": "skin_113044",
-      "item_id": "113044",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Flex – Grão-Mestre)": {
-      "offer_id": "skin_113045",
-      "item_id": "113045",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sejuani Vitoriosa (Flex – Desafiante)": {
-      "offer_id": "skin_113046",
-      "item_id": "113046",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -41300,12 +39596,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Shaco Pandemônio de Prestígio (Vívido)": {
-      "offer_id": "skin_35072",
-      "item_id": "35072",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Shen Mestre Samurai (Olho de Gato)": {
       "offer_id": "39d3a632-5413-4143-849d-f38f07d67e8e",
       "item_id": "98007",
@@ -42842,60 +41132,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Sona Vitoriosa (Bronze)": {
-      "offer_id": "skin_37057",
-      "item_id": "37057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Prata)": {
-      "offer_id": "skin_37058",
-      "item_id": "37058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Ouro)": {
-      "offer_id": "skin_37059",
-      "item_id": "37059",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Platina)": {
-      "offer_id": "skin_37060",
-      "item_id": "37060",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Esmeralda)": {
-      "offer_id": "skin_37061",
-      "item_id": "37061",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Diamante)": {
-      "offer_id": "skin_37062",
-      "item_id": "37062",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Mestre)": {
-      "offer_id": "skin_37063",
-      "item_id": "37063",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Grão-Mestre)": {
-      "offer_id": "skin_37064",
-      "item_id": "37064",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Vitoriosa (Desafiante)": {
-      "offer_id": "skin_37065",
-      "item_id": "37065",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Sona Termas do Florescer Espiritual (Rubi)": {
       "offer_id": "skin_37067",
       "item_id": "37067",
@@ -42941,12 +41177,6 @@
     "Sona Termas do Florescer Espiritual (Quartzo-rosa)": {
       "offer_id": "5eeebe43-d26a-4ee8-8b82-3b8ffb40c15b",
       "item_id": "37074",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sona Réquiem de Prestígio (Vívido)": {
-      "offer_id": "skin_37076",
-      "item_id": "37076",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -44462,12 +42692,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Taliyah Crystalis Motus (Regenerada)": {
-      "offer_id": "skin_163022",
-      "item_id": "163022",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "SSG Taliyah (Elite)": {
       "offer_id": "skin_163023",
       "item_id": "163023",
@@ -45356,12 +43580,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Pulsefire Thresh de Prestígio (2022)": {
-      "offer_id": "skin_412038",
-      "item_id": "412038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Thresh Imperador Lunar (Rubi)": {
       "offer_id": "skin_412040",
       "item_id": "412040",
@@ -46106,60 +44324,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Tryndamere Vitorioso (Bronze)": {
-      "offer_id": "skin_23028",
-      "item_id": "23028",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Prata)": {
-      "offer_id": "skin_23029",
-      "item_id": "23029",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Ouro)": {
-      "offer_id": "skin_23030",
-      "item_id": "23030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Platina)": {
-      "offer_id": "skin_23031",
-      "item_id": "23031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Esmeralda)": {
-      "offer_id": "skin_23032",
-      "item_id": "23032",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Diamante)": {
-      "offer_id": "skin_23033",
-      "item_id": "23033",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Mestre)": {
-      "offer_id": "skin_23034",
-      "item_id": "23034",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_23035",
-      "item_id": "23035",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Tryndamere Vitorioso (Desafiante)": {
-      "offer_id": "skin_23036",
-      "item_id": "23036",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Tryndamere Visões dos Caídos (Rubi)": {
       "offer_id": "skin_23038",
       "item_id": "23038",
@@ -46379,60 +44543,6 @@
     "Twisted Fate Embalos no Espaço (Arco-íris)": {
       "offer_id": "64dcb103-a112-4a9d-ac8c-237f5baf1903",
       "item_id": "4044",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Bronze)": {
-      "offer_id": "skin_4046",
-      "item_id": "4046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Prata)": {
-      "offer_id": "skin_4047",
-      "item_id": "4047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Ouro)": {
-      "offer_id": "skin_4048",
-      "item_id": "4048",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Platina)": {
-      "offer_id": "skin_4049",
-      "item_id": "4049",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Esmeralda)": {
-      "offer_id": "skin_4050",
-      "item_id": "4050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Diamante)": {
-      "offer_id": "skin_4051",
-      "item_id": "4051",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Mestre)": {
-      "offer_id": "skin_4052",
-      "item_id": "4052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Grão-Mestre)": {
-      "offer_id": "skin_4053",
-      "item_id": "4053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Twisted Fate Vitorioso (Desafiante)": {
-      "offer_id": "skin_4054",
-      "item_id": "4054",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -47348,12 +45458,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Vayne Fogos de Artifício de Prestígio (2022)": {
-      "offer_id": "skin_67033",
-      "item_id": "67033",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Vayne Fogos de Artifício (Tigre Dourado)": {
       "offer_id": "skin_67034",
       "item_id": "67034",
@@ -47873,12 +45977,6 @@
     "Veigar Noite Apavorante (Macabro)": {
       "offer_id": "skin_45066",
       "item_id": "45066",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Veigar Cripta de Magma de Prestígio (Vívido)": {
-      "offer_id": "skin_45068",
-      "item_id": "45068",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -49949,12 +48047,6 @@
     "Xerath Astronauta (Arenito)": {
       "offer_id": "3c790f1e-b77a-45cc-8b1a-48cad5813287",
       "item_id": "101029",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Xerath Crystalis Indomitus (Fraturado)": {
-      "offer_id": "skin_101031",
-      "item_id": "101031",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -52436,12 +50528,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Zed Florescer Espiritual de Prestígio (Vívido)": {
-      "offer_id": "skin_238070",
-      "item_id": "238070",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Zeri Rosa Definhada (Rubi)": {
       "offer_id": "skin_221002",
       "item_id": "221002",
@@ -53261,12 +51347,6 @@
     "Zoe Estrela Negra (Quasar)": {
       "offer_id": "skin_142042",
       "item_id": "142042",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Zoe Aspecto Eterno de Prestígio (Vívida)": {
-      "offer_id": "skin_142044",
-      "item_id": "142044",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
