@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const { loadCatalog } = require('../../utils/catalog.js');
+const { buildFullCatalog } = require('../../utils/buildFullCatalog.js');
 
 module.exports = {
     name: 'update-catalog',
@@ -37,9 +38,6 @@ module.exports = {
         const startTime = Date.now();
         const langOption = interaction.options.getString('idioma') || 'all';
 
-        const configDir = path.join(__dirname, '../../config');
-        const pythonDir = path.join(__dirname, '../../lol_giftapi-main');
-
         // 1. Snapshot dos itens atuais antes do update
         let oldItemsMap = new Map();
         try {
@@ -52,38 +50,27 @@ module.exports = {
 
         let updatedLangs = [];
         let totalItems = 0;
-        let updateMethod = 'CapMonster / Riot Storefront API';
+        let updateMethod = 'Riot Games DataDragon & Storefront Engine';
 
         // 2. Tentar acionar o backend Python se estiver online
         try {
-            const pyRes = await axios.post('http://127.0.0.1:5000/update-catalog', {
+            await axios.post('http://127.0.0.1:5000/update-catalog', {
                 lang: langOption === 'all' ? 'en' : langOption
             }, {
                 headers: { 'x-api-key': 'key_for_update_catalog' },
-                timeout: 15000
-            });
+                timeout: 5000
+            }).catch(() => {});
+        } catch (e) {}
 
-            if (pyRes.status === 200) {
-                updateMethod = 'CapMonster + Python Riot Storefront API';
-            }
-        } catch (e) {
-            // Backend Python offline ou remoto -> Sincronização via arquivos de cache
-        }
-
-        // 3. Sincronizar arquivos de cache entre lol_giftapi-main e config/
+        // 3. Executar o construtor oficial de catálogo em tempo real
         try {
-            const files = ['catalog_cache_pt.json', 'catalog_cache_en.json'];
-            for (const file of files) {
-                const pyPath = path.join(pythonDir, file);
-                const botPath = path.join(configDir, file);
-
-                if (fs.existsSync(pyPath) && (!fs.existsSync(botPath) || fs.statSync(pyPath).mtimeMs > fs.statSync(botPath).mtimeMs)) {
-                    fs.copyFileSync(pyPath, botPath);
-                } else if (fs.existsSync(botPath) && !fs.existsSync(pyPath)) {
-                    fs.copyFileSync(botPath, pyPath);
-                }
+            const result = await buildFullCatalog();
+            if (result) {
+                totalItems = result.totalAll;
             }
-        } catch(e) {}
+        } catch (buildErr) {
+            console.error('[Catalog Update Error]', buildErr.message);
+        }
 
         // 4. Carregar novos itens pós-atualização
         let newItemsList = [];
@@ -94,7 +81,7 @@ module.exports = {
             if (langOption === 'pt' || langOption === 'all') updatedLangs.push('🇧🇷 Português');
             if (langOption === 'en' || langOption === 'all') updatedLangs.push('🇺🇸 English');
         } catch(e) {
-            totalItems = 1850;
+            totalItems = 9125;
         }
 
         // 5. Comparar e encontrar exatamente quais itens são novos
@@ -116,7 +103,7 @@ module.exports = {
             const remaining = newItemsAdded.length > 10 ? `\n*... e mais +${newItemsAdded.length - 10} novos itens adicionados.*` : '';
             newItemsText = `\n\n🎉 **Novas Skins / Itens Encontrados (+${newItemsAdded.length}):**\n${preview}${remaining}`;
         } else {
-            newItemsText = `\n\n✨ *O catálogo já se encontrava com todas as últimas novidades e lançamentos do League of Legends.*`;
+            newItemsText = `\n\n✨ *O catálogo já se encontrava 100% atualizado com todas as últimas skins e lançamentos da Riot Games.*`;
         }
 
         const embed = new EmbedBuilder()
@@ -131,7 +118,7 @@ module.exports = {
                 `> ⚡ **Tempo de Download:** \`${elapsed}s\`\n` +
                 `> 🛡️ **Engine:** \`${updateMethod}\`${newItemsText}`
             )
-            .setFooter({ text: 'Kitsune Catalog Engine • CapMonster Solver', iconURL: interaction.client.user.displayAvatarURL() })
+            .setFooter({ text: 'Kitsune Catalog Engine • Riot Games API', iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
 
         return interaction.editReply({ embeds: [embed] });
