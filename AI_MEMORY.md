@@ -255,6 +255,13 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Autocomplete de itens em tempo real no catálogo multilíngue.
   - Sincronização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e no disco.
   - Notificação de presente (`gift_sent`), falha com motivo detalhado (`gift_failed`) e log de auditoria no canal e DM da staff (`gift_staff_log`).
+- [x] **Comando `/desconto` Inteligente & Completo:**
+  - Suporte a 3 ações: `📊 Ver Descontos Ativos`, `⚙️ Definir Desconto`, `🔄 Resetar Descontos`.
+  - Desconto Global (`promocao_porcentagem`) e por Categorias Oficiais (Skins, Cromas, Passes, Espólios, Acessórios, Emotes, Ícones, Wards, Boosts, Eternos, Mistério, Destaques).
+  - Recálculo automático instantâneo de todos os preços de itens em `config/loja.json` e sincronização com `/table`.
+  - Blindagem de permissões para Administradores e Staff.
+- [x] **Comando `/config-store` Atualizado:**
+  - Removidas opções inválidas (skins míticas) e alinhado com as categorias presentes no catálogo.
 - [x] **Templates de Embeds 100% Editáveis (`/embeds`):**
   - Cadastrados todos os novos templates em `config/embeds.json` e no menu visual do comando `/embeds`.
 
@@ -263,8 +270,9 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel` e `/gift` revisados e 100% integrados.
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel`, `/gift`, `/desconto` e `/config-store` revisados e 100% integrados.
 - Persistência 24/7 ativa no MongoDB Atlas.
+- Sistema de descontos automatizado com recálculo instantâneo de preços.
 - Todos os embeds personalizáveis via `/embeds`.
 
 ---
@@ -272,7 +280,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## PRÓXIMO PASSO
 
 1. Fazer o deploy para o GitHub (`origin/main`).
-2. Seguir para o comando `/ticket` (painel de compras, seleção de produtos e abertura de tickets) e os comandos de configuração (`/config-store`, `/desconto`, `/embeds`, `/config`, `/emojis`).
+2. Seguir para o comando `/ticket` (painel de compras, seleção de produtos e abertura de tickets) e comandos restantes (`/embeds`, `/config`, `/emojis`, `/join`, `/leave`).
 
 ---
 

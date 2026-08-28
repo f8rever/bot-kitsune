@@ -55,7 +55,6 @@ module.exports = {
 
         const itensSkins = [
             { name: '🔸 Ultimate Skin 3250 RP (ultimate)', value: 'ultimate' },
-            { name: '✨ Mythic Skin / Prestige (mythic)', value: 'mythic' },
             { name: '🔴 Legendary Skin 1820 RP (legendary)', value: 'legendary' },
             { name: '🟣 Epic Skin 1350 RP (epic)', value: 'epic' },
             { name: '🔵 Common Skin 975 RP (common_975)', value: 'common_975' },
