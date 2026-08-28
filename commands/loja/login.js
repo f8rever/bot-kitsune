@@ -209,7 +209,11 @@ async function activateAccountSession(targetInt, accountName, accData, accountsP
                 delete accData.chatUri;
                 delete accData.chatDom;
                 allAccounts[accountName] = accData;
-                try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
+                try { 
+                    fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); 
+                    const { saveAccountToMongo } = require('../../utils/mongoStorage.js');
+                    saveAccountToMongo(accountName, accData);
+                } catch (e) {}
                 console.log(`[Login] Token renovado via SSID para: ${accountName}`);
             }
         } catch (e) {
@@ -230,12 +234,20 @@ async function activateAccountSession(targetInt, accountName, accData, accountsP
             accData.be = be;
             accData.expired = false;
             allAccounts[accountName] = accData;
-            try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
+            try { 
+                fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); 
+                const { saveAccountToMongo } = require('../../utils/mongoStorage.js');
+                saveAccountToMongo(accountName, accData);
+            } catch (e) {}
         } else if (bal && bal.error === 401) {
             // Token inválido mesmo após tentativa de renovação
             accData.expired = true;
             allAccounts[accountName] = accData;
-            try { fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); } catch (e) {}
+            try { 
+                fs.writeFileSync(accountsPath, JSON.stringify(allAccounts, null, 2), 'utf8'); 
+                const { saveAccountToMongo } = require('../../utils/mongoStorage.js');
+                saveAccountToMongo(accountName, accData);
+            } catch (e) {}
         }
     } catch (e) {
         console.warn(`[Login] Aviso: não foi possível buscar saldo para ${accountName}:`, e.message);

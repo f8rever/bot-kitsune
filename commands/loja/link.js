@@ -139,6 +139,14 @@ module.exports = {
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2), 'utf8');
         console.log(`[AccountStore] 💾 Conta ${finalAccountName} salva com sucesso em config/riot_accounts.json!`);
 
+        // Persistência na nuvem (MongoDB Atlas)
+        try {
+            const { saveAccountToMongo } = require('../../utils/mongoStorage.js');
+            saveAccountToMongo(finalAccountName, accounts[finalAccountName]);
+        } catch (e) {
+            console.error('[Link] Erro ao salvar conta no MongoDB:', e.message);
+        }
+
         const userStoreSessions = global.userStoreSessions || new Map();
         userStoreSessions.set(interaction.user.id, {
             accountName: finalAccountName,

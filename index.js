@@ -153,7 +153,7 @@ const client = new Client({
 
 client.commands = new Collection();
 
-// Auto-restore persistent accounts from Render Environment Variable SAVED_RIOT_ACCOUNTS if present
+// Auto-restore persistent accounts from MongoDB Atlas & Render Environment Variable
 const accountsDir = path.join(__dirname, 'config');
 if (!fs.existsSync(accountsDir)) {
     fs.mkdirSync(accountsDir, { recursive: true });
@@ -174,6 +174,16 @@ if (process.env.SAVED_RIOT_ACCOUNTS) {
         console.error('[Persistence Error] Falha ao carregar SAVED_RIOT_ACCOUNTS:', e.message);
     }
 }
+
+// Sincronização automática inicial com o MongoDB Atlas
+(async () => {
+    try {
+        const { syncMongoAndDisk } = require('./utils/mongoStorage.js');
+        await syncMongoAndDisk(accountsPath);
+    } catch (e) {
+        console.error('[MongoDB Startup Sync Error]', e.message);
+    }
+})();
 
 function loadCommands(dir) {
     if (!fs.existsSync(dir)) return;
@@ -3224,6 +3234,10 @@ async function refreshAccountsTask() {
 
     if (updated) {
         fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+        try {
+            const { saveAllAccountsToMongo } = require('./utils/mongoStorage.js');
+            saveAllAccountsToMongo(accounts);
+        } catch (e) {}
     }
 }
 

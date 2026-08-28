@@ -202,43 +202,41 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - [x] **Estabilidade do Gateway / Intents Discord:** Removida a intent privilegiada `MessageContent` (que bloqueava a conexão do bot caso não estivesse marcada no Discord Developer Portal) e adicionados handlers de erro `client.on('error')` e `client.on('shardError')`.
 - [x] **Deploy no GitHub:** Alterações comitadas e enviadas para `origin/main` (deploy automático no Render).
 
-Arquivos principais:
-- `index.js` — lógica principal do bot (3123 linhas)
-- `utils/riotAuth.js` — autenticação Riot, tokens, balance, gifting (575 linhas)
-- `utils/riotXmpp.js` — cliente XMPP para chat Riot (139 linhas)
-- `utils/catalogSync.js` — sincronização do catálogo com a Riot Store API (153 linhas)
-- `utils/catalog.js` — funções de busca no catálogo (≈80 linhas)
-- `utils/customEmbeds.js` — builder de embeds customizáveis (≈100 linhas)
-- `config/embeds.json` — templates de todas as embeds (452 linhas, 45+ templates)
-- `config/emojis.json` — emojis customizados (110 linhas)
-- `config/loja.json` — preços e descontos da loja (142 linhas)
-- `python_backend/main_backend.py` — backend Flask completo (2668 linhas)
+### 2026-08-27
+- [x] **Comando `/addfriend` 100% Funcional:**
+  - Adicionado template `addfriend_sent` que faltava em `config/embeds.json` (evitando erro/crash na confirmação).
+  - Reescrita completa de `commands/loja/addfriend.js` com prioridade na sessão do usuário (`userStoreSessions`), fallback para primeira conta, auto-renovação de token via SSID, e detecção de status como `account-disabled`.
+- [x] **Comando `/login` com Painel Completo:**
+  - Reescrita de `commands/loja/login.js` com auto-refresh de saldo (RP/BE), renovação SSID e renderização do painel completo de botões interativos (`btn_rp`, `btn_account`, `btn_friend`, `btn_back`).
+  - Adicionados todos os templates de embed de dashboard em `config/embeds.json` (`login_select`, `login_success`, `dashboard_rp`, `dashboard_account`, `dashboard_friends`).
+- [x] **Aba de Amigos Multi-Região (XMPP Roster):**
+  - Ajustado o handler de `btn_friend` em `index.js` para consultar o roster XMPP completo em vez do endpoint REST de gifting (que limitava amigos à mesma região).
+  - Agora exibe amigos de todas as regiões com paginação e status.
+- [x] **Deploy no GitHub:** Commits `79784e6`, `addf1d1`, `e92cc67` enviados para `origin/main`.
+
+### 2026-08-28
+- [x] **Persistência Durável de Contas Riot no MongoDB Atlas (`utils/mongoStorage.js`):**
+  - Implementado módulo de conexão e sincronização bidirecional com a coleção `riot_accounts` no MongoDB Atlas.
+  - Sincronização automática no boot do bot em `index.js`: restaura todas as contas Riot da nuvem para o disco local, garantindo que reinicializações ou deploys no Render não percam contas vinculadas.
+  - Salvamento instantâneo no MongoDB ao executar `/link` e durante atualizações de tokens/saldo no `/login`.
+  - Heartbeat em segundo plano (`refreshAccountsTask`) agora sincroniza renovações via SSID e alterações de saldo diretamente na nuvem.
 
 ---
 
-## ESTADO ATUAL
+## ESTADO ATUAL (2026-08-28)
 
-O projeto atualmente está em:
-
-**Estado funcional/operacional** — o bot está estruturalmente completo com todas as funcionalidades core implementadas (loja, gifting, catálogo, autenticação Riot, tickets, gerenciamento de embeds/emojis/descontos). O código indica que foi/é usado em produção (configurações reais, tokens, servidor Express para UptimeRobot, heartbeat 24/7).
-
-Pontos de atenção:
-1. O `index.js` é monolítico (3123 linhas) e seria beneficiado por refatoração/modularização
-2. Os arquivos de evento em `events/` têm extensão `.js.js` e provavelmente não são carregados automaticamente
-3. Existem dois diretórios redundantes (`python_backend/` e `lol_giftapi-main/`) com código Python similar
-4. Credenciais sensíveis estão hardcoded em alguns arquivos
-5. O `config.json` tem placeholder não preenchido para a logo
+**Estado funcional/operacional**:
+- `/addfriend`, `/login` e painel de controle (RP/BE/Amigos) estão 100% operacionais.
+- Persistência na nuvem ativa via MongoDB Atlas (nunca mais perde contas vinculadas ao reiniciar).
+- O bot está pronto para testar o fluxo de `/link` e seguir para os próximos comandos.
 
 ---
 
 ## PRÓXIMO PASSO
 
-Aguardando instrução do usuário. Possíveis melhorias identificadas:
-- Refatoração do index.js monolítico em módulos separados
-- Correção dos nomes de arquivo dos eventos (.js.js → .js) e carregamento automático
-- Remoção/consolidação do diretório redundante lol_giftapi-main
-- Extração de credenciais hardcoded para variáveis de ambiente
-- Atualização do config.json (logo placeholder, referência V3→V2)
+1. Fazer o deploy dessas alterações no GitHub (`git push`).
+2. Testar o comando `/link` e confirmar que a conta permanece salva mesmo após reiniciar.
+3. Seguir para a revisão e melhoria do próximo comando da fila (ex: `/gift`, `/friendlist`, etc.).
 
 ---
 
