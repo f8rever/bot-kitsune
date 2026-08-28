@@ -1,12 +1,16 @@
-const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, PermissionsBitField } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, PermissionsBitField } = require('discord.js');
 const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'embeds',
     description: '🦊 Kitsune | Painel de Gerenciamento de Embeds',
     async execute(interaction) {
-        if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return interaction.reply({ content: '❌ Você precisa ser Administrador para usar este comando.', ephemeral: true });
+        const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member.roles.cache.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '❌ Você precisa ser Administrador ou Staff para usar este comando.', ephemeral: true });
         }
 
         const embed = buildCustomEmbed('embeds_panel', interaction.client, interaction);
@@ -29,14 +33,13 @@ module.exports = {
                     { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
                     { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
                     { label: 'Catálogo de Sentinelas', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
-                    { label: 'Catálogo de Lendas / Chibis', description: 'Página de Little Legends e Chibis', value: 'catalog_little_legends', emoji: '🐥' },
-                    { label: 'Catálogo de Arenas TFT', description: 'Página de tabuleiros e arenas TFT', value: 'catalog_tft_arena', emoji: '🏟️' },
                     { label: 'Catálogo de Boosts', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
                     { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
                     { label: 'Catálogo de Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
                     { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' },
                     { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                     { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
+                    { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
                     { label: 'Painel Principal Emojis Manager', description: 'Embed do comando /emojis', value: 'emojis_panel', emoji: '✨' },
                     { label: 'Painel Principal Embeds Manager', description: 'Embed do comando /embeds', value: 'embeds_panel', emoji: '⚙️' }
                 ])
@@ -45,13 +48,14 @@ module.exports = {
         const menu2 = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder()
                 .setCustomId('menu_embed_select_2')
-                .setPlaceholder('🎮 Comandos, Logins & Dashboards...')
+                .setPlaceholder('🎮 Comandos, Verificação & Convites...')
                 .addOptions([
+                    { label: 'Verificação - Painel (/verify-panel)', description: 'Embed do painel de verificação', value: 'verify_panel', emoji: '🛡️' },
+                    { label: 'Verificação - Sucesso', description: 'Embed efêmera de verificado com sucesso', value: 'verify_success', emoji: '✅' },
+                    { label: 'Boas-Vindas & Convites (Entrada)', description: 'Mensagem de boas-vindas com dados do convite', value: 'welcome_invite', emoji: '👋' },
+                    { label: 'Convites - Perfil (/invites)', description: 'Embed do comando /invites', value: 'invites_profile', emoji: '👥' },
                     { label: 'Login - Seleção de Conta', description: 'Embed do menu de escolha de conta no /login', value: 'login_select', emoji: '🔐' },
                     { label: 'Login - Sucesso e Informações', description: 'Embed final de sucesso do /login', value: 'login_success', emoji: '🛡️' },
-                    { label: 'Login - Passo 1 (Carregamento)', description: 'Embed de inicialização de login', value: 'login_loading_1', emoji: '⏳' },
-                    { label: 'Login - Passo 2 (Tokens)', description: 'Embed de atualização de tokens', value: 'login_loading_2', emoji: '☑️' },
-                    { label: 'Login - Passo 3 (Amigos)', description: 'Embed de carregamento de amigos', value: 'login_loading_3', emoji: '👥' },
                     { label: 'Link - Sucesso (/link)', description: 'Embed de sucesso ao vincular conta no /link', value: 'link_success', emoji: '🔗' },
                     { label: 'AddFriend - Envio de Amizade', description: 'Embed enviada ao solicitar amizade no /addfriend', value: 'addfriend_sent', emoji: '➕' },
                     { label: 'Friendlist - Lista Principal', description: 'Embed exibida ao listar amigos no /friendlist', value: 'friendlist_main', emoji: '👥' },

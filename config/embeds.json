@@ -753,5 +753,58 @@
         "inline": true
       }
     ]
+  },
+  "welcome_invite": {
+    "title": "👋 Bem-vindo(a) à Kitsune Store!",
+    "description": "<a:whitearrow:1346152146814636032> Olá {userMention}, seja muito bem-vindo(a) ao servidor!\n<a:whitearrow:1346152146814636032> Convidado por: {inviterMention}\n<a:whitearrow:1346152146814636032> Convites do Convidante: **{inviterTotal}** ({inviterRegular} válidos, {inviterLeft} saíram)\n<a:whitearrow:1346152146814636032> Agora somos **{memberCount}** membros na comunidade!",
+    "color": "#F43F5E",
+    "thumbnail": "{userAvatar}",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "fields": []
+  },
+  "invites_profile": {
+    "title": "👥 Kitsune | Estatísticas de Convites",
+    "description": "<a:whitearrow:1346152146814636032> Informações de convites de **{targetUser}**:",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "✨ Total de Convites",
+        "value": "`{total} convites`",
+        "inline": true
+      },
+      {
+        "name": "📥 Entradas Válidas",
+        "value": "`{regular} membros`",
+        "inline": true
+      },
+      {
+        "name": "📤 Saídas",
+        "value": "`{left} saíram`",
+        "inline": true
+      },
+      {
+        "name": "🚫 Fakes / Inválidos",
+        "value": "`{fake}`",
+        "inline": true
+      }
+    ]
+  },
+  "verify_panel": {
+    "title": "🦊 Kitsune Store | Verificação de Segurança",
+    "description": "<a:whitearrow:1346152146814636032> Bem-vindo(a) à **Kitsune Store**!\n<a:whitearrow:1346152146814636032> Para ter acesso completo aos canais, promoções e loja de League of Legends, clique no botão abaixo para se verificar.\n\n> ⚠️ *Ao se verificar, você confirma que está de acordo com as regras da nossa comunidade.*",
+    "color": "#F43F5E",
+    "thumbnail": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Pyke_25.jpg",
+    "fields": []
+  },
+  "verify_success": {
+    "title": "✅ Verificado com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> Você foi verificado com sucesso e o cargo **{roleName}** foi concedido!\n<a:whitearrow:1346152146814636032> Aproveite todas as vantagens e promoções da Kitsune Store.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
   }
 }

@@ -238,26 +238,36 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Removido `commands/moderacao/lock.js` a pedido do usuário.
 - [x] **Limpeza de Categorias não-presenteáveis:**
   - Removidas categorias de TFT e Classic da loja e dos menus de vendas.
-- [x] **Templates de Embeds Atualizados (`config/embeds.json`):**
-  - Adicionados `friendlist_main`, `friendlist_requests`, `friendlist_accepted`, `link_success`, `tabela_skins`, `tabela_loot`, `tabela_acessorios`.
+- [x] **Sistema de Convites (Invite Tracker) com MongoDB Atlas:**
+  - Rastreamento automático de quem convidou novos membros através do evento `guildMemberAdd` e `guildMemberRemove`.
+  - Contagem persistida no MongoDB Atlas (`invites` e `member_joins` collections com `regular`, `left`, `fake`, `total`).
+  - Notificação no canal de boas-vindas com dados completos do convite e membro (`welcome_invite`).
+  - Comando `/invites` para consultar convites próprios ou de outros usuários (`invites_profile`).
+- [x] **Sistema de Verificação (Verify) & RestoreCord:**
+  - Comando `/verify-panel` para enviar o painel com botão de 1 clique e/ou botão Link para RestoreCord OAuth2.
+  - Entrega automática do cargo de verificado com registro no MongoDB Atlas.
+  - Mensagem efêmera de sucesso (`verify_success`).
+- [x] **Carregamento Automático de Eventos no `index.js`:**
+  - Implementado `loadEvents()` para carregar dinamicamente todos os eventos em `events/` (`guildMemberAdd.js`, `guildMemberRemove.js`, `messageCreate.js`).
+- [x] **Templates de Embeds 100% Editáveis (`/embeds`):**
+  - Cadastrados todos os novos templates em `config/embeds.json` e no menu visual do comando `/embeds`.
 
 ---
 
 ## ESTADO ATUAL (2026-08-28)
 
 **Estado funcional/operacional**:
-- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link` e `/table` revisados e 100% integrados.
-- Persistência 24/7 de contas no MongoDB Atlas ativa.
-- Comandos não utilizados (`/lock`) removidos.
-- Menus da loja alinhados com o cliente oficial do LoL (sem Classic/TFT não-presenteáveis).
+- `/addfriend`, `/login`, `/friendlist`, `/clear`, `/deploy`, `/link`, `/table`, `/invites`, `/verify-panel` revisados e 100% integrados.
+- Invite Tracker e Sistema de Verificação operacionais com MongoDB Atlas.
+- Todos os embeds personalizáveis via `/embeds`.
 
 ---
 
 ## PRÓXIMO PASSO
 
-1. Enviar as alterações para o GitHub (`origin/main`).
-2. Testar o `/table` e navegar entre as abas.
-3. Seguir para a revisão do próximo comando (ex: `/gift` ou `/ticket`).
+1. Fazer o deploy para o GitHub (`origin/main`).
+2. Testar o `/verify-panel` e o `/invites` no Discord.
+3. Seguir para o comando `/gift` (envio de presentes).
 
 ---
 

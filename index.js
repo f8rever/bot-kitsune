@@ -199,6 +199,28 @@ function loadCommands(dir) {
 }
 loadCommands(path.join(__dirname, 'commands'));
 
+// Carregamento dinâmico de eventos (events/*.js)
+function loadEvents(dir) {
+    if (!fs.existsSync(dir)) return;
+    fs.readdirSync(dir).forEach(item => {
+        const fullPath = path.join(dir, item);
+        if (fs.statSync(fullPath).isDirectory()) {
+            loadEvents(fullPath);
+        } else if (item.endsWith('.js')) {
+            const event = require(fullPath);
+            if (event.name) {
+                if (event.once) {
+                    client.once(event.name, (...args) => event.execute(...args, client));
+                } else {
+                    client.on(event.name, (...args) => event.execute(...args, client));
+                }
+                console.log(`[Events] 📡 Evento '${event.name}' registrado com sucesso!`);
+            }
+        }
+    });
+}
+loadEvents(path.join(__dirname, 'events'));
+
 function obterDadosLoja() {
     const p = path.join(__dirname, 'config', 'loja.json');
     try {
@@ -236,6 +258,20 @@ client.on('reloadEmbeds', () => {
 
 client.once(Events.ClientReady, async () => {
     console.log(`🟢 Kitsune Bot online como ${client.user.tag}!`);
+
+    // Cache inicial de convites para o Invite Tracker
+    global.guildInvitesCache = new Map();
+    for (const guild of client.guilds.cache.values()) {
+        try {
+            const invites = await guild.invites.fetch();
+            const guildCache = new Map();
+            invites.forEach(inv => guildCache.set(inv.code, inv.uses));
+            global.guildInvitesCache.set(guild.id, guildCache);
+            console.log(`[InviteTracker] 📥 Cache de ${guildCache.size} convites carregado para o servidor: ${guild.name}`);
+        } catch (e) {
+            console.warn(`[InviteTracker] Não foi possível carregar convites de ${guild.name}:`, e.message);
+        }
+    }
 
     // Automatic Slash Commands Deployment to Discord API
     try {
@@ -2445,6 +2481,58 @@ client.on('interactionCreate', async interaction => {
             else if (interaction.customId === 'tentar_novamente_campeao') {
                 abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
             }
+            else if (interaction.customId === 'btn_member_verify') {
+                try {
+                    const guild = interaction.guild;
+                    const member = interaction.member;
+
+                    if (!guild || !member) return;
+
+                    let cargoNome = 'Viajante';
+                    const dbPath = path.join(__dirname, 'database', 'database.json');
+                    if (fs.existsSync(dbPath)) {
+                        try {
+                            const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+                            if (db?.config?.cargo_verif) cargoNome = db.config.cargo_verif;
+                        } catch (e) {}
+                    }
+
+                    const role = guild.roles.cache.find(r => r.name.toLowerCase() === cargoNome.toLowerCase());
+                    if (!role) {
+                        return interaction.reply({
+                            content: `⚠️ O cargo de verificação (**${cargoNome}**) não foi encontrado neste servidor. Um administrador deve criá-lo ou configurá-lo no \`/config\`.`,
+                            ephemeral: true
+                        });
+                    }
+
+                    if (member.roles.cache.has(role.id)) {
+                        return interaction.reply({
+                            content: `ℹ️ Você já está verificado com o cargo **${role.name}**!`,
+                            ephemeral: true
+                        });
+                    }
+
+                    await member.roles.add(role);
+
+                    // Salvar no MongoDB Atlas
+                    try {
+                        const { recordMemberVerified } = require('./utils/mongoStorage.js');
+                        await recordMemberVerified(guild.id, member.id);
+                    } catch (e) {}
+
+                    const successEmbed = buildCustomEmbed('verify_success', interaction.client, interaction, {
+                        roleName: role.name
+                    });
+
+                    return interaction.reply({ embeds: [successEmbed], ephemeral: true });
+                } catch (err) {
+                    console.error('[Verify Error]', err.message);
+                    return interaction.reply({
+                        content: '❌ Ocorreu um erro ao tentar verificar sua conta. Peça ajuda a um staff.',
+                        ephemeral: true
+                    });
+                }
+            }
             else if (interaction.customId === 'voltar_menu_embeds_inicio') {
                 const embed = buildCustomEmbed('embeds_panel', interaction.client, interaction);
 
@@ -2466,14 +2554,13 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
                             { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
                             { label: 'Catálogo de Sentinelas', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
-                            { label: 'Catálogo de Lendas / Chibis', description: 'Página de Little Legends e Chibis', value: 'catalog_little_legends', emoji: '🐥' },
-                            { label: 'Catálogo de Arenas TFT', description: 'Página de tabuleiros e arenas TFT', value: 'catalog_tft_arena', emoji: '🏟️' },
                             { label: 'Catálogo de Boosts', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
                             { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
                             { label: 'Catálogo de Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
                             { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
+                            { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
                             { label: 'Painel Principal Emojis Manager', description: 'Embed do comando /emojis', value: 'emojis_panel', emoji: '✨' },
                             { label: 'Painel Principal Embeds Manager', description: 'Embed do comando /embeds', value: 'embeds_panel', emoji: '⚙️' }
                         ])
@@ -2482,13 +2569,14 @@ client.on('interactionCreate', async interaction => {
                 const menu2 = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_embed_select_2')
-                        .setPlaceholder('🎮 Comandos, Logins & Dashboards...')
+                        .setPlaceholder('🎮 Comandos, Verificação & Convites...')
                         .addOptions([
+                            { label: 'Verificação - Painel (/verify-panel)', description: 'Embed do painel de verificação', value: 'verify_panel', emoji: '🛡️' },
+                            { label: 'Verificação - Sucesso', description: 'Embed efêmera de verificado com sucesso', value: 'verify_success', emoji: '✅' },
+                            { label: 'Boas-Vindas & Convites (Entrada)', description: 'Mensagem de boas-vindas com dados do convite', value: 'welcome_invite', emoji: '👋' },
+                            { label: 'Convites - Perfil (/invites)', description: 'Embed do comando /invites', value: 'invites_profile', emoji: '👥' },
                             { label: 'Login - Seleção de Conta', description: 'Embed do menu de escolha de conta no /login', value: 'login_select', emoji: '🔐' },
                             { label: 'Login - Sucesso e Informações', description: 'Embed final de sucesso do /login', value: 'login_success', emoji: '🛡️' },
-                            { label: 'Login - Passo 1 (Carregamento)', description: 'Embed de inicialização de login', value: 'login_loading_1', emoji: '⏳' },
-                            { label: 'Login - Passo 2 (Tokens)', description: 'Embed de atualização de tokens', value: 'login_loading_2', emoji: '☑️' },
-                            { label: 'Login - Passo 3 (Amigos)', description: 'Embed de carregamento de amigos', value: 'login_loading_3', emoji: '👥' },
                             { label: 'Link - Sucesso (/link)', description: 'Embed de sucesso ao vincular conta no /link', value: 'link_success', emoji: '🔗' },
                             { label: 'AddFriend - Envio de Amizade', description: 'Embed enviada ao solicitar amizade no /addfriend', value: 'addfriend_sent', emoji: '➕' },
                             { label: 'Friendlist - Lista Principal', description: 'Embed exibida ao listar amigos no /friendlist', value: 'friendlist_main', emoji: '👥' },

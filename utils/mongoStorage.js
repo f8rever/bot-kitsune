@@ -174,11 +174,135 @@ async function deleteAccountFromMongo(accountName) {
     }
 }
 
+/**
+ * Busca estatísticas de convites de um usuário no MongoDB Atlas
+ */
+async function getUserInvites(guildId, userId) {
+    try {
+        const db = await getDb();
+        if (!db) return { regular: 0, left: 0, fake: 0, total: 0 };
+
+        const collection = db.collection('invites');
+        const doc = await collection.findOne({ guildId, userId });
+        if (!doc) return { regular: 0, left: 0, fake: 0, total: 0 };
+
+        const regular = doc.regular || 0;
+        const left = doc.left || 0;
+        const fake = doc.fake || 0;
+        const total = Math.max(0, regular - left - fake);
+
+        return { regular, left, fake, total };
+    } catch (e) {
+        console.error('[MongoDB Invites Error]', e.message);
+        return { regular: 0, left: 0, fake: 0, total: 0 };
+    }
+}
+
+/**
+ * Registra a entrada de um novo membro por convite no MongoDB Atlas
+ */
+async function recordInviteJoin(guildId, inviterId, memberId, isFake = false) {
+    try {
+        const db = await getDb();
+        if (!db) return null;
+
+        const invitesCol = db.collection('invites');
+        const memberJoinCol = db.collection('member_joins');
+
+        // Registrar quem convidou este membro
+        await memberJoinCol.updateOne(
+            { guildId, memberId },
+            { $set: { inviterId, joinedAt: new Date().toISOString(), isFake } },
+            { upsert: true }
+        );
+
+        if (!inviterId) return null;
+
+        // Atualizar contador do inviter
+        const incField = isFake ? { fake: 1 } : { regular: 1 };
+        await invitesCol.updateOne(
+            { guildId, userId: inviterId },
+            { 
+                $inc: incField,
+                $set: { updatedAt: new Date().toISOString() }
+            },
+            { upsert: true }
+        );
+
+        return await getUserInvites(guildId, inviterId);
+    } catch (e) {
+        console.error('[MongoDB Record Join Error]', e.message);
+        return null;
+    }
+}
+
+/**
+ * Registra a saída de um membro e decrementa o convite no MongoDB Atlas
+ */
+async function recordInviteLeave(guildId, memberId) {
+    try {
+        const db = await getDb();
+        if (!db) return null;
+
+        const memberJoinCol = db.collection('member_joins');
+        const invitesCol = db.collection('invites');
+
+        const joinRecord = await memberJoinCol.findOne({ guildId, memberId });
+        if (!joinRecord || !joinRecord.inviterId) return null;
+
+        const inviterId = joinRecord.inviterId;
+
+        // Incrementar saídas ('left')
+        await invitesCol.updateOne(
+            { guildId, userId: inviterId },
+            { 
+                $inc: { left: 1 },
+                $set: { updatedAt: new Date().toISOString() }
+            }
+        );
+
+        await memberJoinCol.deleteOne({ guildId, memberId });
+
+        return {
+            inviterId,
+            stats: await getUserInvites(guildId, inviterId)
+        };
+    } catch (e) {
+        console.error('[MongoDB Record Leave Error]', e.message);
+        return null;
+    }
+}
+
+/**
+ * Registra um membro verificado no MongoDB Atlas
+ */
+async function recordMemberVerified(guildId, userId) {
+    try {
+        const db = await getDb();
+        if (!db) return false;
+
+        const collection = db.collection('verified_members');
+        await collection.updateOne(
+            { guildId, userId },
+            { $set: { verifiedAt: new Date().toISOString() } },
+            { upsert: true }
+        );
+        return true;
+    } catch (e) {
+        console.error('[MongoDB Verify Error]', e.message);
+        return false;
+    }
+}
+
 module.exports = {
     getDb,
     saveAccountToMongo,
     saveAllAccountsToMongo,
     loadAccountsFromMongo,
     syncMongoAndDisk,
-    deleteAccountFromMongo
+    deleteAccountFromMongo,
+    getUserInvites,
+    recordInviteJoin,
+    recordInviteLeave,
+    recordMemberVerified
 };
