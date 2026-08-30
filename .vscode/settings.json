@@ -1,5 +1,4 @@
 {
-  "python.defaultInterpreterPath": "python",
   "python.analysis.extraPaths": [
     "./lol_giftapi-main",
     "./python_backend",
