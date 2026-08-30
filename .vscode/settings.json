@@ -1,0 +1,13 @@
+{
+  "python.analysis.extraPaths": [
+    "./lol_giftapi-main",
+    "./python_backend",
+    "./lol_giftapi-main/api_files"
+  ],
+  "python.autoComplete.extraPaths": [
+    "./lol_giftapi-main",
+    "./python_backend",
+    "./lol_giftapi-main/api_files"
+  ],
+  "json.schemas": []
+}
