@@ -1,4 +1,5 @@
 {
+  "python.defaultInterpreterPath": "C:\\Python314\\python.exe",
   "python.analysis.extraPaths": [
     "./lol_giftapi-main",
     "./python_backend",
