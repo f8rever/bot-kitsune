@@ -302,6 +302,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       4. Execução do fluxo de envio idêntico à especificação do `gift.txt` / `api_files/gift.py` (CAP Orders V2 com fallback seguro para Storefront V3).
       5. Atualização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e envio de log de auditoria no Discord (`gift_staff_log`).
 
+- [x] **Estratégia de Venda White-Label (Instâncias Independentes por Cliente):**
+  - Cada cliente/loja terá sua própria instância/deploy com seu próprio token de bot, identidade visual, banco e contas Riot 100% isoladas.
+  - As alterações de uma loja nunca afetam nem sobrescrevem a loja principal do usuário.
+
 ---
 
 ## ESTADO ATUAL (2026-08-30)
