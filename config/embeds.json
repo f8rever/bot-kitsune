@@ -209,415 +209,6 @@
     "syncImage": true
   },
   "tabela_skins": {
-    "title": "<a:A_vermelho_brilinho_nuvem:1527369479284199485> PREÇOS DE SKINS ({skinsDiscount}% OFF)",
-    "description": "Abaixo está a tabela oficial de preços de skins com **{skinsDiscount}% DE DESCONTO** em Euro (€)!",
-    "color": "#F59E0B",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_16.jpg",
-    "footerText": "Kitsune Store • Tabela de Skins",
-    "fields": [
-      { "name": "🟢 Skin 750 RP", "value": "De ~~€4.50~~ por apenas **€{price_750}**", "inline": true },
-      { "name": "🔵 Skin 975 RP", "value": "De ~~€5.85~~ por apenas **€{price_975}**", "inline": true },
-      { "name": "🟣 Skin Épica 1350 RP", "value": "De ~~€8.10~~ por apenas **€{price_1350}**", "inline": true },
-      { "name": "🟠 Skin Lendária 1820 RP", "value": "De ~~€10.92~~ por apenas **€{price_1820}**", "inline": true },
-      { "name": "🔴 Skin Ultimate 3250 RP", "value": "De ~~€19.50~~ por apenas **€{price_3250}**", "inline": true }
-    ]
-  },
-  "tabela_loot": {
-    "title": "🎁 PREÇOS DE LOOTS & ORBES",
-    "description": "Orbes, baús e passes de evento com entrega imediata em Euro (€)!",
-    "color": "#10B981",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yone_26.jpg",
-    "footerText": "Kitsune Store • Tabela de Loots",
-    "fields": [
-      { "name": "📦 1x Orbe / Baú (250 RP)", "value": "Apenas **€{price_250}** (desc: {lootDiscount}%)", "inline": true },
-      { "name": "📦 5x Orbes + Baú (1250 RP)", "value": "Apenas **€{price_1250}** (desc: {lootDiscount}%)", "inline": true },
-      { "name": "📦 10x Orbes + Baú (2500 RP)", "value": "Apenas **€{price_2500}** (desc: {lootDiscount}%)", "inline": true },
-      { "name": "🎟️ Passe de Evento (1650 RP)", "value": "Apenas **€{price_1650}** (desc: {passesDiscount}%)", "inline": true }
-    ]
-  },
-  "login_loading_1": {
-    "title": "⏳ Processo de Login",
-    "description": "<a:loading:1527669507211137148> Inicializando processo de login...",
-    "color": "#3B82F6",
-    "thumbnail": "",
-    "image": ""
-  },
-  "login_loading_2": {
-    "title": "⏳ Processo de Login",
-    "description": "☑️ **Token + Cookies atualizados com sucesso**\n<a:loading:1527669507211137148> Obtendo lista de amigos da Riot...",
-    "color": "#3B82F6",
-    "thumbnail": "",
-    "image": ""
-  },
-  "login_loading_3": {
-    "title": "⏳ Processo de Login",
-    "description": "☑️ **Token + Cookies atualizados com sucesso**\n☑️ **Lista de amigos obtida com sucesso**",
-    "color": "#10B981",
-    "thumbnail": "",
-    "image": ""
-  },
-  "login_success": {
-    "title": "🛡️ Informações da Conta",
-    "description": "Sessão ativa da conta **{accountName}**.\n\n🆔 **Riot ID**\n`{accountName}`\n\n🪙 **Saldo de RP**\n`{rp}`\n\n🌍 **Região**\n`{region}`\n\n⭐ **Nível**\n`{level}`\n\n🛡️ **Banimento**\n`{banned}`",
-    "color": "#10B981",
-    "thumbnail": "{userAvatar}",
-    "footerText": "© Kitsune Store • Informações da Conta"
-  },
-  "dashboard_rp": {
-    "title": "🪙 Saldo da Conta Riot",
-    "description": "Conta ativa: **{accountName}** (**{region}**)\n\nSeu saldo atual no League of Legends:",
-    "color": "#F59E0B",
-    "thumbnail": "{userAvatar}",
-    "fields": [
-      {
-        "name": "Saldo de RP",
-        "value": "`{rp} RP`",
-        "inline": true
-      },
-      {
-        "name": "Essência Azul",
-        "value": "`{be} BE`",
-        "inline": true
-      }
-    ],
-    "footerText": "© Kitsune Store • Painel de Controle"
-  },
-  "dashboard_account": {
-    "title": "ℹ️ Informações da Conta",
-    "description": "Detalhes da conta **{accountName}** vinculada no bot:",
-    "color": "#3B82F6",
-    "thumbnail": "{userAvatar}",
-    "fields": [
-      {
-        "name": "Riot ID",
-        "value": "**{accountName}**",
-        "inline": true
-      },
-      {
-        "name": "Nível da Conta",
-        "value": "`Nv. {level}`",
-        "inline": true
-      },
-      {
-        "name": "Região",
-        "value": "`{region}`",
-        "inline": true
-      },
-      {
-        "name": "Conta Banida",
-        "value": "{banned}",
-        "inline": true
-      },
-      {
-        "name": "Tempo da Sessão",
-        "value": "{sessionTime}",
-        "inline": true
-      }
-    ],
-    "footerText": "© Kitsune Store • Painel de Controle"
-  },
-  "dashboard_friends": {
-    "title": "🫂 Lista de Amigos",
-    "description": "Amigos ativos na conta **{accountName}**:\n\n{friendText}",
-    "color": "#8B5CF6",
-    "thumbnail": "{userAvatar}",
-    "footerText": "© Kitsune Store • Lista de Amigos"
-  },
-  "login_select": {
-    "title": "🔐 Selecionar Conta Riot Ativa",
-    "description": "Escolha abaixo qual conta Riot deseja conectar. Ela será definida como a conta padrão para comandos de **presentes (/gift)**, **pedidos de amizade (/addfriend)** e **gerenciamento (/friendlist)**.",
-    "color": "#3498DB",
-    "thumbnail": "{userAvatar}",
-    "footerText": "© Kitsune Store • Autenticação Riot"
-  },
-  "addfriend_sent": {
-    "title": "👥 Pedido de Amizade Enviado!",
-    "description": "Solicitação de amizade enviada com sucesso para **{targetRiotId}** através da conta **{accountName}**!",
-    "color": "#2ECC71",
-    "thumbnail": "",
-    "footerText": "© Kitsune Store • Gerenciador de Amigos"
-  },
-  "friendlist_main": {
-    "title": "👥 Lista de Amigos ({count}) • {accountName}",
-    "description": "Exibindo **{showingCount}** amigo(s) de **{count}** totais:\n\n{friendListStr}",
-    "color": "#3498DB",
-    "thumbnail": "",
-    "footerText": "© Kitsune Store • Gerenciador de Amigos"
-  },
-  "friendlist_requests": {
-    "title": "📥 Pedidos Pendentes ({count}) • {accountName}",
-    "description": "Você tem **{count}** pedido(s) de amizade aguardando aprovação:\n\n{requestsList}",
-    "color": "#F1C40F",
-    "thumbnail": "",
-    "footerText": "© Kitsune Store • Pedidos Pendentes"
-  },
-  "friendlist_accepted": {
-    "title": "✅ Pedidos de Amizade Aceitos!",
-    "description": "Foram aceitos **{acceptedCount}** pedido(s) de amizade com sucesso na conta **{accountName}**!",
-    "color": "#2ECC71",
-    "thumbnail": "",
-    "footerText": "© Kitsune Store • Gerenciador de Amigos"
-  },
-  "gift_sent": {
-    "title": "🎁 Presente Enviado com Sucesso!",
-    "description": "Você enviou **{quantity}x {itemName}** para **{receiverName}**!",
-    "color": "#10B981",
-    "thumbnail": "",
-    "fields": [
-      {
-        "name": "Item",
-        "value": "{itemName}",
-        "inline": true
-      },
-      {
-        "name": "Para (Riot ID)",
-        "value": "**{receiverName}**",
-        "inline": true
-      },
-      {
-        "name": "Quantidade",
-        "value": "{quantity}",
-        "inline": true
-      },
-      {
-        "name": "Mensagem",
-        "value": "{giftMessage}",
-        "inline": false
-      },
-      {
-        "name": "Descontado (Custo Total)",
-        "value": "`-{totalPrice} RP`",
-        "inline": true
-      },
-      {
-        "name": "Novo Saldo de RP",
-        "value": "`{newRp} RP`",
-        "inline": true
-      }
-    ]
-  },
-  "link_success": {
-    "title": "🔗 Conta Vinculada com Sucesso!",
-    "description": "A conta **{accountName}** (`{region}`) foi vinculada e salva permanentemente no bot!",
-    "color": "#23A559",
-    "thumbnail": "{userAvatar}",
-    "fields": [
-      { "name": "Riot ID", "value": "**{accountName}**", "inline": true },
-      { "name": "Região", "value": "`{region}`", "inline": true },
-      { "name": "Nível da Conta", "value": "`Nv. {level}`", "inline": true },
-      { "name": "Status 24/7", "value": "{status247}", "inline": false },
-      { "name": "Saldo Atual", "value": "`{rp} RP` | `{be} BE`", "inline": false }
-    ],
-    "footerText": "© Kitsune Store • Vinculação de Conta"
-  },
-  "gift_failed": {
-    "title": "❌ Falha no Envio do Presente",
-    "description": "Não foi possível enviar **{itemName}** para **{receiverName}**.\n\n**Motivo do Erro (Riot API):**\n```\n{errorMsg}\n```",
-    "color": "#EF4444"
-  },
-  "gift_staff_log": {
-    "title": "🎁 Log de Presente Enviado (Staff Audit)",
-    "description": "Um novo presente foi enviado com sucesso!",
-    "color": "#F59E0B",
-    "fields": [
-      { "name": "Comprador (Discord)", "value": "<@{discordId}> (`{discordTag}`)", "inline": true },
-      { "name": "Conta Enviadora (Alt)", "value": "**{senderAccount}** (`{region}`)", "inline": true },
-      { "name": "Destinatário (Riot ID)", "value": "**{receiverName}**", "inline": true },
-      { "name": "Item Enviado", "value": "**{quantity}x {itemName}**", "inline": true },
-      { "name": "Valor Descontado", "value": "`-{totalPrice} RP`", "inline": true },
-      { "name": "Novo Saldo de RP", "value": "`{newRp} RP`", "inline": true },
-      { "name": "Mensagem", "value": "{giftMessage}", "inline": false }
-    ],
-    "footerText": "© Kitsune Store • Staff Audit Log"
-  },
-  "config_success": {
-    "title": "⚙️ Configurações Atualizadas!",
-    "description": "As novas definições foram aplicadas a todos os comandos do sistema.",
-    "color": "#F43F5E",
-    "thumbnail": "{logo}",
-    "fields": [
-      { "name": "Cor Atual", "value": "`{cor}`", "inline": true },
-      { "name": "Emojis", "value": "Sucesso: {emoji_sucesso} | Erro: {emoji_erro}", "inline": true }
-    ]
-  },
-  "emojis_panel": {
-    "title": "🦊 Kitsune | Emoji Manager",
-    "description": "Select an emoji category below to begin editing the bot emojis.",
-    "color": "#F43F5E",
-    "thumbnail": "",
-    "image": ""
-  },
-  "embeds_panel": {
-    "title": "🦊 Kitsune | Gerenciador de Embeds",
-    "description": "Bem-vindo ao **Gerenciador de Embeds**! Aqui você pode customizar 100% dos títulos, descrições, cores, imagens, thumbnails, campos e rodapés de **todas as mensagens e comandos do bot**.\n\nSelecione a embed que deseja editar no menu abaixo:",
-    "color": "#F43F5E",
-    "thumbnail": "",
-    "image": ""
-  },
-  "addfriend_sent": {
-    "title": "🦊 Friend Request Sent!",
-    "description": "<a:whitearrow:1346152146814636032> The friend request was successfully sent to **{targetRiotId}**!\n<a:whitearrow:1346152146814636032> Wait for the player to accept the request so you can proceed with the gift.",
-    "color": "#57F287",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "👤 Player",
-        "value": "`{name}#{tag}`",
-        "inline": true
-      },
-      {
-        "name": "🏦 Sent from account",
-        "value": "`{accountName}`",
-        "inline": true
-      }
-    ]
-  },
-  "login_select": {
-    "title": "🦊 Kitsune | Select Account",
-    "description": "<a:whitearrow:1346152146814636032> You have **{accountCount}** accounts linked to the bot.\n<a:whitearrow:1346152146814636032> Select the account you want to activate in the menu below:",
-    "color": "#F43F5E",
-    "thumbnail": "",
-    "image": ""
-  },
-  "login_success": {
-    "title": "🦊 Kitsune | Account Panel",
-    "description": "<a:whitearrow:1346152146814636032> Logged in as **{accountName}**\n<a:whitearrow:1346152146814636032> Use the buttons below to manage your Riot account.",
-    "color": "#57F287",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "🌍 Region",
-        "value": "`{region}`",
-        "inline": true
-      },
-      {
-        "name": "🪙 RP",
-        "value": "`{rp} RP`",
-        "inline": true
-      },
-      {
-        "name": "💰 Blue Essence",
-        "value": "`{be} BE`",
-        "inline": true
-      }
-    ]
-  },
-  "dashboard_rp": {
-    "title": "🦊 Kitsune | Balance",
-    "description": "<a:whitearrow:1346152146814636032> Current balance for account **{accountName}**:",
-    "color": "#F59E0B",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "🌍 Region",
-        "value": "`{region}`",
-        "inline": true
-      },
-      {
-        "name": "🪙 Riot Points",
-        "value": "`{rp} RP`",
-        "inline": true
-      },
-      {
-        "name": "💰 Blue Essence",
-        "value": "`{be} BE`",
-        "inline": true
-      }
-    ]
-  },
-  "dashboard_account": {
-    "title": "🦊 Kitsune | Account Info",
-    "description": "<a:whitearrow:1346152146814636032> Information for account **{accountName}**:",
-    "color": "#6366F1",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "🌍 Region",
-        "value": "`{region}`",
-        "inline": true
-      },
-      {
-        "name": "⭐ Level",
-        "value": "`{level}`",
-        "inline": true
-      },
-      {
-        "name": "🛡️ Ban Status",
-        "value": "{banned}",
-        "inline": true
-      },
-      {
-        "name": "⏰ Session",
-        "value": "{sessionTime}",
-        "inline": false
-      }
-    ]
-  },
-  "dashboard_friends": {
-    "title": "🦊 Kitsune | Friend List",
-    "description": "<a:whitearrow:1346152146814636032> Friends of account **{accountName}**:\n\n{friendText}",
-    "color": "#3B82F6",
-    "thumbnail": "{userAvatar}",
-    "image": ""
-  },
-  "friendlist_main": {
-    "title": "🦊 Kitsune | Lista de Amigos",
-    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Total de Amigos: **{count}**\n\n{friendListStr}",
-    "color": "#3B82F6",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": []
-  },
-  "friendlist_requests": {
-    "title": "📥 Kitsune | Pedidos de Amizade Pendentes",
-    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Pedidos Recebidos: **{count}**\n\n{requestsList}",
-    "color": "#F59E0B",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": []
-  },
-  "friendlist_accepted": {
-    "title": "✅ Kitsune | Pedidos Aceitos com Sucesso!",
-    "description": "<a:whitearrow:1346152146814636032> Foram aceitos **{acceptedCount}** novos pedidos de amizade na conta **{accountName}**!\n<a:whitearrow:1346152146814636032> O timer de 24 horas para presentes começou a contar.",
-    "color": "#57F287",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": []
-  },
-  "link_success": {
-    "title": "🦊 Kitsune | Conta Riot Vinculada com Sucesso!",
-    "description": "<a:whitearrow:1346152146814636032> A conta **{accountName}** foi autenticada e salva permanentemente na nuvem!\n<a:whitearrow:1346152146814636032> Status da Sessão: {status247}",
-    "color": "#57F287",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "🌍 Região",
-        "value": "`{region}`",
-        "inline": true
-      },
-      {
-        "name": "⭐ Nível",
-        "value": "`{level}`",
-        "inline": true
-      },
-      {
-        "name": "🪙 Saldo RP",
-        "value": "`{rp} RP`",
-        "inline": true
-      },
-      {
-        "name": "💰 Essência Azul",
-        "value": "`{be} BE`",
-        "inline": true
-      }
-    ]
-  },
-  "tabela_skins": {
     "title": "🎨 Kitsune Store | Tabela de Preços de Skins",
     "description": "<a:whitearrow:1346152146814636032> Desconto Aplicado: **{skinsDiscount}% OFF**\n<a:whitearrow:1346152146814636032> Receba skins diretamente em sua conta via presente no LoL!",
     "color": "#F43F5E",
@@ -720,6 +311,298 @@
       }
     ]
   },
+  "login_loading_1": {
+    "title": "⏳ Processo de Login",
+    "description": "<a:loading:1527669507211137148> Inicializando processo de login...",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_loading_2": {
+    "title": "⏳ Processo de Login",
+    "description": "☑️ **Token + Cookies atualizados com sucesso**\n<a:loading:1527669507211137148> Obtendo lista de amigos da Riot...",
+    "color": "#3B82F6",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_loading_3": {
+    "title": "⏳ Processo de Login",
+    "description": "☑️ **Token + Cookies atualizados com sucesso**\n☑️ **Lista de amigos obtida com sucesso**",
+    "color": "#10B981",
+    "thumbnail": "",
+    "image": ""
+  },
+  "login_success": {
+    "title": "🦊 Kitsune | Account Panel",
+    "description": "<a:whitearrow:1346152146814636032> Logged in as **{accountName}**\n<a:whitearrow:1346152146814636032> Use the buttons below to manage your Riot account.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 RP",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Blue Essence",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
+  },
+  "dashboard_rp": {
+    "title": "🦊 Kitsune | Balance",
+    "description": "<a:whitearrow:1346152146814636032> Current balance for account **{accountName}**:",
+    "color": "#F59E0B",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 Riot Points",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Blue Essence",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
+  },
+  "dashboard_account": {
+    "title": "🦊 Kitsune | Account Info",
+    "description": "<a:whitearrow:1346152146814636032> Information for account **{accountName}**:",
+    "color": "#6366F1",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Region",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "⭐ Level",
+        "value": "`{level}`",
+        "inline": true
+      },
+      {
+        "name": "🛡️ Ban Status",
+        "value": "{banned}",
+        "inline": true
+      },
+      {
+        "name": "⏰ Session",
+        "value": "{sessionTime}",
+        "inline": false
+      }
+    ]
+  },
+  "dashboard_friends": {
+    "title": "🦊 Kitsune | Friend List",
+    "description": "<a:whitearrow:1346152146814636032> Friends of account **{accountName}**:\n\n{friendText}",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "image": ""
+  },
+  "login_select": {
+    "title": "🦊 Kitsune | Select Account",
+    "description": "<a:whitearrow:1346152146814636032> You have **{accountCount}** accounts linked to the bot.\n<a:whitearrow:1346152146814636032> Select the account you want to activate in the menu below:",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
+  },
+  "addfriend_sent": {
+    "title": "🦊 Friend Request Sent!",
+    "description": "<a:whitearrow:1346152146814636032> The friend request was successfully sent to **{targetRiotId}**!\n<a:whitearrow:1346152146814636032> Wait for the player to accept the request so you can proceed with the gift.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "👤 Player",
+        "value": "`{name}#{tag}`",
+        "inline": true
+      },
+      {
+        "name": "🏦 Sent from account",
+        "value": "`{accountName}`",
+        "inline": true
+      }
+    ]
+  },
+  "friendlist_main": {
+    "title": "🦊 Kitsune | Lista de Amigos",
+    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Total de Amigos: **{count}**\n\n{friendListStr}",
+    "color": "#3B82F6",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "friendlist_requests": {
+    "title": "📥 Kitsune | Pedidos de Amizade Pendentes",
+    "description": "<a:whitearrow:1346152146814636032> Conta Ativa: **{accountName}**\n<a:whitearrow:1346152146814636032> Pedidos Recebidos: **{count}**\n\n{requestsList}",
+    "color": "#F59E0B",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "friendlist_accepted": {
+    "title": "✅ Kitsune | Pedidos Aceitos com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> Foram aceitos **{acceptedCount}** novos pedidos de amizade na conta **{accountName}**!\n<a:whitearrow:1346152146814636032> O timer de 24 horas para presentes começou a contar.",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "gift_sent": {
+    "title": "🎁 Presente Enviado com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> O presente **{itemName}** foi enviado com sucesso pela Riot Games!\n<a:whitearrow:1346152146814636032> Destinatário: **{receiverName}**",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "📦 Item",
+        "value": "`{itemName}` (x{quantity})",
+        "inline": true
+      },
+      {
+        "name": "🪙 Valor Total",
+        "value": "`{totalPrice} RP`",
+        "inline": true
+      },
+      {
+        "name": "🏦 Novo Saldo",
+        "value": "`{newRp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💬 Mensagem Enviada",
+        "value": "{giftMessage}",
+        "inline": false
+      }
+    ]
+  },
+  "link_success": {
+    "title": "🦊 Kitsune | Conta Riot Vinculada com Sucesso!",
+    "description": "<a:whitearrow:1346152146814636032> A conta **{accountName}** foi autenticada e salva permanentemente na nuvem!\n<a:whitearrow:1346152146814636032> Status da Sessão: {status247}",
+    "color": "#57F287",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "🌍 Região",
+        "value": "`{region}`",
+        "inline": true
+      },
+      {
+        "name": "⭐ Nível",
+        "value": "`{level}`",
+        "inline": true
+      },
+      {
+        "name": "🪙 Saldo RP",
+        "value": "`{rp} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Essência Azul",
+        "value": "`{be} BE`",
+        "inline": true
+      }
+    ]
+  },
+  "gift_failed": {
+    "title": "❌ Falha no Envio do Presente",
+    "description": "<a:whitearrow:1346152146814636032> Não foi possível enviar o item **{itemName}** para **{receiverName}**.\n<a:whitearrow:1346152146814636032> Detalhes do erro da Riot: `{errorMsg}`",
+    "color": "#ED4245",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": []
+  },
+  "gift_staff_log": {
+    "title": "📊 Log de Auditoria | Presente Enviado",
+    "description": "<a:whitearrow:1346152146814636032> Um presente foi enviado via Kitsune Bot:",
+    "color": "#5865F2",
+    "thumbnail": "{userAvatar}",
+    "image": "",
+    "fields": [
+      {
+        "name": "👤 Staff Responsável",
+        "value": "`{discordTag}` (<@{discordId}>)",
+        "inline": true
+      },
+      {
+        "name": "🏦 Conta Riot Origem",
+        "value": "`{senderAccount}` [{region}]",
+        "inline": true
+      },
+      {
+        "name": "🎯 Destinatário",
+        "value": "`{receiverName}`",
+        "inline": true
+      },
+      {
+        "name": "📦 Item Enviado",
+        "value": "`{itemName}` (x{quantity})",
+        "inline": true
+      },
+      {
+        "name": "🪙 Valor Gasto",
+        "value": "`{totalPrice} RP`",
+        "inline": true
+      },
+      {
+        "name": "💰 Saldo Restante",
+        "value": "`{newRp} RP`",
+        "inline": true
+      }
+    ]
+  },
+  "config_success": {
+    "title": "⚙️ Configurações Atualizadas!",
+    "description": "As novas definições foram aplicadas a todos os comandos do sistema.",
+    "color": "#F43F5E",
+    "thumbnail": "{logo}",
+    "fields": [
+      {
+        "name": "Cor Atual",
+        "value": "`{cor}`",
+        "inline": true
+      },
+      {
+        "name": "Emojis",
+        "value": "Sucesso: {emoji_sucesso} | Erro: {emoji_erro}",
+        "inline": true
+      }
+    ]
+  },
+  "emojis_panel": {
+    "title": "🦊 Kitsune | Emoji Manager",
+    "description": "Select an emoji category below to begin editing the bot emojis.",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
+  },
+  "embeds_panel": {
+    "title": "🦊 Kitsune | Gerenciador de Embeds",
+    "description": "Bem-vindo ao **Gerenciador de Embeds**! Aqui você pode customizar 100% dos títulos, descrições, cores, imagens, thumbnails, campos e rodapés de **todas as mensagens e comandos do bot**.\n\nSelecione a embed que deseja editar no menu abaixo:",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": ""
+  },
   "tabela_acessorios": {
     "title": "👑 Kitsune Store | Tabela de Acessórios & Cromas",
     "description": "<a:whitearrow:1346152146814636032> Desconto em Acessórios: **{acessoriosDiscount}% OFF**\n<a:whitearrow:1346152146814636032> Emotes, Cromas, Sentinelas, Ícones e Bônus de XP:",
@@ -811,81 +694,5 @@
     "thumbnail": "{userAvatar}",
     "image": "",
     "fields": []
-  },
-  "gift_sent": {
-    "title": "🎁 Presente Enviado com Sucesso!",
-    "description": "<a:whitearrow:1346152146814636032> O presente **{itemName}** foi enviado com sucesso pela Riot Games!\n<a:whitearrow:1346152146814636032> Destinatário: **{receiverName}**",
-    "color": "#57F287",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "📦 Item",
-        "value": "`{itemName}` (x{quantity})",
-        "inline": true
-      },
-      {
-        "name": "🪙 Valor Total",
-        "value": "`{totalPrice} RP`",
-        "inline": true
-      },
-      {
-        "name": "🏦 Novo Saldo",
-        "value": "`{newRp} RP`",
-        "inline": true
-      },
-      {
-        "name": "💬 Mensagem Enviada",
-        "value": "{giftMessage}",
-        "inline": false
-      }
-    ]
-  },
-  "gift_failed": {
-    "title": "❌ Falha no Envio do Presente",
-    "description": "<a:whitearrow:1346152146814636032> Não foi possível enviar o item **{itemName}** para **{receiverName}**.\n<a:whitearrow:1346152146814636032> Detalhes do erro da Riot: `{errorMsg}`",
-    "color": "#ED4245",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": []
-  },
-  "gift_staff_log": {
-    "title": "📊 Log de Auditoria | Presente Enviado",
-    "description": "<a:whitearrow:1346152146814636032> Um presente foi enviado via Kitsune Bot:",
-    "color": "#5865F2",
-    "thumbnail": "{userAvatar}",
-    "image": "",
-    "fields": [
-      {
-        "name": "👤 Staff Responsável",
-        "value": "`{discordTag}` (<@{discordId}>)",
-        "inline": true
-      },
-      {
-        "name": "🏦 Conta Riot Origem",
-        "value": "`{senderAccount}` [{region}]",
-        "inline": true
-      },
-      {
-        "name": "🎯 Destinatário",
-        "value": "`{receiverName}`",
-        "inline": true
-      },
-      {
-        "name": "📦 Item Enviado",
-        "value": "`{itemName}` (x{quantity})",
-        "inline": true
-      },
-      {
-        "name": "🪙 Valor Gasto",
-        "value": "`{totalPrice} RP`",
-        "inline": true
-      },
-      {
-        "name": "💰 Saldo Restante",
-        "value": "`{newRp} RP`",
-        "inline": true
-      }
-    ]
   }
 }
