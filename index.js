@@ -1492,6 +1492,43 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     }
 }
 
+function buildStoreMainMenu(customEmojis) {
+    return new ActionRowBuilder().addComponents(
+        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a LoL Store Category').addOptions([
+            {
+                label: 'Skins & Chromas',
+                description: 'LoL Skins, Chromas and Skin Bundles',
+                value: 'cat_skins',
+                emoji: (customEmojis?.skins?.legendary || '👕').trim()
+            },
+            {
+                label: 'Loot & Passes (Espólios)',
+                description: 'Orbs, Event Passes, Hextech Chests & Mystery',
+                value: 'cat_loot',
+                emoji: (customEmojis?.loot?.orb || '🔮').trim()
+            },
+            {
+                label: 'Champions & Eternals',
+                description: 'All 173 Champions and Eternals Series',
+                value: 'cat_champions',
+                emoji: (customEmojis?.skins?.champion || '⚔️').trim()
+            },
+            {
+                label: 'Accessories (Acessórios)',
+                description: 'Emotes, Wards, Summoner Icons, XP Boosts & Chibis',
+                value: 'cat_accessories',
+                emoji: (customEmojis?.utilidades?.emotes || '😃').trim()
+            },
+            {
+                label: 'Highlights & Bundles',
+                description: 'Featured Bundles & Spotlight Offers',
+                value: 'cat_highlights',
+                emoji: (customEmojis?.bundles?.signature || '🌟').trim()
+            }
+        ])
+    );
+}
+
 client.on('interactionCreate', async interaction => {
     try {
         if (interaction.isChatInputCommand()) {
@@ -1699,7 +1736,126 @@ client.on('interactionCreate', async interaction => {
             if (interaction.customId === 'menu_vendas') {
                 const opcao = interaction.values[0];
 
-                if (opcao === 'compra_skins') {
+                if (opcao === 'cat_skins') {
+                    const embed = new EmbedBuilder()
+                        .setTitle('🎨 Kitsune Store | Skins & Cromas')
+                        .setColor('#F43F5E')
+                        .setDescription(
+                            `<a:whitearrow:1346152146814636032> **Selecione a categoria de Skins desejada abaixo:**\n\n` +
+                            `> 👕 **Skins de Campeões:** Lendárias (1820 RP), Épicas (1350 RP), Clássicas e Ultimates (3250 RP)\n` +
+                            `> 🎨 **Cromas:** Todas as variações e pacotes de cromas oficiais (290 RP)\n` +
+                            `> 📦 **Pacotes de Skins:** Bundles de lançamento e pacotes completos de skins`
+                        )
+                        .setImage('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg')
+                        .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
+
+                    const menu = new ActionRowBuilder().addComponents(
+                        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Skins').addOptions([
+                            { label: 'Skins de Campeões', description: 'Navegar por todas as skins de campeões presenteáveis', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
+                            { label: 'Cromas', description: 'Navegar por todos os cromas de campeões (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
+                            { label: 'Pacotes de Skins', description: 'Pacotes e conjuntos especiais de skins', value: 'compra_bundles', emoji: (customEmojis?.bundles?.bundle || '📦').trim() }
+                        ])
+                    );
+
+                    const btnRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Voltar para Categorias').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
+                    );
+
+                    return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
+                }
+
+                if (opcao === 'cat_loot') {
+                    const embed = new EmbedBuilder()
+                        .setTitle('📦 Kitsune Store | Espólios, Passes & Caixas (Loot)')
+                        .setColor('#F43F5E')
+                        .setDescription(
+                            `<a:whitearrow:1346152146814636032> **Selecione a categoria de Espólios desejada abaixo:**\n\n` +
+                            `> 🔮 **Orbes & Cápsulas:** Orbe Individual (250 RP), Deluxe 10x (2500 RP), Premium 25x (6250 RP), Mega 50x (12500 RP)\n` +
+                            `> 🎫 **Passes de Temporada:** Passe Padrão (1650 RP), Pacote (2650 RP), Premium (3650 RP)\n` +
+                            `> 🔑 **Baús Hextec & Chaves:** Baú (125 RP), Conjuntos 1x (225 RP), 5x (1125 RP), 10x (2250 RP)\n` +
+                            `> 🎁 **Presentes Mistério:** Skin Misteriosa (490/850 RP) e Campeão Misterioso (490 RP)`
+                        )
+                        .setImage('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg')
+                        .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
+
+                    const menu = new ActionRowBuilder().addComponents(
+                        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Espólios').addOptions([
+                            { label: 'Orbes & Cápsulas', description: 'Orbe do Invocador, Deluxe 10x, Premium 25x, Mega 50x', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() },
+                            { label: 'Passes de Temporada', description: 'Passe de Temporada (1650 RP), Pacotes 2650 e 3650 RP', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                            { label: 'Baús Hextec & Chaves', description: 'Baú Hextec (125 RP), Chaves, 1x, 5x e 10x Conjuntos', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                            { label: 'Presentes Mistério', description: 'Skin Misteriosa (490/850 RP) & Campeão Misterioso (490 RP)', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() }
+                        ])
+                    );
+
+                    const btnRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Voltar para Categorias').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
+                    );
+
+                    return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
+                }
+
+                if (opcao === 'cat_champions') {
+                    const embed = new EmbedBuilder()
+                        .setTitle('⚔️ Kitsune Store | Campeões & Estatísticas')
+                        .setColor('#F43F5E')
+                        .setDescription(
+                            `<a:whitearrow:1346152146814636032> **Selecione o que você deseja adquirir:**\n\n` +
+                            `> 🛡️ **Campeões:** Buscar e presentear qualquer um dos 173 Campeões do League of Legends\n` +
+                            `> 🏆 **Eternos:** Séries de Estatísticas I e II para todos os campeões (600 RP)`
+                        )
+                        .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
+
+                    const menu = new ActionRowBuilder().addComponents(
+                        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Campeões').addOptions([
+                            { label: 'Campeões', description: 'Buscar entre os 173 Campeões do LoL', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
+                            { label: 'Eternos', description: 'Buscar Séries I e II de Estatísticas (600 RP)', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() }
+                        ])
+                    );
+
+                    const btnRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Voltar para Categorias').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
+                    );
+
+                    return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
+                }
+
+                if (opcao === 'cat_accessories') {
+                    const embed = new EmbedBuilder()
+                        .setTitle('👑 Kitsune Store | Acessórios do Invocador')
+                        .setColor('#F43F5E')
+                        .setDescription(
+                            `<a:whitearrow:1346152146814636032> **Selecione a categoria de Acessórios:**\n\n` +
+                            `> 😃 **Emotes:** Todos os emotes presenteáveis oficiais (350 RP)\n` +
+                            `> 👁️ **Skins de Sentinela / Wards:** Sentinelas cosméticas (640 RP)\n` +
+                            `> 🖼️ **Ícones de Invocador:** Ícones oficiais da Riot (250 RP)\n` +
+                            `> ⚡ **Bônus / Boosts de XP:** Bônus de EXP por dias e vitórias\n` +
+                            `> 🐥 **Pequenas Lendas & Chibis:** Companheiros e Chibis do TFT (1900 RP)`
+                        )
+                        .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
+
+                    const menu = new ActionRowBuilder().addComponents(
+                        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Acessórios').addOptions([
+                            { label: 'Emotes', description: 'Todos os emotes do LoL (350 RP)', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
+                            { label: 'Skins de Sentinela', description: 'Sentinelas / Wards (640 RP)', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
+                            { label: 'Ícones de Invocador', description: 'Ícones de invocador (250 RP)', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
+                            { label: 'Bônus / Boosts de XP', description: 'Aceleradores de XP por dia/vitória', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
+                            { label: 'Pequenas Lendas & Chibis', description: 'Lendas, Chibis e Arenas TFT', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() }
+                        ])
+                    );
+
+                    const btnRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Voltar para Categorias').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
+                    );
+
+                    return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
+                }
+
+                if (opcao === 'cat_highlights' || opcao === 'compra_highlights') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
+                } else if (opcao === 'compra_skins') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
                     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -1714,17 +1870,12 @@ client.on('interactionCreate', async interaction => {
                 } else if (opcao === 'compra_passes') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'passes', 0, false);
-                } else if (opcao === 'compra_highlights') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 2500));
-                    await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
                 } else if (opcao === 'compra_bundles') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'bundles', 0, false);
                 } else if (opcao === 'compra_eternos') {
                     abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
@@ -2501,51 +2652,19 @@ client.on('interactionCreate', async interaction => {
             else if (interaction.customId === 'confirmar_regiao_store') {
                 const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                 await interaction.update({ content: `${loadEmj} ${getLoadStr('sales')}`, embeds: [], components: [] });
-                await new Promise(resolve => setTimeout(resolve, 2500));
+                await new Promise(resolve => setTimeout(resolve, 1500));
 
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
+                const menu = buildStoreMainMenu(customEmojis);
 
-                const menu = new ActionRowBuilder().addComponents(
-                    new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
-                        { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
-                        { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
-                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
-                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
-                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
-                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
-                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
-                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
-                    ])
-                );
                 await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
                 return;
             }
 
             else if (interaction.customId === 'voltar_menu_modal') {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
+                const menu = buildStoreMainMenu(customEmojis);
 
-                const menu = new ActionRowBuilder().addComponents(
-                    new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option').addOptions([
-                        { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
-                        { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
-                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
-                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
-                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
-                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
-                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
-                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
-                    ])
-                );
                 await interaction.update({ content: '', embeds: [embed], components: [menu] });
                 return;
             }
@@ -2732,23 +2851,7 @@ client.on('interactionCreate', async interaction => {
             }
             else if (interaction.customId === 'btn_add_item_ticket') {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
-                const menu = new ActionRowBuilder().addComponents(
-                    new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a purchase option to add').addOptions([
-                        { label: 'Skins', description: 'Purchase LoL skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '🔴').trim() },
-                        { label: 'Chromas', description: 'Purchase LoL chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
-                        { label: 'Highlights', description: 'Purchase featured store items & bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.signature || '🌟').trim() },
-                        { label: 'Passes', description: 'Purchase event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
-                        { label: 'Champions', description: 'Purchase champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                        { label: 'Emotes', description: 'Purchase emotes', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
-                        { label: 'Icons', description: 'Purchase summoner icons', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
-                        { label: 'Wards', description: 'Purchase ward skins', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
-                        { label: 'Boosts', description: 'Purchase XP / IP boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
-                        { label: 'Eternals', description: 'Purchase eternals series', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() },
-                        { label: 'Mystery', description: 'Purchase mystery skins & gifts', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() },
-                        { label: 'Hextech', description: 'Purchase hextech chests & keys', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
-                        { label: 'Orbs & Capsules', description: 'Purchase loot orbs & capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() }
-                    ])
-                );
+                const menu = buildStoreMainMenu(customEmojis);
                 await interaction.reply({ content: 'Select a category to add more items to your ticket:', embeds: [embed], components: [menu], ephemeral: true });
             }
             else if (interaction.customId.startsWith('rate_')) {
