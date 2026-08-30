@@ -285,6 +285,8 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - [x] **Comando `/desconto` Mantido como Principal para Promoções:**
   - Decisão confirmada: `/desconto` é a ferramenta rápida e visual da Staff para gerenciar promoções e porcentagens em tempo real.
   - `/config-store` atua no gerenciamento estrutural (banners, preços base em Euros e itens individuais).
+- [x] **Remoção do comando `/update-catalog`:**
+  - Removido a pedido do usuário. O bot opera com 100% de performance puxando dados exclusivamente do catálogo interno da API (`config/catalog_cache_pt.json` e `config/catalog_cache_en.json`). Atualizações de patches futuros serão feitas manualmente.
 
 - [x] **Diretrizes e Blindagem do Sistema de Presentes (Gifts & Catálogo Riot):**
   - **Categorias Presenteáveis Mapeadas Oficialmente (14 Categorias):**
