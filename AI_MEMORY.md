@@ -282,31 +282,44 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Entrada automática no canal de voz do usuário ou em canal especificado.
   - Suporte a Stage e Voice Channels, auto-reconect, self-deaf e intents de voz adicionados.
   - Embed informativo e encerramento limpo com `/leave`.
-- [x] **Comando `/clear` Inteligente & Filtros Avançados:**
-  - Filtros por quantidade (1 a 100), por usuário específico ou apenas mensagens de bots.
-  - Envio automático de log de moderação no canal de auditoria configurado no `/config`.
-- [x] **Comando `/ticket` com Destino Flexível:**
-  - Opção de enviar o painel fixo de compras em qualquer canal selecionado (ex: `#loja` ou `#compras`).
+- [x] **Comando `/desconto` Mantido como Principal para Promoções:**
+  - Decisão confirmada: `/desconto` é a ferramenta rápida e visual da Staff para gerenciar promoções e porcentagens em tempo real.
+  - `/config-store` atua no gerenciamento estrutural (banners, preços base em Euros e itens individuais).
+
+- [x] **Diretrizes e Blindagem do Sistema de Presentes (Gifts & Catálogo Riot):**
+  - **Categorias Presenteáveis Mapeadas Oficialmente (14 Categorias):**
+    `Skins`, `Chromas`, `Bundles`, `Passes`, `Champions`, `Emotes`, `Icons`, `Wards`, `LittleLegends`, `TFTArena`, `Boosts`, `Eternals`, `Mystery`, `Hextech`.
+  - **Fonte da Verdade do Catálogo:**
+    - Todas as ofertas puxam `offer_id`, `item_id`, `price_rp` e `inventory_type` diretamente do `catalog.json` (Riot Storefront API) e dos caches sincronizados `catalog_cache_pt.json` e `catalog_cache_en.json`.
+    - Proibição estrita de skins não-presenteáveis (Míticas, Prestígio, Hextec de Essência Mítica, Vitoriosas, PAX).
+  - **Protocolo de Envio e Segurança de Saldo (Prevenção de Perdas):**
+    - Multi-verificação antes do envio:
+      1. Verificação prévia de saldo de RP da conta doadora.
+      2. Verificação de status de amizade no LoL e tempo de cooldown de 24h obrigatório.
+      3. Validação estrita do `receiver_puuid` e correspondência de `offer_id` no CAP Orders V2.
+      4. Execução do fluxo de envio idêntico à especificação do `gift.txt` / `api_files/gift.py` (CAP Orders V2 com fallback seguro para Storefront V3).
+      5. Atualização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e envio de log de auditoria no Discord (`gift_staff_log`).
 
 ---
 
-## ESTADO ATUAL (2026-08-28)
+## ESTADO ATUAL (2026-08-30)
 
 **Estado funcional/operacional**:
 - **100% dos Comandos do Bot Revisados, Blindados e Integrados:**
   - 🛒 **Loja & Riot:** `/addfriend`, `/login`, `/friendlist`, `/link`, `/gift`, `/desconto`, `/config-store`, `/table`, `/ticket`.
   - ⚙️ **Administração & Servidor:** `/config`, `/embeds`, `/emojis`, `/deploy`, `/verify-panel`.
   - 👥 **Utilidade & Moderação:** `/invites`, `/clear`, `/join`, `/leave`.
+- Sistema de catálogo atualizado com 8.805 itens reais da Riot Games em PT e EN.
+- Python Backend configurado para Python 3.12 com todas as dependências e sem erros de lint/sintaxe.
 - Persistência 24/7 ativa no MongoDB Atlas para Contas Riot, Convites e Verificações.
-- Live Preview de Embeds e gerenciador visual de Emojis.
-- Tickets com verificação de amizade e cooldown de 24h em tempo real.
+- Solver 2Captcha ativo com chave de $290.79 USD.
 
 ---
 
 ## PRÓXIMO PASSO
 
-1. Fazer o deploy para o GitHub (`origin/main`).
-2. Pronto para produção e uso diário!
+1. Manter integridade do catálogo e verificações de segurança em todos os envios de presentes.
+2. Monitorar requisições em produção.
 
 ---
 
