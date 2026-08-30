@@ -1,5 +1,5 @@
 {
-  "python.defaultInterpreterPath": "C:\\Python314\\python.exe",
+  "python.defaultInterpreterPath": "C:\\Users\\irwin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
   "python.analysis.extraPaths": [
     "./lol_giftapi-main",
     "./python_backend",
