@@ -12,9 +12,10 @@ function isUnpurchasableOrMythic(name) {
         n.includes('sejuani') || n.includes('swain') || n.includes('tristana') ||
         n.includes('vayne') || n.includes('ziggs') || n.includes('amumu') || n.includes('nocturne')
     )) return true;
-    if (n.includes('ashen knight') || n.includes('cavaleiro das cinzas') || n.includes('crystalis') || n.includes('cristalis')) return true;
+    if (n.includes('ashen') || n.includes('das cinzas') || n.includes('crystalis') || n.includes('cristalis')) return true;
     if (n.includes('victorious') || n.includes('vitoriosa')) return true;
-    if (n.includes('pax ') || n.includes('neo pax') || n.includes('black alistar') || n.includes('silver kayle') || n.includes('young ryze') || n.includes('human ryze') || n.includes('ufo corki') || n.includes('king rammus') || n.includes('judgement kayle') || n.includes('urf the manatee') || n.includes('triumphant ryze') || n.includes('championship riven 2012')) return true;
+    if (n.includes('soulstealer') || n.includes('ladra de almas') || n.includes('dreadnova darius') || n.includes('darius nova do pavor')) return true;
+    if (n.includes('pax ') || n.includes('neo pax') || n.includes('black alistar') || n.includes('silver kayle') || n.includes('young ryze') || n.includes('human ryze') || n.includes('ufo corki') || n.includes('king rammus') || n.includes('judgement kayle') || n.includes('urf the manatee') || n.includes('triumphant ryze') || n.includes('championship riven 2012') || n.includes('riot squad singed')) return true;
     return false;
 }
 

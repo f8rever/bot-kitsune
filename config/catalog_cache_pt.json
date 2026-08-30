@@ -786,12 +786,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Aurelion Sol Senhor das Cinzas": {
-      "offer_id": "f2732160-1e1f-4d6a-ae91-430d2c604073",
-      "item_id": "136001",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Mech Aurelion Sol": {
       "offer_id": "309c3363-e8ff-4a9d-8e6f-f95f424c29fb",
       "item_id": "136002",
@@ -1630,12 +1624,6 @@
       "offer_id": "499d726a-e58a-46be-b4ea-793bb0255d91",
       "item_id": "122008",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Darius Nova Temível": {
-      "offer_id": "skin_122014",
-      "item_id": "122014",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Deus-Rei Darius": {
@@ -5790,12 +5778,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Mordekaiser Cavaleiro Zumbi das Cinzas": {
-      "offer_id": "skin_82042",
-      "item_id": "82042",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Mordekaiser Deus Antigo": {
       "offer_id": "53db063a-9ecb-4298-9afc-913f920de7c6",
       "item_id": "82044",
@@ -6687,12 +6669,6 @@
     "Pantheon Destruído": {
       "offer_id": "a0e47b90-d812-416c-9a58-e7d6047c5b21",
       "item_id": "80025",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Pantheon Conquistador das Cinzas": {
-      "offer_id": "skin_80036",
-      "item_id": "80036",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7872,12 +7848,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Shen Guardião das Cinzas": {
-      "offer_id": "skin_98049",
-      "item_id": "98049",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Shen Três Honras": {
       "offer_id": "skin_98051",
       "item_id": "98051",
@@ -7935,12 +7905,6 @@
     "Shyvana Jornada Imortal": {
       "offer_id": "eebae317-0178-4e25-9ac5-8549094bf7da",
       "item_id": "102017",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Singed Pelotão Riot": {
-      "offer_id": "skin_27001",
-      "item_id": "27001",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8463,12 +8427,6 @@
     "Sylas Lobo de Batalha": {
       "offer_id": "61f4fa3c-2cd7-42c8-9c1b-014f7ec55191",
       "item_id": "517024",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Sylas Matador das Cinzas": {
-      "offer_id": "skin_517034",
-      "item_id": "517034",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9504,12 +9462,6 @@
       "price_rp": 290,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Vayne Ladra de Almas": {
-      "offer_id": "skin_67010",
-      "item_id": "67010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJETO: Vayne": {
       "offer_id": "ce597084-83ba-4db1-b31a-55e20be0bdb3",
       "item_id": "67011",
@@ -9922,12 +9874,6 @@
       "offer_id": "bf0701cc-e462-4b35-a221-6b639f06ea52",
       "item_id": "8005",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Vladimir Ladrão de Almas": {
-      "offer_id": "e77087f1-0b63-4093-8c2e-194a73b1d64d",
-      "item_id": "8006",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Vladimir Colegial": {
@@ -31328,12 +31274,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Mordekaiser Cavaleiro Zumbi das Cinzas (Brasa Viva)": {
-      "offer_id": "skin_82043",
-      "item_id": "82043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Mordekaiser Deus Antigo (Rubi)": {
       "offer_id": "skin_82045",
       "item_id": "82045",
@@ -34541,12 +34481,6 @@
     "Pantheon Destruído (Amaldiçoado)": {
       "offer_id": "skin_80035",
       "item_id": "80035",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Pantheon Conquistador das Cinzas (Brasa Viva)": {
-      "offer_id": "skin_80037",
-      "item_id": "80037",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -39824,12 +39758,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Shen Guardião das Cinzas (Brasa Viva)": {
-      "offer_id": "skin_98050",
-      "item_id": "98050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Shen PsyOps (Redentor)": {
       "offer_id": "skin_98053",
       "item_id": "98053",
@@ -41903,12 +41831,6 @@
     "Sylas Lobo de Batalha (Noturno)": {
       "offer_id": "skin_517033",
       "item_id": "517033",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Sylas Matador das Cinzas (Brasa Viva)": {
-      "offer_id": "skin_517035",
-      "item_id": "517035",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -45563,18 +45485,6 @@
     "Vayne Emissária da Luz (Arco-íris)": {
       "offer_id": "cb36002d-2d96-41bd-83fe-b585346c860d",
       "item_id": "67052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Vayne Ladra de Almas (Primeiro Decênio)": {
-      "offer_id": "skin_67053",
-      "item_id": "67053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Vayne Ladra de Almas (Década Distinta)": {
-      "offer_id": "skin_67054",
-      "item_id": "67054",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },

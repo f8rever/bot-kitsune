@@ -827,9 +827,10 @@ function isPrestigeOrMythic(item) {
         name.includes('sejuani') || name.includes('swain') || name.includes('tristana') ||
         name.includes('vayne') || name.includes('ziggs') || name.includes('amumu') || name.includes('nocturne')
     )) return true;
-    if (name.includes('ashen knight') || name.includes('cavaleiro das cinzas') || name.includes('crystalis') || name.includes('cristalis')) return true;
+    if (name.includes('ashen') || name.includes('das cinzas') || name.includes('crystalis') || name.includes('cristalis')) return true;
     if (name.includes('victorious') || name.includes('vitoriosa')) return true;
-    if (name.includes('pax ') || name.includes('neo pax') || name.includes('black alistar') || name.includes('silver kayle') || name.includes('young ryze') || name.includes('human ryze') || name.includes('ufo corki') || name.includes('king rammus') || name.includes('judgement kayle') || name.includes('urf the manatee') || name.includes('triumphant ryze') || name.includes('championship riven 2012')) return true;
+    if (name.includes('soulstealer') || name.includes('ladra de almas') || name.includes('dreadnova darius') || name.includes('darius nova do pavor')) return true;
+    if (name.includes('pax ') || name.includes('neo pax') || name.includes('black alistar') || name.includes('silver kayle') || name.includes('young ryze') || name.includes('human ryze') || name.includes('ufo corki') || name.includes('king rammus') || name.includes('judgement kayle') || name.includes('urf the manatee') || name.includes('triumphant ryze') || name.includes('championship riven 2012') || name.includes('riot squad singed')) return true;
     return false;
 }
 
