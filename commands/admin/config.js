@@ -38,6 +38,16 @@ module.exports = {
             required: false
         },
         {
+            name: 'idioma_padrao',
+            description: 'Idioma padrão das mensagens, tickets e embeds do bot',
+            type: 3, // STRING
+            required: false,
+            choices: [
+                { name: '🇺🇸 English (Padrão / Internacional)', value: 'en' },
+                { name: '🇧🇷 Português (Brasil)', value: 'pt' }
+            ]
+        },
+        {
             name: 'logo_url',
             description: 'URL da imagem/logo oficial da loja para exibição nos embeds',
             type: 3, // STRING
@@ -94,10 +104,17 @@ module.exports = {
         const novoCargoStaff = interaction.options.getRole('cargo_staff');
         const novoCanalWelcome = interaction.options.getChannel('canal_boas_vindas');
         const novoCanalLogs = interaction.options.getChannel('canal_logs');
+        const novoIdioma = interaction.options.getString('idioma_padrao');
         const novaLogo = interaction.options.getString('logo_url');
         const novaRestorecord = interaction.options.getString('restorecord_url');
 
         let alteracoes = [];
+
+        if (novoIdioma) {
+            botConfig.idioma = novoIdioma;
+            global.botLanguage = novoIdioma;
+            alteracoes.push(`🌐 **Idioma Padrão do Bot:** ${novoIdioma === 'en' ? '🇺🇸 `English (International)`' : '🇧🇷 `Português (Brasil)`'}`);
+        }
 
         if (novaCor) {
             let hex = novaCor.trim();
@@ -173,6 +190,7 @@ module.exports = {
         const canalWelcomeTxt = botConfig.canal_welcome_id ? `<#${botConfig.canal_welcome_id}>` : '`Automático (boas-vindas)`';
         const canalLogsTxt = botConfig.canal_logs_id ? `<#${botConfig.canal_logs_id}>` : '`Automático (logs)`';
         const restorecordTxt = botConfig.restorecord_url ? `[Link Configurado](${botConfig.restorecord_url})` : '`Não configurado`';
+        const idiomaTxt = (botConfig.idioma || 'en') === 'pt' ? '🇧🇷 `Português (Brasil)`' : '🇺🇸 `English (International)`';
 
         const infoEmbed = new EmbedBuilder()
             .setTitle('🦊 Kitsune Store | Painel de Configurações Ativas')
@@ -183,6 +201,7 @@ module.exports = {
                 `### ⚙️ Parâmetros Gerais:`
             )
             .addFields([
+                { name: '🌐 Idioma Padrão', value: idiomaTxt, inline: true },
                 { name: '🎨 Cor dos Embeds', value: `\`${botConfig.cor || '#F43F5E'}\``, inline: true },
                 { name: '🛡️ Cargo Verificação', value: cargoVerifTxt, inline: true },
                 { name: '👑 Cargo(s) Staff', value: cargoStaffTxt, inline: true },
