@@ -84,7 +84,8 @@ module.exports = {
         }
     ],
     async execute(interaction) {
-        await interaction.deferReply({ ephemeral: true });
+        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
+        await sendLoadingReply(interaction, 'Gerando tabela de preços da loja...', true);
 
         const storeConfig = loadStoreConfig();
         const vars = calculateTableVars(storeConfig);

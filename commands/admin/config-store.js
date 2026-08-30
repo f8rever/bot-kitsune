@@ -117,7 +117,8 @@ module.exports = {
             });
         }
 
-        await interaction.deferReply({ ephemeral: true });
+        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
+        await sendLoadingReply(interaction, 'Atualizando configurações da loja...', true);
 
         const category = interaction.options.getString('categoria') || 'all';
         const itemId = interaction.options.getString('item_id');

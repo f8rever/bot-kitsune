@@ -70,7 +70,8 @@ module.exports = {
             return interaction.reply({ content: '🚫 Você precisa ser Administrador ou Staff para acessar as configurações do bot.', ephemeral: true });
         }
 
-        await interaction.deferReply({ ephemeral: true });
+        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
+        await sendLoadingReply(interaction, 'Carregando painel de configurações...', true);
 
         const configPath = path.join(__dirname, '../../config/config.json');
         const dbPath = path.join(__dirname, '../../database/database.json');

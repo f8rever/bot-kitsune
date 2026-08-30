@@ -115,7 +115,8 @@ module.exports = {
             });
         }
 
-        await interaction.deferReply({ ephemeral: true });
+        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
+        await sendLoadingReply(interaction, 'Processando descontos da loja...', true);
 
         const acao = interaction.options.getString('acao') || (interaction.options.getNumber('porcentagem') !== null ? 'set' : 'ver');
         const pctInput = interaction.options.getNumber('porcentagem');

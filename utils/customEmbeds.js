@@ -91,4 +91,27 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     return embed;
 }
 
-module.exports = { buildCustomEmbed };
+function getLoadingEmbed(customText = 'Carregando dados da loja...') {
+    let customEmojis = {};
+    try {
+        customEmojis = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/emojis.json'), 'utf8'));
+    } catch (e) {}
+    const loadingEmoji = (customEmojis?.status?.loading || '<a:loading:1527669507211137148>').trim();
+
+    return new EmbedBuilder()
+        .setColor('#F43F5E')
+        .setDescription(`${loadingEmoji} **Kitsune Store** • *${customText}*`);
+}
+
+async function sendLoadingReply(interaction, customText = 'Carregando dados da loja...', ephemeral = true) {
+    const embed = getLoadingEmbed(customText);
+    try {
+        if (!interaction.replied && !interaction.deferred) {
+            await interaction.reply({ embeds: [embed], ephemeral });
+        } else if (interaction.deferred) {
+            await interaction.editReply({ embeds: [embed] });
+        }
+    } catch (e) {}
+}
+
+module.exports = { buildCustomEmbed, getLoadingEmbed, sendLoadingReply };
