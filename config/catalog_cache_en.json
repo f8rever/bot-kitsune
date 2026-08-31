@@ -138,18 +138,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Risen Legend Ahri": {
-      "offer_id": "skin_103085",
-      "item_id": "103085",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Immortalized Legend Ahri": {
-      "offer_id": "skin_103086",
-      "item_id": "103086",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Spirit Blossom Springs Ahri": {
       "offer_id": "3bc5c1ad-4e6c-4251-9f10-8ac2597a554d",
       "item_id": "103088",
@@ -1956,12 +1944,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Breakout True Damage Ekko": {
-      "offer_id": "skin_245056",
-      "item_id": "245056",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Arcane Last Stand Ekko": {
       "offer_id": "skin_245057",
       "item_id": "245057",
@@ -3618,12 +3600,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Dark Cosmic Erasure Jhin": {
-      "offer_id": "skin_202037",
-      "item_id": "202037",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Mythmaker Jhin": {
       "offer_id": "skin_202047",
       "item_id": "202047",
@@ -3783,18 +3759,6 @@
     "Dark Star Kai'Sa": {
       "offer_id": "8250cd27-eb91-438a-9d6b-1b8c545c9df7",
       "item_id": "145069",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Risen Legend Kai'Sa": {
-      "offer_id": "skin_145070",
-      "item_id": "145070",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Immortalized Legend Kai'Sa": {
-      "offer_id": "skin_145071",
-      "item_id": "145071",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4602,12 +4566,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Risen Legend LeBlanc": {
-      "offer_id": "skin_7055",
-      "item_id": "7055",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Traditional Lee Sin": {
       "offer_id": "fb401a2c-bbc0-46b1-bc6c-a33bf244b839",
       "item_id": "64001",
@@ -4708,12 +4666,6 @@
       "offer_id": "5da879f5-e8af-4bb7-9fcb-82b7d6fca901",
       "item_id": "64051",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Divine Heavenscale Lee Sin": {
-      "offer_id": "skin_64052",
-      "item_id": "64052",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "T1 Lee Sin": {
@@ -5638,12 +5590,6 @@
       "offer_id": "83303458-adbb-4b99-aa04-0db76d814456",
       "item_id": "21031",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Admiral Battle Bunny Miss Fortune": {
-      "offer_id": "skin_21032",
-      "item_id": "21032",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Broken Covenant Miss Fortune": {
@@ -9510,12 +9456,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Risen Legend Vayne": {
-      "offer_id": "skin_67064",
-      "item_id": "67064",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Demoncursed Vayne": {
       "offer_id": "600ee047-ac2c-4a8f-afba-2913cba77be6",
       "item_id": "67067",
@@ -10386,12 +10326,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Peacemaker High Noon Yone": {
-      "offer_id": "skin_777058",
-      "item_id": "777058",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Masked Justice Yone": {
       "offer_id": "c46c32ed-276c-4a06-962d-c65422f841f1",
       "item_id": "777065",
@@ -10653,12 +10587,6 @@
     "Blood Moon Zed": {
       "offer_id": "54dfe255-0503-4c0f-9a68-be2d3d551f35",
       "item_id": "238058",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Quantum Galaxy Slayer Zed": {
-      "offer_id": "skin_238068",
-      "item_id": "238068",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -17270,12 +17198,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Mecha Kingdoms Draven (Peacekeeper)": {
-      "offer_id": "skin_119015",
-      "item_id": "119015",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Mecha Kingdoms Draven (Emerald)": {
       "offer_id": "2fcef1df-2282-4dbe-b491-de70c1b31e8c",
       "item_id": "119016",
@@ -22862,12 +22784,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Mecha Kingdoms Jax (Peacekeeper)": {
-      "offer_id": "skin_24018",
-      "item_id": "24018",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Mecha Kingdoms Jax (Pearl)": {
       "offer_id": "1345e481-e217-4d4c-b794-5ef7d610d27c",
       "item_id": "24019",
@@ -27224,18 +27140,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Risen Legend LeBlanc (Mythclimber)": {
-      "offer_id": "skin_7056",
-      "item_id": "7056",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Risen Legend LeBlanc (Paragon)": {
-      "offer_id": "skin_7057",
-      "item_id": "7057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "iG LeBlanc (Elite)": {
       "offer_id": "skin_7058",
       "item_id": "7058",
@@ -27581,12 +27485,6 @@
     "Storm Dragon Lee Sin (Beacon)": {
       "offer_id": "898cd3f0-e92d-4e1a-a64a-b77e59b36150",
       "item_id": "64081",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Mecha Kingdoms Leona (Peacekeeper)": {
-      "offer_id": "skin_89013",
-      "item_id": "89013",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -38840,12 +38738,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Mecha Kingdoms Sett (Peacekeeper)": {
-      "offer_id": "skin_875007",
-      "item_id": "875007",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Pool Party Sett (Ruby)": {
       "offer_id": "skin_875011",
       "item_id": "875011",
@@ -45533,18 +45425,6 @@
     "Dragonmancer Vayne (Pearl)": {
       "offer_id": "3694faec-237a-4af0-b47d-edbbc02c15e6",
       "item_id": "67063",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Risen Legend Vayne (Paragon)": {
-      "offer_id": "skin_67065",
-      "item_id": "67065",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Risen Legend Vayne (Mythclimber)": {
-      "offer_id": "skin_67066",
-      "item_id": "67066",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -52751,5 +52631,4903 @@
   "Emotes": {},
   "Icons": {},
   "Wards": {},
-  "Others": {}
+  "Others": {},
+  "Bundles": {
+    "Lucian Prime Chroma Pack": {
+      "offer_id": "46aa711e-5fea-42f7-be31-c0e8c44a7a40",
+      "item_id": 79900001,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Garen Noble Chroma Pack": {
+      "offer_id": "c336d257-f2e3-45f1-a788-1c31e814282b",
+      "item_id": 79900004,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blitzcrank Steel Chroma Pack": {
+      "offer_id": "b679fd22-7adf-4aaa-ba6c-5662fd8ff735",
+      "item_id": 79900005,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fizz Scorch Chroma Pack": {
+      "offer_id": "363f243f-d007-4af4-80af-2d8252af45c9",
+      "item_id": 79900006,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nemesis Jax Sand Chroma Pack": {
+      "offer_id": "82e43041-904a-41b7-b2d1-59521d1ef695",
+      "item_id": 79900007,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Rocket Girl Tristana Punk Chroma Pack": {
+      "offer_id": "9e8ae574-a2e6-41dc-bf93-5c75caf6820a",
+      "item_id": 79900008,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Caitlyn Rebel Chroma Pack": {
+      "offer_id": "bf636804-e850-4b30-88f6-b2a4293e4f26",
+      "item_id": 79900009,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Darius Forge Chroma Pack": {
+      "offer_id": "48d6e5be-7ba6-41d9-89a6-3370f4376263",
+      "item_id": 79900010,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Morgana Haunt Chroma Pack": {
+      "offer_id": "2898d165-cb46-4115-8e2e-cc97c8e65735",
+      "item_id": 79900011,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Zac Sweet Chroma Pack": {
+      "offer_id": "97881173-341d-4092-b9b6-210c286f5f70",
+      "item_id": 79900012,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Headhunter Master Yi Strike Chroma Pack": {
+      "offer_id": "6f005fbb-320d-4389-abb6-fee5bed9425f",
+      "item_id": 79900013,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Bard Bloom Chroma Pack": {
+      "offer_id": "5b30643d-498b-479f-9507-ee441d24bb2c",
+      "item_id": 79900014,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Grim Reaper Karthus Plague Chroma Pack": {
+      "offer_id": "e5866823-447c-4ff9-9307-1eb3e4c417ad",
+      "item_id": 79900015,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dreadknight Nasus Plague Chroma Pack": {
+      "offer_id": "c1920d6d-23d3-4944-9930-29d361235c6a",
+      "item_id": 79900016,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cassiopeia Curse Chroma Pack": {
+      "offer_id": "da9bccf6-3021-4265-bec0-37432c015d72",
+      "item_id": 79900019,
+      "price_rp": 1470,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Vayne Chaos Chroma Pack": {
+      "offer_id": "e992d254-aca5-490b-8eaf-ce47496e93af",
+      "item_id": 79900020,
+      "price_rp": 2445,
+      "inventory_type": "BUNDLES"
+    },
+    "Koi Nami Element Chroma Pack": {
+      "offer_id": "6bd1a947-6b16-476d-985f-2cce4144babe",
+      "item_id": 79900023,
+      "price_rp": 2540,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcade Miss Fortune Chroma Bundle": {
+      "offer_id": "74a33a17-496b-43f6-b5d1-a376a7c40504",
+      "item_id": 79900024,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cottontail Teemo Chroma Bundle": {
+      "offer_id": "543ecb12-9f8b-4184-9673-80e53525d522",
+      "item_id": 79900025,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Warring Kingdoms Xin Zhao Chroma Bundle": {
+      "offer_id": "fbc9b698-7496-4d98-b099-071a39cc7545",
+      "item_id": 79900026,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Yasuo Chroma Bundle": {
+      "offer_id": "35948d8c-836c-40a9-8ee8-913c31070060",
+      "item_id": 79900027,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shockblade Zed Chroma Bundle": {
+      "offer_id": "577d69e0-ff6e-4426-9f06-b414a5e4c0c5",
+      "item_id": 79900028,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Goddess Diana Chroma Bundle": {
+      "offer_id": "3ba5c34b-8b81-4c22-8de5-6364d31f2a39",
+      "item_id": 79900029,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Ezreal Chroma Bundle": {
+      "offer_id": "21874f85-57ba-481a-b51c-f83832189c1f",
+      "item_id": 79900030,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Malphite Chroma Bundle": {
+      "offer_id": "65660468-3bf5-43ea-bead-38cc7d319572",
+      "item_id": 79900031,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bunny Riven Chroma Bundle": {
+      "offer_id": "34ee840e-0b0f-4a1b-81f6-5eed1558805b",
+      "item_id": 79900032,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dunkmaster Darius Chroma Bundle": {
+      "offer_id": "02fdc8a8-a46e-45a7-821d-b345ad850c27",
+      "item_id": 79900033,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Regalia Poppy Chroma Bundle": {
+      "offer_id": "e8b411da-1553-427b-8604-b393f90e03e5",
+      "item_id": 79900035,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Braum Chroma Bundle": {
+      "offer_id": "7c4c05e3-cc25-4b04-8182-13b4b66c2a6a",
+      "item_id": 79900036,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Jinx Chroma Bundle": {
+      "offer_id": "f926c8dc-5a58-476b-95f2-0fdc7e809ebf",
+      "item_id": 79900037,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Popstar Ahri Chroma Bundle": {
+      "offer_id": "57552f51-3a41-48ce-a0a6-80e5bcaf0ecd",
+      "item_id": 79900038,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Pantheon Chroma Bundle": {
+      "offer_id": "935791a9-df87-4e79-b327-dba6be1957cb",
+      "item_id": 79900040,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Xin Zhao Chroma Bundle": {
+      "offer_id": "a8c87b36-856f-48ee-ae5d-263600ead2e2",
+      "item_id": 79900041,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Meowkai Chroma Bundle": {
+      "offer_id": "e0b8ac85-0f0f-491a-9cea-4952159b6f82",
+      "item_id": 79900042,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dino Gnar Chroma Bundle": {
+      "offer_id": "694c9d6b-5a14-4e09-83e2-85833925db98",
+      "item_id": 79900043,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Surprise Party Amumu Chroma Bundle": {
+      "offer_id": "77cbd24c-fa7c-4518-a7c1-4f437398cd9c",
+      "item_id": 79900044,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Moo Cow Alistar Chroma Bundle": {
+      "offer_id": "ec4e5ad9-68d2-44a8-aee5-92b8ce708569",
+      "item_id": 79900045,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Warlord Shen Chroma Bundle": {
+      "offer_id": "6d44ac87-586f-48f6-ab13-0d5fec5b3004",
+      "item_id": 79900046,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Officer Vi Chroma Bundle": {
+      "offer_id": "4021e4c4-c61d-4244-852f-05e0ec3c7f21",
+      "item_id": 79900047,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sandstorm Ekko Chroma Bundle": {
+      "offer_id": "06ecb7fd-b7de-45ce-b4b1-becfb4771eea",
+      "item_id": 79900048,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Brolaf Chroma Bundle": {
+      "offer_id": "be9b6e22-febf-48f6-9647-a62064289ae7",
+      "item_id": 79900049,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Headhunter Rengar Chroma Bundle": {
+      "offer_id": "c078975e-1a0b-4df6-a2d5-4a8476fdd48e",
+      "item_id": 79900050,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Omega Squad Tristana Chroma Bundle": {
+      "offer_id": "59b717f0-beb9-4ec7-a322-29c32bd52c55",
+      "item_id": 79900054,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Omega Squad Teemo Chroma Bundle": {
+      "offer_id": "091473ea-1dc9-4556-895f-9bbb87ddd491",
+      "item_id": 79900055,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Omega Squad Fizz Chroma Bundle": {
+      "offer_id": "c69cd3eb-57a3-45dd-9b26-fb2f5303ce88",
+      "item_id": 79900056,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Omega Squad Twitch Chroma Bundle": {
+      "offer_id": "4b82d7ed-225c-4596-a765-d7c8f4b5aa59",
+      "item_id": 79900057,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Omega Squad Veigar Chroma Bundle": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900058,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chroma Attack: Arcade Corki": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900059,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chroma Attack: Battle Boss Blitzcrank": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900060,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Primetime Draven Chroma Bundle": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900061,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Eternal Sword Yi Chroma Bundle": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900062,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sacred Sword Janna Chroma Bundle": {
+      "offer_id": "e03c727d-5f63-4d5e-b2ad-cc91eb5f024c",
+      "item_id": 79900063,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dreadnova Gangplank Chroma Bundle": {
+      "offer_id": "517eecbe-e028-430e-8e11-8e94707c6132",
+      "item_id": 79900064,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonblade Talon Chroma Bundle": {
+      "offer_id": "76386a08-537d-472e-9dbb-b5c498d97606",
+      "item_id": 79900065,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battlecast Urgot Chroma Bundle": {
+      "offer_id": "6ca4b5b9-350b-46ce-9bc2-0c9b93bfd81e",
+      "item_id": 79900066,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kha'Zix Chroma Bundle": {
+      "offer_id": "76f3c45a-54a1-4d0f-bce1-57dffb9d7186",
+      "item_id": 79900067,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Aatrox Chroma Bundle": {
+      "offer_id": "a71ddf8a-8410-445c-a6f9-a29a718aa81d",
+      "item_id": 79900068,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Rengar Chroma Bundle": {
+      "offer_id": "1962b74d-4c5e-4e05-95fa-fb0f65e7c762",
+      "item_id": 79900069,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Bullet Angel Kai'Sa Chroma Bundle": {
+      "offer_id": "d6460b8e-8bd8-4a44-9f0e-16406eeac5c8",
+      "item_id": 79900076,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Resistance Illaoi Chroma Bundle": {
+      "offer_id": "bf979a92-4964-4fd4-85ab-bc24f00597eb",
+      "item_id": 79900077,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battlecast Prime Cho'Gath Chroma Bundle": {
+      "offer_id": "5f50625f-7fbb-432e-ab0d-10f9b55219b7",
+      "item_id": 79900078,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Birdio Chroma Bundle": {
+      "offer_id": "a525ea71-a87f-4979-be1c-3aadb4cb5509",
+      "item_id": 79900079,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pizza Delivery Sivir Chroma Bundle": {
+      "offer_id": "6721120d-cdc2-4014-b244-692c6156fb84",
+      "item_id": 79900080,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pug'Maw Chroma Bundle": {
+      "offer_id": "8c2d1e38-ca68-46e6-b67b-479e9b8a9b0d",
+      "item_id": 79900081,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Renektoy Chroma Bundle": {
+      "offer_id": "27e4d274-a301-4574-a012-3892d57c60b6",
+      "item_id": 79900082,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Badlands Baron Rumble Chroma Bundle": {
+      "offer_id": "1d0df710-8d46-451f-b8b8-bd9eba2ddb3a",
+      "item_id": 79900087,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Beemo Chroma Bundle": {
+      "offer_id": "2f4cdd03-915b-41eb-a05a-9713421ccfc7",
+      "item_id": 79900088,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Zero Sion Chroma Bundle": {
+      "offer_id": "1b175c2c-e936-4473-ba35-2fece115f14c",
+      "item_id": 79900089,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragon Master Swain Chroma Bundle": {
+      "offer_id": "b3e7f081-49a5-49b6-9471-2992f203e0ec",
+      "item_id": 79900090,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sand Wraith Pyke Chroma Bundle": {
+      "offer_id": "4f0e25e2-5822-4484-8983-69ba589908b6",
+      "item_id": 79900091,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Waters Diana Chroma Bundle": {
+      "offer_id": "07fc36d3-ba3a-48f1-beed-61797f3faa52",
+      "item_id": 79900092,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Waters Vladimir Chroma Bundle": {
+      "offer_id": "cdcdfb53-2eeb-4709-a2eb-de5c707a61c3",
+      "item_id": 79900093,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Rek'Sai Chroma Bundle": {
+      "offer_id": "8c266eb3-6a42-4c4f-b5be-99321305b66c",
+      "item_id": 79900099,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Taric Chroma Bundle": {
+      "offer_id": "f621ab5c-f58a-40e2-a14c-bfe4e0283691",
+      "item_id": 79900100,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Caitlyn Chroma Bundle": {
+      "offer_id": "7938e31d-3b81-4ffb-95d2-79d27c6f2a16",
+      "item_id": 79900101,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Zoe Chroma Bundle": {
+      "offer_id": "ca71ef9e-0647-494b-b73d-bafc256770a1",
+      "item_id": 79900102,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Gangplank Chroma Bundle": {
+      "offer_id": "3caa8233-d0a1-4549-bdc5-8c552674059f",
+      "item_id": 79900103,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Headhunter Akali Chroma Bundle": {
+      "offer_id": "544d5391-7ab3-4af4-80c8-a4a0d241d6eb",
+      "item_id": 79900108,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Aurelion Sol Chroma Bundle": {
+      "offer_id": "6c5e868a-40e5-42be-b6ed-89d20bbafa82",
+      "item_id": 79900114,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Defender Xin Zhao Chroma Bundle": {
+      "offer_id": "7b4f63fa-2ca0-4bc9-9011-d1f30dc21965",
+      "item_id": 79900115,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Queen Ashe Chroma Bundle": {
+      "offer_id": "c88563ee-16c3-4a78-8f44-589239adbc37",
+      "item_id": 79900116,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Enchantress Lulu Chroma Bundle": {
+      "offer_id": "010bd724-1f76-4c4c-b20e-8ff23a3b4844",
+      "item_id": 79900117,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Braum Chroma Bundle": {
+      "offer_id": "4a2b1cf7-2cd2-4599-b970-5c993e065cde",
+      "item_id": 79900118,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Urgot Chroma Bundle": {
+      "offer_id": "a66c597c-10c1-47a4-851a-1bc8d3cf66de",
+      "item_id": 79900120,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Thresh Chroma Bundle": {
+      "offer_id": "01172fc5-3791-41bb-a641-e0b0b347577c",
+      "item_id": 79900121,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Enduring Sword Talon Chroma Bundle": {
+      "offer_id": "c27c3b87-a963-43a2-99ac-183d6f475860",
+      "item_id": 79900122,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Divine Sword Irelia Chroma Bundle": {
+      "offer_id": "b9a02d8e-ae67-4808-b3df-81f31a092551",
+      "item_id": 79900123,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Yasuo Chroma Bundle": {
+      "offer_id": "2b696838-cd36-4884-8e4e-4f5b540d6007",
+      "item_id": 79900131,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Jinx Chroma Bundle": {
+      "offer_id": "14c70231-17f7-4747-9836-9220ab41befb",
+      "item_id": 79900132,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Malphite Chroma Bundle": {
+      "offer_id": "b52f7078-1445-4cb8-887f-c01150640bf3",
+      "item_id": 79900133,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Sona Chroma Bundle": {
+      "offer_id": "507f5958-deb5-48c7-9bfe-916c53f98bcb",
+      "item_id": 79900134,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragon Trainer Tristana Chroma Bundle": {
+      "offer_id": "90323501-c015-442f-b8d5-d8c08ba2d2ab",
+      "item_id": 79900135,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragon Trainer Lulu Chroma Bundle": {
+      "offer_id": "e5fffc9e-4296-41af-b91b-add90aa267f3",
+      "item_id": 79900136,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Amumu Chroma Bundle": {
+      "offer_id": "57bdb1bb-b9d3-448d-b4a8-e6a35ec93806",
+      "item_id": 79900137,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Praetorian Graves Bundle": {
+      "offer_id": "aba0a7d3-564c-4978-a68b-2ca7851682e7",
+      "item_id": 79900138,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Praetorian Fiddlesticks Chroma Bundle": {
+      "offer_id": "358e872e-5e96-4813-ba4e-350f55be13d6",
+      "item_id": 79900139,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Program Nami Chroma Bundle": {
+      "offer_id": "00f47f08-c0c4-4360-bfd7-4de8b807c77f",
+      "item_id": 79900140,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Program LeBlanc Chroma Bundle": {
+      "offer_id": "0e7a5bf0-dd63-486b-9950-88e4338cef68",
+      "item_id": 79900141,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Camille Chroma Bundle": {
+      "offer_id": "48183f9a-46ef-4c4d-817f-7972c360a08b",
+      "item_id": 79900143,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Lissandra Chroma Bundle": {
+      "offer_id": "aa5394be-e74f-4cf3-b62b-46d4769ed7e6",
+      "item_id": 79900144,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Sivir Chroma Bundle": {
+      "offer_id": "99244868-f0c9-40e7-8add-de68fc2328cb",
+      "item_id": 79900150,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Pyke Chroma Bundle": {
+      "offer_id": "8fc3b942-7e46-4c3b-b109-b1c47336e4ce",
+      "item_id": 79900151,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Papercraft Anivia Chroma Bundle": {
+      "offer_id": "acf787fe-88f6-4268-aa5a-33d397f2df20",
+      "item_id": 79900157,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Papercraft Nunu & Willump Chroma Bundle": {
+      "offer_id": "f489342f-4405-48f1-93da-26b51ed02998",
+      "item_id": 79900158,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackthorn Morgana Chroma Bundle": {
+      "offer_id": "a7a1260e-8021-4c7b-8477-8da10369b6bd",
+      "item_id": 79900159,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Viridian Kayle Chroma Bundle": {
+      "offer_id": "9b6bd201-fdc0-451e-b9cc-8094e070b0f2",
+      "item_id": 79900160,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arclight Brand Chroma Bundle": {
+      "offer_id": "3d4227a7-342b-401e-918b-27220c4d1bb1",
+      "item_id": 79900161,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Corgi Corki Chroma Bundle": {
+      "offer_id": "193724a5-b876-440e-8c32-7215371588aa",
+      "item_id": 79900162,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pretty Kitty Rengar Chroma Bundle": {
+      "offer_id": "fd450b76-4454-41c2-a28a-c3d929157f78",
+      "item_id": 79900163,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Meowrick Chroma Bundle": {
+      "offer_id": "0131c0fa-df6e-4ead-9115-03b8c8fe0bd2",
+      "item_id": 79900164,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dunkmaster Ivern Chroma Bundle": {
+      "offer_id": "59a55739-1f69-48cd-9be3-b0058f6c0ee4",
+      "item_id": 79900165,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Jayce Chroma Bundle": {
+      "offer_id": "1fca7a1d-2d7d-4a12-afdc-a0ac3f2b86d9",
+      "item_id": 79900166,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Katarina Chroma Bundle": {
+      "offer_id": "7c07d879-0532-4148-bc41-46f6c9ea729c",
+      "item_id": 79900167,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Professor Graves Chroma Bundle": {
+      "offer_id": "80b19e13-18d0-44f7-97cf-326eba94f2fd",
+      "item_id": 79900168,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Principal Yuumi Chroma Bundle": {
+      "offer_id": "b057d513-7b7e-400e-8638-5b68692efe45",
+      "item_id": 79900169,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Little Demon Tristana Chroma Bundle": {
+      "offer_id": "6387c2a3-7358-4354-b979-16a189f32d26",
+      "item_id": 79900170,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Shaco Chroma Bundle": {
+      "offer_id": "e02ea484-1f02-4623-9a42-b38e3c1ea324",
+      "item_id": 79900171,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Karma Chroma Bundle": {
+      "offer_id": "5395543c-e888-4e79-92e7-20814b7c17a9",
+      "item_id": 79900172,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Boss Yasuo Chroma Bundle": {
+      "offer_id": "e2a0845a-d101-4231-817f-05f9a9c707ed",
+      "item_id": 79900173,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcade Kai'sa Chroma Bundle": {
+      "offer_id": "ce345dbc-47ae-4a74-b7a7-f7c0217b05a5",
+      "item_id": 79900174,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Boss Qiyana Chroma Bundle": {
+      "offer_id": "c10d0df6-6aac-428d-bfa1-436c82688238",
+      "item_id": 79900175,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Demacia Vice Garen Chroma Bundle": {
+      "offer_id": "92989e16-f5cf-4f28-8779-dbc33ea4e4d8",
+      "item_id": 79900176,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Demacia Vice Lucian Chroma Bundle": {
+      "offer_id": "2bd45750-38c6-43e7-a5b2-beb06c3cc1d0",
+      "item_id": 79900177,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Pyke Chroma Bundle": {
+      "offer_id": "f4dcaa7f-c1d3-43f8-81df-d8a43e5bea51",
+      "item_id": 79900178,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Warwick Chroma Bundle": {
+      "offer_id": "9ebd236d-ecf8-41dd-88e7-f3ee2d5127c8",
+      "item_id": 79900179,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Jinx Chroma Bundle": {
+      "offer_id": "439912c2-b579-4d79-a2ea-b5e0ee6cf2ce",
+      "item_id": 79900180,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Akali Chroma Bundle": {
+      "offer_id": "b2a8032f-e8ab-40a2-9d61-46c2f10c3fbb",
+      "item_id": 79900181,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Ahri Chroma Bundle": {
+      "offer_id": "6ac9371d-bbc9-4c13-b9fb-b2e2523e7c51",
+      "item_id": 79900182,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Old God Nocturne Chroma Bundle": {
+      "offer_id": "574c0ed7-5a86-4392-a7cb-8375099267f0",
+      "item_id": 79900183,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Veigar Chroma Bundle": {
+      "offer_id": "79a8aaab-cb2f-436c-a2b0-7b22c317ea07",
+      "item_id": 79900184,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Shen Chroma Bundle": {
+      "offer_id": "fd9c4087-54f1-42e2-96ca-6ac901b90370",
+      "item_id": 79900185,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Varus Chroma Bundle": {
+      "offer_id": "ae88d000-f21a-4f7f-8650-4fb8bbb5e848",
+      "item_id": 79900186,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Galio Chroma Bundle": {
+      "offer_id": "b2aeb130-fb5c-46c2-99e1-1bb8b6bd02e2",
+      "item_id": 79900187,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Rakan Chroma Bundle": {
+      "offer_id": "20ae166c-6af2-419f-85b8-e3303dc68f8f",
+      "item_id": 79900188,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Xayah Chroma Bundle": {
+      "offer_id": "d71063ad-5eea-4c3b-9eef-8a8313990641",
+      "item_id": 79900189,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Zoe Chroma Bundle": {
+      "offer_id": "b411c2a5-7500-4f87-ad3b-26a02223d57e",
+      "item_id": 79900190,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Splendid Staff Nami Chroma Bundle": {
+      "offer_id": "d951294f-9ad0-4a26-a327-1c0e7a3ae610",
+      "item_id": 79900191,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Majestic Empress Morgana Chroma Bundle": {
+      "offer_id": "6d067e03-3c4a-4d61-9137-37007f384c45",
+      "item_id": 79900192,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Ashe Chroma Bundle": {
+      "offer_id": "6a411928-721e-4e5c-a61e-3588c9f124cd",
+      "item_id": 79900193,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Hecarim Chroma Bundle": {
+      "offer_id": "2352289a-d6fe-4040-9f19-d7292e4c616d",
+      "item_id": 79900194,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Darius Chroma Bundle": {
+      "offer_id": "37dbb761-0521-4716-95d9-08fae82ca629",
+      "item_id": 79900195,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "True Damage Ekko Chroma Bundle": {
+      "offer_id": "03ea7231-6128-49af-8fd2-05b6b8c8717e",
+      "item_id": 79900198,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "True Damage Yasuo Chroma Bundle": {
+      "offer_id": "64f8415a-2aaf-4aec-88f6-24f07f3164cb",
+      "item_id": 79900199,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "True Damage Akali Chroma Bundle": {
+      "offer_id": "ec2d3957-0249-445d-881f-91288528f864",
+      "item_id": 79900200,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "True Damage Senna Chroma Bundle": {
+      "offer_id": "ac7c3ae8-83b8-4953-9b6a-76004d92b962",
+      "item_id": 79900201,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Aphelios Chroma Bundle": {
+      "offer_id": "47c22305-ba7a-474d-941e-33cdf981c042",
+      "item_id": 79900202,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Nidalee Chroma Bundle": {
+      "offer_id": "985c63ea-05a6-4813-9ebb-bcac68404ae7",
+      "item_id": 79900203,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Vladimir Chroma Bundle": {
+      "offer_id": "9ded2bba-f82e-441f-930f-7aea61ae5339",
+      "item_id": 79900204,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sugar Rush Evelynn Chroma Bundle": {
+      "offer_id": "e2e87ea0-2d38-4400-817b-80466f1d10ff",
+      "item_id": 79900206,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sugar Rush Braum Chroma Bundle": {
+      "offer_id": "4fe01c57-431e-441e-9a1b-1bb0c73e305e",
+      "item_id": 79900207,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sugar Rush Ziggs Chroma Bundle": {
+      "offer_id": "4d5db34b-c750-4e7b-ad7f-1d661e522511",
+      "item_id": 79900208,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sugar Rush Zilean Chroma Bundle": {
+      "offer_id": "0d6679cd-c7fd-44a1-812b-9de573878ca4",
+      "item_id": 79900209,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Freljord Sylas Chroma Bundle": {
+      "offer_id": "31918930-10e4-49b4-bf3f-38d03fdaa061",
+      "item_id": 79900210,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Guardian of the Sands Ryze Chroma Bundle": {
+      "offer_id": "4035882c-8c38-411c-b629-6346e9e52207",
+      "item_id": 79900211,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Guardian of the Sands Janna Chroma Bundle": {
+      "offer_id": "d63e7198-f2d7-4d4f-b4b9-946e48be57ba",
+      "item_id": 79900212,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Guardian of the Sands Rengar Chroma Bundle": {
+      "offer_id": "67fb95a7-a162-4f85-8150-a15beb949fb8",
+      "item_id": 79900213,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Sett Chroma Bundle": {
+      "offer_id": "4b2d4bc0-41ce-4c75-85e1-a6dd7bbe4dbe",
+      "item_id": 79900214,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Leona Chroma Bundle": {
+      "offer_id": "c5c27ab8-6dd1-4e78-8737-3bdb760b0809",
+      "item_id": 79900215,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Draven Chroma Bundle": {
+      "offer_id": "d33480c0-41f0-4191-bf2c-fa679f1aba85",
+      "item_id": 79900216,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Jax Chroma Bundle": {
+      "offer_id": "599adba8-cff0-4c35-98c8-fd9fb16cbd8e",
+      "item_id": 79900217,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Trundle Chroma Bundle": {
+      "offer_id": "f2c2006d-401c-4e42-8feb-3427736264ca",
+      "item_id": 79900218,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Olaf Chroma Bundle": {
+      "offer_id": "96ab501b-aba1-4332-8a59-8f5df942e9f1",
+      "item_id": 79900219,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Diana Chroma Bundle": {
+      "offer_id": "ecbb0185-c251-445c-a63f-022ff73bc452",
+      "item_id": 79900220,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Master Yi Chroma Bundle": {
+      "offer_id": "1110b50f-e8f9-4d6a-a81c-9c96ec3cb02b",
+      "item_id": 79900223,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Tryndamere Chroma Bundle": {
+      "offer_id": "a2548eef-3292-43d6-ae3d-77d4f008c155",
+      "item_id": 79900224,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Katarina Chroma Bundle": {
+      "offer_id": "cd1ad58d-e78b-4683-8a9e-661b8dc04a52",
+      "item_id": 79900225,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackfrost Alistar Chroma Bundle": {
+      "offer_id": "0393c48f-da93-4309-9f63-ce22b219a0cf",
+      "item_id": 79900226,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackfrost Renekton Chroma Bundle": {
+      "offer_id": "862cd08f-edd3-48e7-99a8-87f60761059b",
+      "item_id": 79900227,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackfrost Rek'Sai Chroma Bundle": {
+      "offer_id": "28e4381c-75a2-4782-9209-4fec1efc450e",
+      "item_id": 79900228,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Mordekaiser Chroma Bundle": {
+      "offer_id": "da9a4791-545c-4102-bebd-bd9a26aab2af",
+      "item_id": 79900229,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Xerath Chroma Bundle": {
+      "offer_id": "0ce7de2f-f65c-4dbb-a88b-5c1fcf3ac413",
+      "item_id": 79900230,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Talon Blackwood Chroma Bundle": {
+      "offer_id": "7cf8aa5c-4697-4b6c-964a-33154967cd24",
+      "item_id": 79900231,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Taric Luminshield Chroma Bundle": {
+      "offer_id": "c27734b0-0c0d-4f88-b9b6-d9453a145ecc",
+      "item_id": 79900232,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Twitch Shadowfoot Chroma Bundle": {
+      "offer_id": "759cc9ff-dd4b-4728-82b9-f4ef8ecb2140",
+      "item_id": 79900233,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Furyhorn Cosplay Veigar Chroma Bundle": {
+      "offer_id": "af8794ce-7708-40fa-9aac-7977d10b33e0",
+      "item_id": 79900234,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pengu Cosplay Tristana Chroma Bundle": {
+      "offer_id": "1ab801ac-f615-401c-9711-6a5b1560ee43",
+      "item_id": 79900235,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pajama Guardian Cosplay Urgot Chroma Bundle": {
+      "offer_id": "dbecee43-e86a-4111-8433-917f374cbcaa",
+      "item_id": 79900236,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Surprise Party Fiddlesticks Chroma Bundle": {
+      "offer_id": "2217a421-a762-4135-8ec5-68179e1e130d",
+      "item_id": 79900237,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Worldbreaker Malzahar Chroma Bundle": {
+      "offer_id": "020294e3-c884-4731-a010-8ff19b801b80",
+      "item_id": 79900238,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Worldbreaker Maokai Chroma Bundle": {
+      "offer_id": "640807df-1bfc-4abc-b5fe-edb072f2e0b2",
+      "item_id": 79900239,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Worldbreaker Sion Chroma Bundle": {
+      "offer_id": "600d1ea2-ea33-499c-b85c-ce10530595a8",
+      "item_id": 79900240,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Morgana Chroma Bundle": {
+      "offer_id": "714631b4-c74a-443d-a7a2-9f9d80929539",
+      "item_id": 79900241,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Leblanc Chroma Bundle": {
+      "offer_id": "02cc4348-f207-4b04-84db-24d0882892b1",
+      "item_id": 79900242,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pulsefire Ekko Chroma Bundle": {
+      "offer_id": "0f8fb54c-be67-4318-9b2a-064706ebce1e",
+      "item_id": 79900243,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pulsefire Fiora Chroma Bundle": {
+      "offer_id": "3fc26a64-11e3-4432-b821-ddf8b6a76876",
+      "item_id": 79900244,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pulsefire Pantheon Chroma Bundle": {
+      "offer_id": "59717579-0473-4759-911d-69aa3dd0bdee",
+      "item_id": 79900245,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Poppy Chroma Bundle": {
+      "offer_id": "a00a4677-cd3e-4b46-ab2a-0a10a354d7be",
+      "item_id": 79900246,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Gnar Chroma Bundle": {
+      "offer_id": "672da91b-9320-4be8-bafc-7e19247e6c8f",
+      "item_id": 79900247,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Bard Chroma Bundle": {
+      "offer_id": "ac18a7ba-e559-4142-aa7e-27664d50b64b",
+      "item_id": 79900248,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Jhin Chroma Bundle": {
+      "offer_id": "c11b881f-0fde-42bc-9afd-3642a0a03529",
+      "item_id": 79900249,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Lucian Chroma Bundle": {
+      "offer_id": "cce5a0c3-62aa-407c-8d75-01a891765a6a",
+      "item_id": 79900250,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Bandito FiddleSticks Chroma Bundle": {
+      "offer_id": "1980bcf6-6918-41da-b3bd-f7be8000674b",
+      "item_id": 79900251,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Irelia Chroma Bundle": {
+      "offer_id": "c515c474-7887-4e74-bc54-6ce308456355",
+      "item_id": 79900252,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Senna Chroma Bundle": {
+      "offer_id": "22bcefd0-a307-4c5b-b7a5-5880ab56738c",
+      "item_id": 79900253,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Orianna Chroma Bundle": {
+      "offer_id": "79957f5d-6ed9-48da-9da4-4e656f2f2e10",
+      "item_id": 79900257,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Syndra Chroma Bundle": {
+      "offer_id": "058ddc49-af0b-441b-b842-1ac9cca26d10",
+      "item_id": 79900258,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Jarvan IV Chroma Bundle": {
+      "offer_id": "5fc3933f-1f4c-47b5-b106-2fca3f6d5990",
+      "item_id": 79900259,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Taliyah Chroma Bundle": {
+      "offer_id": "9dfa57f9-8289-4645-9231-9f1bc6a3335b",
+      "item_id": 79900260,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Heimerdinger Chroma Bundle": {
+      "offer_id": "214812c4-692d-4f89-b0fc-204f0bc1dde6",
+      "item_id": 79900261,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Karthus Chroma Bundle": {
+      "offer_id": "09bee03a-6f8f-4a00-bd0c-92cd7466c04a",
+      "item_id": 79900262,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Vel'Koz Chroma Bundle": {
+      "offer_id": "20bf7122-35ea-42a5-b174-c7cce7156419",
+      "item_id": 79900263,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Kennen Chroma Bundle": {
+      "offer_id": "8accf732-6492-4994-be02-7ef401921d1b",
+      "item_id": 79900264,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcanist Shaco Chroma Bundle": {
+      "offer_id": "23d5586d-74d2-4e06-a41b-a76c56f4f4d8",
+      "item_id": 79900265,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcanist Kog'Maw Chroma Bundle": {
+      "offer_id": "24ae1268-86c9-4f92-8023-75e52106d79b",
+      "item_id": 79900266,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Thresh Chroma Bundle": {
+      "offer_id": "84a869d3-9efc-45c3-a1b6-e37b4d5b6033",
+      "item_id": 79900267,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Vayne Chroma Bundle": {
+      "offer_id": "876cece6-a4b3-4124-a95e-cc738f7e9c50",
+      "item_id": 79900268,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Yasuo Chroma Bundle": {
+      "offer_id": "b33536af-76ec-4843-8700-d43d26c70ef6",
+      "item_id": 79900269,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Lillia Chroma Bundle": {
+      "offer_id": "39aa3254-d227-468f-b345-77ee8270beae",
+      "item_id": 79900270,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Riven Chroma Bundle": {
+      "offer_id": "02bfb5b8-c250-42cb-8978-982321ab342a",
+      "item_id": 79900271,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Cassiopeia Chroma Bundle": {
+      "offer_id": "60d54776-c977-4db5-a3ad-dded0075659e",
+      "item_id": 79900272,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Ahri Chroma Bundle": {
+      "offer_id": "78a5abeb-59fa-4b34-bc77-7f4dc1697e38",
+      "item_id": 79900273,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Kindred Chroma Bundle": {
+      "offer_id": "5d1c7e04-da9e-43ca-b3d4-8745057f0950",
+      "item_id": 79900274,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Yone Chroma Bundle": {
+      "offer_id": "c194db32-c28a-4b6b-95ed-723d2332a0e0",
+      "item_id": 79900275,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Sona Chroma Bundle": {
+      "offer_id": "c83c1182-93fe-49ba-84a9-bf8122bd496c",
+      "item_id": 79900276,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Vi Chroma Bundles": {
+      "offer_id": "e5373b40-e721-4982-9407-92eb566598e2",
+      "item_id": 79900277,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Shen Chroma Bundle": {
+      "offer_id": "844c16d4-77c2-4cd5-a699-6e2fc466b222",
+      "item_id": 79900278,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Master Yi Chroma Bundle": {
+      "offer_id": "a2f28e20-41ba-4734-b0f1-542811864201",
+      "item_id": 79900279,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Pyke Chroma Bundle": {
+      "offer_id": "34f26608-1096-4da5-9fbc-7a91f720261e",
+      "item_id": 79900280,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Viktor Chroma Bundle": {
+      "offer_id": "3bc9c2da-17f1-4adf-ad46-1769788d9333",
+      "item_id": 79900281,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Zed Chroma Bundle": {
+      "offer_id": "ecf252e6-e027-476e-ae1f-33b2a24f6313",
+      "item_id": 79900282,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Kayle Chroma Bundle": {
+      "offer_id": "36921c25-308d-49a8-aec6-63aa60f5350b",
+      "item_id": 79900283,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Samira Chroma Bundle": {
+      "offer_id": "dc246f45-0425-4cb4-bca2-85f8b8bb4be4",
+      "item_id": 79900284,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Storm Dragon Aurelion Sol Chroma Bundle": {
+      "offer_id": "81eace8f-6573-4e83-8e6a-a0b506bc4c11",
+      "item_id": 79900286,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Eternal Dragon Brand Chroma Bundle": {
+      "offer_id": "fb30a540-8fa4-46d2-94f8-5a617ad2a654",
+      "item_id": 79900287,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fae Dragon Ashe Chroma Bundle": {
+      "offer_id": "02ca6edd-9455-4211-bd8a-57b141c3f804",
+      "item_id": 79900288,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Storm Dragon Lee Sin Chroma Bundle": {
+      "offer_id": "3f37b055-2a38-4138-aab6-1bd451465791",
+      "item_id": 79900289,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Aatrox Chroma Bundle": {
+      "offer_id": "04794f3d-7e95-4d85-a6b2-e379dc458efa",
+      "item_id": 79900290,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Karma Chroma Bundle": {
+      "offer_id": "69afccdd-439f-48e3-a343-f13f5aacb902",
+      "item_id": 79900291,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Kha'Zix Chroma Bundle": {
+      "offer_id": "3e6a17e7-0cfd-4d4b-84d5-9ec86a099b72",
+      "item_id": 79900292,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Sivir Chroma Bundle": {
+      "offer_id": "fd8817c2-9c7d-4129-b5cd-cca2458e0f45",
+      "item_id": 79900293,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Twisted Fate Chroma Bundle": {
+      "offer_id": "55d1f0b5-f1e5-4942-89cd-2279dd1b47c8",
+      "item_id": 79900294,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Odyssey Kayn Chroma Bundle": {
+      "offer_id": "c4f9759f-3044-4f9d-9e0a-57d50c11428a",
+      "item_id": 79900295,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Galaxy Slayer Zed Chroma Bundle": {
+      "offer_id": "76a67859-ecbc-474c-ba31-a47ddc58c6e0",
+      "item_id": 79900296,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "K/DA ALL OUT Ahri Chroma Bundle": {
+      "offer_id": "d3110e69-e76c-4f06-9dc5-8285c6375228",
+      "item_id": 79900302,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "K/DA ALL OUT Akali Chroma Bundle": {
+      "offer_id": "a154c2a3-ffa3-430d-8c07-d612d5596a88",
+      "item_id": 79900303,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "K/DA ALL OUT Evelynn Chroma Bundle": {
+      "offer_id": "c3bd52c6-c441-40bb-9362-53b9a0cf1511",
+      "item_id": 79900304,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battlecast Nasus Chroma Bundle": {
+      "offer_id": "c7d4e891-0baf-42a3-8527-d18f24f05ab5",
+      "item_id": 79900305,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battlecast Zac Chroma Bundle": {
+      "offer_id": "90a11d00-5cd5-410d-b291-8974a4b3d10b",
+      "item_id": 79900306,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Resistance Jayce Chroma Bundle": {
+      "offer_id": "1b2e39bc-b031-48f0-9c44-fe46c625f31f",
+      "item_id": 79900307,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Resistance Singed Chroma Bundle": {
+      "offer_id": "62f1fb61-9306-4b28-9a2a-713208476a3c",
+      "item_id": 79900308,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Resistance Yorick Chroma Bundle": {
+      "offer_id": "1357f61a-0b8c-4ace-b579-72fb6030bca4",
+      "item_id": 79900309,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Flight Anivia Chroma Bundle": {
+      "offer_id": "baea7c15-b2ac-44b7-a89b-436eb58af524",
+      "item_id": 79900310,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Charger Hecarim Chroma Bundle": {
+      "offer_id": "43cf5eea-acee-4ae4-b7ff-e671de427784",
+      "item_id": 79900311,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Invoker Illaoi Chroma Bundle": {
+      "offer_id": "a00309d7-aad9-48ac-bc44-ec15d7539f49",
+      "item_id": 79900312,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Destiny Nami Chroma Bundle": {
+      "offer_id": "3d8b97f1-7e54-41be-9bf7-f0935eba39c8",
+      "item_id": 79900313,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Huntress Nidalee Chroma Bundle": {
+      "offer_id": "94bdec0b-ac6e-4043-a538-a9afca0d0a38",
+      "item_id": 79900314,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Sting Skarner Chroma Bundle": {
+      "offer_id": "ea617218-eab6-4a6c-9dda-6232e9e7ded7",
+      "item_id": 79900315,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Hunter Varus Chroma Bundle": {
+      "offer_id": "05a85abf-aed2-4f87-ae46-38446cf3efb2",
+      "item_id": 79900316,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Devourer Vladimir Chroma Bundle": {
+      "offer_id": "d2bf6f86-34f0-4eac-948b-cb7b6ecef69e",
+      "item_id": 79900317,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Cosmic Lissandra Chroma Bundle": {
+      "offer_id": "90ed5dd9-533c-464e-9a71-993c1446cb27",
+      "item_id": 79900318,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Katarina Chroma Bundle": {
+      "offer_id": "be226afa-bf0f-46db-87e5-4f838e4cd77f",
+      "item_id": 79900319,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Qiyana Chroma Bundle": {
+      "offer_id": "29f102c7-c915-464d-9b70-fe0d5fe73d15",
+      "item_id": 79900320,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Janna Chroma Bundle": {
+      "offer_id": "46dcbf8b-0e9c-480c-b73e-ca85bd7c0801",
+      "item_id": 79900321,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Rell Chroma Bundle": {
+      "offer_id": "0adf449b-ee5a-42ef-8e2d-af0d7b4d24cf",
+      "item_id": 79900322,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Xayah Chroma Bundle": {
+      "offer_id": "93283293-bfe9-445b-9ac5-b8ee2c2e8ace",
+      "item_id": 79900323,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Rakan Chroma Bundle": {
+      "offer_id": "93c95cba-bffe-4408-9723-d4616fe4a117",
+      "item_id": 79900324,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Old God Ivern Chroma Bundle": {
+      "offer_id": "83ffc342-468d-4dd7-bc1e-00e94d80363a",
+      "item_id": 79900325,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Azir Chroma Bundle": {
+      "offer_id": "ce5f3ea0-ee82-4e1b-bc21-71232e53f022",
+      "item_id": 79900326,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Ornn Chroma Bundle": {
+      "offer_id": "bbb4025e-9ed1-45f4-b705-396290d1bb92",
+      "item_id": 79900327,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Marauder Kled Chroma Bundle": {
+      "offer_id": "7c57f202-df5e-44cd-afbe-157455bebf97",
+      "item_id": 79900328,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Marauder Kalista Chroma Bundle": {
+      "offer_id": "3fa69709-b88e-40f9-b80c-f28a626ace77",
+      "item_id": 79900329,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Marauder Xin Zhao Chroma Bundle": {
+      "offer_id": "6a45805d-7089-485a-8659-bd03039ad76b",
+      "item_id": 79900330,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Warden Quinn Chroma Bundle": {
+      "offer_id": "4737543c-772e-4337-ac1d-1f9b3b09d668",
+      "item_id": 79900331,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Warden Gragas Chroma Bundle": {
+      "offer_id": "6c40310b-3783-41a2-999c-86013d5951a4",
+      "item_id": 79900332,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ruined Karma Chroma Bundle": {
+      "offer_id": "8e9164dd-4c24-4cd2-aac8-a3ed799f5bab",
+      "item_id": 79900333,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ruined Shyvana Chroma Bundle": {
+      "offer_id": "7679d2b3-3313-4729-8260-73228b844d01",
+      "item_id": 79900334,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ruined Draven Chroma Bundle": {
+      "offer_id": "b36ec67a-5b53-4cd1-a1ca-8b3609e3ace5",
+      "item_id": 79900335,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Jhin Chroma Bundle": {
+      "offer_id": "9093d576-0a72-473f-9e19-ca4252ba49ba",
+      "item_id": 79900337,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Cho'Gath Chroma Bundle": {
+      "offer_id": "815f7b4c-509f-4b5f-99bb-fc7d4cce3342",
+      "item_id": 79900338,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Neeko Chroma Bundle": {
+      "offer_id": "37cefaa2-c11d-441c-b97c-ed0b012f0065",
+      "item_id": 79900339,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Nautilus Chroma Bundle": {
+      "offer_id": "3d24cc7e-d8b2-4253-b13d-d5558cc7affa",
+      "item_id": 79900340,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Withered Rose Syndra Chroma Bundle": {
+      "offer_id": "30ccaba2-9022-47dd-968a-bf3a15ec3c3e",
+      "item_id": 79900347,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Withered Rose Talon Chroma Bundle": {
+      "offer_id": "474a7087-fd0b-4809-ac6f-c0ec06c8b13c",
+      "item_id": 79900348,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crystal Rose Swain Chroma Bundle": {
+      "offer_id": "c7430b5f-c838-4c4b-95ef-eb6cfce1a054",
+      "item_id": 79900349,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crystal Rose Zyra Chroma Bundle": {
+      "offer_id": "82501f2e-90de-4ee1-84c7-06f65fffb295",
+      "item_id": 79900350,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Beezahar Chroma Bundle": {
+      "offer_id": "b3a1789f-cffb-4189-83ed-114c398941c6",
+      "item_id": 79900351,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Yuubee Chroma Bundle": {
+      "offer_id": "e0edea88-b89b-4498-96ba-ae63da814812",
+      "item_id": 79900352,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Bee'Maw Chroma Bundle": {
+      "offer_id": "97d6f08d-0bb9-4737-a74d-703ca0942cd0",
+      "item_id": 79900353,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Garen Chroma Bundle": {
+      "offer_id": "2a8322a6-400b-481e-ba03-c065dab5852d",
+      "item_id": 79900354,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Leona Chroma Bundle": {
+      "offer_id": "eeaefb37-befc-46ae-b721-dfe80d3f03ae",
+      "item_id": 79900355,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Wukong Chroma Bundle": {
+      "offer_id": "7ffed198-28f7-41c9-bd78-d7026636f0a4",
+      "item_id": 79900356,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Caitlyn Chroma Bundle": {
+      "offer_id": "8fb250cd-811d-4117-b883-6cbad02de92f",
+      "item_id": 79900357,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Yone Chroma Bundle": {
+      "offer_id": "f4d27e7e-4e8f-4c57-9c54-05d6b629fb31",
+      "item_id": 79900358,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Lux Chroma Bundle": {
+      "offer_id": "9b86f693-1962-452d-a895-8efcc1f225db",
+      "item_id": 79900359,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Rumble Chroma Bundle": {
+      "offer_id": "cf30bcf7-6413-4e0d-9a4f-11be8880527c",
+      "item_id": 79900360,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Nasus Chroma Bundle": {
+      "offer_id": "cd47d29f-208f-4e6f-93b5-7010aa93d97d",
+      "item_id": 79900361,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Nunu & Willump Chroma Bundle": {
+      "offer_id": "ee066ad2-51b8-47de-b884-9e845119d625",
+      "item_id": 79900362,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Blitz & Crank Chroma Bundle": {
+      "offer_id": "c653215c-520c-4e5d-aa5c-b90afe260010",
+      "item_id": 79900363,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Lulu Chroma Bundle": {
+      "offer_id": "893295cd-277e-42c1-9ff7-cf9d724ffe16",
+      "item_id": 79900364,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Samira Chroma Bundle": {
+      "offer_id": "10ca37c1-256a-489c-8f98-cb3bb1574fb3",
+      "item_id": 79900365,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Gwen Chroma Bundle": {
+      "offer_id": "b3f8f3bb-0145-44cc-b36f-b1746836d0e0",
+      "item_id": 79900366,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackfrost Sion Chroma Bundle": {
+      "offer_id": "559468e3-aff4-4ab3-8847-3e7ffac7aff9",
+      "item_id": 79900367,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Blackfrost Vel'Koz Chroma Bundle": {
+      "offer_id": "93b1e21d-d16e-4145-ad4c-2817abf14285",
+      "item_id": 79900368,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragon Guardian Galio Chroma Bundle": {
+      "offer_id": "07e72479-527b-457d-839b-bf6e37143822",
+      "item_id": 79900369,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Kayle Chroma Bundle": {
+      "offer_id": "10f45c49-0262-4960-ae49-aea9c951d8f5",
+      "item_id": 79900370,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonslayer Twitch Chroma Bundle": {
+      "offer_id": "74a3e2ed-68b2-457e-b5a2-4d773b5eff2d",
+      "item_id": 79900371,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Lucian Chroma Bundle": {
+      "offer_id": "7058e6ac-1100-4b19-aad9-109c5d672027",
+      "item_id": 79900372,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Tahm Kench Chroma Bundle": {
+      "offer_id": "46aa26e0-b508-41c6-86d3-9f106e9414ec",
+      "item_id": 79900373,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Xerath Chroma Bundle": {
+      "offer_id": "a869de29-ed2b-4571-bfdd-8a0b256be150",
+      "item_id": 79900374,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Camille Chroma Bundle": {
+      "offer_id": "1529f8ec-fd58-47c0-8365-702afee74d8b",
+      "item_id": 79900375,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Sejuani Chroma Bundle": {
+      "offer_id": "2fa932da-987d-4f36-9f21-931deac3ed98",
+      "item_id": 79900376,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Mordekaiser Chroma Bundle": {
+      "offer_id": "701ccf58-a1cc-49d2-81db-f264e9f8155a",
+      "item_id": 79900377,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Renekton Chroma Bundle": {
+      "offer_id": "a7c0d810-0932-4561-9586-40dd9cca2b00",
+      "item_id": 79900378,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Senna Chroma Bundle": {
+      "offer_id": "c1a8933d-d611-4170-9bbc-b269dd339426",
+      "item_id": 79900379,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Sylas Chroma Bundle": {
+      "offer_id": "9903c3ac-875a-44a1-8a09-41dbf5f7f94b",
+      "item_id": 79900380,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Varus Chroma Bundle": {
+      "offer_id": "9e1c74b6-478b-41c6-958e-b626492c76ba",
+      "item_id": 79900381,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Braum Chroma Bundle": {
+      "offer_id": "b1f727bd-2c68-45c1-8bea-5d1264b4d07a",
+      "item_id": 79900382,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Sett Chroma Bundle": {
+      "offer_id": "4320e386-5859-41b4-b6c3-37aaf1134803",
+      "item_id": 79900383,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Corporate Dr. Mundo Chroma Bundle": {
+      "offer_id": "7a3f5cf1-bfcf-468d-a1b1-05e3b370d3b9",
+      "item_id": 79900384,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Maokai Chroma Bundle": {
+      "offer_id": "3bd9c25a-9b57-4cb3-88af-3fbc1a8b13aa",
+      "item_id": 79900385,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Rammus Chroma Bundle": {
+      "offer_id": "bc51681e-ddb0-428b-b6cd-6f9939772abe",
+      "item_id": 79900386,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Veigar Chroma Bundle": {
+      "offer_id": "f573e4e1-b640-48f4-9a1f-3f5e3b74b5b8",
+      "item_id": 79900387,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Corki Chroma Bundle": {
+      "offer_id": "3ca267df-227a-482b-b409-73b7e2147bcd",
+      "item_id": 79900388,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Vayne Chroma Bundle": {
+      "offer_id": "939dcb19-1c2a-4cac-8718-e22af4d9f4f7",
+      "item_id": 79900389,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Irelia Chroma Bundle": {
+      "offer_id": "f42b6ca5-fb50-4632-8d96-3a83278646dc",
+      "item_id": 79900390,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Diana Chroma Bundle": {
+      "offer_id": "33b8c1fd-d709-4abb-96ec-c61b9afdedad",
+      "item_id": 79900391,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Riven Chroma Bundle": {
+      "offer_id": "0946634c-67cf-4cf1-8a71-36d333fe6ccd",
+      "item_id": 79900392,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ruined Pantheon Chroma Bundle": {
+      "offer_id": "601a36f1-3c1a-4a3d-862d-3f58f30f90ea",
+      "item_id": 79900393,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Olaf Chroma Bundle": {
+      "offer_id": "013337c3-9a3f-4506-af13-8cb200e711c3",
+      "item_id": 79900394,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Graves Chroma Bundle": {
+      "offer_id": "821dbbea-6e30-4ac8-a8e8-eb23e92536f0",
+      "item_id": 79900395,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Pyke Chroma Bundle": {
+      "offer_id": "40caa386-67cf-4de4-9480-b00eecd4baae",
+      "item_id": 79900396,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sentinel Rengar Chroma Bundle": {
+      "offer_id": "f5ad0d13-e57f-476c-bc78-e4d2c0b94ccb",
+      "item_id": 79900397,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ruined Miss Fortune Chroma Bundle": {
+      "offer_id": "75c662df-8426-41f8-83c7-3b3ecefdf934",
+      "item_id": 79900398,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cyber Pop Akshan Chroma Bundle": {
+      "offer_id": "b3668c29-64b4-4cf7-8820-8d2bae03e0ed",
+      "item_id": 79900399,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Evelynn Chroma Bundle": {
+      "offer_id": "c2bf04e8-fc33-49b5-be1d-2d90dc689c6e",
+      "item_id": 79900400,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Old God Malphite Chroma Bundle": {
+      "offer_id": "f2c1cb91-dc88-41d4-b61d-02598eecbecc",
+      "item_id": 79900401,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Old God Warwick Chroma Bundle": {
+      "offer_id": "d2482925-3a5c-481d-a3ec-9f6c3bd378f1",
+      "item_id": 79900402,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Cassiopeia Chroma Bundle": {
+      "offer_id": "a9b43752-8624-4808-a729-7e70d890e48e",
+      "item_id": 79900403,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Ahri Chroma Bundle": {
+      "offer_id": "18580486-1498-4e5a-a1f0-317b50251801",
+      "item_id": 79900404,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Ashe Chroma Bundle": {
+      "offer_id": "13875be1-11a0-4a00-96dc-723ee66c8373",
+      "item_id": 79900405,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Zyra Chroma Bundle": {
+      "offer_id": "02fba10a-bb21-4a5e-94c3-1c68f7961e2d",
+      "item_id": 79900406,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Nightmare Akali Chroma Bundle": {
+      "offer_id": "2cc62f58-3b7e-493c-9ac8-e8ab98ba150b",
+      "item_id": 79900407,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Nightmare Shaco Chroma Bundle": {
+      "offer_id": "49439112-3450-4d6d-8053-846f7525faa2",
+      "item_id": 79900408,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Nightmare Twisted Fate Chroma Bundle": {
+      "offer_id": "dd3d5d64-eebb-421e-a988-c0eeefcbfd86",
+      "item_id": 79900409,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Nightmare Darius Chroma Bundle": {
+      "offer_id": "bada6ca2-41af-4987-9f73-1c741eaf48f6",
+      "item_id": 79900410,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crime City Nightmare Zyra Chroma Bundle": {
+      "offer_id": "d8c05efa-149a-4a78-851b-ebc00ac66aa4",
+      "item_id": 79900411,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Brave Phoenix Xayah Chroma Bundle": {
+      "offer_id": "2fd1818f-017d-4880-9b4d-e164a0c3ac8d",
+      "item_id": 79900412,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Divine Phoenix Anivia Chroma Bundle": {
+      "offer_id": "1915fb9c-86f3-4a72-99d9-fb8a158eca84",
+      "item_id": 79900413,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Graceful Phoenix Seraphine Chroma Bundle": {
+      "offer_id": "a1f8a709-eb31-4519-a8ce-706e2b1e18b0",
+      "item_id": 79900414,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Yorick Chroma Bundle": {
+      "offer_id": "ad9d15aa-b3eb-4d1f-8171-33f38343423e",
+      "item_id": 79900415,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Mordekaiser Chroma Bundle": {
+      "offer_id": "b3fda384-1cf4-4a5b-b1ca-9c2efead3176",
+      "item_id": 79900416,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Olaf Chroma Bundle": {
+      "offer_id": "e69464d3-df88-4e30-98cd-2aadbfb749f2",
+      "item_id": 79900417,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Karthus Chroma Bundle": {
+      "offer_id": "c1588e17-a5cc-4b23-99f5-fba82ab9954c",
+      "item_id": 79900418,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dissonance of Pentakill Viego Chroma Bundle": {
+      "offer_id": "3d54251b-c829-45ba-822d-f07c78ada91f",
+      "item_id": 79900419,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Kayle Chroma Bundle": {
+      "offer_id": "47fd9e0d-93ee-4802-a9a9-57b0399c8022",
+      "item_id": 79900420,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Pentakill III: Lost Chapter Sona Chroma Bundle": {
+      "offer_id": "9c04cdcd-15d9-4f7f-b01c-93f0f31fc029",
+      "item_id": 79900421,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Yone Chroma Bundle": {
+      "offer_id": "f7d97d2e-2134-46f5-ac15-1b6de048e817",
+      "item_id": 79900422,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Morgana Chroma Bundle": {
+      "offer_id": "6972738a-735b-47b1-855c-09d0557aa41b",
+      "item_id": 79900423,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Vex Chroma Bundle": {
+      "offer_id": "4290110f-9eac-429c-bd52-f6d60353d645",
+      "item_id": 79900424,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Lillia Chroma Bundle": {
+      "offer_id": "2b6002a3-1170-4d60-b3c9-604c9d9e95f6",
+      "item_id": 79900425,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Kayn Chroma Bundle": {
+      "offer_id": "f97a75d6-2e53-4f9c-a58c-b143c64ef159",
+      "item_id": 79900426,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Tryndamere Chroma Bundle": {
+      "offer_id": "d974380e-a619-4c99-91e3-920cc8bd611e",
+      "item_id": 79900427,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lagoon Dragon Kai'Sa Chroma Bundle": {
+      "offer_id": "b098248c-1341-4af0-a785-73ee2746374d",
+      "item_id": 79900436,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Steel Dragon Thresh Chroma Bundle": {
+      "offer_id": "e7a5988b-8e12-4573-af3a-48d5baeafbff",
+      "item_id": 79900437,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Tranquility Dragon Karma Chroma Bundle": {
+      "offer_id": "d0ed7d09-cb85-4789-a8ee-7646c7b1b782",
+      "item_id": 79900438,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Duality Dragon Volibear Chroma Bundle": {
+      "offer_id": "9b7e2d76-bf8e-4ad3-bf78-5d54da712db0",
+      "item_id": 79900439,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Obsidian Dragon Sett Chroma Bundle": {
+      "offer_id": "08386bdc-e24d-403b-9891-c77b91804a81",
+      "item_id": 79900440,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Gwen Chroma Bundle": {
+      "offer_id": "06b6fdc9-aa57-43eb-adc6-63e7b525ebc8",
+      "item_id": 79900441,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Soraka Chroma Bundle": {
+      "offer_id": "3b69017b-9051-431c-988e-899a413e67a2",
+      "item_id": 79900442,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Annie Chroma Bundle": {
+      "offer_id": "350403f0-0134-4452-a9ef-a1fe75778fa1",
+      "item_id": 79900443,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Bard Chroma Bundle": {
+      "offer_id": "b1c3beb1-027c-47e4-bb45-e4bc534b1e3b",
+      "item_id": 79900444,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Sivir Chroma Bundle": {
+      "offer_id": "d4adfaba-b237-4a65-b6d7-e4da161b2d28",
+      "item_id": 79900445,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Vladimir Chroma Bundle": {
+      "offer_id": "7b81b407-a7e6-4b8a-bd54-f2a16ef98f04",
+      "item_id": 79900446,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Leona Chroma Bundle": {
+      "offer_id": "2e5b9fb3-9fd8-4229-b75f-da6912278a18",
+      "item_id": 79900447,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Zed Chroma Bundle": {
+      "offer_id": "386cde27-107f-4777-adfb-bc6cc3975e81",
+      "item_id": 79900448,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Master Yi Chroma Bundle": {
+      "offer_id": "e8d3233d-86f3-440c-ac07-88da81261485",
+      "item_id": 79900449,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair LeBlanc Chroma Bundle": {
+      "offer_id": "e9ed83a5-f24e-4959-bbc5-b50b32b01588",
+      "item_id": 79900450,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Malzahar Chroma Bundle": {
+      "offer_id": "98ce8e57-72c7-458f-aa6f-2db2f0ece5d6",
+      "item_id": 79900451,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Draven Chroma Bundle": {
+      "offer_id": "8c751570-cae9-4177-93e2-6ee9bc32b866",
+      "item_id": 79900452,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Debonair Brand Chroma Bundle": {
+      "offer_id": "b4f8de20-db79-450d-8b2f-3c00e78b8b0b",
+      "item_id": 79900453,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Rek'Sai Chroma Bundle": {
+      "offer_id": "104a6835-c405-4a43-93fd-dc0f85c9037e",
+      "item_id": 79900454,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Gnar Chroma Bundle": {
+      "offer_id": "b50033b5-3b9b-4dc6-a6b9-681ff00deeab",
+      "item_id": 79900455,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Lissandra Chroma Bundle": {
+      "offer_id": "526ca2ed-bf4f-40d9-aee0-6b1150ad10b4",
+      "item_id": 79900462,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Amumu Chroma Bundle": {
+      "offer_id": "c18b7bc2-3d19-4f87-a1f6-0cef2fefaddf",
+      "item_id": 79900463,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Lux Chroma Bundle": {
+      "offer_id": "d5846105-4223-4943-93a5-7187600dcae7",
+      "item_id": 79900464,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Kindred Chroma Bundle": {
+      "offer_id": "dcd05780-b1b6-4e64-a8c6-879ebca6f7d4",
+      "item_id": 79900465,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Protector Ezreal Chroma Bundle": {
+      "offer_id": "7269e295-2877-4d9f-bd7f-93513679dbbb",
+      "item_id": 79900466,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Withered Rose Zeri Chroma Bundle": {
+      "offer_id": "e147c019-9756-4c0c-b076-2182bed93de6",
+      "item_id": 79900467,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Withered Rose Elise Chroma Bundle": {
+      "offer_id": "2ec04582-d794-4014-8ee1-b514c88342c5",
+      "item_id": 79900468,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crystal Rose Akshan Chroma Bundle": {
+      "offer_id": "422570e4-c43e-4ca2-a825-384abbc0b60b",
+      "item_id": 79900469,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Crystal Rose Janna Chroma Bundle": {
+      "offer_id": "1d71cc8c-4092-4c96-8278-4014a89d893d",
+      "item_id": 79900470,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shockblade Kassadin Chroma Bundle": {
+      "offer_id": "0685bff3-b7c1-4fd1-a13a-908dab4640c9",
+      "item_id": 79900474,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Admiral Glasc Chroma Bundle": {
+      "offer_id": "e51c8403-5fdc-40b0-aad7-ebf482cbfb91",
+      "item_id": 79900475,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shockblade Shen Chroma Bundle": {
+      "offer_id": "fd721d08-e919-4536-968e-364c6d9b0a39",
+      "item_id": 79900476,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shockblade Qiyana Chroma Bundle": {
+      "offer_id": "3d52aa7d-3bbc-4dea-9064-149a0cb74ec3",
+      "item_id": 79900477,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "BZZZiggs Chroma Bundle": {
+      "offer_id": "13a7c1ba-5c26-4938-ba17-87dddbf28427",
+      "item_id": 79900478,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nunu & Beelump Chroma Bundle": {
+      "offer_id": "de4b01c3-3006-4cf0-acb7-44ac1c867acd",
+      "item_id": 79900480,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Heimerstinger Chroma Bundle": {
+      "offer_id": "92fb4b84-668f-4589-ade3-602a0741fbc9",
+      "item_id": 79900481,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bunny Miss Fortune Chroma Bundle": {
+      "offer_id": "6c9a943d-9494-4f36-9417-4df3afad7bd3",
+      "item_id": 79900482,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Wolf Sylas Chroma Bundle": {
+      "offer_id": "4016d3d3-86ae-441f-85de-e71e7c1a23c8",
+      "item_id": 79900483,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bat Vayne Chroma Bundle": {
+      "offer_id": "607f8ce4-c3b6-480b-8560-ce183d4d34c7",
+      "item_id": 79900484,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Cat Jinx Chroma Bundle": {
+      "offer_id": "73898f8c-0f66-4b90-b383-ed767df202d5",
+      "item_id": 79900485,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bunny Prime Riven Chroma Bundle": {
+      "offer_id": "0c59f872-4141-4c0f-b736-15245adb0fdc",
+      "item_id": 79900486,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Ahri Chroma Bundle": {
+      "offer_id": "c1bc81c7-e64d-4dc5-8dbd-ef19a41e3a0b",
+      "item_id": 79900487,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Rakan Chroma Bundle": {
+      "offer_id": "be31f2bf-060e-48de-a565-018d92864a80",
+      "item_id": 79900488,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Xayah Chroma Bundle": {
+      "offer_id": "94c7d753-38fb-47be-acb7-bbe21fdf3712",
+      "item_id": 79900489,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Hecarim Chroma Bundle": {
+      "offer_id": "3ff7bada-3200-46ab-8cd8-dd0c21383331",
+      "item_id": 79900490,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Ryze Chroma Bundle": {
+      "offer_id": "9e2ce6c5-8e4d-4171-af4d-fd6c1b8ae202",
+      "item_id": 79900491,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sun-Eater Kayle Chroma Bundle": {
+      "offer_id": "f0798953-5663-42a1-89a4-aa754404db97",
+      "item_id": 79900492,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Eclipse Aatrox Chroma Bundle": {
+      "offer_id": "3a703909-31ea-439d-94cb-79877c2c5fd1",
+      "item_id": 79900493,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Solar Eclipse Sivir Chroma Bundle": {
+      "offer_id": "658d4456-9ae1-4001-be2a-14c3e6a29891",
+      "item_id": 79900494,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Solar Eclipse Sejuani Chroma Bundle": {
+      "offer_id": "8d8dba2c-c43e-4236-91b4-9207c95f29e9",
+      "item_id": 79900495,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Eclipse Senna Chroma Bundle": {
+      "offer_id": "476577b8-14d3-4499-a32c-e041c58cabce",
+      "item_id": 79900496,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Gangplank the Betrayer Chroma Bundle": {
+      "offer_id": "d78dd36d-8c49-4718-bedc-aae984525bc6",
+      "item_id": 79900497,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Sea Dog Yasuo Chroma Bundle": {
+      "offer_id": "0d2807de-4fa0-451f-a637-aa16ea0a95a9",
+      "item_id": 79900498,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Leona Chroma Bundle": {
+      "offer_id": "d074f30f-939b-47cd-b2ee-cbe486224bc5",
+      "item_id": 79900499,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Talon Chroma Bundle": {
+      "offer_id": "68496b9e-f683-46a2-8774-f729ecbd72f4",
+      "item_id": 79900500,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Varus Chroma Bundle": {
+      "offer_id": "a1c1e5d4-2578-4447-b1be-e1d13ead7187",
+      "item_id": 79900501,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Mordekaiser Chroma Bundle": {
+      "offer_id": "5dba0440-3a71-4463-9ad8-f5b633a70ff6",
+      "item_id": 79900502,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Katarina Chroma Bundle": {
+      "offer_id": "27fcb5b0-d318-4ec6-b838-4466e1cf6a31",
+      "item_id": 79900503,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Sion Chroma Bundle": {
+      "offer_id": "97c3a242-0dd2-4b86-b3ad-f9134bbfc3c7",
+      "item_id": 79900504,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Viktor Chroma Bundle": {
+      "offer_id": "6e2318ea-9a72-4b1e-9fdc-fa2a7e91c391",
+      "item_id": 79900505,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Samira Chroma Bundle": {
+      "offer_id": "21830b5a-9a9a-43e5-95b4-369526960dfa",
+      "item_id": 79900506,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Tahm Kench Chroma Bundle": {
+      "offer_id": "fcaacf06-6383-4210-a95d-ac7e1aacf11d",
+      "item_id": 79900507,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Twitch Chroma Bundle": {
+      "offer_id": "134b3c5c-1f2a-496c-8d48-d39850ca7289",
+      "item_id": 79900508,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ocean Song Yone Chroma Bundle": {
+      "offer_id": "dbf0db4c-2759-4749-9c0b-e59381d70463",
+      "item_id": 79900509,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ocean Song Nidalee Chroma Bundle": {
+      "offer_id": "1f5d9842-a507-4f6b-8bc2-c7531e0831d4",
+      "item_id": 79900510,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ocean Song Seraphine Chroma Bundle": {
+      "offer_id": "45cac8b6-4bfc-4466-baab-37491b415cea",
+      "item_id": 79900511,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ocean Song Zeri Chroma Bundle": {
+      "offer_id": "305204b7-5d52-40ee-ad9c-ce6919d5d534",
+      "item_id": 79900512,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Ocean Song Ashe Chroma Bundle": {
+      "offer_id": "59dd36f6-b525-401e-adae-702b7e3fa5b4",
+      "item_id": 79900513,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Boss Bel'Veth Chroma Bundle": {
+      "offer_id": "5ede0025-6c0c-46e2-b80e-647bbff9e51a",
+      "item_id": 79900514,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Illaoi Chroma Bundle": {
+      "offer_id": "c21b08f0-d05a-4eb6-9822-907e351d2090",
+      "item_id": 79900515,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Kayn Chroma Bundle": {
+      "offer_id": "370cd77c-ed6b-4b72-a4a3-8b00cc6c893b",
+      "item_id": 79900516,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Caitlyn Chroma Bundle": {
+      "offer_id": "e9518208-990a-4331-b9c1-2d2be137e4cc",
+      "item_id": 79900517,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Sona Chroma Bundle": {
+      "offer_id": "0fb11646-c2a2-4c2a-97ec-031896144ff6",
+      "item_id": 79900518,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Kai'Sa Chroma Bundle": {
+      "offer_id": "c48dcf33-7dbd-47de-b114-aa0c75db7423",
+      "item_id": 79900519,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Nilah Chroma Bundle": {
+      "offer_id": "d365df8e-b942-445c-8341-a88c620a47ff",
+      "item_id": 79900520,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Nemesis Fiddlesticks Chroma Bundle": {
+      "offer_id": "47168dba-ec8a-4ab0-93eb-42cbfd736ccc",
+      "item_id": 79900521,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Ekko Chroma Bundle": {
+      "offer_id": "52944de9-2501-45f7-b873-3ad37b82efb2",
+      "item_id": 79900522,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Nemesis Morgana Chroma Bundle": {
+      "offer_id": "8ac67298-ceef-4b9b-8636-d177463ccade",
+      "item_id": 79900523,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Rell Chroma Bundle": {
+      "offer_id": "cb8d5860-7dfe-4674-9ca9-c4a7eb651339",
+      "item_id": 79900524,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Akali Chroma Bundle": {
+      "offer_id": "d833e6fe-3dff-4ec8-9ba5-21a6d69f075f",
+      "item_id": 79900525,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Quinn Chroma Bundle": {
+      "offer_id": "dcbda5d4-d5df-47a7-8c0e-5abcfb0d9a20",
+      "item_id": 79900526,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Taliyah Chroma Bundle": {
+      "offer_id": "ce6ec42d-430e-4893-9927-d7392d090b7f",
+      "item_id": 79900527,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Syndra Chroma Bundle": {
+      "offer_id": "e49626df-b0c7-4cbb-8d43-b2531e41df67",
+      "item_id": 79900528,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Zap'Maw Chroma Bundle": {
+      "offer_id": "c9483af8-1d19-4cac-838d-4a77908dad06",
+      "item_id": 79900529,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Monster Tamer Lulu Chroma Bundle": {
+      "offer_id": "939925d8-9e55-40b8-87a7-6cc6a8ef49d2",
+      "item_id": 79900530,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Monster Tamer Veigar Chroma Bundle": {
+      "offer_id": "65d52026-66d4-401a-ac14-6414c170dda7",
+      "item_id": 79900531,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Strike Paladin Lucian Chroma Bundle": {
+      "offer_id": "50be8fdd-9514-4085-a5a2-4f3674f31aa8",
+      "item_id": 79900532,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Armored Titan Nasus Chroma Bundle": {
+      "offer_id": "de524f59-85a8-4f74-b193-cc5ff2a238ab",
+      "item_id": 79900533,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cyber Halo Janna Chroma Bundle": {
+      "offer_id": "63390eb8-1417-4605-b34b-96e67094e790",
+      "item_id": 79900534,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Aether Wing Kayle Chroma Bundle": {
+      "offer_id": "3fb48364-0113-42da-8fed-5e2fb601bd10",
+      "item_id": 79900535,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Strike Commander Camille Chroma Bundle": {
+      "offer_id": "7c7c3390-979c-4eb7-9528-7267b10063f7",
+      "item_id": 79900536,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "King Viego Chroma Bundle": {
+      "offer_id": "e408fea3-92db-4122-b347-84cfc4848730",
+      "item_id": 79900537,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Zenith Games Jayce Chroma Bundle": {
+      "offer_id": "adbe85df-6b91-4c19-9e2c-2d7478a1279e",
+      "item_id": 79900538,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Zenith Games Lee Sin Chroma Bundle": {
+      "offer_id": "ff24cc01-4c4c-44ad-a9b6-ac97b73a5d6d",
+      "item_id": 79900539,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Zenith Games Blitzcrank Chroma Bundle": {
+      "offer_id": "71580e09-0323-44e8-ab25-e5d042a1388d",
+      "item_id": 79900540,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Draven Chroma Bundle": {
+      "offer_id": "2b2fbdfa-86d6-4345-88c6-f18fb24ecd21",
+      "item_id": 79900542,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Nautilus Chroma Bundle": {
+      "offer_id": "f7819dd1-5c24-419c-a6c2-0fc832b2dbcc",
+      "item_id": 79900543,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Urgot Chroma Bundle": {
+      "offer_id": "12f0a12b-26da-49a7-b68b-52dbac45d42d",
+      "item_id": 79900544,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Trundle Chroma Bundle": {
+      "offer_id": "9a260b48-9dd8-4da0-bf36-22f8f08baa91",
+      "item_id": 79900545,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Renata Glasc Chroma Bundle": {
+      "offer_id": "5545efcb-8a27-4091-b5b5-8c3362aa3e73",
+      "item_id": 79900546,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Annie Chroma Bundle": {
+      "offer_id": "379e6d46-9d46-44d7-a4bc-a89bb0488701",
+      "item_id": 79900547,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Aphelios Chroma Bundle": {
+      "offer_id": "85704841-3d42-469f-92f8-dc9edff10fa0",
+      "item_id": 79900548,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Evelynn Chroma Bundle": {
+      "offer_id": "f795d791-d407-4868-accd-a65f0da73a99",
+      "item_id": 79900549,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Tristana Chroma Bundle": {
+      "offer_id": "cbeb98ac-7296-4f2b-93d8-42e095c0ba0f",
+      "item_id": 79900550,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Syndra Chroma Bundle": {
+      "offer_id": "faeabaf3-9685-4229-a521-6d8cdc627244",
+      "item_id": 79900551,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Master Yi Chroma Bundle": {
+      "offer_id": "f2609163-11a2-4c38-9d2f-2c8d9faf2353",
+      "item_id": 79900552,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Soraka Chroma Bundle": {
+      "offer_id": "df9e0929-f1b7-4b6d-8c3b-0d343863b7ed",
+      "item_id": 79900553,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Darius Chroma Bundle": {
+      "offer_id": "44fc603f-80eb-479a-bc05-6fa53a9e3f50",
+      "item_id": 79900554,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Yorick Chroma Bundle": {
+      "offer_id": "4c40744b-e867-4f67-92d8-676d0ffe82af",
+      "item_id": 79900555,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Sett Chroma Bundle": {
+      "offer_id": "25056158-2617-4e64-b593-a0ea9e5b5169",
+      "item_id": 79900556,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Pyke Chroma Bundle": {
+      "offer_id": "578a8aba-bf97-4f89-b9ad-2a7a5bb4b8ff",
+      "item_id": 79900562,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Lux Chroma Bundle": {
+      "offer_id": "8d1e091f-ca36-4283-bdff-6ad718ef7cf3",
+      "item_id": 79900563,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Jax Chroma Bundle": {
+      "offer_id": "0d5f7d56-a8a4-44e0-851f-0b569701d3ac",
+      "item_id": 79900564,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Zac Chroma Bundle": {
+      "offer_id": "b5270015-f1a5-4245-b909-d192294d351e",
+      "item_id": 79900565,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Zed Chroma Bundle": {
+      "offer_id": "a1ff75a1-01e6-43b1-bef0-50a7c576902c",
+      "item_id": 79900566,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Jhin Chroma Bundle": {
+      "offer_id": "9448be65-aa65-4fd5-9a47-c28ad7d43841",
+      "item_id": 79900567,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Vex Chroma Bundle": {
+      "offer_id": "28e4b60a-4d4c-40f3-b3d3-762e1f1c3430",
+      "item_id": 79900568,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean K'Sante Chroma Bundle": {
+      "offer_id": "d86bdeef-78d5-4255-9ed1-47a5e7f5ee6e",
+      "item_id": 79900569,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Gragas Chroma Bundle": {
+      "offer_id": "6b5ec5fd-9e91-43a5-8a67-e6429f5edb77",
+      "item_id": 79900570,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Lissandra Chroma Bundle": {
+      "offer_id": "f97c83ec-553b-4b87-b78a-6abd78f2c76e",
+      "item_id": 79900571,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Ornn Chroma Bundle": {
+      "offer_id": "89ecd143-439b-417d-8b32-94a09f4d8f93",
+      "item_id": 79900572,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Nami Chroma Bundle": {
+      "offer_id": "bff37d58-7493-4385-b4c6-2d54d41d8fc5",
+      "item_id": 79900573,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Taric Chroma Bundle": {
+      "offer_id": "5e54ce3c-de02-4292-922f-971945a72283",
+      "item_id": 79900574,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Twisted Fate Chroma Bundle": {
+      "offer_id": "998ec730-4da6-42de-8eb3-d395ebdbec79",
+      "item_id": 79900575,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Teemo Chroma Bundle": {
+      "offer_id": "7ee5e5b0-b550-407d-aba5-79f294efed97",
+      "item_id": 79900576,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Diana Chroma Bundle": {
+      "offer_id": "a148c8c1-d6db-424b-9803-2afe099c400a",
+      "item_id": 79900577,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Warwick Chroma Bundle": {
+      "offer_id": "df1dbd42-1b53-43bd-8963-a92a0d7e32be",
+      "item_id": 79900578,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Swain Chroma Bundle": {
+      "offer_id": "9ffc942a-87ad-460e-9dd2-a96581095ab4",
+      "item_id": 79900579,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Zoe Chroma Bundle": {
+      "offer_id": "59a0199e-9775-4dcc-a4a9-0980d7dcd6c0",
+      "item_id": 79900580,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Shaco Chroma Bundle": {
+      "offer_id": "15bb5938-02ee-4b83-912c-c6f492ae926e",
+      "item_id": 79900581,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Zilean Chroma Bundle": {
+      "offer_id": "2356e953-bdbe-43a2-a964-bee81e021b34",
+      "item_id": 79900582,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Mythmaker Irelia Chroma Bundle": {
+      "offer_id": "c2d5367b-92df-4f2b-bc22-6a95b00ac382",
+      "item_id": 79900585,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Empress Ashe Chroma Bundle": {
+      "offer_id": "0ecf35c7-b1a0-48b2-bffe-21104d1e2be0",
+      "item_id": 79900588,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Guardian Kha'Zix Chroma Bundle": {
+      "offer_id": "2808dfe9-f0fc-416d-a8f3-5bb2fbe12212",
+      "item_id": 79900589,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Guardian Malphite Chroma Bundle": {
+      "offer_id": "2440e322-d74b-4013-8243-f19698bc01eb",
+      "item_id": 79900590,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Empress Qiyana Chroma Bundle": {
+      "offer_id": "25bbda1f-71cb-46cb-8aba-8df9b23fe4fc",
+      "item_id": 79900591,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Lunar Emperor Thresh Chroma Bundle": {
+      "offer_id": "d9c5c656-9e66-4f21-a69f-5d2487cdfc9e",
+      "item_id": 79900592,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Heartthrob Caitlyn Chroma Bundle": {
+      "offer_id": "e56d43ae-a5ab-4a84-a8d3-0c7f52c6bbe4",
+      "item_id": 79900593,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Heartache Amumu Chroma Bundle": {
+      "offer_id": "0f1725a8-dfb9-439e-a227-3362a23d92a8",
+      "item_id": 79900594,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Heartache Vi Chroma Bundle": {
+      "offer_id": "c96a2bd4-c797-454a-bf5c-b3d9295f4166",
+      "item_id": 79900595,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Ivern Chroma Bundle": {
+      "offer_id": "f840f892-0d8c-42c2-a128-52b6c3959556",
+      "item_id": 79900596,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Fizz Chroma Bundle": {
+      "offer_id": "3ff13761-e706-4740-b0d1-c1ea0e43021f",
+      "item_id": 79900597,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Singed Chroma Bundle": {
+      "offer_id": "e8f60624-1f58-40e9-a25b-d83bded90ed9",
+      "item_id": 79900598,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Xerath Chroma Bundle": {
+      "offer_id": "21904149-f700-4a12-b83f-71a0df1add44",
+      "item_id": 79900599,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Astronaut Kennen Chroma Bundle": {
+      "offer_id": "dd8f26c4-82d8-48ae-b855-68b59053558d",
+      "item_id": 79900600,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Riven Chroma Bundle": {
+      "offer_id": "4be4b5d4-ad11-411b-8065-57a325f2683b",
+      "item_id": 79900601,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Nocturne Chroma Bundle": {
+      "offer_id": "7ec7ab98-2a3b-4fd5-b729-4b9211eb5b5a",
+      "item_id": 79900602,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Vladimir Chroma Bundle": {
+      "offer_id": "fc3a5867-7188-4ce7-82ea-58e0e7545938",
+      "item_id": 79900603,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Miss Fortune Chroma Bundle": {
+      "offer_id": "750a5a6a-a511-4496-8e0a-3b30ae4ef10b",
+      "item_id": 79900604,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Xayah Chroma Bundle": {
+      "offer_id": "0e0d4de2-8ff8-4248-b0fa-2da1cd500f2d",
+      "item_id": 79900605,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Rakan Chroma Bundle": {
+      "offer_id": "c39b0ca9-eae4-48c7-81ba-eddc9872ac15",
+      "item_id": 79900606,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Cho'Gath Chroma Bundle": {
+      "offer_id": "7a3bcde4-a4ed-464a-a837-5b7f6bbb7951",
+      "item_id": 79900607,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Ezreal Chroma Bundle": {
+      "offer_id": "5d550902-be01-4d2c-b61e-10fd81f723dc",
+      "item_id": 79900608,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Fiora Chroma Bundle": {
+      "offer_id": "5b308e8b-4ab3-4253-8d64-4971ac2be9a6",
+      "item_id": 79900609,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Kalista Chroma Bundle": {
+      "offer_id": "96efe246-4579-40e0-bf93-ed83ac952193",
+      "item_id": 79900610,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Queen Karma Chroma Bundle": {
+      "offer_id": "2204dd58-28c2-4bb8-a9db-89b433def94d",
+      "item_id": 79900611,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Katarina Chroma Bundle": {
+      "offer_id": "8d50d0b9-8ecb-4917-a22b-0342e2ab15e6",
+      "item_id": 79900612,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Milio Chroma Bundle": {
+      "offer_id": "09e09024-883e-414e-9d63-c223b713886c",
+      "item_id": 79900613,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Seraphine Chroma Bundle": {
+      "offer_id": "bbdcaf8a-6edb-43dd-8cc7-6fcb7c07f97a",
+      "item_id": 79900614,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Kibble-Head Kled Chroma Bundle": {
+      "offer_id": "9f930fae-b703-455c-90c0-c9365f1f10cb",
+      "item_id": 79900615,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Woof and Lamb Kindred Chroma Bundle": {
+      "offer_id": "e343ed45-9123-4311-8aab-77ff94fdd774",
+      "item_id": 79900616,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Kittalee Chroma Bundle": {
+      "offer_id": "680763da-aff3-4976-a5a3-504e03244a7a",
+      "item_id": 79900617,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shiba Yuumi Chroma Bundle": {
+      "offer_id": "3101919d-3809-46de-a598-7e051752395e",
+      "item_id": 79900618,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Renekton Chroma Bundle": {
+      "offer_id": "c469847c-06d0-4f26-8479-0f228de5eb62",
+      "item_id": 79900619,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Vayne Chroma Bundle": {
+      "offer_id": "8745399a-45fc-4d6a-b7c4-dd5a343a7017",
+      "item_id": 79900620,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Jarvan IV Chroma Bundle": {
+      "offer_id": "54290f88-1b0d-42c8-8bbd-cdef95338d68",
+      "item_id": 79900621,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Nasus Chroma Bundle": {
+      "offer_id": "8a77c322-e98b-4873-ae2c-54452ddc0eae",
+      "item_id": 79900622,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Yasuo Chroma Bundle": {
+      "offer_id": "04694763-b5b3-4187-9e94-7693e3bee3fe",
+      "item_id": 79900624,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Aurelion Sol Chroma Bundle": {
+      "offer_id": "d7b0d630-bdb8-4545-b46b-906167c96152",
+      "item_id": 79900625,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Kai'Sa Chroma Bundle": {
+      "offer_id": "fe769543-2594-4bf9-b6cd-59dc35c4a476",
+      "item_id": 79900626,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Udyr Chroma Bundle": {
+      "offer_id": "30734c58-1258-4f7a-87ac-a3299d3e3c92",
+      "item_id": 79900627,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Master Yi Chroma Bundle": {
+      "offer_id": "2ba7a257-84d0-4163-a813-5e29aa0e37a7",
+      "item_id": 79900628,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Volibear Chroma Bundle": {
+      "offer_id": "076305d0-7408-4b3b-98ee-f8f841b81e1c",
+      "item_id": 79900629,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Yone Chroma Bundle": {
+      "offer_id": "3a7a0ea0-0d4a-495b-8fec-f545d2900e43",
+      "item_id": 79900630,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Varus Chroma Bundle": {
+      "offer_id": "075b9cae-f832-4154-916e-66289cd3f5ea",
+      "item_id": 79900631,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Ahri Chroma Bundle": {
+      "offer_id": "0b513afc-2bfb-4052-8ce5-bdf2c6ef4a42",
+      "item_id": 79900632,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Snow Moon Morgana Chroma Bundle": {
+      "offer_id": "f8e4e152-9420-476e-9be2-3224fa447d7c",
+      "item_id": 79900633,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Bard Chroma Bundle": {
+      "offer_id": "08715eac-c39f-4a43-9d32-806668c32c54",
+      "item_id": 79900634,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Kog'Maw Chroma Bundle": {
+      "offer_id": "2c833a97-c27a-4ca1-ab99-a40bdecec307",
+      "item_id": 79900635,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Lillia Chroma Bundle": {
+      "offer_id": "3481d23c-2a53-4b12-9248-bfac678f15e6",
+      "item_id": 79900636,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Shan Hai Scrolls Tahm Kench Chroma Bundle": {
+      "offer_id": "0aab597d-34f5-42b9-a242-4e7ca56c5984",
+      "item_id": 79900637,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Wukong Chroma Bundle": {
+      "offer_id": "936bd6b6-f0f8-453b-a05e-6aa90cf712b4",
+      "item_id": 79900638,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Karthus Chroma Bundle": {
+      "offer_id": "25d7a976-9281-440f-a871-577568005482",
+      "item_id": 79900639,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Orianna Chroma Bundle": {
+      "offer_id": "614f9c97-004d-4ee6-8a6a-9eef86542b2d",
+      "item_id": 79900640,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Seraphine Chroma Bundle": {
+      "offer_id": "257c3668-d537-4e24-8063-5df062f642c5",
+      "item_id": 79900641,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Lux Chroma Bundle": {
+      "offer_id": "afd3203f-d57a-41de-96de-cafc055837e1",
+      "item_id": 79900642,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Naafiri Chroma Bundle": {
+      "offer_id": "469ea690-a529-4903-be7f-cc426d4f78d5",
+      "item_id": 79900643,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Pyke Chroma Bundle": {
+      "offer_id": "c2d4f000-8860-47bf-a074-a499128e23a9",
+      "item_id": 79900644,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Sett Chroma Bundle": {
+      "offer_id": "3c5dae56-8cba-4e39-891a-4b64992ac81b",
+      "item_id": 79900645,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Star Guardian Senna Chroma Bundle": {
+      "offer_id": "4f0b5c83-364e-4714-8055-212354a77359",
+      "item_id": 79900646,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Evelynn Chroma Bundle": {
+      "offer_id": "faeb939b-deac-4a4d-9216-d6425cabb3b8",
+      "item_id": 79900647,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Gwen Chroma Bundle": {
+      "offer_id": "a32c3d84-6dcc-4bcf-a82f-2f8c64574e84",
+      "item_id": 79900648,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Shaco Chroma Bundle": {
+      "offer_id": "29fa28a1-e861-4df8-9fe6-cf7be2b39fb6",
+      "item_id": 79900649,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Jhin Chroma Bundle": {
+      "offer_id": "a021bb65-086f-4e22-94bd-d7792c12c5ad",
+      "item_id": 79900650,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Soul Fighter Viego Chroma Bundle": {
+      "offer_id": "0804ff42-af18-41f2-a819-d7bfed282ee2",
+      "item_id": 79900651,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Soraka Chroma Bundle": {
+      "offer_id": "6e613cca-2229-4d1b-a843-37ff51fa8e5f",
+      "item_id": 79900652,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Kayle Chroma Bundle": {
+      "offer_id": "b06f3bd4-f6e0-464e-bef9-50fa05144119",
+      "item_id": 79900653,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Sona Chroma Bundle": {
+      "offer_id": "813d86d9-8b2d-4fcb-be9d-2febe8d4c786",
+      "item_id": 79900654,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Shyvana Chroma Bundle": {
+      "offer_id": "19e50bcd-7cdd-4569-b1ef-32c224727371",
+      "item_id": 79900655,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Zeri Chroma Bundle": {
+      "offer_id": "89a3eeee-ec54-40e4-9f69-e98011102b0c",
+      "item_id": 79900656,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Zed Chroma Bundle": {
+      "offer_id": "c1efacf4-91c3-4d0f-8630-26d13d58b7a3",
+      "item_id": 79900657,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Matriarch Bel'Veth Chroma Bundle": {
+      "offer_id": "7442fc10-6280-4226-bb01-2b99ca34e8d1",
+      "item_id": 79900658,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Paladin Nautilus Chroma Bundle": {
+      "offer_id": "755e1542-0ac7-4934-9cc5-807681d18529",
+      "item_id": 79900659,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Paladins Nunu & Willump Chroma Bundle": {
+      "offer_id": "05a62612-d08f-49ed-8a40-7b32add61c28",
+      "item_id": 79900660,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosmic Paladin Sion Chroma Bundle": {
+      "offer_id": "caeacb08-5ab7-42a3-a43b-4bf77b19dac5",
+      "item_id": 79900661,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Brand Chroma Bundle": {
+      "offer_id": "10d5f263-6ac6-4a91-9ecf-b7702400afd6",
+      "item_id": 79900662,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Briar Chroma Bundle": {
+      "offer_id": "2319a6cd-09bc-4cab-bf92-9d5f8419a571",
+      "item_id": 79900663,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Dr. Mundo Chroma Bundle": {
+      "offer_id": "b64cb432-53f3-469b-8613-fd22747c9ae6",
+      "item_id": 79900664,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Neeko Chroma Bundle": {
+      "offer_id": "8b46871d-eb02-4593-9c3c-190172363dc3",
+      "item_id": 79900665,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Rengar Chroma Bundle": {
+      "offer_id": "289de42b-d437-4bb5-aa5d-e4fa056750b7",
+      "item_id": 79900666,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Street Demons Zyra Chroma Bundle": {
+      "offer_id": "8fccb806-16eb-4fb2-94a2-4ed14de5e80f",
+      "item_id": 79900667,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Draven Chroma Bundle": {
+      "offer_id": "0bfcdc6f-ca02-4e4b-9991-e7bbb598d344",
+      "item_id": 79900668,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Gnar Chroma Bundle": {
+      "offer_id": "d59cf4fe-b738-4dc6-be7f-ffaf5e727b74",
+      "item_id": 79900669,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Nidalee Chroma Bundle": {
+      "offer_id": "16e81a6f-59d8-4b75-b436-8612b3f91f09",
+      "item_id": 79900670,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Renata Glasc Chroma Bundle": {
+      "offer_id": "2226a299-50f6-4436-b8b7-2e021e14be28",
+      "item_id": 79900671,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Qiyana Chroma Bundle": {
+      "offer_id": "71835aa4-b2c1-4928-8ae0-ca15b7ab1373",
+      "item_id": 79900672,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "La Ilusión Ziggs Chroma Bundle": {
+      "offer_id": "d50c20d4-5c0a-49f2-b74b-54941833cf82",
+      "item_id": 79900673,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Akali Chroma Bundle": {
+      "offer_id": "a157e6a8-07a1-4dcb-8e2c-573bd1c8e652",
+      "item_id": 79900674,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Nami Chroma Bundle": {
+      "offer_id": "ffc76fb6-6abc-45c2-a911-ec7383a0eb47",
+      "item_id": 79900675,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Old God Mordekaiser Chroma Bundle": {
+      "offer_id": "e2b67bd4-de55-4798-8ed6-1d37096d3d3d",
+      "item_id": 79900676,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Nilah Chroma Bundle": {
+      "offer_id": "71a73ab9-7312-46d2-bbb8-903f4d5418d4",
+      "item_id": 79900677,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Syndra Chroma Bundle": {
+      "offer_id": "6e96a253-894d-432c-80fd-61ef5422edb9",
+      "item_id": 79900678,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Coven Elise Chroma Bundle": {
+      "offer_id": "8244a907-e775-4540-b0fb-39a0d2910159",
+      "item_id": 79900679,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Rumble Chroma Bundle": {
+      "offer_id": "52522719-44f1-4ae7-82fa-6e78a3fc2a4f",
+      "item_id": 79900681,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Jinx Chroma Bundle": {
+      "offer_id": "64bd4559-870b-4550-90c5-5c7b90094416",
+      "item_id": 79900682,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Poppy Chroma Bundle": {
+      "offer_id": "2e3e05d0-d1cf-4824-87da-3840f37ccc8d",
+      "item_id": 79900683,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Cafe Cuties Lulu Chroma Bundle": {
+      "offer_id": "851e116a-5036-4005-b4e6-66ebaf347d34",
+      "item_id": 79900684,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL Aphelios Chroma Bundle": {
+      "offer_id": "50363053-ef01-454e-9c96-0942ce38230f",
+      "item_id": 79900685,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL Ezreal Chroma Bundle": {
+      "offer_id": "edb76a01-228e-4a41-b6d1-2b68f95886b8",
+      "item_id": 79900686,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL K'Sante Chroma Bundle": {
+      "offer_id": "5fd5058f-9cc3-48f0-a916-68087e49e014",
+      "item_id": 79900687,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL Kayn Chroma Bundle": {
+      "offer_id": "81ac671d-b2b8-453d-b063-bcc370765f5c",
+      "item_id": 79900688,
+      "price_rp": 3090,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL Sett Chroma Bundle": {
+      "offer_id": "794f9de1-3437-40bf-b907-f782a0f60737",
+      "item_id": 79900689,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "HEARTSTEEL Yone Chroma Bundle": {
+      "offer_id": "09471310-ac65-4cee-95ed-19196ed9198b",
+      "item_id": 79900690,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Bee'Koz Chroma Bundle": {
+      "offer_id": "264281c0-1072-4ba7-82b6-2472008eb17c",
+      "item_id": 79900691,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Beezcrank Chroma Bundle": {
+      "offer_id": "744f2dff-9fb2-42c1-a90a-bab9aba87e63",
+      "item_id": 79900692,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "King Beegar Chroma Bundle": {
+      "offer_id": "d15c5da9-4e6e-4e88-882e-44dccb2ae30b",
+      "item_id": 79900693,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Senna Chroma Bundle": {
+      "offer_id": "2b4252f3-36ad-4551-835b-ab6f2f413481",
+      "item_id": 79900694,
+      "price_rp": 3285,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Annie Chroma Bundle": {
+      "offer_id": "5b2edcd3-8031-4369-a668-fa4ac78441ff",
+      "item_id": 79900695,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Camille Chroma Bundle": {
+      "offer_id": "f8825eca-6bc5-44b0-9fae-a93be2201f0b",
+      "item_id": 79900696,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Hecarim Chroma Bundle": {
+      "offer_id": "d49357b9-bbc5-4c7e-bce2-dd37dc8ce338",
+      "item_id": 79900697,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Hwei Chroma Bundle": {
+      "offer_id": "ddcb55ea-b2f5-45c5-b23f-8f2b65ef1166",
+      "item_id": 79900698,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Lucian Chroma Bundle": {
+      "offer_id": "e3355a91-58f8-481d-ab24-2f0c98149641",
+      "item_id": 79900699,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Sylas Chroma Bundle": {
+      "offer_id": "c8b8fe52-7a4a-46f3-a747-7251f7162e7a",
+      "item_id": 79900700,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Winterblessed Thresh Chroma Bundle": {
+      "offer_id": "488f3aa4-44e5-479c-ae5f-7cd2c7099c94",
+      "item_id": 79900701,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonmancer Fiora Chroma Bundle": {
+      "offer_id": "d0b1bd55-3710-4c00-a9bc-8cd1b716d50e",
+      "item_id": 79900702,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonmancer Kassadin Chroma Bundle": {
+      "offer_id": "488ccdf8-eef5-4e0e-a2ee-3e922953a300",
+      "item_id": 79900703,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonmancer Rakan Chroma Bundle": {
+      "offer_id": "2d1223a9-2856-420c-ba98-b28be0b1e622",
+      "item_id": 79900704,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragonmancer Vayne Chroma Bundle": {
+      "offer_id": "96d90c83-0557-45fd-9dea-d3da0b8d16c7",
+      "item_id": 79900705,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Primal Ambush Riven Chroma Bundle": {
+      "offer_id": "857b53fe-96a8-4313-b3e6-d4b911bf06db",
+      "item_id": 79900706,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Primal Ambush Sivir Chroma Bundle": {
+      "offer_id": "c776bd6b-39da-496a-9cea-05474182e8d8",
+      "item_id": 79900707,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Primal Ambush Talon Chroma Bundle": {
+      "offer_id": "a90676f4-5861-401e-8027-53db94622688",
+      "item_id": 79900708,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Primal Ambush Vi Chroma Bundle": {
+      "offer_id": "eea8bcc4-df9f-4d16-89b0-6de64f68c01d",
+      "item_id": 79900709,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Foreseen Yasuo Chroma Bundle": {
+      "offer_id": "adb85ad0-5b08-4bca-96b8-7331925b0fda",
+      "item_id": 79900710,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Heavenscale Lee Sin Chroma Bundle": {
+      "offer_id": "28d21a30-857a-4cab-b756-d113c04920d9",
+      "item_id": 79900716,
+      "price_rp": 3182,
+      "inventory_type": "BUNDLES"
+    },
+    "Heavenscale Smolder Chroma Bundle": {
+      "offer_id": "f8bd0c7c-0f8e-4865-b809-9a5742a67e6f",
+      "item_id": 79900717,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Protector Aurelion Sol Chroma Bundle": {
+      "offer_id": "f02770af-a817-4fe9-a1a9-b60e8cf01ce2",
+      "item_id": 79900718,
+      "price_rp": 3330,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Darius Chroma Bundle": {
+      "offer_id": "4d56c4e5-a48a-49c0-a6d7-59bd33115def",
+      "item_id": 79900719,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Graves Chroma Bundle": {
+      "offer_id": "6862814f-8c80-42c7-aa42-75254477bb89",
+      "item_id": 79900720,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Morgana Chroma Bundle": {
+      "offer_id": "fbee402b-1cc0-4c1a-89f0-f82c7f60b2b0",
+      "item_id": 79900721,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Miss Fortune Chroma Bundle": {
+      "offer_id": "ea6f3d62-3768-47db-aecf-6f722794a038",
+      "item_id": 79900722,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Porcelain Irelia Chroma Bundle": {
+      "offer_id": "4b728a55-5e9d-46ad-85e4-a52ba557163f",
+      "item_id": 79900723,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Gangplank Chroma Bundle": {
+      "offer_id": "f36e6494-f187-4f53-b78d-f388755cc754",
+      "item_id": 79900724,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Jax Chroma Bundle": {
+      "offer_id": "7ba8d727-bff3-4021-ac34-fda5aee35fad",
+      "item_id": 79900725,
+      "price_rp": 2982,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Naafiri Chroma Bundle": {
+      "offer_id": "8c3f6232-a36e-47da-80b6-4e436ca9dcf5",
+      "item_id": 79900726,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Evelynn Chroma Bundle": {
+      "offer_id": "fd47bbc2-30a3-4379-9afb-295fe3c2f2a4",
+      "item_id": 79900727,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Gragas Chroma Bundle": {
+      "offer_id": "6c91dcee-3787-4348-a5b3-e51c687a65df",
+      "item_id": 79900728,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Rell Chroma Bundle": {
+      "offer_id": "48f4c506-30f4-4256-b9cf-147659d5b57f",
+      "item_id": 79900729,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Yone Chroma Bundle": {
+      "offer_id": "4bb7081a-9db9-41b5-9ca1-450d5e23252b",
+      "item_id": 79900730,
+      "price_rp": 3285,
+      "inventory_type": "BUNDLES"
+    },
+    "Durian Defender Rammus Chroma Bundle": {
+      "offer_id": "33d25960-d4f7-4968-b2ef-e48b5f4d830f",
+      "item_id": 79900731,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Choo-Choo Ornn Chroma Bundle": {
+      "offer_id": "b2ce0279-1573-421f-bae7-b4c795be2bb4",
+      "item_id": 79900732,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Cheddar Chief Twitch Chroma Bundle": {
+      "offer_id": "a3a9f0d8-91a4-4aee-a21c-09d8fd8e8890",
+      "item_id": 79900733,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Toy Terror Cho'Gath Chroma Bundle": {
+      "offer_id": "c4d15495-616a-4327-a1eb-d982863c7e44",
+      "item_id": 79900734,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Zesty Dip Zac Chroma Bundle": {
+      "offer_id": "49960078-db6f-4464-97a7-e13dd28027a8",
+      "item_id": 79900735,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Fiddlesticks Chroma Bundle": {
+      "offer_id": "e19021ce-6880-4a7e-8f02-6d35c6ca66a7",
+      "item_id": 79900736,
+      "price_rp": 2982,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Zed Chroma Bundle": {
+      "offer_id": "c34b63fd-5373-42f1-8b4e-7dee16911268",
+      "item_id": 79900737,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Zyra Chroma Bundle": {
+      "offer_id": "f8b4bc78-417a-4989-ac74-8260be8d32b9",
+      "item_id": 79900738,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Varus Chroma Bundle": {
+      "offer_id": "d9594533-d463-4a30-8c3a-79401d09dce4",
+      "item_id": 79900739,
+      "price_rp": 3330,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Nocturne Chroma Bundle": {
+      "offer_id": "d237b47c-6c5f-4b88-9a9e-91b6df038f69",
+      "item_id": 79900740,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Brand Chroma Bundle": {
+      "offer_id": "cb8706db-53d3-49b4-b133-1649138b3f3d",
+      "item_id": 79900741,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Malzahar Chroma Bundle": {
+      "offer_id": "98a83399-bbc7-4ccf-ba76-8f74a2531343",
+      "item_id": 79900742,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Kayle Chroma Bundle": {
+      "offer_id": "b1fafeac-a81b-40ec-9dda-4a987587a301",
+      "item_id": 79900743,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Empyrean Akali Chroma Bundle": {
+      "offer_id": "68304379-198e-4bdf-985b-7dabc8ec6c9d",
+      "item_id": 79900744,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Muay Thai Lee Sin Chroma Bundle": {
+      "offer_id": "11be2b6e-5735-429b-8b72-8108d52dc578",
+      "item_id": 79900745,
+      "price_rp": 2712,
+      "inventory_type": "BUNDLES"
+    },
+    "Dragon Fist Lee Sin Chroma Bundle": {
+      "offer_id": "7ba46bf0-9023-492a-a6d2-75c9b74860d3",
+      "item_id": 79900746,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Lux Chroma Bundle": {
+      "offer_id": "981e4d18-f85a-4f24-94e0-cf08a358293c",
+      "item_id": 79900748,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Soraka Chroma Bundle": {
+      "offer_id": "82f94897-f45c-463f-a75f-8b9e571c914f",
+      "item_id": 79900749,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Lillia Chroma Bundle": {
+      "offer_id": "5d266a66-2ee1-486d-9634-d1bb567fea66",
+      "item_id": 79900750,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Faerie Court Tristana Chroma Bundle": {
+      "offer_id": "da576f57-0bc9-4e24-a13d-893d5f14f0c0",
+      "item_id": 79900751,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Ashe Chroma Bundle": {
+      "offer_id": "dce56b6c-a519-4a70-9924-1a3565796e07",
+      "item_id": 79900752,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Olaf Chroma Bundle": {
+      "offer_id": "5f2ad8b7-8bcc-4a47-9789-f6dd22283dfd",
+      "item_id": 79900753,
+      "price_rp": 3085,
+      "inventory_type": "BUNDLES"
+    },
+    "Infernal Karma Chroma Bundle": {
+      "offer_id": "4d2bf89d-a339-4fd2-9452-0a7bdea01da8",
+      "item_id": 79900754,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Rain Shepherd Milio Chroma Bundle": {
+      "offer_id": "62194455-2884-45e2-8664-32d45bdace54",
+      "item_id": 79900755,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Rain Shepherd Fizz Chroma Bundle": {
+      "offer_id": "38a455b0-e567-4266-bf20-ef0dd479d39f",
+      "item_id": 79900756,
+      "price_rp": 2982,
+      "inventory_type": "BUNDLES"
+    },
+    "Cyber Cat Yuumi Chroma Bundle": {
+      "offer_id": "fd7b600f-80b1-4d82-94e0-333607f13913",
+      "item_id": 79900757,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bat Xayah Chroma Bundle": {
+      "offer_id": "76119d83-63c9-446e-b32f-682d0bf1e09b",
+      "item_id": 79900758,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bunny Aurora Chroma Bundle": {
+      "offer_id": "268a4342-5eb2-45cb-bf03-4bc558c19f13",
+      "item_id": 79900759,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Dove Seraphine Chroma Bundle": {
+      "offer_id": "4b471ec2-f479-4997-8b2a-e25b3c171af8",
+      "item_id": 79900760,
+      "price_rp": 3285,
+      "inventory_type": "BUNDLES"
+    },
+    "Primordian Rek'Sai Chroma Bundle": {
+      "offer_id": "09420880-6a46-47ed-a453-652577f3458d",
+      "item_id": 79900761,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Primordian Bel'Veth Chroma Bundle": {
+      "offer_id": "ec036417-a35a-4b9d-862a-942c91fdada2",
+      "item_id": 79900762,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Primordian Aatrox Chroma Bundle": {
+      "offer_id": "f39e9fb4-b2c7-493d-b937-7f350384aede",
+      "item_id": 79900763,
+      "price_rp": 3330,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Lion Leona Chroma Bundle": {
+      "offer_id": "0e33fea5-97fa-4a14-b403-6e1c76a9a22a",
+      "item_id": 79900764,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Bear Illaoi Chroma Bundle": {
+      "offer_id": "d16d6b99-785f-4ace-aecb-23aadf43a930",
+      "item_id": 79900765,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Wolf Yasuo Chroma Bundle": {
+      "offer_id": "8093e5e9-6ceb-41d0-9ad5-087ba3089eb7",
+      "item_id": 79900766,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Primordian Briar Chroma Bundle": {
+      "offer_id": "62877cdf-339b-4377-b924-0e71d50583ea",
+      "item_id": 79900767,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Princess Annie Chroma Bundle": {
+      "offer_id": "46616cb5-82be-4eb5-8108-889ceb8a525e",
+      "item_id": 79900768,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Gwen Chroma Bundle": {
+      "offer_id": "e1e0349d-0a6e-45e9-8bb9-e4d92f986620",
+      "item_id": 79900769,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Fiora Chroma Bundle": {
+      "offer_id": "11a2c93c-4904-4fc2-8bbb-1dcc404e426b",
+      "item_id": 79900770,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Queen Miss Fortune Chroma Bundle": {
+      "offer_id": "25413c26-57c5-4646-b047-ea8cebbdcd3d",
+      "item_id": 79900771,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Janitor Thresh Chroma Bundle": {
+      "offer_id": "a8a15eae-ed95-44cf-b114-3ab666f4a248",
+      "item_id": 79900772,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Attorney Azir Chroma Bundle": {
+      "offer_id": "3d3e1850-4095-40a1-9e20-5fd64ac94099",
+      "item_id": 79900773,
+      "price_rp": 3130,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Veigar Chroma Bundle": {
+      "offer_id": "57be99c5-82d7-4ef0-bc83-200bfe892a1a",
+      "item_id": 79900774,
+      "price_rp": 3182,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Nunu & Willump Chroma Bundle": {
+      "offer_id": "a1ae83bb-91ae-42be-bbcb-5e53103af14b",
+      "item_id": 79900775,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Shaco Chroma Bundle": {
+      "offer_id": "1fe365d3-e7af-440d-a4c9-784ea6b6ffa2",
+      "item_id": 79900776,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Pyke Chroma Bundle": {
+      "offer_id": "aa58df4b-67a8-4275-a53d-05b544dcb0ad",
+      "item_id": 79900777,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Fright Night Zeri Chroma Bundle": {
+      "offer_id": "dac2d692-17a0-455e-b17a-c2969721b991",
+      "item_id": 79900778,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Music Fan Gragas Chroma Bundle": {
+      "offer_id": "034eb188-41e7-4fe5-9020-2fba5e56bca3",
+      "item_id": 79900780,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Cosplayer Neeko Chroma Bundle": {
+      "offer_id": "7d0846d1-575f-4105-9218-bb41719eb7c4",
+      "item_id": 79900781,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Esports Fan Trundle Chroma Bundle": {
+      "offer_id": "229636ba-dbe4-4df5-b148-4aaf94501aae",
+      "item_id": 79900782,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Cosmic Diana Chroma Bundle": {
+      "offer_id": "51581056-0736-4ab6-9bc7-7bc56761ca3d",
+      "item_id": 79900783,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Zoe Chroma Bundle": {
+      "offer_id": "cbd04b3d-13a2-4b1a-a4a6-32d979284dce",
+      "item_id": 79900784,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Kai'Sa Chroma Bundle": {
+      "offer_id": "245303b9-5dbf-4999-aa04-2485e3adee60",
+      "item_id": 79900785,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Sylas Chroma Bundle": {
+      "offer_id": "0986b939-f2fa-4152-9ff3-32a755fd60ee",
+      "item_id": 79900786,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Dark Star Yorick Chroma Bundle": {
+      "offer_id": "29647ba4-1888-4295-8e64-d96a0c4f67a3",
+      "item_id": 79900787,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chosen of the Wolf Ambessa Chroma Bundle": {
+      "offer_id": "54499350-33a4-419e-b18e-8581c260e76e",
+      "item_id": 79900788,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chosen of the Wolf Swain Chroma Bundle": {
+      "offer_id": "ec6f470d-54f2-4123-828b-027aeb9ec7ce",
+      "item_id": 79900789,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chosen of the Wolf Kindred Chroma Bundle": {
+      "offer_id": "0de7d982-78a7-4813-adb1-882a5becd817",
+      "item_id": 79900790,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chosen of the Wolf Katarina Chroma Bundle": {
+      "offer_id": "d7e2ea0f-038a-4cf0-94fc-4de6aea05320",
+      "item_id": 79900791,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Chosen of the Wolf Pantheon Chroma Bundle": {
+      "offer_id": "1db65f5b-bd19-4580-8ef6-72bab74ab388",
+      "item_id": 79900792,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Masque of the Black Rose Ezreal Chroma Bundle": {
+      "offer_id": "2c4bde4c-3168-4d4c-a0d1-25ae4f1ee00c",
+      "item_id": 79900793,
+      "price_rp": 3088,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcane Councilor Mel Chroma Bundle": {
+      "offer_id": "700946bd-2f88-49dc-a00e-39cf9e6e4bc2",
+      "item_id": 79900797,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Dumpling Darlings Syndra Chroma Bundle": {
+      "offer_id": "305f503a-7298-4571-903d-7572fbce03d3",
+      "item_id": 79900798,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Dumpling Darlings Amumu Chroma Bundle": {
+      "offer_id": "e72c8858-2324-4c3a-a1ec-8f2a8d8d8df4",
+      "item_id": 79900799,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Dumpling Darlings Seraphine Chroma Bundle": {
+      "offer_id": "e3709082-c984-4652-8575-f52a8dc18254",
+      "item_id": 79900800,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Masked Justice Lucian Chroma Bundle": {
+      "offer_id": "8b240d55-fc0d-4c6a-8db1-287dbfda0af8",
+      "item_id": 79900801,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Masked Justice Senna Chroma Bundle": {
+      "offer_id": "ae8fdeb7-96c1-4dc2-9fe5-a4c53b9fd70f",
+      "item_id": 79900802,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Masked Justice Yone Chroma Bundle": {
+      "offer_id": "ece1a016-5007-420f-be63-658419d15e7b",
+      "item_id": 79900803,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Grand Reckoning Draven Chroma Bundle": {
+      "offer_id": "d3f0dbd6-fddd-43fd-b03c-cc2e081b599e",
+      "item_id": 79900804,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Kayn Chroma Bundle": {
+      "offer_id": "b37c91ef-62d5-4c0c-80db-b6bba0c7c44b",
+      "item_id": 79900805,
+      "price_rp": 2620,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Rakan Chroma Bundle": {
+      "offer_id": "bc99e297-8d8b-4475-981b-6da466477ae6",
+      "item_id": 79900806,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Xayah Chroma Bundle": {
+      "offer_id": "07f39804-82bb-4d8e-8059-77db1c1b7fab",
+      "item_id": 79900807,
+      "price_rp": 3330,
+      "inventory_type": "BUNDLES"
+    },
+    "Urgot the Clogfather Chroma Bundle": {
+      "offer_id": "e1ea9d87-52ee-412f-bf5a-e6bd87e92489",
+      "item_id": 79900808,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Pool Party Malphite Chroma Bundle": {
+      "offer_id": "afd010f5-4e23-4f3e-9cda-017a5f7d36c8",
+      "item_id": 79900809,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Grill Master Braum Chroma Bundle": {
+      "offer_id": "5c6cec34-821b-4d14-9456-d5976bf2d3dd",
+      "item_id": 79900810,
+      "price_rp": 3660,
+      "inventory_type": "BUNDLES"
+    },
+    "Glizzy Naafiri Chroma Bundle": {
+      "offer_id": "b9cc5f2f-9632-4e27-968e-67aa9b4c1dd8",
+      "item_id": 79900811,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Cat-in-the-Box Shaco Chroma Bundle": {
+      "offer_id": "ede7623b-1539-49b0-9b00-ab501edf82a7",
+      "item_id": 79900812,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "Fatebreaker Taric Chroma Bundle": {
+      "offer_id": "7d2f6c98-af6f-480a-9517-f2db1fab7f41",
+      "item_id": 79900813,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Fatebreaker Malzahar Chroma Bundle": {
+      "offer_id": "d5a37617-086c-44e7-8885-aac40ed8451b",
+      "item_id": 79900814,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Fatemaker Nasus Chroma Bundle": {
+      "offer_id": "e8955ee7-34b5-4f78-9083-89ca33dcde5c",
+      "item_id": 79900815,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Bard Chroma Bundle": {
+      "offer_id": "d6f0de94-3db4-4f5a-8295-7f075541023b",
+      "item_id": 79900816,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Zyra Chroma Bundle": {
+      "offer_id": "80ee4404-8ec5-41f2-8d6c-4b9f8dcc2d06",
+      "item_id": 79900817,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Varus Chroma Bundle": {
+      "offer_id": "77ab5031-eb52-4a33-bf83-87c334f69e0e",
+      "item_id": 79900818,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Ashe Chroma Bundle": {
+      "offer_id": "9d831ee9-b44f-4e69-b7b2-0107337a0170",
+      "item_id": 79900819,
+      "price_rp": 3165,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Irelia Chroma Bundle": {
+      "offer_id": "6734d3e5-b5b2-4d92-b988-aa82dd317514",
+      "item_id": 79900820,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "Stargazer Vex Chroma Bundle": {
+      "offer_id": "ff91fdf9-d44f-4725-b939-e08b3588ce83",
+      "item_id": 79900821,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Yorick Chroma Bundle": {
+      "offer_id": "794d9bff-cd71-40b6-b614-0fbdd3cac45b",
+      "item_id": 79900822,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Blood Moon Ryze Chroma Bundle": {
+      "offer_id": "ed2706ab-e31e-4e7c-8335-189c68ebc97b",
+      "item_id": 79900823,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Renekton Chroma Bundle": {
+      "offer_id": "7378d1f2-edb2-4624-ae30-2181d414e9e0",
+      "item_id": 79900824,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Pyke Chroma Bundle": {
+      "offer_id": "533eb6bb-2afe-475b-a3dc-5d2fe79be4e2",
+      "item_id": 79900825,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Lee Sin Chroma Bundle": {
+      "offer_id": "af79fb0e-a8e2-4667-89d6-a2bbcb17a638",
+      "item_id": 79900826,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Inkshadow Nilah Chroma Bundle": {
+      "offer_id": "03b6cc9c-d462-45fe-9a69-0165e72403f4",
+      "item_id": 79900827,
+      "price_rp": 3005,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Karma Chroma Bundle": {
+      "offer_id": "52587986-195b-4af9-b9b1-6b1f3c2ed965",
+      "item_id": 79900828,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Kayle Chroma Bundle": {
+      "offer_id": "e9c5e3d9-51df-4a74-87de-1a32a2577673",
+      "item_id": 79900829,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Nidalee Chroma Bundle": {
+      "offer_id": "7b67c8f2-91ba-4b57-9420-7eabac690bbc",
+      "item_id": 79900830,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Akali Chroma Bundle": {
+      "offer_id": "104e5010-e9e7-4cca-a505-ecf3033f6cb9",
+      "item_id": 79900831,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Hwei Chroma Bundle": {
+      "offer_id": "1756fae3-df0a-47d9-8e46-acf35efb6eb6",
+      "item_id": 79900832,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Hecarim Chroma Bundle": {
+      "offer_id": "87fbcf90-6f0e-4c6f-9ec0-e2030b36f4bb",
+      "item_id": 79900833,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Nightbringer Yuumi Chroma Bundle": {
+      "offer_id": "d1876dd4-f556-4201-aa6c-deee613fcd87",
+      "item_id": 79900834,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Dawnbringer Kalista Chroma Bundle": {
+      "offer_id": "f0f8b93c-573d-41f6-add9-4b09b84f7944",
+      "item_id": 79900835,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Yunara Chroma Bundle": {
+      "offer_id": "9a2b3faf-df67-4d8b-8a86-5179711274b6",
+      "item_id": 79900836,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Teemo Chroma Bundle": {
+      "offer_id": "af1aaec2-a5ee-487e-865b-931cedd8816a",
+      "item_id": 79900837,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Sona Chroma Bundle": {
+      "offer_id": "dd66e4e2-c43c-4d26-b7cd-4aa1ea735791",
+      "item_id": 79900838,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Volibear Chroma Bundle": {
+      "offer_id": "20730d50-e16e-479d-8a48-c2b8297bdc2d",
+      "item_id": 79900839,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Sett Chroma Bundle": {
+      "offer_id": "5b88870a-f962-4431-ae3c-208a9396f88f",
+      "item_id": 79900840,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Blossom Springs Ahri Chroma Bundle": {
+      "offer_id": "587dfcdc-799e-4eb0-9e55-ae3422d4e58d",
+      "item_id": 79900841,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "Brick Toy Corki Chroma Bundle": {
+      "offer_id": "ca534500-ced3-49c5-b352-81a7806a7dfb",
+      "item_id": 79900842,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Bowling League Lillia Chroma Bundle": {
+      "offer_id": "93b9c77b-13b1-4942-acac-b45bd3581a3b",
+      "item_id": 79900843,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Visions of the Fallen Garen Chroma Bundle": {
+      "offer_id": "4e78106c-d696-45ef-8686-9644bb3b74fe",
+      "item_id": 79900844,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Visions of the Fallen Tryndamere Chroma Bundle": {
+      "offer_id": "2c2a5b86-5fec-41f5-a4d3-6290f59589fc",
+      "item_id": 79900845,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Elderwood Alistar Chroma Bundle": {
+      "offer_id": "516facd5-38b8-4c20-92e9-e7d697bbc00d",
+      "item_id": 79900846,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Zilean Chroma Bundle": {
+      "offer_id": "bb3860e9-36c5-453d-9b90-ad1b47d39452",
+      "item_id": 79900847,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Karthus Chroma Bundle": {
+      "offer_id": "18ae65e2-a486-4083-a230-315bdfe784e2",
+      "item_id": 79900848,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Arcana Aurora Chroma Bundle": {
+      "offer_id": "f0b13058-bc57-4a19-8925-cec15c40d05f",
+      "item_id": 79900849,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Machine Herald Viktor Chroma Bundle": {
+      "offer_id": "2a103b7c-1e31-4851-a3e2-6da4573b5191",
+      "item_id": 79900850,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Flora Fatalis Fiddlesticks Chroma Bundle": {
+      "offer_id": "9d8dc58f-eec4-45e0-88ad-2d1ad9c81799",
+      "item_id": 79900851,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Flora Fatalis Soraka Chroma Bundle": {
+      "offer_id": "613702f9-caa6-4b14-8421-df5886acb0ed",
+      "item_id": 79900852,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Flora Fatalis Lissandra Chroma Bundle": {
+      "offer_id": "dec432eb-cbe3-4868-9e45-8be775d3188a",
+      "item_id": 79900853,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Darius Chroma Bundle": {
+      "offer_id": "2afb2bd1-d572-4de9-b1c4-09bc08d5b702",
+      "item_id": 79900855,
+      "price_rp": 3165,
+      "inventory_type": "BUNDLES"
+    },
+    "Mecha Kingdoms Wukong Chroma Bundle": {
+      "offer_id": "135a8384-9a96-4d31-80ae-64600140e11c",
+      "item_id": 79900856,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Panda Pal Lux Chroma Bundle": {
+      "offer_id": "fd2ee3d7-2200-417f-b626-2c1efd8b4ba4",
+      "item_id": 79900857,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Rain Shepherd Tristana Chroma Bundle": {
+      "offer_id": "c4555e11-2f54-4a11-9fdd-19083db4cfda",
+      "item_id": 79900858,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Rain Shepherd Gwen Chroma Bundle": {
+      "offer_id": "3c22c0ca-461a-4b18-baa7-fdaa851ee21a",
+      "item_id": 79900859,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Immortal Journey Zaahen Chroma Bundle": {
+      "offer_id": "e3304f45-4e85-4b04-8af1-c9e0bcc7ec89",
+      "item_id": 79900860,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Winter Wonder Zeri Chroma Bundle": {
+      "offer_id": "54f82861-ee59-4676-a2f5-31b192f70e14",
+      "item_id": 79900861,
+      "price_rp": 3475,
+      "inventory_type": "BUNDLES"
+    },
+    "Reindeer Smolder Chroma Bundle": {
+      "offer_id": "51eb0447-9cd9-4607-9003-82b7539fe3f5",
+      "item_id": 79900862,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "Winter Wonder Milio Chroma Bundle": {
+      "offer_id": "9c354d54-64e4-4c77-8701-aa63f9ea0ca0",
+      "item_id": 79900863,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Petricite Nautilus Chroma Bundle": {
+      "offer_id": "79aefc65-2189-49e7-b431-6a908971c274",
+      "item_id": 79900864,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Academia Briar Chroma Bundle": {
+      "offer_id": "bf16b2e2-cddb-41eb-9c07-3604e04b83aa",
+      "item_id": 79900865,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Aegis Frame Ornn Chroma Bundle": {
+      "offer_id": "8624fb84-dafc-4c5f-aa4a-3a640d422a67",
+      "item_id": 79900866,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Battle Professor Samira Chroma Bundle": {
+      "offer_id": "9e8ed714-6bc0-4ccc-9f0b-a68aca29ab67",
+      "item_id": 79900867,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Aegis Frame Galio Chroma Bundle": {
+      "offer_id": "f6e24fd2-2cac-492e-a14b-6f7a95098695",
+      "item_id": 79900868,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Ashe Chroma Bundle": {
+      "offer_id": "eb50eace-577f-4fe6-856c-88f20f888433",
+      "item_id": 79900869,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Seraphine Chroma Bundle": {
+      "offer_id": "34c6dd9e-b5b7-4d25-b8a8-5456e98c041c",
+      "item_id": 79900870,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Yuumi Chroma Bundle": {
+      "offer_id": "fd87db52-911f-4157-a137-8414d3d496c4",
+      "item_id": 79900871,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Poppy Chroma Bundle": {
+      "offer_id": "c4014b21-9490-43d0-8733-5f5980941392",
+      "item_id": 79900872,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Ziggs Chroma Bundle": {
+      "offer_id": "d8da5b25-9bba-45b0-a675-3867b7368285",
+      "item_id": 79900873,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Firecracker Caitlyn Chroma Bundle": {
+      "offer_id": "9468486d-074e-4a59-9837-5a18a5988ff1",
+      "item_id": 79900874,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Petals of Spring Lillia Chroma Bundle": {
+      "offer_id": "ea42f8f6-361f-49f0-88bc-d23700782631",
+      "item_id": 79900875,
+      "price_rp": 3475,
+      "inventory_type": "BUNDLES"
+    },
+    "Warhound Naafiri Chroma Bundle": {
+      "offer_id": "6b28fa53-344b-41f3-90c0-2e305855a2fc",
+      "item_id": 79900880,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Warhound Warwick Chroma Bundle": {
+      "offer_id": "a6735371-5e75-47e1-b835-fb3691e75389",
+      "item_id": 79900881,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Warhound Senna Chroma Bundle": {
+      "offer_id": "8706c4b1-a5f0-4862-936c-1cab093cd8f5",
+      "item_id": 79900882,
+      "price_rp": 3085,
+      "inventory_type": "BUNDLES"
+    },
+    "Fried Chicken King Swain Chroma Bundle": {
+      "offer_id": "f07b66b1-ae45-491b-ad94-dc433645572a",
+      "item_id": 79900883,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Bubble Bash Blitzcrank Chroma Bundle": {
+      "offer_id": "3f7c4654-47fd-4fa7-8adc-0fe11620249c",
+      "item_id": 79900884,
+      "price_rp": 3088,
+      "inventory_type": "BUNDLES"
+    },
+    "Pug Trainer Sejuani Chroma Bundle": {
+      "offer_id": "7a225944-1f2c-43ea-9ccf-ebe4cb42fbc3",
+      "item_id": 79900885,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Surprise Party Vex Chroma Bundle": {
+      "offer_id": "24ba09c2-c1ca-4057-a94e-b1ab5c1a5981",
+      "item_id": 79900887,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "PsyOps Vladimir Chroma Bundle": {
+      "offer_id": "f24ce272-372c-454e-b675-dfe459701583",
+      "item_id": 79900888,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Sivir Chroma Bundle": {
+      "offer_id": "e5e10fe0-e1d1-4df4-be89-6dafada68dd2",
+      "item_id": 79900889,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES"
+    },
+    "Space Groove Zac Chroma Bundle": {
+      "offer_id": "1e8f4137-2c4b-47b1-97bd-adbd40aa5184",
+      "item_id": 79900890,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Demoncursed Vayne Chroma Bundle": {
+      "offer_id": "ce6bcafe-e0ec-4c7e-a408-0025b5056a64",
+      "item_id": 79900891,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES"
+    },
+    "PROJECT: Quinn Chroma Bundle": {
+      "offer_id": "5279ab17-0e60-41b7-956c-9790d4d510d0",
+      "item_id": 79900892,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Rain Shepherd Ivern Chroma Bundle": {
+      "offer_id": "d84c4009-d726-4c93-9263-8bb365227619",
+      "item_id": 79900893,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Eternal Aspect Leona Chroma Bundle": {
+      "offer_id": "a58c6c97-d499-4297-b743-0637295ef5c2",
+      "item_id": 79900894,
+      "price_rp": 3165,
+      "inventory_type": "BUNDLES"
+    },
+    "Eternal Aspect Diana Chroma Bundle": {
+      "offer_id": "9c255f6d-a882-4b61-a64f-c3557ec0403c",
+      "item_id": 79900895,
+      "price_rp": 3165,
+      "inventory_type": "BUNDLES"
+    },
+    "Spaghetti alla Vel'Koz Chroma Bundle": {
+      "offer_id": "667b25cc-ccb3-4cb0-8a11-5b2993294be3",
+      "item_id": 79900896,
+      "price_rp": 3475,
+      "inventory_type": "BUNDLES"
+    },
+    "Pizza Chef Sion Chroma Bundle": {
+      "offer_id": "298b5358-85ef-447e-a4d4-ac5af3058123",
+      "item_id": 79900897,
+      "price_rp": 3087,
+      "inventory_type": "BUNDLES"
+    },
+    "Breadsticks Irelia Chroma Bundle": {
+      "offer_id": "bb603363-127b-499e-9224-fa99900ef9a2",
+      "item_id": 79900898,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Pasta Maker Illaoi Chroma Bundle": {
+      "offer_id": "1e655233-20cf-46ec-b7a6-b5c0869dfd2b",
+      "item_id": 79900899,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Shen Chroma Bundle": {
+      "offer_id": "093ad2d6-2615-44dc-a6a2-e2dfd8a0a1f0",
+      "item_id": 79900900,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Jhin Chroma Bundle": {
+      "offer_id": "a97e116a-906c-44ee-9a8f-a3d2fc0413e3",
+      "item_id": 79900901,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "Broken Covenant Aurora Chroma Bundle": {
+      "offer_id": "b9138f66-6028-4955-8d20-d31311383531",
+      "item_id": 79900902,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Akshan Chroma Bundle": {
+      "offer_id": "d3fb07b7-400e-4e3b-8b3a-18d2cd478702",
+      "item_id": 79900903,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES"
+    },
+    "High Noon Locke Chroma Bundle": {
+      "offer_id": "c3119532-687a-4179-8daa-854901c508f3",
+      "item_id": 79900904,
+      "price_rp": 3282,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Ambessa Chroma Bundle": {
+      "offer_id": "1fde0e3c-ce8a-40a4-a3f6-b1138a301bac",
+      "item_id": 79900905,
+      "price_rp": 2860,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Xin Zhao Chroma Bundle": {
+      "offer_id": "2ea68f22-9374-42bd-99bf-405460d33baa",
+      "item_id": 79900906,
+      "price_rp": 2712,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Yunara Chroma Bundle": {
+      "offer_id": "55ed9df9-1885-4042-8c10-7c84859c6b17",
+      "item_id": 79900907,
+      "price_rp": 2907,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Seraphine Chroma Bundle": {
+      "offer_id": "9f446299-cae3-4ca4-a21a-7a59d6cf1f8a",
+      "item_id": 79900908,
+      "price_rp": 2815,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Galio Chroma Bundle": {
+      "offer_id": "259541a6-6980-46c3-892f-b01ecdc478b3",
+      "item_id": 79900909,
+      "price_rp": 2815,
+      "inventory_type": "BUNDLES"
+    },
+    "MVP T1 Miss Fortune Chroma Bundle": {
+      "offer_id": "3f1016c9-9f38-4b28-b885-3797ca4357ca",
+      "item_id": 79900910,
+      "price_rp": 3020,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Ezreal / Pajama Guardian Ezreal": {
+      "offer_id": "39a444d3-0450-4dee-8c16-cb28e64bd178",
+      "item_id": 91000001,
+      "price_rp": 2092,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Lux / Pajama Guardian Lux": {
+      "offer_id": "d51745fe-f4df-49a0-abad-5c6701aa12dc",
+      "item_id": 91000002,
+      "price_rp": 2092,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Lulu / Pajama Guardian Lulu": {
+      "offer_id": "714d0171-077a-4d97-8eb7-a1f2f21b7a3c",
+      "item_id": 91000003,
+      "price_rp": 2092,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Miss Fortune / Pajama Guardian Miss Fortune": {
+      "offer_id": "f8de62df-4acc-43c9-9526-0325f903b0db",
+      "item_id": 91000004,
+      "price_rp": 2092,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Soraka / Pajama Guardian Soraka": {
+      "offer_id": "cb91fce8-cae2-4b52-bb53-97464cf0a891",
+      "item_id": 91000005,
+      "price_rp": 2092,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Solar Eclipse Leona / Lunar Eclipse Leona": {
+      "offer_id": "cb91fce8-cae2-4b52-bb53-97464cf0a891",
+      "item_id": 91000006,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Dawnbringer Soraka / Nightbringer Soraka": {
+      "offer_id": "4b8259d4-24be-4ed7-939c-3806b1ade984",
+      "item_id": 91000007,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Cosmic Lux / Dark Cosmic Lux": {
+      "offer_id": "fbddf9f8-b892-495f-8f90-b729da52f5b2",
+      "item_id": 91000008,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Truth Dragon Yasuo / Dream Dragon Yasuo": {
+      "offer_id": "7f76b039-66ea-44c4-9559-5789d2dc0c51",
+      "item_id": 91000009,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Xayah / Redeemed Star Guardian Xayah": {
+      "offer_id": "09e4121b-8adb-4f79-ab77-50ba52ddcc87",
+      "item_id": 91000010,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Variant Discount: Star Guardian Rakan / Redeemed Star Guardian Rakan": {
+      "offer_id": "eae39d96-8ccf-42e3-9763-06825da859d9",
+      "item_id": 91000011,
+      "price_rp": 2821,
+      "inventory_type": "BUNDLES"
+    },
+    "Digital Collector's Bundle": {
+      "offer_id": "28943e6f-dc10-48ea-9703-4dbba88bbaa7",
+      "item_id": 99900015,
+      "price_rp": 2461,
+      "inventory_type": "BUNDLES"
+    },
+    "7 Rune Page Bundle": {
+      "offer_id": "2c956f13-6d01-4a93-b5c8-c03155721122",
+      "item_id": 99900026,
+      "price_rp": 2600,
+      "inventory_type": "BUNDLES"
+    },
+    "Champions Bundle": {
+      "offer_id": "65dc2a59-695c-4118-b577-836c92ea4a5e",
+      "item_id": 99900036,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Elementalist Lux - Master Edition": {
+      "offer_id": "23a766af-b1f7-462f-9989-4b0a552c5bf4",
+      "item_id": 99900309,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "The Paragon and The Rogue Set": {
+      "offer_id": "9a2e077f-69ec-4e59-a88f-f45092b24526",
+      "item_id": 99900504,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Gun Goddess Miss Fortune - Payback Edition": {
+      "offer_id": "b50aeba2-c56f-4169-aa5c-192f9ad0bf0c",
+      "item_id": 99900573,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "New Player Pack": {
+      "offer_id": "52838803-3687-4ee4-963c-a27b694fcdb4",
+      "item_id": 99900610,
+      "price_rp": 650,
+      "inventory_type": "BUNDLES"
+    },
+    "Spirit Guard Udyr Icon Bundle": {
+      "offer_id": "701ae67c-bfb2-4438-8c90-adf29aa3c157",
+      "item_id": 99901211,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "Fan Favorites Bundle": {
+      "offer_id": "63e4057b-41a1-4402-8b5e-4fbf39e23ab3",
+      "item_id": 99901287,
+      "price_rp": 0,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Galio Signature Edition": {
+      "offer_id": "1088d8ae-8060-4363-b267-be620f2f1c03",
+      "item_id": 99901647,
+      "price_rp": 3595,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Xin Zhao Signature Edition": {
+      "offer_id": "0fc2ae35-1fab-4420-98df-7ab1df303719",
+      "item_id": 99901648,
+      "price_rp": 3492,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Seraphine Signature Edition": {
+      "offer_id": "9d1a2d3e-4469-4fce-a7b2-f4e08dd7d053",
+      "item_id": 99901649,
+      "price_rp": 3595,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Ambessa Signature Edition": {
+      "offer_id": "f33f98f7-2c56-4dab-9aae-0d0900c8c135",
+      "item_id": 99901650,
+      "price_rp": 3640,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Yunara Signature Edition": {
+      "offer_id": "2b730af8-3966-44ba-9f1f-537693bca4d7",
+      "item_id": 99901651,
+      "price_rp": 3687,
+      "inventory_type": "BUNDLES"
+    },
+    "MVP T1 Miss Fortune Signature Edition": {
+      "offer_id": "efe5843e-4e25-459e-a23b-bb7532c43add",
+      "item_id": 99901652,
+      "price_rp": 3800,
+      "inventory_type": "BUNDLES"
+    },
+    "T1 Signature Edition Set (2025)": {
+      "offer_id": "fb122927-35ba-4baf-82fe-a1abaa2b348c",
+      "item_id": 99901653,
+      "price_rp": 22239,
+      "inventory_type": "BUNDLES"
+    }
+  }
 }

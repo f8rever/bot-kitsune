@@ -4,7 +4,25 @@ const path = require('path');
 
 function isUnpurchasableOrMythic(name) {
     const n = (name || '').toLowerCase();
+    // 1. Prestígio
     if (n.includes('prestige') || n.includes('prestígio') || n.includes('prestigio')) return true;
+    
+    // 2. Gacha / Variantes Míticas / Sanctum / Hall of Legends
+    if (n.includes('quantum') || n.includes('quântico') || n.includes('quântica')) return true;
+    if (n.includes('erasure') || n.includes('erradicação')) return true;
+    if (n.includes('breakout') || n.includes('destemido')) return true;
+    if (n.includes('divine heavenscale') || n.includes('escamas celestiais divino')) return true;
+    if (n.includes('peacemaker') || n.includes('pacificador')) return true;
+    if (n.includes('admiral battle') || n.includes('almirante coelha')) return true;
+    if (n.includes('immortalized') || n.includes('imortalizada')) return true;
+    if (n.includes('risen legend') || n.includes('lenda ascendente')) return true;
+    if (n.includes('transcendent') || n.includes('transcendente')) return true;
+    if (n.includes('exalted') || n.includes('exaltado') || n.includes('exaltada')) return true;
+    if (n.includes('sanctum') || n.includes('santuário')) return true;
+    if (n.includes('mythic variant') || n.includes('variante mítica')) return true;
+    if (n.includes('faker')) return true;
+
+    // 3. Hextec antigas de Essência Mítica
     if (n.includes('hextech') && (
         n.includes('annie') || n.includes('poppy') || n.includes('alistar') ||
         n.includes('jarvan') || n.includes('kassadin') || n.includes('kog\'maw') ||
@@ -12,10 +30,15 @@ function isUnpurchasableOrMythic(name) {
         n.includes('sejuani') || n.includes('swain') || n.includes('tristana') ||
         n.includes('vayne') || n.includes('ziggs') || n.includes('amumu') || n.includes('nocturne')
     )) return true;
+
+    // 4. Linhas de Essência Mítica (Cinzas, Cristalis, Vitoriosas)
     if (n.includes('ashen') || n.includes('das cinzas') || n.includes('crystalis') || n.includes('cristalis')) return true;
     if (n.includes('victorious') || n.includes('vitoriosa')) return true;
     if (n.includes('soulstealer') || n.includes('ladra de almas') || n.includes('dreadnova darius') || n.includes('darius nova do pavor')) return true;
+
+    // 5. Limitadas / PAX
     if (n.includes('pax ') || n.includes('neo pax') || n.includes('black alistar') || n.includes('silver kayle') || n.includes('young ryze') || n.includes('human ryze') || n.includes('ufo corki') || n.includes('king rammus') || n.includes('judgement kayle') || n.includes('urf the manatee') || n.includes('triumphant ryze') || n.includes('championship riven 2012') || n.includes('riot squad singed')) return true;
+
     return false;
 }
 
@@ -99,11 +122,13 @@ async function buildFullCatalog() {
 
     // 3. Ler catalog.json bruto da Storefront API da Riot para preços exatos
     let rawStoreItems = {};
+    let rawCatalog = [];
     const rawCatalogPath = path.join(__dirname, '../lol_giftapi-main/catalog.json');
     if (fs.existsSync(rawCatalogPath)) {
         try {
             const raw = JSON.parse(fs.readFileSync(rawCatalogPath, 'utf8'));
             if (Array.isArray(raw)) {
+                rawCatalog = raw;
                 raw.forEach(item => {
                     const offerId = item.offerId;
                     const itemId = item.itemId;
@@ -217,7 +242,42 @@ async function buildFullCatalog() {
         }
     }
 
-    // 5. Adicionar Passes e Espólios Presenteáveis
+    // 5. Adicionar Skin e Chroma Bundles da Riot Storefront
+    const skinBundlesPt = {};
+    const skinBundlesEn = {};
+
+    rawCatalog.forEach(item => {
+        const t = (item.inventoryType || '').toUpperCase();
+        if (t !== 'BUNDLES' && t !== 'BUNDLE') return;
+
+        const nameEn = item.localizations?.en_US?.name || item.localizations?.pt_BR?.name;
+        if (!nameEn) return;
+        const namePt = item.localizations?.pt_BR?.name || nameEn;
+        const n = nameEn.toLowerCase();
+
+        // Excluir espólios, passes, hextec, baús, chaves, clash, tft, etc.
+        if (n.includes('pass') || n.includes('orb') || n.includes('capsule') || n.includes('chest') || n.includes('key') || n.includes('hextech') || n.includes('clash') || n.includes('starter') || n.includes('tft') || n.includes('mystery') || n.includes('arena') || n.includes('choncc') || n.includes('boba') || n.includes('sanctum') || n.includes('tribe bundle') || n.includes('starship bundle') || n.includes('planet bundle')) return;
+        if (isUnpurchasableOrMythic(nameEn) || isUnpurchasableOrMythic(namePt)) return;
+
+        const price = item.prices?.[0]?.cost || 0;
+        skinBundlesPt[namePt] = {
+            offer_id: item.offerId || `bundle_${item.itemId}`,
+            item_id: item.itemId,
+            price_rp: price,
+            inventory_type: 'BUNDLES'
+        };
+        skinBundlesEn[nameEn] = {
+            offer_id: item.offerId || `bundle_${item.itemId}`,
+            item_id: item.itemId,
+            price_rp: price,
+            inventory_type: 'BUNDLES'
+        };
+    });
+
+    catalogPt.Bundles = skinBundlesPt;
+    catalogEn.Bundles = skinBundlesEn;
+
+    // 6. Adicionar Passes e Espólios Presenteáveis
     const defaultLootPt = {
         "Passe de Evento": { offer_id: "pass_1650", item_id: 1650, price_rp: 1650, inventory_type: "EVENT_PASS" },
         "Pacote Passe de Evento + Skin": { offer_id: "pass_2650", item_id: 2650, price_rp: 2650, inventory_type: "BUNDLES" },
@@ -253,7 +313,7 @@ async function buildFullCatalog() {
     catalogPt.Loot = defaultLootPt;
     catalogEn.Loot = defaultLootEn;
 
-    // 6. Salvar arquivos
+    // 7. Salvar arquivos
     const botConfigDir = path.join(__dirname, '../config');
     const pyDir = path.join(__dirname, '../lol_giftapi-main');
 
@@ -272,12 +332,13 @@ async function buildFullCatalog() {
 
     const totalSkins = Object.keys(catalogPt.Skins).length;
     const totalChromas = Object.keys(catalogPt.Chromas).length;
+    const totalBundles = Object.keys(catalogPt.Bundles || {}).length;
     const totalChamps = Object.keys(catalogPt.Champions).length;
-    const totalAll = totalSkins + totalChromas + totalChamps + Object.keys(catalogPt.Loot).length;
+    const totalAll = totalSkins + totalChromas + totalBundles + totalChamps + Object.keys(catalogPt.Loot).length;
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`[Catalog Builder] ✅ Sincronização concluída em ${elapsed}s!`);
-    console.log(`[Catalog Builder] 📊 Totais: ${totalSkins} Skins (Míticas/Prestígio Removidas), ${totalChromas} Cromas, ${totalChamps} Campeões.`);
+    console.log(`[Catalog Builder] 📊 Totais: ${totalSkins} Skins (Míticas/Prestígio Removidas), ${totalChromas} Cromas, ${totalBundles} Pacotes de Skins/Cromas, ${totalChamps} Campeões.`);
 
     return {
         version,
