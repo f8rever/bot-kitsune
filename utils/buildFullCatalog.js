@@ -39,6 +39,12 @@ function isUnpurchasableOrMythic(name) {
     // 5. Limitadas / PAX
     if (n.includes('pax ') || n.includes('neo pax') || n.includes('black alistar') || n.includes('silver kayle') || n.includes('young ryze') || n.includes('human ryze') || n.includes('ufo corki') || n.includes('king rammus') || n.includes('judgement kayle') || n.includes('urf the manatee') || n.includes('triumphant ryze') || n.includes('championship riven 2012') || n.includes('riot squad singed')) return true;
 
+    // 6. Itens de Evento/Equipes do Cofre (Legacy Team / Worlds Signature Editions / Temporários já encerrados)
+    if (n.includes('signature edition') || n.includes('edição de assinatura') || n.includes('edicao de assinatura')) return true;
+    if (n.includes('t1 ') || n.includes('drx ') || n.includes('edg ') || n.includes('fpx ') || n.includes('dwg ') || n.includes('invictus gaming') || n.includes('samsung galaxy') || n.includes('skt t1')) return true;
+    if (n.includes('worlds 20') || n.includes('msi 20') || n.includes('three-peat')) return true;
+    if (n.includes('challenger nidalee') || n.includes('nidalee desafiante') || n.includes('challenger ahri') || n.includes('ahri desafiante')) return true;
+
     return false;
 }
 
@@ -123,6 +129,7 @@ async function buildFullCatalog() {
     // 3. Ler catalog.json bruto da Storefront API da Riot para preços exatos
     let rawStoreItems = {};
     let rawCatalog = [];
+    const now = new Date();
     const rawCatalogPath = path.join(__dirname, '../lol_giftapi-main/catalog.json');
     if (fs.existsSync(rawCatalogPath)) {
         try {
@@ -132,6 +139,8 @@ async function buildFullCatalog() {
                 raw.forEach(item => {
                     const offerId = item.offerId;
                     const itemId = item.itemId;
+                    const isExpired = (item.active === false) || (item.inactiveDate && new Date(item.inactiveDate) < now);
+
                     let priceRp = null;
                     if (item.prices) {
                         const rpObj = item.prices.find(p => p.currency === 'RP');
@@ -145,8 +154,8 @@ async function buildFullCatalog() {
                     const ptLoc = item.localizations?.pt_BR?.name || item.name;
                     const enLoc = item.localizations?.en_US?.name || item.name;
 
-                    if (ptLoc) rawStoreItems[ptLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType };
-                    if (enLoc) rawStoreItems[enLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType };
+                    if (ptLoc) rawStoreItems[ptLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType, isExpired };
+                    if (enLoc) rawStoreItems[enLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType, isExpired };
                 });
             }
         } catch(e) {}
@@ -191,9 +200,15 @@ async function buildFullCatalog() {
                     return; // NÃO ADICIONAR NO CATÁLOGO!
                 }
 
-                const isChroma = namePt.includes('(') && namePt.includes(')');
                 const storeMatchPt = rawStoreItems[namePt.toLowerCase().trim()];
                 const storeMatchEn = rawStoreItems[nameEn.toLowerCase().trim()];
+
+                // SE O ITEM ESTIVER MARCADO COMO EXPIRADO NO STOREFRONT DA RIOT, NÃO EXIBIR!
+                if (storeMatchPt?.isExpired || storeMatchEn?.isExpired) {
+                    return;
+                }
+
+                const isChroma = namePt.includes('(') && namePt.includes(')');
 
                 let priceRp = isChroma ? 290 : 1350;
                 let offerId = (storeMatchPt && storeMatchPt.offerId) || (storeMatchEn && storeMatchEn.offerId) || `skin_${skinId}`;
@@ -249,6 +264,10 @@ async function buildFullCatalog() {
     rawCatalog.forEach(item => {
         const t = (item.inventoryType || '').toUpperCase();
         if (t !== 'BUNDLES' && t !== 'BUNDLE') return;
+
+        // VERIFICAR SE O PACOTE ESTÁ ATIVO E NÃO EXPIROU A DATA DA LOJA
+        if (item.active === false) return;
+        if (item.inactiveDate && new Date(item.inactiveDate) < now) return;
 
         const nameEn = item.localizations?.en_US?.name || item.localizations?.pt_BR?.name;
         if (!nameEn) return;

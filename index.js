@@ -843,6 +843,15 @@ function isPrestigeOrMythic(item) {
     if (name.includes('ashen') || name.includes('das cinzas') || name.includes('crystalis') || name.includes('cristalis')) return true;
     if (name.includes('victorious') || name.includes('vitoriosa')) return true;
     if (name.includes('soulstealer') || name.includes('ladra de almas') || name.includes('dreadnova darius') || name.includes('darius nova do pavor')) return true;
+    // Verificar se o item está inativo ou expirado
+    if (raw.active === false) return true;
+    if (raw.inactiveDate && new Date(raw.inactiveDate) < new Date()) return true;
+
+    if (name.includes('signature edition') || name.includes('edição de assinatura') || name.includes('edicao de assinatura')) return true;
+    if (name.includes('t1 ') || name.includes('drx ') || name.includes('edg ') || name.includes('fpx ') || name.includes('dwg ') || name.includes('invictus gaming') || name.includes('samsung galaxy') || name.includes('skt t1')) return true;
+    if (name.includes('worlds 20') || name.includes('msi 20') || name.includes('three-peat')) return true;
+    if (name.includes('challenger nidalee') || name.includes('nidalee desafiante') || name.includes('challenger ahri') || name.includes('ahri desafiante')) return true;
+
     if (name.includes('pax ') || name.includes('neo pax') || name.includes('black alistar') || name.includes('silver kayle') || name.includes('young ryze') || name.includes('human ryze') || name.includes('ufo corki') || name.includes('king rammus') || name.includes('judgement kayle') || name.includes('urf the manatee') || name.includes('triumphant ryze') || name.includes('championship riven 2012') || name.includes('riot squad singed')) return true;
     return false;
 }

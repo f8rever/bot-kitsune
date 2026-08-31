@@ -36,12 +36,6 @@
       "price_rp": 607,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "DRX Aatrox": {
-      "offer_id": "skin_266030",
-      "item_id": "266030",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Primordian Aatrox": {
       "offer_id": "721550f9-1b20-4a1e-b07c-169d850bbf76",
       "item_id": "266033",
@@ -70,12 +64,6 @@
       "offer_id": "0a32c261-4ca2-405f-99b1-89a93966a4d2",
       "item_id": "103004",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Challenger Ahri": {
-      "offer_id": "skin_103005",
-      "item_id": "103005",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Academy Ahri": {
@@ -234,12 +222,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "DRX Akali": {
-      "offer_id": "skin_84068",
-      "item_id": "84068",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Coven Akali": {
       "offer_id": "23d73f8a-71ec-4a5d-ad40-dba2c64251ea",
       "item_id": "84070",
@@ -324,12 +306,6 @@
       "price_rp": 750,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Alistar": {
-      "offer_id": "skin_12009",
-      "item_id": "12009",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Moo Cow Alistar": {
       "offer_id": "84acffba-0c0e-40ce-b973-e228d0f215ed",
       "item_id": "12010",
@@ -364,12 +340,6 @@
       "offer_id": "7647f7e8-e362-4eca-8405-3c3e81f09a83",
       "item_id": "799001",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "T1 Ambessa": {
-      "offer_id": "9a45c046-9371-41a5-996a-8c64ef31cbb3",
-      "item_id": "799008",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Pharaoh Amumu": {
@@ -564,12 +534,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Sweetheart Annie": {
-      "offer_id": "2d1e7c13-9e20-4516-8eff-4fcaadaeaf5b",
-      "item_id": "1009",
-      "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Super Galaxy Annie": {
       "offer_id": "ac61f94f-13b9-406c-bfb4-65fb512d7367",
       "item_id": "1011",
@@ -636,12 +600,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "EDG Aphelios": {
-      "offer_id": "skin_523018",
-      "item_id": "523018",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Spirit Blossom Aphelios": {
       "offer_id": "b90c9f80-b585-429c-93a2-22816e423231",
       "item_id": "523020",
@@ -684,12 +642,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Heartseeker Ashe": {
-      "offer_id": "86f83c95-a4a3-49e3-aeba-6285c6700b5d",
-      "item_id": "22006",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Marauder Ashe": {
       "offer_id": "7f35624c-daef-4385-b977-af25f95f9b24",
       "item_id": "22007",
@@ -700,18 +652,6 @@
       "offer_id": "f490ab2e-3ec1-4563-b228-e07b949ec50e",
       "item_id": "22008",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2017 Ashe": {
-      "offer_id": "skin_22009",
-      "item_id": "22009",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2017 Ashe Chroma": {
-      "offer_id": "skin_22010",
-      "item_id": "22010",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Cosmic Queen Ashe": {
@@ -747,12 +687,6 @@
     "Lunar Empress Ashe": {
       "offer_id": "40112354-6300-45f5-909a-b200e49a0a98",
       "item_id": "22052",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DRX Ashe": {
-      "offer_id": "skin_22063",
-      "item_id": "22063",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -834,12 +768,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Azir": {
-      "offer_id": "skin_268003",
-      "item_id": "268003",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Warring Kingdoms Azir": {
       "offer_id": "skin_268004",
       "item_id": "268004",
@@ -849,12 +777,6 @@
     "Elderwood Azir": {
       "offer_id": "b98aaa3b-5289-4df5-9ac3-ced50c224756",
       "item_id": "268005",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2022 Azir": {
-      "offer_id": "skin_268014",
-      "item_id": "268014",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -918,12 +840,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Bard": {
-      "offer_id": "skin_432035",
-      "item_id": "432035",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Spirit Blossom Bard": {
       "offer_id": "68ab9fab-bca7-4124-ae8b-511a3bd789a7",
       "item_id": "432037",
@@ -976,12 +892,6 @@
       "offer_id": "47e98103-6408-4c40-8bd2-30c72f4b54b2",
       "item_id": "53004",
       "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Definitely Not Blitzcrank": {
-      "offer_id": "a61a17de-2b7e-4aca-aee6-76ea84a8de2f",
-      "item_id": "53005",
-      "price_rp": 520,
       "inventory_type": "CHAMPION_SKIN"
     },
     "iBlitzcrank": {
@@ -1090,12 +1000,6 @@
       "offer_id": "d319d885-5175-4b8f-a931-dcaeb1a04c54",
       "item_id": "63003",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Zombie Brand": {
-      "offer_id": "7b446261-26ba-42db-8b0a-218fdd1ba716",
-      "item_id": "63004",
-      "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Spirit Fire Brand": {
@@ -1311,12 +1215,6 @@
     "Heartthrob Caitlyn": {
       "offer_id": "4d26326f-516c-4acf-8b38-5e2e2b3ae4c2",
       "item_id": "51039",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DRX Caitlyn": {
-      "offer_id": "skin_51048",
-      "item_id": "51048",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -1830,12 +1728,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Mr. Mundoverse": {
-      "offer_id": "eb1f7733-977b-4a69-82d6-dc081f316613",
-      "item_id": "36002",
-      "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Corporate Mundo": {
       "offer_id": "724c7e08-8486-4813-a166-7243c36540f3",
       "item_id": "36003",
@@ -1908,12 +1800,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Ekko": {
-      "offer_id": "skin_245011",
-      "item_id": "245011",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Trick or Treat Ekko": {
       "offer_id": "skin_245012",
       "item_id": "245012",
@@ -1960,12 +1846,6 @@
       "offer_id": "cad29f80-25c6-466a-9ef6-aeb6e2d42fe8",
       "item_id": "60003",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Elise": {
-      "offer_id": "skin_60004",
-      "item_id": "60004",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Super Galaxy Elise": {
@@ -2175,12 +2055,6 @@
     "HEARTSTEEL Ezreal": {
       "offer_id": "1cb43035-eb2f-44d2-a5b7-fa4ebec666f2",
       "item_id": "81043",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Heavenscale Ezreal": {
-      "offer_id": "58058b80-8f7a-4fd0-aeed-dc18290d30c1",
-      "item_id": "81044",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2490,12 +2364,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Galio": {
-      "offer_id": "3fde3ca9-ed1f-47eb-b0cc-2384cb024182",
-      "item_id": "3047",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Spooky Gangplank": {
       "offer_id": "8cb45409-8124-4e72-9b1c-3050200ddd95",
       "item_id": "41001",
@@ -2547,12 +2415,6 @@
     "Pool Party Gangplank": {
       "offer_id": "b204675c-2d2a-4278-b4b5-af08dce8f1a6",
       "item_id": "41014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "FPX Gangplank": {
-      "offer_id": "skin_41021",
-      "item_id": "41021",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -2730,12 +2592,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Gnar": {
-      "offer_id": "skin_150041",
-      "item_id": "150041",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Scuba Gragas": {
       "offer_id": "skin_79001",
       "item_id": "79001",
@@ -2776,12 +2632,6 @@
       "offer_id": "skin_79007",
       "item_id": "79007",
       "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Fnatic Gragas": {
-      "offer_id": "07813686-d05e-40fb-bae7-cc2d7cc85a92",
-      "item_id": "79008",
-      "price_rp": 750,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Gragas Caskbreaker": {
@@ -2878,12 +2728,6 @@
       "offer_id": "f0f35096-9c0e-443e-b64e-71a3e1285679",
       "item_id": "104035",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "EDG Graves": {
-      "offer_id": "skin_104042",
-      "item_id": "104042",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Porcelain Graves": {
@@ -3336,12 +3180,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Fnatic Jarvan IV": {
-      "offer_id": "e98d596c-e3f3-4fff-8869-9ea0ed8ad88d",
-      "item_id": "59006",
-      "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Dark Star Jarvan IV": {
       "offer_id": "e97a659e-16c7-4157-9ede-f9ad04b2de55",
       "item_id": "59007",
@@ -3366,12 +3204,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Worlds 2021 Jarvan IV": {
-      "offer_id": "skin_59030",
-      "item_id": "59030",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Nightbringer Jarvan IV": {
       "offer_id": "668112b3-123e-4bfb-97b0-fee2ad69fe5a",
       "item_id": "59035",
@@ -3390,18 +3222,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Vandal Jax": {
-      "offer_id": "47c211b8-1d21-49b9-b487-19b6d6f3896b",
-      "item_id": "24002",
-      "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Angler Jax": {
-      "offer_id": "37b347b1-4946-419a-9f75-856ad8d80f09",
-      "item_id": "24003",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Jaximus": {
       "offer_id": "49d4eac2-1dcc-454e-838c-ccfd35f43472",
       "item_id": "24005",
@@ -3418,12 +3238,6 @@
       "offer_id": "07f94047-2b3a-4fd4-a0ad-4dd2bb24a0ee",
       "item_id": "24007",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Jax": {
-      "offer_id": "skin_24008",
-      "item_id": "24008",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Nemesis Jax Sand Cream": {
@@ -3528,12 +3342,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Jayce": {
-      "offer_id": "skin_126034",
-      "item_id": "126034",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Arcane Survivor Jayce": {
       "offer_id": "skin_126035",
       "item_id": "126035",
@@ -3558,12 +3366,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Jhin": {
-      "offer_id": "skin_202003",
-      "item_id": "202003",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJECT: Jhin": {
       "offer_id": "1a29a66b-751f-40b7-9be9-cb78e62d0ce5",
       "item_id": "202004",
@@ -3579,12 +3381,6 @@
     "Shan Hai Scrolls Jhin": {
       "offer_id": "042eaa5c-6c8d-4f4d-9aa7-2e1dab049612",
       "item_id": "202014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DWG Jhin": {
-      "offer_id": "skin_202023",
-      "item_id": "202023",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -3690,12 +3486,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Jinx": {
-      "offer_id": "skin_222062",
-      "item_id": "222062",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Ocean Song Jinx": {
       "offer_id": "skin_222065",
       "item_id": "222065",
@@ -3766,18 +3556,6 @@
       "offer_id": "5427d1ec-19b0-4be7-87d4-24a3c484f6c7",
       "item_id": "429001",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2015 Kalista": {
-      "offer_id": "skin_429002",
-      "item_id": "429002",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Kalista": {
-      "offer_id": "skin_429003",
-      "item_id": "429003",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Marauder Kalista": {
@@ -3886,12 +3664,6 @@
       "offer_id": "099ca8e9-78aa-4159-8d39-a422ec1344d8",
       "item_id": "43070",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Phantom Karthus": {
-      "offer_id": "609a6b07-96b0-42a2-95ab-1a1ffd173823",
-      "item_id": "30001",
-      "price_rp": 460,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Statue of Karthus": {
@@ -4146,12 +3918,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Riot Kayle": {
-      "offer_id": "2a4cf611-4027-46cd-b693-b9da29e46c14",
-      "item_id": "10007",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Iron Inquisitor Kayle": {
       "offer_id": "1e956da6-296a-45b9-9c3c-cf629e271ba2",
       "item_id": "10008",
@@ -4290,12 +4056,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "DWG Kennen": {
-      "offer_id": "skin_85023",
-      "item_id": "85023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Astronaut Kennen": {
       "offer_id": "1fd5474a-0a83-43d8-bf13-0a1bae2da28f",
       "item_id": "85025",
@@ -4323,12 +4083,6 @@
     "Dark Star Kha'Zix": {
       "offer_id": "9d23a237-1c06-4eb5-8978-c3bc5a361494",
       "item_id": "121004",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2018 Kha'Zix": {
-      "offer_id": "skin_121011",
-      "item_id": "121011",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4371,12 +4125,6 @@
     "Woof and Lamb Kindred": {
       "offer_id": "6ae701c1-8c1c-42b7-98b8-1e234a6283dc",
       "item_id": "203022",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DRX Kindred": {
-      "offer_id": "skin_203023",
-      "item_id": "203023",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -4548,12 +4296,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Worlds 2020 LeBlanc": {
-      "offer_id": "skin_7029",
-      "item_id": "7029",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Debonair LeBlanc": {
       "offer_id": "c3289898-ebaa-4d01-b808-f532a7e87e70",
       "item_id": "7035",
@@ -4594,12 +4336,6 @@
       "offer_id": "6096b6d4-c65e-41e4-bd9d-86883d6e5720",
       "item_id": "64005",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Lee Sin": {
-      "offer_id": "skin_64006",
-      "item_id": "64006",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Dragon Fist Lee Sin Duel Black": {
@@ -4644,12 +4380,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "FPX Lee Sin": {
-      "offer_id": "skin_64029",
-      "item_id": "64029",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Storm Dragon Lee Sin": {
       "offer_id": "1e2e406e-9a9a-453c-8c13-3efbcdfd6ba6",
       "item_id": "64031",
@@ -4666,12 +4396,6 @@
       "offer_id": "5da879f5-e8af-4bb7-9fcb-82b7d6fca901",
       "item_id": "64051",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "T1 Lee Sin": {
-      "offer_id": "skin_64068",
-      "item_id": "64068",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Inkshadow Lee Sin": {
@@ -4755,12 +4479,6 @@
     "Battle Academia Leona": {
       "offer_id": "e3f6bf0c-69a2-4540-bcef-e6de7a5a2beb",
       "item_id": "89021",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DWG Leona": {
-      "offer_id": "skin_89022",
-      "item_id": "89022",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5154,12 +4872,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Shamrock Malphite": {
-      "offer_id": "f6ea801a-092a-4c99-9028-d1d4ae702c27",
-      "item_id": "54001",
-      "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Coral Reef Malphite": {
       "offer_id": "skin_54002",
       "item_id": "54002",
@@ -5205,12 +4917,6 @@
     "Dark Star Malphite": {
       "offer_id": "bc80aa0a-614f-417c-82db-8892d56c949e",
       "item_id": "54023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "FPX Malphite": {
-      "offer_id": "skin_54025",
-      "item_id": "54025",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5349,12 +5055,6 @@
     "Astronaut Maokai": {
       "offer_id": "6c507db6-9271-4f81-9645-d46a527d5c03",
       "item_id": "57024",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DRX Maokai": {
-      "offer_id": "skin_57033",
-      "item_id": "57033",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -5610,12 +5310,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "MVP T1 Miss Fortune": {
-      "offer_id": "fa4e5840-2fd2-4343-8fa1-a645060b0333",
-      "item_id": "21069",
-      "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Volcanic Wukong": {
       "offer_id": "9ac9cfd1-83e5-4e04-9337-10030d37443c",
       "item_id": "62001",
@@ -5790,12 +5484,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Bewitching Morgana": {
-      "offer_id": "0702cb67-f155-4f7b-987d-366dee2a48ac",
-      "item_id": "25011",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Majestic Empress Morgana": {
       "offer_id": "02e46668-9362-4c0e-bea1-e052abf78987",
       "item_id": "25017",
@@ -5904,12 +5592,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Nami": {
-      "offer_id": "skin_267008",
-      "item_id": "267008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Program Nami": {
       "offer_id": "934b894f-9aca-4648-bb05-2b7a57770457",
       "item_id": "267009",
@@ -5976,12 +5658,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Riot K-9 Nasus": {
-      "offer_id": "eb7ec3b8-9146-4313-9547-f9f04e2d2193",
-      "item_id": "75004",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Infernal Nasus": {
       "offer_id": "7f5a368f-9511-4d6a-9e46-58bdebd718a0",
       "item_id": "75005",
@@ -6016,12 +5692,6 @@
       "offer_id": "c29d48e2-e361-4186-865a-5fa0fc149e5b",
       "item_id": "75010",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Lunar Guardian Nasus": {
-      "offer_id": "945cd08f-e618-4355-ad80-98f88676de9d",
-      "item_id": "75011",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Battlecast Nasus": {
@@ -6198,12 +5868,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Challenger Nidalee": {
-      "offer_id": "f727fcbe-6f50-449f-9967-930bb79795eb",
-      "item_id": "76008",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Super Galaxy Nidalee": {
       "offer_id": "d4b6c4b9-1c78-4138-a840-278f8f2c33cf",
       "item_id": "76009",
@@ -6219,12 +5883,6 @@
     "Cosmic Huntress Nidalee": {
       "offer_id": "bc9b50e6-997a-44c6-a1b9-0fc377858c78",
       "item_id": "76018",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "DWG Nidalee": {
-      "offer_id": "skin_76027",
-      "item_id": "76027",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6402,12 +6060,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Glacial Olaf": {
-      "offer_id": "6643c2ae-f7aa-487f-8e60-ecacee741df0",
-      "item_id": "2002",
-      "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Brolaf": {
       "offer_id": "e25584da-de70-47f0-bb61-c49d47d869d5",
       "item_id": "2003",
@@ -6430,12 +6082,6 @@
       "offer_id": "3531f59c-f03f-4249-8dec-55c3b215976b",
       "item_id": "2006",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Olaf": {
-      "offer_id": "skin_2015",
-      "item_id": "2015",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Dragonslayer Olaf": {
@@ -6519,12 +6165,6 @@
     "Star Guardian Orianna": {
       "offer_id": "24c205b6-1fd1-4d75-8ecc-2eeead616c94",
       "item_id": "61029",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "T1 Orianna": {
-      "offer_id": "skin_61038",
-      "item_id": "61038",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -6747,12 +6387,6 @@
     "Inkshadow Pyke": {
       "offer_id": "cc2223ec-414d-486a-87b5-4dc8664ee855",
       "item_id": "555074",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "T1 Pyke": {
-      "offer_id": "skin_555075",
-      "item_id": "555075",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7080,12 +6714,6 @@
       "price_rp": 750,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Renekton": {
-      "offer_id": "skin_58008",
-      "item_id": "58008",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Renektoy": {
       "offer_id": "b2f3f73d-891b-41db-bd9f-fc119ce237a1",
       "item_id": "58009",
@@ -7107,12 +6735,6 @@
     "Dawnbringer Renekton": {
       "offer_id": "089022ce-bcd8-442d-81ea-93c980dc2073",
       "item_id": "58033",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2023 Renekton": {
-      "offer_id": "skin_58042",
-      "item_id": "58042",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7188,12 +6810,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Worlds 2012 Riven": {
-      "offer_id": "skin_92004",
-      "item_id": "92004",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Dragonblade Riven": {
       "offer_id": "skin_92005",
       "item_id": "92005",
@@ -7203,12 +6819,6 @@
     "Arcade Riven": {
       "offer_id": "f2a187d5-6982-4973-8b7e-13cd97fa6695",
       "item_id": "92006",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Reignited Worlds 2012 Riven": {
-      "offer_id": "skin_92007",
-      "item_id": "92007",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7314,12 +6924,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Zombie Ryze": {
-      "offer_id": "8e511812-74ca-42b1-aa8b-dea8825f6523",
-      "item_id": "13006",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Dark Crystal Ryze": {
       "offer_id": "029adcd7-ee1a-4e81-b755-8f054135358b",
       "item_id": "13007",
@@ -7336,18 +6940,6 @@
       "offer_id": "5aef5baf-df04-4f43-a07f-06fad55e4929",
       "item_id": "13009",
       "price_rp": 750,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Ryze": {
-      "offer_id": "skin_13010",
-      "item_id": "13010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2019 Ryze": {
-      "offer_id": "skin_13011",
-      "item_id": "13011",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Guardian of the Sands Ryze": {
@@ -7581,12 +7173,6 @@
     "Firecracker Seraphine": {
       "offer_id": "ffa58174-6e3b-43a8-918b-990f5235e852",
       "item_id": "147059",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "T1 Seraphine": {
-      "offer_id": "0b24cf3d-733f-453a-bffc-5a46204c42db",
-      "item_id": "147068",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -7830,12 +7416,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Worlds 2014 Shyvana": {
-      "offer_id": "skin_102005",
-      "item_id": "102005",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Super Galaxy Shyvana": {
       "offer_id": "65e735d2-35ab-489d-a600-9dd05dbde5d3",
       "item_id": "102006",
@@ -7854,12 +7434,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Hextech Singed": {
-      "offer_id": "7a0a6495-9c62-465f-b822-5a3dfa3db936",
-      "item_id": "27002",
-      "price_rp": 520,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Surfer Singed": {
       "offer_id": "c4d53e42-da55-41c1-8446-651c49347340",
       "item_id": "27003",
@@ -7875,12 +7449,6 @@
     "Augmented Singed": {
       "offer_id": "9f0b50db-f8e8-4181-b3d9-9ccfa7b638a9",
       "item_id": "27005",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Snow Day Singed": {
-      "offer_id": "81f5bc33-389e-4486-aba8-d0c9168c7c09",
-      "item_id": "27006",
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8160,12 +7728,6 @@
       "price_rp": 3250,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Sweetheart Sona": {
-      "offer_id": "9551385c-d20a-4e69-acef-bac3c51b2969",
-      "item_id": "37007",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Odyssey Sona": {
       "offer_id": "d1cc665d-a749-4c8e-8c7e-9c96ad3d8478",
       "item_id": "37009",
@@ -8409,12 +7971,6 @@
     "Snow Day Syndra": {
       "offer_id": "skin_134004",
       "item_id": "134004",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Syndra": {
-      "offer_id": "skin_134005",
-      "item_id": "134005",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -8688,12 +8244,6 @@
       "price_rp": 1820,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Little Devil Teemo": {
-      "offer_id": "47264e2e-5dff-440e-abc4-9bed2683c36c",
-      "item_id": "17014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Beemo": {
       "offer_id": "52312631-c962-4616-a8e1-38f61413b3dd",
       "item_id": "17018",
@@ -8730,12 +8280,6 @@
       "price_rp": 975,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Worlds 2013 Thresh": {
-      "offer_id": "skin_412002",
-      "item_id": "412002",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Blood Moon Thresh": {
       "offer_id": "b002754c-1ce5-41c8-aac5-d51f76399df2",
       "item_id": "412003",
@@ -8763,12 +8307,6 @@
     "Pulsefire Thresh": {
       "offer_id": "a0ba9bce-fb64-4c78-ab71-fdb0525bdf4a",
       "item_id": "412013",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "FPX Thresh": {
-      "offer_id": "skin_412015",
-      "item_id": "412015",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9084,12 +8622,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "DWG Twisted Fate": {
-      "offer_id": "skin_4023",
-      "item_id": "4023",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Crime City Nightmare Twisted Fate": {
       "offer_id": "71fbc80f-be88-4458-8a80-8870ed5aac37",
       "item_id": "4025",
@@ -9348,12 +8880,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Varus": {
-      "offer_id": "skin_110069",
-      "item_id": "110069",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Vindicator Vayne": {
       "offer_id": "skin_67001",
       "item_id": "67001",
@@ -9370,18 +8896,6 @@
       "offer_id": "f9a7088e-08a2-4798-9511-04f0725da62b",
       "item_id": "67003",
       "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Heartseeker Vayne": {
-      "offer_id": "f6d25fb8-25cb-478c-b9e1-074f7f615d5e",
-      "item_id": "67004",
-      "price_rp": 975,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Vayne": {
-      "offer_id": "skin_67005",
-      "item_id": "67005",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Arclight Vayne": {
@@ -9423,12 +8937,6 @@
     "Spirit Blossom Vayne": {
       "offer_id": "732bff91-394f-4069-be69-bbd1ded5f0f7",
       "item_id": "67014",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "FPX Vayne": {
-      "offer_id": "skin_67015",
-      "item_id": "67015",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9690,12 +9198,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Vi": {
-      "offer_id": "skin_254049",
-      "item_id": "254049",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Lunar Beast Viego": {
       "offer_id": "skin_234001",
       "item_id": "234001",
@@ -9705,12 +9207,6 @@
     "Dissonance of Pentakill Viego": {
       "offer_id": "21341bba-cc69-4760-af17-d94bbe2fc915",
       "item_id": "234010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "EDG Viego": {
-      "offer_id": "skin_234019",
-      "item_id": "234019",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -9724,12 +9220,6 @@
       "offer_id": "c30b6e4c-522b-4ba6-9999-306c662ff42e",
       "item_id": "234030",
       "price_rp": 1820,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2024 Viego": {
-      "offer_id": "skin_234037",
-      "item_id": "234037",
-      "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
     "Revenant Reign Viego": {
@@ -9966,12 +9456,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "Lunar Guardian Warwick": {
-      "offer_id": "7b30c490-5ff1-477a-b63c-2532aa11dd93",
-      "item_id": "19010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJECT: Warwick": {
       "offer_id": "c3135559-992e-4dde-b217-ca23344eb9d4",
       "item_id": "19016",
@@ -10182,12 +9666,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Xin Zhao": {
-      "offer_id": "42a55fe2-ff98-46ee-b03d-474436bf5cc9",
-      "item_id": "5053",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "High Noon Yasuo": {
       "offer_id": "1320c6f1-4616-4f75-9a2a-7b4079484292",
       "item_id": "157001",
@@ -10332,12 +9810,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Yone": {
-      "offer_id": "skin_777074",
-      "item_id": "777074",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Undertaker Yorick": {
       "offer_id": "b4edba2d-b626-4cc6-bd82-b2e03c453a43",
       "item_id": "83001",
@@ -10398,12 +9870,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "T1 Yunara": {
-      "offer_id": "a558deac-5b1b-4818-8a2e-57d295f4506a",
-      "item_id": "804010",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Battle Principal Yuumi": {
       "offer_id": "4d196b78-d280-4750-af96-a383aa02eac4",
       "item_id": "350001",
@@ -10425,12 +9891,6 @@
     "Bewitching Yuumi": {
       "offer_id": "skin_350028",
       "item_id": "350028",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "EDG Yuumi": {
-      "offer_id": "skin_350037",
-      "item_id": "350037",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10494,12 +9954,6 @@
       "price_rp": 290,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Zac": {
-      "offer_id": "skin_154006",
-      "item_id": "154006",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Battlecast Zac": {
       "offer_id": "558db13d-4d83-40d4-b661-2b19a239b32d",
       "item_id": "154007",
@@ -10530,21 +9984,9 @@
       "price_rp": 536,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "SKT T1 Zed": {
-      "offer_id": "skin_238002",
-      "item_id": "238002",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "PROJECT: Zed": {
       "offer_id": "5796943c-24a7-4973-a545-7c637bf1eb02",
       "item_id": "238003",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "Worlds 2016 Zed": {
-      "offer_id": "skin_238010",
-      "item_id": "238010",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10758,12 +10200,6 @@
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
-    "EDG Zoe": {
-      "offer_id": "skin_142020",
-      "item_id": "142020",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
     "Winterblessed Zoe": {
       "offer_id": "8bdefecd-dfa9-422e-b52c-bbc5eadd765c",
       "item_id": "142022",
@@ -10785,12 +10221,6 @@
     "Haunted Zyra": {
       "offer_id": "c7c6f9ab-1808-424e-9cc4-d2187f464821",
       "item_id": "143002",
-      "price_rp": 1350,
-      "inventory_type": "CHAMPION_SKIN"
-    },
-    "SKT T1 Zyra": {
-      "offer_id": "skin_143003",
-      "item_id": "143003",
       "price_rp": 1350,
       "inventory_type": "CHAMPION_SKIN"
     },
@@ -10958,12 +10388,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "DRX Aatrox (Elite)": {
-      "offer_id": "skin_266032",
-      "item_id": "266032",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Primordian Aatrox (Ruby)": {
       "offer_id": "skin_266034",
       "item_id": "266034",
@@ -11039,12 +10463,6 @@
     "Popstar Ahri (Catseye)": {
       "offer_id": "958c0b70-b279-472d-bb88-cd5a4f4ed2f1",
       "item_id": "103013",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Challenger Ahri (Golden)": {
-      "offer_id": "skin_103018",
-      "item_id": "103018",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -11249,12 +10667,6 @@
     "Popstar Ahri (Ahri-versary)": {
       "offer_id": "782d4e4b-319f-4eca-bfca-79f259005176",
       "item_id": "103055",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Challenger Ahri (Ahri-versary)": {
-      "offer_id": "skin_103056",
-      "item_id": "103056",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -11741,12 +11153,6 @@
     "Star Guardian Akali (Brilliant)": {
       "offer_id": "skin_84067",
       "item_id": "84067",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DRX Akali (Elite)": {
-      "offer_id": "skin_84069",
-      "item_id": "84069",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -12281,42 +11687,6 @@
     "Chosen of the Wolf Ambessa (Pearl)": {
       "offer_id": "6984fbed-7f0f-45e0-a80d-994ba665848a",
       "item_id": "799007",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Elite)": {
-      "offer_id": "skin_799009",
-      "item_id": "799009",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Pearl)": {
-      "offer_id": "8ec30b5a-4193-4e5e-acb3-638e8d3728c9",
-      "item_id": "799010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Ruby)": {
-      "offer_id": "skin_799011",
-      "item_id": "799011",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Rose Quartz)": {
-      "offer_id": "b2e0ad80-c9dd-4b5c-ac0f-afbb36287185",
-      "item_id": "799012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Catseye)": {
-      "offer_id": "cc26047b-5e61-4d61-9027-ca1ee284eab0",
-      "item_id": "799013",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Ambessa (Sapphire)": {
-      "offer_id": "b6aa042b-f211-47a2-93c7-157490b94825",
-      "item_id": "799014",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -13130,12 +12500,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "EDG Aphelios (Elite)": {
-      "offer_id": "skin_523019",
-      "item_id": "523019",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Spirit Blossom Aphelios (Ruby)": {
       "offer_id": "skin_523021",
       "item_id": "523021",
@@ -13517,12 +12881,6 @@
     "PROJECT: Ashe (Mythic)": {
       "offer_id": "skin_22062",
       "item_id": "22062",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DRX Ashe (Elite)": {
-      "offer_id": "skin_22064",
-      "item_id": "22064",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -14048,30 +13406,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2022 Azir (Tanzanite)": {
-      "offer_id": "skin_268015",
-      "item_id": "268015",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2022 Azir (Turquoise)": {
-      "offer_id": "skin_268016",
-      "item_id": "268016",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2022 Azir (Obsidian)": {
-      "offer_id": "skin_268017",
-      "item_id": "268017",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2022 Azir (One & Only)": {
-      "offer_id": "skin_268018",
-      "item_id": "268018",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Attorney Azir (Ruby)": {
       "offer_id": "skin_268020",
       "item_id": "268020",
@@ -14267,12 +13601,6 @@
     "Shan Hai Scrolls Bard (Obsidian)": {
       "offer_id": "79bfbbea-f675-426f-a0cc-122c7168a682",
       "item_id": "432034",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Bard (Elite)": {
-      "offer_id": "skin_432036",
-      "item_id": "432036",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -15593,12 +14921,6 @@
     "Heartthrob Caitlyn (Obsidian)": {
       "offer_id": "18fb9a1b-8ea7-4fd0-970a-3177e2034835",
       "item_id": "51047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DRX Caitlyn (Elite)": {
-      "offer_id": "skin_51049",
-      "item_id": "51049",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -19712,42 +19034,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Galio (Elite)": {
-      "offer_id": "skin_3048",
-      "item_id": "3048",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Galio (Pearl)": {
-      "offer_id": "25c4a41c-e76e-4887-92b9-c94ecbce8285",
-      "item_id": "3049",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Galio (Ruby)": {
-      "offer_id": "skin_3050",
-      "item_id": "3050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Galio (Rose Quartz)": {
-      "offer_id": "09438fc3-b399-42c8-a3e9-6171160ad505",
-      "item_id": "3051",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Galio (Catseye)": {
-      "offer_id": "ab7c30db-cea3-47cb-b0a1-673571937540",
-      "item_id": "3052",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Galio (Sapphire)": {
-      "offer_id": "8b83f4db-9ed8-49aa-8caa-99f808d24779",
-      "item_id": "3053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Dreadnova Gangplank (Ruby)": {
       "offer_id": "skin_41009",
       "item_id": "41009",
@@ -19811,12 +19097,6 @@
     "Pool Party Gangplank (Pearl)": {
       "offer_id": "545177a4-e9f9-471b-8dea-0060581b691f",
       "item_id": "41020",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "FPX Gangplank (Elite)": {
-      "offer_id": "skin_41022",
-      "item_id": "41022",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -20312,12 +19592,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Gnar (Elite)": {
-      "offer_id": "skin_150042",
-      "item_id": "150042",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "SSG Gnar (Elite)": {
       "offer_id": "skin_150043",
       "item_id": "150043",
@@ -20681,12 +19955,6 @@
     "Sentinel Graves (Resolute)": {
       "offer_id": "skin_104041",
       "item_id": "104041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "EDG Graves (Elite)": {
-      "offer_id": "skin_104043",
-      "item_id": "104043",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -22640,30 +21908,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2021 Jarvan IV (Aquamarine)": {
-      "offer_id": "skin_59031",
-      "item_id": "59031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2021 Jarvan IV (Catseye)": {
-      "offer_id": "skin_59032",
-      "item_id": "59032",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2021 Jarvan IV (Amethyst)": {
-      "offer_id": "skin_59033",
-      "item_id": "59033",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2021 Jarvan IV (MAKE/BREAK)": {
-      "offer_id": "skin_59034",
-      "item_id": "59034",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Nightbringer Jarvan IV (Ruby)": {
       "offer_id": "skin_59036",
       "item_id": "59036",
@@ -23042,12 +22286,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Jayce (Elite)": {
-      "offer_id": "skin_126037",
-      "item_id": "126037",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Petals of Spring Jayce (Ruby)": {
       "offer_id": "skin_126039",
       "item_id": "126039",
@@ -23189,12 +22427,6 @@
     "Shan Hai Scrolls Jhin (Obsidian)": {
       "offer_id": "8a61116b-b999-4414-8bfd-ee6c8790e4a3",
       "item_id": "202022",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DWG Jhin (Elite)": {
-      "offer_id": "skin_202024",
-      "item_id": "202024",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -23672,12 +22904,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Jinx (Elite)": {
-      "offer_id": "skin_222063",
-      "item_id": "222063",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Zombie Slayer Jinx (Doom)": {
       "offer_id": "skin_222064",
       "item_id": "222064",
@@ -24107,12 +23333,6 @@
     "Heavenscale Kai'Sa (Beacon)": {
       "offer_id": "skin_145082",
       "item_id": "145082",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2015 Kalista (Golden)": {
-      "offer_id": "skin_429004",
-      "item_id": "429004",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -25640,12 +24860,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Empyrean Kayle (MSI 2024 Chaos)": {
-      "offer_id": "skin_10077",
-      "item_id": "10077",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Spirit Blossom Kayle (Ruby)": {
       "offer_id": "skin_10079",
       "item_id": "10079",
@@ -25922,12 +25136,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "DWG Kennen (Elite)": {
-      "offer_id": "skin_85024",
-      "item_id": "85024",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Astronaut Kennen (Ruby)": {
       "offer_id": "skin_85026",
       "item_id": "85026",
@@ -26009,156 +25217,6 @@
     "Mecha Kha'Zix (Rose Quartz)": {
       "offer_id": "e1c48e9c-7c4f-4d91-8d8f-288a7f51fa6d",
       "item_id": "121010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Golden)": {
-      "offer_id": "skin_121012",
-      "item_id": "121012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Flash Wolves)": {
-      "offer_id": "skin_121013",
-      "item_id": "121013",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (KT Rolster)": {
-      "offer_id": "skin_121014",
-      "item_id": "121014",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Fnatic)": {
-      "offer_id": "skin_121015",
-      "item_id": "121015",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Kaos Latin Gamers)": {
-      "offer_id": "skin_121017",
-      "item_id": "121017",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (G2 Esports)": {
-      "offer_id": "skin_121018",
-      "item_id": "121018",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Team Vitality)": {
-      "offer_id": "skin_121022",
-      "item_id": "121022",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Ascension Gaming)": {
-      "offer_id": "skin_121023",
-      "item_id": "121023",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Afreeca Freecs)": {
-      "offer_id": "skin_121024",
-      "item_id": "121024",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Gen.G)": {
-      "offer_id": "skin_121025",
-      "item_id": "121025",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (KaBuM! e-Sports)": {
-      "offer_id": "skin_121028",
-      "item_id": "121028",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Gambit Esports)": {
-      "offer_id": "skin_121030",
-      "item_id": "121030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (DetonatioN FocusMe)": {
-      "offer_id": "skin_121031",
-      "item_id": "121031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Infinity eSports)": {
-      "offer_id": "skin_121035",
-      "item_id": "121035",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (G-Rex)": {
-      "offer_id": "skin_121037",
-      "item_id": "121037",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (MAD Team)": {
-      "offer_id": "skin_121041",
-      "item_id": "121041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Edward Gaming)": {
-      "offer_id": "skin_121042",
-      "item_id": "121042",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Invictus Gaming)": {
-      "offer_id": "skin_121043",
-      "item_id": "121043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Royal Never Give Up)": {
-      "offer_id": "skin_121046",
-      "item_id": "121046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (100 Thieves)": {
-      "offer_id": "skin_121047",
-      "item_id": "121047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Cloud9)": {
-      "offer_id": "skin_121048",
-      "item_id": "121048",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Team Liquid)": {
-      "offer_id": "skin_121051",
-      "item_id": "121051",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Dire Wolves)": {
-      "offer_id": "skin_121053",
-      "item_id": "121053",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (BAHÇEŞEHİR SUPERMASSIVE eSports)": {
-      "offer_id": "skin_121054",
-      "item_id": "121054",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2018 Kha'Zix (Phong Vu Buffalo)": {
-      "offer_id": "skin_121059",
-      "item_id": "121059",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -26411,12 +25469,6 @@
     "Woof and Lamb Kindred (Granite)": {
       "offer_id": "cca513fa-ccf9-445f-8259-89fc3519c44e",
       "item_id": "203031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DRX Kindred (Elite)": {
-      "offer_id": "skin_203032",
-      "item_id": "203032",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -27008,24 +26060,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2020 LeBlanc (Rose Quartz)": {
-      "offer_id": "skin_7030",
-      "item_id": "7030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2020 LeBlanc (Ruby)": {
-      "offer_id": "skin_7031",
-      "item_id": "7031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2020 LeBlanc (Turquoise)": {
-      "offer_id": "skin_7032",
-      "item_id": "7032",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Coven LeBlanc (Dark Ritual)": {
       "offer_id": "skin_7034",
       "item_id": "7034",
@@ -27224,12 +26258,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "FPX Lee Sin (Elite)": {
-      "offer_id": "skin_64030",
-      "item_id": "64030",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Storm Dragon Lee Sin (Ruby)": {
       "offer_id": "skin_64032",
       "item_id": "64032",
@@ -27416,12 +26444,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Lee Sin (Elite)": {
-      "offer_id": "skin_64069",
-      "item_id": "64069",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Dragon Fist Lee Sin (Royal)": {
       "offer_id": "skin_64070",
       "item_id": "64070",
@@ -27575,12 +26597,6 @@
     "Battle Academia Leona (Pearl)": {
       "offer_id": "5161dbfb-7f89-4948-a10f-fa008b423fcd",
       "item_id": "89031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DWG Leona (Elite)": {
-      "offer_id": "skin_89032",
-      "item_id": "89032",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -29384,12 +28400,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "FPX Malphite (Elite)": {
-      "offer_id": "skin_54026",
-      "item_id": "54026",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Old God Malphite (Ruby)": {
       "offer_id": "skin_54028",
       "item_id": "54028",
@@ -29495,12 +28505,6 @@
     "Lunar Guardian Malphite (Resplendent)": {
       "offer_id": "skin_54046",
       "item_id": "54046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "FPX Malphite (Tenfold Triumph)": {
-      "offer_id": "skin_54047",
-      "item_id": "54047",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -29951,12 +28955,6 @@
     "Astronaut Maokai (Citrine)": {
       "offer_id": "616e99cc-cced-4e1f-b06c-5be2d734fec4",
       "item_id": "57032",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DRX Maokai (Elite)": {
-      "offer_id": "skin_57034",
-      "item_id": "57034",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -30785,42 +29783,6 @@
     "Battle Queen Miss Fortune (Obsidian)": {
       "offer_id": "b8cd864a-ab48-4636-aba8-8d2f8ffd3d11",
       "item_id": "21068",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Elite)": {
-      "offer_id": "skin_21070",
-      "item_id": "21070",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Pearl)": {
-      "offer_id": "37d236ad-f291-4045-b605-c9bd57963278",
-      "item_id": "21071",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Ruby)": {
-      "offer_id": "skin_21072",
-      "item_id": "21072",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Rose Quartz)": {
-      "offer_id": "5c7373a4-b9a5-4b0f-8d7b-56dc6f3ed460",
-      "item_id": "21073",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Catseye)": {
-      "offer_id": "dd116d4c-68c8-4887-bc88-09716e31fa91",
-      "item_id": "21074",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "MVP T1 Miss Fortune (Sapphire)": {
-      "offer_id": "bc97258f-5bdb-4bce-8543-ec2f0b91debf",
-      "item_id": "21075",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -32798,12 +31760,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Challenger Nidalee (Golden)": {
-      "offer_id": "skin_76010",
-      "item_id": "76010",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Dawnbringer Nidalee (Ruby)": {
       "offer_id": "skin_76012",
       "item_id": "76012",
@@ -32885,12 +31841,6 @@
     "Cosmic Huntress Nidalee (Pearl)": {
       "offer_id": "da266fac-1e0e-4c9f-8dc5-b1b6f1bb3f4a",
       "item_id": "76026",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "DWG Nidalee (Elite)": {
-      "offer_id": "skin_76028",
-      "item_id": "76028",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -34040,12 +32990,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Orianna (Elite)": {
-      "offer_id": "skin_61039",
-      "item_id": "61039",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Elderwood Ornn (Sapphire)": {
       "offer_id": "6b01069c-75ba-419a-8d1e-61990da5062e",
       "item_id": "516003",
@@ -35069,12 +34013,6 @@
     "Inkshadow Pyke (Turquoise)": {
       "offer_id": "fc1a5b18-9e8b-4a17-ba00-d2a4ac277603",
       "item_id": "555083",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Pyke (Elite)": {
-      "offer_id": "skin_555084",
-      "item_id": "555084",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -36542,36 +35480,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2023 Renekton (Ruby)": {
-      "offer_id": "skin_58043",
-      "item_id": "58043",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2023 Renekton (Catseye)": {
-      "offer_id": "skin_58044",
-      "item_id": "58044",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2023 Renekton (Peridot)": {
-      "offer_id": "skin_58045",
-      "item_id": "58045",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2023 Renekton (Unlocked)": {
-      "offer_id": "skin_58046",
-      "item_id": "58046",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2023 Renekton (Destined)": {
-      "offer_id": "skin_58047",
-      "item_id": "58047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Inkshadow Renekton (Ruby)": {
       "offer_id": "skin_58049",
       "item_id": "58049",
@@ -36911,12 +35819,6 @@
     "Dragonblade Riven (Golden)": {
       "offer_id": "skin_92017",
       "item_id": "92017",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Reignited Worlds 2012 Riven (Golden)": {
-      "offer_id": "skin_92019",
-      "item_id": "92019",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -37340,12 +36242,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2019 Ryze (Golden)": {
-      "offer_id": "skin_13012",
-      "item_id": "13012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Guardian of the Sands Ryze (Obsidian)": {
       "offer_id": "08643a8a-abfb-43e4-b547-eeb0367b8eb0",
       "item_id": "13014",
@@ -37427,12 +36323,6 @@
     "Arcana Ryze (Pearl)": {
       "offer_id": "b4e708b4-c313-469b-97cc-b7a7937863a5",
       "item_id": "13028",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "SKT T1 Ryze (Paragon)": {
-      "offer_id": "skin_13030",
-      "item_id": "13030",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -38636,42 +37526,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Seraphine (Elite)": {
-      "offer_id": "skin_147070",
-      "item_id": "147070",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Seraphine (Pearl)": {
-      "offer_id": "856c2c24-4f47-4059-84b9-bbd4eed4ed1e",
-      "item_id": "147071",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Seraphine (Ruby)": {
-      "offer_id": "skin_147072",
-      "item_id": "147072",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Seraphine (Rose Quartz)": {
-      "offer_id": "fe4465a6-1b51-4b9f-b806-c1e2c6947b7d",
-      "item_id": "147073",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Seraphine (Catseye)": {
-      "offer_id": "91f7faa7-9ed7-4428-80f4-802c46aeb31a",
-      "item_id": "147074",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Seraphine (Sapphire)": {
-      "offer_id": "8d61050f-ea17-4caf-ae7e-2bb1b106d78a",
-      "item_id": "147075",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Heartsong Seraphine (Ruby)": {
       "offer_id": "skin_147076",
       "item_id": "147076",
@@ -39701,12 +38555,6 @@
     "Broken Covenant Shen (Obsidian)": {
       "offer_id": "cd177df7-180b-40d7-a96e-48e960558b34",
       "item_id": "98062",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2014 Shyvana (Golden)": {
-      "offer_id": "skin_102007",
-      "item_id": "102007",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -42122,12 +40970,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "SKT T1 Syndra (Paragon)": {
-      "offer_id": "skin_134064",
-      "item_id": "134064",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Dumpling Darlings Syndra (Ruby)": {
       "offer_id": "skin_134066",
       "item_id": "134066",
@@ -43274,21 +42116,9 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2013 Thresh (Golden)": {
-      "offer_id": "skin_412012",
-      "item_id": "412012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Dark Star Thresh (Antimatter)": {
       "offer_id": "skin_412016",
       "item_id": "412016",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "FPX Thresh (Elite)": {
-      "offer_id": "skin_412018",
-      "item_id": "412018",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -44252,12 +43082,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "DWG Twisted Fate (Elite)": {
-      "offer_id": "skin_4024",
-      "item_id": "4024",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Crime City Nightmare Twisted Fate (Ruby)": {
       "offer_id": "skin_4026",
       "item_id": "4026",
@@ -45173,18 +43997,6 @@
     "Spirit Blossom Varus (Obsidian)": {
       "offer_id": "0260dee7-f0ba-499a-87e8-34d60e221bd0",
       "item_id": "110068",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Varus (Elite)": {
-      "offer_id": "skin_110070",
-      "item_id": "110070",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "FPX Vayne (Elite)": {
-      "offer_id": "skin_67016",
-      "item_id": "67016",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -46352,12 +45164,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Vi (Elite)": {
-      "offer_id": "skin_254050",
-      "item_id": "254050",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Lunar Beast Viego (Ruby)": {
       "offer_id": "skin_234002",
       "item_id": "234002",
@@ -46448,12 +45254,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "EDG Viego (Elite)": {
-      "offer_id": "skin_234020",
-      "item_id": "234020",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "King Viego (Ruby)": {
       "offer_id": "skin_234022",
       "item_id": "234022",
@@ -46535,36 +45335,6 @@
     "Soul Fighter Viego (Limitless)": {
       "offer_id": "skin_234036",
       "item_id": "234036",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2024 Viego (Ruby)": {
-      "offer_id": "skin_234038",
-      "item_id": "234038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2024 Viego (Unlocked)": {
-      "offer_id": "skin_234039",
-      "item_id": "234039",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2024 Viego (Citrine)": {
-      "offer_id": "skin_234040",
-      "item_id": "234040",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2024 Viego (Obsidian)": {
-      "offer_id": "skin_234041",
-      "item_id": "234041",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Worlds 2024 Viego (Triumphant)": {
-      "offer_id": "skin_234042",
-      "item_id": "234042",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -48080,42 +46850,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Xin Zhao (Elite)": {
-      "offer_id": "skin_5054",
-      "item_id": "5054",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Xin Zhao (Pearl)": {
-      "offer_id": "ea6158fd-4364-4b04-986f-737046a25edd",
-      "item_id": "5055",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Xin Zhao (Ruby)": {
-      "offer_id": "skin_5056",
-      "item_id": "5056",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Xin Zhao (Rose Quartz)": {
-      "offer_id": "ecfded09-7b18-484f-acad-ad5ff35d3639",
-      "item_id": "5057",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Xin Zhao (Catseye)": {
-      "offer_id": "7082fe02-1214-44c4-973b-061ccab14aab",
-      "item_id": "5058",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Xin Zhao (Sapphire)": {
-      "offer_id": "bed8c710-9748-4afe-acfe-cd09ded5468b",
-      "item_id": "5059",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "High Noon Yasuo (Sapphire)": {
       "offer_id": "e0dba243-25b9-4f06-9130-2c55d811b8ce",
       "item_id": "157004",
@@ -48425,12 +47159,6 @@
     "Inkshadow Yasuo (Inked)": {
       "offer_id": "skin_157066",
       "item_id": "157066",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "Inkshadow Yasuo (DEFY MSI 2023)": {
-      "offer_id": "skin_157067",
-      "item_id": "157067",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -48956,12 +47684,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Yone (Elite)": {
-      "offer_id": "skin_777075",
-      "item_id": "777075",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Inkshadow Yone (Paragon)": {
       "offer_id": "skin_777076",
       "item_id": "777076",
@@ -49310,42 +48032,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "T1 Yunara (Elite)": {
-      "offer_id": "skin_804011",
-      "item_id": "804011",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Yunara (Pearl)": {
-      "offer_id": "4adf5c58-e0f6-4c2c-a097-7150c9ab1e6b",
-      "item_id": "804012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Yunara (Ruby)": {
-      "offer_id": "skin_804013",
-      "item_id": "804013",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Yunara (Rose Quartz)": {
-      "offer_id": "7e2bc1c2-52a4-431c-9c2e-48502f4c8204",
-      "item_id": "804014",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Yunara (Catseye)": {
-      "offer_id": "336beb58-6adf-48b9-b824-c4b9f16ceae8",
-      "item_id": "804015",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "T1 Yunara (Sapphire)": {
-      "offer_id": "d08e5af8-1b58-4f44-9793-f07f7ffc23b2",
-      "item_id": "804016",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Battle Principal Yuumi (Ruby)": {
       "offer_id": "skin_350002",
       "item_id": "350002",
@@ -49538,12 +48224,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "EDG Yuumi (Elite)": {
-      "offer_id": "skin_350038",
-      "item_id": "350038",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Shiba Yuumi (Ruby)": {
       "offer_id": "skin_350040",
       "item_id": "350040",
@@ -49589,12 +48269,6 @@
     "Shiba Yuumi (Pearl)": {
       "offer_id": "3c096dcd-f32a-4757-891e-47ec89697d41",
       "item_id": "350047",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "EDG Yuumi (Tenfold Triumph)": {
-      "offer_id": "skin_350048",
-      "item_id": "350048",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -50024,12 +48698,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "Worlds 2016 Zed (Golden)": {
-      "offer_id": "skin_238012",
-      "item_id": "238012",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "PROJECT: Zed (Reckoning)": {
       "offer_id": "skin_238014",
       "item_id": "238014",
@@ -50309,12 +48977,6 @@
     "Blood Moon Zed (Obsidian)": {
       "offer_id": "da68b78a-bce7-40f8-bf06-814d27f9aa24",
       "item_id": "238066",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "SKT T1 Zed (Paragon)": {
-      "offer_id": "skin_238067",
-      "item_id": "238067",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -51020,12 +49682,6 @@
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
-    "EDG Zoe (Elite)": {
-      "offer_id": "skin_142021",
-      "item_id": "142021",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
     "Winterblessed Zoe (Ruby)": {
       "offer_id": "skin_142023",
       "item_id": "142023",
@@ -51077,12 +49733,6 @@
     "Winterblessed Zoe (Wreathguard)": {
       "offer_id": "skin_142031",
       "item_id": "142031",
-      "price_rp": 290,
-      "inventory_type": "CHROMA"
-    },
-    "EDG Zoe (Tenfold Triumph)": {
-      "offer_id": "skin_142032",
-      "item_id": "142032",
       "price_rp": 290,
       "inventory_type": "CHROMA"
     },
@@ -57331,42 +55981,6 @@
       "price_rp": 3282,
       "inventory_type": "BUNDLES"
     },
-    "T1 Ambessa Chroma Bundle": {
-      "offer_id": "1fde0e3c-ce8a-40a4-a3f6-b1138a301bac",
-      "item_id": 79900905,
-      "price_rp": 2860,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Xin Zhao Chroma Bundle": {
-      "offer_id": "2ea68f22-9374-42bd-99bf-405460d33baa",
-      "item_id": 79900906,
-      "price_rp": 2712,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Yunara Chroma Bundle": {
-      "offer_id": "55ed9df9-1885-4042-8c10-7c84859c6b17",
-      "item_id": 79900907,
-      "price_rp": 2907,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Seraphine Chroma Bundle": {
-      "offer_id": "9f446299-cae3-4ca4-a21a-7a59d6cf1f8a",
-      "item_id": 79900908,
-      "price_rp": 2815,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Galio Chroma Bundle": {
-      "offer_id": "259541a6-6980-46c3-892f-b01ecdc478b3",
-      "item_id": 79900909,
-      "price_rp": 2815,
-      "inventory_type": "BUNDLES"
-    },
-    "MVP T1 Miss Fortune Chroma Bundle": {
-      "offer_id": "3f1016c9-9f38-4b28-b885-3797ca4357ca",
-      "item_id": 79900910,
-      "price_rp": 3020,
-      "inventory_type": "BUNDLES"
-    },
     "Variant Discount: Star Guardian Ezreal / Pajama Guardian Ezreal": {
       "offer_id": "39a444d3-0450-4dee-8c16-cb28e64bd178",
       "item_id": 91000001,
@@ -57485,48 +56099,6 @@
       "offer_id": "63e4057b-41a1-4402-8b5e-4fbf39e23ab3",
       "item_id": 99901287,
       "price_rp": 0,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Galio Signature Edition": {
-      "offer_id": "1088d8ae-8060-4363-b267-be620f2f1c03",
-      "item_id": 99901647,
-      "price_rp": 3595,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Xin Zhao Signature Edition": {
-      "offer_id": "0fc2ae35-1fab-4420-98df-7ab1df303719",
-      "item_id": 99901648,
-      "price_rp": 3492,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Seraphine Signature Edition": {
-      "offer_id": "9d1a2d3e-4469-4fce-a7b2-f4e08dd7d053",
-      "item_id": 99901649,
-      "price_rp": 3595,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Ambessa Signature Edition": {
-      "offer_id": "f33f98f7-2c56-4dab-9aae-0d0900c8c135",
-      "item_id": 99901650,
-      "price_rp": 3640,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Yunara Signature Edition": {
-      "offer_id": "2b730af8-3966-44ba-9f1f-537693bca4d7",
-      "item_id": 99901651,
-      "price_rp": 3687,
-      "inventory_type": "BUNDLES"
-    },
-    "MVP T1 Miss Fortune Signature Edition": {
-      "offer_id": "efe5843e-4e25-459e-a23b-bb7532c43add",
-      "item_id": 99901652,
-      "price_rp": 3800,
-      "inventory_type": "BUNDLES"
-    },
-    "T1 Signature Edition Set (2025)": {
-      "offer_id": "fb122927-35ba-4baf-82fe-a1abaa2b348c",
-      "item_id": 99901653,
-      "price_rp": 22239,
       "inventory_type": "BUNDLES"
     }
   }
