@@ -296,41 +296,104 @@ async function buildFullCatalog() {
     catalogPt.Bundles = skinBundlesPt;
     catalogEn.Bundles = skinBundlesEn;
 
-    // 6. Adicionar Passes e Espólios Presenteáveis
-    const defaultLootPt = {
-        "Passe de Evento": { offer_id: "pass_1650", item_id: 1650, price_rp: 1650, inventory_type: "EVENT_PASS" },
-        "Pacote Passe de Evento + Skin": { offer_id: "pass_2650", item_id: 2650, price_rp: 2650, inventory_type: "BUNDLES" },
-        "Pacote Premium Passe de Evento": { offer_id: "pass_3650", item_id: 3650, price_rp: 3650, inventory_type: "BUNDLES" },
-        "Orbe de Evento": { offer_id: "orb_250", item_id: 250, price_rp: 250, inventory_type: "CHEST" },
-        "Pacote 10 Orbes + 1 Orbe Bônus": { offer_id: "orb_2500", item_id: 2500, price_rp: 2500, inventory_type: "BUNDLES" },
-        "Pacote 25 Orbes + Sacola Exclusiva": { offer_id: "orb_6250", item_id: 6250, price_rp: 6250, inventory_type: "BUNDLES" },
-        "Pacote 50 Orbes + 2 Sacolas + Pacote Exclusivo": { offer_id: "orb_12500", item_id: 12500, price_rp: 12500, inventory_type: "BUNDLES" },
-        "Baú do Mestre-Artesão + Chave": { offer_id: "chest_masterwork_225", item_id: 225, price_rp: 225, inventory_type: "CHEST" },
-        "10 Baús do Mestre-Artesão + Chaves": { offer_id: "chest_masterwork_2250", item_id: 2250, price_rp: 2250, inventory_type: "BUNDLES" },
-        "Baú Hextec + Chave": { offer_id: "chest_hextech_195", item_id: 195, price_rp: 195, inventory_type: "CHEST" },
-        "Cápsula de Campeão": { offer_id: "capsule_champ_750", item_id: 750, price_rp: 750, inventory_type: "CHEST" },
-        "Skin Mistério (Mystery Skin)": { offer_id: "mystery_skin_490", item_id: 490, price_rp: 490, inventory_type: "GIFT" },
-        "Campeão Mistério (Mystery Champion)": { offer_id: "mystery_champ_490", item_id: 490, price_rp: 490, inventory_type: "GIFT" }
-    };
+    // 6. Extrair Passes, Orbes, Espólios, Hextec, Mistério, Emotes, Ícones, Wards e Boosts diretamente do Storefront da Riot
+    const passesPt = {};
+    const passesEn = {};
+    const lootPt = {};
+    const lootEn = {};
+    const emotesPt = {};
+    const emotesEn = {};
+    const iconsPt = {};
+    const iconsEn = {};
+    const wardsPt = {};
+    const wardsEn = {};
+    const boostsPt = {};
+    const boostsEn = {};
+    const companionsPt = {};
+    const companionsEn = {};
 
-    const defaultLootEn = {
-        "Event Pass": { offer_id: "pass_1650", item_id: 1650, price_rp: 1650, inventory_type: "EVENT_PASS" },
-        "Event Pass Bundle + Skin": { offer_id: "pass_2650", item_id: 2650, price_rp: 2650, inventory_type: "BUNDLES" },
-        "Premium Event Pass Bundle": { offer_id: "pass_3650", item_id: 3650, price_rp: 3650, inventory_type: "BUNDLES" },
-        "Event Orb": { offer_id: "orb_250", item_id: 250, price_rp: 250, inventory_type: "CHEST" },
-        "10 Orbs + 1 Bonus Orb Bundle": { offer_id: "orb_2500", item_id: 2500, price_rp: 2500, inventory_type: "BUNDLES" },
-        "25 Orbs + Exclusive Grab Bag": { offer_id: "orb_6250", item_id: 6250, price_rp: 6250, inventory_type: "BUNDLES" },
-        "50 Orbs + 2 Grab Bags + Exclusive Pack": { offer_id: "orb_12500", item_id: 12500, price_rp: 12500, inventory_type: "BUNDLES" },
-        "Masterwork Chest + Key": { offer_id: "chest_masterwork_225", item_id: 225, price_rp: 225, inventory_type: "CHEST" },
-        "10 Masterwork Chests + Keys Bundle": { offer_id: "chest_masterwork_2250", item_id: 2250, price_rp: 2250, inventory_type: "BUNDLES" },
-        "Hextech Chest + Key": { offer_id: "chest_hextech_195", item_id: 195, price_rp: 195, inventory_type: "CHEST" },
-        "Champion Capsule": { offer_id: "capsule_champ_750", item_id: 750, price_rp: 750, inventory_type: "CHEST" },
-        "Mystery Skin": { offer_id: "mystery_skin_490", item_id: 490, price_rp: 490, inventory_type: "GIFT" },
-        "Mystery Champion": { offer_id: "mystery_champ_490", item_id: 490, price_rp: 490, inventory_type: "GIFT" }
-    };
+    rawCatalog.forEach(item => {
+        if (item.active === false) return;
+        if (item.inactiveDate && new Date(item.inactiveDate) < now) return;
 
-    catalogPt.Loot = defaultLootPt;
-    catalogEn.Loot = defaultLootEn;
+        const nameEn = item.localizations?.en_US?.name || item.localizations?.pt_BR?.name;
+        if (!nameEn) return;
+        const namePt = item.localizations?.pt_BR?.name || nameEn;
+        const n = nameEn.toLowerCase();
+        const t = (item.inventoryType || '').toUpperCase();
+        const price = item.prices?.[0]?.cost || 0;
+        if (price <= 0) return;
+        if (isUnpurchasableOrMythic(nameEn) || isUnpurchasableOrMythic(namePt)) return;
+
+        const itemObjPt = {
+            offer_id: item.offerId || `item_${item.itemId}`,
+            item_id: item.itemId,
+            price_rp: price,
+            inventory_type: t
+        };
+        const itemObjEn = {
+            offer_id: item.offerId || `item_${item.itemId}`,
+            item_id: item.itemId,
+            price_rp: price,
+            inventory_type: t
+        };
+
+        // Passes de Evento
+        if (t === 'EVENT_PASS' || (t === 'BUNDLES' && n.includes('pass') && !n.includes('level-up') && !n.includes('bank pass'))) {
+            passesPt[namePt] = itemObjPt;
+            passesEn[nameEn] = itemObjEn;
+        }
+        // Orbes e Cápsulas
+        else if ((t === 'CHEST' || t === 'BUNDLES') && (n.includes('orb') || n.includes('capsule')) && !n.includes('chroma') && !n.includes('orbeeanna') && !n.includes('clash')) {
+            lootPt[namePt] = itemObjPt;
+            lootEn[nameEn] = itemObjEn;
+        }
+        // Baús Hextec, Chaves e Mistério
+        else if (t === 'HEXTECH_CRAFTING' || (t === 'BUNDLES' && n.includes('hextech')) || t === 'MYSTERY' || (t === 'GIFT' && n.includes('mystery'))) {
+            lootPt[namePt] = itemObjPt;
+            lootEn[nameEn] = itemObjEn;
+        }
+        // Emotes
+        else if (t === 'EMOTE') {
+            emotesPt[namePt] = itemObjPt;
+            emotesEn[nameEn] = itemObjEn;
+        }
+        // Ícones de Invocador
+        else if (t === 'SUMMONER_ICON') {
+            iconsPt[namePt] = itemObjPt;
+            iconsEn[nameEn] = itemObjEn;
+        }
+        // Skins de Sentinela / Wards
+        else if (t === 'WARD_SKIN') {
+            wardsPt[namePt] = itemObjPt;
+            wardsEn[nameEn] = itemObjEn;
+        }
+        // Bônus de XP
+        else if (t === 'BOOST') {
+            boostsPt[namePt] = itemObjPt;
+            boostsEn[nameEn] = itemObjEn;
+        }
+        // Companheiros / TFT Little Legends & Chibis
+        else if (t === 'COMPANION') {
+            companionsPt[namePt] = itemObjPt;
+            companionsEn[nameEn] = itemObjEn;
+        }
+    });
+
+    catalogPt.Passes = passesPt;
+    catalogEn.Passes = passesEn;
+    catalogPt.Loot = lootPt;
+    catalogEn.Loot = lootEn;
+    catalogPt.Emotes = emotesPt;
+    catalogEn.Emotes = emotesEn;
+    catalogPt.Icons = iconsPt;
+    catalogEn.Icons = iconsEn;
+    catalogPt.Wards = wardsPt;
+    catalogEn.Wards = wardsEn;
+    catalogPt.Boosts = boostsPt;
+    catalogEn.Boosts = boostsEn;
+    catalogPt.LittleLegends = companionsPt;
+    catalogEn.LittleLegends = companionsEn;
 
     // 7. Salvar arquivos
     const botConfigDir = path.join(__dirname, '../config');

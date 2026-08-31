@@ -928,17 +928,21 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return x.rawItem?.active !== false &&
-                (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
-                !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
-                !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
-                !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
-                !n.includes('missions token bank pass') &&
-                !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule') &&
-                !n.includes('eterno') && !n.includes('eternal') && !n.includes('statstone') && !n.includes('series') && !n.includes('série') &&
-                t !== 'STATSTONE';
+            if (x.rawItem?.active === false) return false;
+            if (x.price_rp <= 0) return false;
+            if (isChroma(x) || t === 'CHROMA') return false;
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN') return false;
+            if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
+            if (t === 'EMOTE' || t === 'SUMMONER_ICON' || t === 'WARD_SKIN' || t === 'COMPANION') return false;
+            if (n.includes('fan pass') || n.includes('token bank') || n.includes('level-up')) return false;
+
+            return (
+                t === 'EVENT_PASS' || 
+                (t === 'BUNDLES' && (n.includes('pass') || n.includes('passe'))) ||
+                (n.includes('pass') && (n.includes('act') || n.includes('season') || n.includes('event') || n.includes('passe')))
+            );
         });
-        titulo = lang === 'pt' ? `🎫 ${results.length} Passes de Evento` : `🎫 ${results.length} Event Passes`;
+        titulo = lang === 'pt' ? `🎫 ${results.length} Passes de Temporada` : `🎫 ${results.length} Season Event Passes`;
         customId = 'selecionar_passe_menu';
     } else if (tipoFiltro === 'emotes') {
         results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE');
@@ -978,21 +982,23 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         customId = 'selecionar_boost_menu';
     } else if (tipoFiltro === 'misterio') {
         results = currentCatalog.filter(x => {
+            if (x.rawItem?.active === false) return false;
+            if (x.price_rp <= 0) return false;
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return x.rawItem?.active !== false &&
-                (t === 'MYSTERY' || n.includes('mistério') || n.includes('mystery'));
+
+            return (
+                t === 'MYSTERY' || 
+                (t === 'GIFT' && (n.includes('mystery') || n.includes('mistério'))) ||
+                n.includes('mystery skin') || n.includes('mystery champion') || n.includes('mystery chest') ||
+                n.includes('skin misteriosa') || n.includes('campeão misterioso')
+            );
         });
         const nameMap = new Map();
         results.forEach(item => {
             const nameLower = item.nome.toLowerCase();
             if (!nameMap.has(nameLower)) {
                 nameMap.set(nameLower, item);
-            } else {
-                const existing = nameMap.get(nameLower);
-                if (item.tipo === 'MYSTERY' && existing.tipo !== 'MYSTERY') {
-                    nameMap.set(nameLower, item);
-                }
             }
         });
         results = Array.from(nameMap.values());
@@ -1001,61 +1007,42 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     } else if (tipoFiltro === 'hextech') {
         results = currentCatalog.filter(x => {
             if (x.rawItem?.active === false) return false;
+            if (x.price_rp <= 0) return false;
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            
-            const matchesHextech = (
-                t === 'HEXTECH_CRAFTING' || 
-                t === 'HEXTECH' || 
-                n.includes('hextech') || 
-                n.includes('baú') || 
-                n.includes('chest') || 
-                n.includes('chave') || 
-                (n.includes('key') && !n.includes('monkey') && !n.includes('okey'))
-            );
 
-            if (!matchesHextech) return false;
-
-            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (isChroma(x) || t === 'CHROMA') return false;
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN') return false;
             if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
-            if (t === 'EMOTE') return false;
-            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
-            if (t === 'WARD_SKIN' || t === 'WARD') return false;
-            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
+            if (t === 'EMOTE' || t === 'SUMMONER_ICON' || t === 'WARD_SKIN' || t === 'COMPANION') return false;
             if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
-            
-            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+            if (n.includes('clash') || n.includes('cup') || n.includes('star') || n.includes('pass') || n.includes('orb')) return false;
 
-            return true;
+            return (
+                t === 'HEXTECH_CRAFTING' || 
+                (t === 'BUNDLES' && (n.includes('chest') || n.includes('baú') || n.includes('key') || n.includes('chave'))) ||
+                (n.includes('hextech') && (n.includes('chest') || n.includes('key') || n.includes('bundle')))
+            );
         });
-        titulo = lang === 'pt' ? `🔑 ${results.length} Hextec, Baús & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
+        titulo = lang === 'pt' ? `🔑 ${results.length} Baús Hextec & Chaves` : `🔑 ${results.length} Hextech Chests & Keys`;
         customId = 'selecionar_hextech_menu';
     } else if (tipoFiltro === 'orbes') {
         results = currentCatalog.filter(x => {
             if (x.rawItem?.active === false) return false;
+            if (x.price_rp <= 0) return false;
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            
-            const matchesOrbs = (
-                (n.includes('orb') && !n.includes('orbeeanna') && !n.includes('orianna')) ||
-                n.includes('orbe') || 
-                n.includes('capsule') ||
-                n.includes('cápsula')
-            );
 
-            if (!matchesOrbs) return false;
-
-            if (t === 'CHAMPION_SKIN' || t === 'SKIN' || isChroma(x)) return false;
+            if (isChroma(x) || t === 'CHROMA') return false;
+            if (t === 'CHAMPION_SKIN' || t === 'SKIN') return false;
             if (t === 'CHAMPION' || t === 'CHAMPIONS') return false;
-            if (t === 'EMOTE') return false;
-            if (t === 'SUMMONER_ICON' || t === 'ICON') return false;
-            if (t === 'WARD_SKIN' || t === 'WARD') return false;
-            if (t === 'COMPANION' || t === 'LITTLELEGENDS') return false;
-            if (t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN') return false;
-            
-            if (n.includes('1 star') || n.includes('2 star') || n.includes('3 star')) return false;
+            if (t === 'EMOTE' || t === 'SUMMONER_ICON' || t === 'WARD_SKIN' || t === 'COMPANION') return false;
+            if (n.includes('orbeeanna') || n.includes('orianna') || n.includes('clash')) return false;
 
-            return true;
+            return (
+                (n.includes('orb') || n.includes('orbe') || n.includes('capsule') || n.includes('cápsula')) &&
+                (t === 'CHEST' || t === 'BUNDLES' || t === 'LOOT')
+            );
         });
         titulo = lang === 'pt' ? `🔮 ${results.length} Orbes & Cápsulas` : `🔮 ${results.length} Orbs & Capsules`;
         customId = 'selecionar_orbes_menu';
@@ -1802,20 +1789,20 @@ client.on('interactionCreate', async interaction => {
                         .setColor('#F43F5E')
                         .setDescription(
                             `<a:whitearrow:1346152146814636032> **Select a Loot category below:**\n\n` +
-                            `> 🔮 **Orbs & Capsules:** Individual Orb (250 RP), Deluxe 10x (2500 RP), Premium 25x (6250 RP), Mega 50x (12500 RP)\n` +
-                            `> 🎫 **Event Passes:** Standard Pass (1650 RP), Bundle (2650 RP), Premium Pass (3650 RP)\n` +
-                            `> 🔑 **Hextech Chests & Keys:** Chests (125 RP), Keys, 1x (225 RP), 5x (1125 RP), 10x (2250 RP) Bundles\n` +
-                            `> 🎁 **Mystery Gifts:** Mystery Skin (490/850 RP) & Mystery Champion (490 RP)`
+                            `> 🔮 **Orbs & Capsules:** Summoner's Orb (250 RP), Deluxe 10x (2500 RP), Premium 25x (6250 RP), Mega 50x (12500 RP)\n` +
+                            `> 🎫 **Season Passes:** Season 3: Act I Pass (1650 RP), Pass Bundle (2650 RP), Premium Pass (3650 RP)\n` +
+                            `> 🔑 **Hextech Chests & Keys:** Hextech Chest (125 RP), Key (125 RP), 1x (195 RP), 5x (975 RP), 10x (1950 RP) Bundles\n` +
+                            `> 🎁 **Mystery Gifts:** Mystery Skin (490 RP), Mystery Champion (490 RP), Mystery Chest (790 RP)`
                         )
                         .setImage('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg')
                         .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
 
                     const menu = new ActionRowBuilder().addComponents(
                         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Loot option').addOptions([
-                            { label: 'Orbs & Capsules', description: 'Event Orb, Deluxe 10x, Premium 25x, Mega 50x', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() },
-                            { label: 'Event Passes', description: 'Event Pass (1650 RP), Pass Bundle (2650 RP), Premium (3650 RP)', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
+                            { label: 'Orbs & Capsules', description: "Summoner's Orb, Deluxe 10x, Premium 25x, Mega 50x", value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() },
+                            { label: 'Season Event Passes', description: 'Season 3: Act I Pass (1650 RP), Bundle (2650 RP), Premium (3650 RP)', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || '🎫').trim() },
                             { label: 'Hextech Chests & Keys', description: 'Hextech Chest (125 RP), Keys, 1x, 5x & 10x Bundles', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
-                            { label: 'Mystery Gifts', description: 'Mystery Skin (490/850 RP) & Mystery Champion (490 RP)', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() }
+                            { label: 'Mystery Gifts', description: 'Mystery Skin (490 RP), Mystery Champion & Mystery Chest', value: 'compra_misterio', emoji: (customEmojis?.loot?.pass || '🎁').trim() }
                         ])
                     );
 
