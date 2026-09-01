@@ -1540,31 +1540,31 @@ function buildStoreMainMenu(customEmojis) {
                 label: 'Skins & Chromas',
                 description: 'Champion Skins, Chromas & Skin Bundles',
                 value: 'cat_skins',
-                emoji: (customEmojis?.skins?.legendary || '👕').trim()
+                emoji: (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1342089845559791650>').trim()
             },
             {
                 label: 'Loot & Passes',
                 description: 'Orbs, Event Passes, Hextech Chests & Mystery',
                 value: 'cat_loot',
-                emoji: (customEmojis?.loot?.orb || '🔮').trim()
+                emoji: (customEmojis?.menu_principal?.loot_passes || customEmojis?.loot?.orb || '<:orb:1528415461010575511>').trim()
             },
             {
                 label: 'Champions & Eternals',
                 description: 'All 173 Champions & Statstone Series',
                 value: 'cat_champions',
-                emoji: (customEmojis?.skins?.champion || '<:mchamp:1342089827071561728>').trim()
+                emoji: (customEmojis?.menu_principal?.champions_eternals || customEmojis?.skins?.champion || '<:mchamp:1342089827071561728>').trim()
             },
             {
                 label: 'Accessories',
                 description: 'Emotes, Wards, Summoner Icons, XP Boosts & Chibis',
                 value: 'cat_accessories',
-                emoji: (customEmojis?.acessorios?.menu || '👑').trim()
+                emoji: (customEmojis?.menu_principal?.accessories || customEmojis?.acessorios?.menu || '👑').trim()
             },
             {
                 label: 'Highlights & Bundles',
                 description: 'Featured Bundles & Spotlight Offers',
                 value: 'cat_highlights',
-                emoji: (customEmojis?.bundles?.menu || customEmojis?.utilidades?.estrela || '<a:EstrelaDanante:1431841476345729024>').trim()
+                emoji: (customEmojis?.menu_principal?.highlights_bundles || customEmojis?.bundles?.menu || '<a:EstrelaDanante:1431841476345729024>').trim()
             }
         ])
     );
@@ -3038,6 +3038,7 @@ client.on('interactionCreate', async interaction => {
                         .setCustomId('menu_emojis_categorias')
                         .setPlaceholder('Selecione uma categoria de emojis')
                         .addOptions([
+                            { label: '🏪 Menu Principal da Loja', description: 'Emojis das 5 categorias principais da loja', value: 'menu_principal', emoji: '🏪' },
                             { label: '✨ Skins & Tiers', description: 'Emojis de Ultimate, Lendária, Épica, Cromas, etc.', value: 'skins', emoji: '✨' },
                             { label: '📦 Espólios & Loot', description: 'Emojis de Passes, Orbes, Baús, Chaves, Cápsulas', value: 'loot', emoji: '📦' },
                             { label: '👑 Acessórios & Itens', description: 'Emojis de Emotes, Wards, Ícones, Boosts, Lendas', value: 'acessorios', emoji: '👑' },

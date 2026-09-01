@@ -22,6 +22,7 @@ module.exports = {
                 .setCustomId('menu_emojis_categorias')
                 .setPlaceholder('Selecione uma categoria de emojis para editar')
                 .addOptions([
+                    { label: '🏪 Menu Principal da Loja', description: 'Emojis das 5 categorias principais da loja', value: 'menu_principal', emoji: '🏪' },
                     { label: '✨ Skins & Tiers', description: 'Emojis de Ultimate, Lendária, Épica, Cromas, etc.', value: 'skins', emoji: '✨' },
                     { label: '📦 Espólios & Loot', description: 'Emojis de Passes, Orbes, Baús, Chaves, Cápsulas', value: 'loot', emoji: '📦' },
                     { label: '👑 Acessórios & Itens', description: 'Emojis de Emotes, Wards, Ícones, Boosts, Lendas', value: 'acessorios', emoji: '👑' },
