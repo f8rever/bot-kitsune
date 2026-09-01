@@ -1861,26 +1861,32 @@ client.on('interactionCreate', async interaction => {
                 }
 
                 if (opcao === 'cat_accessories') {
+                    const eEmotes = (customEmojis?.acessorios?.emotes || '<:17emote:1544481791371649104>').trim();
+                    const eWards = (customEmojis?.acessorios?.wards || '<:18ward:1544481935210844221>').trim();
+                    const eIcones = (customEmojis?.acessorios?.icones || '<:22icone:1544482040206983241>').trim();
+                    const eBoosts = (customEmojis?.acessorios?.boosts || '<:16xp:1544482296541749302>').trim();
+                    const eLendas = (customEmojis?.acessorios?.lendas || '<:transcendent:1528443593822437417>').trim();
+
                     const embed = new EmbedBuilder()
-                        .setTitle('👑 Kitsune Store | Summoner Accessories')
+                        .setTitle('📦 Kitsune Store | Summoner Accessories')
                         .setColor('#F43F5E')
                         .setDescription(
                             `<a:whitearrow:1346152146814636032> **Select the Accessories category below:**\n\n` +
-                            `> <:11default:1527518898654806157> **Emotes:** All official giftable emotes (350 RP)\n` +
-                            `> <:hextech:1133606219181981789> **Ward Skins:** Cosmetic ward skins (640 RP)\n` +
-                            `> <:15croma:1527527027043729561> **Summoner Icons:** Official summoner icons (250 RP)\n` +
-                            `> <a:pr_fire01:1527367612168802374> **XP Boosts:** Duration and Win XP Boosts\n` +
-                            `> <:transcendent:1528443593822437417> **Little Legends & Chibis:** TFT Little Legends, Arenas & Chibis (1900 RP)`
+                            `> ${eEmotes} **Emotes:** All official giftable emotes (350 RP)\n` +
+                            `> ${eWards} **Ward Skins:** Cosmetic ward skins (640 RP)\n` +
+                            `> ${eIcones} **Summoner Icons:** Official summoner icons (250 RP)\n` +
+                            `> ${eBoosts} **XP Boosts:** Duration and Win XP Boosts\n` +
+                            `> ${eLendas} **Little Legends & Chibis:** TFT Little Legends, Arenas & Chibis (1900 RP)`
                         )
                         .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
 
                     const menu = new ActionRowBuilder().addComponents(
                         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select an Accessories option').addOptions([
-                            { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: (customEmojis?.acessorios?.emotes || customEmojis?.utilidades?.emotes || '<:11default:1527518898654806157>').trim() },
-                            { label: 'Ward Skins', description: 'Ward Skins (640 RP)', value: 'compra_wards', emoji: (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '<:hextech:1133606219181981789>').trim() },
-                            { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: (customEmojis?.acessorios?.icones || customEmojis?.utilidades?.icones || '<:15croma:1527527027043729561>').trim() },
-                            { label: 'XP Boosts', description: 'Duration and Win XP Boosts', value: 'compra_boosts', emoji: (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '<a:pr_fire01:1527367612168802374>').trim() },
-                            { label: 'Little Legends & Chibis', description: 'TFT Legends, Arenas & Chibis', value: 'compra_little_legends', emoji: (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '<:transcendent:1528443593822437417>').trim() }
+                            { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: eEmotes },
+                            { label: 'Ward Skins', description: 'Ward Skins (640 RP)', value: 'compra_wards', emoji: eWards },
+                            { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: eIcones },
+                            { label: 'XP Boosts', description: 'Duration and Win XP Boosts', value: 'compra_boosts', emoji: eBoosts },
+                            { label: 'Little Legends & Chibis', description: 'TFT Legends, Arenas & Chibis', value: 'compra_little_legends', emoji: eLendas }
                         ])
                     );
 
