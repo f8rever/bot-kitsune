@@ -1552,19 +1552,19 @@ function buildStoreMainMenu(customEmojis) {
                 label: 'Champions & Eternals',
                 description: 'All 173 Champions & Statstone Series',
                 value: 'cat_champions',
-                emoji: (customEmojis?.skins?.champion || '⚔️').trim()
+                emoji: (customEmojis?.skins?.champion || '<:mchamp:1342089827071561728>').trim()
             },
             {
                 label: 'Accessories',
                 description: 'Emotes, Wards, Summoner Icons, XP Boosts & Chibis',
                 value: 'cat_accessories',
-                emoji: (customEmojis?.utilidades?.emotes || '😃').trim()
+                emoji: (customEmojis?.acessorios?.menu || '👑').trim()
             },
             {
                 label: 'Highlights & Bundles',
                 description: 'Featured Bundles & Spotlight Offers',
                 value: 'cat_highlights',
-                emoji: (customEmojis?.bundles?.signature || '🌟').trim()
+                emoji: (customEmojis?.bundles?.menu || customEmojis?.utilidades?.estrela || '<a:EstrelaDanante:1431841476345729024>').trim()
             }
         ])
     );

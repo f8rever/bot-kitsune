@@ -53,7 +53,8 @@
     "lendas": "<:transcendent:1528443593822437417>"
   },
   "acessorios": {
-    "emotes": "<:11default:1527518898654806157>",
+    "menu": "👑",
+    "emotes": "😃",
     "wards": "<:hextech:1133606219181981789>",
     "icones": "<:15croma:1527527027043729561>",
     "boosts": "<a:pr_fire01:1527367612168802374>",
@@ -114,6 +115,7 @@
     "riot_id": "<:riotzz:1528676647908278342>"
   },
   "bundles": {
+    "menu": "<a:EstrelaDanante:1431841476345729024>",
     "bundle": "<:transcendent:1528443593822437417>",
     "signature": "<:MSP_Autograph:1528463134044459129>",
     "chroma": "<:15croma:1527527027043729561>",
