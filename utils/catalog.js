@@ -52,7 +52,8 @@ function loadCatalog(lang = 'pt') {
                         name: itemName,
                         itemId: info.offer_id || itemName,
                         inventoryType: info.inventory_type || catName.toUpperCase(),
-                        price: Number(price) || 0
+                        price: Number(price) || 0,
+                        iconUrl: info.icon_url || null
                     });
                 }
             }

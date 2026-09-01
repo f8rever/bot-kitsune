@@ -1280,7 +1280,48 @@ async function atualizarEmbedTicket(channel, client) {
             let ddragonUrl = null;
             const catItemEncontrado = findCatalogItem(item.itemId, item.nome);
             
-            if (item.tipo === 'skins' || item.tipo === 'cromas') {
+            const nomeLower = (item.nome || '').toLowerCase();
+            
+            // 1. Orbes Oficiais e Mega Orbe
+            if (nomeLower.includes('mega orb') || nomeLower.includes('12500')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png';
+            } else if (nomeLower.includes('premium orb') || nomeLower.includes('6250')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png';
+            } else if (nomeLower.includes('deluxe orb') || nomeLower.includes('2500')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png';
+            } else if (nomeLower.includes('summoner\'s orb') || (item.tipo === 'orbes' && nomeLower.includes('orb'))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901067.png';
+            }
+            // 2. Passes de Temporada
+            else if (nomeLower.includes('premium pass') || nomeLower.includes('3650')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png';
+            } else if (nomeLower.includes('pass bundle') || nomeLower.includes('2650')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png';
+            } else if (nomeLower.includes('pass') || nomeLower.includes('passe')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png';
+            }
+            // 3. Hextec, Baús e Chaves
+            else if (nomeLower.includes('chest') || nomeLower.includes('baú') || nomeLower.includes('hextech') || nomeLower.includes('key') || nomeLower.includes('chave')) {
+                if (nomeLower.includes('key') && !nomeLower.includes('chest') && !nomeLower.includes('baú')) {
+                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png';
+                } else if (nomeLower.includes('bundle') || nomeLower.includes('set') || nomeLower.includes('conjunto') || nomeLower.includes('195') || nomeLower.includes('975') || nomeLower.includes('1950')) {
+                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png';
+                } else {
+                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png';
+                }
+            }
+            // 4. Presentes Mistério
+            else if (nomeLower.includes('mystery') || nomeLower.includes('mistério') || nomeLower.includes('misterio')) {
+                if (nomeLower.includes('champion') || nomeLower.includes('campeão')) {
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/2.png';
+                } else if (nomeLower.includes('chest') || nomeLower.includes('baú')) {
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/4.png';
+                } else {
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/1.png';
+                }
+            }
+            // 5. Skins & Cromas
+            else if (item.tipo === 'skins' || item.tipo === 'cromas') {
                 if (catItemEncontrado) {
                     let skinId = parseInt(catItemEncontrado.id, 10);
                     if (item.tipo === 'cromas' && catItemEncontrado.parent_id) {
@@ -1298,25 +1339,27 @@ async function atualizarEmbedTicket(channel, client) {
                 if (!ddragonUrl && catItemEncontrado && catItemEncontrado.iconUrl) {
                     ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
                 }
-            } else if (item.tipo === 'champions') {
+            }
+            // 6. Campeões
+            else if (item.tipo === 'champions') {
                 if (catItemEncontrado) {
                     const champKey = champMap[catItemEncontrado.id];
                     if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
                 }
-            } else {
+            }
+            // 7. Pacotes e outros itens
+            else {
                 const itemIdNum = parseInt(item.itemId || catItemEncontrado?.id, 10);
                 if (itemIdNum && !isNaN(itemIdNum) && itemIdNum >= 10000) {
                     ddragonUrl = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemIdNum}.png`;
                 }
 
-                if (!ddragonUrl) {
-                    if (catItemEncontrado && catItemEncontrado.iconUrl) {
-                        ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
-                    } else {
-                        const lojaConfig = obterDadosLoja();
-                        if (lojaConfig?.banners?.bundles) {
-                            ddragonUrl = lojaConfig.banners.bundles;
-                        }
+                if (!ddragonUrl && catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                } else if (!ddragonUrl) {
+                    const lojaConfig = obterDadosLoja();
+                    if (lojaConfig?.banners?.bundles) {
+                        ddragonUrl = lojaConfig.banners.bundles;
                     }
                 }
             }

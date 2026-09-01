@@ -236,14 +236,16 @@ async function buildFullCatalog() {
                     offer_id: offerId,
                     item_id: skinId,
                     price_rp: priceRp,
-                    inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN'
+                    inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN',
+                    icon_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${ptC.id}_${skinPt.num}.jpg`
                 };
 
                 const itemDataEn = {
                     offer_id: offerId,
                     item_id: skinId,
                     price_rp: priceRp,
-                    inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN'
+                    inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN',
+                    icon_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${enC.id || ptC.id}_${skinEn.num || skinPt.num}.jpg`
                 };
 
                 if (isChroma) {
@@ -278,18 +280,24 @@ async function buildFullCatalog() {
         if (n.includes('pass') || n.includes('orb') || n.includes('capsule') || n.includes('chest') || n.includes('key') || n.includes('hextech') || n.includes('clash') || n.includes('starter') || n.includes('tft') || n.includes('mystery') || n.includes('arena') || n.includes('choncc') || n.includes('boba') || n.includes('sanctum') || n.includes('tribe bundle') || n.includes('starship bundle') || n.includes('planet bundle')) return;
         if (isUnpurchasableOrMythic(nameEn) || isUnpurchasableOrMythic(namePt)) return;
 
+        let bundleIcon = item.iconUrl;
+        if (bundleIcon && bundleIcon.startsWith('//')) bundleIcon = 'https:' + bundleIcon;
+        if (!bundleIcon || !bundleIcon.startsWith('http')) bundleIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${item.itemId}.png`;
+
         const price = item.prices?.[0]?.cost || 0;
         skinBundlesPt[namePt] = {
             offer_id: item.offerId || `bundle_${item.itemId}`,
             item_id: item.itemId,
             price_rp: price,
-            inventory_type: 'BUNDLES'
+            inventory_type: 'BUNDLES',
+            icon_url: bundleIcon
         };
         skinBundlesEn[nameEn] = {
             offer_id: item.offerId || `bundle_${item.itemId}`,
             item_id: item.itemId,
             price_rp: price,
-            inventory_type: 'BUNDLES'
+            inventory_type: 'BUNDLES',
+            icon_url: bundleIcon
         };
     });
 
@@ -325,17 +333,39 @@ async function buildFullCatalog() {
         if (price <= 0) return;
         if (isUnpurchasableOrMythic(nameEn) || isUnpurchasableOrMythic(namePt)) return;
 
+        let itemIcon = item.iconUrl;
+        if (itemIcon && itemIcon.startsWith('//')) itemIcon = 'https:' + itemIcon;
+        if (!itemIcon || !itemIcon.startsWith('http')) {
+            if (t === 'BUNDLES' || t === 'EVENT_PASS' || t === 'CHEST') {
+                itemIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${item.itemId}.png`;
+            } else if (t === 'HEXTECH_CRAFTING') {
+                itemIcon = `https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/${item.iconUrl || 'HextechChest_190x190.png'}`;
+            } else if (t === 'MYSTERY' || t === 'GIFT') {
+                itemIcon = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/${item.itemId || 1}.png`;
+            } else if (t === 'EMOTE') {
+                itemIcon = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/${item.itemId}.png`;
+            } else if (t === 'SUMMONER_ICON') {
+                itemIcon = `https://ddragon.leagueoflegends.com/cdn/14.16.1/img/profileicon/${item.itemId}.png`;
+            } else if (t === 'WARD_SKIN') {
+                itemIcon = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/${item.itemId}.png`;
+            } else {
+                itemIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${item.itemId}.png`;
+            }
+        }
+
         const itemObjPt = {
             offer_id: item.offerId || `item_${item.itemId}`,
             item_id: item.itemId,
             price_rp: price,
-            inventory_type: t
+            inventory_type: t,
+            icon_url: itemIcon
         };
         const itemObjEn = {
             offer_id: item.offerId || `item_${item.itemId}`,
             item_id: item.itemId,
             price_rp: price,
-            inventory_type: t
+            inventory_type: t,
+            icon_url: itemIcon
         };
 
         // Passes de Evento
