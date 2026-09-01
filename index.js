@@ -885,34 +885,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         });
         titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
         customId = 'selecionar_chroma_menu';
-    } else if (tipoFiltro === 'highlights') {
-        results = currentCatalog.filter(x => {
-            const n = (x.nome || '').toLowerCase();
-            const t = (x.tipo || '').toUpperCase();
-            if (x.rawItem?.active === false) return false;
-            if (isPrestigeOrMythic(x)) return false;
-
-            return (
-                t === 'FEATURED' || t === 'HIGHLIGHT' ||
-                n.includes('pass') || n.includes('passe') ||
-                n.includes('orb') || n.includes('orbe') ||
-                n.includes('mystery') || n.includes('misteri') ||
-                n.includes('signature') || n.includes('autograf') ||
-                n.includes('mvp') || n.includes('t1') ||
-                n.includes('spotlight') || n.includes('exalted') || n.includes('transcendent')
-            );
-        });
-        if (results.length === 0) {
-            results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'BUNDLES' || (x.tipo || '').toUpperCase() === 'BUNDLE') && !isChroma(x)).slice(0, 30);
-        }
-        titulo = lang === 'pt' ? `🌟 ${results.length} Destaques da Loja` : `🌟 ${results.length} Store Highlights`;
-        customId = 'selecionar_highlight_menu';
-    } else if (tipoFiltro === 'bundles') {
+    } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {
         results = currentCatalog.filter(x => {
             const n = (x.nome || x.name || '').toLowerCase();
             const t = (x.tipo || x.inventoryType || '').toUpperCase();
             if (x.rawItem?.active === false) return false;
             if (isPrestigeOrMythic(x)) return false;
+            if (x.price_rp <= 0) return false;
 
             // EXCLUIR ESPÓLIOS, PASSES, HEXTEC, BAÚS, CHAVES, CLASH, RUNAS, TFT
             if (n.includes('chest') || n.includes('baú') || n.includes('key') || n.includes('chave') || n.includes('hextech')) return false;
@@ -922,8 +901,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
             return (t === 'BUNDLES' || t === 'BUNDLE');
         });
-        titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Cromas` : `📦 ${results.length} Skin & Chroma Bundles`;
-        customId = 'selecionar_bundle_menu';
+        titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Destaques` : `📦 ${results.length} Featured Bundles & Sets`;
+        customId = tipoFiltro === 'highlights' ? 'selecionar_highlight_menu' : 'selecionar_bundle_menu';
     } else if (tipoFiltro === 'passes') {
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
@@ -1887,21 +1866,21 @@ client.on('interactionCreate', async interaction => {
                         .setColor('#F43F5E')
                         .setDescription(
                             `<a:whitearrow:1346152146814636032> **Select the Accessories category below:**\n\n` +
-                            `> 😃 **Emotes:** All official giftable emotes (350 RP)\n` +
-                            `> 👁️ **Ward Skins:** Cosmetic ward skins (640 RP)\n` +
-                            `> 🖼️ **Summoner Icons:** Official summoner icons (250 RP)\n` +
-                            `> ⚡ **XP Boosts:** Duration and Win XP Boosts\n` +
-                            `> 🐥 **Little Legends & Chibis:** TFT Little Legends, Arenas & Chibis (1900 RP)`
+                            `> <:11default:1527518898654806157> **Emotes:** All official giftable emotes (350 RP)\n` +
+                            `> <:hextech:1133606219181981789> **Ward Skins:** Cosmetic ward skins (640 RP)\n` +
+                            `> <:15croma:1527527027043729561> **Summoner Icons:** Official summoner icons (250 RP)\n` +
+                            `> <a:pr_fire01:1527367612168802374> **XP Boosts:** Duration and Win XP Boosts\n` +
+                            `> <:transcendent:1528443593822437417> **Little Legends & Chibis:** TFT Little Legends, Arenas & Chibis (1900 RP)`
                         )
                         .setFooter({ text: 'Kitsune Store • League of Legends', iconURL: interaction.client.user.displayAvatarURL() });
 
                     const menu = new ActionRowBuilder().addComponents(
                         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select an Accessories option').addOptions([
-                            { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: (customEmojis?.utilidades?.emotes || '😃').trim() },
-                            { label: 'Ward Skins', description: 'Ward Skins (640 RP)', value: 'compra_wards', emoji: (customEmojis?.utilidades?.wards || '👁️').trim() },
-                            { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: (customEmojis?.utilidades?.icones || '🖼️').trim() },
-                            { label: 'XP Boosts', description: 'Duration and Win XP Boosts', value: 'compra_boosts', emoji: (customEmojis?.utilidades?.boosts || '⚡').trim() },
-                            { label: 'Little Legends & Chibis', description: 'TFT Legends, Arenas & Chibis', value: 'compra_little_legends', emoji: (customEmojis?.utilidades?.lendas || '🐥').trim() }
+                            { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: (customEmojis?.acessorios?.emotes || customEmojis?.utilidades?.emotes || '<:11default:1527518898654806157>').trim() },
+                            { label: 'Ward Skins', description: 'Ward Skins (640 RP)', value: 'compra_wards', emoji: (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '<:hextech:1133606219181981789>').trim() },
+                            { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: (customEmojis?.acessorios?.icones || customEmojis?.utilidades?.icones || '<:15croma:1527527027043729561>').trim() },
+                            { label: 'XP Boosts', description: 'Duration and Win XP Boosts', value: 'compra_boosts', emoji: (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '<a:pr_fire01:1527367612168802374>').trim() },
+                            { label: 'Little Legends & Chibis', description: 'TFT Legends, Arenas & Chibis', value: 'compra_little_legends', emoji: (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '<:transcendent:1528443593822437417>').trim() }
                         ])
                     );
 

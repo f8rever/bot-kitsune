@@ -45,7 +45,19 @@
     "info": "ℹ️",
     "check": "<a:Verificado_OK:1527367161574854778>",
     "cross": "<a:aXnao:1196412669670994021>",
-    "orbes": "<:orb:1528415461010575511>"
+    "orbes": "<:orb:1528415461010575511>",
+    "emotes": "<:11default:1527518898654806157>",
+    "wards": "<:hextech:1133606219181981789>",
+    "icones": "<:15croma:1527527027043729561>",
+    "boosts": "<a:pr_fire01:1527367612168802374>",
+    "lendas": "<:transcendent:1528443593822437417>"
+  },
+  "acessorios": {
+    "emotes": "<:11default:1527518898654806157>",
+    "wards": "<:hextech:1133606219181981789>",
+    "icones": "<:15croma:1527527027043729561>",
+    "boosts": "<a:pr_fire01:1527367612168802374>",
+    "lendas": "<:transcendent:1528443593822437417>"
   },
   "loja_produtos": {
     "vip": "💎",
