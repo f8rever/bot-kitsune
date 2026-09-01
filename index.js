@@ -3040,6 +3040,8 @@ client.on('interactionCreate', async interaction => {
                         .addOptions([
                             { label: '✨ Skins & Tiers', description: 'Emojis de Ultimate, Lendária, Épica, Cromas, etc.', value: 'skins', emoji: '✨' },
                             { label: '📦 Espólios & Loot', description: 'Emojis de Passes, Orbes, Baús, Chaves, Cápsulas', value: 'loot', emoji: '📦' },
+                            { label: '👑 Acessórios & Itens', description: 'Emojis de Emotes, Wards, Ícones, Boosts, Lendas', value: 'acessorios', emoji: '👑' },
+                            { label: '🌟 Destaques & Pacotes', description: 'Emojis de Pacotes, Assinaturas, Bundles, Sets', value: 'bundles', emoji: '🌟' },
                             { label: '🛠️ Utilidades Gerais', description: 'Setas, Sucesso, Erro, Fogo, Carregamento, etc.', value: 'utilidades', emoji: '🛠️' },
                             { label: '🛒 Loja & Moedas', description: 'Emojis de RP, Dinheiro, Essências, Carrinho', value: 'loja_produtos', emoji: '🛒' },
                             { label: '📊 Status da Loja', description: 'Estoque, Promoção, Novidade, Entrega Rápida', value: 'loja_status', emoji: '📊' },
