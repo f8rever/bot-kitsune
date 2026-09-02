@@ -28,12 +28,31 @@ async function getDb() {
         await mongoClient.connect();
         dbInstance = mongoClient.db(DB_NAME);
         console.log('[MongoDB] 🍃 Conectado com sucesso ao MongoDB Atlas (Kitsune Store)!');
+        ensureMongoIndexes(dbInstance).catch(() => {});
         return dbInstance;
     } catch (err) {
         console.error('[MongoDB Error] Falha ao conectar ao MongoDB Atlas:', err.message);
         return null;
     } finally {
         isConnecting = false;
+    }
+}
+
+let indexesEnsured = false;
+async function ensureMongoIndexes(db) {
+    if (indexesEnsured || !db) return;
+    try {
+        await Promise.all([
+            db.collection('bot_configurations').createIndex({ configType: 1 }, { unique: true }),
+            db.collection('riot_accounts').createIndex({ accountName: 1 }, { unique: true }),
+            db.collection('invites').createIndex({ guildId: 1, userId: 1 }, { unique: true }),
+            db.collection('member_joins').createIndex({ guildId: 1, memberId: 1 }, { unique: true }),
+            db.collection('verified_members').createIndex({ guildId: 1, userId: 1 }, { unique: true }),
+            db.collection('gift_logs').createIndex({ timestamp: -1 })
+        ]);
+        indexesEnsured = true;
+    } catch (e) {
+        // Ignora silenciosamente se o índice já estiver ativo
     }
 }
 

@@ -145,8 +145,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - `index.js` com ~3830 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
 - **Sincronização 24/7 de Configurações no MongoDB Atlas (`utils/mongoStorage.js`):**
   - Coleção `bot_configurations` armazena `embeds`, `emojis`, `loja`, e `config` na nuvem em tempo real.
+  - Índices únicos automáticos criados e garantidos em todas as coleções: `bot_configurations` (`configType`), `riot_accounts` (`accountName`), `invites` (`guildId + userId`), `member_joins` (`guildId + memberId`), `verified_members` (`guildId + userId`), e `gift_logs` (`timestamp`).
   - O bot sincroniza automaticamente no boot e persiste qualquer alteração feita via `/embeds`, `/emojis`, `/config-store`, `/desconto` diretamente no MongoDB Atlas.
   - Script `scripts/pull_from_mongo.js` para sincronizar a nuvem com os arquivos locais a qualquer momento.
+  - Script `scripts/setup_mongo_indexes.js` para otimização e verificação dos índices do banco.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
