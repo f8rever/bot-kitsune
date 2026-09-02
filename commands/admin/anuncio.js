@@ -31,6 +31,18 @@ module.exports = {
                 { name: '🏠 Apenas este servidor', value: 'local' },
                 { name: '🌐 Todos os servidores onde o bot está', value: 'global' }
             ]
+        },
+        {
+            name: 'ignorar_staff',
+            description: 'Se deve pular e não enviar para cargos de Staff / Admins (padrão: Sim)',
+            type: ApplicationCommandOptionType.Boolean,
+            required: false
+        },
+        {
+            name: 'ignorar_ids',
+            description: 'IDs extras para NÃO enviar neste anúncio (separados por vírgula ou espaço)',
+            type: ApplicationCommandOptionType.String,
+            required: false
         }
     ],
 
@@ -48,10 +60,16 @@ module.exports = {
 
         const destino = interaction.options.getString('destino') || 'dm';
         const alcance = interaction.options.getString('alcance') || 'local';
+        const ignorarStaff = interaction.options.getBoolean('ignorar_staff') ?? true;
+        const ignorarIds = interaction.options.getString('ignorar_ids') || '';
+
+        // Armazenar temporariamente parâmetros da sessão
+        const sessionKey = `${interaction.user.id}_anuncio_opts`;
+        global[sessionKey] = { destino, alcance, ignorarStaff, ignorarIds };
 
         // Abrir Modal de Criação do Anúncio
         const modal = new ModalBuilder()
-            .setCustomId(`modal_anuncio__${destino}__${alcance}`)
+            .setCustomId(`modal_anuncio__${sessionKey}`)
             .setTitle('📢 Criar Novo Anúncio'.substring(0, 45));
 
         const tituloInput = new TextInputBuilder()

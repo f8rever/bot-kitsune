@@ -2242,21 +2242,64 @@ client.on('interactionCreate', async interaction => {
                     }
 
                     if (job.destino === 'dm') {
-                        // Coletar membros únicos dos servidores de destino
+                        // Coletar blacklist permanente + ad-hoc
+                        const { getBlacklist } = require('./utils/broadcastBlacklist.js');
+                        const blacklistSet = getBlacklist();
+
+                        if (job.ignorarIds) {
+                            job.ignorarIds.split(/[\s,]+/).forEach(id => {
+                                const clean = id.trim().replace(/[^0-9]/g, '');
+                                if (clean) blacklistSet.add(clean);
+                            });
+                        }
+
+                        const staffRoleIds = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+
+                        // Coletar membros únicos dos servidores de destino (excluindo bots, blacklist e staff)
                         const uniqueMembers = new Map();
+                        let totalBlacklistIgnorados = 0;
+
                         for (const gId of job.guildIds) {
                             const guild = interaction.client.guilds.cache.get(gId);
                             if (!guild) continue;
                             try {
                                 const fetched = await guild.members.fetch();
                                 fetched.forEach(m => {
-                                    if (!m.user.bot && !uniqueMembers.has(m.id)) {
+                                    if (m.user.bot) return;
+                                    if (blacklistSet.has(m.id)) {
+                                        totalBlacklistIgnorados++;
+                                        return;
+                                    }
+                                    if (job.ignorarStaff) {
+                                        const isStaff = m.permissions.has(PermissionsBitField.Flags.Administrator) ||
+                                            m.permissions.has(PermissionsBitField.Flags.ManageGuild) ||
+                                            staffRoleIds.some(rId => m.roles.cache.has(rId));
+                                        if (isStaff) {
+                                            totalBlacklistIgnorados++;
+                                            return;
+                                        }
+                                    }
+                                    if (!uniqueMembers.has(m.id)) {
                                         uniqueMembers.set(m.id, m);
                                     }
                                 });
                             } catch (e) {
                                 guild.members.cache.forEach(m => {
-                                    if (!m.user.bot && !uniqueMembers.has(m.id)) {
+                                    if (m.user.bot) return;
+                                    if (blacklistSet.has(m.id)) {
+                                        totalBlacklistIgnorados++;
+                                        return;
+                                    }
+                                    if (job.ignorarStaff) {
+                                        const isStaff = m.permissions.has(PermissionsBitField.Flags.Administrator) ||
+                                            m.permissions.has(PermissionsBitField.Flags.ManageGuild) ||
+                                            staffRoleIds.some(rId => m.roles.cache.has(rId));
+                                        if (isStaff) {
+                                            totalBlacklistIgnorados++;
+                                            return;
+                                        }
+                                    }
+                                    if (!uniqueMembers.has(m.id)) {
                                         uniqueMembers.set(m.id, m);
                                     }
                                 });
@@ -2269,7 +2312,7 @@ client.on('interactionCreate', async interaction => {
                         let erros = 0;
 
                         await interaction.editReply({
-                            content: `🚀 **Disparo iniciado para ${totalMembros} membros!**\n⏳ *Enviando com intervalo de segurança anti-ban de 3s por membro...*`,
+                            content: `🚀 **Disparo iniciado para ${totalMembros} membros!** (🛡️ ${totalBlacklistIgnorados} ignorados por Blacklist/Staff)\n⏳ *Enviando com intervalo de segurança anti-ban de 3s por membro...*`,
                             components: []
                         }).catch(() => {});
 
@@ -2300,7 +2343,7 @@ client.on('interactionCreate', async interaction => {
                             if (count % 10 === 0 || count === totalMembros) {
                                 const pct = Math.round((count / totalMembros) * 100);
                                 await interaction.editReply({
-                                    content: `📢 **Disparo em andamento:** ${count}/${totalMembros} (${pct}%)\n✅ **Enviados:** ${enviados} | 🔒 **DMs Fechadas (Pulados):** ${bloqueados} | ⚠️ **Erros:** ${erros}`,
+                                    content: `📢 **Disparo em andamento:** ${count}/${totalMembros} (${pct}%)\n✅ **Enviados:** ${enviados} | 🔒 **DMs Fechadas (Pulados):** ${bloqueados} | 🛡️ **Blacklist/Staff:** ${totalBlacklistIgnorados} | ⚠️ **Erros:** ${erros}`,
                                     components: []
                                 }).catch(() => {});
                             }
@@ -2308,7 +2351,7 @@ client.on('interactionCreate', async interaction => {
 
                         global.pendingBroadcasts.delete(jobId);
                         await interaction.editReply({
-                            content: `🎉 **Disparo de anúncio finalizado com sucesso!**\n\n📊 **Relatório Oficial:**\n• **Total de Membros no Alcance:** ${totalMembros}\n• ✅ **Entregues na DM:** ${enviados}\n• 🔒 **DMs Fechadas (Ignorados com Segurança):** ${bloqueados}\n• ⚠️ **Outros Erros:** ${erros}`,
+                            content: `🎉 **Disparo de anúncio finalizado com sucesso!**\n\n📊 **Relatório Oficial:**\n• **Total de Membros no Alcance:** ${totalMembros}\n• 🛡️ **Ignorados por Blacklist / Staff:** ${totalBlacklistIgnorados}\n• ✅ **Entregues na DM:** ${enviados}\n• 🔒 **DMs Fechadas (Ignorados com Segurança):** ${bloqueados}\n• ⚠️ **Outros Erros:** ${erros}`,
                             components: []
                         }).catch(() => {});
 
@@ -3382,9 +3425,14 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (interaction.customId.startsWith('modal_anuncio__')) {
-                const parts = interaction.customId.split('__');
-                const destino = parts[1] || 'dm';
-                const alcance = parts[2] || 'local';
+                const sessionKey = interaction.customId.replace('modal_anuncio__', '');
+                const sessionOpts = global[sessionKey] || { destino: 'dm', alcance: 'local', ignorarStaff: true, ignorarIds: '' };
+                try { delete global[sessionKey]; } catch(e) {}
+
+                const destino = sessionOpts.destino || 'dm';
+                const alcance = sessionOpts.alcance || 'local';
+                const ignorarStaff = sessionOpts.ignorarStaff !== false;
+                const ignorarIds = sessionOpts.ignorarIds || '';
 
                 const titulo = interaction.fields.getTextInputValue('anuncio_titulo');
                 const desc = interaction.fields.getTextInputValue('anuncio_desc');
@@ -3430,6 +3478,8 @@ client.on('interactionCreate', async interaction => {
                 global.pendingBroadcasts.set(jobId, {
                     destino,
                     alcance,
+                    ignorarStaff,
+                    ignorarIds,
                     titulo,
                     desc,
                     banner,

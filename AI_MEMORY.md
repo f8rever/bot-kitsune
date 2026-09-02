@@ -119,13 +119,18 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## ESTADO ATUAL (2026-09-01)
 
 **Estado funcional/operacional**:
-- **19 Comandos Slash 100% Válidos** (adicionado `/anuncio` para transmissão em massa na DM e canais).
+- **20 Comandos Slash 100% Válidos** (inclui `/anuncio` e `/anuncio-blacklist`).
 - **Sistema de Anúncio / Mass DM com Proteção Anti-Ban (`commands/admin/anuncio.js`):**
   - Modal interativo para criação de título, descrição, banner, botões com link e cor.
   - Prévia do visual com confirmação antes do envio.
   - Delay seguro inteligente de 3 segundos por membro para evitar restrição ou quarentena da API do Discord.
   - Tratamento automático para membros com DM fechada (erro 50007 ignorado sem travar).
   - Suporte a disparo local (apenas no servidor atual) ou global (em todos os servidores onde o bot está).
+  - **Sistema de Blacklist / Exclusão de Membros (`commands/admin/anuncio-blacklist.js` & `utils/broadcastBlacklist.js`):**
+    - Blacklist permanente em `config/broadcast_blacklist.json` sincronizada no MongoDB Atlas (`bot_configurations -> broadcast_blacklist`).
+    - Opções no `/anuncio` para `ignorar_staff: true` (não envia para moderadores/admins) e `ignorar_ids` (IDs temporários extras).
+    - Comando `/anuncio-blacklist` com ações de adicionar, remover, listar e limpar.
+    - Exibe contagem de membros bloqueados/ignorados na prévia e no relatório final.
 - **Gerenciador de Embeds (/embeds):**
   - Expandido para 3 menus estruturados cobrindo todos os embeds do bot (Loja, Pedidos, Catálogos, Tabelas, Verificação, Convites e Anúncios).
   - Todos os embeds para clientes em Inglês com descrições de comandos em Português.
