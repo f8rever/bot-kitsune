@@ -1394,8 +1394,18 @@ async def update_catalog_cache(username, password, file_name):
             await auth.set_lol_version()
             await auth.get_catalog()
         else:
-            print(f"\n [Info] Sessao expirada para {username}. Resolvendo hCaptcha com CapMonster ($292.71 USD)...")
-            captcha_token = await captcha_solver_login('c1d7b1ce8249daff22cb67cec1dc9312', userpass_value)
+            try:
+                from captcha_manager import get_best_captcha_key
+                best_k = get_best_captcha_key()
+                active_cap_key = best_k['key']
+                cap_provider = best_k.get('provider', '2Captcha')
+                cap_bal = best_k.get('balance', 0)
+            except Exception:
+                active_cap_key = '299fbccc536b3a4591f1a71f2df8200e'
+                cap_provider = '2Captcha'
+                cap_bal = 290.47
+            print(f"\n [Info] Sessao expirada para {username}. Resolvendo hCaptcha com {cap_provider} (${cap_bal:.2f} USD)...")
+            captcha_token = await captcha_solver_login(active_cap_key, userpass_value)
             if captcha_token and not captcha_token.startswith('Exception'):
                 auth = RiotAuth(username, password, cookies, captcha_token)
                 auth_res = await auth.initialize()
@@ -2345,62 +2355,78 @@ async def captcha_solver_login(captcha_solver_key, userpass):
 
         headers = {"Content-Type": "application/json"}
 
-        captcha_solver_key = '299fbccc536b3a4591f1a71f2df8200e'
+        try:
+            from captcha_manager import get_captcha_keys_queue
+            keys_pool = get_captcha_keys_queue()
+        except Exception:
+            keys_pool = [{'provider': '2Captcha', 'key': '299fbccc536b3a4591f1a71f2df8200e', 'balance': 290.47}]
 
-        url = "https://api.2captcha.com/createTask"
-        data = {
-            "clientKey": captcha_solver_key,
-            "task": {
-                "type": "HCaptchaTaskProxyless",
-                "websiteURL": "https://authenticate.riotgames.com/api/v1/login",
-                "websiteKey": site_key,
-                "isInvisible": True,
-                "data": rqDataValue
-            }
-        }
+        captcha_token = None
+        for key_info in keys_pool:
+            captcha_solver_key = key_info.get('key')
+            provider_name = key_info.get('provider', '2Captcha')
+            bal = key_info.get('balance', 0)
 
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json=data, headers=headers) as response:
-                try:
-                    task_response = await response.json()
-                    print("CapMonster createTask response:", task_response)
-                except aiohttp.ContentTypeError:
-                    resp_text = await response.text()
-                    print(f"create task response is not json: {resp_text}")
-                    task_response = json.loads(resp_text)
-
-        if task_response.get('errorId') == 0:
-            task_id = task_response['taskId']
-            data_res = {
+            url = "https://api.2captcha.com/createTask"
+            data = {
                 "clientKey": captcha_solver_key,
-                "taskId": task_id
+                "task": {
+                    "type": "HCaptchaTaskProxyless",
+                    "websiteURL": "https://authenticate.riotgames.com/api/v1/login",
+                    "websiteKey": site_key,
+                    "isInvisible": True,
+                    "data": rqDataValue
+                }
             }
-            res_url = "https://api.2captcha.com/getTaskResult"
-            i = 1
-        
+
             async with aiohttp.ClientSession() as session:
-                while True:
-                    async with session.post(res_url, json=data_res, headers=headers) as response:
-                        try: get_task_result = await response.json()
-                        except Exception: get_task_result = json.loads(await response.text())
+                async with session.post(url, json=data, headers=headers) as response:
+                    try:
+                        task_response = await response.json()
+                        print(f"[{provider_name} (${bal:.2f} USD)] createTask response:", task_response)
+                    except aiohttp.ContentTypeError:
+                        resp_text = await response.text()
+                        print(f"create task response is not json: {resp_text}")
+                        task_response = json.loads(resp_text)
 
-                        if get_task_result.get('status') == 'processing':
-                            if i > 60: # Timeout de 5 minutos (60 attempts * 5 seconds)
-                                print("❌ Tempo limite excedido aguardando CapMonster.")
-                                break
-                            await asyncio.sleep(5)
-                            print(f"Aguardando resolução do Captcha (CapMonster)... [{i}]")
-                            i += 1
-                        else:
-                            if get_task_result.get('status') == 'ready':
-                                print("✅ Captcha resolvido pelo CapMonster com sucesso!")
-                                break
-                            elif get_task_result.get('errorId', 0) != 0:
-                                print(f"Erro no CapMonster: {get_task_result}")
-                                break
+            if task_response.get('errorId') == 0:
+                task_id = task_response['taskId']
+                data_res = {
+                    "clientKey": captcha_solver_key,
+                    "taskId": task_id
+                }
+                res_url = "https://api.2captcha.com/getTaskResult"
+                i = 1
 
-        solution = get_task_result.get('solution', {})
-        captcha_token = solution.get('gRecaptchaResponse') or solution.get('token')
+                async with aiohttp.ClientSession() as session:
+                    while True:
+                        async with session.post(res_url, json=data_res, headers=headers) as response:
+                            try: get_task_result = await response.json()
+                            except Exception: get_task_result = json.loads(await response.text())
+
+                            if get_task_result.get('status') == 'processing':
+                                if i > 60: # Timeout de 5 minutos
+                                    print(f"❌ Tempo limite excedido aguardando {provider_name}.")
+                                    break
+                                await asyncio.sleep(5)
+                                print(f"Aguardando resolução do Captcha ({provider_name})... [{i}]")
+                                i += 1
+                            else:
+                                if get_task_result.get('status') == 'ready':
+                                    print(f"✅ Captcha resolvido com sucesso via {provider_name}!")
+                                    break
+                                elif get_task_result.get('errorId', 0) != 0:
+                                    print(f"Erro no {provider_name}: {get_task_result}")
+                                    break
+
+                solution = get_task_result.get('solution', {})
+                captcha_token = solution.get('gRecaptchaResponse') or solution.get('token')
+                if captcha_token:
+                    return captcha_token
+            else:
+                print(f"⚠️ Chave {captcha_solver_key[:8]}... com erro ({task_response.get('errorDescription', 'falha')}). Tentando próxima chave da fila...")
+                continue
+
         return captcha_token
 
     except aiohttp.ClientResponseError as e:

@@ -1,0 +1,78 @@
+{
+  "updatedAt": "2026-09-02T18:31:41.190Z",
+  "totalActiveKeys": 11,
+  "primaryKey": {
+    "provider": "2Captcha",
+    "key": "299fbccc536b3a4591f1a71f2df8200e",
+    "balance": 290.47013,
+    "currency": "USD"
+  },
+  "queue": [
+    {
+      "provider": "2Captcha",
+      "key": "299fbccc536b3a4591f1a71f2df8200e",
+      "balance": 290.47013,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "8d9187ef6380d0975bd38c02fd9cc464",
+      "balance": 26.50778,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "50a80317185d1a763c4abeab93fc938b",
+      "balance": 19.2095,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "6230f3e7d53f8f04abcf1bb16f8d6306",
+      "balance": 13.21554,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "93504e5450a1b64c217afa35fea2914a",
+      "balance": 7.72059,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "650b5101bd6fe8180bc502d8dbf0d98c",
+      "balance": 4.89366,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "9b651a32415bfa13a02313431e3573dc",
+      "balance": 4.78245,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "51022c4031d9c7ff833fa00f116f0707",
+      "balance": 2.6416,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "6462ff21953f3070beaa7a3cb0bbe595",
+      "balance": 2.23456,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "128e4310479b1416f7cc7615560c78aa",
+      "balance": 0.91597,
+      "currency": "USD"
+    },
+    {
+      "provider": "2Captcha",
+      "key": "e08f640d3fbff17e9ffc88f28e338c1b",
+      "balance": 0.61501,
+      "currency": "USD"
+    }
+  ]
+}

@@ -123,7 +123,8 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - **10.242 itens** no catálogo em PT e EN.
 - Python Backend — Python 3.12 funcional.
 - Persistência 24/7 no MongoDB Atlas ativa.
-- Solver 2Captcha ativo ($290.79 USD).
+- Solver 2Captcha ativo com fila ordenada de 11 chaves ativas ($373.21 USD no total, chave principal com $290.47 USD).
+- Pool e fila de fallback automática de Captcha (`utils/captchaManager.js`, `python_backend/captcha_manager.py` e `config/captcha_keys_pool.json`).
 - `config/emojis.json` com 136 linhas — 12 categorias totalmente modulares.
 - Emojis Oficiais da Riot em Alta Resolução enviados para `Zed Store` e `KITSUNE x GAMING v2`:
   - 🎁 **Mystery Skin Box:** `<:lol_mystery_skin:1544591070204010598>`
