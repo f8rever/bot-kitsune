@@ -294,6 +294,85 @@ async function recordMemberVerified(guildId, userId) {
     }
 }
 
+/**
+ * Salva uma configuração do bot no MongoDB Atlas (embeds, emojis, loja, config)
+ */
+async function saveBotConfigToMongo(configType, configData) {
+    if (!configType || !configData) return false;
+    try {
+        const db = await getDb();
+        if (!db) return false;
+
+        const collection = db.collection('bot_configurations');
+        await collection.updateOne(
+            { configType: configType },
+            { 
+                $set: { 
+                    configType: configType,
+                    data: configData,
+                    updatedAt: new Date().toISOString() 
+                } 
+            },
+            { upsert: true }
+        );
+        console.log(`[MongoDB] 💾 Configuração '${configType}' salva com sucesso no MongoDB Atlas!`);
+        return true;
+    } catch (err) {
+        console.error(`[MongoDB Error] Erro ao salvar config '${configType}':`, err.message);
+        return false;
+    }
+}
+
+/**
+ * Carrega uma configuração do bot do MongoDB Atlas
+ */
+async function loadBotConfigFromMongo(configType) {
+    try {
+        const db = await getDb();
+        if (!db) return null;
+
+        const collection = db.collection('bot_configurations');
+        const doc = await collection.findOne({ configType: configType });
+        return doc ? doc.data : null;
+    } catch (err) {
+        console.error(`[MongoDB Error] Erro ao carregar config '${configType}':`, err.message);
+        return null;
+    }
+}
+
+/**
+ * Sincroniza todas as configurações do bot entre o MongoDB Atlas e os arquivos locais em config/
+ * - Se existir na nuvem, restaura para o disco
+ * - Se não existir na nuvem mas existir no disco, envia para a nuvem
+ */
+async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) {
+    const configFiles = [
+        { type: 'embeds', file: 'embeds.json' },
+        { type: 'emojis', file: 'emojis.json' },
+        { type: 'loja', file: 'loja.json' },
+        { type: 'config', file: 'config.json' }
+    ];
+
+    for (const item of configFiles) {
+        const filePath = path.join(configDir, item.file);
+        try {
+            const mongoData = await loadBotConfigFromMongo(item.type);
+            if (mongoData && typeof mongoData === 'object' && Object.keys(mongoData).length > 0) {
+                // Nuvem tem dados: escreve no disco para uso local e rápido
+                fs.writeFileSync(filePath, JSON.stringify(mongoData, null, 2), 'utf8');
+                console.log(`[MongoDB Sync] 📥 Configuração '${item.file}' sincronizada da nuvem com o disco!`);
+            } else if (fs.existsSync(filePath)) {
+                // Nuvem não tem dados: sobe os dados locais para a nuvem
+                const localData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                await saveBotConfigToMongo(item.type, localData);
+                console.log(`[MongoDB Sync] ⬆️ Configuração '${item.file}' enviada do disco para o MongoDB Atlas.`);
+            }
+        } catch (e) {
+            console.error(`[MongoDB Sync Error] Falha ao sincronizar '${item.file}':`, e.message);
+        }
+    }
+}
+
 module.exports = {
     getDb,
     saveAccountToMongo,
@@ -304,5 +383,8 @@ module.exports = {
     getUserInvites,
     recordInviteJoin,
     recordInviteLeave,
-    recordMemberVerified
+    recordMemberVerified,
+    saveBotConfigToMongo,
+    loadBotConfigFromMongo,
+    syncAllBotConfigs
 };

@@ -10,11 +10,13 @@
     "buttonStyle": "gray"
   },
   "store_authentication": {
-    "title": "<a:carregando:1529363904445026334> Authentication",
-    "description": "<a:whitearrow:1346152146814636032> Please select your **League of Legends** region below to start your purchase:",
-    "color": "#FF0000",
+    "title": "📊 Authentication",
+    "description": "▸ Please select your **League of Legends** region below to start your purchase:",
+    "color": "#F43F5E",
     "thumbnail": "",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Pyke_25.jpg"
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zed_15.jpg",
+    "footerText": "© Kitsune - Copyright 2026",
+    "footerIcon": ""
   },
   "store_sales_center": {
     "title": "<a:planeta:1527672012825301054> League of Legends Shop",

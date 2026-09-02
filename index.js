@@ -185,8 +185,11 @@ if (process.env.SAVED_RIOT_ACCOUNTS) {
 // Sincronização automática inicial com o MongoDB Atlas
 (async () => {
     try {
-        const { syncMongoAndDisk } = require('./utils/mongoStorage.js');
+        const { syncMongoAndDisk, syncAllBotConfigs } = require('./utils/mongoStorage.js');
         await syncMongoAndDisk(accountsPath);
+        await syncAllBotConfigs(path.join(__dirname, 'config'));
+        carregarEmojis();
+        carregarEmbeds();
     } catch (e) {
         console.error('[MongoDB Startup Sync Error]', e.message);
     }
@@ -3113,6 +3116,10 @@ client.on('interactionCreate', async interaction => {
                             }
                         }
                         fs.writeFileSync(lojaPath, JSON.stringify(lojaFile, null, 2), 'utf8');
+                        try {
+                            const { saveBotConfigToMongo } = require('./utils/mongoStorage.js');
+                            saveBotConfigToMongo('loja', lojaFile);
+                        } catch (e) {}
                         const discReply = `✅ Desconto de **${pct}%** aplicado com sucesso a **${targetCategories.join(', ')}**!`;
                         if (interaction.replied || interaction.deferred) {
                             await interaction.followUp({ content: discReply, ephemeral: true }).catch(() => {});
@@ -3142,6 +3149,10 @@ client.on('interactionCreate', async interaction => {
                     }
 
                     fs.writeFileSync(embedsPath, JSON.stringify(fileData, null, 2), 'utf8');
+                    try {
+                        const { saveBotConfigToMongo } = require('./utils/mongoStorage.js');
+                        saveBotConfigToMongo('embeds', fileData);
+                    } catch (e) {}
                     try { client.emit('reloadEmbeds'); } catch(e) {}
 
                     let previewEmbed = null;
@@ -3231,6 +3242,10 @@ client.on('interactionCreate', async interaction => {
                     fileData[cat][key] = novoEmoji;
 
                     fs.writeFileSync(emojisPath, JSON.stringify(fileData, null, 2), 'utf8');
+                    try {
+                        const { saveBotConfigToMongo } = require('./utils/mongoStorage.js');
+                        saveBotConfigToMongo('emojis', fileData);
+                    } catch (e) {}
                     client.emit('reloadEmojis');
 
                     await interaction.reply({ content: `✅ Emoji for **${cat} -> ${key}** successfully updated to: ${novoEmoji}`, ephemeral: true });

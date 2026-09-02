@@ -142,7 +142,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - 🎫 **Passe Season 3:** `<:lol_pass_s3:1544493308015804429>`
   - 🔮 **Orbe Season 3:** `<:lol_orb_s3:1544493304983322736>`
   - 🎟️ **Clash Ticket:** `<:lol_clash_ticket:1544493301334278145>`
-- `index.js` com ~3825 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
+- `index.js` com ~3830 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
+- **Sincronização 24/7 de Configurações no MongoDB Atlas (`utils/mongoStorage.js`):**
+  - Coleção `bot_configurations` armazena `embeds`, `emojis`, `loja`, e `config` na nuvem em tempo real.
+  - O bot sincroniza automaticamente no boot e persiste qualquer alteração feita via `/embeds`, `/emojis`, `/config-store`, `/desconto` diretamente no MongoDB Atlas.
+  - Script `scripts/pull_from_mongo.js` para sincronizar a nuvem com os arquivos locais a qualquer momento.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
