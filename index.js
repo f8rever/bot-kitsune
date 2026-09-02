@@ -2223,6 +2223,131 @@ client.on('interactionCreate', async interaction => {
 
                 return await enviarPaginaCatalogo(interaction, tipoFiltro, page, true);
             }
+
+            if (interaction.customId.startsWith('btn_confirmar_anuncio__')) {
+                const jobId = interaction.customId.replace('btn_confirmar_anuncio__', '');
+                const job = global.pendingBroadcasts?.get(jobId);
+                if (!job) {
+                    return interaction.reply({ content: '❌ Sessão de anúncio expirada ou já finalizada.', ephemeral: true });
+                }
+
+                await interaction.deferUpdate().catch(() => {});
+
+                // Disparo assíncrono controlado com proteção Anti-Ban (rate limit e delays)
+                (async () => {
+                    const embedToSend = EmbedBuilder.from(job.embedData);
+                    const rowComponents = [];
+                    if (job.linkButtonData) {
+                        rowComponents.push(new ActionRowBuilder().addComponents(ButtonBuilder.from(job.linkButtonData)));
+                    }
+
+                    if (job.destino === 'dm') {
+                        // Coletar membros únicos dos servidores de destino
+                        const uniqueMembers = new Map();
+                        for (const gId of job.guildIds) {
+                            const guild = interaction.client.guilds.cache.get(gId);
+                            if (!guild) continue;
+                            try {
+                                const fetched = await guild.members.fetch();
+                                fetched.forEach(m => {
+                                    if (!m.user.bot && !uniqueMembers.has(m.id)) {
+                                        uniqueMembers.set(m.id, m);
+                                    }
+                                });
+                            } catch (e) {
+                                guild.members.cache.forEach(m => {
+                                    if (!m.user.bot && !uniqueMembers.has(m.id)) {
+                                        uniqueMembers.set(m.id, m);
+                                    }
+                                });
+                            }
+                        }
+
+                        const totalMembros = uniqueMembers.size;
+                        let enviados = 0;
+                        let bloqueados = 0;
+                        let erros = 0;
+
+                        await interaction.editReply({
+                            content: `🚀 **Disparo iniciado para ${totalMembros} membros!**\n⏳ *Enviando com intervalo de segurança anti-ban de 3s por membro...*`,
+                            components: []
+                        }).catch(() => {});
+
+                        let count = 0;
+                        for (const member of uniqueMembers.values()) {
+                            count++;
+                            try {
+                                await member.send({ embeds: [embedToSend], components: rowComponents });
+                                enviados++;
+                            } catch (err) {
+                                if (err.code === 50007) {
+                                    bloqueados++; // DM privada fechada pelo usuário
+                                } else if (err.status === 429) {
+                                    // Rate limit da API do Discord: aguardar tempo especificado
+                                    const waitSec = Math.ceil((err.rawError?.retry_after || 5000) / 1000);
+                                    console.warn(`[Broadcast RateLimit] 429 recebido. Pausando ${waitSec}s...`);
+                                    await new Promise(r => setTimeout(r, waitSec * 1000));
+                                    erros++;
+                                } else {
+                                    erros++;
+                                }
+                            }
+
+                            // Intervalo seguro de 3 segundos
+                            await new Promise(r => setTimeout(r, 3000));
+
+                            // Atualizar status do progresso a cada 10 envios ou no final
+                            if (count % 10 === 0 || count === totalMembros) {
+                                const pct = Math.round((count / totalMembros) * 100);
+                                await interaction.editReply({
+                                    content: `📢 **Disparo em andamento:** ${count}/${totalMembros} (${pct}%)\n✅ **Enviados:** ${enviados} | 🔒 **DMs Fechadas (Pulados):** ${bloqueados} | ⚠️ **Erros:** ${erros}`,
+                                    components: []
+                                }).catch(() => {});
+                            }
+                        }
+
+                        global.pendingBroadcasts.delete(jobId);
+                        await interaction.editReply({
+                            content: `🎉 **Disparo de anúncio finalizado com sucesso!**\n\n📊 **Relatório Oficial:**\n• **Total de Membros no Alcance:** ${totalMembros}\n• ✅ **Entregues na DM:** ${enviados}\n• 🔒 **DMs Fechadas (Ignorados com Segurança):** ${bloqueados}\n• ⚠️ **Outros Erros:** ${erros}`,
+                            components: []
+                        }).catch(() => {});
+
+                    } else {
+                        // Envio em canal de texto dos servidores
+                        let canaisEnviados = 0;
+                        for (const gId of job.guildIds) {
+                            const guild = interaction.client.guilds.cache.get(gId);
+                            if (!guild) continue;
+                            const channel = guild.channels.cache.find(c => 
+                                (c.name.includes('anuncio') || c.name.includes('announce') || c.name.includes('avisos') || c.name.includes('geral') || c.name.includes('chat')) && 
+                                c.isTextBased() && 
+                                c.permissionsFor(guild.members.me)?.has(PermissionsBitField.Flags.SendMessages)
+                            );
+                            if (channel) {
+                                try {
+                                    await channel.send({ content: '@everyone', embeds: [embedToSend], components: rowComponents });
+                                    canaisEnviados++;
+                                } catch (e) {}
+                            }
+                        }
+
+                        global.pendingBroadcasts.delete(jobId);
+                        await interaction.editReply({
+                            content: `✅ **Anúncio publicado com sucesso em ${canaisEnviados} canal(is) de texto com menção @everyone!**`,
+                            components: []
+                        }).catch(() => {});
+                    }
+                })();
+
+                return;
+            }
+
+            if (interaction.customId.startsWith('btn_cancelar_anuncio__')) {
+                const jobId = interaction.customId.replace('btn_cancelar_anuncio__', '');
+                global.pendingBroadcasts?.delete(jobId);
+                return await interaction.update({ content: '❌ Disparo de anúncio cancelado pelo operador.', embeds: [], components: [] });
+            }
+
             if (['btn_rp', 'btn_account', 'btn_friend', 'btn_back', 'btn_accept_all_friends'].includes(interaction.customId) || interaction.customId.startsWith('btn_friend_') || interaction.customId.startsWith('btn_accept_all_now_')) {
                 try {
                     await interaction.deferUpdate();
@@ -3254,6 +3379,99 @@ client.on('interactionCreate', async interaction => {
                     await interaction.reply({ content: `❌ Internal error while updating emojis.json.`, ephemeral: true });
                 }
                 return;
+            }
+
+            if (interaction.customId.startsWith('modal_anuncio__')) {
+                const parts = interaction.customId.split('__');
+                const destino = parts[1] || 'dm';
+                const alcance = parts[2] || 'local';
+
+                const titulo = interaction.fields.getTextInputValue('anuncio_titulo');
+                const desc = interaction.fields.getTextInputValue('anuncio_desc');
+                const banner = (interaction.fields.getTextInputValue('anuncio_banner') || '').trim();
+                const botaoRaw = (interaction.fields.getTextInputValue('anuncio_botao') || '').trim();
+                const corInput = (interaction.fields.getTextInputValue('anuncio_cor') || '').trim();
+                const cor = (corInput && (corInput.startsWith('#') || /^[0-9A-Fa-f]{6}$/.test(corInput))) 
+                    ? (corInput.startsWith('#') ? corInput : '#' + corInput) 
+                    : '#F43F5E';
+
+                const embedPreview = new EmbedBuilder()
+                    .setTitle(titulo)
+                    .setDescription(desc)
+                    .setColor(cor)
+                    .setThumbnail(interaction.client.user.displayAvatarURL())
+                    .setFooter({ text: '© Kitsune - All Rights Reserved', iconURL: interaction.client.user.displayAvatarURL() })
+                    .setTimestamp();
+
+                if (banner && (banner.startsWith('http://') || banner.startsWith('https://'))) {
+                    embedPreview.setImage(banner);
+                }
+
+                const components = [];
+                let linkButton = null;
+                if (botaoRaw && botaoRaw.includes('|')) {
+                    const [bLabel, bUrl] = botaoRaw.split('|').map(s => s.trim());
+                    if (bLabel && bUrl && (bUrl.startsWith('http://') || bUrl.startsWith('https://'))) {
+                        linkButton = new ButtonBuilder()
+                            .setLabel(bLabel.substring(0, 80))
+                            .setStyle(ButtonStyle.Link)
+                            .setURL(bUrl);
+                    }
+                }
+
+                // Guardar job pendente
+                if (!global.pendingBroadcasts) global.pendingBroadcasts = new Map();
+                const jobId = require('crypto').randomUUID();
+
+                const targetGuilds = (alcance === 'global')
+                    ? Array.from(interaction.client.guilds.cache.values())
+                    : [interaction.guild];
+
+                global.pendingBroadcasts.set(jobId, {
+                    destino,
+                    alcance,
+                    titulo,
+                    desc,
+                    banner,
+                    botaoRaw,
+                    cor,
+                    embedData: embedPreview.toJSON(),
+                    linkButtonData: linkButton ? linkButton.toJSON() : null,
+                    guildIds: targetGuilds.map(g => g.id),
+                    authorId: interaction.user.id
+                });
+
+                const previewRow = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setCustomId(`btn_confirmar_anuncio__${jobId}`)
+                        .setLabel('🚀 Confirmar e Iniciar Disparo')
+                        .setStyle(ButtonStyle.Danger)
+                        .setEmoji('📢'),
+                    new ButtonBuilder()
+                        .setCustomId(`btn_cancelar_anuncio__${jobId}`)
+                        .setLabel('❌ Cancelar')
+                        .setStyle(ButtonStyle.Secondary)
+                );
+
+                if (linkButton) {
+                    const btnLinkRow = new ActionRowBuilder().addComponents(linkButton);
+                    components.push(btnLinkRow);
+                }
+                components.push(previewRow);
+
+                const infoText = [
+                    '📋 **PRÉVIA DO ANÚNCIO:**',
+                    `• **Destino:** \`${destino === 'dm' ? 'Direct Message (DM Privada)' : 'Canal de Anúncios'}\``,
+                    `• **Alcance:** \`${alcance === 'global' ? `Todos os Servidores (${targetGuilds.length})` : `Apenas este servidor (${interaction.guild.name})`}\``,
+                    '',
+                    '⚠️ **Aviso de Segurança Anti-Ban do Discord:**',
+                    '> O envio em massa na DM será realizado com **delay inteligente de 3 segundos por membro** para respeitar rigorosamente os limites da API do Discord e impedir qualquer risco de rate limit ou quarentena.',
+                    '> Membros com DMs privadas bloqueadas serão ignorados silenciosamente sem travar o processo.',
+                    '',
+                    'Confira a prévia do visual abaixo e clique em **🚀 Confirmar e Iniciar Disparo** para começar:'
+                ].join('\n');
+
+                return await interaction.reply({ content: infoText, embeds: [embedPreview], components, ephemeral: true });
             }
 
             if (interaction.customId === 'modal_riot_id') {

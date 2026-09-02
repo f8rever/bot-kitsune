@@ -690,11 +690,22 @@
     "fields": []
   },
   "verify_success": {
-    "title": "✅ Verificado com Sucesso!",
-    "description": "<a:whitearrow:1346152146814636032> Você foi verificado com sucesso e o cargo **{roleName}** foi concedido!\n<a:whitearrow:1346152146814636032> Aproveite todas as vantagens e promoções da Kitsune Store.",
+    "title": "✅ Successfully Verified!",
+    "description": "<a:whitearrow:1346152146814636032> You have been verified and granted the **{roleName}** role!\n<a:whitearrow:1346152146814636032> Enjoy all exclusive perks, skins, and promotions at Kitsune Store.",
     "color": "#57F287",
     "thumbnail": "{userAvatar}",
     "image": "",
+    "fields": []
+  },
+  "broadcast_announcement": {
+    "title": "📢 Kitsune Store | Special Announcement",
+    "description": "🌟 **Exclusive Flash Sale Alert!**\nDon't miss our exclusive discounts on skins, orbs, passes, and accessories today!\nOpen a ticket in the server to claim yours.",
+    "color": "#F43F5E",
+    "thumbnail": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zed_15.jpg",
+    "buttonLabel": "Visit Server",
+    "buttonEmoji": "🦊",
+    "buttonUrl": "https://discord.gg/kitsune",
     "fields": []
   }
 }
