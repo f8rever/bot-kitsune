@@ -90,242 +90,75 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ### Preços e Descontos
 - Preços em Euros (€) — público-alvo parece ser Portugal/Europa
 - Conversão RP → EUR via fórmula base: `rpCost * 0.0060`
-- Descontos configuráveis globalmente e por categoria individual via `/desconto`
-- Desconto padrão: 50% (definido em loja.json)
-- Tabelas de preço fixas em loja.json para skins e loot (com preço original e desconto)
-
-### Embeds Customizáveis
-- Todas as embeds do bot são definidas em `config/embeds.json` (~452 linhas, ~45 templates)
-- Sistema completo de template com variáveis dinâmicas ({accountName}, {rp}, {region}, etc.)
-- Admin pode editar todas as embeds via comando `/embeds` (título, descrição, cor, imagem, thumbnail, fields, footer)
-
-### Emojis Customizáveis
-- Emojis do bot definidos em `config/emojis.json` (110 linhas)
-- Organizados por categoria: skins, loot, utilidades, loja_produtos, loja_status, staff, lol_roles, lol_regions, ticket, bundles
-- Admin pode editar via comando `/emojis`
+- O bot é **monolítico** (`index.js` com ~3817 linhas).
+- Sistema de catálogo atualizado com 10.242 itens.
+- **Configuração de Emojis:** 136 linhas, 12 categorias (`menu_principal`, `skins`, `loot`, `acessorios`, `bundles`, `ticket`, `loja_produtos`, `loja_status`, `utilidades`, `staff_e_suporte`, `lol_roles`, `lol_regions`).
+- Persistência via **MongoDB Atlas** para Contas Riot, Convites e Verificações.
 
 ---
 
 ## FUNCIONALIDADES IMPLEMENTADAS
 
 ### Loja / Gifting (Core)
-- [x] Painel fixo da loja no chat (`/ticket`) — botão "Buy here" abre fluxo interativo
-- [x] Seleção de região LoL (BR, NA, EUW, EUNE, LAN, LAS, OCE, TR) via menu
-- [x] Central de vendas com categorias: Highlights, Skins, Chromas, Passes, Orbes, Hextech, Champions, Emotes, Icons, Wards, Little Legends, TFT Arena, Boosts, Eternos, Mystery Gifts
-- [x] Catálogo paginado com 25 itens/página e navegação (prev/next)
-- [x] Busca no catálogo por nome
-- [x] Detalhes do item com raridade, preço RP, preço EUR (com desconto)
-- [x] Ícone/imagem do item no catálogo
-- [x] Criação automática de ticket (canal privado) para finalizar pedido
-- [x] Resumo do pedido no ticket (produto, raridade, valor RP, preço, região, Riot ID)
-- [x] Envio de presente via API Riot (`/gift`)
-- [x] Autocomplete de amigos no comando /gift (cache pré-carregado)
-- [x] Log de audit de presentes enviados (staff log embed)
-- [x] Formas de pagamento (MBWay, PIX, PayPal, Revolut, Crypto)
-
-### Contas Riot
-- [x] Vincular conta via URL de redirecionamento (`/link`)
-- [x] Suporte a SSID para sessão 24/7
-- [x] Selecionar conta ativa (`/login`) com autocomplete
-- [x] Heartbeat automático (60s) — renova tokens, checa saldo RP, atualiza friendlist
-- [x] Exibir informações da conta (RP, BE, nível, banimento, região)
-- [x] Gerenciar amigos (`/friendlist`) — listar, aceitar pedidos pendentes
-- [x] Enviar pedido de amizade (`/addfriend`)
-- [x] Persistência de contas em riot_accounts.json + restauração via env var SAVED_RIOT_ACCOUNTS
+- [x] Painel fixo da loja no chat (`/ticket`)
+- [x] Central de vendas com 14 categorias presentes
+- [x] Catálogo paginado com 25 itens/página
+- [x] Envio de presente via API Riot (`/gift`) com logs de auditoria
+- [x] Ícone/imagem do item no catálogo (HD)
 
 ### Administração
-- [x] Configurar cores e emojis do bot (`/config`)
-- [x] Configurar preços, itens e banners da loja (`/config-store`)
-- [x] Definir descontos globais ou por categoria (`/desconto`)
-- [x] Gerenciar todas as embeds do bot (`/embeds`) — editor completo via Discord
-- [x] Gerenciar emojis customizados (`/emojis`)
-- [x] Deploy/re-deploy de comandos Slash (`/deploy`) — registra comandos globais na API Discord
-- [x] Auto-deploy de comandos Slash no startup do bot (limpa guild commands duplicados)
+- [x] Configuração centralizada (`/config`, `/config-store`, `/desconto`, `/embeds`, `/emojis`)
+- [x] Gerenciamento de 12 categorias de emojis
+- [x] Deploy/re-deploy de comandos Slash
 
-### Moderação
-- [x] Limpar mensagens (`/clear`)
-- [x] Trancar canal (`/lock`)
-
-### Utilidades
-- [x] Tabela de preços de skins e loots (`/table`)
-- [x] Entrar em canal de voz (`/join`)
-- [x] Sair do canal de voz (`/leave`)
-
-### Eventos
-- [x] Boas-vindas automáticas ao novo membro (embed no canal boas-vindas)
-- [x] Autorole automático (cargo "Viajante" configurável)
-- [x] Sistema de XP por mensagem (5-15 XP/msg, level up a cada nível*500 XP)
-- [x] Sistema AFK (aviso ao mencionar usuário AFK, remoção automática ao enviar mensagem)
-
-### XMPP (Riot Chat)
-- [x] Conexão direta ao chat da Riot via TLS/XMPP (riotXmpp.js)
-- [x] Autenticação X-Riot-RSO-PAS
-- [x] Lista de amigos via XMPP
-- [x] Envio de pedido de amizade via XMPP
-- [x] Aceitar pedido de amizade via XMPP
-- [x] Remover amigo via XMPP
-- [x] Enviar mensagem via XMPP
-- [x] Detecção de conta banida (account-disabled)
+### Moderação & Utilidades
+- [x] `/clear`, `/join`, `/leave`, `/table`, `/invites`, `/verify-panel`
 
 ---
 
-## PROBLEMAS CONHECIDOS
-
-### Nomes de arquivo com extensão duplicada
-- `events/guildMemberAdd.js.js` e `events/messageCreate.js.js` — têm extensão `.js.js` (provavelmente não são carregados automaticamente pelo sistema de commands, pois estão fora do diretório commands/)
-- Obs: Os eventos em `events/` não parecem ser carregados automaticamente pelo index.js; o carregamento dinâmico `loadCommands()` só processa `commands/`. Os eventos provavelmente precisam ser registrados manualmente.
-
-### Código monolítico
-- O `index.js` tem ~3123 linhas e 171KB — toda a lógica de catálogo, preços, interações, ticket e gifting está concentrada neste único arquivo
-- Dificulta manutenção, debugging e evolução do código
-
-### Redundância de diretórios
-- `python_backend/` e `lol_giftapi-main/` contêm essencialmente o mesmo código Python (fork/cópia)
-- Ambos têm `main_backend.py`, `catalog_cache_en.json`, `catalog_cache_pt.json`, etc.
-
-### Credenciais expostas no código
-- `python_backend/main_backend.py` contém URI do MongoDB Atlas e JWT secret key hardcoded no código-fonte
-- `utils/catalogSync.js` contém credenciais de uma conta Riot (username/password) como fallback
-
-### Config.json desatualizado
-- O `config/config.json` referencia "Kitsune V3" no footer mas o projeto é "Kitsune V2"
-- O campo `links.logo` contém placeholder "URL_DA_IMAGEM_DA_KITSUNE"
-
----
-
-## O QUE JÁ FOI FEITO
-
-### 2026-08-22
-- [x] **Correção do Carregamento Infinito de Tickets:** Blindada a função `criarCanalTicket` com `try/catch` e validação dinâmica dos cargos em `guild.roles.cache`. Caso um cargo configurado no `.env` pertença a outro servidor, ele é ignorado com segurança sem travar a interação.
-- [x] **Criação de Categorias Dinâmicas por Região:** Mantida a criação automática de categorias (`TICKETS - BR`, `TICKETS - NA`, etc.) com fallback seguro caso o bot não tenha permissões globais na guilda.
-- [x] **Notificação de Suporte:** Adicionada menção automática do cargo de Suporte/Staff configurado e do usuário ao abrir o ticket.
-- [x] **Estabilidade do Gateway / Intents Discord:** Removida a intent privilegiada `MessageContent` (que bloqueava a conexão do bot caso não estivesse marcada no Discord Developer Portal) e adicionados handlers de erro `client.on('error')` e `client.on('shardError')`.
-- [x] **Deploy no GitHub:** Alterações comitadas e enviadas para `origin/main` (deploy automático no Render).
-
-### 2026-08-27
-- [x] **Comando `/addfriend` 100% Funcional:**
-  - Adicionado template `addfriend_sent` que faltava em `config/embeds.json` (evitando erro/crash na confirmação).
-  - Reescrita completa de `commands/loja/addfriend.js` com prioridade na sessão do usuário (`userStoreSessions`), fallback para primeira conta, auto-renovação de token via SSID, e detecção de status como `account-disabled`.
-- [x] **Comando `/login` com Painel Completo:**
-  - Reescrita de `commands/loja/login.js` com auto-refresh de saldo (RP/BE), renovação SSID e renderização do painel completo de botões interativos (`btn_rp`, `btn_account`, `btn_friend`, `btn_back`).
-  - Adicionados todos os templates de embed de dashboard em `config/embeds.json` (`login_select`, `login_success`, `dashboard_rp`, `dashboard_account`, `dashboard_friends`).
-- [x] **Aba de Amigos Multi-Região (XMPP Roster):**
-  - Ajustado o handler de `btn_friend` em `index.js` para consultar o roster XMPP completo em vez do endpoint REST de gifting (que limitava amigos à mesma região).
-  - Agora exibe amigos de todas as regiões com paginação e status.
-- [x] **Deploy no GitHub:** Commits `79784e6`, `addf1d1`, `e92cc67` enviados para `origin/main`.
-
-### 2026-08-28
-- [x] **Persistência Durável de Contas Riot no MongoDB Atlas (`utils/mongoStorage.js`):**
-  - Implementado módulo de conexão e sincronização bidirecional com a coleção `riot_accounts` no MongoDB Atlas.
-  - Sincronização automática no boot do bot em `index.js`: restaura todas as contas Riot da nuvem para o disco local, garantindo que reinicializações ou deploys no Render não percam contas vinculadas.
-  - Salvamento instantâneo no MongoDB ao executar `/link` e durante atualizações de tokens/saldo no `/login`.
-  - Heartbeat em segundo plano (`refreshAccountsTask`) agora sincroniza renovações via SSID e alterações de saldo diretamente na nuvem.
-- [x] **Comando `/friendlist` Completo e Multi-Região:**
-  - Suporte a amigos de todas as regiões via XMPP Roster integrado com os timestamps de `friendsSince` da Riot Store API.
-  - Cálculo de timer detalhado em dias, horas, minutos e segundos (`✅ Elegível para presentes` vs `⏱️ Aguardando 24h`).
-  - Paginação interativa com botões de Próxima/Anterior.
-  - Subações funcionais: Ver Amigos, Ver Pedidos Recebidos, Aceitar Todos os Pedidos e Enviar Pedido de Amizade.
-- [x] **Comando `/clear` Blindado:**
-  - Verificação de permissões de Gerenciar Mensagens / Administrador / Cargo de Staff configurado.
-  - Tratamento de erro limpo para mensagens com mais de 14 dias.
-- [x] **Comando `/deploy` Sanitizado:**
-  - Remoção automática de espaços/quebras de linha no `DISCORD_TOKEN` e sincronização global de comandos.
-- [x] **Comando `/table` Completo e Interativo:**
-  - Separado em abas navegáveis via botões: `[🎨 Skins]`, `[📦 Espólios]`, `[👑 Acessórios]`, `[📑 Todas]`.
-  - Conversão dinâmica com descontos aplicados e exibição de preços originais vs com desconto em Euros (€).
-  - Remoção de skins míticas (pois não são enviáveis por presente na Riot).
-- [x] **Remoção do comando `/lock`:**
-  - Removido `commands/moderacao/lock.js` a pedido do usuário.
-- [x] **Limpeza de Categorias não-presenteáveis:**
-  - Removidas categorias de TFT e Classic da loja e dos menus de vendas.
-- [x] **Sistema de Convites (Invite Tracker) com MongoDB Atlas:**
-  - Rastreamento automático de quem convidou novos membros através do evento `guildMemberAdd` e `guildMemberRemove`.
-  - Contagem persistida no MongoDB Atlas (`invites` e `member_joins` collections com `regular`, `left`, `fake`, `total`).
-  - Notificação no canal de boas-vindas com dados completos do convite e membro (`welcome_invite`).
-  - Comando `/invites` para consultar convites próprios ou de outros usuários (`invites_profile`).
-- [x] **Sistema de Verificação (Verify) & RestoreCord:**
-  - Comando `/verify-panel` para enviar o painel com botão de 1 clique e/ou botão Link para RestoreCord OAuth2.
-  - Entrega automática do cargo de verificado com registro no MongoDB Atlas.
-  - Mensagem efêmera de sucesso (`verify_success`).
-- [x] **Carregamento Automático de Eventos no `index.js`:**
-  - Implementado `loadEvents()` para carregar dinamicamente todos os eventos em `events/` (`guildMemberAdd.js`, `guildMemberRemove.js`, `messageCreate.js`).
-- [x] **Comando `/gift` Completo & Blindado:**
-  - Compatibilidade idêntica à especificação do `gift.txt` (CAP V2 Orders API com fallback para Storefront V3 API).
-  - Autocomplete inteligente de amigos elegíveis com badge de timer (`[✅ Elegível]` vs `[⏱️ Faltam Xh]`).
-  - Autocomplete de itens em tempo real no catálogo multilíngue.
-  - Sincronização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e no disco.
-  - Notificação de presente (`gift_sent`), falha com motivo detalhado (`gift_failed`) e log de auditoria no canal e DM da staff (`gift_staff_log`).
-- [x] **Comando `/desconto` Inteligente & Completo:**
-  - Suporte a 3 ações: `📊 Ver Descontos Ativos`, `⚙️ Definir Desconto`, `🔄 Resetar Descontos`.
-  - Desconto Global (`promocao_porcentagem`) e por Categorias Oficiais (Skins, Cromas, Passes, Espólios, Acessórios, Emotes, Ícones, Wards, Boosts, Eternos, Mistério, Destaques).
-  - Recálculo automático instantâneo de todos os preços de itens em `config/loja.json` e sincronização com `/table`.
-  - Blindagem de permissões para Administradores e Staff.
-- [x] **Comando `/config-store` Atualizado:**
-  - Removidas opções inválidas (skins míticas) e alinhado com as categorias presentes no catálogo.
-- [x] **Comando `/ticket` & Painel de Compras Aprimorados:**
-  - Correção total dos campos no embed do ticket (`Product`, `Rarity`, `Value/RP`, `Price/€`, `Region`, `Riot ID`).
-  - Correção do modal `Edit Order` para atualizar o carrinho no `global.ticketCarts` sem corromper posições.
-  - Eliminação de menções quebradas `@unknown-role`.
-  - Novo botão **`[ ⏱️ Checar Amizade & 24h ]`**: Verifica se o cliente já é amigo no LoL e calcula o tempo restante de cooldown de 24h para envio de presente.
-  - Botão automático **`[ ➕ Enviar Pedido de Amizade ]`** caso o cliente ainda não esteja adicionado.
-- [x] **Comando `/embeds` Completo com Live Preview:**
-  - Menus divididos por categorias (`🛒 Loja & Catálogos` e `🎮 Comandos, Verificação & Convites`).
-  - **Live Preview em Tempo Real:** Exibe o embed exato com dados de exemplo ao selecionar e após cada edição.
-  - Edição de títulos, descrições, cores HEX, banners, thumbnails, rodapés e botões.
-- [x] **Comando `/emojis` com Lista e Validação Visual:**
-  - Menu categorizado com listagem completa e preview do emoji atual ao lado de cada chave.
-  - Suporte a todas as categorias: Skins, Loot, Utilidades, Loja Produtos, Status, Staff/Suporte, Roles e Regiões do LoL.
-- [x] **Comando `/config` com Painel Geral e Suporte a Cargos/Canais:**
-  - Exibição de resumo visual completo das configurações ativas caso executado sem opções.
-  - Opções para configurar: Cor HEX, Cargo de Verificação, Cargos de Staff, Canal de Boas-Vindas/Convites, Canal de Logs de Auditoria, Logo da Loja e Link do RestoreCord.
-- [x] **Comando `/join` & `/leave` (Conexão de Voz 24/7):**
-  - Entrada automática no canal de voz do usuário ou em canal especificado.
-  - Suporte a Stage e Voice Channels, auto-reconect, self-deaf e intents de voz adicionados.
-  - Embed informativo e encerramento limpo com `/leave`.
-- [x] **Comando `/desconto` Mantido como Principal para Promoções:**
-  - Decisão confirmada: `/desconto` é a ferramenta rápida e visual da Staff para gerenciar promoções e porcentagens em tempo real.
-  - `/config-store` atua no gerenciamento estrutural (banners, preços base em Euros e itens individuais).
-- [x] **Remoção do comando `/update-catalog`:**
-  - Removido a pedido do usuário. O bot opera com 100% de performance puxando dados exclusivamente do catálogo interno da API (`config/catalog_cache_pt.json` e `config/catalog_cache_en.json`). Atualizações de patches futuros serão feitas manualmente.
-
-- [x] **Diretrizes e Blindagem do Sistema de Presentes (Gifts & Catálogo Riot):**
-  - **Categorias Presenteáveis Mapeadas Oficialmente (14 Categorias):**
-    `Skins`, `Chromas`, `Bundles`, `Passes`, `Champions`, `Emotes`, `Icons`, `Wards`, `LittleLegends`, `TFTArena`, `Boosts`, `Eternals`, `Mystery`, `Hextech`.
-  - **Fonte da Verdade do Catálogo:**
-    - Todas as ofertas puxam `offer_id`, `item_id`, `price_rp` e `inventory_type` diretamente do `catalog.json` (Riot Storefront API) e dos caches sincronizados `catalog_cache_pt.json` e `catalog_cache_en.json`.
-    - Proibição estrita de skins não-presenteáveis (Míticas, Prestígio, Hextec de Essência Mítica, Vitoriosas, PAX).
-  - **Protocolo de Envio e Segurança de Saldo (Prevenção de Perdas):**
-    - Multi-verificação antes do envio:
-      1. Verificação prévia de saldo de RP da conta doadora.
-      2. Verificação de status de amizade no LoL e tempo de cooldown de 24h obrigatório.
-      3. Validação estrita do `receiver_puuid` e correspondência de `offer_id` no CAP Orders V2.
-      4. Execução do fluxo de envio idêntico à especificação do `gift.txt` / `api_files/gift.py` (CAP Orders V2 com fallback seguro para Storefront V3).
-      5. Atualização imediata do novo saldo no MongoDB Atlas (`saveAccountToMongo`) e envio de log de auditoria no Discord (`gift_staff_log`).
-
-- [x] **Estratégia de Venda White-Label (Instâncias Independentes por Cliente):**
-  - Cada cliente/loja terá sua própria instância/deploy com seu próprio token de bot, identidade visual, banco e contas Riot 100% isoladas.
-  - As alterações de uma loja nunca afetam nem sobrescrevem a loja principal do usuário.
-
----
-
-## ESTADO ATUAL (2026-08-30)
+## ESTADO ATUAL (2026-09-01)
 
 **Estado funcional/operacional**:
-- **100% dos Comandos do Bot Revisados, Blindados e Integrados:**
-  - 🛒 **Loja & Riot:** `/addfriend`, `/login`, `/friendlist`, `/link`, `/gift`, `/desconto`, `/config-store`, `/table`, `/ticket`.
-  - ⚙️ **Administração & Servidor:** `/config`, `/embeds`, `/emojis`, `/deploy`, `/verify-panel`.
-  - 👥 **Utilidade & Moderação:** `/invites`, `/clear`, `/join`, `/leave`.
-- Sistema de catálogo atualizado com 8.805 itens reais da Riot Games em PT e EN.
-- Python Backend configurado para Python 3.12 com todas as dependências e sem erros de lint/sintaxe.
-- Persistência 24/7 ativa no MongoDB Atlas para Contas Riot, Convites e Verificações.
-- Solver 2Captcha ativo com chave de $290.79 USD.
+- **18 Comandos Slash 100% Válidos.**
+- **10.242 itens** no catálogo em PT e EN.
+- Python Backend — Python 3.12 funcional.
+- Persistência 24/7 no MongoDB Atlas ativa.
+- Solver 2Captcha ativo ($290.79 USD).
+- `config/emojis.json` com 136 linhas — 12 categorias totalmente modulares.
+- Emojis Oficiais da Riot em Alta Resolução enviados para `Zed Store` e `KITSUNE x GAMING v2`:
+  - 🎁 **Mystery Skin Box:** `<:lol_mystery_skin:1544591070204010598>`
+  - 😃 **Mystery Emote Box:** `<:lol_mystery_emote:1544591072485842964>`
+  - 🏟️ **TFT Arena Bilgewater:** `<:lol_tft_arena:1544591074100645948>`
+  - 🎶 **TFT Neon DJ Arena:** `<:lol_neon_arena:1544591076197793863>`
+  - 🌟 **Hextech Bundle Set (Highlights):** `<:lol_bundle_set:1544591078622236763>`
+  - 🛍️ **Chaos Grab Bag:** `<:lol_grab_bag:1544591084200534116>`
+  - 📦 **Order Exclusive Pack:** `<:lol_exclusive_pack:1544591088084590636>`
+  - 🥊 **Chibi Vi:** `<:lol_chibi_vi:1544493291205173358>`
+  - 🌸 **Chibi Ahri:** `<:lol_chibi_ahri:1544493294543704184>`
+  - ✂️ **Chibi Gwen:** `<:lol_chibi_gwen:1544495555370291273>`
+  - 🌌 **Dark Star Ao Shin:** `<:lol_dark_star:1544495563288871074>`
+  - 🦇 **Bat-o-lantern Ward:** `<:lol_bat_ward:1544495566149390336>`
+  - 🐝 **Bee Happy Poro:** `<:lol_bee_happy:1544495569274142741>`
+  - 🎫 **Passe Season 3:** `<:lol_pass_s3:1544493308015804429>`
+  - 🔮 **Orbe Season 3:** `<:lol_orb_s3:1544493304983322736>`
+  - 🎟️ **Clash Ticket:** `<:lol_clash_ticket:1544493301334278145>`
+- `index.js` com ~3825 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
+
+### Servidores do Bot:
+- `1128760372741034114` — Kitsune | Gifting Service
+- `1482818033838719201` — KITSUNE x GAMING v2
+- `1540159601817817168` — Zed Store | Cheap Gifiting Service
 
 ---
 
-## PRÓXIMO PASSO
+## PRÓXIMOS PASSOS
 
-1. Manter integridade do catálogo e verificações de segurança em todos os envios de presentes.
-2. Monitorar requisições em produção.
+### Emojis & Cosméticos (Opcional / Futuro)
+1. [ ] Cristais de Raridade (Ultimate, Lendária, Épica, Comum) — já mapeados com os emojis oficiais existentes no servidor.
+2. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
+
+### Venda White-Label (Futuro)
+3. [ ] Sistema de provisionamento de instâncias brancas do bot quando o usuário for vender para terceiros.
 
 ---
 

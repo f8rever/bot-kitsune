@@ -1,10 +1,10 @@
 {
   "menu_principal": {
     "skins_chromas": "<:legendary:1342089845559791650>",
-    "loot_passes": "<:orb:1528415461010575511>",
+    "loot_passes": "<:lol_orb_s3:1544493304983322736>",
     "champions_eternals": "<:mchamp:1342089827071561728>",
     "accessories": "<:19bau:1544483253380186283>",
-    "highlights_bundles": "<a:EstrelaDanante:1431841476345729024>"
+    "highlights_bundles": "<:lol_bundle_set:1544591078622236763>"
   },
   "skins": {
     "ultimate": "<:ultimate:1342089843534069770>",
@@ -12,7 +12,7 @@
     "legendary": "<:legendary:1342089845559791650>",
     "epic": "<:epic:1342089847287844914>",
     "common": "<:11default:1527518898654806157>",
-    "mystery": "<:mskin:1342089825271943178>",
+    "mystery": "<:lol_mystery_skin:1544591070204010598>",
     "champion": "<:mchamp:1342089827071561728>",
     "croma": "<:15croma:1527527027043729561>",
     "eternos": "<:1eternos:1544481988147290152>",
@@ -31,9 +31,10 @@
     "key": "<:key1:1342089831299420210>",
     "chestkey": "<:chestkey:1342089828787028039>",
     "masterwork_chest": "<:masterwork:1133606556643119204>",
+    "mystery": "<:lol_mystery_skin:1544591070204010598>",
     "capsule": "💊",
     "token": "🪙",
-    "grab_bag": "🛍️"
+    "grab_bag": "<:lol_grab_bag:1544591084200534116>"
   },
   "acessorios": {
     "menu": "<:19bau:1544483253380186283>",
@@ -42,18 +43,22 @@
     "icones": "<:22icone:1544482040206983241>",
     "boosts": "<:16xp:1544482296541749302>",
     "lendas": "<:lol_chibi_vi:1544493291205173358>",
+    "arenas": "<:lol_tft_arena:1544591074100645948>",
+    "neon_arena": "<:lol_neon_arena:1544591076197793863>",
     "chibi": "<:lol_chibi_ahri:1544493294543704184>",
     "chibi_gwen": "<:lol_chibi_gwen:1544495555370291273>",
     "dark_star": "<:lol_dark_star:1544495563288871074>",
     "ward_bat": "<:lol_bat_ward:1544495566149390336>",
-    "bee_happy": "<:lol_bee_happy:1544495569274142741>"
+    "bee_happy": "<:lol_bee_happy:1544495569274142741>",
+    "mystery_emote": "<:lol_mystery_emote:1544591072485842964>"
   },
   "bundles": {
-    "menu": "<a:EstrelaDanante:1431841476345729024>",
-    "bundle": "<:transcendent:1528443593822437417>",
+    "menu": "<:lol_bundle_set:1544591078622236763>",
+    "bundle": "<:lol_bundle_set:1544591078622236763>",
+    "exclusive_pack": "<:lol_exclusive_pack:1544591088084590636>",
     "signature": "<:MSP_Autograph:1528463134044459129>",
     "chroma": "<:15croma:1527527027043729561>",
-    "set": "✨"
+    "set": "<:lol_bundle_set:1544591078622236763>"
   },
   "ticket": {
     "produto": "<:box:1527369341161705622>",
@@ -72,7 +77,7 @@
     "mythic_essence": "🟣",
     "card": "💳",
     "tag": "🏷️",
-    "bag": "🛍️"
+    "bag": "<:lol_grab_bag:1544591084200534116>"
   },
   "loja_status": {
     "estoque": "📦",
@@ -89,7 +94,7 @@
     "fogo": "<a:pr_fire01:1527367612168802374>",
     "ticket": "🎫",
     "fechar": "<a:aXnao:1527367267434627082>",
-    "estrela": "<a:EstrelaDanante:1431841476345729024>",
+    "estrela": "<:lol_bundle_set:1544591078622236763>",
     "pino": "📌",
     "documento": "📝",
     "fox": "<a:coracao_preto:1527554434077560902>",
@@ -99,12 +104,13 @@
     "info": "ℹ️",
     "check": "<a:Verificado_OK:1527367161574854778>",
     "cross": "<a:aXnao:1196412669670994021>",
-    "orbes": "<:orb:1528415461010575511>",
-    "emotes": "<:17emote:1544481791371649104>",
-    "wards": "<:18ward:1544481935210844221>",
+    "orbes": "<:lol_orb_s3:1544493304983322736>",
+    "emotes": "<:lol_poro_emote:1544493296879935489>",
+    "wards": "<:lol_star_ward:1544493299270680717>",
     "icones": "<:22icone:1544482040206983241>",
     "boosts": "<:16xp:1544482296541749302>",
-    "lendas": "<:transcendent:1528443593822437417>"
+    "lendas": "<:lol_chibi_vi:1544493291205173358>",
+    "arenas": "<:lol_tft_arena:1544591074100645948>"
   },
   "staff_e_suporte": {
     "dono": "👑",
