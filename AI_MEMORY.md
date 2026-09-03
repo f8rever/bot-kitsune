@@ -116,7 +116,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 ---
 
-## ESTADO ATUAL (2026-09-01)
+## ESTADO ATUAL (2026-09-03)
 
 **Estado funcional/operacional**:
 - **20 Comandos Slash 100% Válidos** (inclui `/anuncio` e `/anuncio-blacklist`).
@@ -132,11 +132,18 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - Comando `/anuncio-blacklist` com ações de adicionar, remover, listar e limpar.
     - Exibe contagem de membros bloqueados/ignorados na prévia e no relatório final.
 - **Gerenciador de Embeds (/embeds):**
-  - Expandido para 3 menus estruturados cobrindo todos os embeds do bot (Loja, Pedidos, Catálogos, Tabelas, Verificação, Convites e Anúncios).
+  - Expandido para 3 menus estruturados cobrindo todos os 43+ embeds do bot (Loja, Pedidos, Catálogos, Tabelas, Verificação, Convites e Anúncios).
+  - Botão `voltar_menu_embeds_inicio` ("⬅️ Voltar para Todos os Embeds") corrigido no `index.js` para retornar sempre os 3 menus modernos sem regredir para 2.
   - Todos os embeds para clientes em Inglês com descrições de comandos em Português.
 - **10.242 itens** no catálogo em PT e EN.
 - Python Backend — Python 3.12 funcional.
-- Persistência 24/7 no MongoDB Atlas ativa.
+- **Persistência 24/7 no MongoDB Atlas ativa:**
+  - Coleção `bot_configurations` armazena `embeds`, `emojis`, `loja`, `config` e `broadcast_blacklist` na nuvem em tempo real.
+  - Índices únicos automáticos criados e garantidos em todas as coleções: `bot_configurations` (`configType`), `riot_accounts` (`accountName`), `invites` (`guildId + userId`), `member_joins` (`guildId + memberId`), `verified_members` (`guildId + userId`), e `gift_logs` (`timestamp`).
+  - O bot sincroniza automaticamente no boot e persiste qualquer alteração feita via `/embeds`, `/emojis`, `/config-store`, `/desconto` diretamente no MongoDB Atlas.
+  - Edições personalizadas do usuário preservadas com sucesso: `store_authentication` (Irelia Florescer Espiritual) e `store_sales_center` (Catalog of Gifts).
+  - Script `scripts/pull_from_mongo.js` para sincronizar a nuvem com os arquivos locais a qualquer momento.
+  - Script `scripts/setup_mongo_indexes.js` para otimização e verificação dos índices do banco.
 - Solver 2Captcha ativo com fila ordenada de 11 chaves ativas ($373.21 USD no total, chave principal com $290.47 USD).
 - Pool e fila de fallback automática de Captcha (`utils/captchaManager.js`, `python_backend/captcha_manager.py` e `config/captcha_keys_pool.json`).
 - `config/emojis.json` com 136 linhas — 12 categorias totalmente modulares.
@@ -157,13 +164,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - 🎫 **Passe Season 3:** `<:lol_pass_s3:1544493308015804429>`
   - 🔮 **Orbe Season 3:** `<:lol_orb_s3:1544493304983322736>`
   - 🎟️ **Clash Ticket:** `<:lol_clash_ticket:1544493301334278145>`
-- `index.js` com ~3830 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
-- **Sincronização 24/7 de Configurações no MongoDB Atlas (`utils/mongoStorage.js`):**
-  - Coleção `bot_configurations` armazena `embeds`, `emojis`, `loja`, e `config` na nuvem em tempo real.
-  - Índices únicos automáticos criados e garantidos em todas as coleções: `bot_configurations` (`configType`), `riot_accounts` (`accountName`), `invites` (`guildId + userId`), `member_joins` (`guildId + memberId`), `verified_members` (`guildId + userId`), e `gift_logs` (`timestamp`).
-  - O bot sincroniza automaticamente no boot e persiste qualquer alteração feita via `/embeds`, `/emojis`, `/config-store`, `/desconto` diretamente no MongoDB Atlas.
-  - Script `scripts/pull_from_mongo.js` para sincronizar a nuvem com os arquivos locais a qualquer momento.
-  - Script `scripts/setup_mongo_indexes.js` para otimização e verificação dos índices do banco.
+- `index.js` com ~4110 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
