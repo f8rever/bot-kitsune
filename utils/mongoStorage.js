@@ -151,8 +151,20 @@ async function syncMongoAndDisk(accountsPath) {
         const mongoAccounts = await loadAccountsFromMongo();
 
         if (mongoAccounts && Object.keys(mongoAccounts).length > 0) {
-            // Unir dados: prioriza os dados mais recentes
-            const merged = { ...mongoAccounts, ...diskAccounts };
+            // Unir dados: prioriza os dados mais recentes e garante preservação absoluta do SSID
+            const merged = {};
+            const allKeys = new Set([...Object.keys(mongoAccounts), ...Object.keys(diskAccounts)]);
+            for (const key of allKeys) {
+                const mAcc = mongoAccounts[key] || {};
+                const dAcc = diskAccounts[key] || {};
+
+                const mTime = mAcc.updatedAt ? new Date(mAcc.updatedAt).getTime() : 0;
+                const dTime = dAcc.updatedAt ? new Date(dAcc.updatedAt).getTime() : 0;
+
+                const base = mTime >= dTime ? { ...dAcc, ...mAcc } : { ...mAcc, ...dAcc };
+                base.ssid = base.ssid || mAcc.ssid || dAcc.ssid || null;
+                merged[key] = base;
+            }
 
             // Escrever no disco para uso síncrono rápido
             fs.writeFileSync(accountsPath, JSON.stringify(merged, null, 2), 'utf8');
