@@ -10,13 +10,13 @@ module.exports = {
     options: [
         {
             name: 'url',
-            description: 'URL completa do redirecionamento (http://localhost/redirect#access_token=...)',
+            description: 'URL do redirecionamento (deixe vazio para receber o link de login da Riot)',
             type: 3,
-            required: true
+            required: false
         },
         {
             name: 'ssid',
-            description: 'Cookie SSID da conta (opcional - para renovação 24/7 sem expirar)',
+            description: 'Cookie SSID da conta (recomendado para manter a conta conectada 24/7)',
             type: 3,
             required: false
         }
@@ -26,7 +26,38 @@ module.exports = {
         
         const inputString = interaction.options.getString('url');
         const ssidParam = interaction.options.getString('ssid');
-        
+
+        const riotAuthUrl = "https://auth.riotgames.com/authorize?redirect_uri=http://localhost/redirect&client_id=lol&response_type=token%20id_token&nonce=1&scope=openid%20link%20ban%20lol_region%20account";
+
+        if (!inputString) {
+            const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+            const helpEmbed = new EmbedBuilder()
+                .setTitle('🔐 Como Vincular uma Conta Riot (Alt)')
+                .setColor('#F43F5E')
+                .setDescription([
+                    'Para conectar uma conta Riot no bot sem expirar, siga os passos abaixo:',
+                    '',
+                    '**Passo 1:** Clique no botão **"Fazer Login na Riot"** abaixo (de preferência em **Aba Anônima** para cada alt diferente).',
+                    '**Passo 2:** Faça login na sua conta Riot.',
+                    '**Passo 3:** O navegador será redirecionado para uma tela com endereço `http://localhost/redirect#access_token=...`. **Copie o endereço inteiro da barra de navegação!**',
+                    '**Passo 4 (Recomendado 24/7):** No navegador, aperte `F12` ➡️ aba **Application** (ou Armazenamento) ➡️ **Cookies** ➡️ `https://auth.riotgames.com` ➡️ copie o valor do cookie **`ssid`**.',
+                    '**Passo 5:** Execute novamente o comando colando os dados:',
+                    '> `/link url:[URL copiada] ssid:[seu SSID]`',
+                    '',
+                    '✅ *A conta e o SSID serão gravados no MongoDB Atlas e mantidos ativos 24/7!*'
+                ].join('\n'))
+                .setFooter({ text: 'Kitsune Store • Sistema Multi-Alt Riot', iconURL: interaction.client.user.displayAvatarURL() });
+
+            const row = new ActionRowBuilder().addComponents(
+                new ButtonBuilder()
+                    .setLabel('🔗 Fazer Login na Riot (Gerar Link)')
+                    .setStyle(ButtonStyle.Link)
+                    .setURL(riotAuthUrl)
+            );
+
+            return interaction.editReply({ embeds: [helpEmbed], components: [row] });
+        }
+
         if (!inputString.includes('access_token=')) {
             return interaction.editReply({ content: '❌ URL inválida! Certifique-se de copiar a URL inteira após fazer o login na Riot e ser redirecionado para o localhost.' });
         }
