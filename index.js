@@ -3151,37 +3151,49 @@ client.on('interactionCreate', async interaction => {
                 const menu1 = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_embed_select_1')
-                        .setPlaceholder('🛒 Loja, Tabelas & Catálogos...')
+                        .setPlaceholder('🛒 Loja, Tickets, Pedidos & Pagamento...')
                         .addOptions([
                             { label: 'Painel Boas-Vindas da Loja (/ticket)', description: 'Mensagem inicial do painel fixo da loja no chat', value: 'ticket_welcome', emoji: '✉️' },
-                            { label: 'Formas de Pagamento (/ticket)', description: 'Embed de métodos de pagamento', value: 'ticket_payment_methods', emoji: '💶' },
-                            { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região', value: 'store_authentication', emoji: '🌍' },
+                            { label: 'Resumo do Pedido no Ticket', description: 'Embed do pedido gerado dentro do canal do ticket', value: 'ticket_order_received', emoji: '📋' },
+                            { label: 'Formas de Pagamento (/ticket)', description: 'Embed com métodos de pagamento aceitos', value: 'ticket_payment_methods', emoji: '💶' },
+                            { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região (BR, NA, EUW, etc.)', value: 'store_authentication', emoji: '🌍' },
                             { label: 'Central de Vendas (Categorias)', description: 'Menu de categorias (Skins, Loots, etc.)', value: 'store_sales_center', emoji: '🛒' },
-                            { label: 'Catálogo de Destaques', description: 'Página de destaques e pacotes da loja', value: 'catalog_highlights', emoji: '🌟' },
-                            { label: 'Catálogo de Skins', description: 'Página de skins de campeões', value: 'catalog_skins', emoji: '👕' },
-                            { label: 'Catálogo de Passes', description: 'Página de passes de evento', value: 'catalog_passes', emoji: '🎫' },
-                            { label: 'Catálogo de Cromas', description: 'Página de cromas de campeões', value: 'catalog_cromas', emoji: '🎨' },
-                            { label: 'Catálogo de Eternos', description: 'Página de eternos', value: 'catalog_eternos', emoji: '🏆' },
-                            { label: 'Catálogo de Campeões', description: 'Página de campeões', value: 'catalog_champions', emoji: '⚔️' },
-                            { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
-                            { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
-                            { label: 'Catálogo de Sentinelas', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
-                            { label: 'Catálogo de Boosts', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
-                            { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
-                            { label: 'Catálogo de Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
-                            { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                             { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
+                            { label: 'Modelo de Anúncio Geral (/anuncio)', description: 'Embed padrão para comunicados e promoções', value: 'broadcast_announcement', emoji: '📢' },
+                            { label: 'Painel de Suporte ao Cliente', description: 'Embed do painel de suporte', value: 'support_panel', emoji: '🎫' },
+                            { label: 'Painel Administrativo', description: 'Embed do painel admin', value: 'admin_panel', emoji: '⚙️' },
                             { label: 'Painel Principal Emojis Manager', description: 'Embed do comando /emojis', value: 'emojis_panel', emoji: '✨' },
-                            { label: 'Painel Principal Embeds Manager', description: 'Embed do comando /embeds', value: 'embeds_panel', emoji: '⚙️' }
+                            { label: 'Painel Principal Embeds Manager', description: 'Embed do comando /embeds', value: 'embeds_panel', emoji: '📝' }
                         ])
                 );
 
                 const menu2 = new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder()
                         .setCustomId('menu_embed_select_2')
-                        .setPlaceholder('🎮 Comandos, Verificação & Convites...')
+                        .setPlaceholder('📦 Catálogos de Produtos LoL & TFT...')
+                        .addOptions([
+                            { label: 'Catálogo de Destaques & Pacotes', description: 'Página de destaques e bundles da loja', value: 'catalog_highlights', emoji: '🌟' },
+                            { label: 'Catálogo de Skins', description: 'Página de skins de campeões', value: 'catalog_skins', emoji: '👕' },
+                            { label: 'Catálogo de Passes de Evento', description: 'Página de passes de evento', value: 'catalog_passes', emoji: '🎫' },
+                            { label: 'Catálogo de Cromas', description: 'Página de cromas de campeões', value: 'catalog_cromas', emoji: '🎨' },
+                            { label: 'Catálogo de Eternos', description: 'Página de eternos', value: 'catalog_eternos', emoji: '🏆' },
+                            { label: 'Catálogo de Campeões', description: 'Página de campeões', value: 'catalog_champions', emoji: '⚔️' },
+                            { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
+                            { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
+                            { label: 'Catálogo de Sentinelas (Wards)', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
+                            { label: 'Catálogo de Boosts de XP', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
+                            { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
+                            { label: 'Catálogo Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
+                            { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' }
+                        ])
+                );
+
+                const menu3 = new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId('menu_embed_select_3')
+                        .setPlaceholder('🛡️ Verificação, Convites & Comandos...')
                         .addOptions([
                             { label: 'Verificação - Painel (/verify-panel)', description: 'Embed do painel de verificação', value: 'verify_panel', emoji: '🛡️' },
                             { label: 'Verificação - Sucesso', description: 'Embed efêmera de verificado com sucesso', value: 'verify_success', emoji: '✅' },
@@ -3204,7 +3216,7 @@ client.on('interactionCreate', async interaction => {
                         ])
                 );
 
-                await interaction.update({ embeds: [embed], components: [menu1, menu2] });
+                await interaction.update({ embeds: [embed], components: [menu1, menu2, menu3] });
                 return;
             }
 
