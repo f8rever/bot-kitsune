@@ -369,7 +369,8 @@ async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) 
         { type: 'embeds', file: 'embeds.json' },
         { type: 'emojis', file: 'emojis.json' },
         { type: 'loja', file: 'loja.json' },
-        { type: 'config', file: 'config.json' }
+        { type: 'config', file: 'config.json' },
+        { type: 'broadcast_blacklist', file: 'broadcast_blacklist.json' }
     ];
 
     for (const item of configFiles) {

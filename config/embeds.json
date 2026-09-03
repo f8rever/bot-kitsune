@@ -10,11 +10,11 @@
     "buttonStyle": "gray"
   },
   "store_authentication": {
-    "title": "📊 Authentication",
-    "description": "▸ Please select your **League of Legends** region below to start your purchase:",
+    "title": "<:riotzz:1544502320807809065> Authentication",
+    "description": "<a:r_arrow:1544502530644377633> Please select your League of Legends **region** below to start your purchase:",
     "color": "#F43F5E",
     "thumbnail": "",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zed_15.jpg",
+    "image": "https://media.discordapp.net/attachments/1540159602543304732/1544503695398539376/Lelekvirag_Irelia_legendary.jpg?ex=6a9ab8e8&is=6a996768&hm=26e1f484b1419a12aeb28b98444a78f4f5fa2e4aef24fb5ec9636b1ff89ff0ad&=&format=webp",
     "footerText": "© Kitsune - Copyright 2026",
     "footerIcon": ""
   },
