@@ -1381,6 +1381,88 @@ async function atualizarEmbedTicket(channel, client) {
     }
 }
 
+async function responderResultadoChecagem(interaction, res, accountName, targetRiotId, region) {
+    if (!res.success) {
+        return interaction.editReply({ content: `❌ ${res.error}` });
+    }
+
+    const embed = new EmbedBuilder().setTimestamp();
+
+    if (!res.found) {
+        embed
+            .setTitle('❌ Cliente Não Encontrado na Friendlist')
+            .setColor('#EF4444')
+            .setDescription([
+                `O cliente **${targetRiotId}** **NÃO** foi encontrado na lista de amigos da conta **${accountName}**!`,
+                '',
+                '**Possíveis Motivos:**',
+                '• O cliente ainda não enviou solicitação de amizade.',
+                '• A solicitação de amizade foi enviada mas ainda está **Pendente** na conta.',
+                '• O Riot ID digitado no pedido possui erro de digitação.',
+                '',
+                '> *Clique no botão verde abaixo para enviar um pedido de amizade pelo bot:*'
+            ].join('\n'))
+            .addFields(
+                { name: '🤖 Conta Verificadora', value: `\`${accountName}\``, inline: true },
+                { name: '🌍 Região', value: `\`${res.region || region || 'BR1'}\``, inline: true },
+                { name: '👥 Total de Amigos', value: `\`${res.totalFriends} amigos\``, inline: true }
+            );
+
+        const row = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setCustomId(`btn_send_friend_req__${encodeURIComponent(accountName)}__${encodeURIComponent(targetRiotId)}`)
+                .setLabel('➕ Enviar Pedido de Amizade')
+                .setStyle(ButtonStyle.Success)
+        );
+
+        if (interaction.channel && global.ticketCarts?.has(interaction.channel.id)) {
+            const cart = global.ticketCarts.get(interaction.channel.id);
+            cart.friendshipStatus = `❌ Não encontrado na Friendlist de **${accountName}**`;
+            await atualizarEmbedTicket(interaction.channel, interaction.client);
+        }
+
+        return interaction.editReply({ embeds: [embed], components: [row] });
+    }
+
+    // Amigo encontrado!
+    const isEligible24h = res.eligible24h;
+    const isEligible7d = res.eligible7d;
+
+    const status24hText = isEligible24h
+        ? '🟢 **Elegível (Mais de 24h de amizade - Liberado!)**'
+        : `⏳ **Faltam ${res.remain24hFormatted}** (Libera em ${res.releaseDate24hFormatted})`;
+
+    const status7dText = isEligible7d
+        ? '🟢 **Elegível (Mais de 7 dias de amizade - Liberado!)**'
+        : `⏱️ **Faltam ${res.remain7dFormatted}** (Libera em ${res.releaseDate7dFormatted})`;
+
+    embed
+        .setTitle(isEligible24h ? '🟢 Elegibilidade de Gifting Confirmada!' : '⏳ Amizade em Período de Cooldown')
+        .setColor(isEligible24h ? '#10B981' : '#F59E0B')
+        .setDescription([
+            `O cliente **${res.friendName}** está adicionado como amigo na conta **${accountName}**!`,
+            '',
+            `📅 **Amigos desde:** \`${res.sinceDateFormatted || 'Desconhecido'}\``,
+            `⏱️ **Tempo decorrido de amizade:** \`${res.timeElapsed}\``,
+            ''
+        ].join('\n'))
+        .addFields(
+            { name: '⏱️ Status de 24 Horas (LoL Padrão)', value: status24hText, inline: false },
+            { name: '📅 Status de 7 Dias (Eventos Especiais)', value: status7dText, inline: false }
+        );
+
+    if (interaction.channel && global.ticketCarts?.has(interaction.channel.id)) {
+        const cart = global.ticketCarts.get(interaction.channel.id);
+        cart.friendshipStatus = isEligible24h
+            ? `🟢 Elegível para presente (Amigos há ${res.timeElapsed} na conta ${accountName})`
+            : `⏳ Aguardando prazo (Faltam ${res.remain24hFormatted} em ${accountName})`;
+
+        await atualizarEmbedTicket(interaction.channel, interaction.client);
+    }
+
+    return interaction.editReply({ embeds: [embed], components: [] });
+}
+
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     if (!interaction.deferred && !interaction.replied) {
@@ -1685,6 +1767,21 @@ client.on('interactionCreate', async interaction => {
                 });
 
                 return await interaction.followUp({ embeds: [successEmbed], components: [accRow], ephemeral: true });
+            }
+
+            if (interaction.customId.startsWith('menu_check_friendship_acc__')) {
+                const parts = interaction.customId.split('__');
+                const channelId = parts[1];
+                const targetRiotId = decodeURIComponent(parts[2] || '');
+                const targetRegion = decodeURIComponent(parts[3] || 'BR1');
+                const selectedAccount = interaction.values[0];
+
+                await interaction.deferReply({ ephemeral: true });
+
+                const { checkFriendshipEligibility } = require('./utils/friendshipChecker.js');
+                const res = await checkFriendshipEligibility(selectedAccount, targetRiotId, targetRegion);
+
+                return await responderResultadoChecagem(interaction, res, selectedAccount, targetRiotId, targetRegion);
             }
 
             if (interaction.customId === 'menu_regiao') {
@@ -2202,6 +2299,158 @@ client.on('interactionCreate', async interaction => {
             }
         }
         else if (interaction.isButton()) {
+            if (interaction.customId === 'btn_check_friendship') {
+                const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+                const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+                const isStaff = isAdmin || staffRoles.some(rId => interaction.member.roles.cache.has(rId));
+
+                if (!isStaff) {
+                    return interaction.reply({
+                        content: '🚫 Apenas a equipe da Loja/Staff pode verificar elegibilidade e friendlist de contas.',
+                        ephemeral: true
+                    });
+                }
+
+                // Recuperar Riot ID e Região do cliente no ticket
+                let targetRiotId = null;
+                let targetRegion = 'BR1';
+                const cart = global.ticketCarts?.get(interaction.channel.id);
+                if (cart && cart.riotId && cart.riotId !== 'Unknown') {
+                    targetRiotId = cart.riotId;
+                    if (cart.regiao) targetRegion = cart.regiao;
+                } else if (interaction.message.embeds.length > 0) {
+                    const fields = interaction.message.embeds[0].fields || [];
+                    const rField = fields.find(f => f.name && (f.name.includes('Riot ID') || f.name.includes('Invocador')));
+                    if (rField) targetRiotId = rField.value.replace(/[`*]/g, '').trim();
+                    const regField = fields.find(f => f.name && (f.name.includes('Região') || f.name.includes('Region')));
+                    if (regField) targetRegion = regField.value.replace(/[`*]/g, '').trim();
+                }
+
+                if (!targetRiotId) {
+                    return interaction.reply({
+                        content: '❌ Não foi possível detectar o Riot ID do cliente neste pedido. Use `/checar-amizade riot_id:Nome#TAG`.',
+                        ephemeral: true
+                    });
+                }
+
+                const { getSavedAccounts, checkFriendshipEligibility } = require('./utils/friendshipChecker.js');
+                const accounts = getSavedAccounts();
+                const accountKeys = Object.keys(accounts);
+
+                if (accountKeys.length === 0) {
+                    return interaction.reply({
+                        content: '❌ Nenhuma conta Riot vinculada no bot! Use `/login` ou `/link` para cadastrar suas contas de envio.',
+                        ephemeral: true
+                    });
+                }
+
+                // Se houver apenas 1 conta cadastrada, verifica direto sem precisar perguntar
+                if (accountKeys.length === 1) {
+                    const singleAcc = accountKeys[0];
+                    await interaction.deferReply({ ephemeral: true });
+
+                    const res = await checkFriendshipEligibility(singleAcc, targetRiotId, targetRegion);
+                    return await responderResultadoChecagem(interaction, res, singleAcc, targetRiotId, targetRegion);
+                }
+
+                // Múltiplas contas: exibir Select Menu para a staff escolher
+                const selectMenu = new StringSelectMenuBuilder()
+                    .setCustomId(`menu_check_friendship_acc__${interaction.channel.id}__${encodeURIComponent(targetRiotId)}__${encodeURIComponent(targetRegion)}`)
+                    .setPlaceholder('Selecione qual conta Riot (Alt) deseja usar...')
+                    .addOptions(accountKeys.slice(0, 25).map(accName => {
+                        const acc = accounts[accName] || {};
+                        const statusDot = acc.expired ? '🔴' : '🟢';
+                        const rp = typeof acc.rp === 'number' ? `${acc.rp.toLocaleString('pt-BR')} RP` : '';
+                        return {
+                            label: accName.substring(0, 100),
+                            description: `Região: ${acc.region || 'BR1'} • ${rp || 'Conta Ativa'}`.substring(0, 100),
+                            value: accName,
+                            emoji: statusDot
+                        };
+                    }));
+
+                return await interaction.reply({
+                    content: `⏱️ **Checagem de Amizade & Gifting**\n👤 Cliente: **${targetRiotId}** (Região: \`${targetRegion}\`)\n\nSelecione abaixo qual das suas contas Riot você deseja conectar para consultar:`,
+                    components: [new ActionRowBuilder().addComponents(selectMenu)],
+                    ephemeral: true
+                });
+            }
+
+            if (interaction.customId.startsWith('btn_send_friend_req__')) {
+                const parts = interaction.customId.split('__');
+                const accountName = decodeURIComponent(parts[1] || '');
+                const targetRiotId = decodeURIComponent(parts[2] || '');
+
+                await interaction.deferReply({ ephemeral: true });
+
+                const accountsPath = path.join(__dirname, 'config', 'riot_accounts.json');
+                let accounts = {};
+                if (fs.existsSync(accountsPath)) {
+                    try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch (e) {}
+                }
+                const acc = accounts[accountName];
+                if (!acc || !acc.accessToken) {
+                    return interaction.editReply({ content: `❌ Conta Riot "${accountName}" não encontrada ou sem token.` });
+                }
+
+                // Parse Nome#TAG
+                let name = targetRiotId;
+                let tag = acc.region || 'BR1';
+                if (targetRiotId.includes('#')) {
+                    const p = targetRiotId.split('#');
+                    name = p[0].trim();
+                    tag = p[1].trim();
+                }
+
+                // Reauth com SSID se disponível
+                if (acc.ssid) {
+                    try {
+                        const { reauthWithSSID } = require('./utils/riotAuth.js');
+                        const renewed = await reauthWithSSID(acc.ssid);
+                        if (renewed?.accessToken) acc.accessToken = renewed.accessToken;
+                    } catch(e) {}
+                }
+
+                const { RiotChatClient } = require('./utils/riotXmpp.js');
+                const xmppClient = new RiotChatClient(acc.accessToken, acc.chatDom, acc.chatUri, acc.region);
+
+                let connected = false;
+                try {
+                    connected = await xmppClient.connect();
+                } catch (e) {}
+
+                if (!connected) {
+                    xmppClient.disconnect();
+                    return interaction.editReply({ content: '❌ Falha ao conectar ao chat da Riot Games. Tente novamente em instantes.' });
+                }
+
+                try {
+                    const resReq = await xmppClient.sendFriendRequest(name, tag);
+                    xmppClient.disconnect();
+
+                    if (resReq === 'User not found') {
+                        return interaction.editReply({ content: `❌ O jogador **${name}#${tag}** não foi encontrado nos servidores da Riot.` });
+                    }
+                    if (resReq === "User's friend list is full") {
+                        return interaction.editReply({ content: `⚠️ A lista de amigos da conta **${accountName}** está cheia (limite de 300 amigos atingido).` });
+                    }
+
+                    // Atualizar ticket informando que o pedido foi enviado
+                    if (interaction.channel && global.ticketCarts?.has(interaction.channel.id)) {
+                        const cart = global.ticketCarts.get(interaction.channel.id);
+                        cart.friendshipStatus = `📩 Pedido de amizade enviado para **${name}#${tag}** via **${accountName}** (Aguardando cliente aceitar)`;
+                        await atualizarEmbedTicket(interaction.channel, interaction.client);
+                    }
+
+                    return interaction.editReply({
+                        content: `✅ **Pedido de amizade enviado com sucesso!**\n• Cliente: **${name}#${tag}**\n• Enviado a partir de: **${accountName}**\n• *Assim que o cliente aceitar no LoL, clique novamente em '⏱️ Checar Amizade & 24h' para verificar!*`
+                    });
+                } catch (err) {
+                    xmppClient.disconnect();
+                    return interaction.editReply({ content: `❌ Erro ao enviar pedido de amizade: ${err.message}` });
+                }
+            }
+
             if (interaction.customId.startsWith('btn_search_cat_')) {
                 const cat = interaction.customId.replace('btn_search_cat_', '');
                 return abrirModalBusca(interaction, `buscar_generico_modal_${cat}`, `🔍 Search in ${cat.toUpperCase()}`, 'Enter item name or champion:');

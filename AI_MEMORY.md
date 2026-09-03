@@ -119,7 +119,17 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ## ESTADO ATUAL (2026-09-03)
 
 **Estado funcional/operacional**:
-- **20 Comandos Slash 100% Válidos** (inclui `/anuncio` e `/anuncio-blacklist`).
+- **21 Comandos Slash 100% Válidos** (inclui `/anuncio`, `/anuncio-blacklist` e `/checar-amizade`).
+- **Sistema de Verificação de Amizade & Elegibilidade de Gifting (`commands/loja/checar-amizade.js` & `utils/friendshipChecker.js`):**
+  - Acionamento direto pelo botão `⏱️ Checar Amizade & 24h` (`btn_check_friendship`) na embed do ticket ou via slash command `/checar-amizade`.
+  - Suporte a seleção de conta Riot (`alt`) com menu e autocomplete interativo com saldo de RP e status em tempo real.
+  - Renovação automática de tokens via `SSID` caso estejam perto de expirar.
+  - Consulta direta à API oficial de presentes da Riot (`storefront/v3/gift/friends`) com extração do timestamp exato de início de amizade (`friendsSince`).
+  - Cálculo automático de tempo decorrido de amizade e cálculo duplo de cooldown:
+    - **Regra 24 Horas (LoL Padrão):** Indica se já liberou ou quantas horas/minutos restam e a data/hora exata de liberação.
+    - **Regra 7 Dias (Eventos Especiais):** Indica se já liberou ou quantos dias/horas restam.
+  - Atualização em tempo real do campo `⏱️ Status de Gifting (24h)` na embed principal do canal do ticket.
+  - Caso o cliente não esteja adicionado: alerta explicativo e botão direto `➕ Enviar Pedido de Amizade` que dispara o envio pelo chat Riot XMPP.
 - **Sistema de Anúncio / Mass DM com Proteção Anti-Ban (`commands/admin/anuncio.js`):**
   - Modal interativo para criação de título, descrição, banner, botões com link e cor.
   - Prévia do visual com confirmação antes do envio.
