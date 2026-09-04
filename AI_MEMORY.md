@@ -189,8 +189,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     1. 🌟 **Featured & Launch Bundles (`compra_highlights`):** Pacotes de lançamento e conjuntos especiais em destaque.
     2. 🏷️ **Weekly Sales (On Sale) (`compra_sales`):** As 15 skins com desconto oficial da Riot da semana (-27% a -60%), configuradas em `config/weekly_sales.json`.
     3. 🔥 **Most Popular (`compra_most_popular`):** Os 13 itens mais procurados e vendidos (Baús Hextech, Passes de Temporada e Orbes de Invocador).
+  - **Correção Crítica de Fluxo de Loja (Modal Riot ID):** A submissão do modal de Riot ID (`modal_riot_id`) enviava um menu plano obsoleto de 15 opções. Foi corrigido para chamar a função hierárquica `buildStoreMainMenu(customEmojis)`, exibindo as 5 categorias oficiais.
+  - **Categoria "Featured" e Emojis Oficiais:**
+    - Categoria 5 renomeada oficialmente para **`Featured`** (`Launch Bundles, Weekly Sales & Most Popular`) com o emoji `<:lol_bundle_set:1544591078622236763>`.
+    - Emojis integrados e sincronizados:
+      - **TFT Arenas:** `<:lol_tft_arena:1544591074100645948>` (em `acessorios.arenas`, `utilidades.arenas`, `utilidades.tabuleiros` e cabeçalhos).
+      - **Most Popular:** `<:lol_exclusive_pack:1544591088084590636>` (em `bundles.most_popular`, `bundles.exclusive_pack`, `formatarStr` e cabeçalhos).
+      - **Featured & Launch Bundles:** `<:lol_bundle_set:1544591078622236763>`.
   - **Cálculo de Desconto Dinâmico no Checkout:** A função `getItemRpValue` verifica automaticamente se o item está em promoção semanal e aplica o `sale_rp` com a conversão proporcional em Euros (€).
-  - **Persistência Cloud:** `weekly_sales` e os novos embeds `catalog_sales` e `catalog_most_popular` sincronizados no MongoDB Atlas (`bot_configurations`).
+  - **Persistência Cloud:** `emojis`, `embeds` e `weekly_sales` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
 ### Servidores do Bot:
