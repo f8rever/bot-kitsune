@@ -133,6 +133,22 @@
     "image": "",
     "syncImage": true
   },
+  "catalog_sales": {
+    "title": "<:box:1527369341161705622> {count} Weekly Sales (On Sale)",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **discounted skin** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
+  "catalog_most_popular": {
+    "title": "<:box:1527369341161705622> {count} Most Popular Items",
+    "description": "<a:whitearrow:1346152146814636032> Please select a **most popular item** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "",
+    "syncImage": true
+  },
   "catalog_passes": {
     "title": "<:box:1527369341161705622> {count} Passes",
     "description": "<a:whitearrow:1346152146814636032> Please select an **event pass** from the **menu** below to continue:\n<a:whitearrow:1346152146814636032> {page} page of {totalPages} pages",

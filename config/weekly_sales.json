@@ -1,0 +1,137 @@
+[
+  {
+    "id": "240018",
+    "name": "Kibble-Head Kled",
+    "regular_rp": 1350,
+    "sale_rp": 810,
+    "discount_percent": 40,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kled_18.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "200010",
+    "name": "Cosmic Matriarch Bel'Veth",
+    "regular_rp": 1350,
+    "sale_rp": 877,
+    "discount_percent": 35,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_10.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "154024",
+    "name": "Zesty Dip Zac",
+    "regular_rp": 1350,
+    "sale_rp": 944,
+    "discount_percent": 30,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zac_24.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "58048",
+    "name": "Inkshadow Renekton",
+    "regular_rp": 1350,
+    "sale_rp": 810,
+    "discount_percent": 40,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renekton_48.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "2035",
+    "name": "Pentakill III: Lost Chapter Olaf",
+    "regular_rp": 1350,
+    "sale_rp": 540,
+    "discount_percent": 60,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Olaf_35.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "111018",
+    "name": "Fright Night Nautilus",
+    "regular_rp": 1350,
+    "sale_rp": 944,
+    "discount_percent": 30,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nautilus_18.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "112001",
+    "name": "Full Machine Viktor",
+    "regular_rp": 975,
+    "sale_rp": 438,
+    "discount_percent": 55,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viktor_1.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "55037",
+    "name": "High Noon Katarina",
+    "regular_rp": 1350,
+    "sale_rp": 607,
+    "discount_percent": 55,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Katarina_37.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "89008",
+    "name": "PROJECT: Leona",
+    "regular_rp": 1350,
+    "sale_rp": 540,
+    "discount_percent": 60,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leona_8.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "51013",
+    "name": "Pool Party Caitlyn",
+    "regular_rp": 1350,
+    "sale_rp": 675,
+    "discount_percent": 50,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_13.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "62006",
+    "name": "Lancer Stratus Wukong",
+    "regular_rp": 1350,
+    "sale_rp": 540,
+    "discount_percent": 60,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MonkeyKing_6.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "101012",
+    "name": "Arcana Xerath",
+    "regular_rp": 1350,
+    "sale_rp": 540,
+    "discount_percent": 60,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Xerath_12.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "7035",
+    "name": "Debonair LeBlanc",
+    "regular_rp": 1350,
+    "sale_rp": 675,
+    "discount_percent": 50,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_35.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "133005",
+    "name": "Warden Quinn",
+    "regular_rp": 1350,
+    "sale_rp": 540,
+    "discount_percent": 60,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Quinn_5.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  },
+  {
+    "id": "8049",
+    "name": "PsyOps Vladimir",
+    "regular_rp": 1350,
+    "sale_rp": 975,
+    "discount_percent": 27,
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vladimir_49.jpg",
+    "inventoryType": "CHAMPION_SKIN"
+  }
+]

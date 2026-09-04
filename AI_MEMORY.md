@@ -184,6 +184,14 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - Menus da loja agora utilizam `buildCustomEmbed`, refletindo imediatamente qualquer alteração feita pela staff.
   - **Seleção Agrupada por Categoria no `/embeds`:**
     - O menu de catálogos no `/embeds` foi reorganizado em 5 subgrupos de categorias (`subgroup_skins`, `subgroup_loot`, `subgroup_champions`, `subgroup_accessories`, `subgroup_highlights`). Ao escolher uma categoria, o bot exibe o submenu com os embeds daquela categoria + botão de voltar.
+- **Seção Highlights & Bundles Alinhada com o Client Oficial do LoL (2026-09-04):**
+  - O menu da categoria **Highlights & Bundles** (`category_highlights`) foi atualizado para oferecer 3 opções temáticas:
+    1. 🌟 **Featured & Launch Bundles (`compra_highlights`):** Pacotes de lançamento e conjuntos especiais em destaque.
+    2. 🏷️ **Weekly Sales (On Sale) (`compra_sales`):** As 15 skins com desconto oficial da Riot da semana (-27% a -60%), configuradas em `config/weekly_sales.json`.
+    3. 🔥 **Most Popular (`compra_most_popular`):** Os 13 itens mais procurados e vendidos (Baús Hextech, Passes de Temporada e Orbes de Invocador).
+  - **Cálculo de Desconto Dinâmico no Checkout:** A função `getItemRpValue` verifica automaticamente se o item está em promoção semanal e aplica o `sale_rp` com a conversão proporcional em Euros (€).
+  - **Persistência Cloud:** `weekly_sales` e os novos embeds `catalog_sales` e `catalog_most_popular` sincronizados no MongoDB Atlas (`bot_configurations`).
+  - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

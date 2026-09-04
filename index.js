@@ -524,6 +524,19 @@ function getCatalogPrice(rpCost, loja, formatMode = false, lang = 'pt', tipo = n
 const userStoreSessions = global.userStoreSessions = global.userStoreSessions || new Map();
 
 function getItemRpValue(nome, tipoFiltro, rawItem = null) {
+    if (rawItem && rawItem.sale_rp > 0) return rawItem.sale_rp;
+    try {
+        const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
+        if (fs.existsSync(weeklySalesPath)) {
+            const saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
+            const nClean = (nome || '').toLowerCase().trim();
+            const foundSale = saleList.find(s => s.name.toLowerCase().trim() === nClean || nClean.includes(s.name.toLowerCase().trim()));
+            if (foundSale && foundSale.sale_rp > 0) {
+                return foundSale.sale_rp;
+            }
+        }
+    } catch (e) {}
+
     let rp = rawItem ? getCatalogRp(rawItem) : 0;
     if (rp > 0) return rp;
 
@@ -787,6 +800,13 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         else if (nome.toLowerCase().includes('set')) { prefix = 'Set'; bundleIcon = (customEmojis?.bundles?.set || '✨').trim(); }
         return formatarStr(prefix, bundleIcon);
     }
+    else if (tipoFiltro === 'sales') {
+        const disc = rawItem?.discount_percent ? `-${rawItem.discount_percent}% OFF` : 'On Sale';
+        return formatarStr(disc, '🏷️');
+    }
+    else if (tipoFiltro === 'most_popular') {
+        return formatarStr('Most Popular', '🔥');
+    }
     else if (tipoFiltro === 'champions') {
         return formatarStr('Champion', (customEmojis?.skins?.champion || '⚔️').trim());
     }
@@ -906,6 +926,62 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         });
         titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Destaques` : `📦 ${results.length} Featured Bundles & Sets`;
         customId = tipoFiltro === 'highlights' ? 'selecionar_highlight_menu' : 'selecionar_bundle_menu';
+    } else if (tipoFiltro === 'sales') {
+        const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
+        let saleList = [];
+        try {
+            saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
+        } catch (e) {}
+
+        results = saleList.map(s => {
+            const catItem = currentCatalog.find(c => String(c.id) === String(s.id) || (c.nome && c.nome.toLowerCase() === s.name.toLowerCase()));
+            return {
+                id: s.id,
+                nome: s.name,
+                tipo: 'CHAMPION_SKIN',
+                iconUrl: s.iconUrl || catItem?.iconUrl || null,
+                price_rp: s.sale_rp,
+                rawItem: {
+                    ...(catItem?.rawItem || {}),
+                    regular_rp: s.regular_rp,
+                    sale_rp: s.sale_rp,
+                    discount_percent: s.discount_percent,
+                    inventoryType: 'CHAMPION_SKIN'
+                }
+            };
+        });
+        titulo = lang === 'pt' ? `🏷️ ${results.length} Promoções da Semana (On Sale)` : `🏷️ ${results.length} Weekly Sales (On Sale)`;
+        customId = 'selecionar_skin_menu';
+    } else if (tipoFiltro === 'most_popular') {
+        const popItems = [
+            { name: '10 Hextech Chests & Keys + Bonus Set!', search: '10 Hextech Chests & Keys', defaultRp: 1950, tipo: 'HEXTECH' },
+            { name: '5 Hextech Chests & Keys + Bonus Essence!', search: '5 Hextech Chests & Keys', defaultRp: 975, tipo: 'HEXTECH' },
+            { name: '1 Hextech Chest and Key Bundle', search: '1 Hextech Chest and Key', defaultRp: 195, tipo: 'HEXTECH' },
+            { name: 'Hextech Chest', search: 'Hextech Chest', defaultRp: 125, tipo: 'HEXTECH' },
+            { name: 'Hextech Key', search: 'Hextech Key', defaultRp: 125, tipo: 'HEXTECH' },
+            { name: 'Season 3: Act I Pass', search: 'Season 3: Act I Pass', defaultRp: 1650, tipo: 'EVENT_PASS' },
+            { name: 'Season 3: Act I Pass Bundle', search: 'Season 3: Act I Pass Bundle', defaultRp: 2650, tipo: 'EVENT_PASS' },
+            { name: 'Season 3: Act I Premium Pass Bundle', search: 'Season 3: Act I Premium Pass Bundle', defaultRp: 3650, tipo: 'EVENT_PASS' },
+            { name: "Summoner's Mega Orb Bundle", search: "Summoner's Mega Orb Bundle", defaultRp: 12500, tipo: 'ORB' },
+            { name: "Summoner's Premium Orb Bundle", search: "Summoner's Premium Orb Bundle", defaultRp: 6250, tipo: 'ORB' },
+            { name: "Summoner's Deluxe Orb Bundle", search: "Summoner's Deluxe Orb Bundle", defaultRp: 2500, tipo: 'ORB' },
+            { name: "Summoner's Orb", search: "Summoner's Orb", defaultRp: 250, tipo: 'ORB' },
+            { name: 'Mystery Skin Gift', search: 'Mystery Skin', defaultRp: 490, tipo: 'MYSTERY' }
+        ];
+
+        results = popItems.map(p => {
+            const catItem = currentCatalog.find(c => c.nome && c.nome.toLowerCase().includes(p.search.toLowerCase()));
+            return {
+                id: catItem ? catItem.id : p.name,
+                nome: catItem ? catItem.nome : p.name,
+                tipo: catItem ? catItem.tipo : p.tipo,
+                iconUrl: catItem ? catItem.iconUrl : null,
+                price_rp: catItem ? catItem.price_rp : p.defaultRp,
+                rawItem: catItem ? catItem.rawItem : { inventoryType: p.tipo }
+            };
+        });
+        titulo = lang === 'pt' ? `🔥 ${results.length} Itens Mais Populares` : `🔥 ${results.length} Most Popular Items`;
+        customId = 'selecionar_popular_menu';
     } else if (tipoFiltro === 'passes') {
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
@@ -1111,6 +1187,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         backCustomId = 'voltar_cat_champions';
     } else if (['emotes', 'wards', 'icones', 'boosts', 'little_legends', 'tft_arena'].includes(tipoFiltro)) {
         backCustomId = 'voltar_cat_accessories';
+    } else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) {
+        backCustomId = 'voltar_cat_highlights';
     }
 
     btnRow.addComponents(
@@ -1734,7 +1812,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
         const embed = buildCustomEmbed('category_highlights', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Highlights option').addOptions([
-                { label: 'Featured Bundles & Spotlight Offers', description: 'Browse special champion & skin bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() }
+                { label: 'Featured & Launch Bundles', description: 'Browse launch sets, special bundles & signature packages', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '🌟').trim() },
+                { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: '🏷️' },
+                { label: 'Most Popular', description: 'Best-selling Hextech chests, event passes & summoner orbs', value: 'compra_most_popular', emoji: '🔥' }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -1963,15 +2043,25 @@ client.on('interactionCreate', async interaction => {
             if (interaction.customId === 'menu_vendas') {
                 const opcao = interaction.values[0];
 
-                if (['cat_skins', 'cat_loot', 'cat_champions', 'cat_accessories'].includes(opcao)) {
+                if (['cat_skins', 'cat_loot', 'cat_champions', 'cat_accessories', 'cat_highlights'].includes(opcao)) {
                     return await exibirMenuCategoriaLoja(interaction, opcao);
                 }
 
-                if (opcao === 'cat_highlights' || opcao === 'compra_highlights') {
+                if (opcao === 'compra_highlights') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
+                } else if (opcao === 'compra_sales') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'sales', 0, false);
+                } else if (opcao === 'compra_most_popular') {
+                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await enviarPaginaCatalogo(interaction, 'most_popular', 0, false);
                 } else if (opcao === 'compra_skins') {
                     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
                     await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
@@ -2044,7 +2134,7 @@ client.on('interactionCreate', async interaction => {
                 }
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu'].includes(interaction.customId)) {
+            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu', 'selecionar_popular_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
                 if (interaction.customId === 'selecionar_chroma_menu') tipo = 'cromas';
@@ -2062,6 +2152,7 @@ client.on('interactionCreate', async interaction => {
                 else if (interaction.customId === 'selecionar_lenda_menu') tipo = 'little_legends';
                 else if (interaction.customId === 'selecionar_arena_menu') tipo = 'tft_arena';
                 else if (interaction.customId === 'selecionar_boost_menu') tipo = 'boosts';
+                else if (interaction.customId === 'selecionar_popular_menu') tipo = 'popular';
 
                 let itemSelecionado = interaction.values[0];
                 let nomeReal = itemSelecionado;
@@ -2173,7 +2264,9 @@ client.on('interactionCreate', async interaction => {
                         subgroupTitle = '🌟 Destaques & Ofertas Especiais';
                         subgroupOptions = [
                             { label: 'Menu da Categoria (Destaques)', description: 'Embed de apresentação com banner e descrição', value: 'category_highlights', emoji: '🌟' },
-                            { label: 'Catálogo de Destaques & Pacotes', description: 'Página de bundles e ofertas em destaque', value: 'catalog_highlights', emoji: '📦' }
+                            { label: 'Catálogo de Destaques & Pacotes', description: 'Página de bundles e ofertas em destaque', value: 'catalog_highlights', emoji: '📦' },
+                            { label: 'Catálogo de Promoções Semanais', description: 'Página de skins em promoção (On Sale)', value: 'catalog_sales', emoji: '🏷️' },
+                            { label: 'Catálogo de Mais Populares', description: 'Página de baús, passes e orbes mais populares', value: 'catalog_most_popular', emoji: '🔥' }
                         ];
                     }
 
@@ -4240,6 +4333,8 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         backCustomId = 'voltar_cat_champions';
     } else if (['emotes', 'wards', 'icones', 'boosts', 'little_legends', 'tft_arena'].includes(tipoFiltro)) {
         backCustomId = 'voltar_cat_accessories';
+    } else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) {
+        backCustomId = 'voltar_cat_highlights';
     }
 
     btnRow.addComponents(
