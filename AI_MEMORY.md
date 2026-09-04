@@ -174,7 +174,16 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - 🎫 **Passe Season 3:** `<:lol_pass_s3:1544493308015804429>`
   - 🔮 **Orbe Season 3:** `<:lol_orb_s3:1544493304983322736>`
   - 🎟️ **Clash Ticket:** `<:lol_clash_ticket:1544493301334278145>`
-- `index.js` com ~4110 linhas — submenus de Loot, Acessórios e Highlights 100% integrados.
+- `index.js` com submenus de Loot, Acessórios e Highlights 100% integrados.
+- **Navegação Hierárquica da Loja & Editor `/embeds` (2026-09-04):**
+  - **Navegação Hierárquica do Botão Voltar (`⬅️ Menu`):**
+    - Corrigido o fluxo do botão `⬅️ Menu` em catálogos (`enviarPaginaCatalogo`) e telas de busca (`buscarEExibirItens`): agora volta para o menu intermediário da categoria (`voltar_cat_loot`, `voltar_cat_skins`, `voltar_cat_champions`, `voltar_cat_accessories`), em vez de saltar direto para a raiz `Catalog of Gifts`.
+    - Nos menus de categoria, o botão `⬅️ Back to Main Categories` (`voltar_menu_modal`) retorna com segurança à raiz.
+  - **Templates de Categoria Customizáveis via `/embeds`:**
+    - Cadastrados em `config/embeds.json` e sincronizados no MongoDB Atlas: `category_skins`, `category_loot`, `category_champions`, `category_accessories`, `category_highlights`.
+    - Menus da loja agora utilizam `buildCustomEmbed`, refletindo imediatamente qualquer alteração feita pela staff.
+  - **Seleção Agrupada por Categoria no `/embeds`:**
+    - O menu de catálogos no `/embeds` foi reorganizado em 5 subgrupos de categorias (`subgroup_skins`, `subgroup_loot`, `subgroup_champions`, `subgroup_accessories`, `subgroup_highlights`). Ao escolher uma categoria, o bot exibe o submenu com os embeds daquela categoria + botão de voltar.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
