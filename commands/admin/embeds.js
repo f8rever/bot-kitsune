@@ -39,21 +39,13 @@ module.exports = {
         const menu2 = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder()
                 .setCustomId('menu_embed_select_2')
-                .setPlaceholder('📦 Catálogos de Produtos LoL & TFT...')
+                .setPlaceholder('📦 Categorias & Catálogos da Loja...')
                 .addOptions([
-                    { label: 'Catálogo de Destaques & Pacotes', description: 'Página de destaques e bundles da loja', value: 'catalog_highlights', emoji: '🌟' },
-                    { label: 'Catálogo de Skins', description: 'Página de skins de campeões', value: 'catalog_skins', emoji: '👕' },
-                    { label: 'Catálogo de Passes de Evento', description: 'Página de passes de evento', value: 'catalog_passes', emoji: '🎫' },
-                    { label: 'Catálogo de Cromas', description: 'Página de cromas de campeões', value: 'catalog_cromas', emoji: '🎨' },
-                    { label: 'Catálogo de Eternos', description: 'Página de eternos', value: 'catalog_eternos', emoji: '🏆' },
-                    { label: 'Catálogo de Campeões', description: 'Página de campeões', value: 'catalog_champions', emoji: '⚔️' },
-                    { label: 'Catálogo de Emotes', description: 'Página de emotes', value: 'catalog_emotes', emoji: '😃' },
-                    { label: 'Catálogo de Ícones', description: 'Página de ícones de invocador', value: 'catalog_icones', emoji: '🖼️' },
-                    { label: 'Catálogo de Sentinelas (Wards)', description: 'Página de sentinelas/wards', value: 'catalog_wards', emoji: '👁️' },
-                    { label: 'Catálogo de Boosts de XP', description: 'Página de boosts', value: 'catalog_boosts', emoji: '⚡' },
-                    { label: 'Catálogo de Presentes Mistério', description: 'Página de presentes mistério', value: 'catalog_misterio', emoji: '🎁' },
-                    { label: 'Catálogo Hextech (Baús/Chaves)', description: 'Página de baús e chaves hextech', value: 'catalog_hextech', emoji: '🔑' },
-                    { label: 'Catálogo de Orbes & Cápsulas', description: 'Página de orbes e cápsulas de espólio', value: 'catalog_orbes', emoji: '🔮' }
+                    { label: 'Skins, Cromas & Pacotes', description: 'Menu da Categoria, Skins, Cromas e Bundles', value: 'subgroup_skins', emoji: '🎨' },
+                    { label: 'Loot, Passes, Baús & Orbes', description: 'Menu da Categoria, Orbes, Passes, Hextech e Mistério', value: 'subgroup_loot', emoji: '🔮' },
+                    { label: 'Campeões & Eternos', description: 'Menu da Categoria, Campeões e Eternos', value: 'subgroup_champions', emoji: '⚔️' },
+                    { label: 'Acessórios & TFT', description: 'Menu da Categoria, Emotes, Wards, Ícones, Boosts, Chibis e Arenas', value: 'subgroup_accessories', emoji: '👑' },
+                    { label: 'Destaques & Ofertas Especiais', description: 'Menu da Categoria e Catálogo de Destaques', value: 'subgroup_highlights', emoji: '🌟' }
                 ])
         );
 

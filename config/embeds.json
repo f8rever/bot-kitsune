@@ -25,6 +25,41 @@
     "thumbnail": "",
     "image": "https://media.discordapp.net/attachments/1540159602543304732/1544514902088089671/baixados.jpg?ex=6a9ac358&is=6a9971d8&hm=ca2922917b6172e7350456eaeac4149ecf3511eeace938e50025add117afc4a2&=&format=webp"
   },
+  "category_skins": {
+    "title": "🎨 Kitsune Store | Skins & Chromas",
+    "description": "<a:whitearrow:1346152146814636032> **Select a Skins category below:**\n\n> 👕 **Champion Skins:** Legendary (1820 RP), Epic (1350 RP), Classic & Ultimate (3250 RP)\n> 🎨 **Chromas:** All official champion chromas (290 RP)\n> 📦 **Skin & Chroma Bundles:** Launch bundles, sets & chroma packs",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg"
+  },
+  "category_loot": {
+    "title": "📦 Kitsune Store | Loot, Passes & Chests",
+    "description": "<a:whitearrow:1346152146814636032> **Select a Loot category below:**\n\n> 🔮 **Orbs & Capsules:** Summoner's Orb (250 RP), Deluxe 10x (2500 RP), Premium 25x (6250 RP), Mega 50x (12500 RP)\n> 🎫 **Season Passes:** Season 3: Act I Pass (1650 RP), Pass Bundle (2650 RP), Premium Pass (3650 RP)\n> 🔑 **Hextech Chests & Keys:** Hextech Chest (125 RP), Key (125 RP), 1x (195 RP), 5x (975 RP), 10x (1950 RP) Bundles\n> <:lol_mystery_skin:1544591070204010598> **Mystery Gifts:** Mystery Skin (490 RP), Mystery Champion (490 RP), Mystery Chest (790 RP)",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg"
+  },
+  "category_champions": {
+    "title": "⚔️ Kitsune Store | Champions & Eternals",
+    "description": "<a:whitearrow:1346152146814636032> **Select what you wish to purchase below:**\n\n> 🛡️ **Champions:** Search and gift any of the 173 League of Legends Champions\n> 🏆 **Eternals:** Statstone Series I and II for all champions (600 RP)",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
+  },
+  "category_accessories": {
+    "title": "📦 Kitsune Store | Summoner Accessories",
+    "description": "<a:whitearrow:1346152146814636032> **Select the Accessories category below:**\n\n> <:lol_poro_emote:1544493296879935489> **Emotes:** All official giftable emotes (350 RP)\n> <:lol_star_ward:1544493299270680717> **Ward Skins:** Cosmetic ward skins (640 RP)\n> <:22icone:1544482040206983241> **Summoner Icons:** Official summoner icons (250 RP)\n> <:16xp:1544482296541749302> **XP Boosts:** Duration and Win XP Boosts\n> <:lol_chibi_vi:1544493291205173358> **Little Legends & Chibis:** TFT Chibis & Little Legends (1900 RP)\n> <:lol_tft_arena:1544591074100645948> **TFT Arenas:** Battlefield Map Skins & Arenas (1380 RP)",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_7.jpg"
+  },
+  "category_highlights": {
+    "title": "🌟 Kitsune Store | Highlights & Bundles",
+    "description": "<a:whitearrow:1346152146814636032> **Featured Bundles & Spotlight Offers:**\n\n> 🌟 **Featured Bundles:** Special champion & skin bundles with exclusive discounts!\n> 📦 **Spotlight Sets:** Signature packages, chroma packs and limited-time bundles.",
+    "color": "#F43F5E",
+    "thumbnail": "",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kaisa_14.jpg"
+  },
   "ticket_order_received": {
     "title": "<a:planeta:1527672012825301054> Order Received",
     "description": "<a:whitearrow:1346152146814636032> Please wait a moment. Our team will assist you shortly so you can proceed with your purchase.\n<a:whitearrow:1346152146814636032> {staffRoles}",
