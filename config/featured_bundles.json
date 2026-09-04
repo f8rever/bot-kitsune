@@ -1,0 +1,100 @@
+[
+  {
+    "id": 80000000,
+    "name": "Heartsong Seraphine Border Set",
+    "price_rp": 2720,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_30.jpg"
+  },
+  {
+    "id": 80000001,
+    "name": "Heartsong Seraphine Chroma Bundle",
+    "price_rp": 2795,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_30.jpg"
+  },
+  {
+    "id": 80000002,
+    "name": "Ocean Song Soraka Chroma Bundle",
+    "price_rp": 2795,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_45.jpg"
+  },
+  {
+    "id": 80000003,
+    "name": "Ocean Song Jinx Chroma Bundle",
+    "price_rp": 2795,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_37.jpg"
+  },
+  {
+    "id": 80000004,
+    "name": "Faerie Court Bel'Veth Bundle",
+    "price_rp": 1950,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_0.jpg"
+  },
+  {
+    "id": 80000005,
+    "name": "Faerie Court Lulu Bundle",
+    "price_rp": 1950,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_0.jpg"
+  },
+  {
+    "id": 79900748,
+    "name": "Faerie Court Lux Chroma Bundle",
+    "price_rp": 2925,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900748.jpg"
+  },
+  {
+    "id": 79900749,
+    "name": "Faerie Court Soraka Chroma Bundle",
+    "price_rp": 2925,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900749.jpg"
+  },
+  {
+    "id": 79900750,
+    "name": "Faerie Court Lillia Chroma Bundle",
+    "price_rp": 3235,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900750.jpg"
+  },
+  {
+    "id": 79900751,
+    "name": "Faerie Court Tristana Chroma Bundle",
+    "price_rp": 3087,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900751.jpg"
+  },
+  {
+    "id": 79900760,
+    "name": "Battle Dove Seraphine Chroma Bundle",
+    "price_rp": 3285,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900760.jpg"
+  },
+  {
+    "id": 79900800,
+    "name": "Dumpling Darlings Seraphine Chroma Bundle",
+    "price_rp": 3190,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900800.jpg"
+  },
+  {
+    "id": 79900870,
+    "name": "Firecracker Seraphine Chroma Bundle",
+    "price_rp": 3190,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900870.jpg"
+  },
+  {
+    "id": 80000013,
+    "name": "Enchanting Mystery Skin",
+    "price_rp": 850,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/skinpermanent_490x490.png"
+  }
+]

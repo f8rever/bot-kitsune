@@ -79,6 +79,42 @@ function loadFullRiotCatalog(lang = 'en') {
             }
         }
 
+        const tftArenasPath = path.join(__dirname, 'config', 'tft_arenas.json');
+        if (fs.existsSync(tftArenasPath)) {
+            try {
+                const arenas = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
+                for (const a of arenas) {
+                    items.push({
+                        id: a.id,
+                        nome: a.name,
+                        tipo: 'TFT_MAP_SKIN',
+                        parent_id: null,
+                        iconUrl: a.iconUrl || null,
+                        price_rp: Number(a.price_rp) || 0,
+                        rawItem: a
+                    });
+                }
+            } catch (e) {}
+        }
+
+        const featBundlesPath = path.join(__dirname, 'config', 'featured_bundles.json');
+        if (fs.existsSync(featBundlesPath)) {
+            try {
+                const feat = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
+                for (const f of feat) {
+                    items.push({
+                        id: f.id,
+                        nome: f.name,
+                        tipo: 'BUNDLES',
+                        parent_id: null,
+                        iconUrl: f.iconUrl || null,
+                        price_rp: Number(f.price_rp) || 0,
+                        rawItem: f
+                    });
+                }
+            } catch (e) {}
+        }
+
         const mergedMap = new Map();
         items.forEach(item => {
             if (!item.id) return;
@@ -537,6 +573,26 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
         }
     } catch (e) {}
 
+    try {
+        const featPath = path.join(__dirname, 'config', 'featured_bundles.json');
+        if (fs.existsSync(featPath)) {
+            const featList = JSON.parse(fs.readFileSync(featPath, 'utf8'));
+            const nClean = (nome || '').toLowerCase().trim();
+            const found = featList.find(f => f.name.toLowerCase().trim() === nClean || nClean.includes(f.name.toLowerCase().trim()));
+            if (found && found.price_rp > 0) return found.price_rp;
+        }
+    } catch (e) {}
+
+    try {
+        const tftPath = path.join(__dirname, 'config', 'tft_arenas.json');
+        if (fs.existsSync(tftPath)) {
+            const arenaList = JSON.parse(fs.readFileSync(tftPath, 'utf8'));
+            const nClean = (nome || '').toLowerCase().trim();
+            const found = arenaList.find(a => a.name.toLowerCase().trim() === nClean || nClean.includes(a.name.toLowerCase().trim()));
+            if (found && found.price_rp > 0) return found.price_rp;
+        }
+    } catch (e) {}
+
     let rp = rawItem ? getCatalogRp(rawItem) : 0;
     if (rp > 0) return rp;
 
@@ -880,52 +936,81 @@ function isPrestigeOrMythic(item) {
 }
 
 async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdate = false) {
-    const cor = '#F43F5E';
-    const ITEMS_PER_PAGE = 25;
+    try {
+        const cor = '#F43F5E';
+        const ITEMS_PER_PAGE = 25;
 
-    const session = userStoreSessions.get(interaction.user.id);
-    const userRegiao = (session?.regiao || 'BR').toUpperCase();
-    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
-    const currentCatalog = loadFullRiotCatalog(lang);
+        const session = userStoreSessions.get(interaction.user.id);
+        const userRegiao = (session?.regiao || 'BR').toUpperCase();
+        const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+        const currentCatalog = loadFullRiotCatalog(lang);
 
-    let results = [];
-    let titulo = '';
-    let customId = '';
+        let results = [];
+        let titulo = '';
+        let customId = '';
 
-    if (tipoFiltro === 'skins') {
-        results = currentCatalog.filter(x => {
-            const t = (x.tipo || '').toUpperCase();
-            if (isPrestigeOrMythic(x)) return false; // NUNCA EXIBIR SKINS MÍTICAS / PRESTÍGIO NÃO-PRESENTEEÁVEIS
-            return (t === 'CHAMPION_SKIN' || t === 'SKIN') && !isChroma(x) && x.rawItem?.active !== false;
-        });
-        titulo = lang === 'pt' ? `👕 ${results.length} Skins de Campeões` : `👕 ${results.length} Champion Skins`;
-        customId = 'selecionar_skin_menu';
-    } else if (tipoFiltro === 'cromas') {
-        results = currentCatalog.filter(x => {
-            const t = (x.tipo || '').toUpperCase();
-            if (isPrestigeOrMythic(x)) return false;
-            return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA' || t === 'BUNDLES' || t === 'BUNDLE') && isChroma(x) && x.rawItem?.active !== false;
-        });
-        titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
-        customId = 'selecionar_chroma_menu';
-    } else if (tipoFiltro === 'highlights' || tipoFiltro === 'bundles') {
-        results = currentCatalog.filter(x => {
-            const n = (x.nome || x.name || '').toLowerCase();
-            const t = (x.tipo || x.inventoryType || '').toUpperCase();
-            if (x.rawItem?.active === false) return false;
-            if (isPrestigeOrMythic(x)) return false;
-            if (x.price_rp <= 0) return false;
+        if (tipoFiltro === 'skins') {
+            results = currentCatalog.filter(x => {
+                const t = (x.tipo || '').toUpperCase();
+                if (isPrestigeOrMythic(x)) return false; // NUNCA EXIBIR SKINS MÍTICAS / PRESTÍGIO NÃO-PRESENTEEÁVEIS
+                return (t === 'CHAMPION_SKIN' || t === 'SKIN') && !isChroma(x) && x.rawItem?.active !== false;
+            });
+            titulo = lang === 'pt' ? `👕 ${results.length} Skins de Campeões` : `👕 ${results.length} Champion Skins`;
+            customId = 'selecionar_skin_menu';
+        } else if (tipoFiltro === 'cromas') {
+            results = currentCatalog.filter(x => {
+                const t = (x.tipo || '').toUpperCase();
+                if (isPrestigeOrMythic(x)) return false;
+                return (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA' || t === 'BUNDLES' || t === 'BUNDLE') && isChroma(x) && x.rawItem?.active !== false;
+            });
+            titulo = lang === 'pt' ? `🎨 ${results.length} Cromas` : `🎨 ${results.length} Chromas`;
+            customId = 'selecionar_chroma_menu';
+        } else if (tipoFiltro === 'highlights') {
+            const featBundlesPath = path.join(__dirname, 'config', 'featured_bundles.json');
+            let featList = [];
+            try {
+                featList = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
+            } catch (e) {}
 
-            // EXCLUIR ESPÓLIOS, PASSES, HEXTEC, BAÚS, CHAVES, CLASH, RUNAS, TFT
-            if (n.includes('chest') || n.includes('baú') || n.includes('key') || n.includes('chave') || n.includes('hextech')) return false;
-            if (n.includes('pass') || n.includes('passe') || n.includes('orb') || n.includes('orbe') || n.includes('capsule') || n.includes('cápsula')) return false;
-            if (n.includes('mystery') || n.includes('mistério') || n.includes('clash') || n.includes('rune') || n.includes('runa')) return false;
-            if (n.includes('tft') || n.includes('little legend') || n.includes('starter pack') || n.includes('new player') || n.includes('arena') || n.includes('choncc') || n.includes('boba') || n.includes('sanctum') || n.includes('tribe bundle') || n.includes('starship bundle') || n.includes('planet bundle')) return false;
-
-            return (t === 'BUNDLES' || t === 'BUNDLE');
-        });
-        titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Destaques` : `📦 ${results.length} Featured Bundles & Sets`;
-        customId = tipoFiltro === 'highlights' ? 'selecionar_highlight_menu' : 'selecionar_bundle_menu';
+            if (featList.length > 0) {
+                results = featList.map(b => {
+                    const catItem = currentCatalog.find(c => String(c.id) === String(b.id) || (c.nome && c.nome.toLowerCase() === b.name.toLowerCase()));
+                    return {
+                        id: b.id,
+                        nome: b.name,
+                        tipo: 'BUNDLES',
+                        iconUrl: b.iconUrl || catItem?.iconUrl || null,
+                        price_rp: b.price_rp,
+                        rawItem: {
+                            ...(catItem?.rawItem || {}),
+                            price_rp: b.price_rp,
+                            inventoryType: 'BUNDLES'
+                        }
+                    };
+                });
+            } else {
+                results = currentCatalog.filter(x => {
+                    const n = (x.nome || x.name || '').toLowerCase();
+                    const t = (x.tipo || x.inventoryType || '').toUpperCase();
+                    if (x.rawItem?.active === false) return false;
+                    if (isPrestigeOrMythic(x)) return false;
+                    if (x.price_rp <= 0) return false;
+                    return (t === 'BUNDLES' || t === 'BUNDLE');
+                });
+            }
+            titulo = lang === 'pt' ? `🌟 ${results.length} Pacotes de Lançamento & Destaques` : `🌟 ${results.length} Featured & Launch Bundles`;
+            customId = 'selecionar_highlight_menu';
+        } else if (tipoFiltro === 'bundles') {
+            results = currentCatalog.filter(x => {
+                const n = (x.nome || x.name || '').toLowerCase();
+                const t = (x.tipo || x.inventoryType || '').toUpperCase();
+                if (x.rawItem?.active === false) return false;
+                if (isPrestigeOrMythic(x)) return false;
+                if (x.price_rp <= 0) return false;
+                return (t === 'BUNDLES' || t === 'BUNDLE');
+            });
+            titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Cromas` : `📦 ${results.length} Skin & Chroma Bundles`;
+            customId = 'selecionar_bundle_menu';
     } else if (tipoFiltro === 'sales') {
         const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
         let saleList = [];
@@ -1029,10 +1114,27 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         titulo = lang === 'pt' ? `🐥 ${results.length} Pequenas Lendas & Chibis` : `🐥 ${results.length} Little Legends & Chibis`;
         customId = 'selecionar_lenda_menu';
     } else if (tipoFiltro === 'tft_arena') {
-        results = currentCatalog.filter(x => {
-            const t = (x.tipo || '').toUpperCase();
-            return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
-        });
+        const tftArenasPath = path.join(__dirname, 'config', 'tft_arenas.json');
+        let arenaList = [];
+        try {
+            arenaList = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
+        } catch (e) {}
+
+        if (arenaList.length > 0) {
+            results = arenaList.map(a => ({
+                id: a.id,
+                nome: a.name,
+                tipo: 'TFT_MAP_SKIN',
+                iconUrl: a.iconUrl || null,
+                price_rp: a.price_rp,
+                rawItem: a
+            }));
+        } else {
+            results = currentCatalog.filter(x => {
+                const t = (x.tipo || '').toUpperCase();
+                return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
+            });
+        }
         const eArenaTitle = (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim();
         titulo = lang === 'pt' ? `${eArenaTitle} ${results.length} Tabuleiros & Arenas TFT` : `${eArenaTitle} ${results.length} TFT Arenas`;
         customId = 'selecionar_arena_menu';
@@ -1122,8 +1224,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     if (pageItems.length === 0) {
-        if (isUpdate) return interaction.update({ content: '❌ No items found.', embeds: [], components: [] });
-        return interaction.reply({ content: '❌ No items found.', embeds: [], components: [] });
+        const msg = '❌ No items found in this category.';
+        if (interaction.replied || interaction.deferred) {
+            return await interaction.editReply({ content: msg, embeds: [], components: [] });
+        } else if (isUpdate) {
+            return await interaction.update({ content: msg, embeds: [], components: [] });
+        }
+        return await interaction.reply({ content: msg, embeds: [], components: [] });
     }
 
     const embedId = 'catalog_' + tipoFiltro;
@@ -1228,6 +1335,16 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         await interaction.update({ content: '', embeds: [embed], components: actionRows });
     } else {
         await interaction.reply({ content: '', embeds: [embed], components: actionRows, ephemeral: true });
+    }
+    } catch (err) {
+        console.error(`[enviarPaginaCatalogo Error - ${tipoFiltro}]`, err);
+        try {
+            if (interaction.replied || interaction.deferred) {
+                await interaction.editReply({ content: `❌ Error loading ${tipoFiltro} catalog: ${err.message}`, embeds: [], components: [] });
+            } else {
+                await interaction.reply({ content: `❌ Error loading ${tipoFiltro} catalog: ${err.message}`, ephemeral: true });
+            }
+        } catch (e) {}
     }
 }
 

@@ -197,7 +197,13 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       - **Most Popular:** `<:lol_exclusive_pack:1544591088084590636>` (em `bundles.most_popular`, `bundles.exclusive_pack`, `formatarStr` e cabeçalhos).
       - **Featured & Launch Bundles:** `<:lol_bundle_set:1544591078622236763>`.
   - **Cálculo de Desconto Dinâmico no Checkout:** A função `getItemRpValue` verifica automaticamente se o item está em promoção semanal e aplica o `sale_rp` com a conversão proporcional em Euros (€).
-  - **Persistência Cloud:** `emojis`, `embeds` e `weekly_sales` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
+  - **Destaques & Pacotes de Lançamento (Featured & Launch Bundles):**
+    - Criado `config/featured_bundles.json` com os 14 pacotes e conjuntos de lançamento oficiais ativos na loja da Riot (Heartsong Seraphine Border Set, Chroma Bundles, Faerie Court Bel'Veth/Lulu, Ocean Song, etc.), eliminando os 210 pacotes legados de cromas de 2017 que poluíam a aba de destaques.
+    - A aba `Featured & Launch Bundles` (`compra_highlights`) exibe exclusivamente estes 14 pacotes de destaque, enquanto `Pacotes de Skins & Cromas` (`compra_bundles`) em `Skins & Chromas` mantém os mais de 800 pacotes legados de skins/cromas.
+  - **Tabuleiros & Arenas TFT (TFT Arenas) e Correção de Loading Infinito:**
+    - Criado `config/tft_arenas.json` com as 22 arenas oficiais compráveis do TFT com custos em RP, ícones CDragon e tipo `TFT_MAP_SKIN`.
+    - **Causa Raiz do Loading Infinito Resolvida:** Quando uma categoria vazia ou erro ocorria, `enviarPaginaCatalogo` chamava `interaction.reply()`, mas a interação já havia sido respondida/atualizada por `menu_vendas` com "⏳ Loading the catalog...", disparando o erro 40060 da API do Discord (`InteractionAlreadyReplied`) e deixando a mensagem travada no loading para sempre. Corrigido com verificação segura de `interaction.replied || interaction.deferred` chamando `interaction.editReply()`, protegido por bloco global `try/catch`.
+  - **Persistência Cloud:** `emojis`, `embeds`, `weekly_sales`, `featured_bundles` e `tft_arenas` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
 ### Servidores do Bot:
