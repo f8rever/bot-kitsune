@@ -203,6 +203,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - **Tabuleiros & Arenas TFT (TFT Arenas) e Correção de Loading Infinito:**
     - Criado `config/tft_arenas.json` com as 22 arenas oficiais compráveis do TFT com custos em RP, ícones CDragon e tipo `TFT_MAP_SKIN`.
     - **Causa Raiz do Loading Infinito Resolvida:** Quando uma categoria vazia ou erro ocorria, `enviarPaginaCatalogo` chamava `interaction.reply()`, mas a interação já havia sido respondida/atualizada por `menu_vendas` com "⏳ Loading the catalog...", disparando o erro 40060 da API do Discord (`InteractionAlreadyReplied`) e deixando a mensagem travada no loading para sempre. Corrigido com verificação segura de `interaction.replied || interaction.deferred` chamando `interaction.editReply()`, protegido por bloco global `try/catch`.
+  - **Painel Web da API (Categorias do Catálogo corrigidas no Frontend):**
+    - Identificada a causa raiz de os itens aparecerem apenas em "Todos" e sumirem ao clicar em categorias individuais (`Skins`, `Chromas`, `Pacotes`, etc.): no HTML os botões tinham valores no singular (`value="Skin"`, `value="Chroma"`, etc.), enquanto os catálogos JSON usavam chaves no plural (`"Skins"`, `"Chromas"`), fazendo `item.category === selectedCategory` falhar sempre.
+    - Implementada a função `matchesCategory(item, sel)` em `static/script.js` (tanto em `lol_giftapi-main` quanto em `python_backend`), mapeando com precisão todas as categorias (Skins, Cromas, Pacotes, Passes, Campeões, Emotes, Ícones, Sentinelas, Pequenas Lendas, Tabuleiros TFT, Boosts, Eternos, Mistério e Hextec).
+    - O catálogo do bot do Discord permaneceu 100% isolado, intacto e sem qualquer impacto.
   - **Persistência Cloud:** `emojis`, `embeds`, `weekly_sales`, `featured_bundles` e `tft_arenas` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
