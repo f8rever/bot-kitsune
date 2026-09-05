@@ -264,6 +264,8 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - **Correção:** Removida a checagem incorreta de `parent_id` para skins. A detecção de cromas agora baseia-se exclusivamente em `t === 'CHROMA'`, `sub === 'RECOLOR'` e marcações oficiais da Riot. Validado que exatamente 1.314 skins e 5.532 cromas são devidamente reconhecidos.
     - **Modal de Busca para Skins & Cromas (`abrirModalBusca`):** Ao escolher "Champion Skins" ou "Chromas" no menu, o bot agora abre o modal oficial de busca para digitar o nome do campeão (ex: "Seraphine" ou "Ahri"), permitindo encontrar diretamente as skins desejadas.
     - **Embed `Catalog of Gifts` 100% Persistente em Todas as Telas:** Tanto em `buscarEExibirItens` quanto em `enviarPaginaCatalogo`, o embed na tela permanece fixo como `store_sales_center` ("Catalog of Gifts"), trocando apenas os Select Menus e os botões de navegação, e mantendo o botão de voltar caso alguma categoria esteja vazia. Ao selecionar um item, prossegue diretamente para a finalização / abertura do ticket.
+  - **Setas Animadas Brancas para Paginação (`Previous` / `Next`) (2026-09-05):**
+    - Configuradas as novas setas brancas animadas (`<a:l_arrow_white:1545877594170335304>` e `<a:51047animatedarrowwhite:1545491753002475591>`) nos botões de paginação de páginas (`Previous` / `Next`) nos catálogos gerais (`enviarPaginaCatalogo`), nos resultados de busca (`buscarEExibirItens`) e na paginação da friendlist (`Anterior` / `Próxima`).
 
 
 ### Servidores do Bot:

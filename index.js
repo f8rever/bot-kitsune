@@ -1323,7 +1323,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             .setCustomId(backCustomId)
             .setLabel('Menu')
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim()),
+            .setEmoji('⬅️'),
         new ButtonBuilder()
             .setCustomId(`btn_search_cat_${tipoFiltro}`)
             .setLabel('Search')
@@ -1337,11 +1337,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 .setCustomId(`pag_${tipoFiltro}_${pagina - 1}`)
                 .setLabel('Previous')
                 .setStyle(ButtonStyle.Primary)
+                .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '◀️').trim())
                 .setDisabled(pagina === 0),
             new ButtonBuilder()
                 .setCustomId(`pag_${tipoFiltro}_${pagina + 1}`)
                 .setLabel('Next')
                 .setStyle(ButtonStyle.Primary)
+                .setEmoji((customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '▶️').trim())
                 .setDisabled(pagina === totalPages - 1)
         );
     }
@@ -3205,9 +3207,9 @@ client.on('interactionCreate', async interaction => {
                         );
 
                         const row2 = new ActionRowBuilder().addComponents(
-                            new ButtonBuilder().setCustomId(`btn_friend_prev_${prevPage}`).setLabel('Anterior').setStyle(ButtonStyle.Secondary).setEmoji('◀️').setDisabled(page <= 1),
+                            new ButtonBuilder().setCustomId(`btn_friend_prev_${prevPage}`).setLabel('Anterior').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '◀️').trim()).setDisabled(page <= 1),
                             new ButtonBuilder().setCustomId('btn_friend_indicator').setLabel(`Página ${page}/${totalPages} (${totalFriends} amigos)`).setStyle(ButtonStyle.Secondary).setDisabled(true),
-                            new ButtonBuilder().setCustomId(`btn_friend_next_${nextPage}`).setLabel('Próxima').setStyle(ButtonStyle.Secondary).setEmoji('▶️').setDisabled(page >= totalPages),
+                            new ButtonBuilder().setCustomId(`btn_friend_next_${nextPage}`).setLabel('Próxima').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '▶️').trim()).setDisabled(page >= totalPages),
                             new ButtonBuilder().setCustomId('btn_accept_all_friends').setLabel('Aceitar Pedidos').setStyle(ButtonStyle.Success).setEmoji('📥')
                         );
 
@@ -4433,7 +4435,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
             .setCustomId(backCustomId)
             .setLabel('Back to Menu')
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
+            .setEmoji('⬅️')
     );
 
     if (totalPages > 1) {
@@ -4443,11 +4445,13 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
                 .setCustomId(`pag_${tipoFiltro}_${pagina - 1}_${queryTerm}`)
                 .setLabel('Previous')
                 .setStyle(ButtonStyle.Primary)
+                .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '◀️').trim())
                 .setDisabled(pagina === 0),
             new ButtonBuilder()
                 .setCustomId(`pag_${tipoFiltro}_${pagina + 1}_${queryTerm}`)
                 .setLabel('Next')
                 .setStyle(ButtonStyle.Primary)
+                .setEmoji((customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '▶️').trim())
                 .setDisabled(pagina === totalPages - 1)
         );
     }
