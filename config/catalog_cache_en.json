@@ -58,21 +58,11 @@
     "Lunar Eclipse Aatrox": {
       "offer_id": "7f36261c-ebcd-405c-b316-9e04b11dc27e",
       "item_id": "266021",
-      "price_rp": 607,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 607,
-      "discount_percent": 55,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 607,
-            "discount": 0.55
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_21.jpg"
     },
@@ -264,10 +254,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_89.jpg"
     },
     "Stinger Akali": {
-      "offer_id": "skin_84001",
+      "offer_id": "f521b6ec-59e1-496c-84f5-b8e3480cfd84",
       "item_id": "84001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -275,10 +265,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_1.jpg"
     },
     "Infernal Akali": {
-      "offer_id": "skin_84002",
+      "offer_id": "2a73a362-2a8b-4567-8328-08a6531b562f",
       "item_id": "84002",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -935,10 +925,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Annie_3.jpg"
     },
     "Prom Queen Annie": {
-      "offer_id": "skin_1004",
+      "offer_id": "3538272c-b877-4cf7-8f3f-795da3b16bfe",
       "item_id": "1004",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -988,6 +978,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Annie_8.jpg"
+    },
+    "Sweetheart Annie": {
+      "offer_id": "skin_1009",
+      "item_id": "1009",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Annie_9.jpg"
     },
     "Super Galaxy Annie": {
       "offer_id": "ac61f94f-13b9-406c-bfb4-65fb512d7367",
@@ -1186,6 +1187,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ashe_5.jpg"
+    },
+    "Heartseeker Ashe": {
+      "offer_id": "skin_22006",
+      "item_id": "22006",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ashe_6.jpg"
     },
     "Marauder Ashe": {
       "offer_id": "7f35624c-daef-4385-b977-af25f95f9b24",
@@ -1575,11 +1587,21 @@
     "Cosmic Matriarch Bel'Veth": {
       "offer_id": "5523fa9e-6ed3-44f7-9fab-34cfa957c1a1",
       "item_id": "200010",
-      "price_rp": 1350,
+      "price_rp": 877,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 877,
+      "discount_percent": 35,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 877,
+            "discount": 0.35
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_10.jpg"
     },
@@ -1595,10 +1617,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_19.jpg"
     },
     "Faerie Court Bel'Veth": {
-      "offer_id": "skin_200029",
+      "offer_id": "f70b4d14-bacf-4380-b0bb-d55911c38b9c",
       "item_id": "200029",
       "price_rp": 1350,
-      "regular_rp": null,
+      "regular_rp": 1350,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -1648,6 +1670,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Blitzcrank_4.jpg"
+    },
+    "Definitely Not Blitzcrank": {
+      "offer_id": "skin_53005",
+      "item_id": "53005",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Blitzcrank_5.jpg"
     },
     "iBlitzcrank": {
       "offer_id": "df6ab01c-2946-4568-9558-9346cfadf4f2",
@@ -1847,6 +1880,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Brand_3.jpg"
     },
+    "Zombie Brand": {
+      "offer_id": "skin_63004",
+      "item_id": "63004",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Brand_4.jpg"
+    },
     "Spirit Fire Brand": {
       "offer_id": "822c5f63-b915-49e9-9bba-8d35069da7c7",
       "item_id": "63005",
@@ -1982,21 +2026,11 @@
     "Crime City Braum": {
       "offer_id": "0667bc5a-3cce-46ba-8735-9fcbff6d46c9",
       "item_id": "201011",
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Braum_11.jpg"
     },
@@ -2124,21 +2158,11 @@
     "Headhunter Caitlyn": {
       "offer_id": "6bc4e29d-01d7-4896-94ee-2165046394ad",
       "item_id": "51006",
-      "price_rp": 390,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 390,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 390,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_6.jpg"
     },
@@ -2200,11 +2224,21 @@
     "Pool Party Caitlyn": {
       "offer_id": "7a1b0e65-73a1-45f8-b69b-e824cae4fb87",
       "item_id": "51013",
-      "price_rp": 1350,
+      "price_rp": 675,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 675,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 675,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_13.jpg"
     },
@@ -3188,15 +3222,26 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Draven_58.jpg"
     },
     "Toxic Dr. Mundo": {
-      "offer_id": "skin_36001",
+      "offer_id": "a97ec968-6545-489a-a65f-3f009d8a50b8",
       "item_id": "36001",
+      "price_rp": 520,
+      "regular_rp": 520,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/DrMundo_1.jpg"
+    },
+    "Mr. Mundoverse": {
+      "offer_id": "skin_36002",
+      "item_id": "36002",
       "price_rp": 1350,
       "regular_rp": null,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/DrMundo_1.jpg"
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/DrMundo_2.jpg"
     },
     "Corporate Mundo": {
       "offer_id": "724c7e08-8486-4813-a166-7243c36540f3",
@@ -3617,10 +3662,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Evelynn_64.jpg"
     },
     "Nottingham Ezreal": {
-      "offer_id": "skin_81001",
+      "offer_id": "99ab7f2b-ea9d-465f-82af-e3a8d9504337",
       "item_id": "81001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -3784,21 +3829,11 @@
     "Faerie Court Ezreal": {
       "offer_id": "0c190bbc-1bf9-4326-8704-5995181b4cb1",
       "item_id": "81033",
-      "price_rp": 675,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 675,
-      "discount_percent": 50,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 675,
-            "discount": 0.5
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_33.jpg"
     },
@@ -3812,6 +3847,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_43.jpg"
+    },
+    "Heavenscale Ezreal": {
+      "offer_id": "skin_81044",
+      "item_id": "81044",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_44.jpg"
     },
     "Masque of the Black Rose Ezreal": {
       "offer_id": "a694f898-bfdf-4905-bc23-ef937899910b",
@@ -4507,10 +4553,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Garen_1.jpg"
     },
     "Desert Trooper Garen": {
-      "offer_id": "skin_86002",
+      "offer_id": "847c0518-73ba-4ba9-9ea4-0f7d11e56265",
       "item_id": "86002",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -4869,6 +4915,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gragas_7.jpg"
     },
+    "Fnatic Gragas": {
+      "offer_id": "skin_79008",
+      "item_id": "79008",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gragas_8.jpg"
+    },
     "Gragas Caskbreaker": {
       "offer_id": "1e7e1377-eb1d-4eef-bc0c-ce82b3182223",
       "item_id": "79009",
@@ -5112,10 +5169,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_39.jpg"
     },
     "Faerie Court Gwen": {
-      "offer_id": "skin_887048",
+      "offer_id": "3c1d7637-0ae6-4924-a043-b8986dd28e6b",
       "item_id": "887048",
       "price_rp": 1350,
-      "regular_rp": null,
+      "regular_rp": 1350,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -5279,21 +5336,11 @@
     "Piltover Customs Heimerdinger": {
       "offer_id": "78e8bdf0-c7ac-4b1d-bf58-b99644fdf7b0",
       "item_id": "74003",
-      "price_rp": 390,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 390,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 390,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Heimerdinger_3.jpg"
     },
@@ -5880,6 +5927,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/JarvanIV_5.jpg"
     },
+    "Fnatic Jarvan IV": {
+      "offer_id": "skin_59006",
+      "item_id": "59006",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/JarvanIV_6.jpg"
+    },
     "Dark Star Jarvan IV": {
       "offer_id": "e97a659e-16c7-4157-9ede-f9ad04b2de55",
       "item_id": "59007",
@@ -5956,6 +6014,28 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jax_1.jpg"
+    },
+    "Vandal Jax": {
+      "offer_id": "skin_24002",
+      "item_id": "24002",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jax_2.jpg"
+    },
+    "Angler Jax": {
+      "offer_id": "skin_24003",
+      "item_id": "24003",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jax_3.jpg"
     },
     "Jaximus": {
       "offer_id": "49d4eac2-1dcc-454e-838c-ccfd35f43472",
@@ -6442,10 +6522,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_60.jpg"
     },
     "Ocean Song Jinx": {
-      "offer_id": "skin_222065",
+      "offer_id": "7e0e4241-21ab-4fcd-b5f7-e9d9dc3dee01",
       "item_id": "222065",
       "price_rp": 1350,
-      "regular_rp": null,
+      "regular_rp": 1350,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -6598,21 +6678,11 @@
     "Dawnbringer Kalista": {
       "offer_id": "6156d3f4-3ddc-4253-9c0b-e5333e742ba4",
       "item_id": "429024",
-      "price_rp": 810,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 810,
-      "discount_percent": 40,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 810,
-            "discount": 0.4
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kalista_24.jpg"
     },
@@ -6780,6 +6850,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karma_70.jpg"
+    },
+    "Phantom Karthus": {
+      "offer_id": "skin_30001",
+      "item_id": "30001",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karthus_1.jpg"
     },
     "Statue of Karthus": {
       "offer_id": "0d561437-0b78-4061-9ee1-5262f21aeca6",
@@ -7147,11 +7228,21 @@
     "High Noon Katarina": {
       "offer_id": "f3a8050d-2c47-4e11-bf9c-3ec13b9d5c36",
       "item_id": "55037",
-      "price_rp": 1350,
+      "price_rp": 607,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 607,
+      "discount_percent": 55,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 607,
+            "discount": 0.55
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Katarina_37.jpg"
     },
@@ -7242,6 +7333,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kayle_6.jpg"
+    },
+    "Riot Kayle": {
+      "offer_id": "skin_10007",
+      "item_id": "10007",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kayle_7.jpg"
     },
     "Iron Inquisitor Kayle": {
       "offer_id": "1e956da6-296a-45b9-9c3c-cf629e271ba2",
@@ -7400,21 +7502,11 @@
     "Battle Academia Kayn": {
       "offer_id": "c514fbff-1c7f-40df-86de-7e6e8eed61f6",
       "item_id": "141026",
-      "price_rp": 944,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 944,
-      "discount_percent": 30,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 944,
-            "discount": 0.3
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kayn_26.jpg"
     },
@@ -7696,11 +7788,21 @@
     "Kibble-Head Kled": {
       "offer_id": "8648368e-04b0-4486-a2d2-7af9006b0c85",
       "item_id": "240018",
-      "price_rp": 1350,
+      "price_rp": 810,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 810,
+      "discount_percent": 40,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 810,
+            "discount": 0.4
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kled_18.jpg"
     },
@@ -7905,21 +8007,11 @@
     "Elderwood LeBlanc": {
       "offer_id": "04951f09-5fdc-4595-87e1-5263a5361b8c",
       "item_id": "7005",
-      "price_rp": 607,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 607,
-      "discount_percent": 55,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 607,
-            "discount": 0.55
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_5.jpg"
     },
@@ -7959,11 +8051,21 @@
     "Debonair LeBlanc": {
       "offer_id": "c3289898-ebaa-4d01-b808-f532a7e87e70",
       "item_id": "7035",
-      "price_rp": 1350,
+      "price_rp": 675,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 675,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 675,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_35.jpg"
     },
@@ -8234,11 +8336,21 @@
     "PROJECT: Leona": {
       "offer_id": "b23a79c5-0a71-48c9-943e-f84dc7bcca65",
       "item_id": "89008",
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leona_8.jpg"
     },
@@ -8487,21 +8599,11 @@
     "Flora Fatalis Lissandra": {
       "offer_id": "4c358fc2-201e-4287-a5c0-dc6baaef3803",
       "item_id": "127043",
-      "price_rp": 877,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 877,
-      "discount_percent": 35,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 877,
-            "discount": 0.35
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lissandra_43.jpg"
     },
@@ -8814,10 +8916,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_55.jpg"
     },
     "Faerie Court Lulu": {
-      "offer_id": "skin_117056",
+      "offer_id": "e50f3af7-65ae-4f07-9fab-1bd91023e841",
       "item_id": "117056",
       "price_rp": 1350,
-      "regular_rp": null,
+      "regular_rp": 1350,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -9021,6 +9123,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_72.jpg"
+    },
+    "Shamrock Malphite": {
+      "offer_id": "skin_54001",
+      "item_id": "54001",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Malphite_1.jpg"
     },
     "Coral Reef Malphite": {
       "offer_id": "skin_54002",
@@ -9586,21 +9699,11 @@
     "Arcane Councilor Mel": {
       "offer_id": "aa262b6a-2502-43a7-83ac-7f7f117fd2bc",
       "item_id": "800001",
-      "price_rp": 810,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 810,
-      "discount_percent": 40,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 810,
-            "discount": 0.4
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mel_1.jpg"
     },
@@ -9893,11 +9996,21 @@
     "Lancer Stratus Wukong": {
       "offer_id": "540b4aa6-f8de-4d1f-9f69-23c90c39732a",
       "item_id": "62006",
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MonkeyKing_6.jpg"
     },
@@ -10056,10 +10169,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mordekaiser_54.jpg"
     },
     "Exiled Morgana": {
-      "offer_id": "skin_25001",
+      "offer_id": "86dabf46-1fc5-4899-a13e-344edd87a2cd",
       "item_id": "25001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 975,
+      "regular_rp": 975,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -10153,6 +10266,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Morgana_10.jpg"
+    },
+    "Bewitching Morgana": {
+      "offer_id": "skin_25011",
+      "item_id": "25011",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Morgana_11.jpg"
     },
     "Majestic Empress Morgana": {
       "offer_id": "02e46668-9362-4c0e-bea1-e052abf78987",
@@ -10473,6 +10597,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_3.jpg"
     },
+    "Riot K-9 Nasus": {
+      "offer_id": "skin_75004",
+      "item_id": "75004",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_4.jpg"
+    },
     "Infernal Nasus": {
       "offer_id": "7f5a368f-9511-4d6a-9e46-58bdebd718a0",
       "item_id": "75005",
@@ -10538,6 +10673,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_10.jpg"
+    },
+    "Lunar Guardian Nasus": {
+      "offer_id": "skin_75011",
+      "item_id": "75011",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_11.jpg"
     },
     "Battlecast Nasus": {
       "offer_id": "6f2c57d9-a9d3-4cb7-b787-ce924d03d3ae",
@@ -10674,11 +10820,21 @@
     "Fright Night Nautilus": {
       "offer_id": "2e87254b-7b0d-4dcd-917a-f8ae118b59e8",
       "item_id": "111018",
-      "price_rp": 1350,
+      "price_rp": 944,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 944,
+      "discount_percent": 30,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 944,
+            "discount": 0.3
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nautilus_18.jpg"
     },
@@ -11068,10 +11224,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nocturne_26.jpg"
     },
     "Sasquatch Nunu & Willump": {
-      "offer_id": "skin_20001",
+      "offer_id": "8f483bec-e11a-4ffa-bab3-e24be71a1e23",
       "item_id": "20001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -11210,6 +11366,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Olaf_1.jpg"
     },
+    "Glacial Olaf": {
+      "offer_id": "skin_2002",
+      "item_id": "2002",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Olaf_2.jpg"
+    },
     "Brolaf": {
       "offer_id": "e25584da-de70-47f0-bb61-c49d47d869d5",
       "item_id": "2003",
@@ -11279,11 +11446,21 @@
     "Pentakill III: Lost Chapter Olaf": {
       "offer_id": "984e317f-0979-43b1-98ab-d227d21f3ff2",
       "item_id": "2035",
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Olaf_35.jpg"
     },
@@ -11928,11 +12105,21 @@
     "Warden Quinn": {
       "offer_id": "aacae75a-c6b3-46fd-80a1-06be160f2704",
       "item_id": "133005",
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Quinn_5.jpg"
     },
@@ -12137,21 +12324,11 @@
     "Guardian of the Sands Rammus": {
       "offer_id": "4926f7c9-6dc6-4f70-8a60-37faeed18dac",
       "item_id": "33007",
-      "price_rp": 390,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 390,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 390,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rammus_7.jpg"
     },
@@ -12466,11 +12643,21 @@
     "Inkshadow Renekton": {
       "offer_id": "75120d12-f697-4957-b7ae-41a0f3de492b",
       "item_id": "58048",
-      "price_rp": 1350,
+      "price_rp": 810,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 810,
+      "discount_percent": 40,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 810,
+            "discount": 0.4
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renekton_48.jpg"
     },
@@ -12772,10 +12959,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rumble_23.jpg"
     },
     "Tribal Ryze": {
-      "offer_id": "skin_13002",
+      "offer_id": "bca183a5-b3d9-4df5-97fe-915db6e7fa48",
       "item_id": "13002",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -12803,6 +12990,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ryze_5.jpg"
+    },
+    "Zombie Ryze": {
+      "offer_id": "skin_13006",
+      "item_id": "13006",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ryze_6.jpg"
     },
     "Dark Crystal Ryze": {
       "offer_id": "029adcd7-ee1a-4e81-b755-8f054135358b",
@@ -13267,10 +13465,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_59.jpg"
     },
     "Heartsong Seraphine": {
-      "offer_id": "skin_147069",
+      "offer_id": "6e199f43-39c9-4709-97de-aadded6602c5",
       "item_id": "147069",
       "price_rp": 1820,
-      "regular_rp": null,
+      "regular_rp": 1820,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -13478,21 +13676,11 @@
     "Crime City Nightmare Shaco": {
       "offer_id": "5ba19ffb-b342-4cbc-a555-f3122817d290",
       "item_id": "35023",
-      "price_rp": 675,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 675,
-      "discount_percent": 50,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 675,
-            "discount": 0.5
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shaco_23.jpg"
     },
@@ -13552,10 +13740,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shen_1.jpg"
     },
     "Yellow Jacket Shen": {
-      "offer_id": "skin_98002",
+      "offer_id": "2fce0748-2e90-4b5b-9da0-984208be2c85",
       "item_id": "98002",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -13749,6 +13937,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shyvana_17.jpg"
     },
+    "Hextech Singed": {
+      "offer_id": "skin_27002",
+      "item_id": "27002",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Singed_2.jpg"
+    },
     "Surfer Singed": {
       "offer_id": "c4d53e42-da55-41c1-8446-651c49347340",
       "item_id": "27003",
@@ -13781,6 +13980,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Singed_5.jpg"
+    },
+    "Snow Day Singed": {
+      "offer_id": "skin_27006",
+      "item_id": "27006",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Singed_6.jpg"
     },
     "SSW Singed": {
       "offer_id": "skin_27007",
@@ -13849,10 +14059,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Singed_28.jpg"
     },
     "Hextech Sion": {
-      "offer_id": "skin_14001",
+      "offer_id": "71fde351-746e-4e36-a8ed-103a0c4f2998",
       "item_id": "14001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -14288,6 +14498,17 @@
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sona_6.jpg"
     },
+    "Sweetheart Sona": {
+      "offer_id": "skin_37007",
+      "item_id": "37007",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sona_7.jpg"
+    },
     "Odyssey Sona": {
       "offer_id": "d1cc665d-a749-4c8e-8c7e-9c96ad3d8478",
       "item_id": "37009",
@@ -14531,10 +14752,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_53.jpg"
     },
     "Ocean Song Soraka": {
-      "offer_id": "skin_16063",
+      "offer_id": "00541546-9c4b-4e1b-8813-ecfe852cb7bf",
       "item_id": "16063",
       "price_rp": 1350,
-      "regular_rp": null,
+      "regular_rp": 1350,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -14786,21 +15007,11 @@
     "Spirit Blossom Syndra": {
       "offer_id": "9f5c44e6-a82a-487c-b4d7-053e763ad34b",
       "item_id": "134044",
-      "price_rp": 607,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 607,
-      "discount_percent": 55,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 607,
-            "discount": 0.55
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Syndra_44.jpg"
     },
@@ -15168,10 +15379,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_1.jpg"
     },
     "Recon Teemo": {
-      "offer_id": "skin_17002",
+      "offer_id": "407a1a8d-1cb0-4b18-9b1b-9805b99d8b04",
       "item_id": "17002",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 750,
+      "regular_rp": 750,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -15243,6 +15454,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_8.jpg"
+    },
+    "Little Devil Teemo": {
+      "offer_id": "skin_17014",
+      "item_id": "17014",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_14.jpg"
     },
     "Beemo": {
       "offer_id": "52312631-c962-4616-a8e1-38f61413b3dd",
@@ -15960,10 +16182,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/TwistedFate_36.jpg"
     },
     "Kingpin Twitch": {
-      "offer_id": "skin_29001",
+      "offer_id": "1bdc880e-213b-4717-9e62-d21e85ea2c1e",
       "item_id": "29001",
-      "price_rp": 1350,
-      "regular_rp": null,
+      "price_rp": 520,
+      "regular_rp": 520,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -16442,6 +16664,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_3.jpg"
+    },
+    "Heartseeker Vayne": {
+      "offer_id": "skin_67004",
+      "item_id": "67004",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_4.jpg"
     },
     "Arclight Vayne": {
       "offer_id": "e11b0b75-3375-48b8-a861-81e9a9fb943c",
@@ -17051,11 +17284,21 @@
     "Full Machine Viktor": {
       "offer_id": "18188320-1dbd-4d46-bedd-efff9cd90bed",
       "item_id": "112001",
-      "price_rp": 975,
+      "price_rp": 438,
       "regular_rp": 975,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 438,
+      "discount_percent": 55,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 438,
+            "discount": 0.55
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viktor_1.jpg"
     },
@@ -17271,11 +17514,21 @@
     "PsyOps Vladimir": {
       "offer_id": "397eb14c-dab2-4a83-ba33-fe11c5550c09",
       "item_id": "8049",
-      "price_rp": 1350,
+      "price_rp": 975,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 975,
+      "discount_percent": 28,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 975,
+            "discount": 0.27
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vladimir_49.jpg"
     },
@@ -17465,6 +17718,17 @@
       "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Warwick_9.jpg"
+    },
+    "Lunar Guardian Warwick": {
+      "offer_id": "skin_19010",
+      "item_id": "19010",
+      "price_rp": 1350,
+      "regular_rp": null,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Warwick_10.jpg"
     },
     "PROJECT: Warwick": {
       "offer_id": "c3135559-992e-4dde-b217-ca23344eb9d4",
@@ -17700,11 +17964,21 @@
     "Arcana Xerath": {
       "offer_id": "487310dd-e6ff-4829-895c-c096e91f3dfd",
       "item_id": "101012",
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Xerath_12.jpg"
     },
@@ -17788,21 +18062,11 @@
     "Secret Agent Xin Zhao": {
       "offer_id": "320503f5-77d8-456a-adc0-8a6eafff306c",
       "item_id": "5006",
-      "price_rp": 487,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 487,
-      "discount_percent": 50,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 487,
-            "discount": 0.5
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/XinZhao_6.jpg"
     },
@@ -18414,11 +18678,21 @@
     "Zesty Dip Zac": {
       "offer_id": "e21bebb1-9d86-4c99-82db-8405f44a055c",
       "item_id": "154024",
-      "price_rp": 1350,
+      "price_rp": 944,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 944,
+      "discount_percent": 30,
+      "sale": {
+        "startDate": "2026-08-31T17:00:00.000+00:00",
+        "endDate": "2026-09-07T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 944,
+            "discount": 0.3
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zac_24.jpg"
     },
@@ -18436,21 +18710,11 @@
     "Shockblade Zed": {
       "offer_id": "7d2065ff-9c64-4643-893f-163e30cba88f",
       "item_id": "238001",
-      "price_rp": 536,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 536,
-      "discount_percent": 45,
-      "sale": {
-        "startDate": "2026-08-03T17:00:00.000+00:00",
-        "endDate": "2026-08-10T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 536,
-            "discount": 0.45
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zed_1.jpg"
     },
@@ -25453,10 +25717,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_28.jpg"
     },
     "Faerie Court Bel'Veth (Rose Quartz)": {
-      "offer_id": "skin_200030",
+      "offer_id": "311cbe4b-457f-406a-a14f-da0c8e584aa7",
       "item_id": "200030",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25464,10 +25728,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_30.jpg"
     },
     "Faerie Court Bel'Veth (Turquoise)": {
-      "offer_id": "skin_200031",
+      "offer_id": "4e2f2342-f970-4add-a575-ed1f689efcc1",
       "item_id": "200031",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25475,10 +25739,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_31.jpg"
     },
     "Faerie Court Bel'Veth (Pearl)": {
-      "offer_id": "skin_200032",
+      "offer_id": "cfd77276-e77b-46cf-8f25-79bb98c3b212",
       "item_id": "200032",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25486,10 +25750,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_32.jpg"
     },
     "Faerie Court Bel'Veth (Obsidian)": {
-      "offer_id": "skin_200033",
+      "offer_id": "0f5995ad-d89d-4a5f-bd94-df4872a460a4",
       "item_id": "200033",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25508,10 +25772,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_34.jpg"
     },
     "Faerie Court Bel'Veth (Catseye)": {
-      "offer_id": "skin_200035",
+      "offer_id": "c2f5f216-0fd6-4a70-9adb-39832db498c9",
       "item_id": "200035",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25519,10 +25783,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_35.jpg"
     },
     "Faerie Court Bel'Veth (Tanzanite)": {
-      "offer_id": "skin_200036",
+      "offer_id": "4bb3c048-e7b1-45a8-8b82-f9e4f6a0f5e5",
       "item_id": "200036",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -25530,10 +25794,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Belveth_36.jpg"
     },
     "Faerie Court Bel'Veth (Sapphire)": {
-      "offer_id": "skin_200037",
+      "offer_id": "72e956cc-87d1-4239-9206-814a71dfd336",
       "item_id": "200037",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -33065,10 +33329,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_76.jpg"
     },
     "Porcelain Protector Ezreal (Lustrous)": {
-      "offer_id": "skin_81077",
+      "offer_id": "4d7adac2-0628-4193-9776-19eda9c49992",
       "item_id": "81077",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37311,10 +37575,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_49.jpg"
     },
     "Faerie Court Gwen (Emerald)": {
-      "offer_id": "skin_887050",
+      "offer_id": "e5ca3b27-c0a1-41b0-b7f1-a4853fb690ca",
       "item_id": "887050",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37322,10 +37586,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_50.jpg"
     },
     "Faerie Court Gwen (Catseye)": {
-      "offer_id": "skin_887051",
+      "offer_id": "8f91d0e3-fe12-4931-89bb-232412a1aa00",
       "item_id": "887051",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37333,10 +37597,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_51.jpg"
     },
     "Faerie Court Gwen (Pearl)": {
-      "offer_id": "skin_887052",
+      "offer_id": "615a3a45-0d52-4e68-84bf-2d5cbecae050",
       "item_id": "887052",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37344,10 +37608,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_52.jpg"
     },
     "Faerie Court Gwen (Turquoise)": {
-      "offer_id": "skin_887053",
+      "offer_id": "c21df482-7033-451c-b3b7-e269f69a7dd4",
       "item_id": "887053",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37355,10 +37619,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_53.jpg"
     },
     "Faerie Court Gwen (Obsidian)": {
-      "offer_id": "skin_887054",
+      "offer_id": "c43cfd89-2bc7-4c71-ac48-37d85d196e9d",
       "item_id": "887054",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37366,10 +37630,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_54.jpg"
     },
     "Faerie Court Gwen (Rose Quartz)": {
-      "offer_id": "skin_887055",
+      "offer_id": "53c3bf32-e758-4cd0-8017-377ab2afe840",
       "item_id": "887055",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -37377,10 +37641,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gwen_55.jpg"
     },
     "Faerie Court Gwen (Tanzanite)": {
-      "offer_id": "skin_887056",
+      "offer_id": "a6882c25-b6ba-400d-98ab-578711d69eef",
       "item_id": "887056",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -39214,10 +39478,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Irelia_71.jpg"
     },
     "Porcelain Irelia (Lustrous)": {
-      "offer_id": "skin_39072",
+      "offer_id": "ad44636f-96c0-40ff-a89d-80930b884b97",
       "item_id": "39072",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42162,10 +42426,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_66.jpg"
     },
     "Ocean Song Jinx (Catseye)": {
-      "offer_id": "skin_222067",
+      "offer_id": "d19fb395-6d40-4816-86c8-d4dd1a291fb5",
       "item_id": "222067",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42173,10 +42437,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_67.jpg"
     },
     "Ocean Song Jinx (Emerald)": {
-      "offer_id": "skin_222068",
+      "offer_id": "44a275e9-78fa-457f-ac15-166c896365ab",
       "item_id": "222068",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42184,10 +42448,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_68.jpg"
     },
     "Ocean Song Jinx (Turquoise)": {
-      "offer_id": "skin_222069",
+      "offer_id": "55e405d2-6b0b-4e80-a6a6-0c9227624b32",
       "item_id": "222069",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42195,10 +42459,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_69.jpg"
     },
     "Ocean Song Jinx (Sapphire)": {
-      "offer_id": "skin_222070",
+      "offer_id": "75fa805e-4fba-4009-aaa2-9dc1b4e43bc7",
       "item_id": "222070",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42206,10 +42470,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_70.jpg"
     },
     "Ocean Song Jinx (Rose Quartz)": {
-      "offer_id": "skin_222071",
+      "offer_id": "20db15f9-37c5-4d21-88ec-e0198b9dad50",
       "item_id": "222071",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42217,10 +42481,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_71.jpg"
     },
     "Ocean Song Jinx (Obsidian)": {
-      "offer_id": "skin_222072",
+      "offer_id": "c4328973-5de7-4e84-ae02-d44b485d3110",
       "item_id": "222072",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -42228,10 +42492,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_72.jpg"
     },
     "Ocean Song Jinx (Pearl)": {
-      "offer_id": "skin_222073",
+      "offer_id": "166cb82c-284b-4e6e-a1c3-ffc498c54923",
       "item_id": "222073",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -50225,10 +50489,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lissandra_51.jpg"
     },
     "Porcelain Lissandra (Auspicious)": {
-      "offer_id": "skin_127052",
+      "offer_id": "2e88273b-0000-41ca-b96c-1156eac071c8",
       "item_id": "127052",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51347,10 +51611,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_57.jpg"
     },
     "Faerie Court Lulu (Emerald)": {
-      "offer_id": "skin_117058",
+      "offer_id": "fabd499a-ea3f-4d08-81da-c18973859171",
       "item_id": "117058",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51358,10 +51622,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_58.jpg"
     },
     "Faerie Court Lulu (Catseye)": {
-      "offer_id": "skin_117059",
+      "offer_id": "0a6ae1e2-c081-4cf4-8e56-0a08023f3a03",
       "item_id": "117059",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51369,10 +51633,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_59.jpg"
     },
     "Faerie Court Lulu (Pearl)": {
-      "offer_id": "skin_117060",
+      "offer_id": "6d2ba85e-48c4-4ee1-8537-a7c0d17ce0bb",
       "item_id": "117060",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51380,10 +51644,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_60.jpg"
     },
     "Faerie Court Lulu (Turquoise)": {
-      "offer_id": "skin_117061",
+      "offer_id": "509389c3-3cbb-47a8-9f5e-7949150d8d3c",
       "item_id": "117061",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51391,10 +51655,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_61.jpg"
     },
     "Faerie Court Lulu (Obsidian)": {
-      "offer_id": "skin_117062",
+      "offer_id": "054f5213-1d12-46a2-97bf-dfc884aad37b",
       "item_id": "117062",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51402,10 +51666,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_62.jpg"
     },
     "Faerie Court Lulu (Rose Quartz)": {
-      "offer_id": "skin_117063",
+      "offer_id": "49f34d95-f3dd-4293-99bd-f34928423a9e",
       "item_id": "117063",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -51413,10 +51677,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lulu_63.jpg"
     },
     "Faerie Court Lulu (Sapphire)": {
-      "offer_id": "skin_117064",
+      "offer_id": "ea19ae85-6be4-4abb-81da-b58c649931fd",
       "item_id": "117064",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -52051,10 +52315,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_80.jpg"
     },
     "Porcelain Lux (Beacon)": {
-      "offer_id": "skin_99081",
+      "offer_id": "8ff404de-b98a-41f7-819b-f447037efa33",
       "item_id": "99081",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -68958,10 +69222,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_76.jpg"
     },
     "Heartsong Seraphine (Sapphire)": {
-      "offer_id": "skin_147077",
+      "offer_id": "5f2c9710-7aeb-4799-a339-2a171e063d71",
       "item_id": "147077",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -68969,10 +69233,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_77.jpg"
     },
     "Heartsong Seraphine (Pearl)": {
-      "offer_id": "skin_147078",
+      "offer_id": "1c4c4599-88b6-4d92-8caf-4d679f7d0653",
       "item_id": "147078",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -68980,10 +69244,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_78.jpg"
     },
     "Heartsong Seraphine (Catseye)": {
-      "offer_id": "skin_147079",
+      "offer_id": "155ddfa4-5926-40e4-ac56-94b99d216320",
       "item_id": "147079",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -68991,10 +69255,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_79.jpg"
     },
     "Heartsong Seraphine (Tanzanite)": {
-      "offer_id": "skin_147080",
+      "offer_id": "666be6c2-df4b-4fcf-b23e-e6f8b0f906a6",
       "item_id": "147080",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -69002,10 +69266,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_80.jpg"
     },
     "Heartsong Seraphine (Obsidian)": {
-      "offer_id": "skin_147081",
+      "offer_id": "7e420846-b635-4941-aa57-0e750622641c",
       "item_id": "147081",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73710,10 +73974,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_64.jpg"
     },
     "Ocean Song Soraka (Catseye)": {
-      "offer_id": "skin_16065",
+      "offer_id": "af70020c-9ac3-4ecd-9a1a-a70b7d11a8fc",
       "item_id": "16065",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73721,10 +73985,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_65.jpg"
     },
     "Ocean Song Soraka (Emerald)": {
-      "offer_id": "skin_16066",
+      "offer_id": "8532d21d-75f3-4a99-a7a5-d0c0284374d0",
       "item_id": "16066",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73732,10 +73996,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_66.jpg"
     },
     "Ocean Song Soraka (Turquoise)": {
-      "offer_id": "skin_16067",
+      "offer_id": "8bbafdb5-45c2-44ba-9402-05b2ecb1c76e",
       "item_id": "16067",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73743,10 +74007,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_67.jpg"
     },
     "Ocean Song Soraka (Sapphire)": {
-      "offer_id": "skin_16068",
+      "offer_id": "d93f3f7f-3eae-4875-9847-759ccd19a19d",
       "item_id": "16068",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73754,10 +74018,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_68.jpg"
     },
     "Ocean Song Soraka (Rose Quartz)": {
-      "offer_id": "skin_16069",
+      "offer_id": "24ea3b77-c7cb-42f7-aebe-aa73f182d9e6",
       "item_id": "16069",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73765,10 +74029,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_69.jpg"
     },
     "Ocean Song Soraka (Obsidian)": {
-      "offer_id": "skin_16070",
+      "offer_id": "c0431980-4c82-4463-98e7-a4dfdf586b9e",
       "item_id": "16070",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -73776,10 +74040,10 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_70.jpg"
     },
     "Ocean Song Soraka (Pearl)": {
-      "offer_id": "skin_16071",
+      "offer_id": "92ddc0bd-cdc3-4e7b-8247-d39a5b92328c",
       "item_id": "16071",
       "price_rp": 290,
-      "regular_rp": null,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "sale": null,
@@ -94344,6 +94608,13 @@
       "inventory_type": "EMOTE",
       "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5106.png"
     },
+    "Goldfish Face": {
+      "offer_id": "14e6ad46-97f3-4417-9620-9565b26cd6a2",
+      "item_id": 5165,
+      "price_rp": 350,
+      "inventory_type": "EMOTE",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5165.png"
+    },
     "Cup-Yay!": {
       "offer_id": "82a99611-f0f9-4de3-b238-7f240e329264",
       "item_id": 997,
@@ -103031,6 +103302,48 @@
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900904.jpg"
     },
+    "Faerie Court Lulu Chroma Bundle": {
+      "offer_id": "2fc9df85-ab6f-48ba-a2d4-f065f64865ec",
+      "item_id": 79900911,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900911.jpg"
+    },
+    "Faerie Court Bel'Veth Chroma Bundle": {
+      "offer_id": "132be46e-b6de-49b6-a408-d4060faa38bc",
+      "item_id": 79900912,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900912.jpg"
+    },
+    "Faerie Court Gwen Chroma Bundle": {
+      "offer_id": "cd4f344d-2026-4ac5-9116-0ade04fccb1d",
+      "item_id": 79900913,
+      "price_rp": 3235,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900913.jpg"
+    },
+    "Ocean Song Soraka Chroma Bundle": {
+      "offer_id": "4c88ef8b-c17a-4a38-ae16-7435558d58ce",
+      "item_id": 79900914,
+      "price_rp": 2925,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900914.jpg"
+    },
+    "Ocean Song Jinx Chroma Bundle": {
+      "offer_id": "62981d1c-65df-4795-8fe3-46bdb7ef80e7",
+      "item_id": 79900915,
+      "price_rp": 3190,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900915.jpg"
+    },
+    "Heartsong Seraphine Chroma Bundle": {
+      "offer_id": "bba11048-c7c5-485c-911b-c2fd1fe86bdf",
+      "item_id": 79900916,
+      "price_rp": 3430,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900916.jpg"
+    },
     "Variant Discount: Star Guardian Ezreal / Pajama Guardian Ezreal": {
       "offer_id": "39a444d3-0450-4dee-8c16-cb28e64bd178",
       "item_id": 91000001,
@@ -103170,6 +103483,34 @@
       "price_rp": 0,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901287.png"
+    },
+    "Faerie Court Lulu Bundle": {
+      "offer_id": "8ad77a51-7baf-4fb3-8eb9-afeb2fd7701f",
+      "item_id": 99901654,
+      "price_rp": 2390,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901654.png"
+    },
+    "Faerie Court Bel'Veth Bundle": {
+      "offer_id": "c0eac395-b846-4fe5-ba1b-4e0236dc9ae2",
+      "item_id": 99901655,
+      "price_rp": 2345,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901655.png"
+    },
+    "Faerie Court Gwen Bundle": {
+      "offer_id": "a54a36da-97a5-4775-970a-d5978d6c15fb",
+      "item_id": 99901656,
+      "price_rp": 2390,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901656.png"
+    },
+    "Heartsong Seraphine Border Set": {
+      "offer_id": "247c9f4f-eb89-453f-9725-68f0b190e7ce",
+      "item_id": 99901657,
+      "price_rp": 3115,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901657.png"
     }
   },
   "Boosts": {
