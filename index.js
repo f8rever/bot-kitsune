@@ -30,8 +30,7 @@ const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
 function loadFullRiotCatalog(lang = 'en') {
-    // Force English catalog as requested by user to prevent any localization/rarity issues
-    const targetFile = 'catalog_cache_en.json';
+    const targetFile = (lang === 'pt' || lang === 'pt_BR') ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
 
     let catalogPath = [
         path.join(__dirname, 'config', targetFile),
@@ -55,6 +54,11 @@ function loadFullRiotCatalog(lang = 'en') {
                 parent_id: x.parent?.itemId || x.parent_id || null,
                 iconUrl: x.iconUrl ? (x.iconUrl.startsWith('http') ? x.iconUrl : 'https:' + x.iconUrl) : null,
                 price_rp: x.prices?.find(p => p.currency === 'RP')?.cost || x.price_rp || 0,
+                rarity: x.rarity || null,
+                rarity_label: x.rarity_label || null,
+                is_available: x.is_available !== false,
+                status: x.status || (x.is_available !== false ? 'available' : 'off'),
+                offer_id: x.offerId || x.offer_id || null,
                 rawItem: x
             }));
         } else if (typeof raw === 'object' && raw !== null) {
@@ -72,6 +76,11 @@ function loadFullRiotCatalog(lang = 'en') {
                             parent_id: info.parent_id || null,
                             iconUrl: info.icon_url || null,
                             price_rp: Number(priceRp) || 0,
+                            rarity: info.rarity || null,
+                            rarity_label: info.rarity_label || null,
+                            is_available: info.is_available !== false,
+                            status: info.status || (info.is_available !== false ? 'available' : 'off'),
+                            offer_id: info.offer_id || null,
                             rawItem: info
                         });
                     }
@@ -765,7 +774,9 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
     const precoReal = getCatalogPrice(calcRp, loja, 'select', lang, actualTipo);
 
     const formatarStr = (prefixo, emoji) => {
-        return { desc: `${prefixo} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
+        const isOff = (rawItem?.is_available === false) || (rawItem?.status === 'off');
+        const statusBadge = isOff ? ' [🔴 Ausente]' : '';
+        return { desc: `${prefixo}${statusBadge} | ${emjRp} ${calcRp} RP | ${emjDinheiro} ${precoReal}`, emoji };
     };
 
     if (tipoFiltro === 'skins') {
@@ -775,7 +786,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         }
 
         const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
-        let rarityCode = skinsRarityMap[nomeLower];
+        let rarityCode = rawItem?.rarity || skinsRarityMap[nomeLower];
         if (!rarityCode) {
             if (calcRp === 3250) rarityCode = 'kUltimate';
             else if (calcRp === 1820) rarityCode = 'kLegendary';
@@ -898,6 +909,12 @@ function isPrestigeOrMythic(item) {
     const raw = item.rawItem || item || {};
     const t = (raw.inventoryType || raw.inventory_type || item.tipo || '').toUpperCase();
     if (t === 'MYTHIC') return true;
+
+    // Verificar se o item tem preço de RP válido e está ativo na Riot Store
+    const priceRp = item.price_rp || raw.price_rp || 0;
+    if (priceRp <= 0) return true; // Itens sem custo de RP são não-presenteáveis (ex: prestígio de ME)
+
+    // Bloquear apenas skins genuinamente míticas, prestígio ou de gacha não-presenteáveis
     if (name.includes('prestige') || name.includes('prestígio') || name.includes('prestigio')) return true;
     if (name.includes('quantum') || name.includes('quântico') || name.includes('quântica')) return true;
     if (name.includes('erasure') || name.includes('erradicação')) return true;
@@ -912,25 +929,13 @@ function isPrestigeOrMythic(item) {
     if (name.includes('sanctum') || name.includes('santuário')) return true;
     if (name.includes('mythic variant') || name.includes('variante mítica')) return true;
     if (name.includes('faker')) return true;
-    if (name.includes('hextech') && (
-        name.includes('annie') || name.includes('poppy') || name.includes('alistar') ||
-        name.includes('jarvan') || name.includes('kassadin') || name.includes('kog\'maw') ||
-        name.includes('malzahar') || name.includes('rammus') || name.includes('renekton') ||
-        name.includes('sejuani') || name.includes('swain') || name.includes('tristana') ||
-        name.includes('vayne') || name.includes('ziggs') || name.includes('amumu') || name.includes('nocturne')
-    )) return true;
-    if (name.includes('ashen') || name.includes('das cinzas') || name.includes('crystalis') || name.includes('cristalis')) return true;
-    if (name.includes('victorious') || name.includes('vitoriosa')) return true;
-    if (name.includes('soulstealer') || name.includes('ladra de almas') || name.includes('dreadnova darius') || name.includes('darius nova do pavor')) return true;
-    // Verificar se o item está inativo ou expirado
-    if (raw.active === false) return true;
-    if (raw.inactiveDate && new Date(raw.inactiveDate) < new Date()) return true;
-
     if (name.includes('signature edition') || name.includes('edição de assinatura') || name.includes('edicao de assinatura')) return true;
-    if (name.includes('t1 ') || name.includes('drx ') || name.includes('edg ') || name.includes('fpx ') || name.includes('dwg ') || name.includes('invictus gaming') || name.includes('samsung galaxy') || name.includes('skt t1')) return true;
-    if (name.includes('worlds 20') || name.includes('msi 20') || name.includes('three-peat')) return true;
-    if (name.includes('challenger nidalee') || name.includes('nidalee desafiante') || name.includes('challenger ahri') || name.includes('ahri desafiante')) return true;
 
+    // Verificar se o item está inativo ou expirado na Riot
+    if (raw.active === false || raw.is_available === false) return true;
+    if (raw.inactiveDate && new Date(raw.inactiveDate) <= new Date()) return true;
+
+    // Edições limitadas históricas impossíveis de comprar
     if (name.includes('pax ') || name.includes('neo pax') || name.includes('black alistar') || name.includes('silver kayle') || name.includes('young ryze') || name.includes('human ryze') || name.includes('ufo corki') || name.includes('king rammus') || name.includes('judgement kayle') || name.includes('urf the manatee') || name.includes('triumphant ryze') || name.includes('championship riven 2012') || name.includes('riot squad singed')) return true;
     return false;
 }
@@ -2312,6 +2317,12 @@ client.on('interactionCreate', async interaction => {
                     itemId = parseInt(p[1], 10);
                 }
                 const catItemEncontrado = findCatalogItem(itemId, nomeReal);
+                if (catItemEncontrado && (catItemEncontrado.rawItem?.is_available === false || catItemEncontrado.rawItem?.status === 'off')) {
+                    return interaction.reply({
+                        content: `❌ O item **${nomeReal}** está atualmente marcado como **Ausente / Fora da Loja** da Riot Games e não pode ser comprado no momento.`,
+                        ephemeral: true
+                    });
+                }
                 tipo = getActualItemType(nomeReal, tipo, catItemEncontrado ? catItemEncontrado.rawItem : null);
 
                 const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
@@ -4247,16 +4258,17 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     let results = [];
     if (tipoFiltro === 'skins') {
         if (campeaoFinal) {
-            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && !isChroma(x));
+            const skins = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && !isChroma(x) && !isPrestigeOrMythic(x));
             const signatureBundles = currentCatalog.filter(x =>
                 (x.tipo === 'BUNDLES' || x.tipo === 'BUNDLE') &&
                 x.nome.toLowerCase().includes('signature edition') &&
-                x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase())
+                x.nome.toLowerCase().includes(campeaoFinal.nome.toLowerCase()) &&
+                !isPrestigeOrMythic(x)
             );
             results = [...skins, ...signatureBundles];
         }
         if (results.length === 0) {
-            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa) && !isChroma(x));
+            results = currentCatalog.filter(x => (x.tipo === 'CHAMPION_SKIN' || x.tipo === 'SKIN') && x.nome.toLowerCase().includes(buscaLimpa) && !isChroma(x) && !isPrestigeOrMythic(x));
         }
     } else if (tipoFiltro === 'cromas') {
         if (campeaoFinal) {
@@ -4385,10 +4397,10 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     // Sort active ones first, then by ID descending
     results = results.sort((a, b) => {
-        const aActive = a.rawItem?.active !== false ? 1 : 0;
-        const bActive = b.rawItem?.active !== false ? 1 : 0;
+        const aActive = (a.is_available !== false && a.rawItem?.active !== false) ? 1 : 0;
+        const bActive = (b.is_available !== false && b.rawItem?.active !== false) ? 1 : 0;
         if (aActive !== bActive) return bActive - aActive;
-        return b.id - a.id;
+        return (b.id || 0) - (a.id || 0);
     });
 
     const totalPages = Math.ceil(results.length / ITEMS_PER_PAGE) || 1;

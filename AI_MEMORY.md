@@ -223,6 +223,35 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - Implementada a função `matchesCategory(item, sel)` em `static/script.js` (tanto em `lol_giftapi-main` quanto em `python_backend`), mapeando com precisão todas as 14 categorias (Skins, Cromas, Pacotes, Passes, Campeões, Emotes, Ícones, Sentinelas, Pequenas Lendas, Tabuleiros TFT, Boosts, Eternos, Mistério e Hextec).
     - O catálogo e lógica do bot do Discord permaneceram 100% isolados, intactos e sem qualquer impacto.
   - **Persistência Cloud:** `emojis`, `embeds`, `weekly_sales`, `featured_bundles` e `tft_arenas` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
+  - **Reconstrução Definitiva Store-First do Catálogo da Riot Games (2026-09-05):**
+    - **Causa Raiz do Problema Anterior Resolvida:**
+      - O catálogo anteriormente era gerado a partir da lista de assets estáticos do DDragon (`championFull.json`). No caso da Seraphine, o DDragon possui 3 modelos 3D internos (`Indie`, `Rising Star`, `Superstar`), gerando 3 entradas falsas no bot a 1820 RP cada com `offerId` falso (`skin_147001`, `skin_147002`, `skin_147003`). Na Loja da Riot, existe **apenas 1 item oficial** (*Seraphine K/DA ALL OUT*, itemId `147001`, offerId real UUID `795ac4dc-77ef-4d9b-8503-0dab9ae37b46`, preço real de 3250 RP - Ultimate).
+      - Além disso, `isUnpurchasableOrMythic` continha `n.includes('t1 ')`, o que excluía indevidamente a skin **T1 Seraphine** (que está 100% ativa na loja da Riot por 1350 RP).
+    - **Nova Arquitetura 100% Store-First (`utils/buildFullCatalog.js`):**
+      - A Loja da Riot (`catalog.json` bruto com 10.012 ofertas) agora é a **fonte primária e definitiva de verdade**.
+      - Itens são gerados diretamente do `catalog.json` e enriquecidos com metadados do CommunityDragon (`pt_br` e `default` para EN).
+      - Indexados mais de 7.000 nomes oficiais de cromas em PT e EN (`cdChromaMapPt` e `cdChromaMapEn`).
+      - Cada item agora possui: `item_id`, `offer_id` real, `parent_id` (ID do campeão pai), `price_rp`, `regular_rp`, `sale_rp`, `discount_percent`, `rarity` oficial (`kUltimate`, `kLegendary`, `kEpic`, `kRare`), `rarity_label`, `icon_url`, `is_available` (`true` se ativo e dentro da validade) e `status` (`'available'` ou `'off'`).
+    - **Verificação de Disponibilidade (Ativo vs Ausente/OFF):**
+      - Itens ativos na loja oficial são marcados como `is_available: true`, `status: 'available'`.
+      - Itens sem preço em RP (como prestígios exclusivos de ME) ou fora da loja são marcados como `is_available: false`, `status: 'off'`.
+      - Na busca e menus do Discord (`index.js` e `utils/catalog.js`):
+        - Itens ausentes/fora da loja recebem badge `[🔴 Ausente]`.
+        - A busca prioriza itens disponíveis, skins base e correspondências diretas de nome.
+        - Tentativas de adicionar ou presentear itens marcados como ausentes/off são bloqueadas preventivamente com mensagem clara para o usuário antes de bater na API da Riot.
+    - **Comparação e Superação do Concorrente:**
+      - A busca por `seraphine` no bot agora retorna **exatamente as 10 skins base reais ativas na Loja da Riot**:
+        1. Battle Dove Seraphine (1820 RP | Lendária)
+        2. Dumpling Darlings Seraphine (1350 RP | Épica)
+        3. Faerie Court Seraphine (1350 RP | Épica)
+        4. Firecracker Seraphine (1350 RP | Épica)
+        5. Graceful Phoenix Seraphine (1350 RP | Épica)
+        6. Heartsong Seraphine (1820 RP | Lendária)
+        7. K/DA ALL OUT Seraphine (3250 RP | Ultimate)
+        8. Ocean Song Seraphine (1350 RP | Épica)
+        9. Star Guardian Seraphine (1350 RP | Épica)
+        10. T1 Seraphine (1350 RP | Épica)
+      - Todas com UUIDs reais de compra da Riot, preços e raridades 100% corretos, tanto em inglês quanto em português.
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
 ### Servidores do Bot:

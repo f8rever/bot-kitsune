@@ -185,10 +185,15 @@ module.exports = {
             const lang = interaction.options.getString('idioma') || 'pt';
             const results = searchItems(focusedValue, 25, lang);
             return interaction.respond(
-                results.map(item => ({
-                    name: `${item.name} (${Number(item.price).toLocaleString('en-US')} RP) [${item.inventoryType}]`,
-                    value: item.name
-                }))
+                results.map(item => {
+                    const statusTag = item.isAvailable === false ? ' [🔴 Ausente]' : '';
+                    const tag = item.rarityLabel ? `${item.rarityLabel}` : item.inventoryType;
+                    const truncatedName = item.name.length > 60 ? item.name.substring(0, 57) + '...' : item.name;
+                    return {
+                        name: `${truncatedName} (${Number(item.price).toLocaleString('en-US')} RP) [${tag}]${statusTag}`.substring(0, 100),
+                        value: item.name
+                    };
+                })
             );
         }
         return interaction.respond([]);
@@ -252,6 +257,12 @@ module.exports = {
         const item = getItemByName(itemName, lang);
         if (!item) {
             return interaction.followUp({ content: '❌ Item não encontrado no catálogo.', ephemeral: true });
+        }
+        if (item.isAvailable === false || item.status === 'off') {
+            return interaction.followUp({
+                content: `❌ O item **${item.name}** está atualmente marcado como **Ausente / Fora da Loja** da Riot Games e não pode ser presenteado no momento.`,
+                ephemeral: true
+            });
         }
         
         let friends = await getFriendList(session.accessToken, session.entitlementsToken, session.region);

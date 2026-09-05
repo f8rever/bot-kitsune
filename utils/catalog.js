@@ -51,9 +51,17 @@ function loadCatalog(lang = 'pt') {
                     items.push({
                         name: itemName,
                         itemId: info.offer_id || itemName,
+                        realItemId: info.item_id || null,
+                        offerId: info.offer_id || null,
+                        parentId: info.parent_id || null,
                         inventoryType: info.inventory_type || catName.toUpperCase(),
                         price: Number(price) || 0,
-                        iconUrl: info.icon_url || null
+                        iconUrl: info.icon_url || null,
+                        rarity: info.rarity || null,
+                        rarityLabel: info.rarity_label || null,
+                        isAvailable: info.is_available !== false,
+                        status: info.status || (info.is_available !== false ? 'available' : 'off'),
+                        rawItem: info
                     });
                 }
             }
@@ -67,7 +75,7 @@ function searchItems(query = '', limit = 25, lang = 'pt') {
     const q = normalizeStr(query);
 
     if (!q) {
-        return items.filter(i => i.inventoryType === 'CHAMPION_SKIN').slice(0, limit);
+        return items.filter(i => i.inventoryType === 'CHAMPION_SKIN' && i.isAvailable !== false).slice(0, limit);
     }
 
     const matches = items.filter(item => {
@@ -75,8 +83,17 @@ function searchItems(query = '', limit = 25, lang = 'pt') {
         return normName.includes(q);
     });
 
-    // Ordenação inteligente para dar prioridade a Skins principais
+    // Ordenação inteligente para dar prioridade a itens disponíveis, skins principais (não cromas) e início da palavra
     matches.sort((a, b) => {
+        const aAvail = a.isAvailable !== false ? 1 : 0;
+        const bAvail = b.isAvailable !== false ? 1 : 0;
+        if (aAvail !== bAvail) return bAvail - aAvail;
+
+        const aIsBaseSkin = (a.inventoryType === 'CHAMPION_SKIN' || a.inventoryType === 'SKIN') && !a.name.includes('(');
+        const bIsBaseSkin = (b.inventoryType === 'CHAMPION_SKIN' || b.inventoryType === 'SKIN') && !b.name.includes('(');
+        if (aIsBaseSkin && !bIsBaseSkin) return -1;
+        if (!aIsBaseSkin && bIsBaseSkin) return 1;
+
         const normA = normalizeStr(a.name);
         const normB = normalizeStr(b.name);
 
