@@ -1323,7 +1323,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             .setCustomId(backCustomId)
             .setLabel('Menu')
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji('⬅️'),
+            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim()),
         new ButtonBuilder()
             .setCustomId(`btn_search_cat_${tipoFiltro}`)
             .setLabel('Search')
@@ -1893,7 +1893,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     const eArenas = (customEmojis?.acessorios?.arenas || '<:lol_tft_arena:1544591074100645948>').trim();
 
     const btnRow = new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Back to Main Categories').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
+        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Back to Main Categories').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
     );
 
     // Mantém o embed principal fixo 'Catalog of Gifts' e troca apenas o Select Menu + botão de voltar
@@ -2149,7 +2149,7 @@ client.on('interactionCreate', async interaction => {
                         .setCustomId('voltar_menu_emojis_categorias')
                         .setLabel('Voltar para Categorias')
                         .setStyle(ButtonStyle.Secondary)
-                        .setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
+                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
                 );
 
                 await interaction.update({ embeds: [embed], components: [menu, btnVoltar] });
@@ -2427,7 +2427,7 @@ client.on('interactionCreate', async interaction => {
                             .setCustomId('voltar_menu_embeds_inicio')
                             .setLabel('Voltar para Todos os Embeds')
                             .setStyle(ButtonStyle.Secondary)
-                            .setEmoji('⬅️')
+                            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
                     );
 
                     return await interaction.update({ embeds: [subEmbed], components: [subMenu, btnBack] });
@@ -2482,7 +2482,7 @@ client.on('interactionCreate', async interaction => {
                         .setCustomId('voltar_menu_embeds_inicio')
                         .setLabel('Voltar para Todos os Embeds')
                         .setStyle(ButtonStyle.Secondary)
-                        .setEmoji('⬅️')
+                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
                 );
 
                 let previewEmbed = null;
@@ -4435,7 +4435,7 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
             .setCustomId(backCustomId)
             .setLabel('Back to Menu')
             .setStyle(ButtonStyle.Secondary)
-            .setEmoji('⬅️')
+            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
     );
 
     if (totalPages > 1) {
