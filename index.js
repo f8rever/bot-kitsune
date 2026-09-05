@@ -1911,8 +1911,10 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
         new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Back to Main Categories').setStyle(ButtonStyle.Secondary).setEmoji('⬅️')
     );
 
+    // Mantém o embed principal fixo 'Catalog of Gifts' e troca apenas o Select Menu + botão de voltar
+    const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
+
     if (categoria === 'cat_skins') {
-        const embed = buildCustomEmbed('category_skins', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Skins option').addOptions([
                 { label: 'Champion Skins', description: 'Browse all giftable champion skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
@@ -1924,7 +1926,6 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     }
 
     if (categoria === 'cat_loot') {
-        const embed = buildCustomEmbed('category_loot', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Loot option').addOptions([
                 { label: 'Orbs & Capsules', description: "Summoner's Orb, Deluxe 10x, Premium 25x, Mega 50x", value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || '🔮').trim() },
@@ -1937,7 +1938,6 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     }
 
     if (categoria === 'cat_champions') {
-        const embed = buildCustomEmbed('category_champions', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Champions option').addOptions([
                 { label: 'Champions', description: 'Search among all 173 League of Legends Champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
@@ -1948,7 +1948,6 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     }
 
     if (categoria === 'cat_accessories') {
-        const embed = buildCustomEmbed('category_accessories', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select an Accessories option').addOptions([
                 { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: eEmotes },
@@ -1963,7 +1962,6 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     }
 
     if (categoria === 'cat_highlights') {
-        const embed = buildCustomEmbed('category_highlights', interaction.client, interaction);
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
                 { label: 'Featured & Launch Bundles', description: 'Browse launch sets, special bundles & signature packages', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_bundle_set:1544591078622236763>').trim() },

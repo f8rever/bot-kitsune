@@ -253,6 +253,13 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
         10. T1 Seraphine (1350 RP | Épica)
       - Todas com UUIDs reais de compra da Riot, preços e raridades 100% corretos, tanto em inglês quanto em português.
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
+  - **UX Clean & Unificado da Loja (2026-09-05):**
+    - A pedido do usuário, a tela principal `Catalog of Gifts` (`store_sales_center`) agora permanece **fixa** e intacta visualmente ao navegar pelas 5 categorias principais (`cat_skins`, `cat_loot`, `cat_champions`, `cat_accessories`, `cat_highlights`).
+    - Em vez de substituir o embed por telas intermediárias pesadas com imagens diferentes (`category_skins`, etc.), a função `exibirMenuCategoriaLoja` mantém o embed `store_sales_center` e altera **apenas os componentes**:
+      1. Substitui o Select Menu principal pelo Select Menu específico da subcategoria selecionada (`Select a Skins option`, `Select a Loot option`, etc.).
+      2. Adiciona o botão `⬅️ Back to Main Categories` (`voltar_menu_modal`).
+    - Ao clicar em `⬅️ Back to Main Categories`, o menu volta imediatamente para o Select Menu raiz das 5 categorias (`buildStoreMainMenu`), mantendo o embed `Catalog of Gifts` perfeitamente estável e limpo.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
