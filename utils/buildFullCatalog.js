@@ -452,6 +452,27 @@ async function buildFullCatalog() {
     catalogPt.LittleLegends = companionsPt;
     catalogEn.LittleLegends = companionsEn;
 
+    // Tabuleiros TFT / Arenas
+    const tftArenasPath = path.join(__dirname, '../config/tft_arenas.json');
+    if (fs.existsSync(tftArenasPath)) {
+        try {
+            const arenas = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
+            catalogPt.TFTArena = {};
+            catalogEn.TFTArena = {};
+            arenas.forEach(a => {
+                const aObj = {
+                    offer_id: a.id,
+                    item_id: a.id,
+                    price_rp: a.price_rp,
+                    inventory_type: 'TFT_MAP_SKIN',
+                    icon_url: a.iconUrl || null
+                };
+                catalogPt.TFTArena[a.name] = aObj;
+                catalogEn.TFTArena[a.name] = aObj;
+            });
+        } catch(e) {}
+    }
+
     // 7. Salvar arquivos
     const botConfigDir = path.join(__dirname, '../config');
     const pyDir = path.join(__dirname, '../lol_giftapi-main');

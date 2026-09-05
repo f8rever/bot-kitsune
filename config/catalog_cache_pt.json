@@ -105763,5 +105763,161 @@
       "inventory_type": "COMPANION",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/98001.png"
     }
+  },
+  "TFTArena": {
+    "Avarosa Arena": {
+      "offer_id": 10,
+      "item_id": 10,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_avarosa.png"
+    },
+    "Frostguard Arena": {
+      "offer_id": 11,
+      "item_id": 11,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_frostguard.png"
+    },
+    "Black Hole Arena": {
+      "offer_id": 17,
+      "item_id": 17,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_blackhole.png"
+    },
+    "Celestial Arena": {
+      "offer_id": 19,
+      "item_id": 19,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_celestial.png"
+    },
+    "Runic Arena": {
+      "offer_id": 2,
+      "item_id": 2,
+      "price_rp": 450,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basea.png"
+    },
+    "Supernova Arena": {
+      "offer_id": 20,
+      "item_id": 20,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_supernova.png"
+    },
+    "Odyssey Jinx Arena": {
+      "offer_id": 21,
+      "item_id": 21,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_jinx.png"
+    },
+    "Odyssey Yasuo Arena": {
+      "offer_id": 22,
+      "item_id": 22,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_yasuo.png"
+    },
+    "Odyssey Malphite Arena": {
+      "offer_id": 23,
+      "item_id": 23,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_malphite.png"
+    },
+    "Festival Arena": {
+      "offer_id": 28,
+      "item_id": 28,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_reality.png"
+    },
+    "Kanmei Arena": {
+      "offer_id": 29,
+      "item_id": 29,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_kami.png"
+    },
+    "Akana Arena": {
+      "offer_id": 30,
+      "item_id": 30,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_yokai.png"
+    },
+    "Arrowhead Arena": {
+      "offer_id": 4,
+      "item_id": 4,
+      "price_rp": 450,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basec.png"
+    },
+    "Count Spatula Arena": {
+      "offer_id": 41,
+      "item_id": 41,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_countspatula.png"
+    },
+    "Splash Party Arena": {
+      "offer_id": 42,
+      "item_id": 42,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_splashparty.png"
+    },
+    "Golden Bakery": {
+      "offer_id": 46,
+      "item_id": 46,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_dawnofheroes_goldenbakery.png"
+    },
+    "High Noon Saloon": {
+      "offer_id": 47,
+      "item_id": 47,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_dawnofheroes_highnoonsaloon.png"
+    },
+    "Jinx's Explody-Fun-Land": {
+      "offer_id": 51,
+      "item_id": 51,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_gizmosandgadgets_jinxexplodyfunland.png"
+    },
+    "Vi's Pummel Pit": {
+      "offer_id": 52,
+      "item_id": 52,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_gizmosandgadgets_vipummelpit.png"
+    },
+    "Hextech Battle Arena": {
+      "offer_id": 58,
+      "item_id": 58,
+      "price_rp": 1900,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_set6_5_hexbattle.png"
+    },
+    "Verdant Arena": {
+      "offer_id": 6,
+      "item_id": 6,
+      "price_rp": 450,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basee.png"
+    },
+    "Winter's Claw Arena": {
+      "offer_id": 9,
+      "item_id": 9,
+      "price_rp": 1380,
+      "inventory_type": "TFT_MAP_SKIN",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_wintersclaw.png"
+    }
   }
 }

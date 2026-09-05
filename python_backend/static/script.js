@@ -501,6 +501,60 @@ document.addEventListener('DOMContentLoaded', function() {
             .toLowerCase();
     }
 
+    function matchesCategory(item, sel) {
+        if (!sel || sel === 'all') return true;
+        const s = sel.toLowerCase();
+        const itemCat = (item.category || '').toLowerCase();
+        const invType = (item.inventory_type || '').toUpperCase();
+        const nameLower = (item.name || '').toLowerCase();
+
+        if (s === 'skin' || s === 'skins') {
+            return (itemCat === 'skins' || itemCat === 'skin') && (invType === 'CHAMPION_SKIN' || invType === 'SKIN') && !nameLower.includes('chroma') && !nameLower.includes('croma');
+        }
+        if (s === 'chroma' || s === 'chromas') {
+            return itemCat === 'chromas' || itemCat === 'chroma' || invType === 'CHROMA' || nameLower.includes('chroma') || nameLower.includes('croma');
+        }
+        if (s === 'bundle' || s === 'bundles') {
+            return (itemCat === 'bundles' || itemCat === 'bundle' || invType === 'BUNDLES' || invType === 'BUNDLE') &&
+                   !nameLower.includes('pass') && !nameLower.includes('passe') &&
+                   !nameLower.includes('chest') && !nameLower.includes('baú') && !nameLower.includes('orb') && !nameLower.includes('orbe');
+        }
+        if (s === 'pass' || s === 'passes') {
+            return itemCat === 'passes' || itemCat === 'pass' || invType === 'EVENT_PASS' || nameLower.includes('pass') || nameLower.includes('passe');
+        }
+        if (s === 'champion' || s === 'champions') {
+            return itemCat === 'champions' || itemCat === 'champion' || invType === 'CHAMPION' || invType === 'CHAMPIONS';
+        }
+        if (s === 'emote' || s === 'emotes') {
+            return itemCat === 'emotes' || itemCat === 'emote' || invType === 'EMOTE';
+        }
+        if (s === 'icon' || s === 'icons') {
+            return itemCat === 'icons' || itemCat === 'icon' || invType === 'SUMMONER_ICON' || invType === 'ICON';
+        }
+        if (s === 'ward' || s === 'wards') {
+            return itemCat === 'wards' || itemCat === 'ward' || invType === 'WARD_SKIN' || invType === 'WARD';
+        }
+        if (s === 'littlelegends' || s === 'little_legends') {
+            return itemCat === 'littlelegends' || itemCat === 'companions' || invType === 'COMPANION' || nameLower.includes('little legend') || nameLower.includes('chibi') || nameLower.includes('pequena lenda');
+        }
+        if (s === 'tftarena' || s === 'tft_arena' || s === 'arena') {
+            return itemCat === 'tftarena' || itemCat === 'tftarenas' || invType === 'TFT_MAP_SKIN' || invType === 'TFTARENA' || nameLower.includes('arena') || nameLower.includes('tabuleiro');
+        }
+        if (s === 'boost' || s === 'boosts') {
+            return itemCat === 'boosts' || itemCat === 'boost' || invType.includes('BOOST') || nameLower.includes('boost');
+        }
+        if (s === 'eternals' || s === 'eternal' || s === 'eternos') {
+            return itemCat === 'eternals' || invType === 'STATSTONE' || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('eternal') || nameLower.includes('eterno');
+        }
+        if (s === 'mystery' || s === 'mistério' || s === 'misterio') {
+            return invType.includes('MYSTERY') || nameLower.includes('mystery') || nameLower.includes('mistério') || nameLower.includes('misterio');
+        }
+        if (s === 'hextech' || s === 'hextec') {
+            return invType.includes('HEXTECH') || nameLower.includes('hextech') || nameLower.includes('chest') || nameLower.includes('baú') || nameLower.includes('key') || nameLower.includes('chave') || nameLower.includes('orb') || nameLower.includes('orbe');
+        }
+        return itemCat === s || itemCat.startsWith(s) || s.startsWith(itemCat);
+    }
+
     function filterItems() {
         const rawSearch = searchInput ? searchInput.value : '';
         const searchNormalized = normalizeText(rawSearch).trim();
@@ -511,7 +565,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let items = catalogIndexedItems;
 
         if (selectedCategory !== 'all') {
-            items = items.filter(item => item.category === selectedCategory);
+            items = items.filter(item => matchesCategory(item, selectedCategory));
         }
 
         if (searchTokens.length > 0) {
