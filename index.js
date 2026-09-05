@@ -146,23 +146,20 @@ function loadFullRiotCatalog(lang = 'en') {
 
 function isChroma(x) {
     if (!x) return false;
-    const t = (x.tipo || '').toUpperCase();
-    if (t !== 'CHAMPION_SKIN' && t !== 'SKIN' && t !== 'CHROMA' && t !== 'BUNDLES' && t !== 'BUNDLE') return false;
+    const t = (x.tipo || x.inventory_type || '').toUpperCase();
+    if (t === 'CHROMA') return true;
     const raw = x.rawItem || x;
     const sub = (raw.subInventoryType || raw.sub_inventory_type || x.subInventoryType || '').toUpperCase();
     if (sub === 'RECOLOR' || sub.includes('CHROMA')) return true;
-    if (x.parent_id || raw.parent_id || raw.parentId) {
-        if (t === 'CHAMPION_SKIN' || t === 'SKIN' || t === 'CHROMA') return true;
-    }
     const name = (x.nome || x.name || '').toLowerCase();
     if (name.includes('chroma') || name.includes('croma')) return true;
-    if (x.tipo === 'CHROMA') return true;
+    if (t !== 'CHAMPION_SKIN' && t !== 'SKIN' && t !== 'BUNDLES' && t !== 'BUNDLE') return false;
     if (/\((.*?)\)/.test(name)) {
         const content = name.match(/\((.*?)\)/)?.[1] || '';
         if (content === 'hextech' || content === 'prestige' || content === 'prestigiosa' || content.includes('2022') || content.includes('2023') || content.includes('2024') || content.includes('2025') || content.includes('2026')) {
             return false;
         }
-        return true;
+        if (raw.price_rp === 290 || sub === 'RECOLOR' || t === 'CHROMA') return true;
     }
     return false;
 }
@@ -1259,42 +1256,28 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     if (pageItems.length === 0) {
-        const msg = '❌ No items found in this category.';
+        let backCustomId = 'voltar_menu_modal';
+        if (['skins', 'cromas', 'bundles'].includes(tipoFiltro)) backCustomId = 'voltar_cat_skins';
+        else if (['orbes', 'passes', 'hextech', 'misterio'].includes(tipoFiltro)) backCustomId = 'voltar_cat_loot';
+        else if (['champions', 'eternos'].includes(tipoFiltro)) backCustomId = 'voltar_cat_champions';
+        else if (['emotes', 'wards', 'icones', 'boosts', 'little_legends', 'tft_arena'].includes(tipoFiltro)) backCustomId = 'voltar_cat_accessories';
+        else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) backCustomId = 'voltar_cat_highlights';
+
+        const btnRow = new ActionRowBuilder().addComponents(
+            new ButtonBuilder().setCustomId(backCustomId).setLabel('Back to Menu').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
+        );
+        const embedEmpty = buildCustomEmbed('store_sales_center', interaction?.client, interaction);
+        const msg = '❌ No items found in this category at this moment.';
         if (interaction.replied || interaction.deferred) {
-            return await interaction.editReply({ content: msg, embeds: [], components: [] });
+            return await interaction.editReply({ content: msg, embeds: [embedEmpty], components: [btnRow] });
         } else if (isUpdate) {
-            return await interaction.update({ content: msg, embeds: [], components: [] });
+            return await interaction.update({ content: msg, embeds: [embedEmpty], components: [btnRow] });
         }
-        return await interaction.reply({ content: msg, embeds: [], components: [] });
+        return await interaction.reply({ content: msg, embeds: [embedEmpty], components: [btnRow] });
     }
 
-    const embedId = 'catalog_' + tipoFiltro;
-    let embed = buildCustomEmbed(embedId, interaction?.client, interaction, {
-        count: results.length.toString(),
-        page: (pagina + 1).toString(),
-        totalPages: totalPages.toString(),
-        emoji: customEmojis?.utilidades?.[tipoFiltro] || '📦'
-    });
-
-    if (!embed.data.title) {
-        embed.setTitle(titulo);
-    }
-
-    if (!embed.data.description) {
-        let catName = tipoFiltro === 'passes' ? 'event pass' : tipoFiltro;
-        embed.setDescription(`> Please select an **${catName}** from the **menu** below to continue:\n> ${pagina + 1} page of ${totalPages} pages`);
-    }
-
-    if (!customEmbeds[embedId]?.color) embed.setColor(cor);
-
-    const lojaConfig = obterDadosLoja();
-    if (customEmbeds[embedId]?.syncImage !== false) {
-        if (tipoFiltro === 'passes' && lojaConfig?.banners?.loot) {
-            embed.setImage(lojaConfig.banners.loot);
-        } else if (tipoFiltro === 'highlights' && lojaConfig?.banners?.bundles) {
-            embed.setImage(lojaConfig.banners.bundles);
-        }
-    }
+    // Mantém o embed principal fixo 'Catalog of Gifts' e troca apenas componentes
+    let embed = buildCustomEmbed('store_sales_center', interaction?.client, interaction);
 
     const loja = obterDadosLoja();
 
@@ -2215,15 +2198,9 @@ client.on('interactionCreate', async interaction => {
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'most_popular', 0, false);
                 } else if (opcao === 'compra_skins') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'skins', 0, false);
+                    abrirModalBusca(interaction, 'buscar_campeao_modal', '👕 Search Skins', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_chromas') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'cromas', 0, false);
+                    abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🎨 Search Chromas', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_champions') {
                     abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_passes') {
@@ -4407,36 +4384,10 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
-    const embedId = 'catalog_' + tipoFiltro;
     const champNome = campeaoFinal ? campeaoFinal.nome : busca.trim();
 
-    let embedConfirmacao = buildCustomEmbed(embedId, interaction?.client, interaction, {
-        count: results.length.toString(),
-        page: (pagina + 1).toString(),
-        totalPages: totalPages.toString(),
-        campeao: champNome,
-        emoji: '✨'
-    });
-
-    if (!embedConfirmacao.data.title) {
-        let catTitle = tipoFiltro === 'skins' ? 'skins' : tipoFiltro === 'cromas' ? 'chromas' : tipoFiltro === 'eternos' ? 'eternals' : 'champions';
-        embedConfirmacao.setTitle(`📦 ${results.length} ${catTitle} matching "${champNome}"`);
-    }
-
-    if (!embedConfirmacao.data.description) {
-        let catDesc = tipoFiltro === 'skins' ? 'skin' : tipoFiltro === 'cromas' ? 'chroma' : tipoFiltro === 'eternos' ? 'eternal' : 'champion';
-        embedConfirmacao.setDescription(`> Please select an **${catDesc}** from the **menu** below to continue:\n> ${pagina + 1} page of ${totalPages} pages`);
-    }
-
-    if (!customEmbeds[embedId]?.color) embedConfirmacao.setColor(cor);
-
-    if (customEmbeds[embedId]?.syncImage !== false && campeaoFinal) {
-        const champMap = require('./data/championMap.json');
-        const champKey = champMap[campeaoFinal.id];
-        if (champKey) {
-            embedConfirmacao.setImage(`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`);
-        }
-    }
+    // Mantém o embed principal fixo 'Catalog of Gifts' e troca apenas componentes
+    let embedConfirmacao = buildCustomEmbed('store_sales_center', interaction?.client, interaction);
 
     const loja = obterDadosLoja();
     const opcoesMenu = [];

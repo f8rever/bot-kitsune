@@ -259,6 +259,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       1. Substitui o Select Menu principal pelo Select Menu específico da subcategoria selecionada (`Select a Skins option`, `Select a Loot option`, etc.).
       2. Adiciona o botão `⬅️ Back to Main Categories` (`voltar_menu_modal`).
     - Ao clicar em `⬅️ Back to Main Categories`, o menu volta imediatamente para o Select Menu raiz das 5 categorias (`buildStoreMainMenu`), mantendo o embed `Catalog of Gifts` perfeitamente estável e limpo.
+  - **Correção Crítica de `isChroma` & Busca Dinâmica com Embed Persistente (2026-09-05):**
+    - **Causa Raiz de "No items found in this category" Identificada:** A função `isChroma(x)` em `index.js` possuía uma condição errônea `if (x.parent_id || raw.parent_id) { if (t === 'CHAMPION_SKIN') return true; }`. Como TODAS as skins de campeões possuem `parent_id` (o ID do campeão pai), todas as 1.314 skins eram incorretamente classificadas como croma e filtradas fora da busca e do catálogo de skins.
+    - **Correção:** Removida a checagem incorreta de `parent_id` para skins. A detecção de cromas agora baseia-se exclusivamente em `t === 'CHROMA'`, `sub === 'RECOLOR'` e marcações oficiais da Riot. Validado que exatamente 1.314 skins e 5.532 cromas são devidamente reconhecidos.
+    - **Modal de Busca para Skins & Cromas (`abrirModalBusca`):** Ao escolher "Champion Skins" ou "Chromas" no menu, o bot agora abre o modal oficial de busca para digitar o nome do campeão (ex: "Seraphine" ou "Ahri"), permitindo encontrar diretamente as skins desejadas.
+    - **Embed `Catalog of Gifts` 100% Persistente em Todas as Telas:** Tanto em `buscarEExibirItens` quanto em `enviarPaginaCatalogo`, o embed na tela permanece fixo como `store_sales_center` ("Catalog of Gifts"), trocando apenas os Select Menus e os botões de navegação, e mantendo o botão de voltar caso alguma categoria esteja vazia. Ao selecionar um item, prossegue diretamente para a finalização / abertura do ticket.
 
 
 ### Servidores do Bot:
