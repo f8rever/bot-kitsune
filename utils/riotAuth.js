@@ -64,6 +64,26 @@ async function getStoreBalance(accessToken, entitlementsToken, region = 'BR1') {
     }
 }
 
+async function fetchStoreCatalogFromRiot(accessToken, region = 'BR1', language = 'en_US') {
+    const edgeUrl = url_dict[region.toUpperCase()] || "br-red.lol.sgp.pvp.net";
+    const url = `https://${edgeUrl}/storefront/v1/catalog?region=${region}&language=${language}`;
+
+    try {
+        const res = await axios.get(url, {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+                "Accept": "application/json",
+                "User-Agent": "LeagueOfLegendsClient/14.23.636.9832 (rcp-be-lol-store)"
+            },
+            timeout: 45000
+        });
+        return Array.isArray(res.data) ? res.data : null;
+    } catch(e) {
+        console.error("[Storefront Catalog Error]", e.response?.status || e.message);
+        return null;
+    }
+}
+
 function getGiftId(inventoryType, itemId) {
     const inv = String(inventoryType || '').toUpperCase();
     if (inv === "CHAMPION") return 1;
@@ -570,5 +590,6 @@ module.exports = {
     sendGiftV3,
     checkAccountBan,
     reauthWithSSID,
-    loginWithRiotCredentials
+    loginWithRiotCredentials,
+    fetchStoreCatalogFromRiot
 };

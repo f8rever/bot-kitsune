@@ -1012,29 +1012,59 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             titulo = lang === 'pt' ? `📦 ${results.length} Pacotes de Skins & Cromas` : `📦 ${results.length} Skin & Chroma Bundles`;
             customId = 'selecionar_bundle_menu';
     } else if (tipoFiltro === 'sales') {
-        const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
-        let saleList = [];
-        try {
-            saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
-        } catch (e) {}
-
-        results = saleList.map(s => {
-            const catItem = currentCatalog.find(c => String(c.id) === String(s.id) || (c.nome && c.nome.toLowerCase() === s.name.toLowerCase()));
-            return {
-                id: s.id,
-                nome: s.name,
-                tipo: 'CHAMPION_SKIN',
-                iconUrl: s.iconUrl || catItem?.iconUrl || null,
-                price_rp: s.sale_rp,
-                rawItem: {
-                    ...(catItem?.rawItem || {}),
-                    regular_rp: s.regular_rp,
-                    sale_rp: s.sale_rp,
-                    discount_percent: s.discount_percent,
-                    inventoryType: 'CHAMPION_SKIN'
-                }
-            };
+        const catalogSales = currentCatalog.filter(x => {
+            const raw = x.rawItem || {};
+            const t = (x.tipo || raw.inventoryType || '').toUpperCase();
+            if (t !== 'CHAMPION_SKIN' && t !== 'SKIN') return false;
+            return (raw.sale_rp > 0 && raw.regular_rp > raw.sale_rp) || (raw.sale && raw.sale.prices && raw.sale.prices.length > 0);
         });
+
+        if (catalogSales.length > 0) {
+            results = catalogSales.map(c => {
+                const raw = c.rawItem || {};
+                const regularRp = raw.regular_rp || c.price_rp;
+                const saleRp = raw.sale_rp || (raw.sale?.prices?.find(p => p.currency === 'RP')?.cost) || c.price_rp;
+                const discountPercent = raw.discount_percent || Math.round((1 - (saleRp / regularRp)) * 100);
+                return {
+                    id: c.id,
+                    nome: c.nome,
+                    tipo: 'CHAMPION_SKIN',
+                    iconUrl: c.iconUrl,
+                    price_rp: saleRp,
+                    rawItem: {
+                        ...raw,
+                        regular_rp: regularRp,
+                        sale_rp: saleRp,
+                        discount_percent: discountPercent,
+                        inventoryType: 'CHAMPION_SKIN'
+                    }
+                };
+            });
+        } else {
+            const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
+            let saleList = [];
+            try {
+                saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
+            } catch (e) {}
+
+            results = saleList.map(s => {
+                const catItem = currentCatalog.find(c => String(c.id) === String(s.id) || (c.nome && c.nome.toLowerCase() === s.name.toLowerCase()));
+                return {
+                    id: s.id,
+                    nome: s.name,
+                    tipo: 'CHAMPION_SKIN',
+                    iconUrl: s.iconUrl || catItem?.iconUrl || null,
+                    price_rp: s.sale_rp,
+                    rawItem: {
+                        ...(catItem?.rawItem || {}),
+                        regular_rp: s.regular_rp,
+                        sale_rp: s.sale_rp,
+                        discount_percent: s.discount_percent,
+                        inventoryType: 'CHAMPION_SKIN'
+                    }
+                };
+            });
+        }
         titulo = lang === 'pt' ? `🏷️ ${results.length} Promoções da Semana (On Sale)` : `🏷️ ${results.length} Weekly Sales (On Sale)`;
         customId = 'selecionar_skin_menu';
     } else if (tipoFiltro === 'most_popular') {

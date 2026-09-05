@@ -141,21 +141,39 @@ async function buildFullCatalog() {
                     const itemId = item.itemId;
                     const isExpired = (item.active === false) || (item.inactiveDate && new Date(item.inactiveDate) < now);
 
-                    let priceRp = null;
+                    let regularRp = null;
+                    let saleRp = null;
+                    let discountPercent = null;
                     if (item.prices) {
                         const rpObj = item.prices.find(p => p.currency === 'RP');
-                        if (rpObj) priceRp = rpObj.cost;
+                        if (rpObj) regularRp = rpObj.cost;
                     }
                     if (item.sale && item.sale.prices) {
-                        const saleRp = item.sale.prices.find(p => p.currency === 'RP');
-                        if (saleRp) priceRp = saleRp.cost;
+                        const sObj = item.sale.prices.find(p => p.currency === 'RP');
+                        if (sObj) saleRp = sObj.cost;
+                    }
+                    let priceRp = saleRp || regularRp;
+                    if (regularRp && saleRp && regularRp > saleRp) {
+                        discountPercent = Math.round((1 - saleRp / regularRp) * 100);
                     }
 
                     const ptLoc = item.localizations?.pt_BR?.name || item.name;
                     const enLoc = item.localizations?.en_US?.name || item.name;
 
-                    if (ptLoc) rawStoreItems[ptLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType, isExpired };
-                    if (enLoc) rawStoreItems[enLoc.toLowerCase().trim()] = { offerId, itemId, priceRp, inventoryType: item.inventoryType, isExpired };
+                    const itemStoreInfo = {
+                        offerId,
+                        itemId,
+                        priceRp,
+                        regularRp,
+                        saleRp,
+                        discountPercent,
+                        sale: item.sale || null,
+                        inventoryType: item.inventoryType,
+                        isExpired
+                    };
+
+                    if (ptLoc) rawStoreItems[ptLoc.toLowerCase().trim()] = itemStoreInfo;
+                    if (enLoc) rawStoreItems[enLoc.toLowerCase().trim()] = itemStoreInfo;
                 });
             }
         } catch(e) {}
@@ -232,10 +250,15 @@ async function buildFullCatalog() {
                     }
                 }
 
+                const sm = storeMatchEn || storeMatchPt;
                 const itemDataPt = {
                     offer_id: offerId,
                     item_id: skinId,
                     price_rp: priceRp,
+                    regular_rp: sm?.regularRp || null,
+                    sale_rp: sm?.saleRp || null,
+                    discount_percent: sm?.discountPercent || null,
+                    sale: sm?.sale || null,
                     inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN',
                     icon_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${ptC.id}_${skinPt.num}.jpg`
                 };
@@ -244,6 +267,10 @@ async function buildFullCatalog() {
                     offer_id: offerId,
                     item_id: skinId,
                     price_rp: priceRp,
+                    regular_rp: sm?.regularRp || null,
+                    sale_rp: sm?.saleRp || null,
+                    discount_percent: sm?.discountPercent || null,
+                    sale: sm?.sale || null,
                     inventory_type: isChroma ? 'CHROMA' : 'CHAMPION_SKIN',
                     icon_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${enC.id || ptC.id}_${skinEn.num || skinPt.num}.jpg`
                 };
