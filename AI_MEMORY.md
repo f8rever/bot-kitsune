@@ -203,10 +203,25 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - **Tabuleiros & Arenas TFT (TFT Arenas) e Correção de Loading Infinito:**
     - Criado `config/tft_arenas.json` com as 22 arenas oficiais compráveis do TFT com custos em RP, ícones CDragon e tipo `TFT_MAP_SKIN`.
     - **Causa Raiz do Loading Infinito Resolvida:** Quando uma categoria vazia ou erro ocorria, `enviarPaginaCatalogo` chamava `interaction.reply()`, mas a interação já havia sido respondida/atualizada por `menu_vendas` com "⏳ Loading the catalog...", disparando o erro 40060 da API do Discord (`InteractionAlreadyReplied`) e deixando a mensagem travada no loading para sempre. Corrigido com verificação segura de `interaction.replied || interaction.deferred` chamando `interaction.editReply()`, protegido por bloco global `try/catch`.
+  - **Sincronização ao Vivo do Catálogo da Riot Games (2026-09-05):**
+    - **Autenticação e Sessões das Contas de Catálogo:**
+      - A conta internacional `Tuan8539` (RU) foi autenticada no painel web, gravando os cookies de sessão ativos no MongoDB Atlas (`account_tokens`).
+      - A conta brasileira `lucasgg112` (BR1) foi autenticada no painel web, gravando sua sessão ativa no MongoDB Atlas.
+      - Executado o fetch direto da Storefront API da Riot Games (`/storefront/v1/catalog`), atualizando o dump bruto `catalog.json` e os caches com dados em tempo real tanto para EN (RU) quanto para PT (BR1).
+    - **Compilação e UUIDs Oficiais da Riot:**
+      - O compilador `utils/buildFullCatalog.js` recompilou o catálogo unindo DDragon com a API oficial da loja.
+      - O total de itens subiu para **10.341 itens** ativos em PT e EN (**1.736 Skins**, **826 Pacotes**, **6.647 Cromas** e **173 Campeões**).
+      - **Heartsong Seraphine (`147069`):** Anteriormente possuía um placeholder provisório (`skin_147069`) que impedia o envio de presentes. Agora possui o UUID oficial real da Loja da Riot: `"offer_id": "6e199f43-39c9-4709-97de-aadded6602c5"`.
+      - Todos os pacotes e cromas da Heartsong Seraphine (*Heartsong Seraphine Border Set* `247c9f4f-eb89-453f-9725-68f0b190e7ce`, *Chroma Bundle* `bba11048-c7c5-485c-911b-c2fd1fe86bdf`) e skins recentes (*Panda Pal Lux*, *Faerie Court Lux*, etc.) receberam seus UUIDs reais da Riot.
+    - **Preservação de Metadados de Promoções no Catálogo:**
+      - `buildFullCatalog.js` armazena `regular_rp`, `sale_rp`, `discount_percent` e o objeto `sale` da Riot para cada item.
+      - No `index.js`, a categoria `compra_sales` agora detecta automaticamente as skins com promoção ativa da Riot direto do catálogo em tempo real, com fallback seguro para `config/weekly_sales.json`.
+    - **Inclusão de Tabuleiros TFT no Catálogo Compilado:**
+      - Adicionada a categoria `TFTArena` diretamente aos catálogos compilados `catalog_cache_en.json` e `catalog_cache_pt.json` a partir de `config/tft_arenas.json`, permitindo suporte nativo e consistente tanto no bot do Discord quanto no painel web.
   - **Painel Web da API (Categorias do Catálogo corrigidas no Frontend):**
-    - Identificada a causa raiz de os itens aparecerem apenas em "Todos" e sumirem ao clicar em categorias individuais (`Skins`, `Chromas`, `Pacotes`, etc.): no HTML os botões tinham valores no singular (`value="Skin"`, `value="Chroma"`, etc.), enquanto os catálogos JSON usavam chaves no plural (`"Skins"`, `"Chromas"`), fazendo `item.category === selectedCategory` falhar sempre.
-    - Implementada a função `matchesCategory(item, sel)` em `static/script.js` (tanto em `lol_giftapi-main` quanto em `python_backend`), mapeando com precisão todas as categorias (Skins, Cromas, Pacotes, Passes, Campeões, Emotes, Ícones, Sentinelas, Pequenas Lendas, Tabuleiros TFT, Boosts, Eternos, Mistério e Hextec).
-    - O catálogo do bot do Discord permaneceu 100% isolado, intacto e sem qualquer impacto.
+    - Identificada a causa raiz de os itens aparecerem apenas em "Todos" e sumirem ao clicar em categorias individuais (`Skins`, `Chromas`, `Pacotes`, etc.): no HTML (`gift_tab.html`), os botões tinham valores no singular (`value="Skin"`, `value="Chroma"`, etc.), enquanto os catálogos JSON usavam chaves no plural (`"Skins"`, `"Chromas"`), fazendo a comparação direta `item.category === selectedCategory` falhar sempre.
+    - Implementada a função `matchesCategory(item, sel)` em `static/script.js` (tanto em `lol_giftapi-main` quanto em `python_backend`), mapeando com precisão todas as 14 categorias (Skins, Cromas, Pacotes, Passes, Campeões, Emotes, Ícones, Sentinelas, Pequenas Lendas, Tabuleiros TFT, Boosts, Eternos, Mistério e Hextec).
+    - O catálogo e lógica do bot do Discord permaneceram 100% isolados, intactos e sem qualquer impacto.
   - **Persistência Cloud:** `emojis`, `embeds`, `weekly_sales`, `featured_bundles` e `tft_arenas` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
   - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
 
