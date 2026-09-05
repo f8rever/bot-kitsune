@@ -25,6 +25,15 @@
     "thumbnail": "",
     "image": "https://media.discordapp.net/attachments/1540159602543304732/1544514902088089671/baixados.jpg?ex=6a9ac358&is=6a9971d8&hm=ca2922917b6172e7350456eaeac4149ecf3511eeace938e50025add117afc4a2&=&format=webp"
   },
+  "store_back_button": {
+    "title": "⬅️ Botão Voltar das Categorias (Loja)",
+    "description": "Configure aqui o texto, emoji e cor do botão exibido nos menus de categoria da loja que volta para as categorias principais.",
+    "color": "#F43F5E",
+    "buttonLabel": "Back to Main Categories",
+    "buttonEmoji": "<a:l_arrow_white:1545877594170335304>",
+    "buttonStyle": "Secondary",
+    "footerText": "© Kitsune - Copyright 2026"
+  },
   "category_skins": {
     "title": "🎨 Kitsune Store | Skins & Chromas",
     "description": "<a:whitearrow:1346152146814636032> **Select a Skins category below:**\n\n> 👕 **Champion Skins:** Legendary (1820 RP), Epic (1350 RP), Classic & Ultimate (3250 RP)\n> 🎨 **Chromas:** All official champion chromas (290 RP)\n> 📦 **Skin & Chroma Bundles:** Launch bundles, sets & chroma packs",

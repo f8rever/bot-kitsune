@@ -1883,6 +1883,36 @@ function buildStoreMainMenu(customEmojis) {
     );
 }
 
+function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Back to Main Categories') {
+    const cfg = customEmbeds?.['store_back_button'] || {};
+    const label = cfg.buttonLabel || defaultLabel;
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim();
+
+    let style = ButtonStyle.Secondary;
+    if (cfg.buttonStyle) {
+        const s = String(cfg.buttonStyle).toLowerCase().trim();
+        if (['primary', 'blue', 'azul', '1'].includes(s)) style = ButtonStyle.Primary;
+        else if (['danger', 'red', 'vermelho', '4'].includes(s)) style = ButtonStyle.Danger;
+        else if (['success', 'green', 'verde', '3'].includes(s)) style = ButtonStyle.Success;
+        else if (['secondary', 'gray', 'grey', 'cinza', '2'].includes(s)) style = ButtonStyle.Secondary;
+    }
+
+    const btn = new ButtonBuilder()
+        .setCustomId(customId)
+        .setLabel(label)
+        .setStyle(style);
+
+    if (emojiStr) {
+        try {
+            btn.setEmoji(emojiStr);
+        } catch (e) {
+            console.warn('[buildStoreBackButton] Erro ao definir emoji:', emojiStr, e.message);
+        }
+    }
+
+    return btn;
+}
+
 async function exibirMenuCategoriaLoja(interaction, categoria) {
     const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:lol_mystery_skin:1544591070204010598>').trim();
     const eEmotes = (customEmojis?.acessorios?.emotes || '<:lol_poro_emote:1544493296879935489>').trim();
@@ -1893,7 +1923,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     const eArenas = (customEmojis?.acessorios?.arenas || '<:lol_tft_arena:1544591074100645948>').trim();
 
     const btnRow = new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId('voltar_menu_modal').setLabel('Back to Main Categories').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
+        buildStoreBackButton('voltar_menu_modal')
     );
 
     // Mantém o embed principal fixo 'Catalog of Gifts' e troca apenas o Select Menu + botão de voltar
@@ -2441,19 +2471,30 @@ client.on('interactionCreate', async interaction => {
                         `*Abaixo você pode conferir a **Prévia em Tempo Real** deste embed e selecionar no menu o campo que deseja alterar:*`
                     );
 
-                const opts = [
-                    { label: 'Título', value: `${embedId}__title`, emoji: '📝' },
-                    { label: 'Descrição', value: `${embedId}__description`, emoji: '📄' },
-                    { label: 'Cor (HEX)', value: `${embedId}__color`, emoji: '🎨' },
-                    { label: 'Miniatura (Thumbnail URL)', value: `${embedId}__thumbnail`, emoji: '🖼️' },
-                    { label: 'Banner (Image URL)', value: `${embedId}__image`, emoji: '🖼️' },
-                    { label: 'Texto do Rodapé (Footer Text)', value: `${embedId}__footerText`, emoji: '📝' },
-                    { label: 'Ícone do Rodapé (Footer Icon)', value: `${embedId}__footerIcon`, emoji: '🖼️' },
-                    { label: 'Rótulo do Botão (Button Label)', value: `${embedId}__buttonLabel`, emoji: '🔘' },
-                    { label: 'Emoji do Botão', value: `${embedId}__buttonEmoji`, emoji: '😀' },
-                    { label: 'Cor do Botão (Red/Green/Blue/Gray)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
-                    { label: 'Sincronizar Imagem Dinâmica (true/false)', value: `${embedId}__syncImage`, emoji: '🔄' }
-                ];
+                let opts = [];
+                if (embedId === 'store_back_button') {
+                    opts = [
+                        { label: 'Rótulo do Botão (Button Label)', description: 'Texto do botão (Ex: Back to Main Categories, Voltar)', value: `${embedId}__buttonLabel`, emoji: '🔘' },
+                        { label: 'Emoji do Botão', description: 'Emoji do botão (Ex: <a:l_arrow_white:...>, ⬅️)', value: `${embedId}__buttonEmoji`, emoji: '😀' },
+                        { label: 'Cor / Estilo do Botão', description: 'Secondary (Cinza), Primary (Azul), Danger (Vermelho), Success (Verde)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
+                        { label: 'Título', value: `${embedId}__title`, emoji: '📝' },
+                        { label: 'Descrição', value: `${embedId}__description`, emoji: '📄' }
+                    ];
+                } else {
+                    opts = [
+                        { label: 'Título', value: `${embedId}__title`, emoji: '📝' },
+                        { label: 'Descrição', value: `${embedId}__description`, emoji: '📄' },
+                        { label: 'Cor (HEX)', value: `${embedId}__color`, emoji: '🎨' },
+                        { label: 'Miniatura (Thumbnail URL)', value: `${embedId}__thumbnail`, emoji: '🖼️' },
+                        { label: 'Banner (Image URL)', value: `${embedId}__image`, emoji: '🖼️' },
+                        { label: 'Texto do Rodapé (Footer Text)', value: `${embedId}__footerText`, emoji: '📝' },
+                        { label: 'Ícone do Rodapé (Footer Icon)', value: `${embedId}__footerIcon`, emoji: '🖼️' },
+                        { label: 'Rótulo do Botão (Button Label)', value: `${embedId}__buttonLabel`, emoji: '🔘' },
+                        { label: 'Emoji do Botão', value: `${embedId}__buttonEmoji`, emoji: '😀' },
+                        { label: 'Cor do Botão (Red/Green/Blue/Gray)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
+                        { label: 'Sincronizar Imagem Dinâmica (true/false)', value: `${embedId}__syncImage`, emoji: '🔄' }
+                    ];
+                }
 
                 const targetCfg = customEmbeds[embedId] || {};
                 if (targetCfg.fields && Array.isArray(targetCfg.fields)) {
@@ -2484,6 +2525,12 @@ client.on('interactionCreate', async interaction => {
                         .setStyle(ButtonStyle.Secondary)
                         .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
                 );
+
+                if (embedId === 'store_back_button') {
+                    const sampleBtn = buildStoreBackButton('preview_btn_sample');
+                    sampleBtn.setDisabled(true);
+                    btnVoltar.addComponents(sampleBtn);
+                }
 
                 let previewEmbed = null;
                 try {
@@ -2554,16 +2601,29 @@ client.on('interactionCreate', async interaction => {
                 let style = TextInputStyle.Short;
                 if (field === 'description') style = TextInputStyle.Paragraph;
 
-                modal.addComponents(
-                    new ActionRowBuilder().addComponents(
-                        new TextInputBuilder()
-                            .setCustomId('novo_valor')
-                            .setLabel(`New ${field}:`.substring(0, 45))
-                            .setStyle(style)
-                            .setRequired(false)
-                            .setValue(currentValue.substring(0, 4000))
-                    )
-                );
+                let fieldLabel = `New ${field}:`.substring(0, 45);
+                let fieldPlaceholder = '';
+                if (field === 'buttonLabel') {
+                    fieldLabel = 'Rótulo do Botão (Button Label):';
+                    fieldPlaceholder = 'Ex: Back to Main Categories ou Voltar';
+                } else if (field === 'buttonEmoji') {
+                    fieldLabel = 'Emoji do Botão:';
+                    fieldPlaceholder = 'Ex: <a:l_arrow_white:1545877594170335304> ou ⬅️';
+                } else if (field === 'buttonStyle') {
+                    fieldLabel = 'Cor / Estilo do Botão:';
+                    fieldPlaceholder = 'Secondary (Cinza), Primary (Azul), Danger, Success';
+                }
+
+                const textInput = new TextInputBuilder()
+                    .setCustomId('novo_valor')
+                    .setLabel(fieldLabel)
+                    .setStyle(style)
+                    .setRequired(false)
+                    .setValue(currentValue.substring(0, 4000));
+
+                if (fieldPlaceholder) textInput.setPlaceholder(fieldPlaceholder);
+
+                modal.addComponents(new ActionRowBuilder().addComponents(textInput));
                 await interaction.showModal(modal);
                 return;
             }
@@ -3692,6 +3752,7 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Formas de Pagamento (/ticket)', description: 'Embed com métodos de pagamento aceitos', value: 'ticket_payment_methods', emoji: '💶' },
                             { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região (BR, NA, EUW, etc.)', value: 'store_authentication', emoji: '🌍' },
                             { label: 'Central de Vendas (Categorias)', description: 'Menu de categorias (Skins, Loots, etc.)', value: 'store_sales_center', emoji: '🛒' },
+                            { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                             { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
@@ -3712,7 +3773,8 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Loot, Passes, Baús & Orbes', description: 'Menu da Categoria, Orbes, Passes, Hextech e Mistério', value: 'subgroup_loot', emoji: '🔮' },
                             { label: 'Campeões & Eternos', description: 'Menu da Categoria, Campeões e Eternos', value: 'subgroup_champions', emoji: '⚔️' },
                             { label: 'Acessórios & TFT', description: 'Menu da Categoria, Emotes, Wards, Ícones, Boosts, Chibis e Arenas', value: 'subgroup_accessories', emoji: '👑' },
-                            { label: 'Destaques & Ofertas Especiais', description: 'Menu da Categoria e Catálogo de Destaques', value: 'subgroup_highlights', emoji: '🌟' }
+                            { label: 'Destaques & Ofertas Especiais', description: 'Menu da Categoria e Catálogo de Destaques', value: 'subgroup_highlights', emoji: '🌟' },
+                            { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' }
                         ])
                 );
 
@@ -3792,6 +3854,14 @@ client.on('interactionCreate', async interaction => {
                         const lower = finalValue.toLowerCase().trim();
                         if (colorMap[lower]) finalValue = colorMap[lower];
                         else if (!finalValue.startsWith('#') && /^[0-9A-Fa-f]{6}$/.test(finalValue)) finalValue = '#' + finalValue;
+                    }
+
+                    if (field === 'buttonStyle') {
+                        const s = finalValue.toLowerCase().trim();
+                        if (['primary', 'blue', 'azul', '1'].includes(s)) finalValue = 'Primary';
+                        else if (['danger', 'red', 'vermelho', '4'].includes(s)) finalValue = 'Danger';
+                        else if (['success', 'green', 'verde', '3'].includes(s)) finalValue = 'Success';
+                        else if (['secondary', 'gray', 'grey', 'cinza', '2'].includes(s)) finalValue = 'Secondary';
                     }
 
                     if (field === 'globalDiscount') {
@@ -3894,6 +3964,12 @@ client.on('interactionCreate', async interaction => {
                     const successMsg = `✅ Template **${embedId}** atualizado com sucesso no campo **${field}**!\n*Veja a nova prévia abaixo:*`;
                     const respData = { content: successMsg, ephemeral: true };
                     if (previewEmbed) respData.embeds = [previewEmbed];
+
+                    if (embedId === 'store_back_button') {
+                        const sampleBtn = buildStoreBackButton('preview_btn_sample');
+                        sampleBtn.setDisabled(true);
+                        respData.components = [new ActionRowBuilder().addComponents(sampleBtn)];
+                    }
 
                     if (interaction.replied || interaction.deferred) {
                         await interaction.followUp(respData).catch(() => {});

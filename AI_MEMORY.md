@@ -271,6 +271,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       3. `Previous` / `Next` na paginação do catálogo e das buscas;
       4. `Voltar para Categorias` e `Voltar para Todos os Embeds` nos menus de configuração;
       5. `Anterior` / `Próxima` na lista de amigos de contas Riot.
+  - **Botão "Back to Main Categories" Totalmente Editável no /embeds (2026-09-05):**
+    - Criado o template independente `"store_back_button"` em `config/embeds.json`.
+    - Adicionado item dedicado nos menus 1 e 2 do comando `/embeds` (`Botão: Back to Main Categories`).
+    - Permite customização completa e independente pelo Discord:
+      1. Rótulo do botão (`buttonLabel`, ex: `Back to Main Categories`, `Voltar para Categorias`);
+      2. Emoji do botão (`buttonEmoji`, suportando emojis customizados animados como `<a:l_arrow_white:...>` e unicode);
+      3. Cor/Estilo do botão (`buttonStyle`: `Secondary` / Cinza, `Primary` / Azul, `Danger` / Vermelho, `Success` / Verde).
+    - Exibe prévia visual em tempo real do próprio botão no painel de edição e no feedback da modal.
+    - Implementada a função `buildStoreBackButton` em `index.js`, aplicando dinamicamente a configuração aos menus de categoria (`exibirMenuCategoriaLoja`).
 
 
 ### Servidores do Bot:
