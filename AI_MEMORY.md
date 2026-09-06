@@ -280,6 +280,14 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - No `/embeds`, ao selecionar qualquer um deles, o bot renderiza uma prévia ao vivo com a fileira completa dos 3 botões: `[Back to Menu] [Previous] [Next]`.
     - Implementadas as funções universais `buildStoreBackButton`, `buildStorePrevButton`, `buildStoreNextButton` e `buildNavButtonsPreviewRow` em `index.js`.
     - MongoDB Atlas e `config/emojis.json` sincronizados com as setas brancas animadas (`<a:l_arrow_white:1545877594170335304>` e `<a:51047animatedarrowwhite:1545491753002475591>`).
+  - **Remoção Temporária de "Skin & Chroma Bundles" (`compra_bundles`) (2026-09-06):**
+    - **Motivo:** O usuário solicitou a remoção temporária da opção de Pacotes de Skins & Cromas do menu da loja do Discord devido a problemas recorrentes com bundles (preços flexíveis da Riot baseados em itens já possuídos, incompatibilidade do endpoint de envio de presentes para determinados pacotes legados e erros no checkout).
+    - **Alterações Realizadas:**
+      1. `index.js` (`exibirMenuCategoriaLoja`): Removida a opção `{ label: 'Skin & Chroma Bundles', value: 'compra_bundles', ... }` do Select Menu de `cat_skins`. A categoria `Skins & Chromas` agora exibe de forma limpa apenas `Champion Skins` e `Chromas`.
+      2. `index.js` (`buildStoreMainMenu`): Ajustada a descrição de `cat_skins` no menu principal de `'Champion Skins, Chromas & Skin Bundles'` para `'Champion Skins & Chromas'`.
+      3. `config/embeds.json`: Atualizado o embed `category_skins`, removendo a linha de texto de pacotes.
+      4. MongoDB Atlas: Sincronizada a coleção `bot_configurations` (`embeds`) para garantir que os deploys no Render mantenham o texto atualizado sem pacotes.
+    - **Observação Futura:** A lógica interna do backend foi mantida intacta caso se decida reativar no futuro após resolver os problemas de gifting de bundles na API da Riot.
 
 
 ### Servidores do Bot:
@@ -291,12 +299,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 ## PRÓXIMOS PASSOS
 
+### Bundles & Pacotes (Para resolver depois)
+1. [ ] Investigar e solucionar problemas com gifting e precificação dinâmica dos pacotes (`Skin & Chroma Bundles`) na API da Riot antes de reativar na loja do Discord.
+
 ### Emojis & Cosméticos (Opcional / Futuro)
-1. [ ] Cristais de Raridade (Ultimate, Lendária, Épica, Comum) — já mapeados com os emojis oficiais existentes no servidor.
-2. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
+2. [ ] Cristais de Raridade (Ultimate, Lendária, Épica, Comum) — já mapeados com os emojis oficiais existentes no servidor.
+3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
 
 ### Venda White-Label (Futuro)
-3. [ ] Sistema de provisionamento de instâncias brancas do bot quando o usuário for vender para terceiros.
+4. [ ] Sistema de provisionamento de instâncias brancas do bot quando o usuário for vender para terceiros.
 
 ---
 

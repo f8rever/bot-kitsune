@@ -1837,7 +1837,7 @@ function buildStoreMainMenu(customEmojis) {
         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a LoL Store Category').addOptions([
             {
                 label: 'Skins & Chromas',
-                description: 'Champion Skins, Chromas & Skin Bundles',
+                description: 'Champion Skins & Chromas',
                 value: 'cat_skins',
                 emoji: (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1342089845559791650>').trim()
             },
@@ -1991,8 +1991,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Skins option').addOptions([
                 { label: 'Champion Skins', description: 'Browse all giftable champion skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
-                { label: 'Chromas', description: 'Browse all champion chromas (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() },
-                { label: 'Skin & Chroma Bundles', description: 'Browse special cosmetic sets & chroma packs', value: 'compra_bundles', emoji: (customEmojis?.bundles?.bundle || '📦').trim() }
+                { label: 'Chromas', description: 'Browse all champion chromas (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
