@@ -123,12 +123,22 @@ async function buildFullCatalog() {
         if (verRes.data?.[0]) ddragonVersion = verRes.data[0];
     } catch (e) {}
 
+    let cdWardsRes = { data: [] };
+    let cdEmotesRes = { data: [] };
+
     try {
-        const [ptCdRes, enCdRes, champDdragonRes] = await Promise.all([
+        const results = await Promise.all([
             axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/pt_br/v1/skins.json', { timeout: 15000 }).catch(() => ({ data: {} })),
             axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json', { timeout: 15000 }).catch(() => ({ data: {} })),
-            axios.get(`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`, { timeout: 10000 }).catch(() => ({ data: { data: {} } }))
+            axios.get(`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`, { timeout: 10000 }).catch(() => ({ data: { data: {} } })),
+            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins.json', { timeout: 15000 }).catch(() => ({ data: [] })),
+            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-emotes.json', { timeout: 15000 }).catch(() => ({ data: [] }))
         ]);
+        const ptCdRes = results[0];
+        const enCdRes = results[1];
+        const champDdragonRes = results[2];
+        cdWardsRes = results[3];
+        cdEmotesRes = results[4];
 
         cdSkinsPt = ptCdRes.data || {};
         cdSkinsEn = enCdRes.data || {};
@@ -146,6 +156,28 @@ async function buildFullCatalog() {
         }
     } catch (e) {
         console.warn('[Catalog Builder] ⚠️ Falha ao baixar alguns metadados externos. Prosseguindo com dados do Storefront.');
+    }
+
+    // Indexar imagens oficiais de Wards e Emotes do CommunityDragon
+    const cdWardMap = {};
+    if (Array.isArray(cdWardsRes?.data)) {
+        cdWardsRes.data.forEach(w => {
+            if (w && w.id !== undefined && w.wardImagePath) {
+                const cleanPath = w.wardImagePath.toLowerCase().replace('/lol-game-data/assets/', '/');
+                cdWardMap[w.id] = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cleanPath}`;
+            }
+        });
+    }
+
+    const cdEmoteMap = {};
+    if (Array.isArray(cdEmotesRes?.data)) {
+        cdEmotesRes.data.forEach(em => {
+            const iconPath = em?.inventoryIcon || em?.iconPath;
+            if (em && em.id !== undefined && iconPath) {
+                const cleanPath = iconPath.toLowerCase().replace('/lol-game-data/assets/', '/');
+                cdEmoteMap[em.id] = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cleanPath}`;
+            }
+        });
     }
 
     // Indexar nomes oficiais de todos os cromas em PT e EN do CommunityDragon
@@ -478,16 +510,14 @@ async function buildFullCatalog() {
         if (priceRp && priceRp > 0) {
             let itemIcon = item.iconUrl;
             if (itemIcon && itemIcon.startsWith('//')) itemIcon = 'https:' + itemIcon;
-            if (!itemIcon || !itemIcon.startsWith('http')) {
-                if (invType === 'EMOTE') {
-                    itemIcon = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/${itemId}.png`;
-                } else if (invType === 'SUMMONER_ICON') {
-                    itemIcon = `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/profileicon/${itemId}.png`;
-                } else if (invType === 'WARD_SKIN') {
-                    itemIcon = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/${itemId}.png`;
-                } else {
-                    itemIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemId}.png`;
-                }
+            if (invType === 'EMOTE') {
+                itemIcon = cdEmoteMap[itemId] || (itemIcon && itemIcon.startsWith('http') ? itemIcon : `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/${itemId}.png`);
+            } else if (invType === 'SUMMONER_ICON') {
+                itemIcon = `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/profileicon/${itemId}.png`;
+            } else if (invType === 'WARD_SKIN') {
+                itemIcon = cdWardMap[itemId] || (itemIcon && itemIcon.startsWith('http') ? itemIcon : `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/${itemId}.png`);
+            } else if (!itemIcon || !itemIcon.startsWith('http')) {
+                itemIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemId}.png`;
             }
 
             const itemGenericPt = {

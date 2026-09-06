@@ -110326,7 +110326,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1030.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/lux/lux_happy_cheerful_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110339,7 +110339,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1452.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/darius/darius_angry_smile_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110352,7 +110352,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1457.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/mcat_sad_tear_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110365,7 +110365,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1460.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/caitlyn/caitlyn_happy_greetings_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110378,7 +110378,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1462.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/vayne/vayne_happy_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110391,7 +110391,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1464.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/fiora/fiora_happy_cheers_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110404,7 +110404,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1467.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/amumu/amumu_sad_crying_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110417,7 +110417,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1468.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/blitzcrank/blitzcrank_sad_confused_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110430,7 +110430,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1469.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/braum/braum_happy_heart_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110443,7 +110443,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1473.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jinx/jinx_meme_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110456,7 +110456,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1474.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/leesin/leesin_happy_cheers_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110469,7 +110469,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1476.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/taric/taric_love_glamorus_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110482,7 +110482,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1478.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/velkoz/velkoz_happy_greetings_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110495,7 +110495,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1480.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yasuo/yasuo_meme_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110508,7 +110508,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1481.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ziggs/ziggs_happy_cheers_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110521,7 +110521,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1487.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/gnar/gnar_sad_pout_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110534,7 +110534,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1488.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/lulu/lulu_happy_cheerful_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110547,7 +110547,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1489.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/poppy/poppy_meme_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110560,7 +110560,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/riven/riven_angry_battle_bunny_mad_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110573,7 +110573,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1492.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/teemo/teemo_happy_cheers_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110586,7 +110586,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1498.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/poro_happy_cheers_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110599,7 +110599,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1499.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/poro_happy_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110612,7 +110612,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1501.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/mcat_angry_mad_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110625,7 +110625,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1502.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/mcat_happy_cute_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110638,7 +110638,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1505.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/penguin_happy_greetings_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110651,7 +110651,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1506.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/penguin_meme_dab_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110664,7 +110664,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1512.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ahri/ahri_love_wink_02_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110677,7 +110677,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1513.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/garen/garen_happy_proud_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110690,7 +110690,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1514.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/alistar/angry_alistar_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110703,7 +110703,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/1516.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/tahmkench/tahmkench_grin_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110716,7 +110716,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3132.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ashe/ashe_teehee_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110729,7 +110729,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3133.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/em_event_aprilfools_first_blood_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110742,7 +110742,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3137.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/em_event_aprilfools_aced_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110755,7 +110755,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3139.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/zoe/em_zoe_goodbye_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110768,7 +110768,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3140.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/penguin_love_kiss_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110781,7 +110781,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3141.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/fizz/fizz_taunt_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110794,7 +110794,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3142.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/zed/em_zed_delighted_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110807,7 +110807,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3145.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/soraka/em_soraka_calm_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110820,7 +110820,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3146.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/graves/em_graves_dealwithit_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110833,7 +110833,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3147.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/tent_meme_camping_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110846,7 +110846,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3153.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_bee_happy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110859,7 +110859,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3154.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_bee_angry_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110872,7 +110872,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3155.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_bee_sad_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110885,7 +110885,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3158.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ezreal/em_ezreal_cheers_02_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110898,7 +110898,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3159.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/rammus/em_rammus_ok_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110911,7 +110911,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3160.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/sona/em_sona_yikes_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110924,7 +110924,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3166.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_poro_buddies_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110937,7 +110937,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3168.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/karthus/em_karthus_getem_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110950,7 +110950,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3170.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/leona/em_leona_concerned_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110963,7 +110963,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3171.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/leesin/em_leesin_really_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110976,7 +110976,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3176.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jinx/em_jinx_bored_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -110989,7 +110989,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3177.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jinx/em_jinx_joy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111002,7 +111002,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3178.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jinx/em_jinx_nailed_it_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111015,7 +111015,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3179.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/lucian/em_lucian_hat_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111028,7 +111028,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3180.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/urgot/em_urgot_angry_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111041,7 +111041,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3181.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/thresh/em_thresh_frustrated_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111054,7 +111054,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3182.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/nunu/em_nunu_confused_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111067,7 +111067,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3183.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/nunu/em_nunu_shocked_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111080,7 +111080,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3184.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/nunu/em_nunu_snowball_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111093,7 +111093,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3200.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ezreal/em_ezreal_crying_01_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111106,7 +111106,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3201.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ezreal/em_ezreal_gottarun_01_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111119,7 +111119,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3202.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ezreal/em_ezreal_easyez_01_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111132,7 +111132,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3207.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/neeko/em_neeko_rainbow_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111145,7 +111145,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3208.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/neeko/em_neeko_angry_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111158,7 +111158,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3209.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/neeko/em_neeko_funny_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111171,7 +111171,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3235.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/sylas/em_sylas_areyoukidding_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111184,7 +111184,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3236.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/sylas/em_sylas_unworthy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111197,7 +111197,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3237.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/sylas/em_sylas_allaccordingtoplan_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111210,7 +111210,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3246.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/evelynn/em_evelynn_ooh_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111223,7 +111223,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3247.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/annie/em_annie_steamed_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111236,7 +111236,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3270.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yuumi/em_yuumi_nervous_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111249,7 +111249,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3271.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yuumi/em_yuumi_toast_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111262,7 +111262,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3272.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yuumi/em_yuumi_angry_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111275,7 +111275,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3273.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yuumi/em_yuumi_happy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111288,7 +111288,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3274.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/camille/em_camille_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111301,7 +111301,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3275.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/khazix/em_khazix_happy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111314,7 +111314,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3276.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_sly_kitty_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111327,7 +111327,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3349.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_tft_pengu_cya_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111340,7 +111340,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3350.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_tft_furyhorn_spatula_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111353,7 +111353,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3352.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/em_tft_molediver_money_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111366,7 +111366,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3353.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/starguardian/em_event_starguardian_riku_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111379,7 +111379,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3354.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/starguardian/em_event_starguardian_towa_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111392,7 +111392,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3355.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/starguardian/em_event_starguardian_ran_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111405,7 +111405,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3356.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/starguardian/em_event_starguardian_saki_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111418,7 +111418,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3455.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/em_af_tristana_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111431,7 +111431,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3456.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/em_af_urgot_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111444,7 +111444,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3457.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/em_af_veigar_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111457,7 +111457,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3479.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/highnoon/em_high_noon_senna_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111470,7 +111470,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3480.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/highnoon/em_high_noon_irelia_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111483,7 +111483,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3756.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/cafe_cuties/em_monsieur_meowsant_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111496,7 +111496,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3757.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/cafe_cuties/em_teary_teadore_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111509,7 +111509,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3758.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/cafe_cuties/em_bitter_bloob_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111522,7 +111522,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3921.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/eclipseknight/em_i_portend_an_ill_fate_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111535,7 +111535,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3955.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/brcreative/em_double_hang_loose_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111548,7 +111548,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3957.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/monstertamer/em_monster_tamer_veigar_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111561,7 +111561,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3958.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/monstertamer/em_monster_tamer_kogmaw_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111574,7 +111574,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3959.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/monstertamer/em_monster_tamer_lulu_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111587,7 +111587,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/3960.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/brcreative/em_oh_its_okay_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111600,7 +111600,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4035.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ksante/em_giga_ksante_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111613,7 +111613,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4036.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/spacegroove/em_space_groove_teemo_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111626,7 +111626,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4092.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/ahriasu/em_baby_fox_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111639,7 +111639,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4096.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/brokencovenant/em_drats_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111652,7 +111652,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4145.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/faeriecourt/4145_faerie_court_5__milio_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111665,7 +111665,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4169.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/milio/4169_popcorn_owo_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111678,7 +111678,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4215.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4215_give_me_your_support_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111691,7 +111691,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4216.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4216_stabby_crabby_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111704,7 +111704,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4217.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4217_its_giving_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111717,7 +111717,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4218.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4218_getting_hot_in_here_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111730,7 +111730,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4219.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4219_wow_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111743,7 +111743,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4220.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4220_abandoned_top_island_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111756,7 +111756,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4221.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4221_that_ashe_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111769,7 +111769,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4222.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/memeemotes/wheel_rework/4222_no_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111782,7 +111782,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4227.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/updraft/updraft_convergence_i_saw_the_future_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111795,7 +111795,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4230.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/updraft/updraft_convergence_good_boy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111808,7 +111808,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4273.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/naafiri/4273_pack_mentality_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111821,7 +111821,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4293.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/4293_in_the_distance_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111834,7 +111834,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4351.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/briar/em_briar_emote_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111847,7 +111847,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4399.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/heartsteel/4399_heartsteel_insignia_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111860,7 +111860,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4434.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/champions/4434_highlights_and_shadows_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111873,7 +111873,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4435.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/champions/4435_shadows_and_highlights_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111886,7 +111886,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4477.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/smolder/em_smol_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111899,7 +111899,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4561.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/aurora/4561_small_rabbit_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111912,7 +111912,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4684.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/corki/4684_lima_oscar_lima_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111925,7 +111925,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4685.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/galio/4685_stone_faced_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111938,7 +111938,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4686.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/hecarim/4686_ride_out_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111951,7 +111951,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4687.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/ivern/4687_tickles_my_fancy_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111964,7 +111964,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4688.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jarvaniv/4688_kingly_laugh_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111977,7 +111977,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4689.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/jhin/4689_artistic_perfection_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -111990,7 +111990,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4690.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/kalista/4690_it_is_what_it_is_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112003,7 +112003,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4691.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/nidalee/4691_i_wait_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112016,7 +112016,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4692.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/nocturne/4692_suffer_eternally_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112029,7 +112029,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4693.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/reksai/4693_monster_sleep_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112042,7 +112042,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4694.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/rhaast/4694_think_kayne_think_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112055,7 +112055,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4695.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/kayne/4695_great_job_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112068,7 +112068,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4696.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/rumble/4696_now_were_cookin_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112081,7 +112081,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4697.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/skarner/4697_hearts_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112094,7 +112094,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4698.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/talon/4698_lost_another_blade_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112107,7 +112107,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4699.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/trundle/4699_chomp_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112120,7 +112120,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4700.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/tryndamere/4700_battle_fury_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112133,7 +112133,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4701.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/udyr/4701_hearty_laugh_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112146,7 +112146,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4702.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/viktor/4702_robo_heart_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112159,7 +112159,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4703.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/xerath/4703_i_forget_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112172,7 +112172,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4704.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/xinzhao/4704_heres_a_tip_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112185,7 +112185,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4705.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/teemo/4705_could_you_not_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112198,7 +112198,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4712.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/champions/4712_why_must_they_test_me_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112211,7 +112211,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4893.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/yunara/4893_pouty_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112224,7 +112224,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4900.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/spiritblossom/onsen/4900_cozybara_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112237,7 +112237,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4902.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/xinzhao/4902_so_casual_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112250,7 +112250,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4903.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/teamchina/valentinesday/4903_rebel_of_my_heart_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112263,7 +112263,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/4904.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/teamchina/valentinesday/4904_charmer_of_my_heart_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112276,7 +112276,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5008.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/zaahen/5008_give_me_the_glaive_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112289,7 +112289,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/winterwonder/5013_yummy_snowflake_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112302,7 +112302,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5014.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/winterwonder/5014_tearyeyed_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112315,7 +112315,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5039.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/china_team/5039_me_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112328,7 +112328,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5059.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/champions/shyvana/5059_expensive_taste_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112341,7 +112341,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5061.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/5061_okey_dokey_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112354,7 +112354,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5072.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/aprilfools/5072_big_bite_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112367,7 +112367,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5103.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/championemotes/5103_im_a_locke_star_inventory.accessories_16_13.png",
       "is_available": true,
       "status": "available"
     },
@@ -112380,7 +112380,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5105.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/marketing/5105_what_a_headache_inventory.accessories_16_13.png",
       "is_available": true,
       "status": "available"
     },
@@ -112393,7 +112393,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5106.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/marketing/5106_gotta_be_kiddin_me_inventory.accessories_16_13.png",
       "is_available": true,
       "status": "available"
     },
@@ -112406,7 +112406,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5108.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/esports/digitalesports/5108_im_surrounded_by_idiots_inventory.accessories_16_13.png",
       "is_available": true,
       "status": "available"
     },
@@ -112419,7 +112419,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5109.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/esports/digitalesports/5109_bready_or_not_inventory.accessories_16_13.png",
       "is_available": true,
       "status": "available"
     },
@@ -112432,7 +112432,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5124.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/s3a1_2026/5124_ghostly_poro_inventory.accessories_16_15.png",
       "is_available": true,
       "status": "available"
     },
@@ -112445,7 +112445,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5137.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/faeriecourt/5137_vicious_rumors_inventory.accessories_16_16.png",
       "is_available": true,
       "status": "available"
     },
@@ -112458,7 +112458,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5138.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/faeriecourt/5138_frustrated_fae_inventory.accessories_16_16.png",
       "is_available": true,
       "status": "available"
     },
@@ -112471,7 +112471,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5139.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/events/faeriecourt/5139_unseelie_smirk_inventory.accessories_16_16.png",
       "is_available": true,
       "status": "available"
     },
@@ -112484,7 +112484,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5164.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/marketing/5164_i_cant_hear_you_inventory.accessories_16_17.png",
       "is_available": true,
       "status": "available"
     },
@@ -112497,7 +112497,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/5165.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/marketing/5165_goldfish_face_inventory.accessories_16_17.png",
       "is_available": true,
       "status": "available"
     },
@@ -112510,7 +112510,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/emotes/997.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/cupcake_happy_smiling_inventory.png",
       "is_available": true,
       "status": "available"
     },
@@ -112523,7 +112523,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "EMOTE",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-07-20_Emotes/998.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/flairs/penguin_love_cheerful_inventory.png",
       "is_available": true,
       "status": "available"
     }
@@ -117857,7 +117857,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/10.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_10.png",
       "is_available": true,
       "status": "available"
     },
@@ -117870,7 +117870,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/104.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_104.png",
       "is_available": true,
       "status": "available"
     },
@@ -117883,7 +117883,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/105.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_105.png",
       "is_available": true,
       "status": "available"
     },
@@ -117896,7 +117896,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/107.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_107.png",
       "is_available": true,
       "status": "available"
     },
@@ -117909,7 +117909,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/109.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_109.png",
       "is_available": true,
       "status": "available"
     },
@@ -117922,7 +117922,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/11.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_11.png",
       "is_available": true,
       "status": "available"
     },
@@ -117935,7 +117935,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/110.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_110.png",
       "is_available": true,
       "status": "available"
     },
@@ -117948,7 +117948,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/112.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_112.png",
       "is_available": true,
       "status": "available"
     },
@@ -117961,7 +117961,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/113.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_113.png",
       "is_available": true,
       "status": "available"
     },
@@ -117974,7 +117974,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/114.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_114.png",
       "is_available": true,
       "status": "available"
     },
@@ -117987,7 +117987,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/115.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_115.png",
       "is_available": true,
       "status": "available"
     },
@@ -118000,7 +118000,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/116.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_116.png",
       "is_available": true,
       "status": "available"
     },
@@ -118013,7 +118013,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/12.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_12.png",
       "is_available": true,
       "status": "available"
     },
@@ -118026,7 +118026,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/120.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_120.png",
       "is_available": true,
       "status": "available"
     },
@@ -118039,7 +118039,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/122.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_122.png",
       "is_available": true,
       "status": "available"
     },
@@ -118052,7 +118052,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/130.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_130.png",
       "is_available": true,
       "status": "available"
     },
@@ -118065,7 +118065,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/132.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_132.png",
       "is_available": true,
       "status": "available"
     },
@@ -118078,7 +118078,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/133.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_133.png",
       "is_available": true,
       "status": "available"
     },
@@ -118091,7 +118091,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/134.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_134.png",
       "is_available": true,
       "status": "available"
     },
@@ -118104,7 +118104,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/136.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_136.png",
       "is_available": true,
       "status": "available"
     },
@@ -118117,7 +118117,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/188.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_188.png",
       "is_available": true,
       "status": "available"
     },
@@ -118130,7 +118130,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/192.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_192.png",
       "is_available": true,
       "status": "available"
     },
@@ -118143,7 +118143,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/197.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_197.png",
       "is_available": true,
       "status": "available"
     },
@@ -118156,7 +118156,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/198.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_198.png",
       "is_available": true,
       "status": "available"
     },
@@ -118169,7 +118169,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/203.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_203.png",
       "is_available": true,
       "status": "available"
     },
@@ -118182,7 +118182,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/21.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_21.png",
       "is_available": true,
       "status": "available"
     },
@@ -118195,7 +118195,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/210.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_210.png",
       "is_available": true,
       "status": "available"
     },
@@ -118208,7 +118208,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/213.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_213.png",
       "is_available": true,
       "status": "available"
     },
@@ -118221,7 +118221,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/216.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_216.png",
       "is_available": true,
       "status": "available"
     },
@@ -118234,7 +118234,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/226.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_226.png",
       "is_available": true,
       "status": "available"
     },
@@ -118247,7 +118247,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/61.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_61.png",
       "is_available": true,
       "status": "available"
     },
@@ -118260,7 +118260,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/23.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_23.png",
       "is_available": true,
       "status": "available"
     },
@@ -118273,7 +118273,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/233.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_233.png",
       "is_available": true,
       "status": "available"
     },
@@ -118286,7 +118286,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/237.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_237.png",
       "is_available": true,
       "status": "available"
     },
@@ -118299,7 +118299,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/238.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_238.png",
       "is_available": true,
       "status": "available"
     },
@@ -118312,7 +118312,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/239.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_239.png",
       "is_available": true,
       "status": "available"
     },
@@ -118325,7 +118325,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/24.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_24.png",
       "is_available": true,
       "status": "available"
     },
@@ -118338,7 +118338,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/242.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_242.png",
       "is_available": true,
       "status": "available"
     },
@@ -118351,7 +118351,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/244.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_244.png",
       "is_available": true,
       "status": "available"
     },
@@ -118364,7 +118364,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/245.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_245.png",
       "is_available": true,
       "status": "available"
     },
@@ -118377,7 +118377,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/246.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_246.png",
       "is_available": true,
       "status": "available"
     },
@@ -118390,7 +118390,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/25.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_25.png",
       "is_available": true,
       "status": "available"
     },
@@ -118403,7 +118403,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/26.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_26.png",
       "is_available": true,
       "status": "available"
     },
@@ -118416,7 +118416,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/27.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_27.png",
       "is_available": true,
       "status": "available"
     },
@@ -118429,7 +118429,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/32.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_32.png",
       "is_available": true,
       "status": "available"
     },
@@ -118442,7 +118442,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/39.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_39.png",
       "is_available": true,
       "status": "available"
     },
@@ -118455,7 +118455,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/41.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_41.png",
       "is_available": true,
       "status": "available"
     },
@@ -118468,7 +118468,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/42.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_42.png",
       "is_available": true,
       "status": "available"
     },
@@ -118481,7 +118481,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/43.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_43.png",
       "is_available": true,
       "status": "available"
     },
@@ -118494,7 +118494,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/44.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_44.png",
       "is_available": true,
       "status": "available"
     },
@@ -118507,7 +118507,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/49.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_49.png",
       "is_available": true,
       "status": "available"
     },
@@ -118520,7 +118520,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/56.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_56.png",
       "is_available": true,
       "status": "available"
     },
@@ -118533,7 +118533,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/57.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_57.png",
       "is_available": true,
       "status": "available"
     },
@@ -118546,7 +118546,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/58.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_58.png",
       "is_available": true,
       "status": "available"
     },
@@ -118559,7 +118559,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/59.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_59.png",
       "is_available": true,
       "status": "available"
     },
@@ -118572,7 +118572,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/60.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_60.png",
       "is_available": true,
       "status": "available"
     },
@@ -118585,7 +118585,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/62.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_62.png",
       "is_available": true,
       "status": "available"
     },
@@ -118598,7 +118598,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/63.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_63.png",
       "is_available": true,
       "status": "available"
     },
@@ -118611,7 +118611,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/65.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_65.png",
       "is_available": true,
       "status": "available"
     },
@@ -118624,7 +118624,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/74.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_74.png",
       "is_available": true,
       "status": "available"
     },
@@ -118637,7 +118637,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/76.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_76.png",
       "is_available": true,
       "status": "available"
     },
@@ -118650,7 +118650,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/77.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_77.png",
       "is_available": true,
       "status": "available"
     },
@@ -118663,7 +118663,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/80.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_80.png",
       "is_available": true,
       "status": "available"
     },
@@ -118676,7 +118676,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/81.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_81.png",
       "is_available": true,
       "status": "available"
     },
@@ -118689,7 +118689,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/82.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_82.png",
       "is_available": true,
       "status": "available"
     },
@@ -118702,7 +118702,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/84.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_84.png",
       "is_available": true,
       "status": "available"
     },
@@ -118715,7 +118715,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/86.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_86.png",
       "is_available": true,
       "status": "available"
     },
@@ -118728,7 +118728,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "WARD_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/91.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/wardhero_91.png",
       "is_available": true,
       "status": "available"
     }

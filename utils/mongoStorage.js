@@ -385,7 +385,8 @@ async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) 
         { type: 'broadcast_blacklist', file: 'broadcast_blacklist.json' },
         { type: 'featured_bundles', file: 'featured_bundles.json' },
         { type: 'tft_arenas', file: 'tft_arenas.json' },
-        { type: 'weekly_sales', file: 'weekly_sales.json' }
+        { type: 'weekly_sales', file: 'weekly_sales.json' },
+        { type: 'cosmetic_emojis', file: 'cosmetic_emojis.json' }
     ];
 
     for (const item of configFiles) {

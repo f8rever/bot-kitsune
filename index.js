@@ -301,8 +301,35 @@ function carregarEmbeds() {
 }
 carregarEmbeds();
 
+let cosmeticEmojis = {};
+function carregarCosmeticEmojis() {
+    try {
+        const cosmeticPath = path.join(__dirname, 'config', 'cosmetic_emojis.json');
+        if (fs.existsSync(cosmeticPath)) {
+            cosmeticEmojis = JSON.parse(fs.readFileSync(cosmeticPath, 'utf8'));
+        }
+    } catch (e) {
+        console.error("Erro ao carregar cosmetic_emojis.json", e);
+    }
+}
+carregarCosmeticEmojis();
+
+function getCosmeticEmoji(type, itemId) {
+    if (!itemId) return null;
+    const key = `${type}_${itemId}`;
+    if (cosmeticEmojis[key]) return cosmeticEmojis[key];
+    const found = client.emojis?.cache?.find(e => e.name === key) || client.application?.emojis?.cache?.find(e => e.name === key);
+    if (found) {
+        const tag = found.animated ? `<a:${found.name}:${found.id}>` : `<:${found.name}:${found.id}>`;
+        cosmeticEmojis[key] = tag;
+        return tag;
+    }
+    return null;
+}
+
 client.on('reloadEmojis', () => {
     carregarEmojis();
+    carregarCosmeticEmojis();
 });
 client.on('reloadEmbeds', () => {
     carregarEmbeds();
@@ -324,6 +351,24 @@ client.once(Events.ClientReady, async () => {
             console.warn(`[InviteTracker] Não foi possível carregar convites de ${guild.name}:`, e.message);
         }
     }
+
+    // Cache de Application Emojis & Sincronização de Cosméticos
+    try {
+        const app = await client.application.fetch();
+        if (app.emojis) {
+            await app.emojis.fetch();
+            console.log(`[Cosmetics] 🌟 Cache de ${app.emojis.cache.size} application emojis carregado!`);
+        }
+    } catch (e) {}
+
+    try {
+        const mongoStorage = require('./utils/mongoStorage.js');
+        const dbCosmetics = await mongoStorage.getConfiguration('cosmetic_emojis');
+        if (dbCosmetics && typeof dbCosmetics === 'object') {
+            cosmeticEmojis = { ...cosmeticEmojis, ...dbCosmetics };
+            console.log(`[Cosmetics] ☁️ Sincronizado ${Object.keys(cosmeticEmojis).length} emojis cosméticos do MongoDB!`);
+        }
+    } catch (e) {}
 
     // Automatic Slash Commands Deployment to Discord API
     try {
@@ -875,13 +920,19 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Champion', (customEmojis?.skins?.champion || '⚔️').trim());
     }
     else if (tipoFiltro === 'emotes') {
-        return formatarStr('Emote', (customEmojis?.acessorios?.emotes || customEmojis?.utilidades?.emotes || '😃').trim());
+        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
+        const cEmj = getCosmeticEmoji('emote', itemId);
+        return formatarStr('Emote', cEmj || (customEmojis?.acessorios?.emotes || customEmojis?.utilidades?.emotes || '😃').trim());
     }
     else if (tipoFiltro === 'icones') {
-        return formatarStr('Icon', (customEmojis?.acessorios?.icones || customEmojis?.utilidades?.icones || '🖼️').trim());
+        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
+        const cEmj = getCosmeticEmoji('icon', itemId);
+        return formatarStr('Icon', cEmj || (customEmojis?.acessorios?.icones || customEmojis?.utilidades?.icones || '🖼️').trim());
     }
     else if (tipoFiltro === 'wards') {
-        return formatarStr('Ward', (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '👁️').trim());
+        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
+        const cEmj = getCosmeticEmoji('ward', itemId);
+        return formatarStr('Ward', cEmj || (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '👁️').trim());
     }
     else if (tipoFiltro === 'little_legends') {
         return formatarStr('Little Legend', (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '🐥').trim());
@@ -1562,10 +1613,19 @@ async function atualizarEmbedTicket(channel, client) {
 
             if (ddragonUrl) {
                 if (index === 0) {
-                    embed.setImage(ddragonUrl);
+                    if (['emotes', 'icones', 'wards'].includes(item.tipo)) {
+                        embed.setThumbnail(ddragonUrl);
+                    } else {
+                        embed.setImage(ddragonUrl);
+                    }
                     embed.setURL('https://discord.com');
                 } else {
-                    const extraEmbed = new EmbedBuilder().setURL('https://discord.com').setImage(ddragonUrl);
+                    const extraEmbed = new EmbedBuilder().setURL('https://discord.com');
+                    if (['emotes', 'icones', 'wards'].includes(item.tipo)) {
+                        extraEmbed.setThumbnail(ddragonUrl);
+                    } else {
+                        extraEmbed.setImage(ddragonUrl);
+                    }
                     if (embed.data.color) extraEmbed.setColor(embed.data.color);
                     embedsArray.push(extraEmbed);
                 }
@@ -4447,11 +4507,11 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
             results = currentCatalog.filter(x => (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS') && x.nome.toLowerCase().includes(buscaLimpa));
         }
     } else if (tipoFiltro === 'emotes') {
-        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE' && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'EMOTE' && (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))));
     } else if (tipoFiltro === 'icones') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'SUMMONER_ICON' || (x.tipo || '').toUpperCase() === 'ICON') && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'SUMMONER_ICON' || (x.tipo || '').toUpperCase() === 'ICON') && (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))));
     } else if (tipoFiltro === 'wards') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'WARD_SKIN' || (x.tipo || '').toUpperCase() === 'WARD') && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'WARD_SKIN' || (x.tipo || '').toUpperCase() === 'WARD') && (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))));
     } else if (tipoFiltro === 'little_legends') {
         results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'COMPANION' || (x.tipo || '').toUpperCase() === 'LITTLELEGENDS') && x.nome.toLowerCase().includes(buscaLimpa));
     } else if (tipoFiltro === 'tft_arena') {

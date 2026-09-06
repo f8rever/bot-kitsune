@@ -305,7 +305,24 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
          - Cada Eterno possui seu UUID de compra oficial (`offer_id`), preço oficial (600 RP para Série 1 e 2, 225 RP para Série Inicial), `parent_id` do campeão pai e ícone oficial do campeão extraído do DDragon.
          - Nomenclatura oficial em inglês padronizada: `{Champion} - Series 1`, `{Champion} - Series 2`, `{Champion} - Starter Series`.
          - Aprimorada a busca em `buscarEExibirItens` com normalização de texto (`buscaNorm`), localizando campeões mesmo com digitação sem pontuação (ex: "khazix", "mundo", "kaisa", "dr mundo", "nunu") e listando instantaneamente suas 3 séries de Eternos ordenadas.
-
+  - **Emojis Oficiais em Cosméticos (Sentinelas, Emotes e Ícones) + Busca Rápida + Prévia HD (2026-09-06):**
+    - **Demanda do Usuário:** Cada item de sentinela, emote e ícone possuir seu próprio emoji oficial da Riot no select menu para identificação rápida, além de busca e prévia em alta resolução.
+    - **Solução Implementada:**
+      1. **Upload Automático de Emojis:**
+         - Criado `scripts/upload_cosmetics_emojis.js` que indexa os slots de Application Emojis (50 slots) e servidores do bot (`Zed Store` e `KITSUNE x GAMING v2`).
+         - **100% de todas as 68 Sentinelas** da Riot Games hospedadas com emojis personalizados próprios (`ward_${id}`).
+         - Emotes oficiais mapeados com emojis dedicados (`emote_${id}`).
+         - Salvamento automático em `config/cosmetic_emojis.json` e persistência na nuvem via MongoDB Atlas (`bot_configurations`).
+      2. **Integração no Bot (`index.js`):**
+         - Carregamento na inicialização e sincronização contínua com `client.application.emojis` e `client.emojis.cache`.
+         - Em `obterDetalhesItem`, `tipoFiltro === 'wards'`, `emotes` e `icones` agora consultam `getCosmeticEmoji()`, equipando o select menu de páginas (`enviarPaginaCatalogo`) e de busca (`buscarEExibirItens`) com o ícone exato de cada item.
+         - Fallback automático para o emoji padrão da categoria caso não haja emoji customizado disponível.
+      3. **Busca Rápida Normalizada (`btn_search_cat_`):**
+         - Botão `🔍 Search` habilitado em Sentinelas, Emotes e Ícones abrindo modal de texto.
+         - Suporte a busca fuzzy sem acentos (`buscaNorm`), localizando itens por qualquer fragmento de texto.
+      4. **Prévia Visual em HD (`atualizarEmbedTicket`):**
+         - Ícones oficiais em alta resolução extraídos diretamente da CDN da Riot Games (CommunityDragon e DDragon) via `buildFullCatalog.js`.
+         - Exibição de arte oficial em HD como thumbnail nos embeds de ticket e carrinho de compras.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
