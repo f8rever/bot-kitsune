@@ -318,11 +318,19 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
          - Em `obterDetalhesItem`, `tipoFiltro === 'wards'`, `emotes` e `icones` agora consultam `getCosmeticEmoji()`, equipando o select menu de páginas (`enviarPaginaCatalogo`) e de busca (`buscarEExibirItens`) com o ícone exato de cada item.
          - Fallback automático para o emoji padrão da categoria caso não haja emoji customizado disponível.
       3. **Busca Rápida Normalizada (`btn_search_cat_`):**
-         - Botão `🔍 Search` habilitado em Sentinelas, Emotes e Ícones abrindo modal de texto.
+         - Botão `🔍 Search` habilitado em Sentinelas, Emotes, Ícones, TFT Arenas e Little Legends abrindo modal de texto.
          - Suporte a busca fuzzy sem acentos (`buscaNorm`), localizando itens por qualquer fragmento de texto.
       4. **Prévia Visual em HD (`atualizarEmbedTicket`):**
          - Ícones oficiais em alta resolução extraídos diretamente da CDN da Riot Games (CommunityDragon e DDragon) via `buildFullCatalog.js`.
-         - Exibição de arte oficial em HD como thumbnail nos embeds de ticket e carrinho de compras.
+         - Exibição de arte oficial em HD como thumbnail (`setThumbnail`) para Little Legends, Chibis, Wards, Emotes e Ícones.
+         - Exibição panorâmica do campo de batalha (`setImage`) para TFT Arenas nos embeds de ticket e carrinho de compras.
+      5. **TFT Arenas & Little Legends com Emojis Oficiais Animados:**
+         - Criada pipeline automatizada com `gif-encoder-2` e `pngjs` para converter ícones PNG em GIFs animados de 2 quadros (~3KB), contornando o limite de 50 slots estáticos por servidor.
+         - **100% de todas as 22 TFT Arenas oficiais** cadastradas com emojis animados no Discord (`<a:arena_ID:DISCORD_ID>`).
+         - **42 Little Legends e Chibis mais populares** cadastrados com emojis animados nos slots livres (`<a:legend_ID:DISCORD_ID>`).
+         - Fallbacks elegantes para mascotes famosos (`chibi_ahri`, `chibi_vi`, `chibi_gwen`, `poro`).
+         - Distribuição em **Round-Robin** entre os servidores (`Zed Store`, `Kitsune Service`, `Gaming v2`), garantindo imunidade a rate-limits.
+         - Mapeamento sincronizado e persistido no MongoDB Atlas (`bot_configurations` -> `cosmetic_emojis`, totalizando 175 emojis cosméticos indexados).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
