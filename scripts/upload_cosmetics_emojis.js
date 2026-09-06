@@ -1,7 +1,9 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { PNG } = require('pngjs');
+const GIFEncoder = require('gif-encoder-2');
 require('dotenv').config();
 
 const client = new Client({
@@ -13,7 +15,18 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-client.once('ready', async () => {
+function pngToAnimatedGif(pngBuffer) {
+    const png = PNG.sync.read(pngBuffer);
+    const encoder = new GIFEncoder(png.width, png.height, 'octree');
+    encoder.setDelay(1000);
+    encoder.start();
+    encoder.addFrame({ data: png.data });
+    encoder.addFrame({ data: png.data });
+    encoder.finish();
+    return encoder.out.getData();
+}
+
+client.once(Events.ClientReady, async () => {
     try {
         console.log(`[Emoji Uploader] 🚀 Conectado como ${client.user.tag}`);
 
@@ -29,7 +42,7 @@ client.once('ready', async () => {
         const app = await client.application.fetch();
         const appEmojis = await app.emojis.fetch();
         for (const [id, em] of appEmojis) {
-            if (em.name.startsWith('ward_') || em.name.startsWith('emote_') || em.name.startsWith('icon_')) {
+            if (em.name.startsWith('ward_') || em.name.startsWith('emote_') || em.name.startsWith('icon_') || em.name.startsWith('arena_') || em.name.startsWith('legend_') || em.name.startsWith('chibi_')) {
                 const tag = em.animated ? `<a:${em.name}:${em.id}>` : `<:${em.name}:${em.id}>`;
                 cosmeticEmojis[em.name] = tag;
             }
@@ -38,7 +51,7 @@ client.once('ready', async () => {
         for (const [gId, guild] of client.guilds.cache) {
             const gEmojis = await guild.emojis.fetch();
             for (const [id, em] of gEmojis) {
-                if (em.name.startsWith('ward_') || em.name.startsWith('emote_') || em.name.startsWith('icon_')) {
+                if (em.name.startsWith('ward_') || em.name.startsWith('emote_') || em.name.startsWith('icon_') || em.name.startsWith('arena_') || em.name.startsWith('legend_') || em.name.startsWith('chibi_')) {
                     const tag = em.animated ? `<a:${em.name}:${em.id}>` : `<:${em.name}:${em.id}>`;
                     cosmeticEmojis[em.name] = tag;
                 }
@@ -53,9 +66,10 @@ client.once('ready', async () => {
 
         const wards = Object.values(catalog.Wards || {});
         const emotes = Object.values(catalog.Emotes || {});
-        const icons = Object.values(catalog.Icons || {});
+        const arenas = Object.values(catalog.TFTArena || {});
+        const legends = Object.values(catalog.LittleLegends || {});
 
-        console.log(`[Emoji Uploader] 📦 Catálogo: ${wards.length} Wards, ${emotes.length} Emotes, ${icons.length} Icons`);
+        console.log(`[Emoji Uploader] 📦 Catálogo: ${wards.length} Wards, ${emotes.length} Emotes, ${arenas.length} Arenas, ${legends.length} Little Legends`);
 
         // Identificar servidores alvo
         const zedStore = client.guilds.cache.get('1540159601817817168');
@@ -132,42 +146,165 @@ client.once('ready', async () => {
             return null;
         }
 
-        // --- UPLOAD WARDS (Todas as 68 Wards) ---
-        console.log('\n--- UPLOAD DE WARDS ---');
-        let wardsUploaded = 0;
-        for (const w of wards) {
-            const key = `ward_${w.item_id}`;
-            if (cosmeticEmojis[key]) continue;
-            const res = await uploadItemEmoji(key, w.icon_url);
-            if (res) wardsUploaded++;
-        }
-        console.log(`[Emoji Uploader] 👁️ Wards finalizadas (${wardsUploaded} novas criadas)`);
+        const targetGuilds = [zedStore, kitsuneService].filter(Boolean);
+        const guildAnimCounts = new Map();
+        const guildStaticCounts = new Map();
 
-        // --- UPLOAD EMOTES (Slots restantes) ---
-        console.log('\n--- UPLOAD DE EMOTES ---');
-        let emotesUploaded = 0;
-        for (const em of emotes) {
-            const key = `emote_${em.item_id}`;
+        for (const guild of targetGuilds) {
+            try {
+                const ems = await guild.emojis.fetch();
+                guildAnimCounts.set(guild.id, ems.filter(e => e.animated).size);
+                guildStaticCounts.set(guild.id, ems.filter(e => !e.animated).size);
+                console.log(`[Slot Status] ${guild.name}: ${guildStaticCounts.get(guild.id)}/50 static, ${guildAnimCounts.get(guild.id)}/50 animated`);
+            } catch (e) {
+                console.error(`[Slot Fetch Error] ${guild.name}:`, e.message);
+            }
+        }
+
+        function saveProgress() {
+            try {
+                fs.writeFileSync(cosmeticPath, JSON.stringify(cosmeticEmojis, null, 2), 'utf8');
+            } catch (e) {}
+        }
+
+        let roundRobinIndex = 0;
+
+        async function uploadAnimatedEmoji(name, imageUrl) {
+            if (cosmeticEmojis[name]) return cosmeticEmojis[name];
+            if (!imageUrl || !imageUrl.startsWith('http')) return null;
+
+            console.log(`[Emoji Uploader] ⏳ Processando ${name}...`);
+            let gifBuffer = null;
+            try {
+                const res = await axios.get(imageUrl, { responseType: 'arraybuffer', timeout: 12000 });
+                gifBuffer = pngToAnimatedGif(Buffer.from(res.data));
+            } catch (err) {
+                console.warn(`[Emoji Uploader] ⚠️ Falha ao converter imagem para ${name}: ${err.message}`);
+                return null;
+            }
+
+            for (let i = 0; i < targetGuilds.length; i++) {
+                const guild = targetGuilds[(roundRobinIndex + i) % targetGuilds.length];
+                const animCount = guildAnimCounts.get(guild.id) || 0;
+                const max = guild.maximumEmojis || 50;
+                if (animCount < max) {
+                    console.log(`[Emoji Uploader] 📤 Tentando ${name} em ${guild.name} (${animCount}/${max})...`);
+                    try {
+                        const em = await guild.emojis.create({ attachment: gifBuffer, name });
+                        const tag = `<a:${em.name}:${em.id}>`;
+                        cosmeticEmojis[name] = tag;
+                        guildAnimCounts.set(guild.id, animCount + 1);
+                        roundRobinIndex = (roundRobinIndex + i + 1) % targetGuilds.length;
+                        console.log(`[${guild.name} Anim] ✅ Criado ${name} -> ${tag} (${animCount + 1}/${max})`);
+                        saveProgress();
+                        await sleep(DELAY_MS);
+                        return tag;
+                    } catch (e) {
+                        console.error(`[Anim Emoji Error] ${guild.name} ${name}:`, e.message);
+                        if (e.message && e.message.includes('Maximum number of emojis reached')) {
+                            guildAnimCounts.set(guild.id, max);
+                        } else if (e.status === 429 || (e.message && e.message.includes('rate limit'))) {
+                            console.log(`[Rate Limit] ${guild.name} em cooldown. Tentando próximo servidor no round-robin...`);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        // --- VERIFICAÇÃO DE SLOTS ESTÁTICOS ---
+        const totalStaticFree = Math.max(0, 50 - appEmojis.size) +
+            Math.max(0, (zedStore?.maximumEmojis || 50) - (guildStaticCounts.get(zedStore?.id) || 50)) +
+            Math.max(0, (kitsuneGaming?.maximumEmojis || 50) - (guildStaticCounts.get(kitsuneGaming?.id) || 50));
+        console.log(`[Slot Status] Slots estáticos livres no total: ${totalStaticFree}`);
+
+        if (totalStaticFree > 0) {
+            console.log('\n--- UPLOAD DE WARDS ---');
+            let wardsUploaded = 0;
+            for (const w of wards) {
+                const key = `ward_${w.item_id}`;
+                if (cosmeticEmojis[key]) continue;
+                const res = await uploadItemEmoji(key, w.icon_url);
+                if (res) {
+                    wardsUploaded++;
+                    saveProgress();
+                }
+            }
+            console.log(`[Emoji Uploader] 👁️ Wards finalizadas (${wardsUploaded} novas criadas)`);
+
+            console.log('\n--- UPLOAD DE EMOTES ---');
+            let emotesUploaded = 0;
+            for (const em of emotes) {
+                const key = `emote_${em.item_id}`;
+                if (cosmeticEmojis[key]) continue;
+                const res = await uploadItemEmoji(key, em.icon_url);
+                if (res) {
+                    emotesUploaded++;
+                    saveProgress();
+                } else {
+                    break;
+                }
+            }
+            console.log(`[Emoji Uploader] 😃 Emotes finalizados (${emotesUploaded} novos criados)`);
+        } else {
+            console.log(`[Emoji Uploader] ℹ️ Todos os slots estáticos estão 100% cheios (App: 50/50, Servidores: 50/50). Pulando Wards/Emotes.`);
+        }
+
+        // --- UPLOAD TFT ARENAS (Slots animados) ---
+        console.log('\n--- UPLOAD DE TFT ARENAS ---');
+        let arenasUploaded = 0;
+        for (const ar of arenas) {
+            const key = `arena_${ar.item_id || ar.id}`;
             if (cosmeticEmojis[key]) continue;
-            const res = await uploadItemEmoji(key, em.icon_url);
+            const res = await uploadAnimatedEmoji(key, ar.icon_url);
+            if (res) arenasUploaded++;
+        }
+        console.log(`[Emoji Uploader] 🏟️ TFT Arenas finalizadas (${arenasUploaded} novas criadas)`);
+
+        // --- UPLOAD LITTLE LEGENDS & CHIBIS (Slots animados restantes) ---
+        console.log('\n--- UPLOAD DE LITTLE LEGENDS & CHIBIS ---');
+        const popularOrder = [
+            'dango', 'choncc', 'pengu', 'fuwa', 'shisa', 'poro', 'ao shin', 'hushtail',
+            'furyhorn', 'silverwing', 'hauntling', 'qiqi', 'melisma', 'ossia', 'squink',
+            'bellswayer', 'umbra', 'burno', 'abyssia', 'fenroar', 'dowsie', 'poggles',
+            'piximander', 'molediver', 'starmaw', 'lightcharger', 'tocker', 'paddlemar',
+            'craggle', 'flutterbug', 'blubble', 'snek', 'kuro'
+        ];
+
+        const sortedLegends = [...legends].sort((a, b) => {
+            const nameA = (a.nome || a.name || '').toLowerCase();
+            const nameB = (b.nome || b.name || '').toLowerCase();
+            let scoreA = 999;
+            let scoreB = 999;
+            popularOrder.forEach((k, idx) => {
+                if (nameA.includes(k) && scoreA === 999) scoreA = idx;
+                if (nameB.includes(k) && scoreB === 999) scoreB = idx;
+            });
+            return scoreA - scoreB;
+        });
+
+        let legendsUploaded = 0;
+        for (const leg of sortedLegends) {
+            const key = `legend_${leg.item_id || leg.id}`;
+            if (cosmeticEmojis[key]) continue;
+            const res = await uploadAnimatedEmoji(key, leg.icon_url);
             if (res) {
-                emotesUploaded++;
+                legendsUploaded++;
             } else {
-                // Sem slots livres restantes
-                console.log(`[Emoji Uploader] ℹ️ Limite de slots atingido para Emotes.`);
+                console.log(`[Emoji Uploader] ℹ️ Limite de slots animados atingido para Little Legends.`);
                 break;
             }
         }
-        console.log(`[Emoji Uploader] 😃 Emotes finalizados (${emotesUploaded} novos criados)`);
+        console.log(`[Emoji Uploader] 🐥 Little Legends finalizadas (${legendsUploaded} novas criadas)`);
 
-        // Salvar em arquivo local
+        // Salvar em arquivo local final
         fs.writeFileSync(cosmeticPath, JSON.stringify(cosmeticEmojis, null, 2), 'utf8');
         console.log(`\n[Emoji Uploader] 💾 Salvo em ${cosmeticPath} com ${Object.keys(cosmeticEmojis).length} emojis mapeados!`);
 
         // Sincronizar com MongoDB Atlas
         try {
             const mongoStorage = require('../utils/mongoStorage.js');
-            await mongoStorage.saveConfiguration('cosmetic_emojis', cosmeticEmojis);
+            await mongoStorage.saveBotConfigToMongo('cosmetic_emojis', cosmeticEmojis);
             console.log('[Emoji Uploader] ☁️ Sincronizado com MongoDB Atlas (bot_configurations)!');
         } catch (mErr) {
             console.warn('[Emoji Uploader] ⚠️ MongoDB sync warning:', mErr.message);

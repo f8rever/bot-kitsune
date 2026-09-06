@@ -935,10 +935,21 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Ward', cEmj || (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '👁️').trim());
     }
     else if (tipoFiltro === 'little_legends') {
-        return formatarStr('Little Legend', (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '🐥').trim());
+        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
+        const itemName = (nomeItem || rawItem?.nome || rawItem?.name || '').toLowerCase();
+        let cEmj = getCosmeticEmoji('legend', itemId) || getCosmeticEmoji('chibi', itemId);
+        if (!cEmj) {
+            if (itemName.includes('ahri')) cEmj = customEmojis?.utilidades?.chibi_ahri;
+            else if (itemName.includes('vi')) cEmj = customEmojis?.utilidades?.chibi_vi;
+            else if (itemName.includes('gwen')) cEmj = customEmojis?.utilidades?.chibi_gwen;
+            else if (itemName.includes('poro')) cEmj = customEmojis?.utilidades?.poro;
+        }
+        return formatarStr('Little Legend', cEmj || (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '🐥').trim());
     }
     else if (tipoFiltro === 'tft_arena') {
-        return formatarStr('TFT Arena', (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim());
+        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
+        const cEmj = getCosmeticEmoji('arena', itemId);
+        return formatarStr('TFT Arena', cEmj || (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim());
     }
     else if (tipoFiltro === 'boosts') {
         return formatarStr('Boost', (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '⚡').trim());
@@ -1594,7 +1605,26 @@ async function atualizarEmbedTicket(channel, client) {
                     if (champKey) ddragonUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`;
                 }
             }
-            // 7. Pacotes e outros itens
+            // 7. TFT Arenas
+            else if (item.tipo === 'tft_arena') {
+                if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                } else {
+                    const tftArenasPath = path.join(__dirname, 'config', 'tft_arenas.json');
+                    try {
+                        const arenaList = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
+                        const ar = arenaList.find(a => a.id === item.itemId || a.name.toLowerCase() === (item.nome || '').toLowerCase());
+                        if (ar && ar.iconUrl) ddragonUrl = ar.iconUrl;
+                    } catch (e) {}
+                }
+            }
+            // 8. Little Legends & Chibis
+            else if (item.tipo === 'little_legends') {
+                if (catItemEncontrado && catItemEncontrado.iconUrl) {
+                    ddragonUrl = catItemEncontrado.iconUrl.startsWith('//') ? 'https:' + catItemEncontrado.iconUrl : catItemEncontrado.iconUrl;
+                }
+            }
+            // 9. Pacotes e outros itens
             else {
                 const itemIdNum = parseInt(item.itemId || catItemEncontrado?.id, 10);
                 if (itemIdNum && !isNaN(itemIdNum) && itemIdNum >= 10000) {
@@ -1613,7 +1643,7 @@ async function atualizarEmbedTicket(channel, client) {
 
             if (ddragonUrl) {
                 if (index === 0) {
-                    if (['emotes', 'icones', 'wards'].includes(item.tipo)) {
+                    if (['emotes', 'icones', 'wards', 'little_legends'].includes(item.tipo)) {
                         embed.setThumbnail(ddragonUrl);
                     } else {
                         embed.setImage(ddragonUrl);
@@ -1621,7 +1651,7 @@ async function atualizarEmbedTicket(channel, client) {
                     embed.setURL('https://discord.com');
                 } else {
                     const extraEmbed = new EmbedBuilder().setURL('https://discord.com');
-                    if (['emotes', 'icones', 'wards'].includes(item.tipo)) {
+                    if (['emotes', 'icones', 'wards', 'little_legends'].includes(item.tipo)) {
                         extraEmbed.setThumbnail(ddragonUrl);
                     } else {
                         extraEmbed.setImage(ddragonUrl);
@@ -4513,9 +4543,36 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     } else if (tipoFiltro === 'wards') {
         results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'WARD_SKIN' || (x.tipo || '').toUpperCase() === 'WARD') && (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))));
     } else if (tipoFiltro === 'little_legends') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'COMPANION' || (x.tipo || '').toUpperCase() === 'LITTLELEGENDS') && x.nome.toLowerCase().includes(buscaLimpa));
+        results = currentCatalog.filter(x => {
+            const t = (x.tipo || '').toUpperCase();
+            if (t !== 'COMPANION' && t !== 'LITTLELEGENDS') return false;
+            return (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm)));
+        });
     } else if (tipoFiltro === 'tft_arena') {
-        results = currentCatalog.filter(x => ((x.tipo || '').toUpperCase() === 'TFT_MAP_SKIN' || (x.tipo || '').toUpperCase() === 'TFTARENA' || (x.tipo || '').toUpperCase() === 'TFT_DAMAGE_SKIN') && x.nome.toLowerCase().includes(buscaLimpa));
+        const tftArenasPath = path.join(__dirname, 'config', 'tft_arenas.json');
+        let pool = [];
+        if (fs.existsSync(tftArenasPath)) {
+            try {
+                const arenaList = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
+                if (arenaList.length > 0) {
+                    pool = arenaList.map(a => ({
+                        id: a.id,
+                        nome: a.name,
+                        tipo: 'TFT_MAP_SKIN',
+                        iconUrl: a.iconUrl || null,
+                        price_rp: a.price_rp,
+                        rawItem: a
+                    }));
+                }
+            } catch (e) {}
+        }
+        if (pool.length === 0) {
+            pool = currentCatalog.filter(x => {
+                const t = (x.tipo || '').toUpperCase();
+                return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
+            });
+        }
+        results = pool.filter(x => (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))));
     } else if (tipoFiltro === 'boosts') {
         results = currentCatalog.filter(x => (x.tipo || '').toUpperCase() === 'BOOST' && x.nome.toLowerCase().includes(buscaLimpa));
     } else if (tipoFiltro === 'misterio') {

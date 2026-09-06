@@ -110020,18 +110020,6 @@
       "is_available": true,
       "status": "available"
     },
-    "Variant Discount: Star Guardian Soraka / Pajama Guardian Soraka": {
-      "offer_id": "cb91fce8-cae2-4b52-bb53-97464cf0a891",
-      "item_id": 91000005,
-      "price_rp": 2092,
-      "regular_rp": 2092,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/storeCards/bundles/Storecard_SkinVariantBundle_pajamaSoraka.jpg",
-      "is_available": true,
-      "status": "available"
-    },
     "Variant Discount: Solar Eclipse Leona / Lunar Eclipse Leona": {
       "offer_id": "cb91fce8-cae2-4b52-bb53-97464cf0a891",
       "item_id": 91000006,
@@ -110276,7 +110264,33 @@
       "is_available": true,
       "status": "available"
     },
-    "Default Arena": {
+    "Hextech Chest": {
+      "offer_id": "3a24fd7a-1fcc-4861-a146-e0c2ec5ff646",
+      "item_id": 1,
+      "parent_id": null,
+      "price_rp": 125,
+      "regular_rp": 125,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "HEXTECH_CRAFTING",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Hextech Key": {
+      "offer_id": "f60cd2c5-4d55-49ef-b9fb-4bb1f196dd80",
+      "item_id": 3,
+      "parent_id": null,
+      "price_rp": 125,
+      "regular_rp": 125,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "HEXTECH_CRAFTING",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Mystery Skin Gift": {
       "offer_id": "79b0d3cc-5fd0-4cbd-a986-54d2d1e5c9e2",
       "item_id": 1,
       "parent_id": null,
@@ -110289,7 +110303,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Rift Arena": {
+    "Mystery Champion Gift": {
       "offer_id": "526ee5a2-9c99-4f68-b65d-1b7c81c0d6b4",
       "item_id": 3,
       "parent_id": null,
@@ -110302,7 +110316,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Arrowhead Arena": {
+    "Mystery Chest Gift": {
       "offer_id": "1dac545d-6ba1-472e-b800-83f936ec5da9",
       "item_id": 4,
       "parent_id": null,
@@ -110837,7 +110851,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Arclight Yorick Icon": {
+    "Bee Happy": {
       "offer_id": "9616287a-94e0-4a65-b4b9-9592223b86d4",
       "item_id": 3153,
       "parent_id": null,
@@ -110967,7 +110981,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Super Galaxy Icon": {
+    "So Lame": {
       "offer_id": "e6b96dd5-bc2e-4cdf-9816-0013b53db48c",
       "item_id": 3176,
       "parent_id": null,
@@ -111045,7 +111059,7 @@
       "is_available": true,
       "status": "available"
     },
-    "PROJECT: Vayne Icon": {
+    "Tough Times": {
       "offer_id": "1afc989d-f0ca-4b89-a0ba-c88ba412ada6",
       "item_id": 3182,
       "parent_id": null,
@@ -111058,7 +111072,7 @@
       "is_available": true,
       "status": "available"
     },
-    "PROJECT: Vi Icon": {
+    "Gosh": {
       "offer_id": "b166e82f-1a22-49f0-8207-41afdce2c6b9",
       "item_id": 3183,
       "parent_id": null,
@@ -111071,7 +111085,7 @@
       "is_available": true,
       "status": "available"
     },
-    "PROJECT: Jhin Icon": {
+    "Golly": {
       "offer_id": "65dfae8f-3889-4dec-a460-a05306be0994",
       "item_id": 3184,
       "parent_id": null,
@@ -111851,7 +111865,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Season 2019 - Flex Diamond Icon": {
+    "Highlights & Shadows": {
       "offer_id": "c626e406-80c5-4e16-81a2-a905be5c7e34",
       "item_id": 4434,
       "parent_id": null,
@@ -111864,7 +111878,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Season 2019 - Flex Master Icon": {
+    "Shadows & Highlights": {
       "offer_id": "876e3dc1-92c0-4f4a-93f7-94c217dc5f76",
       "item_id": 4435,
       "parent_id": null,
@@ -113517,7 +113531,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Cosmic Tracer Tier 1": {
+    "Pentakill Mordekaiser Icon": {
       "offer_id": "8017aca2-1556-485e-aef7-43fd35931809",
       "item_id": 3001,
       "parent_id": null,
@@ -113530,7 +113544,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Cosmic Tracer Tier 2": {
+    "Pentakill Olaf Icon": {
       "offer_id": "9fb8f243-f49f-49e3-bdd2-393aa378ceb7",
       "item_id": 3002,
       "parent_id": null,
@@ -113543,7 +113557,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Cosmic Tracer Tier 3": {
+    "Pentakill Sona Icon": {
       "offer_id": "6e5dbbc5-b5b7-4869-95dc-982559dc7749",
       "item_id": 3003,
       "parent_id": null,
@@ -118734,33 +118748,20 @@
     }
   },
   "Boosts": {
-    "Starcall Ward": {
-      "offer_id": "318fb7a4-385f-496a-9046-ec0dd69574d0",
-      "item_id": 10,
+    "XP Boost": {
+      "offer_id": "a9e97b02-3995-4eec-b603-da45b33994da",
+      "item_id": 6,
       "parent_id": null,
-      "price_rp": 670,
-      "regular_rp": 670,
+      "price_rp": 290,
+      "regular_rp": 290,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BOOST",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/10.png",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6.png",
       "is_available": true,
       "status": "available"
     },
-    "Runic Arena": {
-      "offer_id": "0422601d-3bdd-4c13-9521-09b5025b1243",
-      "item_id": 2,
-      "parent_id": null,
-      "price_rp": 520,
-      "regular_rp": 520,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BOOST",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Supernova Arena": {
+    "5 Wins XP Boost": {
       "offer_id": "20d37862-d715-44b2-9719-7a6174ef2709",
       "item_id": 20,
       "parent_id": null,
@@ -118773,7 +118774,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Odyssey Yasuo Arena": {
+    "15 Wins XP Boost": {
       "offer_id": "29c83572-6399-4e65-80c6-ca09229a0c42",
       "item_id": 22,
       "parent_id": null,
@@ -118786,7 +118787,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Mecha Ward": {
+    "25 Wins XP Boost": {
       "offer_id": "85583d82-5165-4806-b89f-2bc28ea09bd9",
       "item_id": 24,
       "parent_id": null,
@@ -118799,7 +118800,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Armordillo Ward": {
+    "40 Wins XP Boost": {
       "offer_id": "3419d3d4-0bd0-43d4-83b9-1bad1a832988",
       "item_id": 25,
       "parent_id": null,
@@ -118812,7 +118813,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Sad Mummy Ward": {
+    "14 Days XP Boost": {
       "offer_id": "2f192291-06f9-4826-a16f-140cf3fce107",
       "item_id": 26,
       "parent_id": null,
@@ -118825,7 +118826,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Sun Disc Ward": {
+    "30 Days XP Boost": {
       "offer_id": "ae132807-0019-463a-aea4-9d7d87a077d4",
       "item_id": 27,
       "parent_id": null,
@@ -118838,7 +118839,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Festival Arena": {
+    "3 Wins XP Boost": {
       "offer_id": "688258b3-9451-44a4-b9f8-6cdb61de7321",
       "item_id": 28,
       "parent_id": null,
@@ -118848,32 +118849,6 @@
       "discount_percent": null,
       "inventory_type": "BOOST",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/28.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Rift Arena": {
-      "offer_id": "10a510fc-52fc-4b56-9458-194517675f04",
-      "item_id": 3,
-      "parent_id": null,
-      "price_rp": 1020,
-      "regular_rp": 1020,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BOOST",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Verdant Arena": {
-      "offer_id": "a9e97b02-3995-4eec-b603-da45b33994da",
-      "item_id": 6,
-      "parent_id": null,
-      "price_rp": 290,
-      "regular_rp": 290,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BOOST",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6.png",
       "is_available": true,
       "status": "available"
     }
@@ -118888,11 +118863,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/10001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgcat_dango_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Hydroblast Tier 1": {
+    "Shadow Isles Hauntling 1 Star": {
       "offer_id": "29d1b6dd-1e22-425e-82fc-df3b990ed1f5",
       "item_id": 1001,
       "parent_id": null,
@@ -118901,7 +118876,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_spooky_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118914,7 +118889,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1021.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_sentinel_sentinel1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118927,7 +118902,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_dragon_hauntling1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118940,7 +118915,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_dragon_hauntling2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118953,7 +118928,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_dragon_hauntling3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118966,7 +118941,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_dragon_hauntling4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118979,7 +118954,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/1034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_ghosty_dragon_hauntling5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -118992,7 +118967,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/104001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_snake_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119005,7 +118980,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/11001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgpig_fuwa_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119018,7 +118993,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/11022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgpig_rpg_order_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119031,7 +119006,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/11025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgpig_rpg_neutral_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119044,7 +119019,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/11028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgpig_rpg_chaos_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119057,7 +119032,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/111001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fishball_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119070,7 +119045,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/117001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_kuroshiro_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119083,7 +119058,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/12001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgshisa_shisa_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119096,7 +119071,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/12028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgshisa_mecha_mecha1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119109,7 +119084,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/12034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgshisa_mecha_mecha3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119122,7 +119097,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/12037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgshisa_mecha_mecha4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119135,7 +119110,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/12040.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sgshisa_mecha_mecha5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119148,7 +119123,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/13001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_akalidragon_ossia_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119161,7 +119136,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_qiqi_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119174,7 +119149,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_progressday_progressday1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119187,7 +119162,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_progressday_progressday2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119200,7 +119175,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_progressday_progressday3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119213,7 +119188,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_progressday_progressday4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119226,7 +119201,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/14031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_qiyanadog_progressday_progressday5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119239,7 +119214,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/15001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sennabunny_melisma_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119252,7 +119227,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/15019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sennabunny_spiritblossomkami_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119265,7 +119240,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/15022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_sennabunny_spiritblossomyokai_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119278,7 +119253,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/16001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_hextechbirb_tocker_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119291,7 +119266,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/17001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_buglet_flutterbug_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119304,7 +119279,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/17019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_buglet_sentinel_sentinel1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119317,7 +119292,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/18001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gargoyle_craggle_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119330,7 +119305,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/18019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gargoyle_sentinel_sentinel1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119343,7 +119318,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_base_squink_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119356,7 +119331,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_kdaevelynn_kda1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119369,7 +119344,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_kdaevelynn_kda2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119382,7 +119357,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_highnoon_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119395,7 +119370,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_highnoon_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119408,7 +119383,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_highnoon_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119421,7 +119396,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_highnoon_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119434,7 +119409,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_highnoon_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119447,7 +119422,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19040.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_mecha_mecha1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119460,7 +119435,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19046.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_mecha_mecha3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119473,7 +119448,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19049.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_mecha_mecha4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119486,7 +119461,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/19052.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dssquid_mecha_mecha5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119499,11 +119474,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/20001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dsswordguy_abyssia_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Zap Bolt Tier 1": {
+    "Demacian Silverwing 1 Star": {
       "offer_id": "d7a95c28-952c-49d3-b180-f53411313dee",
       "item_id": 2001,
       "parent_id": null,
@@ -119512,7 +119487,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_cream_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119525,7 +119500,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2023.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_dragonslayer_silverwing1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119538,7 +119513,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2026.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_dragonslayer_silverwing2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119551,7 +119526,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2029.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_dragonslayer_silverwing3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119564,7 +119539,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2032.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_dragonslayer_silverwing4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119577,7 +119552,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/2035.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_griffin_dragonslayer_silverwing5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119590,7 +119565,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/21001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dswhale_starmaw_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119603,7 +119578,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_kdaseraphine_kda1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119616,7 +119591,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_kdaseraphine_kda2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119629,7 +119604,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_progressday_progressday1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119642,7 +119617,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_progressday_progressday2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119655,7 +119630,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_progressday_progressday3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119668,7 +119643,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_progressday_progressday4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119681,7 +119656,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/22037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pegasus_progressday_progressday5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119694,7 +119669,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119707,7 +119682,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_base_elder_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119720,7 +119695,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_base_firecracker_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119733,7 +119708,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_base_darkstar_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119746,7 +119721,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_base_divine_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119759,7 +119734,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_spiritfairy_spiritfairy1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119772,7 +119747,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_spiritfairy_spiritfairy2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119785,7 +119760,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_spiritfairy_spiritfairy3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119798,7 +119773,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_spiritfairy_spiritfairy4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119811,7 +119786,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_spiritfairy_spiritfairy5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119824,7 +119799,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_band_band1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119837,7 +119812,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25043.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_band_band3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119850,7 +119825,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25046.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_band_band4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119863,7 +119838,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/25049.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_aoshin_band_band5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119876,7 +119851,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119889,7 +119864,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_blackmist_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119902,7 +119877,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_fruitytooty_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119915,7 +119890,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_thunderbeast_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119928,7 +119903,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_bloodmoon_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119941,7 +119916,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_rpg_order_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119954,7 +119929,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_rpg_neutral_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119967,7 +119942,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_rpg_chaos_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119980,7 +119955,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_poolparty_swimming1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -119993,7 +119968,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_poolparty_swimming2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120006,7 +119981,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_poolparty_swimming3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120019,7 +119994,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_poolparty_swimming4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120032,7 +120007,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26040.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_poolparty_swimming5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120045,7 +120020,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26043.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_band_band1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120058,7 +120033,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26046.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_band_band2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120071,7 +120046,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26052.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_band_band4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120084,7 +120059,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/26055.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_umbra_band_band5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120097,7 +120072,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120110,7 +120085,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_atlantean_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120123,7 +120098,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_earthtitan_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120136,7 +120111,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_fireborn_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120149,7 +120124,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_preciouspanda_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120162,7 +120137,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_poolparty_swimmer1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120175,7 +120150,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_poolparty_swimmer2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120188,7 +120163,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_poolparty_swimmer3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120201,7 +120176,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_band_band1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120214,7 +120189,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27040.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_band_band2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120227,7 +120202,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27043.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_band_band3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120240,7 +120215,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/27046.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_choncc_band_band4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120253,7 +120228,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120266,7 +120241,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120279,7 +120254,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120292,7 +120267,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120305,7 +120280,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120318,7 +120293,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_ink_ink1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120331,7 +120306,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29043.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_ink_ink3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120344,7 +120319,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/29049.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_dowsie_ink_ink5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120357,7 +120332,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120370,7 +120345,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120383,11 +120358,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Cosmic Tracer Tier 1": {
+    "Molten Furyhorn 1 Star": {
       "offer_id": "ab349d9b-699f-4881-843f-b32be0568c97",
       "item_id": 3001,
       "parent_id": null,
@@ -120396,7 +120371,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_red_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120409,7 +120384,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120422,7 +120397,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120435,7 +120410,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_prgressday_prgressday1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120448,7 +120423,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_prgressday_prgressday2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120461,7 +120436,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_prgressday_prgressday3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120474,7 +120449,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_prgressday_prgressday4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120487,7 +120462,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/30031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_fenroar_prgressday_prgressday5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120500,7 +120475,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3020.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_kdakaisa_kda1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120513,7 +120488,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3023.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_kdakaisa_kda2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120526,7 +120501,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3035.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_starguardian_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120539,7 +120514,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3038.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_starguardian_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120552,7 +120527,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3041.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_starguardian_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120565,7 +120540,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3044.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_starguardian_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120578,7 +120553,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/3047.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_grumpylion_starguardian_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120591,7 +120566,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/31001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_nimblefoot_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120604,7 +120579,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/31004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_nimblefoot_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120617,7 +120592,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/31007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_nimblefoot_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120630,7 +120605,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/31010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_nimblefoot_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120643,7 +120618,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/31013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_nimblefoot_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120656,7 +120631,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/39001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_balldragon_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120669,7 +120644,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/39004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_balldragon_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120682,7 +120657,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/39010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_balldragon_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120695,7 +120670,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/39013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_balldragon_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120708,7 +120683,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/39016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_balldragon_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120721,7 +120696,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120734,11 +120709,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Nova Bomb Tier 1": {
+    "Soft-nosed Molediver 1 Star": {
       "offer_id": "9ac5f316-4fa0-4f4f-b92f-fea812c5c0d6",
       "item_id": 4001,
       "parent_id": null,
@@ -120747,7 +120722,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/4001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_miner_grey_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120760,7 +120735,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120773,7 +120748,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120786,7 +120761,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120799,7 +120774,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant6_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120812,7 +120787,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/40022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_piximander_base_variant7_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120825,11 +120800,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/4022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_miner_rpg_order_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Corki Corgi Icon": {
+    "Ironclad Molediver 1 Star": {
       "offer_id": "37f757f5-c502-4696-bb0e-d339317cebf5",
       "item_id": 4025,
       "parent_id": null,
@@ -120838,7 +120813,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/4025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_miner_rpg_neutral_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120851,7 +120826,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/4028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_miner_rpg_chaos_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120864,7 +120839,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120877,7 +120852,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120890,7 +120865,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120903,7 +120878,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120916,7 +120891,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120929,7 +120904,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant6_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120942,7 +120917,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gloop_base_variant7_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120955,7 +120930,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120968,7 +120943,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120981,7 +120956,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -120994,7 +120969,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121007,7 +120982,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121020,7 +120995,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121033,7 +121008,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_duckbill_base_variant6_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121046,7 +121021,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121059,7 +121034,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121072,7 +121047,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121085,7 +121060,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121098,7 +121073,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121111,7 +121086,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_mecha_mecha1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121124,7 +121099,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_mecha_mecha2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121137,7 +121112,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_mecha_mecha3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121150,7 +121125,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/43031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_jawdragon_mecha_mecha5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121163,7 +121138,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/46001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pupdragon_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121176,7 +121151,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/46004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pupdragon_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121189,7 +121164,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/46007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pupdragon_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121202,7 +121177,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/46010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pupdragon_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121215,7 +121190,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/46013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_pupdragon_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121228,7 +121203,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/47001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_elegantdragon_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121241,7 +121216,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/47004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_elegantdragon_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121254,7 +121229,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/47007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_elegantdragon_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121267,7 +121242,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/47010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_elegantdragon_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121280,7 +121255,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/47016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_elegantdragon_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121293,7 +121268,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/5001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_minigolem_grey_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121306,7 +121281,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/52001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bunny_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121319,7 +121294,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/52004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bunny_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121332,7 +121307,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/52007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bunny_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121345,7 +121320,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/52013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bunny_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121358,7 +121333,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/52016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bunny_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121371,7 +121346,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/53001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_creepycat_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121384,7 +121359,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/53007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_creepycat_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121397,7 +121372,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/55001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_koala_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121410,7 +121385,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/55004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_koala_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121423,7 +121398,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/55007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_koala_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121436,7 +121411,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/55010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_koala_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121449,11 +121424,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/55013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_koala_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Ashe Illustration Icon": {
+    "Pengu Featherknight 1 Star": {
       "offer_id": "52e0ca16-4efd-4a73-a64a-dbc72afb0f57",
       "item_id": 6001,
       "parent_id": null,
@@ -121462,11 +121437,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Elise Illustration Icon": {
+    "Kanmei Featherknight 1 Star": {
       "offer_id": "f7e8a21b-0f2f-45b3-8fcc-21f08b38c43b",
       "item_id": 6019,
       "parent_id": null,
@@ -121475,11 +121450,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritblossomkami_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Fiddlesticks Illustration Icon": {
+    "Akana Featherknight 1 Star": {
       "offer_id": "eeb7f41a-a68e-4dcc-b55d-833bbc6192a0",
       "item_id": 6022,
       "parent_id": null,
@@ -121488,11 +121463,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritblossomyokai_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Galio Illustration Icon": {
+    "K/DA ALL OUT Featherknight 1 Star": {
       "offer_id": "d5bff69e-3486-4466-96f5-93634c3c3686",
       "item_id": 6025,
       "parent_id": null,
@@ -121501,11 +121476,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_kdaakali_kda1_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Gnar Illustration Icon": {
+    "K/DA POP/STARS Featherknight 1 Star": {
       "offer_id": "c3928223-3123-4983-8b05-453c3ddf6da9",
       "item_id": 6028,
       "parent_id": null,
@@ -121514,7 +121489,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_kdaakali_kda2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121527,11 +121502,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6039.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritfairy_spiritfairy1_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Jinx Illustration Icon": {
+    "Ember Inktales Featherknight 1 Star": {
       "offer_id": "ae7407cb-fa6e-4d1c-a089-83ec6dc7416f",
       "item_id": 6042,
       "parent_id": null,
@@ -121540,11 +121515,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6042.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritfairy_spiritfairy2_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Kalista Illustration Icon": {
+    "Galeborn Inktales Featherknight 1 Star": {
       "offer_id": "b7d6a967-bebb-46a9-b716-4096aa3515c3",
       "item_id": 6045,
       "parent_id": null,
@@ -121553,11 +121528,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6045.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritfairy_spiritfairy3_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Kassadin Illustration Icon": {
+    "Terra Inktales Featherknight 1 Star": {
       "offer_id": "aabc1d55-f752-4b3d-96fc-0a798e20ab63",
       "item_id": 6048,
       "parent_id": null,
@@ -121566,11 +121541,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6048.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritfairy_spiritfairy4_tier1.png",
       "is_available": true,
       "status": "available"
     },
-    "Kayn Illustration Icon": {
+    "Azure Inktales Featherknight 1 Star": {
       "offer_id": "2def0499-f72c-4f4d-80c0-255e70977fac",
       "item_id": 6051,
       "parent_id": null,
@@ -121579,7 +121554,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/6051.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_penguknight_spiritfairy_spiritfairy5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121592,7 +121567,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/61001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_heroicowl_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121605,7 +121580,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/61004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_heroicowl_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121618,7 +121593,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/61007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_heroicowl_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121631,7 +121606,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/61010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_heroicowl_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121644,7 +121619,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/61016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_heroicowl_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121657,7 +121632,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/62001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_scuttlecrab_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121670,7 +121645,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/62004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_scuttlecrab_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121683,7 +121658,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/62007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_scuttlecrab_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121696,7 +121671,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/62010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_scuttlecrab_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121709,7 +121684,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/62013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_scuttlecrab_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121722,7 +121697,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/63001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_shark_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121735,7 +121710,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/63004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_shark_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121748,7 +121723,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/63010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_shark_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121761,7 +121736,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/63013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_shark_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121774,7 +121749,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/63016.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_shark_base_variant5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121787,7 +121762,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/65001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_razorbeak_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121800,7 +121775,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/65004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_razorbeak_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121813,7 +121788,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/65007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_razorbeak_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121826,7 +121801,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/65010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_razorbeak_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121839,7 +121814,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/65013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_razorbeak_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121852,7 +121827,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/66001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_poro_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121865,7 +121840,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_voideye_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121878,7 +121853,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_voideye_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121891,7 +121866,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_voideye_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121904,7 +121879,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_voideye_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121917,7 +121892,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_voideye_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121930,7 +121905,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/7001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_gemtiger_jeweled_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121943,7 +121918,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/71001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_smolknifedog_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121956,7 +121931,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/71004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_smolknifedog_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121969,7 +121944,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/71007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_smolknifedog_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121982,7 +121957,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/71010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_smolknifedog_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -121995,7 +121970,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/71013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_smolknifedog_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122008,7 +121983,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/72001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bigknifedog_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122021,7 +121996,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/72004.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bigknifedog_base_variant1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122034,7 +122009,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/72007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bigknifedog_base_variant2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122047,7 +122022,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/72010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bigknifedog_base_variant3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122060,7 +122035,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/72013.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bigknifedog_base_variant4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122073,7 +122048,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/78001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_hundun_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122086,7 +122061,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/78007.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_hundun_base_classic3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122099,7 +122074,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/78010.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_hundun_base_classic4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122112,7 +122087,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_jade_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122125,7 +122100,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_spiritfairy_spiritfairy1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122138,7 +122113,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_spiritfairy_spiritfairy2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122151,7 +122126,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_spiritfairy_spiritfairy3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122164,7 +122139,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_spiritfairy_spiritfairy4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122177,7 +122152,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/8031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_turtle_spiritfairy_spiritfairy5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122190,7 +122165,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/82001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_leopardgecko_base_classic1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122203,7 +122178,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/86001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_seaangel_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122216,7 +122191,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/90001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_hamster_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122229,7 +122204,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_moontipped_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122242,7 +122217,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9019.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_spiritblossomkami_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122255,7 +122230,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9022.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_spiritblossomyokai_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122268,7 +122243,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9025.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_kdaahri_kda1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122281,7 +122256,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9028.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_kdaahri_kda2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122294,7 +122269,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9031.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_starguardian_hushtail1_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122307,7 +122282,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9034.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_starguardian_hushtail2_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122320,7 +122295,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9037.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_starguardian_hushtail3_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122333,7 +122308,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9040.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_starguardian_hushtail4_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122346,7 +122321,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9043.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_spiritfox_starguardian_hushtail5_tier1.png",
       "is_available": true,
       "status": "available"
     },
@@ -122359,13 +122334,13 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "COMPANION",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/98001.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/tooltip_bat_base_classic_tier1.png",
       "is_available": true,
       "status": "available"
     }
   },
   "TFTArena": {
-    "Starcall Ward": {
+    "Freljord Avarosa Arena": {
       "offer_id": "710af517-7811-452d-9026-ca75f1878a99",
       "item_id": 10,
       "parent_id": null,
@@ -122374,11 +122349,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/10.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_avarosa.png",
       "is_available": true,
       "status": "available"
     },
-    "Ward of Draven": {
+    "Freljord Frostguard Arena": {
       "offer_id": "c210e73f-8111-40ae-bde9-74b5407e6529",
       "item_id": 11,
       "parent_id": null,
@@ -122387,7 +122362,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/11.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_frostguard.png",
       "is_available": true,
       "status": "available"
     },
@@ -122427,16 +122402,12 @@
       "is_available": true,
       "status": "available"
     },
-    "Dragonslayer Ward": {
-      "offer_id": "cffeab5c-5ace-42b8-b3d9-6fb1a23683c9",
+    "Odyssey Jinx Arena": {
+      "offer_id": 21,
       "item_id": 21,
-      "parent_id": null,
       "price_rp": 1380,
-      "regular_rp": 1380,
-      "sale_rp": null,
-      "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/21.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_jinx.png",
       "is_available": true,
       "status": "available"
     },
@@ -122449,16 +122420,12 @@
       "is_available": true,
       "status": "available"
     },
-    "Golden Goal Ward": {
-      "offer_id": "f6e1b728-1943-494d-b1c7-fc2ff319f188",
+    "Odyssey Malphite Arena": {
+      "offer_id": 23,
       "item_id": 23,
-      "parent_id": null,
       "price_rp": 1380,
-      "regular_rp": 1380,
-      "sale_rp": null,
-      "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/23.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_malphite.png",
       "is_available": true,
       "status": "available"
     },
@@ -122498,29 +122465,21 @@
       "is_available": true,
       "status": "available"
     },
-    "Urf Triumphant Ward": {
-      "offer_id": "40752711-0a7b-401a-9064-ccf98e1f4332",
+    "Count Spatula Arena": {
+      "offer_id": 41,
       "item_id": 41,
-      "parent_id": null,
       "price_rp": 1380,
-      "regular_rp": 1380,
-      "sale_rp": null,
-      "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/41.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_countspatula.png",
       "is_available": true,
       "status": "available"
     },
-    "Mother Serpent Ward": {
-      "offer_id": "be6ef6e7-a491-4fa1-8ee7-9cbcaf3faeef",
+    "Splash Party Arena": {
+      "offer_id": 42,
       "item_id": 42,
-      "parent_id": null,
       "price_rp": 1380,
-      "regular_rp": 1380,
-      "sale_rp": null,
-      "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/42.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_splashparty.png",
       "is_available": true,
       "status": "available"
     },
@@ -122560,16 +122519,12 @@
       "is_available": true,
       "status": "available"
     },
-    "El Poro Ward": {
-      "offer_id": "484c2f9c-21db-4e03-8f22-acf6cbca1648",
+    "Hextech Battle Arena": {
+      "offer_id": 58,
       "item_id": 58,
-      "parent_id": null,
       "price_rp": 1900,
-      "regular_rp": 1900,
-      "sale_rp": null,
-      "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/58.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_set6_5_hexbattle.png",
       "is_available": true,
       "status": "available"
     },
@@ -122591,7 +122546,7 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/9.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_wintersclaw.png",
       "is_available": true,
       "status": "available"
     },
@@ -122610,51 +122565,6 @@
       "price_rp": 1380,
       "inventory_type": "TFT_MAP_SKIN",
       "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_frostguard.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Odyssey Jinx Arena": {
-      "offer_id": 21,
-      "item_id": 21,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_jinx.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Odyssey Malphite Arena": {
-      "offer_id": 23,
-      "item_id": 23,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_malphite.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Count Spatula Arena": {
-      "offer_id": 41,
-      "item_id": 41,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_countspatula.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Splash Party Arena": {
-      "offer_id": 42,
-      "item_id": 42,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_splashparty.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hextech Battle Arena": {
-      "offer_id": 58,
-      "item_id": 58,
-      "price_rp": 1900,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_set6_5_hexbattle.png",
       "is_available": true,
       "status": "available"
     },

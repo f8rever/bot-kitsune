@@ -125,6 +125,8 @@ async function buildFullCatalog() {
 
     let cdWardsRes = { data: [] };
     let cdEmotesRes = { data: [] };
+    let cdArenasRes = { data: [] };
+    let cdCompanionsRes = { data: [] };
 
     try {
         const results = await Promise.all([
@@ -132,13 +134,17 @@ async function buildFullCatalog() {
             axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json', { timeout: 15000 }).catch(() => ({ data: {} })),
             axios.get(`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`, { timeout: 10000 }).catch(() => ({ data: { data: {} } })),
             axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins.json', { timeout: 15000 }).catch(() => ({ data: [] })),
-            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-emotes.json', { timeout: 15000 }).catch(() => ({ data: [] }))
+            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-emotes.json', { timeout: 15000 }).catch(() => ({ data: [] })),
+            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/tftmapskins.json', { timeout: 15000 }).catch(() => ({ data: [] })),
+            axios.get('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/companions.json', { timeout: 15000 }).catch(() => ({ data: [] }))
         ]);
         const ptCdRes = results[0];
         const enCdRes = results[1];
         const champDdragonRes = results[2];
         cdWardsRes = results[3];
         cdEmotesRes = results[4];
+        cdArenasRes = results[5];
+        cdCompanionsRes = results[6];
 
         cdSkinsPt = ptCdRes.data || {};
         cdSkinsEn = enCdRes.data || {};
@@ -158,7 +164,7 @@ async function buildFullCatalog() {
         console.warn('[Catalog Builder] ⚠️ Falha ao baixar alguns metadados externos. Prosseguindo com dados do Storefront.');
     }
 
-    // Indexar imagens oficiais de Wards e Emotes do CommunityDragon
+    // Indexar imagens oficiais de Wards, Emotes, Arenas e Little Legends do CommunityDragon
     const cdWardMap = {};
     if (Array.isArray(cdWardsRes?.data)) {
         cdWardsRes.data.forEach(w => {
@@ -176,6 +182,26 @@ async function buildFullCatalog() {
             if (em && em.id !== undefined && iconPath) {
                 const cleanPath = iconPath.toLowerCase().replace('/lol-game-data/assets/', '/');
                 cdEmoteMap[em.id] = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cleanPath}`;
+            }
+        });
+    }
+
+    const cdArenaMap = {};
+    if (Array.isArray(cdArenasRes?.data)) {
+        cdArenasRes.data.forEach(ar => {
+            if (ar && ar.itemId !== undefined && ar.loadoutsIcon) {
+                const cleanPath = ar.loadoutsIcon.toLowerCase().replace('/lol-game-data/assets/', '/');
+                cdArenaMap[ar.itemId] = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cleanPath}`;
+            }
+        });
+    }
+
+    const cdCompanionMap = {};
+    if (Array.isArray(cdCompanionsRes?.data)) {
+        cdCompanionsRes.data.forEach(cp => {
+            if (cp && cp.itemId !== undefined && cp.loadoutsIcon) {
+                const cleanPath = cp.loadoutsIcon.toLowerCase().replace('/lol-game-data/assets/', '/');
+                cdCompanionMap[cp.itemId] = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cleanPath}`;
             }
         });
     }
@@ -208,8 +234,9 @@ async function buildFullCatalog() {
                 enRaw.forEach(item => {
                     const enName = item.localizations?.en_US?.name;
                     if (enName) {
-                        if (item.itemId) enCatalogMap[item.itemId] = enName;
                         if (item.offerId) enCatalogMap[item.offerId] = enName;
+                        if (item.inventoryType && item.itemId) enCatalogMap[`${item.inventoryType}_${item.itemId}`] = enName;
+                        if (item.itemId && !enCatalogMap[item.itemId]) enCatalogMap[item.itemId] = enName;
                     }
                 });
             }
@@ -285,7 +312,7 @@ async function buildFullCatalog() {
 
         // Nomes localizados
         let rawPtName = item.localizations?.pt_BR?.name || item.name || '';
-        let rawEnName = item.localizations?.en_US?.name || enCatalogMap[itemId] || enCatalogMap[offerId] || item.name || rawPtName;
+        let rawEnName = item.localizations?.en_US?.name || enCatalogMap[offerId] || enCatalogMap[`${invType}_${itemId}`] || enCatalogMap[itemId] || item.name || rawPtName;
 
         const ptToEnMap = {
             'Sentinela Reinos Mech 2020': 'Mecha Kingdoms 2020 Ward',
@@ -516,6 +543,10 @@ async function buildFullCatalog() {
                 itemIcon = `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/profileicon/${itemId}.png`;
             } else if (invType === 'WARD_SKIN') {
                 itemIcon = cdWardMap[itemId] || (itemIcon && itemIcon.startsWith('http') ? itemIcon : `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/ward-skins/${itemId}.png`);
+            } else if (invType === 'COMPANION') {
+                itemIcon = cdCompanionMap[itemId] || (itemIcon && itemIcon.startsWith('http') ? itemIcon : `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemId}.png`);
+            } else if (invType === 'TFT_MAP_SKIN' || invType === 'TFTARENA' || invType === 'TFT_DAMAGE_SKIN') {
+                itemIcon = cdArenaMap[itemId] || (itemIcon && itemIcon.startsWith('http') ? itemIcon : `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemId}.png`);
             } else if (!itemIcon || !itemIcon.startsWith('http')) {
                 itemIcon = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemId}.png`;
             }
