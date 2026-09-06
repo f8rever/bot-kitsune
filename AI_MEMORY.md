@@ -324,13 +324,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
          - Ícones oficiais em alta resolução extraídos diretamente da CDN da Riot Games (CommunityDragon e DDragon) via `buildFullCatalog.js`.
          - Exibição de arte oficial em HD como thumbnail (`setThumbnail`) para Little Legends, Chibis, Wards, Emotes e Ícones.
          - Exibição panorâmica do campo de batalha (`setImage`) para TFT Arenas nos embeds de ticket e carrinho de compras.
-      5. **TFT Arenas & Little Legends com Emojis Oficiais Animados:**
-         - Criada pipeline automatizada com `gif-encoder-2` e `pngjs` para converter ícones PNG em GIFs animados de 2 quadros (~3KB), contornando o limite de 50 slots estáticos por servidor.
-         - **100% de todas as 22 TFT Arenas oficiais** cadastradas com emojis animados no Discord (`<a:arena_ID:DISCORD_ID>`).
-         - **42 Little Legends e Chibis mais populares** cadastrados com emojis animados nos slots livres (`<a:legend_ID:DISCORD_ID>`).
-         - Fallbacks elegantes para mascotes famosos (`chibi_ahri`, `chibi_vi`, `chibi_gwen`, `poro`).
-         - Distribuição em **Round-Robin** entre os servidores (`Zed Store`, `Kitsune Service`, `Gaming v2`), garantindo imunidade a rate-limits.
-         - Mapeamento sincronizado e persistido no MongoDB Atlas (`bot_configurations` -> `cosmetic_emojis`, totalizando 175 emojis cosméticos indexados).
+      5. **Remoção de Arenas e Lendas dos Emojis (Solicitação do Usuário):**
+         - Conforme solicitado pelo usuário ("remova essas arenas do discord e as lendas dos emojis, pq ta td preto"), todos os 64 emojis animados criados (`arena_` e `legend_`) foram 100% deletados das guilds do Discord (`Kitsune Service`, `Gaming v2`, `Zed Store`).
+         - O arquivo [`config/cosmetic_emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) foi limpo (mantendo apenas as 68 Wards e 43 Emotes nítidos) e sincronizado com o MongoDB Atlas (`bot_configurations`).
+         - Em [`index.js`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/index.js), `tft_arena` voltou ao emoji limpo padrão oficial (`<:lol_tft_arena:1544591074100645948>`), e `little_legends` utiliza os mascotes nítidos (`chibi_ahri`, `chibi_vi`, `chibi_gwen`, `poro` ou `🐥`).
+         - A prévia HD em imagem panorâmica (`setImage`) para arenas e thumbnail (`setThumbnail`) para lendas, bem como a busca modal, permanecem 100% ativas e funcionais.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
