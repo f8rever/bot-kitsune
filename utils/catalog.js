@@ -12,7 +12,7 @@ function normalizeStr(str) {
         .trim();
 }
 
-function loadCatalog(lang = 'pt') {
+function loadCatalog(lang = 'en') {
     const fileName = lang === 'en' ? 'catalog_cache_en.json' : 'catalog_cache_pt.json';
     let filePath = path.join(__dirname, '../config', fileName);
     if (!fs.existsSync(filePath) && lang === 'en') {

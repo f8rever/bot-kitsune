@@ -288,6 +288,23 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       3. `config/embeds.json`: Atualizado o embed `category_skins`, removendo a linha de texto de pacotes.
       4. MongoDB Atlas: Sincronizada a coleção `bot_configurations` (`embeds`) para garantir que os deploys no Render mantenham o texto atualizado sem pacotes.
     - **Observação Futura:** A lógica interna do backend foi mantida intacta caso se decida reativar no futuro após resolver os problemas de gifting de bundles na API da Riot.
+  - **Catálogo 100% em Inglês e Resolução Completa dos Eternos (2026-09-06):**
+    - **Demanda do Usuário:** O usuário relatou que os Eternos não estavam encontrando o campeão digitado e pediu para que todo o catálogo do bot fosse padronizado em inglês (já que havia muitos itens aparecendo em português).
+    - **Causa Raiz 1 (Eternos não encontravam o campeão):**
+      1. No compilador `utils/buildFullCatalog.js`, itens do tipo `STATSTONE` eram completamente ignorados e a chave `Eternals: {}` não existia nas estruturas de catálogo.
+      2. O bot não possuía nenhum Eterno real no catálogo compilado, restando apenas skins/cromas que continham a palavra "Eterno" em português ("Diana Aspecto Eterno", etc.), fazendo a busca falhar ou retornar itens inexistentes/incorretos.
+    - **Causa Raiz 2 (Itens aparecendo em português no bot):**
+      1. As sessões do Discord (`userStoreSessions`) e canais de ticket usavam como fallback a região `BR`, forçando `lang = (userRegiao === 'BR') ? 'pt' : 'en'`, fazendo o bot carregar o cache `catalog_cache_pt.json`.
+      2. O `buildFullCatalog.js` carregava preferencialmente `lol_giftapi-main/catalog.json` (extraído por conta brasileira com `pt_BR`), e por não cruzar com os dados em inglês do `python_backend/catalog.json`, os pacotes, passes, ícones e sentinelas no `catalog_cache_en.json` acabavam herdando nomes em português.
+    - **Soluções Implementadas:**
+      1. **Transição 100% Inglês:**
+         - Em `index.js`, todas as rotinas de catálogo (`enviarPaginaCatalogo`, `obterDetalhesCarrinho`, `interactionCreate`, `buscarEExibirItens`) e `utils/catalog.js` foram travadas com `lang = 'en'` por padrão.
+         - `utils/buildFullCatalog.js` agora indexa os mais de 18.000 nomes oficiais em inglês a partir de `python_backend/catalog.json` (`enCatalogMap`) e traduz resíduos de sentinelas e ícones, zerando completamente termos em português no `catalog_cache_en.json`.
+      2. **Suporte Completo a Eternos (`STATSTONE`):**
+         - Adicionada a categoria `Eternals` ao catálogo com todos os **522 Statstones oficiais da Riot Games** compilados.
+         - Cada Eterno possui seu UUID de compra oficial (`offer_id`), preço oficial (600 RP para Série 1 e 2, 225 RP para Série Inicial), `parent_id` do campeão pai e ícone oficial do campeão extraído do DDragon.
+         - Nomenclatura oficial em inglês padronizada: `{Champion} - Series 1`, `{Champion} - Series 2`, `{Champion} - Starter Series`.
+         - Aprimorada a busca em `buscarEExibirItens` com normalização de texto (`buscaNorm`), localizando campeões mesmo com digitação sem pontuação (ex: "khazix", "mundo", "kaisa", "dr mundo", "nunu") e listando instantaneamente suas 3 séries de Eternos ordenadas.
 
 
 ### Servidores do Bot:

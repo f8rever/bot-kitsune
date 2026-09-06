@@ -166,6 +166,24 @@ async function buildFullCatalog() {
         }
     }
 
+    // Indexar nomes oficiais em inglês da Storefront API (a partir de python_backend/catalog.json que contém en_US)
+    const enCatalogMap = {};
+    const enCatalogPath = path.join(__dirname, '../python_backend/catalog.json');
+    if (fs.existsSync(enCatalogPath)) {
+        try {
+            const enRaw = JSON.parse(fs.readFileSync(enCatalogPath, 'utf8'));
+            if (Array.isArray(enRaw)) {
+                enRaw.forEach(item => {
+                    const enName = item.localizations?.en_US?.name;
+                    if (enName) {
+                        if (item.itemId) enCatalogMap[item.itemId] = enName;
+                        if (item.offerId) enCatalogMap[item.offerId] = enName;
+                    }
+                });
+            }
+        } catch (e) {}
+    }
+
     const now = new Date();
 
     // Estruturas finais do catálogo PT e EN
@@ -173,6 +191,7 @@ async function buildFullCatalog() {
         Skins: {},
         Chromas: {},
         Champions: {},
+        Eternals: {},
         Bundles: {},
         Passes: {},
         Loot: {},
@@ -189,6 +208,7 @@ async function buildFullCatalog() {
         Skins: {},
         Chromas: {},
         Champions: {},
+        Eternals: {},
         Bundles: {},
         Passes: {},
         Loot: {},
@@ -233,7 +253,31 @@ async function buildFullCatalog() {
 
         // Nomes localizados
         let rawPtName = item.localizations?.pt_BR?.name || item.name || '';
-        let rawEnName = item.localizations?.en_US?.name || item.name || rawPtName;
+        let rawEnName = item.localizations?.en_US?.name || enCatalogMap[itemId] || enCatalogMap[offerId] || item.name || rawPtName;
+
+        const ptToEnMap = {
+            'Sentinela Reinos Mech 2020': 'Mecha Kingdoms 2020 Ward',
+            'Sentinela Galáxias 2020': 'Galaxies 2020 Ward',
+            'Sentinela Embalos no Espaço 2021': 'Space Groove 2021 Ward',
+            'Sentinela Congregação das Bruxas': 'Coven Ward',
+            'Sentinela Fênix': 'Phoenix Ward',
+            'Sentinela Drone de Reconhecimento': 'Recon Drone Ward',
+            'Sentinela Corte das Fadas': 'Faerie Court Ward',
+            'Sentinela Soul Fighter': 'Soul Fighter Ward',
+            'Sentinela HEARTSTEEL': 'HEARTSTEEL Ward',
+            'Ícone Moldura Seraphine Hino ao Amor': 'Heartsong Seraphine Border Icon',
+            'Ícone Moldura Jhin Pacto Quebrado': 'Broken Covenant Jhin Border Icon',
+            'Ícone Moldura Shen Pacto Quebrado': 'Broken Covenant Shen Border Icon',
+            'Ícone Moldura Aurora Pacto Quebrado': 'Broken Covenant Aurora Border Icon',
+            'Ícone Gwen Corte das Fadas': 'Faerie Court Gwen Icon',
+            'Ícone Lulu Corte das Fadas': 'Faerie Court Lulu Icon',
+            "Ícone Bel'Veth Corte das Fadas": "Faerie Court Bel'Veth Icon",
+            'Ícone Pacote Karma Emissária da Luz': 'Dawnbringer Karma Bundle Icon',
+            'Ícone Caça-Zumbis': 'Zombie Slayer Icon',
+            'Ícone Sentinela Detectora Clássica': 'Vintage Control Ward Icon',
+            'Ícone Moldura Locke Velho Oeste': 'High Noon Locke Border Icon'
+        };
+        if (ptToEnMap[rawEnName]) rawEnName = ptToEnMap[rawEnName];
 
         // Metadados do CommunityDragon (se aplicável)
         const cdPt = cdSkinsPt[itemId];
@@ -449,6 +493,7 @@ async function buildFullCatalog() {
             const itemGenericPt = {
                 offer_id: offerId,
                 item_id: itemId,
+                parent_id: item.parent?.itemId || item.parentId || null,
                 price_rp: priceRp,
                 regular_rp: regularRp,
                 sale_rp: saleRp,
@@ -463,6 +508,49 @@ async function buildFullCatalog() {
             if (invType === 'EVENT_PASS') {
                 catalogPt.Passes[rawPtName] = itemGenericPt;
                 catalogEn.Passes[rawEnName] = itemGenericEn;
+            } else if (invType === 'STATSTONE') {
+                const parentId = item.parent?.itemId || item.parentId || null;
+                const parentChamp = parentId ? champMap[Number(parentId)] : null;
+                
+                let eternalIcon = item.iconUrl;
+                if (parentChamp && parentChamp.key) {
+                    eternalIcon = `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${parentChamp.key}.png`;
+                } else if (!eternalIcon || eternalIcon.includes('default.png')) {
+                    eternalIcon = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/4568.png';
+                }
+
+                itemGenericPt.parent_id = parentId;
+                itemGenericPt.icon_url = eternalIcon;
+                itemGenericPt.inventory_type = 'STATSTONE';
+
+                itemGenericEn.parent_id = parentId;
+                itemGenericEn.icon_url = eternalIcon;
+                itemGenericEn.inventory_type = 'STATSTONE';
+
+                let seriesEn = 'Series 1';
+                let seriesPt = 'Série 1';
+                const nLower = (rawEnName || rawPtName).toLowerCase();
+                if (nLower.includes('2') || item.tags?.includes('eternals-series-2')) {
+                    seriesEn = 'Series 2';
+                    seriesPt = 'Série 2';
+                } else if (nLower.includes('inicial') || nLower.includes('starter') || item.tags?.includes('starter')) {
+                    seriesEn = 'Starter Series';
+                    seriesPt = 'Série Inicial';
+                }
+
+                let eternalNameEn = '';
+                let eternalNamePt = '';
+                if (parentChamp) {
+                    eternalNameEn = `${parentChamp.nameEn} - ${seriesEn}`;
+                    const ptChampName = rawPtName ? rawPtName.split(/[-–]/)[0].trim() : parentChamp.nameEn;
+                    eternalNamePt = `${ptChampName} - ${seriesPt}`;
+                } else {
+                    eternalNameEn = seriesEn === 'Series 2' ? 'Series 2 Pass' : (seriesEn === 'Starter Series' ? 'Starter Series Pass' : 'Series 1 Pass');
+                    eternalNamePt = seriesPt === 'Série 2' ? 'Passe dos Eternos: Série 2' : (seriesPt === 'Série Inicial' ? 'Passe dos Eternos: Série Inicial' : 'Passe dos Eternos: Série 1');
+                }
+
+                catalogPt.Eternals[eternalNamePt] = itemGenericPt;
+                catalogEn.Eternals[eternalNameEn] = itemGenericEn;
             } else if (invType === 'HEXTECH_CRAFTING' || invType === 'CHEST' || invType === 'MYSTERY' || invType === 'GIFT') {
                 catalogPt.Loot[rawPtName] = itemGenericPt;
                 catalogEn.Loot[rawEnName] = itemGenericEn;
@@ -530,6 +618,7 @@ async function buildFullCatalog() {
     const totalChromas = Object.keys(catalogPt.Chromas).length;
     const totalBundles = Object.keys(catalogPt.Bundles).length;
     const totalChamps = Object.keys(catalogPt.Champions).length;
+    const totalEternals = Object.keys(catalogPt.Eternals || {}).length;
     const totalPasses = Object.keys(catalogPt.Passes).length;
     const totalLoot = Object.keys(catalogPt.Loot).length;
 
@@ -539,6 +628,7 @@ async function buildFullCatalog() {
     console.log(`   - 👕 Skins Oficiais: ${totalSkins}`);
     console.log(`   - 🎨 Cromas Oficiais: ${totalChromas}`);
     console.log(`   - ⚔️ Campeões: ${totalChamps}`);
+    console.log(`   - 🏆 Eternos: ${totalEternals}`);
     console.log(`   - 📦 Pacotes: ${totalBundles}`);
     console.log(`   - 🎫 Passes: ${totalPasses}`);
     console.log(`   - 🎁 Espólios: ${totalLoot}`);

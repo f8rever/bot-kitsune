@@ -944,7 +944,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
         const session = userStoreSessions.get(interaction.user.id);
         const userRegiao = (session?.regiao || 'BR').toUpperCase();
-        const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+        const lang = 'en'; // Catálogo do bot 100% em inglês
         const currentCatalog = loadFullRiotCatalog(lang);
 
         let results = [];
@@ -1439,7 +1439,7 @@ async function atualizarEmbedTicket(channel, client) {
     const eDinheiro = '<:dinheiro:1527368514057408713>';
 
     const userRegiao = (cart.regiao || 'BR').toUpperCase();
-    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+    const lang = 'en'; // Catálogo do bot 100% em inglês
 
     const details = obterDetalhesCarrinho(cart, loja, lang);
 
@@ -2401,7 +2401,7 @@ client.on('interactionCreate', async interaction => {
                     } else {
                         const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
                         const userRegiao = interaction.channel.name.split('-')[1] || 'BR';
-                        const lang = (userRegiao.toUpperCase() === 'BR' || userRegiao.toUpperCase() === 'BR1') ? 'pt' : 'en';
+                        const lang = 'en'; // Catálogo do bot 100% em inglês
                         const details = obterDetalhesItem(nomeReal, tipo, obterDadosLoja(), '0.00', raw, lang);
                         const partes = details.desc.split('|');
                         variacao = partes[0].trim();
@@ -4363,18 +4363,21 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     const session = userStoreSessions.get(interaction.user.id);
     const userRegiao = (session?.regiao || 'BR').toUpperCase();
-    const lang = (userRegiao === 'BR' || userRegiao === 'BR1') ? 'pt' : 'en';
+    const lang = 'en'; // Catálogo do bot 100% em inglês
     const currentCatalog = loadFullRiotCatalog(lang);
+
+    const normalize = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+    const buscaNorm = normalize(buscaLimpa);
 
     let campeaoFinal = currentCatalog.find(x =>
         (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS') &&
-        (x.nome.toLowerCase() === buscaLimpa || x.nome.toLowerCase().includes(buscaLimpa))
+        (x.nome.toLowerCase() === buscaLimpa || x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm)))
     );
 
     if (!campeaoFinal) {
-        const skinCamp = currentCatalog.find(x => x.nome.toLowerCase().includes(buscaLimpa) && x.tipo === 'CHAMPION_SKIN');
+        const skinCamp = currentCatalog.find(x => (x.nome.toLowerCase().includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(x.nome).includes(buscaNorm))) && x.tipo === 'CHAMPION_SKIN');
         if (skinCamp && skinCamp.parent_id) {
-            const champMatch = currentCatalog.find(x => x.id === skinCamp.parent_id && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
+            const champMatch = currentCatalog.find(x => (Number(x.id) === Number(skinCamp.parent_id) || x.id === skinCamp.parent_id) && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
             if (champMatch) campeaoFinal = champMatch;
         }
     }
@@ -4403,15 +4406,38 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         }
     } else if (tipoFiltro === 'eternos') {
         if (campeaoFinal) {
-            results = currentCatalog.filter(x => x.parent_id === campeaoFinal.id && (x.tipo === 'STATSTONE' || x.nome.toLowerCase().includes('eterno') || x.nome.toLowerCase().includes('eternal') || x.nome.toLowerCase().includes('statstone')));
+            const champIdNum = Number(campeaoFinal.id);
+            const champNameLower = campeaoFinal.nome.toLowerCase();
+            const champNorm = normalize(campeaoFinal.nome);
+            results = currentCatalog.filter(x => {
+                const t = (x.tipo || x.inventory_type || '').toUpperCase();
+                const n = (x.nome || '').toLowerCase();
+                const isStat = (t === 'STATSTONE' || n.includes('statstone') || n.includes('eternal') || n.includes('series') || n.includes('série'));
+                if (!isStat) return false;
+                const parentMatch = x.parent_id && (Number(x.parent_id) === champIdNum || String(x.parent_id) === String(campeaoFinal.id));
+                const nameMatch = n.startsWith(champNameLower + ' -') || n.startsWith(champNameLower + ' –') || n.includes(champNameLower) || normalize(n).startsWith(champNorm);
+                return parentMatch || nameMatch;
+            });
         }
         if (results.length === 0) {
             results = currentCatalog.filter(x => {
-                const n = x.nome.toLowerCase();
-                const t = (x.tipo || '').toUpperCase();
-                return (t === 'STATSTONE' || n.includes('eterno') || n.includes('eternal') || n.includes('statstone') || n.includes('series') || n.includes('série')) && n.includes(buscaLimpa);
+                const n = (x.nome || '').toLowerCase();
+                const t = (x.tipo || x.inventory_type || '').toUpperCase();
+                const isStat = (t === 'STATSTONE' || n.includes('eterno') || n.includes('eternal') || n.includes('statstone') || n.includes('series') || n.includes('série'));
+                return isStat && (n.includes(buscaLimpa) || (buscaNorm.length >= 3 && normalize(n).includes(buscaNorm)));
             });
         }
+        // Ordenar: Series 1, Series 2, Starter Series
+        results.sort((a, b) => {
+            const getOrder = n => {
+                const nl = (n || '').toLowerCase();
+                if (nl.includes('series 1') || nl.includes('série 1')) return 1;
+                if (nl.includes('series 2') || nl.includes('série 2')) return 2;
+                if (nl.includes('starter') || nl.includes('inicial')) return 3;
+                return 4;
+            };
+            return getOrder(a.nome) - getOrder(b.nome);
+        });
     } else if (tipoFiltro === 'champions') {
         if (campeaoFinal) {
             const c = currentCatalog.find(x => x.id === campeaoFinal.id && (x.tipo === 'CHAMPION' || x.tipo === 'CHAMPIONS'));
@@ -4554,10 +4580,26 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
 
     const actionRows = [];
 
+    let placeholderText = `Select a ${tipoFiltro}`;
+    if (tipoFiltro === 'skins') placeholderText = 'Select a Champion Skin';
+    else if (tipoFiltro === 'cromas') placeholderText = 'Select a Chroma (290 RP)';
+    else if (tipoFiltro === 'eternos') placeholderText = 'Select an Eternal Series (600 RP)';
+    else if (tipoFiltro === 'champions') placeholderText = 'Select a Champion';
+    else if (tipoFiltro === 'passes') placeholderText = 'Select a Season Pass';
+    else if (tipoFiltro === 'orbes') placeholderText = 'Select an Orb or Capsule';
+    else if (tipoFiltro === 'hextech') placeholderText = 'Select Hextech Chests or Keys';
+    else if (tipoFiltro === 'emotes') placeholderText = 'Select an Emote (350 RP)';
+    else if (tipoFiltro === 'wards') placeholderText = 'Select a Ward Skin (640 RP)';
+    else if (tipoFiltro === 'icones') placeholderText = 'Select a Summoner Icon (250 RP)';
+    else if (tipoFiltro === 'little_legends') placeholderText = 'Select a Little Legend / Chibi';
+    else if (tipoFiltro === 'tft_arena') placeholderText = 'Select a TFT Arena';
+    else if (tipoFiltro === 'boosts') placeholderText = 'Select an XP Boost';
+    else if (tipoFiltro === 'misterio') placeholderText = 'Select a Mystery Gift';
+
     const menu = new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
             .setCustomId(menuId)
-            .setPlaceholder(`Select a ${tipoFiltro}`)
+            .setPlaceholder(placeholderText)
             .setOptions(opcoesMenu)
     );
     actionRows.push(menu);
