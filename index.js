@@ -935,21 +935,16 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Ward', cEmj || (customEmojis?.acessorios?.wards || customEmojis?.utilidades?.wards || '👁️').trim());
     }
     else if (tipoFiltro === 'little_legends') {
-        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
         const itemName = (nomeItem || rawItem?.nome || rawItem?.name || '').toLowerCase();
-        let cEmj = getCosmeticEmoji('legend', itemId) || getCosmeticEmoji('chibi', itemId);
-        if (!cEmj) {
-            if (itemName.includes('ahri')) cEmj = customEmojis?.utilidades?.chibi_ahri;
-            else if (itemName.includes('vi')) cEmj = customEmojis?.utilidades?.chibi_vi;
-            else if (itemName.includes('gwen')) cEmj = customEmojis?.utilidades?.chibi_gwen;
-            else if (itemName.includes('poro')) cEmj = customEmojis?.utilidades?.poro;
-        }
+        let cEmj = null;
+        if (itemName.includes('ahri')) cEmj = customEmojis?.utilidades?.chibi_ahri;
+        else if (itemName.includes('vi')) cEmj = customEmojis?.utilidades?.chibi_vi;
+        else if (itemName.includes('gwen')) cEmj = customEmojis?.utilidades?.chibi_gwen;
+        else if (itemName.includes('poro')) cEmj = customEmojis?.utilidades?.poro;
         return formatarStr('Little Legend', cEmj || (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '🐥').trim());
     }
     else if (tipoFiltro === 'tft_arena') {
-        const itemId = rawItem?.item_id || rawItem?.itemId || rawItem?.id;
-        const cEmj = getCosmeticEmoji('arena', itemId);
-        return formatarStr('TFT Arena', cEmj || (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim());
+        return formatarStr('TFT Arena', (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim());
     }
     else if (tipoFiltro === 'boosts') {
         return formatarStr('Boost', (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '⚡').trim());
