@@ -25,7 +25,9 @@ module.exports = {
                     { label: 'Formas de Pagamento (/ticket)', description: 'Embed com métodos de pagamento aceitos', value: 'ticket_payment_methods', emoji: '💶' },
                     { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região (BR, NA, EUW, etc.)', value: 'store_authentication', emoji: '🌍' },
                     { label: 'Central de Vendas (Categorias)', description: 'Menu de categorias (Skins, Loots, etc.)', value: 'store_sales_center', emoji: '🛒' },
-                    { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' },
+                    { label: 'Botão Voltar Global (Back / Menu)', description: 'Editar texto, emoji e cor de todos os botões de voltar', value: 'global_back_button', emoji: '⬅️' },
+                    { label: 'Botão Anterior Global (Previous)', description: 'Editar texto, emoji e cor de todos os botões Previous', value: 'global_prev_button', emoji: '◀️' },
+                    { label: 'Botão Próximo Global (Next)', description: 'Editar texto, emoji e cor de todos os botões Next', value: 'global_next_button', emoji: '▶️' },
                     { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                     { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                     { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
@@ -47,7 +49,9 @@ module.exports = {
                     { label: 'Campeões & Eternos', description: 'Menu da Categoria, Campeões e Eternos', value: 'subgroup_champions', emoji: '⚔️' },
                     { label: 'Acessórios & TFT', description: 'Menu da Categoria, Emotes, Wards, Ícones, Boosts, Chibis e Arenas', value: 'subgroup_accessories', emoji: '👑' },
                     { label: 'Destaques & Ofertas Especiais', description: 'Menu da Categoria e Catálogo de Destaques', value: 'subgroup_highlights', emoji: '🌟' },
-                    { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' }
+                    { label: 'Botão Voltar Global (Back / Menu)', description: 'Editar texto, emoji e cor de todos os botões de voltar', value: 'global_back_button', emoji: '⬅️' },
+                    { label: 'Botão Anterior Global (Previous)', description: 'Editar texto, emoji e cor de todos os botões Previous', value: 'global_prev_button', emoji: '◀️' },
+                    { label: 'Botão Próximo Global (Next)', description: 'Editar texto, emoji e cor de todos os botões Next', value: 'global_next_button', emoji: '▶️' }
                 ])
         );
 

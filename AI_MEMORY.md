@@ -271,15 +271,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
       3. `Previous` / `Next` na paginação do catálogo e das buscas;
       4. `Voltar para Categorias` e `Voltar para Todos os Embeds` nos menus de configuração;
       5. `Anterior` / `Próxima` na lista de amigos de contas Riot.
-  - **Botão "Back to Main Categories" Totalmente Editável no /embeds (2026-09-05):**
-    - Criado o template independente `"store_back_button"` em `config/embeds.json`.
-    - Adicionado item dedicado nos menus 1 e 2 do comando `/embeds` (`Botão: Back to Main Categories`).
-    - Permite customização completa e independente pelo Discord:
-      1. Rótulo do botão (`buttonLabel`, ex: `Back to Main Categories`, `Voltar para Categorias`);
-      2. Emoji do botão (`buttonEmoji`, suportando emojis customizados animados como `<a:l_arrow_white:...>` e unicode);
-      3. Cor/Estilo do botão (`buttonStyle`: `Secondary` / Cinza, `Primary` / Azul, `Danger` / Vermelho, `Success` / Verde).
-    - Exibe prévia visual em tempo real do próprio botão no painel de edição e no feedback da modal.
-    - Implementada a função `buildStoreBackButton` em `index.js`, aplicando dinamicamente a configuração aos menus de categoria (`exibirMenuCategoriaLoja`).
+  - **Botões de Navegação Globais (Back, Previous, Next) Totalmente Editáveis no /embeds (2026-09-06):**
+    - Criados os templates independentes no `config/embeds.json` e MongoDB Atlas:
+      1. `"global_back_button"` / `"store_back_button"`: Botão Voltar Global (`Back to Menu`, `Back to Main Categories`, `Menu`) aplicado a todas as telas e subcategorias.
+      2. `"global_prev_button"`: Botão Anterior Global (`Previous`, `Anterior`) aplicado a todas as paginações e catálogos.
+      3. `"global_next_button"`: Botão Próximo Global (`Next`, `Próxima`) aplicado a todas as paginações e catálogos.
+    - Adicionados os 3 itens dedicados nos Menus 1 e 2 do `/embeds`.
+    - No `/embeds`, ao selecionar qualquer um deles, o bot renderiza uma prévia ao vivo com a fileira completa dos 3 botões: `[Back to Menu] [Previous] [Next]`.
+    - Implementadas as funções universais `buildStoreBackButton`, `buildStorePrevButton`, `buildStoreNextButton` e `buildNavButtonsPreviewRow` em `index.js`.
+    - MongoDB Atlas e `config/emojis.json` sincronizados com as setas brancas animadas (`<a:l_arrow_white:1545877594170335304>` e `<a:51047animatedarrowwhite:1545491753002475591>`).
 
 
 ### Servidores do Bot:

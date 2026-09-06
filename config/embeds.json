@@ -25,11 +25,38 @@
     "thumbnail": "",
     "image": "https://media.discordapp.net/attachments/1540159602543304732/1544514902088089671/baixados.jpg?ex=6a9ac358&is=6a9971d8&hm=ca2922917b6172e7350456eaeac4149ecf3511eeace938e50025add117afc4a2&=&format=webp"
   },
-  "store_back_button": {
-    "title": "⬅️ Botão Voltar das Categorias (Loja)",
-    "description": "Configure aqui o texto, emoji e cor do botão exibido nos menus de categoria da loja que volta para as categorias principais.",
+  "global_back_button": {
+    "title": "🔘 Botão Global de Voltar (Back / Menu)",
+    "description": "Configure aqui o texto, emoji e cor de TODOS os botões de voltar (Back to Menu, Back to Main Categories, Menu) em toda a loja.",
     "color": "#F43F5E",
-    "buttonLabel": "Back to Main Categories",
+    "buttonLabel": "Back to Menu",
+    "buttonEmoji": "<a:l_arrow_white:1545877594170335304>",
+    "buttonStyle": "Secondary",
+    "footerText": "© Kitsune - Copyright 2026"
+  },
+  "global_prev_button": {
+    "title": "🔘 Botão Global Anterior (Previous)",
+    "description": "Configure aqui o texto, emoji e cor de TODOS os botões Previous (página anterior) em toda a loja.",
+    "color": "#F43F5E",
+    "buttonLabel": "Previous",
+    "buttonEmoji": "<a:l_arrow_white:1545877594170335304>",
+    "buttonStyle": "Primary",
+    "footerText": "© Kitsune - Copyright 2026"
+  },
+  "global_next_button": {
+    "title": "🔘 Botão Global Próximo (Next)",
+    "description": "Configure aqui o texto, emoji e cor de TODOS os botões Next (próxima página) em toda a loja.",
+    "color": "#F43F5E",
+    "buttonLabel": "Next",
+    "buttonEmoji": "<a:51047animatedarrowwhite:1545491753002475591>",
+    "buttonStyle": "Primary",
+    "footerText": "© Kitsune - Copyright 2026"
+  },
+  "store_back_button": {
+    "title": "🔘 Botão Global de Voltar (Back / Menu)",
+    "description": "Configure aqui o texto, emoji e cor de TODOS os botões de voltar (Back to Menu, Back to Main Categories, Menu) em toda a loja.",
+    "color": "#F43F5E",
+    "buttonLabel": "Back to Menu",
     "buttonEmoji": "<a:l_arrow_white:1545877594170335304>",
     "buttonStyle": "Secondary",
     "footerText": "© Kitsune - Copyright 2026"

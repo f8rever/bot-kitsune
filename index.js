@@ -1264,7 +1264,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) backCustomId = 'voltar_cat_highlights';
 
         const btnRow = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId(backCustomId).setLabel('Back to Menu').setStyle(ButtonStyle.Secondary).setEmoji((customEmojis?.utilidades?.left || '⬅️').trim())
+            buildStoreBackButton(backCustomId, 'Back to Menu')
         );
         const embedEmpty = buildCustomEmbed('store_sales_center', interaction?.client, interaction);
         const msg = '❌ No items found in this category at this moment.';
@@ -1319,11 +1319,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     }
 
     btnRow.addComponents(
-        new ButtonBuilder()
-            .setCustomId(backCustomId)
-            .setLabel('Menu')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim()),
+        buildStoreBackButton(backCustomId, 'Back to Menu'),
         new ButtonBuilder()
             .setCustomId(`btn_search_cat_${tipoFiltro}`)
             .setLabel('Search')
@@ -1333,18 +1329,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
     if (totalPages > 1) {
         btnRow.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina - 1}`)
-                .setLabel('Previous')
-                .setStyle(ButtonStyle.Primary)
-                .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '◀️').trim())
-                .setDisabled(pagina === 0),
-            new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina + 1}`)
-                .setLabel('Next')
-                .setStyle(ButtonStyle.Primary)
-                .setEmoji((customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '▶️').trim())
-                .setDisabled(pagina === totalPages - 1)
+            buildStorePrevButton(`pag_${tipoFiltro}_${pagina - 1}`, 'Previous', pagina === 0),
+            buildStoreNextButton(`pag_${tipoFiltro}_${pagina + 1}`, 'Next', pagina === totalPages - 1)
         );
     }
     actionRows.push(btnRow);
@@ -1883,9 +1869,12 @@ function buildStoreMainMenu(customEmojis) {
     );
 }
 
-function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Back to Main Categories') {
-    const cfg = customEmbeds?.['store_back_button'] || {};
-    const label = cfg.buttonLabel || defaultLabel;
+function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Back to Menu') {
+    const cfg = customEmbeds?.['global_back_button'] || customEmbeds?.['store_back_button'] || {};
+    let label = defaultLabel;
+    if (cfg.buttonLabel && cfg.buttonLabel.trim()) {
+        label = cfg.buttonLabel.trim();
+    }
     const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim();
 
     let style = ButtonStyle.Secondary;
@@ -1911,6 +1900,75 @@ function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Ba
     }
 
     return btn;
+}
+
+function buildStorePrevButton(customId = 'btn_prev', defaultLabel = 'Previous', disabled = false) {
+    const cfg = customEmbeds?.['global_prev_button'] || {};
+    const label = cfg.buttonLabel?.trim() || defaultLabel;
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim();
+
+    let style = ButtonStyle.Primary;
+    if (cfg.buttonStyle) {
+        const s = String(cfg.buttonStyle).toLowerCase().trim();
+        if (['secondary', 'gray', 'grey', 'cinza', '2'].includes(s)) style = ButtonStyle.Secondary;
+        else if (['danger', 'red', 'vermelho', '4'].includes(s)) style = ButtonStyle.Danger;
+        else if (['success', 'green', 'verde', '3'].includes(s)) style = ButtonStyle.Success;
+        else if (['primary', 'blue', 'azul', '1'].includes(s)) style = ButtonStyle.Primary;
+    }
+
+    const btn = new ButtonBuilder()
+        .setCustomId(customId)
+        .setLabel(label)
+        .setStyle(style)
+        .setDisabled(disabled);
+
+    if (emojiStr) {
+        try {
+            btn.setEmoji(emojiStr);
+        } catch (e) {
+            console.warn('[buildStorePrevButton] Erro ao definir emoji:', emojiStr, e.message);
+        }
+    }
+
+    return btn;
+}
+
+function buildStoreNextButton(customId = 'btn_next', defaultLabel = 'Next', disabled = false) {
+    const cfg = customEmbeds?.['global_next_button'] || {};
+    const label = cfg.buttonLabel?.trim() || defaultLabel;
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '<a:51047animatedarrowwhite:1545491753002475591>').trim();
+
+    let style = ButtonStyle.Primary;
+    if (cfg.buttonStyle) {
+        const s = String(cfg.buttonStyle).toLowerCase().trim();
+        if (['secondary', 'gray', 'grey', 'cinza', '2'].includes(s)) style = ButtonStyle.Secondary;
+        else if (['danger', 'red', 'vermelho', '4'].includes(s)) style = ButtonStyle.Danger;
+        else if (['success', 'green', 'verde', '3'].includes(s)) style = ButtonStyle.Success;
+        else if (['primary', 'blue', 'azul', '1'].includes(s)) style = ButtonStyle.Primary;
+    }
+
+    const btn = new ButtonBuilder()
+        .setCustomId(customId)
+        .setLabel(label)
+        .setStyle(style)
+        .setDisabled(disabled);
+
+    if (emojiStr) {
+        try {
+            btn.setEmoji(emojiStr);
+        } catch (e) {
+            console.warn('[buildStoreNextButton] Erro ao definir emoji:', emojiStr, e.message);
+        }
+    }
+
+    return btn;
+}
+
+function buildNavButtonsPreviewRow() {
+    const backBtn = buildStoreBackButton('preview_back', 'Back to Menu').setDisabled(true);
+    const prevBtn = buildStorePrevButton('preview_prev', 'Previous', true);
+    const nextBtn = buildStoreNextButton('preview_next', 'Next', true);
+    return new ActionRowBuilder().addComponents(backBtn, prevBtn, nextBtn);
 }
 
 async function exibirMenuCategoriaLoja(interaction, categoria) {
@@ -2471,10 +2529,15 @@ client.on('interactionCreate', async interaction => {
                         `*Abaixo você pode conferir a **Prévia em Tempo Real** deste embed e selecionar no menu o campo que deseja alterar:*`
                     );
 
+                const isNavButton = ['global_back_button', 'store_back_button', 'global_prev_button', 'global_next_button'].includes(embedId);
                 let opts = [];
-                if (embedId === 'store_back_button') {
+                if (isNavButton) {
+                    let defaultHint = 'Back to Menu';
+                    if (embedId === 'global_prev_button') defaultHint = 'Previous';
+                    else if (embedId === 'global_next_button') defaultHint = 'Next';
+
                     opts = [
-                        { label: 'Rótulo do Botão (Button Label)', description: 'Texto do botão (Ex: Back to Main Categories, Voltar)', value: `${embedId}__buttonLabel`, emoji: '🔘' },
+                        { label: 'Rótulo do Botão (Button Label)', description: `Texto do botão (Ex: ${defaultHint}, Voltar...)`, value: `${embedId}__buttonLabel`, emoji: '🔘' },
                         { label: 'Emoji do Botão', description: 'Emoji do botão (Ex: <a:l_arrow_white:...>, ⬅️)', value: `${embedId}__buttonEmoji`, emoji: '😀' },
                         { label: 'Cor / Estilo do Botão', description: 'Secondary (Cinza), Primary (Azul), Danger (Vermelho), Success (Verde)', value: `${embedId}__buttonStyle`, emoji: '🎨' },
                         { label: 'Título', value: `${embedId}__title`, emoji: '📝' },
@@ -2526,12 +2589,6 @@ client.on('interactionCreate', async interaction => {
                         .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
                 );
 
-                if (embedId === 'store_back_button') {
-                    const sampleBtn = buildStoreBackButton('preview_btn_sample');
-                    sampleBtn.setDisabled(true);
-                    btnVoltar.addComponents(sampleBtn);
-                }
-
                 let previewEmbed = null;
                 try {
                     previewEmbed = buildCustomEmbed(embedId, interaction.client, interaction, {
@@ -2565,7 +2622,13 @@ client.on('interactionCreate', async interaction => {
                 const embedsToSend = [embed];
                 if (previewEmbed) embedsToSend.push(previewEmbed);
 
-                await interaction.update({ embeds: embedsToSend, components: [menu, btnVoltar] });
+                const componentsToSend = [menu];
+                if (isNavButton) {
+                    componentsToSend.push(buildNavButtonsPreviewRow());
+                }
+                componentsToSend.push(btnVoltar);
+
+                await interaction.update({ embeds: embedsToSend, components: componentsToSend });
                 return;
             }
 
@@ -2605,10 +2668,10 @@ client.on('interactionCreate', async interaction => {
                 let fieldPlaceholder = '';
                 if (field === 'buttonLabel') {
                     fieldLabel = 'Rótulo do Botão (Button Label):';
-                    fieldPlaceholder = 'Ex: Back to Main Categories ou Voltar';
+                    fieldPlaceholder = embedId === 'global_prev_button' ? 'Ex: Previous ou Anterior' : (embedId === 'global_next_button' ? 'Ex: Next ou Próxima' : 'Ex: Back to Menu ou Voltar');
                 } else if (field === 'buttonEmoji') {
                     fieldLabel = 'Emoji do Botão:';
-                    fieldPlaceholder = 'Ex: <a:l_arrow_white:1545877594170335304> ou ⬅️';
+                    fieldPlaceholder = embedId === 'global_next_button' ? 'Ex: <a:51047animatedarrowwhite:1545491753002475591> ou ▶️' : 'Ex: <a:l_arrow_white:1545877594170335304> ou ⬅️';
                 } else if (field === 'buttonStyle') {
                     fieldLabel = 'Cor / Estilo do Botão:';
                     fieldPlaceholder = 'Secondary (Cinza), Primary (Azul), Danger, Success';
@@ -3752,7 +3815,9 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Formas de Pagamento (/ticket)', description: 'Embed com métodos de pagamento aceitos', value: 'ticket_payment_methods', emoji: '💶' },
                             { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região (BR, NA, EUW, etc.)', value: 'store_authentication', emoji: '🌍' },
                             { label: 'Central de Vendas (Categorias)', description: 'Menu de categorias (Skins, Loots, etc.)', value: 'store_sales_center', emoji: '🛒' },
-                            { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' },
+                            { label: 'Botão Voltar Global (Back / Menu)', description: 'Editar texto, emoji e cor de todos os botões de voltar', value: 'global_back_button', emoji: '⬅️' },
+                            { label: 'Botão Anterior Global (Previous)', description: 'Editar texto, emoji e cor de todos os botões Previous', value: 'global_prev_button', emoji: '◀️' },
+                            { label: 'Botão Próximo Global (Next)', description: 'Editar texto, emoji e cor de todos os botões Next', value: 'global_next_button', emoji: '▶️' },
                             { label: 'Tabela de Preços de Skins', description: 'Embed da tabela visual de skins', value: 'tabela_skins', emoji: '📊' },
                             { label: 'Tabela de Preços de Loots', description: 'Embed da tabela visual de loots', value: 'tabela_loot', emoji: '📦' },
                             { label: 'Tabela de Preços de Acessórios', description: 'Embed da tabela de acessórios/cromas', value: 'tabela_acessorios', emoji: '👑' },
@@ -3774,7 +3839,9 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Campeões & Eternos', description: 'Menu da Categoria, Campeões e Eternos', value: 'subgroup_champions', emoji: '⚔️' },
                             { label: 'Acessórios & TFT', description: 'Menu da Categoria, Emotes, Wards, Ícones, Boosts, Chibis e Arenas', value: 'subgroup_accessories', emoji: '👑' },
                             { label: 'Destaques & Ofertas Especiais', description: 'Menu da Categoria e Catálogo de Destaques', value: 'subgroup_highlights', emoji: '🌟' },
-                            { label: 'Botão: Back to Main Categories', description: 'Personalizar texto, emoji e cor do botão voltar', value: 'store_back_button', emoji: '⬅️' }
+                            { label: 'Botão Voltar Global (Back / Menu)', description: 'Editar texto, emoji e cor de todos os botões de voltar', value: 'global_back_button', emoji: '⬅️' },
+                            { label: 'Botão Anterior Global (Previous)', description: 'Editar texto, emoji e cor de todos os botões Previous', value: 'global_prev_button', emoji: '◀️' },
+                            { label: 'Botão Próximo Global (Next)', description: 'Editar texto, emoji e cor de todos os botões Next', value: 'global_next_button', emoji: '▶️' }
                         ])
                 );
 
@@ -3924,6 +3991,13 @@ client.on('interactionCreate', async interaction => {
                         fileData[embedId][field] = finalValue;
                     }
 
+                    if (embedId === 'global_back_button' || embedId === 'store_back_button') {
+                        if (!fileData['global_back_button']) fileData['global_back_button'] = {};
+                        if (!fileData['store_back_button']) fileData['store_back_button'] = {};
+                        fileData['global_back_button'][field] = finalValue;
+                        fileData['store_back_button'][field] = finalValue;
+                    }
+
                     fs.writeFileSync(embedsPath, JSON.stringify(fileData, null, 2), 'utf8');
                     try {
                         const { saveBotConfigToMongo } = require('./utils/mongoStorage.js');
@@ -3965,10 +4039,8 @@ client.on('interactionCreate', async interaction => {
                     const respData = { content: successMsg, ephemeral: true };
                     if (previewEmbed) respData.embeds = [previewEmbed];
 
-                    if (embedId === 'store_back_button') {
-                        const sampleBtn = buildStoreBackButton('preview_btn_sample');
-                        sampleBtn.setDisabled(true);
-                        respData.components = [new ActionRowBuilder().addComponents(sampleBtn)];
+                    if (['global_back_button', 'store_back_button', 'global_prev_button', 'global_next_button'].includes(embedId)) {
+                        respData.components = [buildNavButtonsPreviewRow()];
                     }
 
                     if (interaction.replied || interaction.deferred) {
@@ -4507,28 +4579,14 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
     }
 
     btnRow.addComponents(
-        new ButtonBuilder()
-            .setCustomId(backCustomId)
-            .setLabel('Back to Menu')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
+        buildStoreBackButton(backCustomId, 'Back to Menu')
     );
 
     if (totalPages > 1) {
         const queryTerm = (campeaoFinal ? campeaoFinal.nome : busca.trim()).replace(/\s+/g, '-');
         btnRow.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina - 1}_${queryTerm}`)
-                .setLabel('Previous')
-                .setStyle(ButtonStyle.Primary)
-                .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '◀️').trim())
-                .setDisabled(pagina === 0),
-            new ButtonBuilder()
-                .setCustomId(`pag_${tipoFiltro}_${pagina + 1}_${queryTerm}`)
-                .setLabel('Next')
-                .setStyle(ButtonStyle.Primary)
-                .setEmoji((customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '▶️').trim())
-                .setDisabled(pagina === totalPages - 1)
+            buildStorePrevButton(`pag_${tipoFiltro}_${pagina - 1}_${queryTerm}`, 'Previous', pagina === 0),
+            buildStoreNextButton(`pag_${tipoFiltro}_${pagina + 1}_${queryTerm}`, 'Next', pagina === totalPages - 1)
         );
     }
     actionRows.push(btnRow);
