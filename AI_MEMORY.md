@@ -328,7 +328,19 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
          - Conforme solicitado pelo usuário ("remova essas arenas do discord e as lendas dos emojis, pq ta td preto"), todos os 64 emojis animados criados (`arena_` e `legend_`) foram 100% deletados das guilds do Discord (`Kitsune Service`, `Gaming v2`, `Zed Store`).
          - O arquivo [`config/cosmetic_emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) foi limpo (mantendo apenas as 68 Wards e 43 Emotes nítidos) e sincronizado com o MongoDB Atlas (`bot_configurations`).
          - Em [`index.js`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/index.js), `tft_arena` voltou ao emoji limpo padrão oficial (`<:lol_tft_arena:1544591074100645948>`), e `little_legends` utiliza os mascotes nítidos (`chibi_ahri`, `chibi_vi`, `chibi_gwen`, `poro` ou `🐥`).
-         - A prévia HD em imagem panorâmica (`setImage`) para arenas e thumbnail (`setThumbnail`) para lendas, bem como a busca modal, permanecem 100% ativas e funcionais.
+       6. **Restauração e Blindagem do Painel Customizado `/ticket` (ticket_welcome) (2026-09-06):**
+          - **Problema Relatado:** O painel `/ticket` deu rollback e voltou para a versão antiga da Ahri Flor Espiritual (`#FFC0CB`), sobrepondo a personalização feita pelo usuário com a Zeri Winterblessed (`#FFFFFF`).
+          - **Causa Raiz:** No startup do bot (`utils/mongoStorage.js:syncAllBotConfigs`), as configurações de `bot_configurations` no MongoDB Atlas eram baixadas e sobrescreviam `config/embeds.json`. Como no MongoDB Atlas a chave `ticket_welcome` ainda guardava a versão anterior com Ahri de um commit antigo, ao reiniciar o bot a versão da Ahri era restaurada em disco.
+          - **Solução Implementada:**
+            1. Os dados exatos do painel customizado pelo usuário foram resgatados do Discord (`🛒・buy-here`):
+               - Título: `<a:white_claim:1545847197445136386> **Buy skins & loots quickly and easily!**`
+               - Descrição: `Welcome to **Kitsune Bot**!\n<a:51047animatedarrowwhite:1545491753002475591> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:51047animatedarrowwhite:1545491753002475591> (The menu will only appear for you!)`
+               - Cor: `#FFFFFF`
+               - Imagem: Banner Zeri Winterblessed
+               - Botão: `Buy here` com estilo Secondary e emoji `<:dinheiro:1527368514057408713>`
+               - Rodapé: `© Kitsune - Copyright 2026`
+            2. Atualizado [`config/embeds.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com a configuração recuperada.
+            3. Sincronizado imediatamente no MongoDB Atlas (`bot_configurations -> embeds`), garantindo que qualquer reinício ou deploy preserve a personalização da Zeri sem risco de rollback.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
