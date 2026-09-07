@@ -1,13 +1,14 @@
 {
   "ticket_welcome": {
-    "title": "<a:EstrelaDanante:1527368236759388324> **Buy skins and loot quickly and easily!**",
-    "description": "Welcome to **Kitsune Store**!\n<a:Yellow_arrow:1528201664652251187> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:Yellow_arrow:1528201664652251187> (The menu will only appear for you!)",
-    "color": "#FFC0CB",
+    "title": "<a:white_claim:1545847197445136386> **Buy skins & loots quickly and easily!**",
+    "description": "Welcome to **Kitsune Bot**!\n<a:51047animatedarrowwhite:1545491753002475591> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:51047animatedarrowwhite:1545491753002475591> (The menu will only appear for you!)",
+    "color": "#FFFFFF",
     "thumbnail": "",
-    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "image": "https://media.discordapp.net/attachments/1540159602543304732/1545848146964258816/Zeri_Winterblessed.jpg?ex=6a9ef446&is=6a9da2c6&hm=0098d1ffbbba044b006769b03f8019b264511d6e5e585c5e2f04112ecd28054d&format=webp&",
     "buttonLabel": "Buy here",
     "buttonEmoji": "<:dinheiro:1527368514057408713>",
-    "buttonStyle": "gray"
+    "buttonStyle": "Secondary",
+    "footerText": "© Kitsune - Copyright 2026"
   },
   "store_authentication": {
     "title": "<:riotzz:1544502320807809065> Authentication",
