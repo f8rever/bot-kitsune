@@ -1,7 +1,7 @@
 {
   "menu_principal": {
     "skins_chromas": "<:legendary:1342089845559791650>",
-    "loot_passes": "<:lol_orb_s3:1544493304983322736>",
+    "loot_passes": "<:lol_summoner_orb:1546368156065468417>",
     "champions_eternals": "<:mchamp:1342089827071561728>",
     "accessories": "<:19bau:1544483253380186283>",
     "featured": "<:lol_bundle_set:1544591078622236763>",
@@ -24,10 +24,10 @@
   },
   "loot": {
     "pass": "<:lol_pass_s3:1544493308015804429>",
-    "orb": "<:lol_orb_s3:1544493304983322736>",
-    "megaorb": "<:megaorb:1528415704389521418>",
-    "deluxe": "<:deluxe:1528415562558865441>",
-    "premium": "<:premium:1528415634805756024>",
+    "orb": "<:lol_summoner_orb:1546368156065468417>",
+    "megaorb": "<:lol_megaorb:1546368151325773874>",
+    "deluxe": "<:lol_deluxe_orb:1546368154668761108>",
+    "premium": "<:lol_premium_orb:1546368153372860416>",
     "chest": "<:hextech:1133606219181981789>",
     "key": "<:key1:1342089831299420210>",
     "chestkey": "<:chestkey:1342089828787028039>",

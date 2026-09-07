@@ -341,6 +341,18 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                - Rodapé: `© Kitsune - Copyright 2026`
             2. Atualizado [`config/embeds.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com a configuração recuperada.
             3. Sincronizado imediatamente no MongoDB Atlas (`bot_configurations -> embeds`), garantindo que qualquer reinício ou deploy preserve a personalização da Zeri sem risco de rollback.
+       7. **Atualização dos Emojis Oficiais de Orbes e Pacotes (Summoner's Orbs) (2026-09-07):**
+          - **Demanda do Usuário:** Substituir os ícones/emojis antigos de orbes (`Summoner's Mega Orb Bundle`, `Premium Orb Bundle`, `Deluxe Orb Bundle`, `Summoner's Orb`) pelos novos ícones oficiais da loja da Riot Games, adicionando-os ao servidor e deletando os antigos em seguida.
+          - **Execução:**
+            1. Baixados os 4 ícones oficiais em alta resolução diretamente da CDN da Riot Games (`d392eissrffsyf.cloudfront.net/storeImages/bundles/`).
+            2. Redimensionados para 128x128 PNG (~18-27 KB) com interpolação bilinear nítida e otimizada para Discord.
+            3. Criados os novos emojis estáticos na guild `Kitsune | Gifting Service`:
+               - `lol_megaorb` (`<:lol_megaorb:1546368151325773874>`) para Mega Orb Bundle (12500 RP).
+               - `lol_premium_orb` (`<:lol_premium_orb:1546368153372860416>`) para Premium Orb Bundle (6250 RP).
+               - `lol_deluxe_orb` (`<:lol_deluxe_orb:1546368154668761108>`) para Deluxe Orb Bundle (2500 RP).
+               - `lol_summoner_orb` (`<:lol_summoner_orb:1546368156065468417>`) para Summoner's Orb individual (250 RP).
+            4. Atualizado [`config/emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
+            5. Deletados com sucesso os emojis antigos do servidor: `megaorb`, `premium`, `deluxe`, `orb`, `orb10x`, `orb25x`, `orb50x` e `orb1`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
