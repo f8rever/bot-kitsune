@@ -371,6 +371,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - Enviados diretamente para o **Application Emojis** do bot: **68 Wards** (`ward_${id}`), **170 Emotes** (`emote_${id}`) e **409 Ícones** (`icon_${id}`), totalizando **647 emojis oficiais da Riot Games** criados na aplicação.
                 - Atualizado [`config/cosmetic_emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) e sincronizado na coleção `bot_configurations` do **MongoDB Atlas**.
                 - Bot reiniciado com sucesso carregando o cache de 647 Application Emojis diretamente no Discord.
+            11. **Remoção de Itens Não-Presenteáveis de TFT e XP Boosts do Catálogo (2026-09-09):**
+                - **Motivo / Verificação na API da Riot:** O endpoint oficial de gifting da Riot Games (`/storefront/v3/gift`) rejeita presentes com `inventoryType: 'COMPANION'` (Little Legends / Chibis) e `'TFT_MAP_SKIN'` (Arenas do TFT) com erro `400 Bad Request` / `NOT_GIFTABLE`. O TFT não possui suporte a presentes no League of Legends. Além disso, boosts de XP (duração/vitórias) não possuem endpoints de gifting.
+                - **Ação Realizada:** Removidas as opções `Little Legends & Chibis`, `TFT Arenas` e `XP Boosts` do Select Menu de Acessórios (`cat_accessories`) e do embed de descrição (`category_accessories` em `config/embeds.json`).
+                - **Sincronização:** `embeds.json` sincronizado com o **MongoDB Atlas** (`bot_configurations -> embeds`) e atualizado na interface do bot para exibir apenas os 3 tipos 100% presenteáveis e com cobertura total de emojis oficiais: **Emotes**, **Ward Skins** e **Summoner Icons**.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

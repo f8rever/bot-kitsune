@@ -1940,7 +1940,7 @@ function buildStoreMainMenu(customEmojis) {
             },
             {
                 label: 'Accessories',
-                description: 'Emotes, Wards, Summoner Icons, XP Boosts & Chibis',
+                description: 'Emotes, Ward Skins & Summoner Icons',
                 value: 'cat_accessories',
                 emoji: (customEmojis?.menu_principal?.accessories || customEmojis?.acessorios?.menu || '👑').trim()
             },
@@ -2061,9 +2061,6 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     const eEmotes = (customEmojis?.acessorios?.emotes || '<:lol_poro_emote:1544493296879935489>').trim();
     const eWards = (customEmojis?.acessorios?.wards || '<:lol_star_ward:1544493299270680717>').trim();
     const eIcones = (customEmojis?.acessorios?.icones || '<:22icone:1544482040206983241>').trim();
-    const eBoosts = (customEmojis?.acessorios?.boosts || '<:16xp:1544482296541749302>').trim();
-    const eLendas = (customEmojis?.acessorios?.lendas || '<:lol_chibi_vi:1544493291205173358>').trim();
-    const eArenas = (customEmojis?.acessorios?.arenas || '<:lol_tft_arena:1544591074100645948>').trim();
 
     const btnRow = new ActionRowBuilder().addComponents(
         buildStoreBackButton('voltar_menu_modal')
@@ -2109,10 +2106,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select an Accessories option').addOptions([
                 { label: 'Emotes', description: 'All LoL emotes (350 RP)', value: 'compra_emotes', emoji: eEmotes },
                 { label: 'Ward Skins', description: 'Ward Skins (640 RP)', value: 'compra_wards', emoji: eWards },
-                { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: eIcones },
-                { label: 'XP Boosts', description: 'Duration and Win XP Boosts', value: 'compra_boosts', emoji: eBoosts },
-                { label: 'Little Legends & Chibis', description: 'TFT Chibis & Little Legends', value: 'compra_little_legends', emoji: eLendas },
-                { label: 'TFT Arenas', description: 'Battlefield Map Skins & Arenas', value: 'compra_tft_arena', emoji: eArenas }
+                { label: 'Summoner Icons', description: 'Summoner icons (250 RP)', value: 'compra_icones', emoji: eIcones }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
