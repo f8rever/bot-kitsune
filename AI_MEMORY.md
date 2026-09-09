@@ -408,6 +408,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Causa:** A busca por `Hextech Chest` usava `.includes()` e capturava `1 Hextech Chest and Key Bundle`, duplicando o item do pacote.
                 - **Correção:** Priorizado match exato de nome em [`utils/syncWeeklySales.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/utils/syncWeeklySales.js), identificando corretamente o Baú individual (`id: 1`) e a Chave (`id: 3`).
                 - **Proteção Extra:** Adicionada deduplicação preventiva via `Set` em `opcoesMenu` dentro de `enviarPaginaCatalogo` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) contra qualquer valor repetido.
+            17. **Exibição Dinâmica de Raridade para Skins em Destaques e Mais Populares (2026-09-09):**
+                - Em `cat_highlights` (`Featured & Launch Bundles`), skins individuais como *Heartsong Seraphine* antes exibiam o prefixo genérico `Highlight` e o emoji de sacola.
+                - Agora, qualquer skin avulsa nos Destaques ou no *Most Popular* identifica sua raridade oficial do LoL (`Legendary`, `Epic`, `Ultimate`, etc.) e exibe o cristal correspondente (`<:legendary:...>`, etc.).
+                - Ajustado o mapeamento de `featured_bundles.json` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para preservar o `inventoryType` real (`CHAMPION_SKIN`) em vez de forçar como `BUNDLES`.
+                - No catálogo *Most Popular*, itens Hextech exibem `Hextech Loot` com ícone de baú/chave, campeões exibem `Champion` e skins exibem sua raridade oficial.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

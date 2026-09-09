@@ -879,9 +879,12 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr(prefix, lootIcon);
     }
     else if (tipoFiltro === 'highlights') {
-        if (rawItem && rawItem.inventoryType === 'CHAMPION_SKIN') {
+        const isSkin = (rawItem && (rawItem.inventoryType === 'CHAMPION_SKIN' || rawItem.inventoryType === 'SKIN')) ||
+            (!nome.toLowerCase().includes('bundle') && !nome.toLowerCase().includes('set') && !nome.toLowerCase().includes('pack'));
+
+        if (isSkin) {
             const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
-            let rarityCode = skinsRarityMap[nomeLower];
+            let rarityCode = rawItem?.rarity || skinsRarityMap[nomeLower];
             if (!rarityCode) {
                 if (calcRp === 3250) rarityCode = 'kUltimate';
                 else if (calcRp === 1820) rarityCode = 'kLegendary';
@@ -914,6 +917,38 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr(disc, (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim());
     }
     else if (tipoFiltro === 'most_popular') {
+        const invType = (rawItem?.inventoryType || rawItem?.tipo || '').toUpperCase();
+        if (invType === 'CHAMPION_SKIN' || invType === 'SKIN') {
+            const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
+            let rarityCode = rawItem?.rarity || skinsRarityMap[nomeLower];
+            if (!rarityCode) {
+                if (calcRp === 3250) rarityCode = 'kUltimate';
+                else if (calcRp === 1820) rarityCode = 'kLegendary';
+                else if (calcRp <= 975) rarityCode = 'kRare';
+                else rarityCode = 'kEpic';
+            }
+            if (nome.toLowerCase().includes('prestige')) rarityCode = 'kMythic';
+
+            const disc = rawItem?.discount_percent ? `-${rawItem.discount_percent}%` : '';
+            switch (rarityCode) {
+                case 'kTranscendent': return formatarStr(disc ? `Transcendent (${disc})` : 'Transcendent', (customEmojis?.skins?.transcendent || '🔸').trim());
+                case 'kExalted': return formatarStr(disc ? `Exalted (${disc})` : 'Exalted', (customEmojis?.skins?.exalted || '🔸').trim());
+                case 'kUltimate': return formatarStr(disc ? `Ultimate (${disc})` : 'Ultimate', (customEmojis?.skins?.ultimate || '🔸').trim());
+                case 'kMythic': return formatarStr(disc ? `Mythic (${disc})` : 'Mythic', (customEmojis?.skins?.mythic || '✨').trim());
+                case 'kLegendary': return formatarStr(disc ? `Legendary (${disc})` : 'Legendary', (customEmojis?.skins?.legendary || '🔴').trim());
+                case 'kEpic': return formatarStr(disc ? `Epic (${disc})` : 'Epic', (customEmojis?.skins?.epic || '🟣').trim());
+                case 'kRare': return formatarStr(disc ? `Common (${disc})` : 'Common', (customEmojis?.skins?.common || '🔵').trim());
+                default: return formatarStr(disc ? `Common (${disc})` : 'Common', (customEmojis?.skins?.common || '🟢').trim());
+            }
+        } else if (invType === 'CHAMPION' || invType === 'CHAMPIONS') {
+            const disc = rawItem?.discount_percent ? `-${rawItem.discount_percent}%` : '';
+            return formatarStr(disc ? `Champion (${disc})` : 'Champion', (customEmojis?.skins?.champion || '⚔️').trim());
+        } else if (invType === 'HEXTECH' || nome.toLowerCase().includes('hextech')) {
+            let icon = (customEmojis?.loot?.chest || '<:hextech:1133606219181981789>').trim();
+            if (nome.toLowerCase().includes('key') && !nome.toLowerCase().includes('chest')) icon = (customEmojis?.loot?.key || '🔑').trim();
+            else if (nome.toLowerCase().includes('bundle') || nome.toLowerCase().includes('set')) icon = (customEmojis?.bundles?.set || '<:lol_bundle_set:1544591078622236763>').trim();
+            return formatarStr('Hextech Loot', icon);
+        }
         return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim());
     }
     else if (tipoFiltro === 'champions') {
@@ -1034,16 +1069,18 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             if (featList.length > 0) {
                 results = featList.map(b => {
                     const catItem = currentCatalog.find(c => String(c.id) === String(b.id) || (c.nome && c.nome.toLowerCase() === b.name.toLowerCase()));
+                    const itemType = b.inventoryType || catItem?.tipo || catItem?.rawItem?.inventoryType || 'BUNDLES';
                     return {
                         id: b.id,
                         nome: b.name,
-                        tipo: 'BUNDLES',
+                        tipo: itemType,
                         iconUrl: b.iconUrl || catItem?.iconUrl || null,
                         price_rp: b.price_rp,
                         rawItem: {
                             ...(catItem?.rawItem || {}),
                             price_rp: b.price_rp,
-                            inventoryType: 'BUNDLES'
+                            inventoryType: itemType,
+                            rarity: b.rarity || catItem?.rarity || catItem?.rawItem?.rarity || null
                         }
                     };
                 });
