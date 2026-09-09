@@ -396,6 +396,13 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Accessories:** Atualizado de `19bau` para `<:lol_poro_emote:1544493296879935489>` (Poro Emote oficial da Riot).
                 - **Featured:** Atualizado de `lol_bundle_set` para `<:lol_exclusive_pack:1544591088084590636>` (Exclusive Pack VIP dourado oficial da Riot).
                 - **Sincronização:** Atualizado [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
+            15. **Diferenciação e Melhoria dos Emojis do Submenu Featured / Destaques (2026-09-09):**
+                - O submenu `cat_highlights` apresentava duplicidade (opção 1 e opção 3 usando o mesmo emoji `lol_exclusive_pack`) e a opção 2 com o emoji genérico `🏷️`.
+                - **Featured & Launch Bundles:** Mantido `<:lol_exclusive_pack:1544591088084590636>` (Pacote Exclusivo do LoL).
+                - **Weekly Sales (On Sale):** Criado e registrado no Discord Application Emojis o emoji oficial `<:lol_sale:1547388458488823868>` (badge vermelho de desconto estilo `-50%` do LoL).
+                - **Most Popular:** Atualizado para `<a:pr_fire01:1527367612168802374>` (fogo animado Hot/Trending).
+                - **Consistência do Catálogo:** Atualizados os títulos de páginas do catálogo (`enviarPaginaCatalogo`) e os itens do select menu (`obterDetalhesItem`) em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para usarem os novos emojis.
+                - **Sincronização:** Salvo em [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

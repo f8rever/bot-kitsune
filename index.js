@@ -911,10 +911,10 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
     }
     else if (tipoFiltro === 'sales') {
         const disc = rawItem?.discount_percent ? `-${rawItem.discount_percent}% OFF` : 'On Sale';
-        return formatarStr(disc, '🏷️');
+        return formatarStr(disc, (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim());
     }
     else if (tipoFiltro === 'most_popular') {
-        return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim());
+        return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim());
     }
     else if (tipoFiltro === 'champions') {
         return formatarStr('Champion', (customEmojis?.skins?.champion || '⚔️').trim());
@@ -1057,7 +1057,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                     return (t === 'BUNDLES' || t === 'BUNDLE');
                 });
             }
-            titulo = lang === 'pt' ? `🌟 ${results.length} Pacotes de Lançamento & Destaques` : `🌟 ${results.length} Featured & Launch Bundles`;
+            const eFeatTitle = (customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim();
+            titulo = lang === 'pt' ? `${eFeatTitle} ${results.length} Pacotes de Lançamento & Destaques` : `${eFeatTitle} ${results.length} Featured & Launch Bundles`;
             customId = 'selecionar_highlight_menu';
         } else if (tipoFiltro === 'bundles') {
             results = currentCatalog.filter(x => {
@@ -1126,12 +1127,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                     };
                 });
         }
-        titulo = lang === 'pt' ? `🏷️ ${results.length} Promoções da Semana (On Sale)` : `🏷️ ${results.length} Weekly Sales (On Sale)`;
+        const eSaleTitle = (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim();
+        titulo = lang === 'pt' ? `${eSaleTitle} ${results.length} Promoções da Semana (On Sale)` : `${eSaleTitle} ${results.length} Weekly Sales (On Sale)`;
         customId = 'selecionar_skin_menu';
     } else if (tipoFiltro === 'most_popular') {
         const { getLoLMostPopularItems } = require('./utils/syncWeeklySales.js');
         results = getLoLMostPopularItems(currentCatalog);
-        const ePopTitle = (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim();
+        const ePopTitle = (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim();
         titulo = lang === 'pt' ? `${ePopTitle} ${results.length} Itens Mais Populares` : `${ePopTitle} ${results.length} Most Popular Items`;
         customId = 'selecionar_popular_menu';
     } else if (tipoFiltro === 'passes') {
@@ -2091,9 +2093,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_highlights') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
-                { label: 'Featured & Launch Bundles', description: 'Heartsong Seraphine skin, border set & chroma bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_bundle_set:1544591078622236763>').trim() },
-                { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: '🏷️' },
-                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim() }
+                { label: 'Featured & Launch Bundles', description: 'Heartsong Seraphine skin, border set & chroma bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim() },
+                { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
+                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
