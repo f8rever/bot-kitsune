@@ -392,6 +392,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   4. `Ocean Song Soraka Chroma Bundle` (2795 RP)
                   5. `Ocean Song Jinx Chroma Bundle` (2795 RP)
                 - **Sincronização:** Atualizado [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> featured_bundles`), além de atualizar o embed `category_highlights` em `config/embeds.json` e o select menu em `index.js`.
+            14. **Novos Emojis Oficiais do LoL para o Menu Principal (2026-09-09):**
+                - **Accessories:** Atualizado de `19bau` para `<:lol_poro_emote:1544493296879935489>` (Poro Emote oficial da Riot).
+                - **Featured:** Atualizado de `lol_bundle_set` para `<:lol_exclusive_pack:1544591088084590636>` (Exclusive Pack VIP dourado oficial da Riot).
+                - **Sincronização:** Atualizado [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
