@@ -1742,10 +1742,9 @@ async function responderResultadoChecagem(interaction, res, accountName, targetR
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     if (!interaction.deferred && !interaction.replied) {
-        await interaction.reply({ content: `${loadEmj} ${getLoadStr('ticket')}`, ephemeral: true }).catch(() => {});
-    } else {
-        await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
+        await interaction.deferReply({ ephemeral: true }).catch(() => {});
     }
+    await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
 
     try {
         const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
