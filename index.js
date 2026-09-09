@@ -1318,13 +1318,17 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     const loja = obterDadosLoja();
 
     const opcoesMenu = [];
+    const seenOptValues = new Set();
     for (const r of pageItems) {
         const info = obterDetalhesItem(r.nome, tipoFiltro, loja, '0.00', r.rawItem, lang);
         const baseName = r.nome.length > 90 ? r.nome.substring(0, 90) : r.nome;
+        const optValue = `${baseName}||${r.id}`;
+        if (seenOptValues.has(optValue)) continue;
+        seenOptValues.add(optValue);
         opcoesMenu.push({
             label: r.nome.substring(0, 100) || 'Unknown Item',
             description: info.desc,
-            value: `${baseName}||${r.id}`,
+            value: optValue,
             emoji: info.emoji
         });
     }

@@ -125,10 +125,11 @@ function getLoLMostPopularItems(currentCatalog = []) {
     ];
 
     const hexResults = hextechSpecs.map(p => {
-        const catItem = currentCatalog.find(c => {
-            const n = (c.nome || '').toLowerCase();
-            return n.includes(p.search.toLowerCase()) && !n.includes('masterwork');
-        });
+        const catItem = currentCatalog.find(c => (c.nome || '').toLowerCase() === p.name.toLowerCase()) ||
+            currentCatalog.find(c => {
+                const n = (c.nome || '').toLowerCase();
+                return n.includes(p.search.toLowerCase()) && !n.includes('masterwork');
+            });
         return {
             id: catItem ? catItem.id : p.name,
             nome: catItem ? catItem.nome : p.name,

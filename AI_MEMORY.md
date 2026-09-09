@@ -403,6 +403,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Most Popular:** Atualizado para `<a:pr_fire01:1527367612168802374>` (fogo animado Hot/Trending).
                 - **Consistência do Catálogo:** Atualizados os títulos de páginas do catálogo (`enviarPaginaCatalogo`) e os itens do select menu (`obterDetalhesItem`) em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para usarem os novos emojis.
                 - **Sincronização:** Salvo em [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
+            16. **Correção de Duplicidade de Itens no Catálogo Most Popular (2026-09-09):**
+                - **Erro:** `COMPONENT_OPTION_VALUE_DUPLICATED: The specified option value is already used` ao carregar o catálogo de `most_popular`.
+                - **Causa:** A busca por `Hextech Chest` usava `.includes()` e capturava `1 Hextech Chest and Key Bundle`, duplicando o item do pacote.
+                - **Correção:** Priorizado match exato de nome em [`utils/syncWeeklySales.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/utils/syncWeeklySales.js), identificando corretamente o Baú individual (`id: 1`) e a Chave (`id: 3`).
+                - **Proteção Extra:** Adicionada deduplicação preventiva via `Set` em `opcoesMenu` dentro de `enviarPaginaCatalogo` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) contra qualquer valor repetido.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
