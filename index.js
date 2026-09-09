@@ -1106,54 +1106,31 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
             } catch (e) {}
 
-            results = saleList.map(s => {
-                const catItem = currentCatalog.find(c => String(c.id) === String(s.id) || (c.nome && c.nome.toLowerCase() === s.name.toLowerCase()));
-                return {
-                    id: s.id,
-                    nome: s.name,
-                    tipo: 'CHAMPION_SKIN',
-                    iconUrl: s.iconUrl || catItem?.iconUrl || null,
-                    price_rp: s.sale_rp,
-                    rawItem: {
-                        ...(catItem?.rawItem || {}),
-                        regular_rp: s.regular_rp,
-                        sale_rp: s.sale_rp,
-                        discount_percent: s.discount_percent,
-                        inventoryType: 'CHAMPION_SKIN'
-                    }
-                };
-            });
+            results = saleList
+                .filter(s => (s.inventoryType || 'CHAMPION_SKIN') === 'CHAMPION_SKIN')
+                .map(s => {
+                    const catItem = currentCatalog.find(c => String(c.id) === String(s.id) || (c.nome && c.nome.toLowerCase() === s.name.toLowerCase()));
+                    return {
+                        id: s.id,
+                        nome: s.name,
+                        tipo: 'CHAMPION_SKIN',
+                        iconUrl: s.iconUrl || catItem?.iconUrl || null,
+                        price_rp: s.sale_rp,
+                        rawItem: {
+                            ...(catItem?.rawItem || {}),
+                            regular_rp: s.regular_rp,
+                            sale_rp: s.sale_rp,
+                            discount_percent: s.discount_percent,
+                            inventoryType: 'CHAMPION_SKIN'
+                        }
+                    };
+                });
         }
         titulo = lang === 'pt' ? `🏷️ ${results.length} Promoções da Semana (On Sale)` : `🏷️ ${results.length} Weekly Sales (On Sale)`;
         customId = 'selecionar_skin_menu';
     } else if (tipoFiltro === 'most_popular') {
-        const popItems = [
-            { name: '10 Hextech Chests & Keys + Bonus Set!', search: '10 Hextech Chests & Keys', defaultRp: 1950, tipo: 'HEXTECH' },
-            { name: '5 Hextech Chests & Keys + Bonus Essence!', search: '5 Hextech Chests & Keys', defaultRp: 975, tipo: 'HEXTECH' },
-            { name: '1 Hextech Chest and Key Bundle', search: '1 Hextech Chest and Key', defaultRp: 195, tipo: 'HEXTECH' },
-            { name: 'Hextech Chest', search: 'Hextech Chest', defaultRp: 125, tipo: 'HEXTECH' },
-            { name: 'Hextech Key', search: 'Hextech Key', defaultRp: 125, tipo: 'HEXTECH' },
-            { name: 'Season 3: Act I Pass', search: 'Season 3: Act I Pass', defaultRp: 1650, tipo: 'EVENT_PASS' },
-            { name: 'Season 3: Act I Pass Bundle', search: 'Season 3: Act I Pass Bundle', defaultRp: 2650, tipo: 'EVENT_PASS' },
-            { name: 'Season 3: Act I Premium Pass Bundle', search: 'Season 3: Act I Premium Pass Bundle', defaultRp: 3650, tipo: 'EVENT_PASS' },
-            { name: "Summoner's Mega Orb Bundle", search: "Summoner's Mega Orb Bundle", defaultRp: 12500, tipo: 'ORB' },
-            { name: "Summoner's Premium Orb Bundle", search: "Summoner's Premium Orb Bundle", defaultRp: 6250, tipo: 'ORB' },
-            { name: "Summoner's Deluxe Orb Bundle", search: "Summoner's Deluxe Orb Bundle", defaultRp: 2500, tipo: 'ORB' },
-            { name: "Summoner's Orb", search: "Summoner's Orb", defaultRp: 250, tipo: 'ORB' },
-            { name: 'Mystery Skin Gift', search: 'Mystery Skin', defaultRp: 490, tipo: 'MYSTERY' }
-        ];
-
-        results = popItems.map(p => {
-            const catItem = currentCatalog.find(c => c.nome && c.nome.toLowerCase().includes(p.search.toLowerCase()));
-            return {
-                id: catItem ? catItem.id : p.name,
-                nome: catItem ? catItem.nome : p.name,
-                tipo: catItem ? catItem.tipo : p.tipo,
-                iconUrl: catItem ? catItem.iconUrl : null,
-                price_rp: catItem ? catItem.price_rp : p.defaultRp,
-                rawItem: catItem ? catItem.rawItem : { inventoryType: p.tipo }
-            };
-        });
+        const { getLoLMostPopularItems } = require('./utils/syncWeeklySales.js');
+        results = getLoLMostPopularItems(currentCatalog);
         const ePopTitle = (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim();
         titulo = lang === 'pt' ? `${ePopTitle} ${results.length} Itens Mais Populares` : `${ePopTitle} ${results.length} Most Popular Items`;
         customId = 'selecionar_popular_menu';
@@ -4868,6 +4845,16 @@ async function refreshAccountsTask() {
                         if (acc.accessToken) friendlistCacheMap.set(acc.accessToken, { timestamp: Date.now(), friends });
                     }
                 } catch (fErr) { }
+
+                // Sincronização automática periódica das promoções da Riot Storefront (Weekly Sales e Most Popular)
+                if (!global.lastWeeklySalesSync || Date.now() - global.lastWeeklySalesSync > 6 * 60 * 60 * 1000) {
+                    try {
+                        const { syncWeeklySalesFromRiot } = require('./utils/syncWeeklySales.js');
+                        syncWeeklySalesFromRiot(acc.accessToken, acc.region || 'BR1').then(res => {
+                            if (res.success) global.lastWeeklySalesSync = Date.now();
+                        }).catch(() => {});
+                    } catch (sErr) { }
+                }
             }
 
         } catch (e) {

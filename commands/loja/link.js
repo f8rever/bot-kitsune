@@ -178,6 +178,12 @@ module.exports = {
             console.error('[Link] Erro ao salvar conta no MongoDB:', e.message);
         }
 
+        // Sincronização automática das promoções e Most Popular da Riot Games
+        try {
+            const { syncWeeklySalesFromRiot } = require('../../utils/syncWeeklySales.js');
+            syncWeeklySalesFromRiot(authData.accessToken, region).catch(() => {});
+        } catch (e) {}
+
         const userStoreSessions = global.userStoreSessions || new Map();
         userStoreSessions.set(interaction.user.id, {
             accountName: finalAccountName,

@@ -375,6 +375,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Motivo / Verificação na API da Riot:** O endpoint oficial de gifting da Riot Games (`/storefront/v3/gift`) rejeita presentes com `inventoryType: 'COMPANION'` (Little Legends / Chibis) e `'TFT_MAP_SKIN'` (Arenas do TFT) com erro `400 Bad Request` / `NOT_GIFTABLE`. O TFT não possui suporte a presentes no League of Legends. Além disso, boosts de XP (duração/vitórias) não possuem endpoints de gifting.
                 - **Ação Realizada:** Removidas as opções `Little Legends & Chibis`, `TFT Arenas` e `XP Boosts` do Select Menu de Acessórios (`cat_accessories`) e do embed de descrição (`category_accessories` em `config/embeds.json`).
                 - **Sincronização:** `embeds.json` sincronizado com o **MongoDB Atlas** (`bot_configurations -> embeds`) e atualizado na interface do bot para exibir apenas os 3 tipos 100% presenteáveis e com cobertura total de emojis oficiais: **Emotes**, **Ward Skins** e **Summoner Icons**.
+            12. **Sistema 100% Automático de "Most Popular" e "Weekly Sales" da Riot Games (2026-09-09):**
+                - **Estrutura Idêntica ao Cliente do LoL:** A vitrine **Most Popular** no cliente oficial do LoL é composta por exatamente 25 itens: os 5 consumíveis Hextech fixos (Baú, Chave, 1x, 5x, 10x) + as 15 skins com promoção ativa da semana (`item.sale`) + os 5 campeões em promoção da semana.
+                - **Módulo Automatizado:** Criado [`utils/syncWeeklySales.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/utils/syncWeeklySales.js) com:
+                  - `syncWeeklySalesFromRiot(accessToken, region)`: consulta a Storefront API da Riot Games (`/storefront/v1/catalog`), extrai os itens com a tag `sale` ativa, salva em `config/weekly_sales.json` e sincroniza automaticamente com o **MongoDB Atlas** (`bot_configurations -> weekly_sales`).
+                  - `getLoLMostPopularItems(currentCatalog)`: gera os 25 itens dinamicamente direto dos dados da Riot.
+                - **Gatilhos Automáticos:**
+                  - Conectado em `refreshAccountsTask` para rodar a cada 6 horas no background sempre que uma conta Riot estiver ativa.
+                  - Conectado no comando `/link` para rodar imediatamente ao vincular uma nova conta.
+                - **Menu do Discord:** Atualizados os filtros `sales` (mostra as 15 skins em promoção) e `most_popular` (mostra os 25 itens idênticos ao cliente oficial do jogo) em `index.js`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
