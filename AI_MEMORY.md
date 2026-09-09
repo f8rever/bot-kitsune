@@ -384,6 +384,14 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Conectado em `refreshAccountsTask` para rodar a cada 6 horas no background sempre que uma conta Riot estiver ativa.
                   - Conectado no comando `/link` para rodar imediatamente ao vincular uma nova conta.
                 - **Menu do Discord:** Atualizados os filtros `sales` (mostra as 15 skins em promoção) e `most_popular` (mostra os 25 itens idênticos ao cliente oficial do jogo) em `index.js`.
+            13. **Ajuste Exclusivo da Vitrine "Featured & Launch Bundles" (2026-09-09):**
+                - **Alinhamento 100% com a aba Featured do Cliente do LoL:** Removidos todos os pacotes antigos e mantidos **apenas** os itens em destaque na loja da Riot:
+                  1. `Heartsong Seraphine` (1820 RP, Skin Lendária)
+                  2. `Heartsong Seraphine Border Set` (2720 RP)
+                  3. `Heartsong Seraphine Chroma Bundle` (3035 RP)
+                  4. `Ocean Song Soraka Chroma Bundle` (2795 RP)
+                  5. `Ocean Song Jinx Chroma Bundle` (2795 RP)
+                - **Sincronização:** Atualizado [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> featured_bundles`), além de atualizar o embed `category_highlights` em `config/embeds.json` e o select menu em `index.js`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

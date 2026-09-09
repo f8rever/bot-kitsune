@@ -2092,9 +2092,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_highlights') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
-                { label: 'Featured & Launch Bundles', description: 'Browse launch sets, special bundles & signature packages', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_bundle_set:1544591078622236763>').trim() },
+                { label: 'Featured & Launch Bundles', description: 'Heartsong Seraphine skin, border set & chroma bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_bundle_set:1544591078622236763>').trim() },
                 { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: '🏷️' },
-                { label: 'Most Popular', description: 'Best-selling Hextech chests, event passes & summoner orbs', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim() }
+                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || customEmojis?.bundles?.exclusive_pack || '<:lol_exclusive_pack:1544591088084590636>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
