@@ -353,6 +353,17 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                - `lol_summoner_orb` (`<:lol_summoner_orb:1546370600652771459>`) para Summoner's Orb individual (250 RP).
             4. Atualizado [`config/emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
             5. Deletados com sucesso os emojis antigos do servidor Zed Store (`lol_orb_s3`) e Kitsune Service (`megaorb`, `premium`, `deluxe`, `orb`, `orb10x`, `orb25x`, `orb50x`, `orb1`).
+       8. **Restauração Completa do Ambiente Pós-Formatação (2026-09-09):**
+          - **Situação:** Computador recém-formatado pelo usuário, sem Node.js, Python ou ferramentas no PATH.
+          - **Ações Realizadas:**
+            1. **Node.js LTS:** Instalado **v22.14.0 LTS** (npm v10.9.2) em `%LOCALAPPDATA%\Programs\nodejs` e registrado de forma persistente no PATH do usuário.
+            2. **Python:** Instalado **Python 3.12.8** de 64-bits com `pip 24.3.1` em `%LOCALAPPDATA%\Programs\Python\Python312` e registrado no PATH do usuário.
+            3. **Puppeteer:** Configurado e baixado o binário oficial do navegador Chrome (`win64-150.0.7871.24`) para viabilizar as automações e login Riot.
+            4. **PowerShell:** Configurada política de execução `RemoteSigned` no escopo `CurrentUser` para permitir execução de scripts npm e venv sem restrições.
+            5. **Python Backend & lol_giftapi-main:** Instaladas 100% das dependências de `requirements.txt` tanto globalmente no Python 3.12 quanto no ambiente virtual `python_backend/venv` (Flask 3.0.3, pymongo 4.7.3, aiohttp 3.9.5, httpx 0.27.0, APScheduler 3.10.4, celery, etc.), permitindo executar `main_backend.py` diretamente de qualquer pasta (`lol_giftapi-main` ou `python_backend`).
+            6. **Validação:** Módulos nativos (`sqlite3`, `discord.js`, `mongodb`) validados com sucesso; sintaxe do `index.js` íntegra; conexão com o MongoDB Atlas testada e operando normalmente.
+            7. **Atualização de Emojis:** Configurado o emoji `search` como `<:lupaazul:1547287331030171818>` em `config/emojis.json` (categoria `utilidades`), integrado dinamicamente no botão de busca do catálogo em `index.js` e sincronizado na coleção `bot_configurations` do MongoDB Atlas.
+            8. **Texto de Carregamento da Busca:** Alterado o texto de loading da busca (`getLoadStr('search')`) de `"Fetching data from the void..."` para `"loading catalog..."`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

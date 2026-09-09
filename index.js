@@ -452,7 +452,7 @@ const getLoadStr = (context = 'default') => {
         case 'ticket':
             return 'Preparing your items...';
         case 'search':
-            return 'Fetching data from the void...';
+            return 'loading catalog...';
         default:
             return 'Awakening the foxes...';
     }
@@ -1381,7 +1381,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             .setCustomId(`btn_search_cat_${tipoFiltro}`)
             .setLabel('Search')
             .setStyle(ButtonStyle.Success)
-            .setEmoji('🔍')
+            .setEmoji((customEmojis?.utilidades?.search || '🔍').trim())
     );
 
     if (totalPages > 1) {
