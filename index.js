@@ -2075,7 +2075,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_skins') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Skins option').addOptions([
-                { label: 'Champion Skins', description: 'Browse all giftable champion skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
+                { label: 'Skins', description: 'Browse all giftable skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
                 { label: 'Chromas', description: 'Browse all champion chromas (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() }
             ])
         );

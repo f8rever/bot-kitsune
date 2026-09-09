@@ -364,6 +364,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
             6. **Validação:** Módulos nativos (`sqlite3`, `discord.js`, `mongodb`) validados com sucesso; sintaxe do `index.js` íntegra; conexão com o MongoDB Atlas testada e operando normalmente.
             7. **Atualização de Emojis:** Configurado o emoji `search` como `<:lupaazul:1547287331030171818>` em `config/emojis.json` (categoria `utilidades`), integrado dinamicamente no botão de busca do catálogo em `index.js` e sincronizado na coleção `bot_configurations` do MongoDB Atlas.
             8. **Texto de Carregamento da Busca:** Alterado o texto de loading da busca (`getLoadStr('search')`) de `"Fetching data from the void..."` para `"loading catalog..."`.
+            9. **Ajuste de Categoria de Skins:** Alterado o label da opção no select menu da categoria `cat_skins` de `"Champion Skins"` para apenas `"Skins"`, com descrição `"Browse all giftable skins"`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
