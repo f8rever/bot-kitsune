@@ -365,6 +365,12 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
             7. **Atualização de Emojis:** Configurado o emoji `search` como `<:lupaazul:1547287331030171818>` em `config/emojis.json` (categoria `utilidades`), integrado dinamicamente no botão de busca do catálogo em `index.js` e sincronizado na coleção `bot_configurations` do MongoDB Atlas.
             8. **Texto de Carregamento da Busca:** Alterado o texto de loading da busca (`getLoadStr('search')`) de `"Fetching data from the void..."` para `"loading catalog..."`.
             9. **Ajuste de Categoria de Skins:** Alterado o label da opção no select menu da categoria `cat_skins` de `"Champion Skins"` para apenas `"Skins"`, com descrição `"Browse all giftable skins"`.
+            10. **Migração Total para Application Emojis (647 Cosméticos):**
+                - Identificado que o Discord liberou **2.000 slots** para Application Emojis (removendo o gargalo antigo de 50).
+                - Removidas com sucesso as 18 wards do servidor `Zed Store` (deixando todos os servidores 100% limpos de emojis auxiliares).
+                - Enviados diretamente para o **Application Emojis** do bot: **68 Wards** (`ward_${id}`), **170 Emotes** (`emote_${id}`) e **409 Ícones** (`icon_${id}`), totalizando **647 emojis oficiais da Riot Games** criados na aplicação.
+                - Atualizado [`config/cosmetic_emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) e sincronizado na coleção `bot_configurations` do **MongoDB Atlas**.
+                - Bot reiniciado com sucesso carregando o cache de 647 Application Emojis diretamente no Discord.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
