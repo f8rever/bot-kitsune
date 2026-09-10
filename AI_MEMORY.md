@@ -448,7 +448,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Se o usuário já possuir um ticket aberto, o bot bloqueia duplicidade e fornece o botão direto `[Go to Ticket]`.
                   - Se selecionado dentro do ticket, o pacote é adicionado ao carrinho com recálculo automático de preço.
                   - Fora do ticket, exibe modal rápido em inglês (`🏆 Hall of Legends 2026 - Order`) para confirmação de Riot ID e Região (com pré-preenchimento automático se já houver sessão) e cria o ticket instantaneamente com botão de acesso direto.
-                - **Catálogo & Precificação:** Adicionados os 4 itens em [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) e regras explícitas em `getItemRpValue` e `obterDetalhesItem` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js), garantindo resolução de preços 100% confiável e exibição do badge `Hall of Legends 🏆`.
+                - **Splash Arts Oficiais em HD (Data Dragon):**
+                  - Banner (`image`): Splash art oficial da **Immortalized Legend Tristana / Signature Edition** em alta resolução (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg`).
+                  - Thumbnail (`thumbnail`): Splash art oficial da **Risen Legend Orianna** (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg`).
+                  - Ícones dos pacotes em [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) atualizados para suas respectivas artes em HD (`Orianna_40.jpg`, `Tristana_79.jpg`, `Tristana_80.jpg`), sincronizados no MongoDB Atlas.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
