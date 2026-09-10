@@ -413,6 +413,12 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - Agora, qualquer skin avulsa nos Destaques ou no *Most Popular* identifica sua raridade oficial do LoL (`Legendary`, `Epic`, `Ultimate`, etc.) e exibe o cristal correspondente (`<:legendary:...>`, etc.).
                 - Ajustado o mapeamento de `featured_bundles.json` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para preservar o `inventoryType` real (`CHAMPION_SKIN`) em vez de forçar como `BUNDLES`.
                 - No catálogo *Most Popular*, itens Hextech exibem `Hextech Loot` com ícone de baú/chave, campeões exibem `Champion` e skins exibem sua raridade oficial.
+            18. **Remoção de Checagem de Amizade 24h & Adição do Botão Refresh no Ticket (2026-09-09):**
+                - Removido o campo `⏱️ Status de Gifting (24h)` do embed de pedido do ticket (`ticket_order_received` em [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) e sincronizado com o MongoDB Atlas).
+                - Removido o botão de checagem de amizade (`btn_check_friendship`).
+                - Adicionado o botão **`Refresh`** (`btn_refresh_ticket`) com emoji `🔄` na primeira linha de botões do ticket (`Close Ticket`, `Payment Methods`, `Refresh`).
+                - Implementada recuperação automática de carrinho (`global.ticketCarts`) a partir das mensagens do canal caso o bot tenha sido reiniciado, garantindo que o botão `Refresh` funcione sem falhas mesmo após reinicialização.
+                - O botão `Refresh` recalcula preços, restaura imagens e atualiza o embed do ticket em tempo real.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
