@@ -2061,17 +2061,20 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         await canal.send({ content: initialMention });
         await atualizarEmbedTicket(canal, interaction.client);
 
+        const isPt = (regiaoStr === 'BR' || regiaoStr === 'BR1');
         const goToTicketRow = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
-                .setLabel('Ir para o Ticket')
+                .setLabel(isPt ? 'Ir para o Ticket' : 'Go to Ticket')
                 .setStyle(ButtonStyle.Link)
                 .setURL(canal.url)
         );
 
+        const ticketSuccessMsg = isPt ? `✅ Seu ticket foi criado com sucesso em ${canal}!` : `✅ Your ticket has been created successfully in ${canal}!`;
+
         if (interaction.deferred || interaction.replied) {
-            await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso em ${canal}!`, embeds: [], components: [goToTicketRow] }).catch(() => {});
+            await interaction.editReply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow] }).catch(() => {});
         } else {
-            await interaction.reply({ content: `✅ Seu ticket foi criado com sucesso em ${canal}!`, embeds: [], components: [goToTicketRow], ephemeral: true }).catch(() => {});
+            await interaction.reply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow], ephemeral: true }).catch(() => {});
         }
     } catch (err) {
         console.error('[Ticket Create Fatal Error]:', err);
@@ -2610,7 +2613,7 @@ client.on('interactionCreate', async interaction => {
 
             else if (interaction.customId === 'menu_hall_of_legends_select') {
                 const itemSelecionado = interaction.values[0];
-                if (!itemSelecionado || itemSelecionado === 'nenhum') return interaction.reply({ content: 'Opção inválida.', ephemeral: true });
+                if (!itemSelecionado || itemSelecionado === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
 
                 const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
                 if (isInsideTicket) {
@@ -2627,7 +2630,7 @@ client.on('interactionCreate', async interaction => {
                     let cart = global.ticketCarts.get(interaction.channel.id);
                     if (!cart) {
                         let ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
-                        const session = userStoreSessions.get(ownerId) || { regiao: 'BR', riotId: 'Unknown' };
+                        const session = userStoreSessions.get(ownerId) || { regiao: 'NA', riotId: 'Unknown' };
                         cart = {
                             ownerId,
                             regiao: session.regiao.toUpperCase(),
@@ -2646,7 +2649,7 @@ client.on('interactionCreate', async interaction => {
                         eVariacao: (customEmojis?.skins?.transcendent || '🏆').trim()
                     });
 
-                    await interaction.reply({ content: `✅ **${nomeReal}** foi adicionado ao carrinho com sucesso!`, ephemeral: true }).catch(() => {});
+                    await interaction.reply({ content: `✅ **${nomeReal}** has been added to your cart successfully!`, ephemeral: true }).catch(() => {});
                     await atualizarEmbedTicket(interaction.channel, interaction.client);
                     return;
                 }
@@ -2666,37 +2669,37 @@ client.on('interactionCreate', async interaction => {
                 if (existingTicket) {
                     const row = new ActionRowBuilder().addComponents(
                         new ButtonBuilder()
-                            .setLabel('Ir para o Ticket')
+                            .setLabel('Go to Ticket')
                             .setStyle(ButtonStyle.Link)
                             .setURL(existingTicket.url)
                     );
                     return await interaction.reply({
-                        content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
+                        content: `⚠️ You already have an open ticket in ${existingTicket}! Please finalize or close your previous ticket before placing a new order.`,
                         components: [row],
                         ephemeral: true
                     }).catch(() => {});
                 }
 
-                const session = userStoreSessions.get(interaction.user.id) || { regiao: 'BR', riotId: '' };
+                const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: '' };
                 const savedRiotId = (session.riotId && session.riotId !== 'Unknown') ? session.riotId : '';
-                const savedRegion = session.regiao || 'BR';
+                const savedRegion = session.regiao || 'NA';
 
                 const modal = new ModalBuilder()
                     .setCustomId(`modal_hol_order__${encodeURIComponent(itemSelecionado)}`)
-                    .setTitle('🏆 Hall of Legends 2026 - Pedido');
+                    .setTitle('🏆 Hall of Legends 2026 - Order');
 
                 const riotInput = new TextInputBuilder()
                     .setCustomId('hol_riot_id')
-                    .setLabel('Seu Riot ID (Nome#TAG):')
-                    .setPlaceholder('Ex: Caps#EUW ou Player#BR1')
+                    .setLabel('Your Riot ID (Name#TAG):')
+                    .setPlaceholder('e.g. Caps#EUW or Player#NA1')
                     .setValue(savedRiotId)
                     .setStyle(TextInputStyle.Short)
                     .setRequired(true);
 
                 const regionInput = new TextInputBuilder()
                     .setCustomId('hol_region')
-                    .setLabel('Sua Região (BR, NA, EUW, etc.):')
-                    .setPlaceholder('Ex: BR, NA, EUW')
+                    .setLabel('Your Region (NA, EUW, BR, etc.):')
+                    .setPlaceholder('e.g. NA, EUW, BR')
                     .setValue(savedRegion)
                     .setStyle(TextInputStyle.Short)
                     .setRequired(true);
@@ -2849,6 +2852,7 @@ client.on('interactionCreate', async interaction => {
                         subgroupTitle = '🌟 Featured & Ofertas Especiais';
                         subgroupOptions = [
                             { label: 'Menu da Categoria (Featured)', description: 'Embed de apresentação com banner e descrição', value: 'category_highlights', emoji: (customEmojis?.menu_principal?.featured || '<:lol_bundle_set:1544591078622236763>').trim() },
+                            { label: 'Painel Hall of Legends (/halloflegends)', description: 'Embed do evento especial Hall of Legends 2026 (Caps)', value: 'hall_of_legends', emoji: '🏆' },
                             { label: 'Catálogo de Featured & Pacotes', description: 'Página de bundles e ofertas em destaque', value: 'catalog_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() },
                             { label: 'Catálogo de Promoções Semanais', description: 'Página de skins em promoção (On Sale)', value: 'catalog_sales', emoji: '🏷️' },
                             { label: 'Catálogo de Mais Populares', description: 'Página de baús, passes e orbes mais populares', value: 'catalog_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<:lol_exclusive_pack:1544591088084590636>').trim() }
@@ -4367,12 +4371,12 @@ client.on('interactionCreate', async interaction => {
                 const itemSelecionado = decodeURIComponent(itemEncoded);
 
                 const riotId = interaction.fields.getTextInputValue('hol_riot_id').trim();
-                const regiao = (interaction.fields.getTextInputValue('hol_region') || 'BR').trim().toUpperCase();
+                const regiao = (interaction.fields.getTextInputValue('hol_region') || 'NA').trim().toUpperCase();
 
                 userStoreSessions.set(interaction.user.id, { regiao, riotId });
 
                 if (global.activeTicketCreations && global.activeTicketCreations.has(interaction.user.id)) {
-                    return interaction.reply({ content: '⏳ Seu ticket já está sendo gerado, aguarde um instante...', ephemeral: true }).catch(() => {});
+                    return interaction.reply({ content: '⏳ Your ticket is already being generated, please wait a moment...', ephemeral: true }).catch(() => {});
                 }
 
                 await criarCanalTicket(interaction, itemSelecionado, 'highlights');

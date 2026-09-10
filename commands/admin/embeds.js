@@ -21,7 +21,7 @@ module.exports = {
                 .setPlaceholder('🛒 Loja, Tickets, Pedidos & Pagamento...')
                 .addOptions([
                     { label: 'Painel Boas-Vindas da Loja (/ticket)', description: 'Mensagem inicial do painel fixo da loja no chat', value: 'ticket_welcome', emoji: '✉️' },
-                    { label: 'Painel Hall of Legends (/halloflegends)', description: 'Embed do evento especial Hall of Legends (Caps)', value: 'hall_of_legends', emoji: '🏆' },
+                    { label: 'Hall of Legends Panel (/halloflegends)', description: 'Embed for the Hall of Legends 2026 event (Caps)', value: 'hall_of_legends', emoji: '🏆' },
                     { label: 'Resumo do Pedido no Ticket', description: 'Embed do pedido gerado dentro do canal do ticket', value: 'ticket_order_received', emoji: '📋' },
                     { label: 'Formas de Pagamento (/ticket)', description: 'Embed com métodos de pagamento aceitos', value: 'ticket_payment_methods', emoji: '💶' },
                     { label: 'Autenticação de Região da Loja', description: 'Menu de escolha de região (BR, NA, EUW, etc.)', value: 'store_authentication', emoji: '🌍' },
