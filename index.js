@@ -1826,6 +1826,15 @@ async function responderResultadoChecagem(interaction, res, accountName, targetR
 }
 
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
+    if (!global.activeTicketCreations) global.activeTicketCreations = new Set();
+    if (global.activeTicketCreations.has(interaction.user.id)) {
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.reply({ content: '⏳ Seu ticket já está sendo gerado, aguarde um instante...', ephemeral: true }).catch(() => {});
+        }
+        return;
+    }
+    global.activeTicketCreations.add(interaction.user.id);
+
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     if (!interaction.deferred && !interaction.replied) {
         await interaction.deferReply({ ephemeral: true }).catch(() => {});
@@ -1833,19 +1842,67 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
 
     try {
+        const { ChannelType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+
+        // 1. Verificação se o usuário já possui um ticket aberto no servidor
+        let existingTicket = interaction.guild.channels.cache.find(c =>
+            c.type === ChannelType.GuildText &&
+            (
+                (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
+                (c.name === `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''))
+            )
+        );
+
+        if (!existingTicket) {
+            try {
+                const fetchedChannels = await interaction.guild.channels.fetch();
+                existingTicket = fetchedChannels.find(c =>
+                    c && c.type === ChannelType.GuildText &&
+                    (
+                        (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
+                        (c.name === `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''))
+                    )
+                );
+            } catch (e) {}
+        }
+
+        if (existingTicket) {
+            const row = new ActionRowBuilder().addComponents(
+                new ButtonBuilder()
+                    .setLabel('Ir para o Ticket')
+                    .setStyle(ButtonStyle.Link)
+                    .setURL(existingTicket.url)
+            );
+            return await interaction.editReply({
+                content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
+                embeds: [],
+                components: [row]
+            }).catch(() => {});
+        }
+
         const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
         const regiaoStr = (session.regiao || 'NA').toUpperCase();
 
-        const { ChannelType, PermissionFlagsBits } = require('discord.js');
         const staffRolesArray = (process.env.STAFF_ROLE_IDS || '')
             .split(',')
             .map(r => r.trim())
             .filter(r => r && interaction.guild.roles.cache.has(r));
 
+        // 2. Criação de categoria protegida contra concorrência
         let category = interaction.guild.channels.cache.find(c => c.type === ChannelType.GuildCategory && c.name.toUpperCase() === `TICKETS - ${regiaoStr}`);
 
         if (!category) {
-            try {
+            if (!global.creatingCategories) global.creatingCategories = new Map();
+            if (global.creatingCategories.has(regiaoStr)) {
+                try {
+                    category = await global.creatingCategories.get(regiaoStr);
+                } catch (e) {}
+            }
+        }
+
+        if (!category) {
+            if (!global.creatingCategories) global.creatingCategories = new Map();
+            const catPromise = (async () => {
                 const categoryOverwrites = [
                     { id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
                     { id: client.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ManageChannels] }
@@ -1853,14 +1910,20 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
                 for (const roleId of staffRolesArray) {
                     categoryOverwrites.push({ id: roleId, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] });
                 }
-                category = await interaction.guild.channels.create({
+                return await interaction.guild.channels.create({
                     name: `TICKETS - ${regiaoStr}`,
                     type: ChannelType.GuildCategory,
                     permissionOverwrites: categoryOverwrites
                 });
+            })();
+            global.creatingCategories.set(regiaoStr, catPromise);
+            try {
+                category = await catPromise;
             } catch (catErr) {
                 console.error('[Ticket Error] Não foi possível criar categoria, criando canal solto:', catErr.message);
                 category = null;
+            } finally {
+                global.creatingCategories.delete(regiaoStr);
             }
         }
 
@@ -1976,6 +2039,8 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
             embeds: [], 
             components: [] 
         }).catch(() => {});
+    } finally {
+        global.activeTicketCreations.delete(interaction.user.id);
     }
 }
 
@@ -2578,6 +2643,9 @@ client.on('interactionCreate', async interaction => {
                     
                     await atualizarEmbedTicket(interaction.channel, interaction.client);
                 } else {
+                    if (global.activeTicketCreations && global.activeTicketCreations.has(interaction.user.id)) {
+                        return interaction.reply({ content: '⏳ Seu ticket já está sendo gerado, aguarde um instante...', ephemeral: true }).catch(() => {});
+                    }
                     await criarCanalTicket(interaction, itemSelecionado, tipo);
                 }
             }

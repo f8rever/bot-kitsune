@@ -419,6 +419,13 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - Adicionado o botão **`Refresh`** (`btn_refresh_ticket`) com emoji `🔄` na primeira linha de botões do ticket (`Close Ticket`, `Payment Methods`, `Refresh`).
                 - Implementada recuperação automática de carrinho (`global.ticketCarts`) a partir das mensagens do canal caso o bot tenha sido reiniciado, garantindo que o botão `Refresh` funcione sem falhas mesmo após reinicialização.
                 - O botão `Refresh` recalcula preços, restaura imagens e atualiza o embed do ticket em tempo real.
+            19. **Correção de Criação de Tickets Duplicados no Catálogo (2026-09-09):**
+                - **Problema:** Ao selecionar um item para finalizar o pedido no catálogo, o bot criava 2 canais de tickets simultaneamente (~500ms de diferença).
+                - **Causa:** Concorrência e clique duplo do usuário/despacho duplo de eventos da API do Discord em `selecionar_..._menu`. Não havia bloqueio de concorrência (*in-flight lock*) nem checagem de ticket aberto para o usuário, criando também categorias duplicadas na mesma corrida de concorrência.
+                - **Solução Implementada:**
+                  1. Mutex de criação ativa (`global.activeTicketCreations`) que bloqueia chamadas concorrentes para o mesmo usuário enquanto o ticket está sendo gerado.
+                  2. Verificação prévia e rigorosa de ticket ativo (`existingTicket` por tópico `Ticket-Owner: ID` e nome de canal), redirecionando o usuário com link direto caso já possua um canal aberto.
+                  3. Mutex de criação de categorias por região (`global.creatingCategories`) para impedir criação concorrente de categorias idênticas.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
