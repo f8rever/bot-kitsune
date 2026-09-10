@@ -3504,14 +3504,22 @@ client.on('interactionCreate', async interaction => {
 
             if (interaction.customId === 'btn_payment_methods') {
                 const embedPay = buildCustomEmbed('ticket_payment_methods', interaction.client, interaction);
-                const payRow = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder()
+                const payCfg = customEmbeds?.ticket_payment_methods;
+                const components = [];
+                if (payCfg?.buttonLabel && payCfg.buttonLabel.trim()) {
+                    let style = ButtonStyle.Success;
+                    if (payCfg.buttonStyle === 'Primary' || payCfg.buttonStyle === 'Blue') style = ButtonStyle.Primary;
+                    else if (payCfg.buttonStyle === 'Danger' || payCfg.buttonStyle === 'Red') style = ButtonStyle.Danger;
+                    else if (payCfg.buttonStyle === 'Secondary' || payCfg.buttonStyle === 'Gray') style = ButtonStyle.Secondary;
+
+                    const btn = new ButtonBuilder()
                         .setCustomId('btn_notify_paid')
-                        .setLabel('I Have Paid / Notificar Pagamento')
-                        .setStyle(ButtonStyle.Success)
-                        .setEmoji('📩')
-                );
-                return await interaction.reply({ embeds: [embedPay], components: [payRow], ephemeral: true }).catch(() => { });
+                        .setLabel(payCfg.buttonLabel.trim())
+                        .setStyle(style);
+                    if (payCfg.buttonEmoji) btn.setEmoji(payCfg.buttonEmoji.trim());
+                    components.push(new ActionRowBuilder().addComponents(btn));
+                }
+                return await interaction.reply({ embeds: [embedPay], components, ephemeral: true }).catch(() => { });
             }
 
             if (interaction.customId === 'btn_notify_paid') {

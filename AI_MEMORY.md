@@ -430,6 +430,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   3. Mutex de criação de categorias por região (`global.creatingCategories`) para impedir criação concorrente de categorias idênticas.
                   4. Tratamento seguro de respostas (`interaction.deferred || interaction.replied`) para prevenir exceções `40060` e `InteractionNotReplied`.
                   5. **Regra Operacional:** Não manter processo `node index.js` rodando localmente enquanto o deploy de produção no Render estiver ativo.
+            20. **Remoção do Botão Não-Solicitado no Embed de Formas de Pagamento (2026-09-09):**
+                - **Problema:** Ao clicar em `Payment Methods` no ticket, o bot anexava automaticamente um botão verde `[ 📩 I Have Paid / Notificar Pagamento ]` que não foi configurado pelo usuário no template do embed.
+                - **Solução Implementada:**
+                  1. Removido o botão fixo hardcoded em `btn_payment_methods`. Agora, o bot exibe estritamente o embed configurado pelo usuário, e só anexa botão caso o usuário tenha explicitamente preenchido `buttonLabel` no template do `/embeds`.
+                  2. Sincronizado [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com o conteúdo real salvo pelo usuário no MongoDB Atlas (título `Payment Methods`, chaves de pagamento de PayPal, Revolut, Crypto USDT e splash art do Viktor).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
