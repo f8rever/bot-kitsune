@@ -1837,19 +1837,26 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
 
     const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     if (!interaction.deferred && !interaction.replied) {
-        await interaction.deferReply({ ephemeral: true }).catch(() => {});
+        try {
+            await interaction.deferReply({ ephemeral: true });
+        } catch (e) {}
     }
-    await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
+    if (interaction.deferred || interaction.replied) {
+        await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
+    }
 
     try {
         const { ChannelType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
         // 1. Verificação se o usuário já possui um ticket aberto no servidor
+        const cleanUser = interaction.user.username.toLowerCase().replace(/[^a-z0-9_-]/g, '');
         let existingTicket = interaction.guild.channels.cache.find(c =>
             c.type === ChannelType.GuildText &&
             (
                 (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
-                (c.name === `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''))
+                (c.name.toLowerCase() === `🎫-${cleanUser}`) ||
+                (c.name.toLowerCase() === cleanUser) ||
+                (c.name.toLowerCase() === `-${cleanUser}`)
             )
         );
 
@@ -1860,7 +1867,9 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
                     c && c.type === ChannelType.GuildText &&
                     (
                         (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
-                        (c.name === `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''))
+                        (c.name.toLowerCase() === `🎫-${cleanUser}`) ||
+                        (c.name.toLowerCase() === cleanUser) ||
+                        (c.name.toLowerCase() === `-${cleanUser}`)
                     )
                 );
             } catch (e) {}
@@ -1873,11 +1882,20 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
                     .setStyle(ButtonStyle.Link)
                     .setURL(existingTicket.url)
             );
-            return await interaction.editReply({
-                content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
-                embeds: [],
-                components: [row]
-            }).catch(() => {});
+            if (interaction.deferred || interaction.replied) {
+                return await interaction.editReply({
+                    content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
+                    embeds: [],
+                    components: [row]
+                }).catch(() => {});
+            } else {
+                return await interaction.reply({
+                    content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
+                    embeds: [],
+                    components: [row],
+                    ephemeral: true
+                }).catch(() => {});
+            }
         }
 
         const session = userStoreSessions.get(interaction.user.id) || { regiao: 'NA', riotId: 'Unknown' };
@@ -1937,7 +1955,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         }
 
         const canalOptions = {
-            name: `🎫-${interaction.user.username}`.toLowerCase().replace(/[^a-z0-9_-]/g, ''),
+            name: `🎫-${cleanUser}`,
             topic: `Ticket-Owner: ${interaction.user.id}`,
             permissionOverwrites: ticketOverwrites
         };
@@ -2031,14 +2049,27 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         await canal.send({ content: initialMention });
         await atualizarEmbedTicket(canal, interaction.client);
 
-        await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [] });
+        if (interaction.deferred || interaction.replied) {
+            await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [] }).catch(() => {});
+        } else {
+            await interaction.reply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [], ephemeral: true }).catch(() => {});
+        }
     } catch (err) {
         console.error('[Ticket Create Fatal Error]:', err);
-        await interaction.editReply({ 
-            content: `❌ **Não foi possível criar o canal do ticket.**\nVerifique se o bot possui permissão de **Gerenciar Canais (Manage Channels)** e **Ver Canais** neste servidor.\n\`Detalhes: ${err.message}\``, 
-            embeds: [], 
-            components: [] 
-        }).catch(() => {});
+        if (interaction.deferred || interaction.replied) {
+            await interaction.editReply({ 
+                content: `❌ **Não foi possível criar o canal do ticket.**\nVerifique se o bot possui permissão de **Gerenciar Canais (Manage Channels)** e **Ver Canais** neste servidor.\n\`Detalhes: ${err.message}\``, 
+                embeds: [], 
+                components: [] 
+            }).catch(() => {});
+        } else {
+            await interaction.reply({ 
+                content: `❌ **Não foi possível criar o canal do ticket.**\nVerifique se o bot possui permissão de **Gerenciar Canais (Manage Channels)** e **Ver Canais** neste servidor.\n\`Detalhes: ${err.message}\``, 
+                embeds: [], 
+                components: [],
+                ephemeral: true
+            }).catch(() => {});
+        }
     } finally {
         global.activeTicketCreations.delete(interaction.user.id);
     }
