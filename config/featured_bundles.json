@@ -1,5 +1,61 @@
 [
   {
+    "id": 99901660,
+    "name": "Hall of Legends 2026 Pass - Caps",
+    "price_rp": 1950,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_0.jpg"
+  },
+  {
+    "id": 99901661,
+    "name": "Risen Legend Tristana Collection",
+    "price_rp": 5035,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
+    "id": 99901662,
+    "name": "Immortalized Legend Tristana Collection",
+    "price_rp": 32035,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
+    "id": 99901663,
+    "name": "Signature Immortalized Legend Tristana Collection",
+    "price_rp": 58865,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
+    "id": 99901664,
+    "name": "Passe Hall of Legends 2026 - Caps",
+    "price_rp": 1950,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_0.jpg"
+  },
+  {
+    "id": 99901665,
+    "name": "Coleção Tristana Lenda Ascendida",
+    "price_rp": 5035,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
+    "id": 99901666,
+    "name": "Coleção Tristana Lenda Imortalizada",
+    "price_rp": 32035,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
+    "id": 99901667,
+    "name": "Coleção Assinatura Tristana Lenda Imortalizada",
+    "price_rp": 58865,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg"
+  },
+  {
     "id": 147069,
     "name": "Heartsong Seraphine",
     "price_rp": 1820,

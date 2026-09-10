@@ -791,5 +791,35 @@
     "buttonEmoji": "🦊",
     "buttonUrl": "https://discord.gg/kitsune",
     "fields": []
+  },
+  "hall_of_legends": {
+    "title": "<a:white_claim:1545847197445136386> **Hall of Legends 2026 — Caps (3ª Edição)**",
+    "description": "Seja bem-vindo ao painel especial do **Hall of Legends 2026**, consagrando **Rasmus \"Caps\" Winther** (G2 Esports)!\n\n<a:51047animatedarrowwhite:1545491753002475591> As campeãs homenageadas são **Orianna** e **Tristana**.\n<a:51047animatedarrowwhite:1545491753002475591> Todos os passes e pacotes já estão disponíveis para compra e envio imediato via Central de Presentes.\n\n*Selecione o pacote desejado no menu abaixo para abrir o seu atendimento:*",
+    "color": "#FFFFFF",
+    "thumbnail": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_0.jpg",
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_0.jpg",
+    "footerText": "© Kitsune - Copyright 2026",
+    "fields": [
+      {
+        "name": "🎫 Passe Hall of Legends 2026 — 1.950 RP",
+        "value": "• Skin imediata: **Orianna Lenda Ascendida**\n• Trilha com 100 níveis de recompensas\n• 125 Essências Míticas, 11 Orbes do evento, emotes e cromas",
+        "inline": false
+      },
+      {
+        "name": "💥 Coleção Tristana Lenda Ascendida — 5.035 RP",
+        "value": "• Tudo do **Passe do Evento** (1.950 RP) + Orianna Lenda Ascendida\n• Skin: **Tristana Lenda Ascendida**\n• Borda exclusiva, emote, ícone e provocação de contador de abates",
+        "inline": false
+      },
+      {
+        "name": "👑 Coleção Tristana Lenda Imortalizada — 32.035 RP",
+        "value": "• Tudo da **Coleção Ascendida** (Passe + Orianna + Tristana Ascendida)\n• Skin: **Tristana Lenda Imortalizada** (3 formas mecânicas dinâmicas)\n• Novas falas do Caps, HUD personalizado e finalizador de torres",
+        "inline": false
+      },
+      {
+        "name": "🌟 Coleção Assinatura Tristana Lenda Imortalizada — 58.865 RP",
+        "value": "• Tudo da **Coleção Imortalizada** completa\n• **Todos os 100 níveis do Passe desbloqueados instantaneamente**\n• Splash Art e Nexus com a **assinatura do Caps**, borda holográfica e título **\"Claps\"**",
+        "inline": false
+      }
+    ]
   }
 }

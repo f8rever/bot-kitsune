@@ -435,6 +435,19 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Solução Implementada:**
                   1. Removido o botão fixo hardcoded em `btn_payment_methods`. Agora, o bot exibe estritamente o embed configurado pelo usuário, e só anexa botão caso o usuário tenha explicitamente preenchido `buttonLabel` no template do `/embeds`.
                   2. Sincronizado [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com o conteúdo real salvo pelo usuário no MongoDB Atlas (título `Payment Methods`, chaves de pagamento de PayPal, Revolut, Crypto USDT e splash art do Viktor).
+            21. **Painel Exclusivo Hall of Legends 2026 (Caps - 3ª Edição) & Comando /halloflegends (2026-09-10):**
+                - **Novo Comando `/halloflegends`:** Criado em [`commands/suporte/halloflegends.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/commands/suporte/halloflegends.js), similar ao `/ticket`, permitindo enviar um painel fixo de venda para qualquer canal de texto (`canal` opcional, restrito a Staff/Admin).
+                - **Embed Temática:** Registrado `hall_of_legends` em [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com todos os detalhes e preços oficiais do evento em RP, personalizável via `/embeds` e sincronizado com o MongoDB Atlas.
+                - **Select Menu de Compra Imediata (`menu_hall_of_legends_select`):**
+                  1. `Passe Hall of Legends 2026 (Caps)` (1.950 RP) — Orianna Lenda Ascendida + 100 níveis + 125 ME + 11 Orbes.
+                  2. `Coleção Tristana Lenda Ascendida` (5.035 RP) — Passe + Tristana Ascendida + Borda + Ícone + Emote.
+                  3. `Coleção Tristana Lenda Imortalizada` (32.035 RP) — Coleção Ascendida + Tristana Imortalizada (3 formas mecânicas) + dublagens + finalizador.
+                  4. `Coleção Assinatura Tristana Lenda Imortalizada` (58.865 RP) — Coleção Imortalizada completa + 100 níveis liberados + Assinatura do Caps no Nexus/Splash + Borda holográfica + título "Claps".
+                - **Fluxo de Abertura Inteligente:**
+                  - Se o usuário já possuir um ticket aberto, o bot bloqueia duplicidade e fornece o botão direto `[Ir para o Ticket]`.
+                  - Se selecionado dentro do ticket, o pacote é adicionado ao carrinho com recálculo automático de preço.
+                  - Fora do ticket, exibe modal rápido para confirmação de Riot ID e Região (com pré-preenchimento automático se já houver sessão) e cria o ticket instantaneamente com botão de acesso direto.
+                - **Catálogo & Precificação:** Adicionados os 4 itens em [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) e regras explícitas em `getItemRpValue` e `obterDetalhesItem` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js), garantindo resolução de preços 100% confiável e exibição do badge `Hall of Legends 🏆`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

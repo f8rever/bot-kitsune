@@ -655,6 +655,14 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
         return parseInt(rpMatch[1], 10);
     }
 
+    // 1.1 Exact match for Hall of Legends 2026 (Caps / Tristana / Orianna)
+    if (n.includes('hall of legends') || n.includes('caps') || n.includes('tristana lenda') || n.includes('risen legend tristana') || n.includes('immortalized legend') || n.includes('lenda imortalizada')) {
+        if (n.includes('assinatura') || n.includes('signature')) return 58865;
+        if (n.includes('imortalizada') || n.includes('immortalized')) return 32035;
+        if (n.includes('ascendida') || n.includes('risen')) return 5035;
+        if (n.includes('passe') || n.includes('pass')) return 1950;
+    }
+
     // 2. Exact match for Hextech Chest, Key, Orbs, and Passes
     if (n.includes('baú') || n.includes('chest') || n.includes('chave') || n.includes('key')) {
         if (n.includes('25')) return 5625;
@@ -907,7 +915,11 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
 
         let bundleIcon = (customEmojis?.bundles?.bundle || customEmojis?.menu_principal?.highlights_bundles || '🌟').trim();
         let prefix = 'Highlight';
-        if (nome.toLowerCase().includes('signature edition')) { prefix = 'Signature Edition'; bundleIcon = (customEmojis?.skins?.transcendent || '🌟').trim(); }
+        if (nome.toLowerCase().includes('hall of legends') || nome.toLowerCase().includes('lenda ascendida') || nome.toLowerCase().includes('lenda imortalizada') || nome.toLowerCase().includes('risen legend') || nome.toLowerCase().includes('immortalized legend')) {
+            prefix = 'Hall of Legends';
+            bundleIcon = (customEmojis?.skins?.transcendent || '🏆').trim();
+        }
+        else if (nome.toLowerCase().includes('signature edition')) { prefix = 'Signature Edition'; bundleIcon = (customEmojis?.skins?.transcendent || '🌟').trim(); }
         else if (nome.toLowerCase().includes('chroma pack') || nome.toLowerCase().includes('chroma bundle')) { prefix = 'Chroma Bundle'; bundleIcon = (customEmojis?.bundles?.chroma || '🎨').trim(); }
         else if (nome.toLowerCase().includes('set')) { prefix = 'Set'; bundleIcon = (customEmojis?.bundles?.set || '✨').trim(); }
         return formatarStr(prefix, bundleIcon);
@@ -2049,10 +2061,17 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         await canal.send({ content: initialMention });
         await atualizarEmbedTicket(canal, interaction.client);
 
+        const goToTicketRow = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setLabel('Ir para o Ticket')
+                .setStyle(ButtonStyle.Link)
+                .setURL(canal.url)
+        );
+
         if (interaction.deferred || interaction.replied) {
-            await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [] }).catch(() => {});
+            await interaction.editReply({ content: `✅ Seu ticket foi criado com sucesso em ${canal}!`, embeds: [], components: [goToTicketRow] }).catch(() => {});
         } else {
-            await interaction.reply({ content: `✅ Seu ticket foi criado com sucesso: ${canal}`, embeds: [], components: [], ephemeral: true }).catch(() => {});
+            await interaction.reply({ content: `✅ Seu ticket foi criado com sucesso em ${canal}!`, embeds: [], components: [goToTicketRow], ephemeral: true }).catch(() => {});
         }
     } catch (err) {
         console.error('[Ticket Create Fatal Error]:', err);
@@ -2587,6 +2606,108 @@ client.on('interactionCreate', async interaction => {
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'boosts', 0, false);
                 }
+            }
+
+            else if (interaction.customId === 'menu_hall_of_legends_select') {
+                const itemSelecionado = interaction.values[0];
+                if (!itemSelecionado || itemSelecionado === 'nenhum') return interaction.reply({ content: 'Opção inválida.', ephemeral: true });
+
+                const isInsideTicket = interaction.channel && interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner:');
+                if (isInsideTicket) {
+                    let nomeReal = itemSelecionado;
+                    let itemId = null;
+                    if (itemSelecionado.includes('||')) {
+                        const p = itemSelecionado.split('||');
+                        nomeReal = p[0];
+                        itemId = parseInt(p[1], 10);
+                    }
+                    const calcRp = getItemRpValue(nomeReal, 'highlights');
+
+                    if (!global.ticketCarts) global.ticketCarts = new Map();
+                    let cart = global.ticketCarts.get(interaction.channel.id);
+                    if (!cart) {
+                        let ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
+                        const session = userStoreSessions.get(ownerId) || { regiao: 'BR', riotId: 'Unknown' };
+                        cart = {
+                            ownerId,
+                            regiao: session.regiao.toUpperCase(),
+                            riotId: session.riotId,
+                            items: []
+                        };
+                        global.ticketCarts.set(interaction.channel.id, cart);
+                    }
+
+                    cart.items.push({
+                        nome: nomeReal,
+                        itemId: itemId,
+                        rp: calcRp,
+                        tipo: 'highlights',
+                        variacao: 'Hall of Legends',
+                        eVariacao: (customEmojis?.skins?.transcendent || '🏆').trim()
+                    });
+
+                    await interaction.reply({ content: `✅ **${nomeReal}** foi adicionado ao carrinho com sucesso!`, ephemeral: true }).catch(() => {});
+                    await atualizarEmbedTicket(interaction.channel, interaction.client);
+                    return;
+                }
+
+                const { ChannelType, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+                const cleanUser = interaction.user.username.toLowerCase().replace(/[^a-z0-9_-]/g, '');
+                let existingTicket = interaction.guild.channels.cache.find(c =>
+                    c.type === ChannelType.GuildText &&
+                    (
+                        (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
+                        (c.name.toLowerCase() === `🎫-${cleanUser}`) ||
+                        (c.name.toLowerCase() === cleanUser) ||
+                        (c.name.toLowerCase() === `-${cleanUser}`)
+                    )
+                );
+
+                if (existingTicket) {
+                    const row = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder()
+                            .setLabel('Ir para o Ticket')
+                            .setStyle(ButtonStyle.Link)
+                            .setURL(existingTicket.url)
+                    );
+                    return await interaction.reply({
+                        content: `⚠️ Você já possui um ticket aberto em ${existingTicket}! Finalize ou feche o ticket anterior antes de abrir um novo pedido.`,
+                        components: [row],
+                        ephemeral: true
+                    }).catch(() => {});
+                }
+
+                const session = userStoreSessions.get(interaction.user.id) || { regiao: 'BR', riotId: '' };
+                const savedRiotId = (session.riotId && session.riotId !== 'Unknown') ? session.riotId : '';
+                const savedRegion = session.regiao || 'BR';
+
+                const modal = new ModalBuilder()
+                    .setCustomId(`modal_hol_order__${encodeURIComponent(itemSelecionado)}`)
+                    .setTitle('🏆 Hall of Legends 2026 - Pedido');
+
+                const riotInput = new TextInputBuilder()
+                    .setCustomId('hol_riot_id')
+                    .setLabel('Seu Riot ID (Nome#TAG):')
+                    .setPlaceholder('Ex: Caps#EUW ou Player#BR1')
+                    .setValue(savedRiotId)
+                    .setStyle(TextInputStyle.Short)
+                    .setRequired(true);
+
+                const regionInput = new TextInputBuilder()
+                    .setCustomId('hol_region')
+                    .setLabel('Sua Região (BR, NA, EUW, etc.):')
+                    .setPlaceholder('Ex: BR, NA, EUW')
+                    .setValue(savedRegion)
+                    .setStyle(TextInputStyle.Short)
+                    .setRequired(true);
+
+                modal.addComponents(
+                    new ActionRowBuilder().addComponents(riotInput),
+                    new ActionRowBuilder().addComponents(regionInput)
+                );
+
+                await interaction.showModal(modal).catch(err => console.error('[HOL Modal Error]', err));
+                return;
             }
 
             else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu', 'selecionar_popular_menu'].includes(interaction.customId)) {
@@ -4239,6 +4360,23 @@ client.on('interactionCreate', async interaction => {
                     console.error("Erro ao enviar menu_vendas (verifique se os emojis em emojis.json são válidos e se o bot está no servidor deles!):", e.message);
                     await interaction.editReply({ content: "❌ **Erro Interno:** Alguns emojis configurados em `emojis.json` são inválidos ou o bot não tem acesso a eles. Verifique o console." });
                 }
+            }
+
+            else if (interaction.customId.startsWith('modal_hol_order__')) {
+                const itemEncoded = interaction.customId.replace('modal_hol_order__', '');
+                const itemSelecionado = decodeURIComponent(itemEncoded);
+
+                const riotId = interaction.fields.getTextInputValue('hol_riot_id').trim();
+                const regiao = (interaction.fields.getTextInputValue('hol_region') || 'BR').trim().toUpperCase();
+
+                userStoreSessions.set(interaction.user.id, { regiao, riotId });
+
+                if (global.activeTicketCreations && global.activeTicketCreations.has(interaction.user.id)) {
+                    return interaction.reply({ content: '⏳ Seu ticket já está sendo gerado, aguarde um instante...', ephemeral: true }).catch(() => {});
+                }
+
+                await criarCanalTicket(interaction, itemSelecionado, 'highlights');
+                return;
             }
 
             else if (interaction.customId === 'buscar_campeao_modal') {
