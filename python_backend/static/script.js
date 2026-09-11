@@ -2580,25 +2580,30 @@ function onSuccessCaptcha(token) {
 }
 
 function extractTokens(url) {
-    // Criar um objeto URL para analisar a URL fornecida
-    let parser = document.createElement('a');
-    parser.href = url;
-  
-    // Obter a parte do fragmento após o '#' (hash)
-    let fragment = parser.hash.substring(1); // Remove o '#' inicial
-  
-    // Converter o fragmento em um objeto de parâmetros
+    if (!url) return { access_token: null, id_token: null };
+    let cleanUrl = url.trim();
+    let fragment = '';
+    if (cleanUrl.includes('#')) {
+        fragment = cleanUrl.substring(cleanUrl.indexOf('#') + 1);
+    } else if (cleanUrl.includes('?')) {
+        fragment = cleanUrl.substring(cleanUrl.indexOf('?') + 1);
+    } else {
+        fragment = cleanUrl;
+    }
     let params = new URLSearchParams(fragment);
-  
-    // Extrair os tokens desejados
-    let accessToken = params.get('access_token');
-    let idToken = params.get('id_token');
-  
+    let accessToken = params.get('access_token') || params.get('accessToken');
+    let idToken = params.get('id_token') || params.get('idToken');
+
+    // Se o usuário colou diretamente o token JWT puro
+    if (!accessToken && cleanUrl.startsWith('eyJ')) {
+        accessToken = cleanUrl;
+    }
+
     return {
       access_token: accessToken,
       id_token: idToken,
     };
-  }
+}
 
 
 

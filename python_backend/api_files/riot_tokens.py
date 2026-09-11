@@ -261,9 +261,13 @@ class RiotAuth:
                 #ssid_token = tokens_document.get('ssid')
                 #ssid_token_expire = tokens_document.get('ssid_expire')
 
-                if self.lol_token and self.id_token:
-                    lol_token_decoded = jwt.decode(self.lol_token, algorithms=['HS256'], options={"verify_signature": False})
-                    lol_token_expire_timestamp = lol_token_decoded.get("exp")
+                if self.lol_token:
+                    lol_token_expire_timestamp = None
+                    try:
+                        lol_token_decoded = jwt.decode(self.lol_token, algorithms=['HS256'], options={"verify_signature": False})
+                        lol_token_expire_timestamp = lol_token_decoded.get("exp")
+                    except Exception:
+                        pass
                     document = {
                         'lol_token': self.lol_token,
                         'id_token': self.id_token,
@@ -336,7 +340,8 @@ class RiotAuth:
             except Exception as geopas_error:
                 print(f"Erro ao obter o token do GeoPas: {geopas_error}")
 
-            if self.lol_token:
+            # Verificando se todos os tokens foram obtidos com sucesso
+            if self.riot_token and self.lol_token and self.geopas_token and self.geopas_afinity:
                 self.auth_result = True
 
                 # Salva os tokens no cache com o timestamp atual
@@ -794,13 +799,25 @@ class RiotAuth:
             'headers': auth_header
         }
 
-        if self.proxy:
+        if self.proxy and self.proxy_url:
             post_args['proxy'] = self.proxy_url
 
-        async with session.get(**post_args) as resp:
+        try:
+            async with session.get(**post_args) as resp:
                 response_text = await resp.text()
-
-        return response_text
+            return response_text
+        except Exception as proxy_err:
+            if 'proxy' in post_args:
+                print(f"[RiotAuth] Proxy falhou ou sem tráfego ({proxy_err}), usando conexão direta...")
+                del post_args['proxy']
+                try:
+                    async with session.get(**post_args) as resp:
+                        response_text = await resp.text()
+                    return response_text
+                except Exception as direct_err:
+                    print(f"[RiotAuth] Conexão direta também falhou: {direct_err}")
+                    raise direct_err
+            raise proxy_err
 
     def get_affinity(self, geopas_token):
         if geopas_token is None:
