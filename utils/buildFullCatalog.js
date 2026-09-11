@@ -670,8 +670,8 @@ async function buildFullCatalog() {
             const featList = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
             featList.forEach(item => {
                 const bObj = {
-                    offer_id: item.id,
-                    item_id: item.id,
+                    offer_id: item.offerId || item.id,
+                    item_id: item.itemId || item.id,
                     price_rp: item.price_rp,
                     regular_rp: item.price_rp,
                     sale_rp: null,

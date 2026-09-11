@@ -1,6 +1,7 @@
 [
   {
     "id": 99901660,
+    "itemId": 61040,
     "name": "Hall of Legends 2026 Pass - Caps",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
@@ -8,6 +9,7 @@
   },
   {
     "id": 99901661,
+    "itemId": 18079,
     "name": "Risen Legend Tristana Collection",
     "price_rp": 5035,
     "inventoryType": "BUNDLES",
@@ -15,6 +17,7 @@
   },
   {
     "id": 99901662,
+    "itemId": 18080,
     "name": "Immortalized Legend Tristana Collection",
     "price_rp": 32035,
     "inventoryType": "BUNDLES",
@@ -22,6 +25,7 @@
   },
   {
     "id": 99901663,
+    "itemId": 18080,
     "name": "Signature Immortalized Legend Tristana Collection",
     "price_rp": 58865,
     "inventoryType": "BUNDLES",
@@ -29,6 +33,7 @@
   },
   {
     "id": 99901664,
+    "itemId": 61040,
     "name": "Passe Hall of Legends 2026 - Caps",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
@@ -36,6 +41,7 @@
   },
   {
     "id": 99901665,
+    "itemId": 18079,
     "name": "Coleção Tristana Lenda Ascendida",
     "price_rp": 5035,
     "inventoryType": "BUNDLES",
@@ -43,6 +49,7 @@
   },
   {
     "id": 99901666,
+    "itemId": 18080,
     "name": "Coleção Tristana Lenda Imortalizada",
     "price_rp": 32035,
     "inventoryType": "BUNDLES",
@@ -50,6 +57,7 @@
   },
   {
     "id": 99901667,
+    "itemId": 18080,
     "name": "Coleção Assinatura Tristana Lenda Imortalizada",
     "price_rp": 58865,
     "inventoryType": "BUNDLES",
