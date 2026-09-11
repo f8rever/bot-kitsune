@@ -20,9 +20,14 @@ function isRestrictedOrNonRP(name, rawItem = null) {
     const n = normalizeStr(name);
     
     // Se o preço em RP for 0 ou indefinido, não é presenteável por RP na loja (ex: prestígio com ME)
-    const rpPrice = rawItem?.prices?.find(p => p.currency === 'RP')?.cost;
+    const rpPrice = rawItem?.prices?.find(p => p.currency === 'RP')?.cost || rawItem?.price_rp;
     if (rpPrice === undefined || rpPrice === null || rpPrice <= 0) {
         return true;
+    }
+
+    // Exceção: Pacotes e itens oficiais do Hall of Legends 2026 (Caps)
+    if (n.includes('caps') || (rawItem?.itemId >= 99901660 && rawItem?.itemId <= 99901667)) {
+        return false;
     }
 
     // 1. Prestígio (compradas exclusivamente via Essência Mítica)

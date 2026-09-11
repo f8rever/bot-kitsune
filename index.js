@@ -1015,6 +1015,11 @@ function isPrestigeOrMythic(item) {
     const priceRp = item.price_rp || raw.price_rp || 0;
     if (priceRp <= 0) return true; // Itens sem custo de RP são não-presenteáveis (ex: prestígio de ME)
 
+    // Exceção: Pacotes e itens do Hall of Legends 2026 (Caps / Tristana / Orianna) são permitidos para venda
+    if (name.includes('caps') || (item.id >= 99901660 && item.id <= 99901667)) {
+        return false;
+    }
+
     // Bloquear apenas skins genuinamente míticas, prestígio ou de gacha não-presenteáveis
     if (name.includes('prestige') || name.includes('prestígio') || name.includes('prestigio')) return true;
     if (name.includes('quantum') || name.includes('quântico') || name.includes('quântica')) return true;
