@@ -668,7 +668,8 @@ async function buildFullCatalog() {
         path.join(__dirname, '../config'),
         path.join(__dirname, '../lol_giftapi-main'),
         path.join(__dirname, '../python_backend'),
-        path.join(__dirname, '../python_backend/api_files')
+        path.join(__dirname, '../python_backend/api_files'),
+        path.resolve(__dirname, '../../lol_giftapi-main')
     ];
 
     for (const d of targetDirs) {
