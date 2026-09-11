@@ -1084,7 +1084,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             } catch (e) {}
 
             if (featList.length > 0) {
-                results = featList.map(b => {
+                const isPt = lang === 'pt' || lang === 'pt_BR';
+                const filteredFeat = featList.filter(b => {
+                    if (isPt && b.id >= 99901660 && b.id <= 99901663) return false;
+                    if (!isPt && b.id >= 99901664 && b.id <= 99901667) return false;
+                    return true;
+                });
+                results = filteredFeat.map(b => {
                     const catItem = currentCatalog.find(c => String(c.id) === String(b.id) || (c.nome && c.nome.toLowerCase() === b.name.toLowerCase()));
                     const itemType = b.inventoryType || catItem?.tipo || catItem?.rawItem?.inventoryType || 'BUNDLES';
                     return {

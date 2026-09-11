@@ -663,6 +663,54 @@ async function buildFullCatalog() {
         } catch (e) {}
     }
 
+    // Pacotes de lançamento e Hall of Legends 2026 (featured_bundles.json)
+    const featBundlesPath = path.join(__dirname, '../config/featured_bundles.json');
+    if (fs.existsSync(featBundlesPath)) {
+        try {
+            const featList = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
+            featList.forEach(item => {
+                const bObj = {
+                    offer_id: item.id,
+                    item_id: item.id,
+                    price_rp: item.price_rp,
+                    regular_rp: item.price_rp,
+                    sale_rp: null,
+                    discount_percent: null,
+                    inventory_type: item.inventoryType || 'BUNDLES',
+                    icon_url: item.iconUrl || null,
+                    is_available: true,
+                    status: 'available'
+                };
+
+                const isPtOnly = item.id >= 99901664 && item.id <= 99901667;
+                const isEnOnly = item.id >= 99901660 && item.id <= 99901663;
+                const isPass = item.name.toLowerCase().includes('pass') || item.name.toLowerCase().includes('passe');
+                const isSkin = (item.inventoryType || '').toUpperCase() === 'CHAMPION_SKIN';
+
+                const targetCategory = isPass ? 'Passes' : (isSkin ? 'Skins' : 'Bundles');
+
+                if (!isEnOnly) {
+                    catalogPt[targetCategory][item.name] = bObj;
+                    if (item.name.includes('Tristana')) {
+                        catalogPt.Skins[item.name] = { ...bObj, inventory_type: 'CHAMPION_SKIN' };
+                    }
+                    if (isPass) {
+                        catalogPt.Bundles[item.name] = bObj;
+                    }
+                }
+                if (!isPtOnly) {
+                    catalogEn[targetCategory][item.name] = bObj;
+                    if (item.name.includes('Tristana')) {
+                        catalogEn.Skins[item.name] = { ...bObj, inventory_type: 'CHAMPION_SKIN' };
+                    }
+                    if (isPass) {
+                        catalogEn.Bundles[item.name] = bObj;
+                    }
+                }
+            });
+        } catch (e) {}
+    }
+
     // 4. Salvar arquivos de cache gerados
     const targetDirs = [
         path.join(__dirname, '../config'),

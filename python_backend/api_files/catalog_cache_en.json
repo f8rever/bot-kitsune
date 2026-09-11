@@ -4857,17 +4857,13 @@
       "status": "available"
     },
     "Heartsong Seraphine": {
-      "offer_id": "6e199f43-39c9-4709-97de-aadded6602c5",
+      "offer_id": 147069,
       "item_id": 147069,
-      "parent_id": 147,
       "price_rp": 1820,
       "regular_rp": 1820,
       "sale_rp": null,
       "discount_percent": null,
-      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
-      "rarity": "kLegendary",
-      "rarity_label": "Legendary",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
       "is_available": true,
       "status": "available"
@@ -21155,6 +21151,42 @@
       "rarity": "kEpic",
       "rarity_label": "Epic",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_72.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Risen Legend Tristana Collection": {
+      "offer_id": 99901661,
+      "item_id": 99901661,
+      "price_rp": 5035,
+      "regular_rp": 5035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Immortalized Legend Tristana Collection": {
+      "offer_id": 99901662,
+      "item_id": 99901662,
+      "price_rp": 32035,
+      "regular_rp": 32035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Signature Immortalized Legend Tristana Collection": {
+      "offer_id": 99901663,
+      "item_id": 99901663,
+      "price_rp": 58865,
+      "regular_rp": 58865,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
       "is_available": true,
       "status": "available"
     }
@@ -109937,38 +109969,38 @@
       "status": "available"
     },
     "Ocean Song Soraka Chroma Bundle": {
-      "offer_id": "4c88ef8b-c17a-4a38-ae16-7435558d58ce",
+      "offer_id": 79900914,
       "item_id": 79900914,
-      "price_rp": 2925,
-      "regular_rp": 2925,
+      "price_rp": 2795,
+      "regular_rp": 2795,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900914.jpg",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_63.jpg",
       "is_available": true,
       "status": "available"
     },
     "Ocean Song Jinx Chroma Bundle": {
-      "offer_id": "62981d1c-65df-4795-8fe3-46bdb7ef80e7",
+      "offer_id": 79900915,
       "item_id": 79900915,
-      "price_rp": 3190,
-      "regular_rp": 3190,
+      "price_rp": 2795,
+      "regular_rp": 2795,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900915.jpg",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg",
       "is_available": true,
       "status": "available"
     },
     "Heartsong Seraphine Chroma Bundle": {
-      "offer_id": "bba11048-c7c5-485c-911b-c2fd1fe86bdf",
+      "offer_id": 79900916,
       "item_id": 79900916,
-      "price_rp": 3430,
-      "regular_rp": 3430,
+      "price_rp": 3035,
+      "regular_rp": 3035,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900916.jpg",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
       "is_available": true,
       "status": "available"
     },
@@ -110165,14 +110197,62 @@
       "status": "off"
     },
     "Heartsong Seraphine Border Set": {
-      "offer_id": "247c9f4f-eb89-453f-9725-68f0b190e7ce",
+      "offer_id": 99901657,
       "item_id": 99901657,
-      "price_rp": 3115,
-      "regular_rp": 3115,
+      "price_rp": 2720,
+      "regular_rp": 2720,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901657.png",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Hall of Legends 2026 Pass - Caps": {
+      "offer_id": 99901660,
+      "item_id": 99901660,
+      "price_rp": 1950,
+      "regular_rp": 1950,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Risen Legend Tristana Collection": {
+      "offer_id": 99901661,
+      "item_id": 99901661,
+      "price_rp": 5035,
+      "regular_rp": 5035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Immortalized Legend Tristana Collection": {
+      "offer_id": 99901662,
+      "item_id": 99901662,
+      "price_rp": 32035,
+      "regular_rp": 32035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Signature Immortalized Legend Tristana Collection": {
+      "offer_id": 99901663,
+      "item_id": 99901663,
+      "price_rp": 58865,
+      "regular_rp": 58865,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
       "is_available": true,
       "status": "available"
     }
@@ -110211,6 +110291,18 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Hall of Legends 2026 Pass - Caps": {
+      "offer_id": 99901660,
+      "item_id": 99901660,
+      "price_rp": 1950,
+      "regular_rp": 1950,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg",
       "is_available": true,
       "status": "available"
     }
