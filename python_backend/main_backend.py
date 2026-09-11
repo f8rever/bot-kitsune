@@ -319,24 +319,24 @@ def login():
 
 
 @app.route("/logout", methods=["POST"])
-@jwt_required()  # Garante que o endpoint requer um JWT válido
+@jwt_required(optional=True)  # Garante que não trava se o cookie estiver em estado intermediário
 def logout():
-    # Obtém a identidade do JWT, que inclui o login, key e session_id
-    current_identity = get_jwt_identity()
-    current_identity = parse_identity(current_identity)
-    login, key, session_id = current_identity
-
-    # Atualiza o documento do usuário no banco de dados para remover o session_id
-    if session_id:
-        document = users_key_collection.find_one({"key_api": key})
-        if document:
-            # Filtra a lista de sessões para excluir a sessão que está fazendo logout
-            updated_sessions = [s for s in document.get("sessions", []) if s['session_id'] != session_id]
-            users_key_collection.update_one({"key_api": key}, {"$set": {"sessions": updated_sessions}})
+    try:
+        current_identity = parse_identity(get_jwt_identity())
+        if isinstance(current_identity, (list, tuple)) and len(current_identity) >= 3:
+            login, key, session_id = current_identity[0], current_identity[1], current_identity[2]
+            if session_id:
+                document = users_key_collection.find_one({"key_api": key})
+                if document:
+                    updated_sessions = [s for s in document.get("sessions", []) if s.get('session_id') != session_id]
+                    users_key_collection.update_one({"key_api": key}, {"$set": {"sessions": updated_sessions}})
+    except Exception as e:
+        print(f"\n Erro durante logout: {e}")
 
     # Limpa os cookies de JWT para encerrar a sessão no lado do cliente
-    response = jsonify({"message": "Logout successful"})
+    response = jsonify({"message": "Logout successful", "redirect": "/"})
     unset_jwt_cookies(response)
+    response.set_cookie('access_token_cookie', '', expires=0, path='/')
     return response
 
 @app.route("/api_frontend", endpoint='gift_page')

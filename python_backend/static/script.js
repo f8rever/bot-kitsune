@@ -218,24 +218,27 @@ async function Api(task) {
     // Variáveis para armazenar username e password
     var username, password, name, tag;
 
-    if (isSimpleLogin) {
-        // Modo Simples de Login - username e password no mesmo campo
-        var credentials = removeSpaces(usernameInput.value).split(':');
-        if (credentials.length === 2) {
-            username = credentials[0];
-            password = credentials[1];
-        } else {
-            alert('Please enter your credentials in the format "username:password".');
-            return;  // Sai da função se o formato não estiver correto
-        }
+    const rawUserVal = removeSpaces(usernameInput.value || '');
+    if (rawUserVal.includes(':')) {
+        // Se contém ':', faz o split inteligente automático mesmo se o toggle estiver desligado
+        var credentials = rawUserVal.split(':');
+        username = credentials[0];
+        password = credentials.slice(1).join(':');
+    } else if (isSimpleLogin) {
+        alert('Please enter your credentials in the format "username:password".');
+        return;
     } else {
-        // Modo Normal - username e password em campos separados
-        username = removeSpaces(usernameInput.value);
-        password = removeSpaces(passwordInput.value);
-        if (!username || !password) {
-            alert('Please make sure both username and password are entered.');
-            return;  // Sai da função se algum campo estiver vazio
-        }
+        username = rawUserVal;
+        password = removeSpaces(passwordInput.value || '');
+    }
+
+    if (!username) {
+        alert('Please make sure username is entered.');
+        return;
+    }
+    if (!password && !tokensInput.value) {
+        alert('Please make sure password or a session token is entered.');
+        return;
     }
 
     // Validando a entrada do nickname-tag
@@ -342,13 +345,16 @@ async function Api(task) {
     const selectedCurrency = "RP"
 
 
+    const headers = { 'Content-Type': 'application/json' };
+    const savedToken = localStorage.getItem('jwtToken');
+    if (savedToken && savedToken !== 'null' && savedToken !== 'undefined') {
+        headers['Authorization'] = 'Bearer ' + savedToken;
+    }
+
     // Se username e password estiverem corretos, faz uma requisição AJAX ao servidor
     fetch('/run-script', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken') // Adiciona o token JWT do armazenamento local
-        },
+        headers: headers,
         body: JSON.stringify({
             username: username,
             password: password,
@@ -382,12 +388,13 @@ async function Api(task) {
                 if (saldoAmount) saldoAmount.innerText = data.saldo;
                 const rpCardNum = document.querySelector('.metrics-cards-grid .metric-card:nth-child(1) .metric-number');
                 if (rpCardNum) rpCardNum.innerText = `${data.saldo} RP`;
-                
-                // Initialize Daily Gifts to 0 / 10 if fetching balance
+            }
+
+            if ('daily_gifts_count' in data) {
                 const sentCardNum = document.getElementById('daily-gifts-counter');
                 if (sentCardNum) {
-                    sentCardNum.innerText = `0 / 10`;
-                    sentCardNum.dataset.current = 0;
+                    sentCardNum.innerText = `${data.daily_gifts_count} / 10`;
+                    sentCardNum.dataset.current = data.daily_gifts_count;
                 }
             }
 
@@ -398,6 +405,9 @@ async function Api(task) {
                     currentSent += (selectedQuantity || 1);
                     sentCardNum.dataset.current = currentSent;
                     sentCardNum.innerText = `${currentSent} / 10`;
+                }
+                if (typeof fetchOrders === 'function') {
+                    fetchOrders();
                 }
             }
 
@@ -419,15 +429,13 @@ async function Api(task) {
         }
 
         else {
-            //console.error('Failed:', data);
-            resultDiv.innerText = 'Gift failed for ' + username;
+            resultDiv.innerText = data.message || ('Gift failed for ' + username);
         }
 
     })
     .catch((error) => {
-        //console.error('Error:', error);
         var resultDiv = document.getElementById('result');
-        resultDiv.innerText = 'Unknown error for ' + username;
+        resultDiv.innerText = (error && error.message) ? error.message : ('Error for ' + username);
     });
 
     }
@@ -451,10 +459,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedLanguage = 'pt';
     let catalogIndexedItems = [];
 
-    // Category pill visual toggle listener
+    // Category pill/chip visual toggle listener
     categoryRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            document.querySelectorAll('.category-pill').forEach(pill => pill.classList.remove('active'));
+            document.querySelectorAll('.chip-item, .category-pill').forEach(pill => pill.classList.remove('active'));
             if (this.parentElement) this.parentElement.classList.add('active');
             filterItems();
         });
@@ -469,14 +477,23 @@ document.addEventListener('DOMContentLoaded', function() {
             catalog = await response.json();
             
             catalogIndexedItems = [];
+            const seenKeys = new Set();
             for (const category in catalog) {
                 if (typeof catalog[category] === 'object' && catalog[category] !== null) {
                     Object.entries(catalog[category]).forEach(([name, details]) => {
                         let effectiveCategory = category;
+                        let extraKeywords = '';
+                        if (name.includes('Tristana') || name.includes('Caps') || name.includes('Orianna') || name.includes('Lenda')) {
+                            extraKeywords = ' hall of legends hol caps';
+                        }
+
+                        const uniqueKey = `${name}_${details.offer_id || details.item_id}`;
+                        if (seenKeys.has(uniqueKey)) return;
+                        seenKeys.add(uniqueKey);
 
                         catalogIndexedItems.push({
                             name,
-                            searchName: normalizeText(name),
+                            searchName: normalizeText(name + extraKeywords),
                             price_rp: details.price_rp,
                             price_ip: details.price_ip,
                             offer_id: details.offer_id,
@@ -749,6 +766,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tab2_title: "Histórico de Pedidos & Transações",
             tab2_subtitle: "Acompanhe todos os disparos de presentes executados pela plataforma.",
             tab2_card_title: "Registros de Envio",
+            btn_refresh_log: "Atualizar",
             btn_export_log: "Exportar Log",
             btn_clear_log: "Limpar Log",
             th_sender: "Remetente",
@@ -849,6 +867,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tab2_title: "Order & Transaction History",
             tab2_subtitle: "Track all gift dispatches executed through the platform.",
             tab2_card_title: "Delivery Logs",
+            btn_refresh_log: "Refresh",
             btn_export_log: "Export Log",
             btn_clear_log: "Clear Log",
             th_sender: "Sender",
@@ -2275,15 +2294,13 @@ function logout() {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.message);
-        // Aqui você pode adicionar código para redirecionar o usuário ou atualizar a interface
-        alert(data.message);
-        window.location.reload();
-    })
-    .catch(error => {
-        //console.error('Erro ao fazer logout:', error);
+    .finally(() => {
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.cookie = "access_token_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        } catch(e) {}
+        window.location.href = '/';
     });
 }
 
