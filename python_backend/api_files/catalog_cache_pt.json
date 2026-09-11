@@ -340,21 +340,11 @@
       "offer_id": "487310dd-e6ff-4829-895c-c096e91f3dfd",
       "item_id": 101012,
       "parent_id": 101,
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -1854,21 +1844,11 @@
       "offer_id": "2e87254b-7b0d-4dcd-917a-f8ae118b59e8",
       "item_id": 111018,
       "parent_id": 111,
-      "price_rp": 944,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 944,
-      "discount_percent": 30,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 944,
-            "discount": 0.3
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -1912,21 +1892,11 @@
       "offer_id": "18188320-1dbd-4d46-bedd-efff9cd90bed",
       "item_id": 112001,
       "parent_id": 112,
-      "price_rp": 438,
+      "price_rp": 975,
       "regular_rp": 975,
-      "sale_rp": 438,
-      "discount_percent": 55,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 438,
-            "discount": 0.55
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kRare",
       "rarity_label": "Common",
@@ -3826,21 +3796,11 @@
       "offer_id": "aacae75a-c6b3-46fd-80a1-06be160f2704",
       "item_id": 133005,
       "parent_id": 133,
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -4700,11 +4660,21 @@
       "offer_id": "8250cd27-eb91-438a-9d6b-1b8c545c9df7",
       "item_id": 145069,
       "parent_id": 145,
-      "price_rp": 1350,
+      "price_rp": 742,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 742,
+      "discount_percent": 45,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 742,
+            "discount": 0.45
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -5132,11 +5102,21 @@
       "offer_id": "aa0b891c-d0df-429a-86c5-cc85f02efcac",
       "item_id": 15072,
       "parent_id": 15,
-      "price_rp": 1350,
+      "price_rp": 975,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 975,
+      "discount_percent": 28,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 975,
+            "discount": 0.27
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -5212,21 +5192,11 @@
       "offer_id": "e21bebb1-9d86-4c99-82db-8405f44a055c",
       "item_id": 154024,
       "parent_id": 154,
-      "price_rp": 944,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 944,
-      "discount_percent": 30,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 944,
-            "discount": 0.3
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -6470,21 +6440,11 @@
       "offer_id": "5523fa9e-6ed3-44f7-9fab-34cfa957c1a1",
       "item_id": 200010,
       "parent_id": 200,
-      "price_rp": 877,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 877,
-      "discount_percent": 35,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 877,
-            "discount": 0.35
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -7104,21 +7064,11 @@
       "offer_id": "984e317f-0979-43b1-98ab-d227d21f3ff2",
       "item_id": 2035,
       "parent_id": 2,
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -7290,11 +7240,21 @@
       "offer_id": "1c67e558-83b1-44b8-9176-c40b2c33a7e4",
       "item_id": 21021,
       "parent_id": 21,
-      "price_rp": 1350,
+      "price_rp": 540,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 540,
+      "discount_percent": 60,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 540,
+            "discount": 0.6
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -8586,21 +8546,11 @@
       "offer_id": "8648368e-04b0-4486-a2d2-7af9006b0c85",
       "item_id": 240018,
       "parent_id": 240,
-      "price_rp": 810,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 810,
-      "discount_percent": 40,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 810,
-            "discount": 0.4
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -8708,11 +8658,21 @@
       "offer_id": "23cf493c-08c0-4d56-9ee2-c2b613920638",
       "item_id": 24022,
       "parent_id": 24,
-      "price_rp": 1350,
+      "price_rp": 742,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 742,
+      "discount_percent": 45,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 742,
+            "discount": 0.45
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -10260,11 +10220,21 @@
       "offer_id": "fb697e79-df70-423d-8991-b5a74844de6f",
       "item_id": 3019,
       "parent_id": 3,
-      "price_rp": 1350,
+      "price_rp": 810,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 810,
+      "discount_percent": 40,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 810,
+            "discount": 0.4
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -10388,11 +10358,21 @@
       "offer_id": "b284be80-b5c7-40c0-b897-071560c04293",
       "item_id": 31023,
       "parent_id": 31,
-      "price_rp": 1350,
+      "price_rp": 607,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 607,
+      "discount_percent": 55,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 607,
+            "discount": 0.55
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -10788,11 +10768,21 @@
       "offer_id": "3e12857d-c56d-4c2e-b694-1c19ec8de1d9",
       "item_id": 350019,
       "parent_id": 350,
-      "price_rp": 1350,
+      "price_rp": 607,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 607,
+      "discount_percent": 55,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 607,
+            "discount": 0.55
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -12228,11 +12218,21 @@
       "offer_id": "b05830f0-f2cb-4321-b5a8-b11d45881ac0",
       "item_id": 412049,
       "parent_id": 412,
-      "price_rp": 1350,
+      "price_rp": 742,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 742,
+      "discount_percent": 45,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 742,
+            "discount": 0.45
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -12500,11 +12500,21 @@
       "offer_id": "a464e8de-ea19-4d44-9307-426883dd9fb5",
       "item_id": 421017,
       "parent_id": 421,
-      "price_rp": 1350,
+      "price_rp": 675,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 675,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 675,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -13252,11 +13262,21 @@
       "offer_id": "b55c3a7a-82a0-4512-97f7-ceb622a31a75",
       "item_id": 48002,
       "parent_id": 48,
-      "price_rp": 750,
+      "price_rp": 375,
       "regular_rp": 750,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 375,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 375,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kRare",
       "rarity_label": "Common",
@@ -13680,6 +13700,22 @@
       "is_available": true,
       "status": "available"
     },
+    "Xin Zhao Imperial": {
+      "offer_id": "ea1b9343-3592-4369-88fa-76bf99ed4c27",
+      "item_id": 5002,
+      "parent_id": 5,
+      "price_rp": 750,
+      "regular_rp": 750,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "rarity": "kRare",
+      "rarity_label": "Common",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/XinZhao_2.jpg",
+      "is_available": true,
+      "status": "available"
+    },
     "Swain Bênção do Inverno": {
       "offer_id": "4e9981f2-8f5c-4a7e-a330-56d3a9b73181",
       "item_id": 50021,
@@ -13716,11 +13752,21 @@
       "offer_id": "df30f06c-1f31-4f15-907e-8b60f3e21d61",
       "item_id": 50042,
       "parent_id": 50,
-      "price_rp": 1350,
+      "price_rp": 975,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 975,
+      "discount_percent": 28,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 975,
+            "discount": 0.27
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -13908,21 +13954,11 @@
       "offer_id": "7a1b0e65-73a1-45f8-b69b-e824cae4fb87",
       "item_id": 51013,
       "parent_id": 51,
-      "price_rp": 675,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 675,
-      "discount_percent": 50,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 675,
-            "discount": 0.5
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -14766,21 +14802,11 @@
       "offer_id": "f3a8050d-2c47-4e11-bf9c-3ec13b9d5c36",
       "item_id": 55037,
       "parent_id": 55,
-      "price_rp": 607,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 607,
-      "discount_percent": 55,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 607,
-            "discount": 0.55
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -15080,11 +15106,21 @@
       "offer_id": "64231ebc-3141-4cec-b91c-ab1e36c414be",
       "item_id": 57001,
       "parent_id": 57,
-      "price_rp": 975,
+      "price_rp": 682,
       "regular_rp": 975,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 682,
+      "discount_percent": 30,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 682,
+            "discount": 0.3
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kRare",
       "rarity_label": "Common",
@@ -15288,21 +15324,11 @@
       "offer_id": "75120d12-f697-4957-b7ae-41a0f3de492b",
       "item_id": 58048,
       "parent_id": 58,
-      "price_rp": 810,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 810,
-      "discount_percent": 40,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 810,
-            "discount": 0.4
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -15378,11 +15404,21 @@
       "offer_id": "e97a659e-16c7-4157-9ede-f9ad04b2de55",
       "item_id": 59007,
       "parent_id": 59,
-      "price_rp": 1350,
+      "price_rp": 675,
       "regular_rp": 1350,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 675,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 675,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -15778,21 +15814,11 @@
       "offer_id": "540b4aa6-f8de-4d1f-9f69-23c90c39732a",
       "item_id": 62006,
       "parent_id": 62,
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -16476,11 +16502,21 @@
       "offer_id": "9c163e95-fc27-460c-b586-3c48d73dd20a",
       "item_id": 69003,
       "parent_id": 69,
-      "price_rp": 975,
+      "price_rp": 536,
       "regular_rp": 975,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 536,
+      "discount_percent": 45,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 536,
+            "discount": 0.45
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kRare",
       "rarity_label": "Common",
@@ -16620,21 +16656,11 @@
       "offer_id": "c3289898-ebaa-4d01-b808-f532a7e87e70",
       "item_id": 7035,
       "parent_id": 7,
-      "price_rp": 675,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 675,
-      "discount_percent": 50,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 675,
-            "discount": 0.5
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -17442,6 +17468,54 @@
       "is_available": true,
       "status": "available"
     },
+    "Poppy de Noxus": {
+      "offer_id": "898bc871-2e91-4f03-9028-ba62d50e3b83",
+      "item_id": 78001,
+      "parent_id": 78,
+      "price_rp": 520,
+      "regular_rp": 520,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "rarity": "kRare",
+      "rarity_label": "Common",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_1.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Poppirulito": {
+      "offer_id": "25d152e4-4147-4839-9527-ae3de5656a2e",
+      "item_id": 78002,
+      "parent_id": 78,
+      "price_rp": 975,
+      "regular_rp": 975,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "rarity": "kRare",
+      "rarity_label": "Common",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_2.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Poppy Boneca de Pano": {
+      "offer_id": "fb86c244-5bfd-4704-acd7-afb21f9f07b4",
+      "item_id": 78004,
+      "parent_id": 78,
+      "price_rp": 975,
+      "regular_rp": 975,
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
+      "inventory_type": "CHAMPION_SKIN",
+      "rarity": "kRare",
+      "rarity_label": "Common",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_4.jpg",
+      "is_available": true,
+      "status": "available"
+    },
     "Poppy Guerreira Real": {
       "offer_id": "c5d75b9b-b9e9-481f-a655-2aa39b0d48fb",
       "item_id": 78005,
@@ -18006,21 +18080,11 @@
       "offer_id": "397eb14c-dab2-4a83-ba33-fe11c5550c09",
       "item_id": 8049,
       "parent_id": 8,
-      "price_rp": 975,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 975,
-      "discount_percent": 28,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 975,
-            "discount": 0.27
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -18572,22 +18636,6 @@
       "is_available": true,
       "status": "available"
     },
-    "Akali Infernal": {
-      "offer_id": "2a73a362-2a8b-4567-8328-08a6531b562f",
-      "item_id": 84002,
-      "parent_id": 84,
-      "price_rp": 520,
-      "regular_rp": 520,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "rarity": "kRare",
-      "rarity_label": "Common",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_2.jpg",
-      "is_available": false,
-      "status": "off"
-    },
     "Akali Enfermeira": {
       "offer_id": "906822a3-5efe-4af2-a3cd-6b44a8e397a3",
       "item_id": 84004,
@@ -18848,11 +18896,21 @@
       "offer_id": "1e35a85e-5428-4734-90b2-39501a4b4a94",
       "item_id": 85005,
       "parent_id": 85,
-      "price_rp": 975,
+      "price_rp": 487,
       "regular_rp": 975,
-      "sale_rp": null,
-      "discount_percent": null,
-      "sale": null,
+      "sale_rp": 487,
+      "discount_percent": 50,
+      "sale": {
+        "startDate": "2026-09-07T17:00:00.000+00:00",
+        "endDate": "2026-09-14T17:00:00.000+00:00",
+        "prices": [
+          {
+            "currency": "RP",
+            "cost": 487,
+            "discount": 0.5
+          }
+        ]
+      },
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kRare",
       "rarity_label": "Common",
@@ -19504,21 +19562,11 @@
       "offer_id": "b23a79c5-0a71-48c9-943e-f84dc7bcca65",
       "item_id": 89008,
       "parent_id": 89,
-      "price_rp": 540,
+      "price_rp": 1350,
       "regular_rp": 1350,
-      "sale_rp": 540,
-      "discount_percent": 60,
-      "sale": {
-        "startDate": "2026-08-31T17:00:00.000+00:00",
-        "endDate": "2026-09-07T17:00:00.000+00:00",
-        "prices": [
-          {
-            "currency": "RP",
-            "cost": 540,
-            "discount": 0.6
-          }
-        ]
-      },
+      "sale_rp": null,
+      "discount_percent": null,
+      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
       "rarity": "kEpic",
       "rarity_label": "Epic",
@@ -98997,10 +99045,10 @@
     "Zoe": {
       "offer_id": "55a262bb-11d8-4958-8307-54fa4f939090",
       "item_id": 142,
-      "price_rp": 395,
+      "price_rp": 880,
       "regular_rp": 880,
-      "sale_rp": 395,
-      "discount_percent": 55,
+      "sale_rp": null,
+      "discount_percent": null,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Zoe.png",
       "is_available": true,
@@ -99333,10 +99381,10 @@
     "Briar": {
       "offer_id": "07a2a34d-f839-4313-a7dc-3b3fdce4bd85",
       "item_id": 233,
-      "price_rp": 880,
+      "price_rp": 440,
       "regular_rp": 880,
-      "sale_rp": null,
-      "discount_percent": null,
+      "sale_rp": 440,
+      "discount_percent": 50,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Briar.png",
       "is_available": true,
@@ -99357,10 +99405,10 @@
     "Senna": {
       "offer_id": "aa823845-c5c1-47a8-81bf-5f248d30e7a9",
       "item_id": 235,
-      "price_rp": 316,
+      "price_rp": 790,
       "regular_rp": 790,
-      "sale_rp": 316,
-      "discount_percent": 60,
+      "sale_rp": null,
+      "discount_percent": null,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Senna.png",
       "is_available": true,
@@ -99801,10 +99849,10 @@
     "Kalista": {
       "offer_id": "222ab964-598e-4349-9357-d93e6137da06",
       "item_id": 429,
-      "price_rp": 440,
+      "price_rp": 880,
       "regular_rp": 880,
-      "sale_rp": 440,
-      "discount_percent": 50,
+      "sale_rp": null,
+      "discount_percent": null,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Kalista.png",
       "is_available": true,
@@ -99861,10 +99909,10 @@
     "Trundle": {
       "offer_id": "0b21a1d8-889c-46fe-9762-c12f482e77c3",
       "item_id": 48,
-      "price_rp": 790,
+      "price_rp": 316,
       "regular_rp": 790,
-      "sale_rp": null,
-      "discount_percent": null,
+      "sale_rp": 316,
+      "discount_percent": 60,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Trundle.png",
       "is_available": true,
@@ -99945,10 +99993,10 @@
     "Sylas": {
       "offer_id": "b5cfd572-9a11-4c87-9e27-37ca2442980f",
       "item_id": 517,
-      "price_rp": 316,
+      "price_rp": 790,
       "regular_rp": 790,
-      "sale_rp": 316,
-      "discount_percent": 60,
+      "sale_rp": null,
+      "discount_percent": null,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Sylas.png",
       "is_available": true,
@@ -100197,10 +100245,10 @@
     "LeBlanc": {
       "offer_id": "4f2892f9-f82a-4dde-bb0e-733f90032bdd",
       "item_id": 7,
-      "price_rp": 790,
+      "price_rp": 355,
       "regular_rp": 790,
-      "sale_rp": null,
-      "discount_percent": null,
+      "sale_rp": 355,
+      "discount_percent": 55,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Leblanc.png",
       "is_available": true,
@@ -100209,10 +100257,10 @@
     "Vex": {
       "offer_id": "ffd779da-0863-46ec-9e05-b4728ae169f7",
       "item_id": 711,
-      "price_rp": 790,
+      "price_rp": 474,
       "regular_rp": 790,
-      "sale_rp": null,
-      "discount_percent": null,
+      "sale_rp": 474,
+      "discount_percent": 40,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Vex.png",
       "is_available": true,
@@ -100329,10 +100377,10 @@
     "Vladimir": {
       "offer_id": "f21f168e-fc07-4381-a3c9-2e95bd1a4e4f",
       "item_id": 8,
-      "price_rp": 790,
+      "price_rp": 355,
       "regular_rp": 790,
-      "sale_rp": null,
-      "discount_percent": null,
+      "sale_rp": 355,
+      "discount_percent": 55,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/Vladimir.png",
       "is_available": true,
@@ -100545,10 +100593,10 @@
     "K'Sante": {
       "offer_id": "6605f832-1462-4463-84e6-2345976acdde",
       "item_id": 897,
-      "price_rp": 395,
+      "price_rp": 880,
       "regular_rp": 880,
-      "sale_rp": 395,
-      "discount_percent": 55,
+      "sale_rp": null,
+      "discount_percent": null,
       "inventory_type": "CHAMPION",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/KSante.png",
       "is_available": true,
@@ -110152,42 +110200,6 @@
       "is_available": true,
       "status": "available"
     },
-    "Pacote Lulu Corte das Fadas": {
-      "offer_id": "8ad77a51-7baf-4fb3-8eb9-afeb2fd7701f",
-      "item_id": 99901654,
-      "price_rp": 2390,
-      "regular_rp": 2390,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901654.png",
-      "is_available": false,
-      "status": "off"
-    },
-    "Pacote Bel'Veth Corte das Fadas": {
-      "offer_id": "c0eac395-b846-4fe5-ba1b-4e0236dc9ae2",
-      "item_id": 99901655,
-      "price_rp": 2345,
-      "regular_rp": 2345,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901655.png",
-      "is_available": false,
-      "status": "off"
-    },
-    "Pacote Gwen Corte das Fadas": {
-      "offer_id": "a54a36da-97a5-4775-970a-d5978d6c15fb",
-      "item_id": 99901656,
-      "price_rp": 2390,
-      "regular_rp": 2390,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901656.png",
-      "is_available": false,
-      "status": "off"
-    },
     "Pacote Seraphine Hino ao Amor": {
       "offer_id": "247c9f4f-eb89-453f-9725-68f0b190e7ce",
       "item_id": 99901657,
@@ -110197,6 +110209,30 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901657.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Coleção Lenda Ascendida (2026)": {
+      "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
+      "item_id": 99901658,
+      "price_rp": 5035,
+      "regular_rp": 5035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Coleção Lenda Imortalizada – Edição Autografada (2026)": {
+      "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
+      "item_id": 99901660,
+      "price_rp": 58865,
+      "regular_rp": 58865,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png",
       "is_available": true,
       "status": "available"
     },
@@ -110322,6 +110358,18 @@
       "is_available": true,
       "status": "available"
     },
+    "Passe Hall of Legends 2026": {
+      "offer_id": "1a335511-a661-4d91-8522-abd3bc4f466c",
+      "item_id": 69901079,
+      "price_rp": 1950,
+      "regular_rp": 1950,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png",
+      "is_available": true,
+      "status": "available"
+    },
     "Passe Hall of Legends 2026 - Caps": {
       "offer_id": 99901664,
       "item_id": 61040,
@@ -110381,6 +110429,54 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Orbe Hall of Legends 2026": {
+      "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
+      "item_id": 69901075,
+      "price_rp": 250,
+      "regular_rp": 250,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Pacote de Orbes Deluxe Hall of Legends 2026": {
+      "offer_id": "5c4f967b-a28d-440e-abca-e6be04a5c530",
+      "item_id": 69901076,
+      "price_rp": 2500,
+      "regular_rp": 2500,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Pacote de Orbes Premium Hall of Legends 2026": {
+      "offer_id": "ee0ff019-d562-4eef-af94-1412bdc58159",
+      "item_id": 69901077,
+      "price_rp": 6250,
+      "regular_rp": 6250,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Pacote de Orbes Mega Hall of Legends 2026": {
+      "offer_id": "a7c18a88-9322-4ec1-81a0-45174f7db480",
+      "item_id": 69901078,
+      "price_rp": 12500,
+      "regular_rp": 12500,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png",
       "is_available": true,
       "status": "available"
     },
