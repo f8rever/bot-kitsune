@@ -691,21 +691,9 @@ async function buildFullCatalog() {
 
                 if (!isEnOnly) {
                     catalogPt[targetCategory][item.name] = bObj;
-                    if (item.name.includes('Tristana')) {
-                        catalogPt.Skins[item.name] = { ...bObj, inventory_type: 'CHAMPION_SKIN' };
-                    }
-                    if (isPass) {
-                        catalogPt.Bundles[item.name] = bObj;
-                    }
                 }
                 if (!isPtOnly) {
                     catalogEn[targetCategory][item.name] = bObj;
-                    if (item.name.includes('Tristana')) {
-                        catalogEn.Skins[item.name] = { ...bObj, inventory_type: 'CHAMPION_SKIN' };
-                    }
-                    if (isPass) {
-                        catalogEn.Bundles[item.name] = bObj;
-                    }
                 }
             });
         } catch (e) {}

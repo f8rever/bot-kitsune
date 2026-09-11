@@ -21158,42 +21158,6 @@
       "is_available": true,
       "status": "available"
     },
-    "Coleção Tristana Lenda Ascendida": {
-      "offer_id": 99901665,
-      "item_id": 99901665,
-      "price_rp": 5035,
-      "regular_rp": 5035,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Coleção Tristana Lenda Imortalizada": {
-      "offer_id": 99901666,
-      "item_id": 99901666,
-      "price_rp": 32035,
-      "regular_rp": 32035,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Coleção Assinatura Tristana Lenda Imortalizada": {
-      "offer_id": 99901667,
-      "item_id": 99901667,
-      "price_rp": 58865,
-      "regular_rp": 58865,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
-      "is_available": true,
-      "status": "available"
-    },
     "Heartsong Seraphine": {
       "offer_id": 147069,
       "item_id": 147069,
@@ -110233,18 +110197,6 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901657.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Passe Hall of Legends 2026 - Caps": {
-      "offer_id": 99901664,
-      "item_id": 99901664,
-      "price_rp": 1950,
-      "regular_rp": 1950,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg",
       "is_available": true,
       "status": "available"
     },
