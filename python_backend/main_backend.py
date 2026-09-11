@@ -1458,23 +1458,37 @@ async def fetch_catalogs(lang=None):
         print("\n Catalog fetch completed\n")
 
 
+def get_catalog_file_path(filename):
+    candidates = [
+        os.path.join(current_dir, filename),
+        os.path.join(current_dir, '..', 'config', filename),
+        os.path.join(current_dir, 'config', filename),
+        filename
+    ]
+    for c in candidates:
+        if os.path.exists(c) and os.path.getsize(c) > 0:
+            return c
+    return None
+
 async def load_catalog():
     print("\n loading catalog")
     global catalog_cache_pt, catalog_cache_en
     try:
-        if os.path.getsize('catalog_cache_pt.json') > 0:
-            with open('catalog_cache_pt.json', 'r', encoding='utf-8', errors='ignore') as f:
+        pt_path = get_catalog_file_path('catalog_cache_pt.json')
+        if pt_path:
+            with open(pt_path, 'r', encoding='utf-8', errors='ignore') as f:
                 catalog_cache_pt = json.load(f)
-                print("\nCatalog pt encontrado")
+                print(f"\nCatalog pt encontrado em {pt_path} ({len(catalog_cache_pt)} categorias)")
         else:
-            print("\nArquivo 'catalog_cache_pt.json' está vazio")
+            print("\nArquivo 'catalog_cache_pt.json' está vazio ou não encontrado")
 
-        if os.path.getsize('catalog_cache_en.json') > 0:
-            with open('catalog_cache_en.json', 'r', encoding='utf-8', errors='ignore') as f:
+        en_path = get_catalog_file_path('catalog_cache_en.json')
+        if en_path:
+            with open(en_path, 'r', encoding='utf-8', errors='ignore') as f:
                 catalog_cache_en = json.load(f)
-                print("\nCatalog en encontrado")
+                print(f"\nCatalog en encontrado em {en_path} ({len(catalog_cache_en)} categorias)")
         else:
-            print("\nArquivo 'catalog_cache_en.json' está vazio")
+            print("\nArquivo 'catalog_cache_en.json' está vazio ou não encontrado")
 
         # Auto-merge missing items from EN into PT so PT catalog is 100% complete
         # (Disabled because it causes English items to duplicate inside the PT catalog due to name differences)
@@ -1622,12 +1636,25 @@ async def update_catalog():
 
 
 @app.route('/get-catalog')
-@jwt_required()
 def get_catalog():
+    global catalog_cache_en, catalog_cache_pt
     lang = request.args.get('lang', 'pt')
-    if lang == 'en':
-        return jsonify(catalog_cache_en)
-    return jsonify(catalog_cache_pt)
+    target = catalog_cache_en if lang == 'en' else catalog_cache_pt
+    if not target:
+        target_file = f'catalog_cache_{lang}.json'
+        p = get_catalog_file_path(target_file)
+        if p:
+            try:
+                with open(p, 'r', encoding='utf-8', errors='ignore') as f:
+                    loaded = json.load(f)
+                    if lang == 'en':
+                        catalog_cache_en = loaded
+                    else:
+                        catalog_cache_pt = loaded
+                    return jsonify(loaded)
+            except Exception:
+                pass
+    return jsonify(target or {})
 
 
 ###############################################################################################################################################################################################

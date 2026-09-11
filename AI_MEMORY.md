@@ -452,6 +452,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Banner (`image`): Splash art oficial da **Immortalized Legend Tristana / Signature Edition** em alta resolução (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg`).
                   - Thumbnail (`thumbnail`): Splash art oficial da **Risen Legend Orianna** (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg`).
                   - Ícones dos pacotes em [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) atualizados para suas respectivas artes em HD (`Orianna_40.jpg`, `Tristana_79.jpg`, `Tristana_80.jpg`), sincronizados no MongoDB Atlas.
+            22. **Correção do Catálogo no Painel Web / Dashboard da API Python (`/api_frontend`) (2026-09-10):**
+                - **Problema:** No painel web (`http://127.0.0.1:5000/api_frontend`), a lista de itens do catálogo ficava totalmente vazia.
+                - **Causa Raiz:**
+                  1. A rota `/get-catalog` possuía a anotação `@jwt_required()`. Quando o frontend tentava buscar os itens via `fetch('/get-catalog?lang=pt')`, a API interceptava e retornava um redirecionamento HTTP 302 para a raiz (`/`), entregando o HTML de login em vez de JSON, causando SyntaxError silencioso no JavaScript.
+                  2. A função `load_catalog()` tentava abrir os arquivos usando nomes relativos (`'catalog_cache_pt.json'`). Quando o processo era iniciado a partir da pasta raiz do bot, o arquivo não existia no CWD, gerando `FileNotFoundError` e deixando o cache em memória vazio.
+                - **Solução Implementada:**
+                  1. Removido `@jwt_required()` da rota `/get-catalog` e adicionado fallback de leitura automática do disco em caso de cache em memória descarregado.
+                  2. Criada a função `get_catalog_file_path()` com resolução robusta de caminhos absolutos (`current_dir`, `config/`, CWD).
+                  3. Testado com sucesso: endpoint agora responde HTTP 200 com 8.745 itens em PT e 8.725 itens em EN instantaneamente.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
