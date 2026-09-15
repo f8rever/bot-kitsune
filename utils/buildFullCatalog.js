@@ -25,8 +25,8 @@ function isRestrictedOrNonRP(name, rawItem = null) {
         return true;
     }
 
-    // Exceção: Pacotes e itens oficiais do Hall of Legends 2026 (Caps)
-    if (n.includes('caps') || (rawItem?.itemId >= 99901660 && rawItem?.itemId <= 99901667)) {
+    // Exceção: Pacotes e itens oficiais do Hall of Legends (Caps / Faker / Ahri / Tristana / Passes)
+    if (n.includes('hall of legends') || n.includes('caps') || n.includes('faker') || rawItem?.itemId === 69901079 || (rawItem?.itemId >= 99901657 && rawItem?.itemId <= 99901667)) {
         return false;
     }
 
@@ -339,7 +339,11 @@ async function buildFullCatalog() {
             'Ícone Pacote Karma Emissária da Luz': 'Dawnbringer Karma Bundle Icon',
             'Ícone Caça-Zumbis': 'Zombie Slayer Icon',
             'Ícone Sentinela Detectora Clássica': 'Vintage Control Ward Icon',
-            'Ícone Moldura Locke Velho Oeste': 'High Noon Locke Border Icon'
+            'Ícone Moldura Locke Velho Oeste': 'High Noon Locke Border Icon',
+            'Orbe Hall of Legends 2026': 'Hall of Legends 2026 Orb',
+            'Pacote de Orbes Deluxe Hall of Legends 2026': 'Hall of Legends 2026 Deluxe Orb Bundle',
+            'Pacote de Orbes Premium Hall of Legends 2026': 'Hall of Legends 2026 Premium Orb Bundle',
+            'Pacote de Orbes Mega Hall of Legends 2026': 'Hall of Legends 2026 Mega Orb Bundle'
         };
         if (ptToEnMap[rawEnName]) rawEnName = ptToEnMap[rawEnName];
 
@@ -662,6 +666,20 @@ async function buildFullCatalog() {
             });
         } catch (e) {}
     }
+
+    // Limpar entradas antigas ou duplicadas do Hall of Legends antes de inserir os pacotes oficiais
+    ['Bundles', 'Passes'].forEach(cat => {
+        [catalogPt, catalogEn].forEach(catObj => {
+            if (catObj && catObj[cat]) {
+                Object.keys(catObj[cat]).forEach(k => {
+                    const kl = k.toLowerCase();
+                    if (kl.includes('lenda ascendida') || kl.includes('lenda imortalizada') || kl.includes('risen legend') || kl.includes('immortalized legend') || kl.includes('hall of legends 2026')) {
+                        delete catObj[cat][k];
+                    }
+                });
+            }
+        });
+    });
 
     // Pacotes de lançamento e Hall of Legends 2026 (featured_bundles.json)
     const featBundlesPath = path.join(__dirname, '../config/featured_bundles.json');

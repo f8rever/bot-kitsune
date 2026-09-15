@@ -1,7 +1,7 @@
 {
   "menu_principal": {
     "skins_chromas": "<:legendary:1342089845559791650>",
-    "loot_passes": "<:lol_summoner_orb:1546370600652771459>",
+    "loot_passes": "<:lol_orb_hol:1549297901841424524>",
     "champions_eternals": "<:mchamp:1342089827071561728>",
     "accessories": "<:lol_poro_emote:1544493296879935489>",
     "featured": "<:lol_exclusive_pack:1544591088084590636>",
@@ -35,7 +35,12 @@
     "mystery": "<:lol_mystery_skin:1544591070204010598>",
     "capsule": "💊",
     "token": "🪙",
-    "grab_bag": "<:lol_grab_bag:1544591084200534116>"
+    "grab_bag": "<:lol_grab_bag:1544591084200534116>",
+    "pass_hol": "<:lol_pass_hol:1549297894220369991>",
+    "orb_hol": "<:lol_orb_hol:1549297901841424524>",
+    "deluxe_hol": "<:lol_deluxe_hol:1549297909218942999>",
+    "premium_hol": "<:lol_premium_hol:1549297917351821345>",
+    "megaorb_hol": "<:lol_megaorb_hol:1549297925363077240>"
   },
   "acessorios": {
     "menu": "<:lol_poro_emote:1544493296879935489>",

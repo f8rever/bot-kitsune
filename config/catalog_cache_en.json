@@ -4827,7 +4827,7 @@
       "status": "available"
     },
     "Heartsong Seraphine": {
-      "offer_id": 147069,
+      "offer_id": "6e199f43-39c9-4709-97de-aadded6602c5",
       "item_id": 147069,
       "price_rp": 1820,
       "regular_rp": 1820,
@@ -109981,7 +109981,7 @@
       "status": "available"
     },
     "Ocean Song Soraka Chroma Bundle": {
-      "offer_id": 79900914,
+      "offer_id": "4c88ef8b-c17a-4a38-ae16-7435558d58ce",
       "item_id": 79900914,
       "price_rp": 2795,
       "regular_rp": 2795,
@@ -109993,7 +109993,7 @@
       "status": "available"
     },
     "Ocean Song Jinx Chroma Bundle": {
-      "offer_id": 79900915,
+      "offer_id": "62981d1c-65df-4795-8fe3-46bdb7ef80e7",
       "item_id": 79900915,
       "price_rp": 2795,
       "regular_rp": 2795,
@@ -110005,7 +110005,7 @@
       "status": "available"
     },
     "Heartsong Seraphine Chroma Bundle": {
-      "offer_id": 79900916,
+      "offer_id": "bba11048-c7c5-485c-911b-c2fd1fe86bdf",
       "item_id": 79900916,
       "price_rp": 3035,
       "regular_rp": 3035,
@@ -110173,7 +110173,7 @@
       "status": "available"
     },
     "Heartsong Seraphine Border Set": {
-      "offer_id": 99901657,
+      "offer_id": "247c9f4f-eb89-453f-9725-68f0b190e7ce",
       "item_id": 99901657,
       "price_rp": 2720,
       "regular_rp": 2720,
@@ -110184,7 +110184,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Coleção Lenda Ascendida (2026)": {
+    "Risen Legend Collection (2026)": {
       "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
       "item_id": 99901658,
       "price_rp": 5035,
@@ -110196,7 +110196,19 @@
       "is_available": true,
       "status": "available"
     },
-    "Coleção Lenda Imortalizada – Edição Autografada (2026)": {
+    "Immortalized Legend Collection (2026)": {
+      "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
+      "item_id": 99901659,
+      "price_rp": 32035,
+      "regular_rp": 32035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Signature Immortalized Legend Collection (2026)": {
       "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
       "item_id": 99901660,
       "price_rp": 58865,
@@ -110205,42 +110217,6 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Risen Legend Tristana Collection": {
-      "offer_id": 99901661,
-      "item_id": 18079,
-      "price_rp": 5035,
-      "regular_rp": 5035,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Immortalized Legend Tristana Collection": {
-      "offer_id": 99901662,
-      "item_id": 18080,
-      "price_rp": 32035,
-      "regular_rp": 32035,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Signature Immortalized Legend Tristana Collection": {
-      "offer_id": 99901663,
-      "item_id": 18080,
-      "price_rp": 58865,
-      "regular_rp": 58865,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg",
       "is_available": true,
       "status": "available"
     }
@@ -110282,7 +110258,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Passe Hall of Legends 2026": {
+    "Hall of Legends 2026 Pass": {
       "offer_id": "1a335511-a661-4d91-8522-abd3bc4f466c",
       "item_id": 69901079,
       "price_rp": 1950,
@@ -110291,18 +110267,6 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hall of Legends 2026 Pass - Caps": {
-      "offer_id": 99901660,
-      "item_id": 61040,
-      "price_rp": 1950,
-      "regular_rp": 1950,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg",
       "is_available": true,
       "status": "available"
     }
@@ -110356,7 +110320,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Orbe Hall of Legends 2026": {
+    "Hall of Legends 2026 Orb": {
       "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
       "item_id": 69901075,
       "price_rp": 250,
@@ -110368,7 +110332,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Pacote de Orbes Deluxe Hall of Legends 2026": {
+    "Hall of Legends 2026 Deluxe Orb Bundle": {
       "offer_id": "5c4f967b-a28d-440e-abca-e6be04a5c530",
       "item_id": 69901076,
       "price_rp": 2500,
@@ -110380,7 +110344,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Pacote de Orbes Premium Hall of Legends 2026": {
+    "Hall of Legends 2026 Premium Orb Bundle": {
       "offer_id": "ee0ff019-d562-4eef-af94-1412bdc58159",
       "item_id": 69901077,
       "price_rp": 6250,
@@ -110392,7 +110356,7 @@
       "is_available": true,
       "status": "available"
     },
-    "Pacote de Orbes Mega Hall of Legends 2026": {
+    "Hall of Legends 2026 Mega Orb Bundle": {
       "offer_id": "a7c18a88-9322-4ec1-81a0-45174f7db480",
       "item_id": 69901078,
       "price_rp": 12500,

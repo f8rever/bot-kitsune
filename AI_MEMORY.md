@@ -461,6 +461,155 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   1. Removido `@jwt_required()` da rota `/get-catalog` e adicionado fallback de leitura automática do disco em caso de cache em memória descarregado.
                   2. Criada a função `get_catalog_file_path()` com resolução robusta de caminhos absolutos (`current_dir`, `config/`, CWD).
                   3. Testado com sucesso: endpoint agora responde HTTP 200 com 8.745 itens em PT e 8.725 itens em EN instantaneamente.
+            23. **Unificação dos Pacotes Hall of Legends & Bloqueio Amigável de Presente para Bundles (2026-09-13):**
+                - **Problema de Envio de Presente:** O envio de presentes para itens do tipo `BUNDLES` (como a Coleção Lenda Ascendida de 5035 RP) gerava `Internal Server Error` porque a Riot Games não permite presentear pacotes (apenas itens avulsos) e porque amizades com menos de 24h são recusadas.
+                - **Problema do Catálogo / Busca:** Ao buscar `hall of legends`, o catálogo exibia itens duplicados, nomes misturados com "Tristana", faltava a coleção de 32.035 RP com o padrão unificado, e a campeã Orianna (880 RP) e pacotes de cromas da Tristana apareciam indevidamente na busca.
+                - **Solução Implementada:**
+                  1. Unificados os 4 pacotes do Hall of Legends em `featured_bundles.json`, `buildFullCatalog.js`, `halloflegends.js` e `embeds.json`: Passe (1.950 RP), Coleção Lenda Ascendida (5.035 RP), Coleção Lenda Imortalizada (32.035 RP) e Coleção Assinatura Lenda Imortalizada (58.865 RP).
+                  2. Recompilado todo o catálogo (`buildFullCatalog.js`), removendo duplicatas e sincronizando os arquivos `catalog_cache_pt.json` e `catalog_cache_en.json`.
+                  3. Corrigida a indexação de busca em `script.js` (removida a injeção cega de keywords por palavras como "Tristana/Orianna").
+                  4. Adicionada validação de `inventory_type in ['BUNDLES', 'BUNDLE']` em `main_backend.py` com mensagem explicativa em vez de estourar 500.
+
+            24. **Correção Definitiva do Gifting de Passes e Coleções (Hall of Legends) & Resolução de JWT / `key_balance` (2026-09-13):**
+                - **Problemas Encontrados:**
+                  1. **Erro `cannot access local variable 'key_balance'`**: No endpoint `/run-script`, `get_jwt_identity()` retornava a string JSON `'["user", "key", "session_id"]'`. O código pegava `key = current_identity[1]` (o caractere `"`). A consulta no MongoDB retornava `None`, e a variável `key_balance` nunca era criada antes da comparação com o preço, causando `UnboundLocalError`.
+                  2. **Bloqueio Indevido de Bundles/Passes**: Passes e coleções (como Faker / Hall of Legends) possuem classificação técnica `inventory_type: "BUNDLES"` no catálogo interno. Havia uma trava artificial bloqueando `inv_type in ['BUNDLES', 'BUNDLE']`. A API CAP da Riot (`/services/cap/orders/...`) **aceita perfeitamente** esses itens via `offer_id`.
+                  3. **Erro `Bad Request (400)` ao Enviar Passes/Coleções**:
+                     - *Causa:* Os pacotes do Hall of Legends em `config/featured_bundles.json` estavam com IDs numéricos fictícios (`offer_id: 99901664` etc.) em vez dos UUIDs oficiais da loja da Riot. A API CAP da Riot recusava com 400 ("Offer not found").
+                     - *Causa 2:* O arquivo `api_files/gift.py` continha um ID de pedido estático antigo (`"id": "ed4a64fc-4b08-411e-a2cc-7a91a6d7d834"`), campos legados desnecessários (`waitForRMS`, `label: proxied`), e `raise_for_status=True` que ocultava o JSON real de erro da Riot.
+                  4. **Inconsistência entre Pastas**: `c:\Users\jeff\Documents\KITSUNE V2 BOT\lol_giftapi-main` e `C:\Users\jeff\Documents\lol_giftapi-main` são diretórios físicos separados no disco e não sincronizam automaticamente pelo Windows.
+                - **Soluções Implementadas:**
+                  1. **Wrapper Global de JWT:** Implementado wrapper `get_jwt_identity()` em `main_backend.py` chamando `parse_identity()`, garantindo que a lista `[user, key, session_id]` seja sempre extraída em todos os endpoints, com blindagem contra valores nulos de `key_balance` e `price`.
+                  2. **Desbloqueio de Passes e Bundles:** Removido o bloqueio artificial de `BUNDLES` em `main_backend.py`, permitindo envio direto de qualquer item ativo na loja.
+                  3. **UUIDs Oficiais Restaurados da Loja:** Extraídos os `offerId`s UUID reais diretamente de `catalog.json` para todos os passes e coleções em `config/featured_bundles.json`:
+                     - Passe Hall of Legends 2026: `1a335511-a661-4d91-8522-abd3bc4f466c`
+                     - Coleção Lenda Ascendida (2026): `73d68c09-ff8b-4793-a380-b198438c21ab`
+                     - Coleção Lenda Imortalizada (2026): `70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb`
+                     - Coleção Assinatura Lenda Imortalizada (2026): `33f48406-8d1c-4c77-87f4-e47b39796cc6`
+                     - Recompilado todo o catálogo via `buildFullCatalog.js`, gerando os caches com UUIDs válidos.
+                  4. **Atualização do Payload de Gifting em `gift.py`:**
+                     - Adequado ao padrão oficial da Riot: `"id": ""`, `"customMessage": gift_message`, `User-Agent` oficial do LoL Client.
+                     - Removido `raise_for_status=True` e implementado retorno explícito `(success, gift_response)` com repasse do detalhe de erro exato da Riot para o frontend.
+                  5. **Sincronização Completa:** Sincronizados todos os arquivos para `python_backend/` e `C:\Users\jeff\Documents\lol_giftapi-main`.
+                  6. **Validação:** Testado em conta real com sucesso total (`Gift sent successfully`), saldo debitado e verificado no cliente do League of Legends.
+            25. **Auditoria e Checkout Completo de Todas as Categorias do Catálogo (Passes, Bundles, Eternos, Orbes, Hextech, Skins, Cromas) (2026-09-13):**
+                - **Problemas Relatados:** Clientes reclamando que passes e itens no catálogo do bot estavam totalmente errados.
+                - **Causas Raízes Descobertas na Auditoria:**
+                  1. *Poluição da categoria Passes por Eternos:* Em `index.js` (linha 1224), o filtro de `passes` capturava qualquer item com `passe` no nome. Isso fazia `Passe dos Eternos: Série 1`, `Passe dos Eternos: Série Inicial` e `Passe dos Eternos: Série 2` (STATSTONE, 5850/1350/6400 RP) aparecerem dentro da categoria Passes de Temporada!
+                  2. *Duplicação de Passes e Bundles em `loadFullRiotCatalog`:* Em `featured_bundles.json`, itens eram injetados com `offerId` (camelCase) enquanto `mergedMap` checava `rawItem?.offer_id` (snake_case). Sem a chave única bater, `Hall of Legends 2026 Pass`, `Signature Immortalized Legend Collection`, `Heartsong Seraphine Chroma Bundle`, `Ocean Song Soraka Chroma Bundle` e `Ocean Song Jinx Chroma Bundle` ficavam duplicados.
+                  3. *Preço Errado em `getItemRpValue`:* `getItemRpValue` retornava 1650 RP para `Season 3: Act I Pass Bundle` e `Pacote Passe da 3ª Temporada – Ato I` (deveria ser 2650 RP) porque só checava a palavra `upgraded`. E para os passes de Eternos (5850/6400/1350 RP), caía na regra de passes e cobrava apenas 1650 RP!
+                  4. *Imagens Forçadas / Erradas:* Em `index.js`, imagens eram forçadas por regex de substring: qualquer item com "pass" ou "passe" recebia `69901071.png` (Passe Season 3), fazendo o Passe Hall of Legends e passes em português exibirem a thumbnail errada em vez de suas artes oficiais (`69901079_1.png`, etc.).
+                  5. *Filtro agressivo de Míticas em `isPrestigeOrMythic`:* Bloqueava coleções do Hall of Legends por conterem termos como `immortalized` e `risen legend`.
+                - **Soluções Implementadas e Validadas:**
+                  1. *Filtro Estrito de Passes:* A categoria `passes` agora exclui categoricamente `STATSTONE`, `eterno`, `eternal`, `SUMMONER_ICON`, `EMOTE`, `WARD`, `CHAMPION`, `SKIN`, `CHROMA`, `BOOST`, `TFT` e boosts de progressão (`fan pass`, `token bank`, `level-up`), exibindo exatamente os 4 passes ativos da Riot Store (`Hall of Legends 2026 Pass` 1950 RP, `Season 3: Act I Pass` 1650 RP, `Season 3: Act I Pass Bundle` 2650 RP, `Season 3: Act I Premium Pass Bundle` 3650 RP).
+                  2. *Deduplicação Completa em `loadFullRiotCatalog`:* A chave única de mesclagem agora checa `offer_id || rawItem?.offer_id || rawItem?.offerId || id`. Duplicatas zeradas em todas as categorias.
+                  3. *Resolução Perfeita de Preço em `getItemRpValue`:* A função agora consulta o catálogo oficial primeiro (`findCatalogItem`), garantindo o valor exato de RP da Riot Store para todos os itens, e possui fallbacks precisos para pacotes, passes e séries de Eternos (6400, 5850, 1350 RP).
+                  4. *Resolução Oficial de Imagens:* `index.js` agora prioriza o `iconUrl` oficial do catálogo antes de qualquer fallback, garantindo que o Hall of Legends exiba `69901079_1.png`, pacotes exibam suas thumbnails oficiais da Riot CDN e orbes exibam suas artes exclusivas.
+                  5. *Adição de `pass_hol` em `loja.json`:* Configurado preço oficial para passes de 1950 RP no arquivo de configuração da loja.
+                  6. *Recompilação e Sincronização:* Reconstruído o catálogo via `buildFullCatalog.js` e sincronizados os arquivos `catalog_cache_*.json`, `featured_bundles.json` e `loja.json` para `lol_giftapi-main/`, `python_backend/` e `C:\Users\jeff\Documents\lol_giftapi-main/`.
+                  7. *Checkout Geral de Todas as Categorias (EN e PT):*
+                     - Skins: 1316 itens | 0 duplicatas | 0 preço zero
+                     - Cromas: 5727 itens | 0 duplicatas | 0 preço zero
+                     - Passes: 4 itens | 0 duplicatas | 0 preço zero
+                     - Orbes: 8 itens | 0 duplicatas | 0 preço zero
+                     - Hextech: 5 itens | 0 duplicatas | 0 preço zero
+                     - Mistério: 3-4 itens | 0 duplicatas | 0 preço zero
+                     - Emotes: 170 itens | 0 duplicatas | 0 preço zero
+                     - Ícones: 409 itens | 0 duplicatas | 0 preço zero
+                     - Sentinelas: 68 itens | 0 duplicatas | 0 preço zero
+                     - Pequenas Lendas / Chibis: 268 itens | 0 duplicatas | 0 preço zero
+                     - Boosts: 8 itens | 0 duplicatas | 0 preço zero
+                     - Campeões: 173 itens | 0 duplicatas | 0 preço zero
+                     - Eternos: 522 itens | 0 duplicatas | 0 preço zero
+
+            25. **Criação e Integração dos Emojis de Aplicação do Hall of Legends 2026 (Bot-Level) (2026-09-15):**
+                - **Solicitação do Usuário:** Criar e configurar os novos emojis do Hall of Legends (Passe e Orbes) diretamente na aplicação do bot (Application Emojis do Discord) e NÃO no servidor/guilda, para não consumir slots dos servidores e funcionar globalmente em todas as guildas onde o bot está presente.
+                - **Assets Oficiais da Riot CDN Baixados e Otimizados:**
+                  - `lol_pass_hol` (Passe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png` (redimensionado para 128x128 RGBA, 29 KB).
+                  - `lol_orb_hol` (Orbe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png` (128x128 RGBA, 15 KB).
+                  - `lol_deluxe_hol` (Pacote Deluxe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png` (128x128 RGBA, 25 KB).
+                  - `lol_premium_hol` (Pacote Premium 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png` (128x128 RGBA, 25 KB).
+                  - `lol_megaorb_hol` (Pacote Mega 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png` (128x128 RGBA, 29 KB).
+                - **Emojis Criados via `client.application.emojis.create()`:**
+                  - `<:lol_pass_hol:1549297894220369991>`
+                  - `<:lol_orb_hol:1549297901841424524>`
+                  - `<:lol_deluxe_hol:1549297909218942999>`
+                  - `<:lol_premium_hol:1549297917351821345>`
+                  - `<:lol_megaorb_hol:1549297925363077240>`
+                - **Configurações & Sincronização:**
+                  - Registrados em `config/emojis.json` (seção `loot`) e `config/cosmetic_emojis.json`.
+                  - Atualizado `config/embeds.json` (`hall_of_legends`) para usar o emoji do passe.
+                  - Atualizado `commands/suporte/halloflegends.js` no select menu.
+                  - Sincronizados com o **MongoDB Atlas** (`bot_configurations -> emojis, cosmetic_emojis, embeds`) para persistência garantida entre reinicializações.
+                  - Integrado no resolvedor visual `obterDetalhesItem()` em `index.js` (passes, orbes, highlights e most_popular), além de fallbacks de imagens CDN em `cart.items.forEach`.
+
+            26. **Revisão Completa, Reorganização e Checkout Perfeito da Categoria Espólios (`cat_loot`) (2026-09-15):**
+                - **Problemas Identificados:**
+                  1. *Passes Duplicados:* O passe `Hall of Legends 2026 Pass` estava sendo inserido tanto na categoria `Passes` quanto em `Bundles` em `buildFullCatalog.js`, resultando em itens duplicados ao listar passes.
+                  2. *Nomes em Português no Catálogo EN:* Os orbes do Hall of Legends estavam salvos como `Orbe Hall of Legends 2026` e `Pacote de Orbes Deluxe/Premium/Mega...` no cache em inglês (`catalog_cache_en.json`).
+                  3. *Emojis e Descrições Desatualizadas no Menu:* O menu de `cat_loot` ainda mencionava apenas `Season 3: Act I Pass` e `Summoner's Orb`, sem citar o Passe Hall of Legends nem os novos orbes, e utilizava emojis antigos.
+                  4. *Ordenação Desorganizada:* Os itens em `passes`, `orbes`, `hextech` e `misterio` eram ordenados apenas por data de lançamento decrescente, misturando tamanhos de pacotes e eventos.
+                - **Soluções Implementadas:**
+                  1. *Deduplicação Definitiva:*
+                     - Removida a injeção duplicada de passes em `Bundles` em `utils/buildFullCatalog.js`.
+                     - Adicionado `seenCatalogItems` com deduplicação por `${itemId}_${itemName}` em `loadFullRiotCatalog()` em `index.js`.
+                  2. *Traduções e Recompilação Completa:*
+                     - Mapeados `Hall of Legends 2026 Orb`, `Hall of Legends 2026 Deluxe Orb Bundle`, `Hall of Legends 2026 Premium Orb Bundle` e `Hall of Legends 2026 Mega Orb Bundle` em `ptToEnMap`.
+                     - Recompilados todos os caches de catálogo (`buildFullCatalog.js`). Total de passes limpo para exatamente 4 (Passe Hall of Legends 2026 + 3 passes da Temporada 3).
+                  3. *Menu de Seleção e Embed Atualizados:*
+                     - `Orbs & Capsules`: emoji atualizado para `<:lol_orb_hol:1549297901841424524>`, descrição `Hall of Legends & Summoner's Orbs (250 - 12,500 RP)`.
+                     - `Season Event Passes`: emoji atualizado para `<:lol_pass_hol:1549297894220369991>`, descrição `Hall of Legends Pass (1950 RP) & Season Event Passes`.
+                     - Atualizados títulos dos menus em `enviarPaginaCatalogo` com os novos emojis oficiais.
+                     - `category_loot` em `config/embeds.json` atualizado e sincronizado no MongoDB Atlas.
+                  4. *Ordenação Inteligente e Intuitiva:*
+                     - `passes`: Passe Hall of Legends 2026 (1.950 RP) sempre no topo, seguido pelos passes da Temporada 3 em ordem crescente de preço (1.650 RP -> 2.650 RP -> 3.650 RP).
+                     - `orbes`: 4 Orbes do Hall of Legends primeiro (250 -> 2.500 -> 6.250 -> 12.500 RP), seguidos pelos 4 Orbes do Invocador (250 -> 2.500 -> 6.250 -> 12.500 RP).
+                     - `hextech` e `misterio`: ordenados estritamente por preço RP crescente.
+                  5. *Validação 100% de Checkout:* Testados todos os 21 itens da categoria com resolução de `itemId`, `offer_id` (UUID CAP Gifting) e preços com 100% de sucesso.
+
+            27. **Revisão Completa, Reorganização e Checkout Perfeito da Categoria Skins & Cromas (`cat_skins`) (2026-09-15):**
+                - **Problemas Críticos Identificados e Resolvidos:**
+                  1. *Bug Crítico de Paginação de Cromas (`selecionar_croma_menu`):*
+                     - No botão de avançar página (`pag_`), a lógica usava `tipoFiltro.slice(0, -1)`, gerando `selecionar_croma_menu` (sem 'h'), mas o handler de interações em `index.js` só escutava `selecionar_chroma_menu`.
+                     - Consequência: Qualquer cliente que mudasse para a página 2 de cromas (campeões com mais de 25 cromas como Ahri com 53, Lux com 49, Yasuo com 50, Seraphine com 63) ficava com o select menu totalmente quebrado sem conseguir selecionar nenhum croma.
+                     - Solução: Implementado mapeamento explícito com `selectMenuMap['cromas'] = 'selecionar_chroma_menu'` e adicionado `selecionar_croma_menu` como fallback aceito no handler de interações.
+                  2. *Infiltração de Pacotes de Cromas (3.000+ RP) e Itens Inválidos:*
+                     - Como `isChroma(x)` continha `if (name.includes('chroma')) return true`, mais de 202 `Chroma Bundles` (como `HEARTSTEEL Ezreal Chroma Bundle` de 3.087 RP), emotes/ícones (`Emberclaw Sett Chroma Icon`) e cromas de prestígio (`Prestige Magma Chamber Veigar`) vazavam para a listagem de cromas individuais de 290 RP.
+                     - Solução: Implementada a validação estrita `isIndividualChampChroma` que bloqueia bundles/packs, emotes, ícones e itens sem custo exato de 290 RP, garantindo que 100% dos 5.531 cromas individuais sejam oferecidos corretamente a 290 RP e com UUID `offer_id` CAP válido.
+                  3. *Ordenação Premium e Organizada de Skins e Cromas:*
+                     - **Skins:** Em vez de uma ordem caótica por ID decrescente onde skins de 750, 1350 e 1820 RP se misturavam, agora as skins são ordenadas estritamente por Prestígio/Tier: Ultimate (3250 RP) -> Míticas presentes -> Lendárias (1820 RP) -> Épicas (1350 RP) -> Clássicas/Comuns (975 / 750 / 520 RP), mantendo no topo as skins mais valiosas e com seus respectivos ícones de gemas (`<:ultimate:...>`, `<:legendary:...>`, `<:epic:...>`, `<:11default:...>`).
+                     - **Cromas:** Ordenados e agrupados alfabeticamente pela skin base (ex: todos os cromas de Arcana Ahri juntos, todos de Spirit Blossom Ahri juntos), tornando a navegação intuitiva e profissional.
+                  4. *Abreviações e Apelidos de Campeões:*
+                     - Adicionado dicionário de abreviações (`mf` -> Miss Fortune, `j4` -> Jarvan IV, `asol` -> Aurelion Sol, `tf` -> Twisted Fate, `monkey king` -> Wukong, `ww` -> Warwick, `gp` -> Gangplank, `blitz` -> Blitzcrank, `cait` -> Caitlyn, `eve` -> Evelynn, `fiddle` -> Fiddlesticks, `heca` -> Hecarim, `kass` -> Kassadin, `kat` -> Katarina, `malph` -> Malphite, `morg` -> Morgana, `naut` -> Nautilus, `noc` -> Nocturne, `panth` -> Pantheon, `sej` -> Sejuani, `trynd` -> Tryndamere, `vlad` -> Vladimir, `voli` -> Volibear).
+                  5. *Busca Inteligente Direta por Tema ou Skin:*
+                     - Permite ao usuário buscar tanto pelo campeão quanto pelo tema ou nome específico da skin (ex: busca por `PROJECT` retorna as 28 skins PROJECT de múltiplos campeões; busca por `Spirit Blossom Ahri` prioriza a skin exata no topo).
+                  6. *Embed `category_skins`, `loja.json` e Persistência no MongoDB Atlas:*
+                     - Atualizado `category_skins` em `config/embeds.json` com os novos emojis oficiais `<:legendary:1342089845559791650>` e `<:15croma:1527527027043729561>`.
+                     - Adicionado `croma` em `loja.skins` em `config/loja.json` (€1.99 / €1.39 com desconto).
+                     - Sincronizados `embeds` e `loja` com o cluster de produção do **MongoDB Atlas**.
+            28. **Auditoria Completa, Aperfeiçoamento e Checkout das 3 Categorias Finais (`cat_champions`, `cat_accessories`, `cat_highlights`) (2026-09-15):**
+                - **Problemas Identificados e Otimizações Implementadas:**
+                  1. *Fatal ReferenceError corrigido em `obterDetalhesItem` (linha 1048):*
+                     - Correção da variável `nomeItem` indefinida para `nome` na avaliação de `tipoFiltro === 'little_legends'`.
+                  2. *Descrições Desatualizadas no Menu Principal:*
+                     - Atualizada a descrição de `cat_highlights` de `'Heartsong Seraphine skin, border set & chroma bundles'` para `'Hall of Legends 2026 Collections, Border Sets & Launch Bundles'`.
+                  3. *Harmonização de Emojis e Embeds das 3 Categorias em `config/embeds.json`:*
+                     - `category_champions`: Adicionados emojis oficiais `<:mchamp:1342089827071561728>` (Champions) e `<:1eternos:1544481988147290152>` (Eternals).
+                     - `category_accessories`: Adicionados `<:lol_poro_emote:1544493296879935489>` (Emotes), `<:lol_star_ward:1544493299270680717>` (Wards) e `<:22icone:1544482040206983241>` (Summoner Icons).
+                     - `category_highlights`: Adicionados `<:lol_exclusive_pack:1544591088084590636>` (Exclusive Packs), `<:lol_sale:1547388458488823868>` (Weekly Sales) e `<a:pr_fire01:1527367612168802374>` (Most Popular).
+                  4. *Busca Inteligente e Ordenação Superior:*
+                     - **Champions (`cat_champions`):** Suporte a busca aberta (`all`, `todos`, `*`, ou vazio) exibindo todos os 173 campeões. Ordenação alfabética estrita A a Z (Aatrox -> Zyra) com correspondência exata priorizada no topo.
+                     - **Eternals:** Ordenação por hierarquia de série (Série 1 -> Série 2 -> Série Inicial).
+                     - **Weekly Sales:** Suporte a exibição tanto de skins quanto de campeões em promoção (20 itens ativos). Ordenados decrescentemente pela maior porcentagem de desconto (60% OFF -> 27% OFF).
+                     - **Highlights:** Coleções do Hall of Legends 2026 (Signature, Immortalized, Risen Legend, Event Pass) fixadas no topo por valor/tier, seguidas de pacotes de lançamento e conjuntos de borda.
+                  5. *Suporte a Desconto Específico de Campeões (`desconto_champions`):*
+                     - Adicionado `"desconto_champions": 50` em `config/loja.json`.
+                     - Integrada a chave `desconto_champions` em `converterRPParaEUR` em `index.js`.
+                     - Adicionado suporte a `champions` nas opções e recálculo do comando administrativo `/desconto`.
+                  6. *Verificação de Integridade de Catálogo e Checkout Completo:*
+                     - 173 Champions, 522 Eternais, 170 Emotes, 68 Wards, 409 Ícones, 268 Little Legends, 8 Boosts, 20 Promoções da Semana e 13 Pacotes de Destaque testados. 100% possuem UUID `offer_id` CAP válido para envio de presentes.
+                  7. *Persistência no MongoDB Atlas:*
+                     - Sincronizados com sucesso os arquivos `embeds` e `loja` com a nuvem do MongoDB Atlas (`saveBotConfigToMongo`).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
@@ -471,8 +620,8 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 ## PRÓXIMOS PASSOS
 
-### Bundles & Pacotes (Para resolver depois)
-1. [ ] Investigar e solucionar problemas com gifting e precificação dinâmica dos pacotes (`Skin & Chroma Bundles`) na API da Riot antes de reativar na loja do Discord.
+### Bundles & Pacotes
+1. [x] Solucionado problema com gifting de passes e coleções (Hall of Legends / Faker) via API CAP Orders com UUIDs reais e desbloqueio de tipo BUNDLES.
 
 ### Emojis & Cosméticos (Opcional / Futuro)
 2. [ ] Cristais de Raridade (Ultimate, Lendária, Épica, Comum) — já mapeados com os emojis oficiais existentes no servidor.

@@ -1,12 +1,18 @@
-import json
+import sys
 import os
+
+# Ensure local api_files directory is resolvable
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+import json
 import random
 from secrets import token_urlsafe
 import aiohttp
 from flask import Flask, request, jsonify, render_template, redirect, url_for, make_response
-from flask_jwt_extended import JWTManager, create_access_token, decode_token, get_jwt, jwt_required, set_access_cookies, unset_jwt_cookies, get_jwt_identity, jwt_manager, verify_jwt_in_request
-from flask_apscheduler import  APScheduler
-
+from flask_jwt_extended import JWTManager, create_access_token, decode_token, jwt_required, set_access_cookies, unset_jwt_cookies, get_jwt_identity as _raw_get_jwt_identity, verify_jwt_in_request
+from flask_apscheduler import APScheduler
 
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
@@ -20,7 +26,6 @@ from aiohttp import ClientResponseError
 from bson import ObjectId
 import uuid
 import logging
-from asyncio import run
 import httpx
 import time
 
@@ -40,6 +45,7 @@ uri = "mongodb+srv://monarch:dias1999@cluster0.zwknr9a.mongodb.net/gift_api_keys
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'as123j9qfas6asfd54 as0-112*4125521615asdas¨*+_qwe*qwea+s'  # Troque isso por uma chave secreta segura
+app.config['JWT_VERIFY_SUB'] = False
 app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # Desabilitar CSRF para simplificar, mas idealmente você deve habilitar isso
@@ -202,15 +208,22 @@ def parse_identity(identity):
     return identity
 
 
+def get_jwt_identity():
+    ident = _raw_get_jwt_identity()
+    return parse_identity(ident)
+
+
 def validate_session(current_identity):
     current_identity = parse_identity(current_identity)
-    if not current_identity or not isinstance(current_identity, (list, tuple)) or len(current_identity) < 3:
+    if not current_identity or not isinstance(current_identity, (list, tuple)):
         return False, jsonify({"message": "Invalid session format"}), 401
     login = current_identity[0]
     key = current_identity[1]
     session_id = current_identity[2]
 
     document = users_key_collection.find_one({"key_api": key})
+    if not document:
+        return False, jsonify({"message": "Invalid key"}), 401
 
     users_api_val = document.get('users_api')
     if isinstance(users_api_val, list):
@@ -220,34 +233,14 @@ def validate_session(current_identity):
         if str(login).strip().lower() != str(users_api_val).strip().lower():
             return False, jsonify({"message": "Invalid credentials"}), 401
 
-    #if document['session_id'] != session_id:
-        #return False, jsonify({"message": "Session invalid or expired"}), 401
-    
     sessions = document.get("sessions", [])
     session = next((s for s in sessions if s["session_id"] == session_id), None)
     if not session:
         return False, jsonify({"message": "Session invalid or expired"}), 401
 
-    # Atualiza last_accessed se a sessão é válida
-    #session['last_accessed'] = datetime.now(timezone.utc)
     users_key_collection.update_one({"key_api": key}, {"$set": {"sessions": sessions}})
+    return True, None, 200
 
-
-        # Verifica se a credencial expirou
-    if 'expires_at' in document:
-        expires_at = document['expires_at']
-        if isinstance(expires_at, datetime):
-            # Garante que expires_at seja offset-aware
-            if expires_at.tzinfo is None:
-                expires_at = expires_at.replace(tzinfo=timezone.utc)
-            if expires_at <= datetime.now(timezone.utc):
-                # Credencial expirada
-                return False, jsonify({"message": "Key expired"}), 401
-        else:
-            # Formato de 'expires_at' inválido
-            return False, jsonify({"message": "Key expiration data is invalid"}), 401
-    
-    return True, None, None
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -255,12 +248,11 @@ def login():
     login = data.get("login_api")
     key = data.get("key_api")
 
-    # Verificar se as credenciais são válidas no banco de dados
     document = users_key_collection.find_one({"key_api": key})
 
     if not document:
-        return jsonify({"message": "Invalid credentials"}), 401
-    
+        return jsonify({"message": "Invalid key"}), 401
+
     users_api_val = document.get('users_api')
     if isinstance(users_api_val, list):
         if login not in users_api_val:
@@ -268,42 +260,25 @@ def login():
     else:
         if str(login).strip().lower() != str(users_api_val).strip().lower():
             return jsonify({"message": "Invalid credentials"}), 401
-    
-    # Verifica se a credencial expirou
-    if 'expires_at' in document:
-        expires_at = document['expires_at']
-        if isinstance(expires_at, datetime):
-            # Garante que expires_at seja offset-aware
-            if expires_at.tzinfo is None:
-                expires_at = expires_at.replace(tzinfo=timezone.utc)
-            if expires_at <= datetime.now(timezone.utc):
-                # Credencial expirada
-                return jsonify({"message": "Key expired"}), 401
-        else:
-            # Formato de 'expires_at' inválido
-            return jsonify({"message": "Key expiration data is invalid"}), 401
-    
 
+    key_balance = document.get("balance", 0)
+    if key_balance < 0:
+        return jsonify({"message": "Insufficient key balance"}), 401
 
     new_session_id = str(uuid.uuid4())
-    new_session = {"session_id": new_session_id, "last_accessed": datetime.now(timezone.utc)}
+    new_session = {
+        "session_id": new_session_id,
+        "created_at": datetime.now(timezone.utc),
+        "last_accessed": datetime.now(timezone.utc)
+    }
 
-    # Gerencia múltiplas sessões
     sessions = document.get("sessions", [])
-    if len(sessions) >= 3:
-        # Ordena as sessões por last_accessed e remove a mais antiga
-        sessions.sort(key=lambda x: x["last_accessed"], reverse = False)
-        sessions.pop(0)  # Remove a sessão mais antiga
-
     sessions.append(new_session)
     users_key_collection.update_one({"key_api": key}, {"$set": {"sessions": sessions}})
 
-    #users_key_collection.update_one({"key_api": key}, {"$set": {"session_id": session_id}})
-
-    # Criar access token com o novo session_id
-    #access_token = create_access_token(identity=[login, key, session_id], expires_delta=dt.timedelta(days=30, hours=0, minutes=0))
-    
-    access_token = create_access_token(identity=json.dumps([login, key, new_session_id]), expires_delta=timedelta(days=30))
+    # Criar access token como string JSON para evitar 'Subject must be a string' em versões recentes do flask-jwt-extended
+    identity_str = json.dumps([login, key, new_session_id])
+    access_token = create_access_token(identity=identity_str, expires_delta=timedelta(days=30))
     response = jsonify(access_token=access_token)
     set_access_cookies(response, access_token, max_age=timedelta(days=30))
 
@@ -468,39 +443,51 @@ def get_acc_orders(username, password):
 @jwt_required()
 def get_orders():
     try:
-
         current_identity = get_jwt_identity()
         if current_identity:
-
             valid, error_response, status_code = validate_session(current_identity)
             if valid is not True:
-                return error_response, status_code  # Retorna o erro se a sessão for inválida
+                return error_response, status_code
 
             user_id = current_identity[0]
             key = current_identity[1]
 
-            # Buscar todas as transações associadas ao usuário e chave
-            transactions = transactions_collection.find({"user": user_id, "key": key})
-            
+            # Buscar todas as transações (agendadas e instantâneas) do usuário
+            tx_list = list(transactions_collection.find({"user": user_id, "key": key}))
+            log_list = list(gift_log.find({"user": user_id, "key": key}))
+
+            seen_ids = set()
+            all_transactions = []
+            for item in tx_list + log_list:
+                item_id = str(item.get("_id"))
+                if item_id not in seen_ids:
+                    seen_ids.add(item_id)
+                    all_transactions.append(item)
+
             orders = []
-            for transaction in transactions:
+            for transaction in all_transactions:
+                sender = transaction.get("sender") or transaction.get("username") or "-"
+                receiver = transaction.get("receiver") or "-"
+                item_name = transaction.get("item_name") or "-"
+                item_price = transaction.get("item_price", 0)
+                date_order = transaction.get("date_order")
+                date_finished = transaction.get("date_finished", "-")
+                status = transaction.get("status", "Completed")
+
+                date_order_str = date_order.isoformat() if isinstance(date_order, datetime) else str(date_order or "-")
+                date_finished_str = date_finished.isoformat() if isinstance(date_finished, datetime) else str(date_finished or "-")
+
                 order = {
                     "id": str(transaction["_id"]),
-                    "sender": transaction["sender"],
-                    "receiver": transaction["receiver"],
-                    "item_name": transaction["item_name"],
-                    "item_price": transaction["item_price"],
-                    "date_order": transaction["date_order"].isoformat(),
-                    "date_finished": transaction["date_finished"],
-                    "status": transaction["status"],
+                    "sender": sender,
+                    "receiver": receiver,
+                    "item_name": item_name,
+                    "item_price": item_price,
+                    "date_order": date_order_str,
+                    "date_finished": date_finished_str,
+                    "status": status,
                     "retry": 0
                 }
-
-                # Verifica se 'date_finished' é uma instância de datetime antes de chamar isoformat()
-                if isinstance(transaction["date_finished"], datetime):
-                    order["date_finished"] = transaction["date_finished"].isoformat()
-
-
                 orders.append(order)
 
             return jsonify(orders), 200
@@ -857,17 +844,14 @@ async def gift_send():
         
             
 
-        if data.get("task") == "order":
+        if data.get("task") in ( "gift","order"):
             user_document = users_key_collection.find_one({"key_api": key})
-            key_balance = 0
-            if user_document:
-                key_balance = user_document.get("balance", 0)  # Obtendo o saldo atual
-            try:
-                price_val = int(data.get("price") or 0)
-            except (ValueError, TypeError):
-                price_val = 0
+            if not user_document:
+                return jsonify({"status": "error", "message": "Chave de API não encontrada ou inválida"}), 401
+            key_balance = user_document.get("balance", 0)  # Obtendo o saldo atual
+            price_val = data.get("price") or 0
             if key_balance < price_val:
-                return jsonify({"status": "error", "message": "Insufficient key balance"}), 401
+                return jsonify({"status": "error", "message": f"Saldo insuficiente na chave. Saldo atual: {key_balance}, Preço: {price_val}"}), 400
 
 
 
@@ -954,6 +938,8 @@ async def gift_send():
 
         if not auth.auth_result:
             print("\n Todas as tentativas de autenticação falharam.")
+            error_msg = auth_res if isinstance(auth_res, str) else "Authentication failed. Session expired or missing."
+            return jsonify({"status": "error", "message": error_msg}), 401
 
 
         if auth.auth_result:
@@ -971,8 +957,15 @@ async def gift_send():
                 
                 account_doc = user_accounts.find_one({"user_pass": f"{username}:{password}"})
                 avatar_url = account_doc.get("avatar_url", "") if account_doc else ""
+
+                # Count gifts sent by this sender in the last 24 hours
+                cutoff_24h = datetime.now(timezone.utc) - dt.timedelta(days=1)
+                daily_gifts_count = gift_log.count_documents({
+                    "$or": [{"sender": username}, {"username": auth.riotId}],
+                    "date_order": {"$gte": cutoff_24h}
+                })
                 
-                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region})", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url }), 200
+                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region})", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url, "daily_gifts_count": daily_gifts_count }), 200
 
 
             print(f"Authenticated as {username} ({auth.riotId})")
@@ -1053,14 +1046,12 @@ async def gift_send():
             if (data.get("task")=="order"):
 
                 document = users_key_collection.find_one({"key_api": key})
-                if document:
-                    key_balance = document.get("balance", 0)  # Obtendo o saldo atual
-                try:
-                    price_val = int(data.get("price") or 0)
-                except (ValueError, TypeError):
-                    price_val = 0
+                if not document:
+                    return jsonify({"status": "error", "message": "Chave de API não encontrada ou inválida"}), 401
+                key_balance = document.get("balance", 0)  # Obtendo o saldo atual
+                price_val = data.get("price") or 0
                 if key_balance < price_val:
-                    return jsonify({"status": "error", "message": "Insufficient key balance"}), 401
+                    return jsonify({"status": "error", "message": f"Saldo insuficiente na chave. Saldo atual: {key_balance}, Preço: {price_val}"}), 400
                 
 
                 if ChatXmpp.friend_result == "The player is already added to the friends list":
@@ -1174,46 +1165,47 @@ async def gift_send():
 
                     await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_ip,inventory_type, gift_message) 
                 else:
-                    v2_success = False
-                    v3_success = False
-                    try:
-                        v2_success = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
-                    except Exception as e:
-                        print(f"V2 send_gift error: {e}")
+                    gift_ok, gift_resp = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
+                    if not gift_ok:
+                        err_msg = "Falha ao enviar presente pela Riot."
+                        if isinstance(gift_resp, dict):
+                            err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp)
+                        elif isinstance(gift_resp, str) and gift_resp:
+                            err_msg = gift_resp
+                        return jsonify({"status": "error", "message": f"Erro da Riot: {err_msg}"}), 400
                     
-                    if not v2_success:
-                        print("V2 gift failed or balance unchanged. Attempting send_gift_v3 fallback...")
-                        try:
-                            gift_info = await auth.friendlist_gift_info()
-                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}", ChatXmpp.receiver_puuid)
-                            item_id = data.get("item_id")
-                            inventory_type = data.get("inventory_type") or "BUNDLES"
-                            item_price_rp = data.get("price")
-                            v3_success = await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
-                        except Exception as e3:
-                            print(f"send_gift_v3 fallback error: {e3}")
+                    #gift_info = await auth.friendlist_gift_info()
+                    #receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
+                    #item_id = data.get("item_id")
+                    #inventory_type = data.get("inventory_type")
+                    #item_price_rp = data.get("price")
+                    #await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp,inventory_type, gift_message)
 
-                await asyncio.sleep(2)
+                #await Giftobj.session.close()
+                #await Giftobj.tcp_connector.close()
+
+                await asyncio.sleep(3)
                 new_saldo_rp, new_saldo_ip = await auth.get_saldo_rp()
                 if currencySelected == 'RP':
-                    if v2_success or v3_success or (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount):
-                        rp_spent = (auth.rp_amount - new_saldo_rp) if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (data.get("price") or 0)
-                        final_saldo = new_saldo_rp if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (auth.rp_amount - rp_spent)
+                    if new_saldo_rp<auth.rp_amount:
+                        rp_spent = auth.rp_amount - new_saldo_rp
 
                         new_transaction["status"] = "Completed"
 
                         if new_transaction["user"] not in ['domas', 'elogator']:
                             new_transaction.pop('sender_pass', None)
 
+
                         new_transaction.pop('date_finished', None)
                         new_transaction.pop('retry', None)
 
                         gift_log.insert_one(new_transaction)
 
+
                         print("\nGift bem sucedido")
-                        logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {final_saldo}")
+                        logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
                         
-                        return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": final_saldo, "rp_spent": rp_spent }), 200
+                        return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": new_saldo_rp, "rp_spent": rp_spent }), 200
                     else:
                         print("Falha ao enviar presente")
                         return jsonify({"status": "error", "message": "Failed to send gift"}), 401
@@ -1244,13 +1236,22 @@ async def gift_send():
                 
             else:
                 
-                # TENTANDO MANDAR, CASO O GIFT SEJA BONUS DE XP
+                # TENTANDO MANDAR, CASO O GIFT SEJA BONUS DE XP OU AMIGO
+                print(f"\n Destinatário {name}#{tag} não é amigo aceito ou amizade pendente: {ChatXmpp.friend_result}")
 
                 # Pegando PUUID por fora do xmpp
-                
-                ChatXmpp.receiver_puuid = await auth.get_puuid_player(name,tag)
+                try:
+                    ChatXmpp.receiver_puuid = await auth.get_puuid_player(name, tag)
+                except Exception as e:
+                    ChatXmpp.receiver_puuid = None
 
                 print(f"\n Puuid outside xmpp: {ChatXmpp.receiver_puuid}")
+
+                if not ChatXmpp.receiver_puuid:
+                    return jsonify({
+                        "status": "error",
+                        "message": f"Destinatário {name}#{tag} não aceitou a amizade ainda ({ChatXmpp.friend_result}). No LoL é necessário aceitar a amizade e aguardar 24h para receber presentes."
+                    }), 400
 
                 # Insere o documento na coleção de transações
                 new_transaction["receiver_puuid"] = ChatXmpp.receiver_puuid
@@ -1277,36 +1278,30 @@ async def gift_send():
 
                     await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price,inventory_type, gift_message) 
                 else:
-                    v2_success = False
-                    v3_success = False
-                    try:
-                        v2_success = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
-                    except Exception as e:
-                        print(f"V2 send_gift error: {e}")
+                    gift_ok, gift_resp = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
+                    if not gift_ok:
+                        err_msg = "Falha ao enviar presente pela Riot."
+                        if isinstance(gift_resp, dict):
+                            err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp)
+                        elif isinstance(gift_resp, str) and gift_resp:
+                            err_msg = gift_resp
+                        return jsonify({"status": "error", "message": f"Erro da Riot: {err_msg}"}), 400
 
-                    if not v2_success:
-                        print("V2 gift failed. Attempting send_gift_v3 fallback...")
-                        try:
-                            gift_info = await auth.friendlist_gift_info()
-                            receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}", ChatXmpp.receiver_puuid)
-                            item_id = data.get("item_id")
-                            inventory_type = data.get("inventory_type") or "BUNDLES"
-                            item_price_rp = data.get("price")
-                            v3_success = await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price_rp, inventory_type, gift_message)
-                        except Exception as e3:
-                            print(f"send_gift_v3 fallback error: {e3}")
 
-                await asyncio.sleep(2)
+                #await Giftobj.session.close()
+                #await Giftobj.tcp_connector.close()
+
+                await asyncio.sleep(3)
                 new_saldo_rp, new_saldo_ip = await auth.get_saldo_rp()
                 
-                if v2_success or v3_success or (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount):
-                    rp_spent = (auth.rp_amount - new_saldo_rp) if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (data.get("price") or 0)
-                    final_saldo = new_saldo_rp if (new_saldo_rp is not None and new_saldo_rp < auth.rp_amount) else (auth.rp_amount - rp_spent)
+                if new_saldo_rp<auth.rp_amount:
+                    rp_spent = auth.rp_amount - new_saldo_rp
 
                     new_transaction["status"] = "Completed"
                     
                     if new_transaction["user"] not in ['domas', 'elogator']:
                         new_transaction.pop('sender_pass', None)
+
 
                     new_transaction.pop('date_finished', None)
                     new_transaction.pop('retry', None)
@@ -1314,9 +1309,9 @@ async def gift_send():
                     gift_log.insert_one(new_transaction)
 
                     print("\nGift bem sucedido")
-                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {final_saldo}")
+                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get("item_name")} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
                                         
-                    return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": final_saldo, "rp_spent": rp_spent }), 200
+                    return jsonify({"status": "success", "message": "Gift sent successfully", "saldo": new_saldo_rp, "rp_spent": rp_spent }), 200
                 else:
                     print("Falha ao enviar presente")
                     return jsonify({"status": "error", "message": "Failed to send gift (Check if the receiver is already a friend)"}), 401
@@ -1332,22 +1327,16 @@ async def gift_send():
             return jsonify({"status": "error", "message": "Unknown error on authentication"}), 401
     except ClientResponseError as e:
         print(f"ClientResponseError on authentication: {e}")
-        return jsonify({"status": "error", "message": f"Client response error: {e.message}", "url": str(e.request_info.url)}), 500 
+        return jsonify({"status": "error", "message": f"Erro da Riot: {e.message}. Verifique se o destinatário aceitou a amizade há mais de 24h e se o item é presenteável."}), 400 
     except Exception as e:
-            print(f"Error on authentication: {e}")
-            return jsonify({"status": "error", "message": "Internal Server Error", "exception": str(e)}), 500
+        print(f"Error on authentication: {e}")
+        return jsonify({"status": "error", "message": f"Erro no processamento: {str(e)}"}), 400
     finally:
         if auth is not None:
-            try:
-                await auth.close_resources()
-            except Exception as e:
-                print(f"Error closing auth resources: {e}")
+            await auth.close_resources()
         if Giftobj is not None:
-            try:
-                if hasattr(Giftobj, 'session') and Giftobj.session and not Giftobj.session.closed:
-                    await Giftobj.session.close()
-            except Exception as e:
-                print(f"Error closing Giftobj session: {e}")
+            await Giftobj.session.close()
+            await Giftobj.tcp_connector.close()
 
 
 
@@ -1394,18 +1383,8 @@ async def update_catalog_cache(username, password, file_name):
             await auth.set_lol_version()
             await auth.get_catalog()
         else:
-            try:
-                from captcha_manager import get_best_captcha_key
-                best_k = get_best_captcha_key()
-                active_cap_key = best_k['key']
-                cap_provider = best_k.get('provider', '2Captcha')
-                cap_bal = best_k.get('balance', 0)
-            except Exception:
-                active_cap_key = '299fbccc536b3a4591f1a71f2df8200e'
-                cap_provider = '2Captcha'
-                cap_bal = 290.47
-            print(f"\n [Info] Sessao expirada para {username}. Resolvendo hCaptcha com {cap_provider} (${cap_bal:.2f} USD)...")
-            captcha_token = await captcha_solver_login(active_cap_key, userpass_value)
+            print(f"\n [Info] Sessao expirada para {username}. Resolvendo hCaptcha com 2Captcha ($290.79 USD)...")
+            captcha_token = await captcha_solver_login('299fbccc536b3a4591f1a71f2df8200e', userpass_value)
             if captcha_token and not captcha_token.startswith('Exception'):
                 auth = RiotAuth(username, password, cookies, captcha_token)
                 auth_res = await auth.initialize()
@@ -1422,9 +1401,43 @@ async def update_catalog_cache(username, password, file_name):
             except Exception: pass
 
     if auth and getattr(auth, 'catalog_map', None) is not None:
+        old_items = set()
+        if os.path.exists(file_name):
+            try:
+                with open(file_name, 'r', encoding='utf-8', errors='ignore') as f:
+                    old_data = json.load(f)
+                    if isinstance(old_data, dict):
+                        for cat, cat_items in old_data.items():
+                            if isinstance(cat_items, dict):
+                                for name in cat_items.keys():
+                                    old_items.add(name.lower().strip())
+            except Exception:
+                pass
+
         with open(file_name, 'w', encoding='utf-8', errors='ignore') as f:
             json.dump(auth.catalog_map, f)
-        print(f"🎉 Catálogo salvo com sucesso em {file_name}!")
+        print(f"\n🎉 Catálogo salvo com sucesso em {file_name}!")
+
+        new_items = []
+        total_current = 0
+        if isinstance(auth.catalog_map, dict):
+            for cat, cat_items in auth.catalog_map.items():
+                if isinstance(cat_items, dict):
+                    total_current += len(cat_items)
+                    for name, data in cat_items.items():
+                        if name.lower().strip() not in old_items:
+                            price = data.get('price_rp', 0) if isinstance(data, dict) else 0
+                            new_items.append((name, price, cat))
+
+        print(f"📊 [Diferença do Catálogo] Total Anterior: {len(old_items)} ➔ Novo Total: {total_current} (+{len(new_items)} novos itens)")
+        if new_items:
+            print(f"✨ Novas Skins e Itens Detectados ({len(new_items)}):")
+            for item_name, price, cat in new_items[:15]:
+                print(f"   • {item_name} ({price} RP) [{cat}]")
+            if len(new_items) > 15:
+                print(f"   ... e mais +{len(new_items) - 15} novos itens adicionados.")
+        else:
+            print("✨ O catálogo já estava 100% atualizado com todas as novidades.")
 
 
 async def fetch_catalogs(lang=None):
@@ -1545,49 +1558,22 @@ def format_time_difference(time_difference):
     # Formata a saída para mostrar dias e horas
     return f"{days} days and {hours} hours"
 
-def get_summoner_id(gift_info, receiver_riotId, receiver_puuid=None):
-    if not gift_info or not isinstance(gift_info, dict):
-        return None
+def get_summoner_id(gift_info, receiver_riotId):
+
+    for friend in gift_info['friends']:
+        
+        #print(f"\n Comparing {friend['nick']} with {new_transaction["receiver"]} ")
+        friend_key = friend['nick'].replace(" ", "").lower()
+
+        if friend_key == receiver_riotId.replace(" ", "").lower():
+            found_flag = True
+            if friend['friendsSince'] is None or friend['friendsSince'] == "":
+                return "No Time"
+            else:
+                summonerId = friend['summonerId']
+                return summonerId
     
-    friends = gift_info.get('friends', [])
-    if not isinstance(friends, list):
-        return None
-
-    if receiver_puuid:
-        for friend in friends:
-            if friend.get('puuid') == receiver_puuid or friend.get('sub') == receiver_puuid:
-                sid = friend.get('summonerId') or friend.get('id')
-                if sid: return sid
-
-    target_clean = (receiver_riotId or '').replace(" ", "").lower()
-    target_name = target_clean.split('#')[0] if '#' in target_clean else target_clean
-
-    for friend in friends:
-        nick = (friend.get('nick') or '').replace(" ", "").lower()
-        fname = (friend.get('name') or '').replace(" ", "").lower()
-        gname = (friend.get('gameName') or '').replace(" ", "").lower()
-        tag = (friend.get('tagLine') or '').replace(" ", "").lower()
-        combined = f"{gname}#{tag}" if (gname and tag) else ""
-
-        if target_clean in [nick, fname, combined] or (gname and tag and target_clean == f"{gname}#{tag}"):
-            sid = friend.get('summonerId') or friend.get('id')
-            if sid: return sid
-
-    for friend in friends:
-        gname = (friend.get('gameName') or '').replace(" ", "").lower()
-        nick = (friend.get('nick') or '').replace(" ", "").lower()
-        if target_name and (target_name == gname or target_name == nick):
-            sid = friend.get('summonerId') or friend.get('id')
-            if sid: return sid
-
-    for friend in friends:
-        nick = (friend.get('nick') or '').replace(" ", "").lower()
-        gname = (friend.get('gameName') or '').replace(" ", "").lower()
-        if (target_name and target_name in nick) or (gname and gname in target_clean):
-            sid = friend.get('summonerId') or friend.get('id')
-            if sid: return sid
-
-    return None
+    return "Not giftable"
 
 
 
@@ -2703,7 +2689,7 @@ with app.app_context():
     
     #asyncio.run(fetch_catalogs())
     #scheduler.add_job(func=lambda: run(check_pending_orders()), trigger='interval', minutes=3, id='orders_check_job')
-    #scheduler.add_job(func=lambda: run(fetch_catalogs()), trigger='interval', minutes=15, id='catalog_fetch_job')'
+    #scheduler.add_job(func=lambda: run(fetch_catalogs()), trigger='interval', minutes=15, id='catalog_fetch_job')
     
     scheduler.start()
 

@@ -41,6 +41,12 @@ module.exports = {
             } catch(e) {}
         }
 
+        let emojisCfg = {};
+        try {
+            emojisCfg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/emojis.json'), 'utf8'));
+        } catch(e) {}
+        const passHolEmoji = (emojisCfg?.loot?.pass_hol || '<:lol_pass_hol:1549297894220369991>').trim();
+
         const selectPlaceholder = cfg.selectPlaceholder || '🏆 Select a Hall of Legends bundle to order...';
 
         const selectMenu = new ActionRowBuilder().addComponents(
@@ -49,27 +55,27 @@ module.exports = {
                 .setPlaceholder(selectPlaceholder)
                 .addOptions([
                     {
-                        label: 'Hall of Legends 2026 Pass (Caps)',
-                        description: '1,950 RP • Risen Legend Orianna + 100 Levels',
-                        value: 'Hall of Legends 2026 Pass - Caps||99901660',
-                        emoji: '🎫'
+                        label: 'Hall of Legends 2026 Pass',
+                        description: '1,950 RP • Event Pass + 100 Levels + 11 Orbs',
+                        value: 'Hall of Legends 2026 Pass||99901660',
+                        emoji: passHolEmoji
                     },
                     {
-                        label: 'Risen Legend Tristana Collection',
-                        description: '5,035 RP • Pass + Risen Legend Tristana + Cosmetics',
-                        value: 'Risen Legend Tristana Collection||99901661',
+                        label: 'Risen Legend Collection (2026)',
+                        description: '5,035 RP • Pass + Risen Legend Skin + Cosmetics',
+                        value: 'Risen Legend Collection (2026)||99901661',
                         emoji: '💥'
                     },
                     {
-                        label: 'Immortalized Legend Tristana Collection',
-                        description: '32,035 RP • Immortalized Tristana (3 Forms) + Pass',
-                        value: 'Immortalized Legend Tristana Collection||99901662',
+                        label: 'Immortalized Legend Collection (2026)',
+                        description: '32,035 RP • Immortalized Skin (3 Forms) + Pass',
+                        value: 'Immortalized Legend Collection (2026)||99901662',
                         emoji: '👑'
                     },
                     {
-                        label: 'Signature Immortalized Tristana Collection',
-                        description: '58,865 RP • Full Collection + Caps Signature + Title',
-                        value: 'Signature Immortalized Legend Tristana Collection||99901663',
+                        label: 'Signature Immortalized Collection (2026)',
+                        description: '58,865 RP • Full Collection + Signature + Title',
+                        value: 'Signature Immortalized Legend Collection (2026)||99901663',
                         emoji: '🌟'
                     }
                 ])

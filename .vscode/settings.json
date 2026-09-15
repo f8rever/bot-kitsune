@@ -1,13 +1,17 @@
 {
+  "python.defaultInterpreterPath": "C:\\Users\\jeff\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
   "python.analysis.extraPaths": [
     "./lol_giftapi-main",
     "./python_backend",
-    "./lol_giftapi-main/api_files"
+    "./lol_giftapi-main/api_files",
+    "./python_backend/api_files"
   ],
   "python.autoComplete.extraPaths": [
     "./lol_giftapi-main",
     "./python_backend",
-    "./lol_giftapi-main/api_files"
+    "./lol_giftapi-main/api_files",
+    "./python_backend/api_files"
   ],
+  "python.analysis.typeCheckingMode": "off",
   "json.schemas": []
 }

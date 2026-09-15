@@ -5,6 +5,7 @@ const path = require('path');
 const CATEGORIAS_VALIDAS = [
     { name: '🔥 Global (Todo o Catálogo)', value: 'global', key: 'promocao_porcentagem', emoji: '🌐' },
     { name: '🎨 Skins (Tiers 520 até 3250 RP)', value: 'skins', key: 'desconto_skins', emoji: '👕' },
+    { name: '⚔️ Campeões (260 a 975 RP)', value: 'champions', key: 'desconto_champions', emoji: '⚔️' },
     { name: '🌈 Cromas (290 RP e Pacotes)', value: 'cromas', key: 'desconto_cromas', emoji: '🎨' },
     { name: '🎫 Passes de Evento (1650, 2650, 3650)', value: 'passes', key: 'desconto_passes', emoji: '🎫' },
     { name: '📦 Espólios / Orbes & Baús', value: 'loot', key: 'desconto_chests', emoji: '📦' },
@@ -232,12 +233,12 @@ module.exports = {
         // Recalcular automaticamente todos os preços com desconto da loja
         recalcularPrecosLoja(loja);
 
-        // Limpeza de chaves legadas se existirem
-        delete loja.desconto_little_legends;
-        delete loja.desconto_tft_arena;
-
         try {
             fs.writeFileSync(lojaPath, JSON.stringify(loja, null, 2), 'utf8');
+            try {
+                const { saveBotConfigToMongo } = require('../../utils/mongoStorage.js');
+                saveBotConfigToMongo('loja', loja);
+            } catch (eMongo) {}
             if (typeof interaction.client.emit === 'function') {
                 interaction.client.emit('reloadLoja');
             }

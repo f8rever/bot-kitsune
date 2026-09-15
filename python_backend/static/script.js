@@ -483,8 +483,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     Object.entries(catalog[category]).forEach(([name, details]) => {
                         let effectiveCategory = category;
                         let extraKeywords = '';
-                        if (name.includes('Tristana') || name.includes('Caps') || name.includes('Orianna') || name.includes('Lenda')) {
-                            extraKeywords = ' hall of legends hol caps';
+                        const nl = name.toLowerCase();
+                        if (nl.includes('lenda ascendida') || nl.includes('lenda imortalizada') || nl.includes('risen legend') || nl.includes('immortalized legend') || nl.includes('hall of legends')) {
+                            extraKeywords = ' hall of legends hol faker caps';
                         }
 
                         const uniqueKey = `${name}_${details.offer_id || details.item_id}`;

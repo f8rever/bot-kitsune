@@ -1591,23 +1591,27 @@ class RiotAuth:
 
 
 
-        proxy_config = {"https://": self.proxy_url} if self.proxy_url else ''
+        try:
+            proxy_config = {"https://": self.proxy_url} if self.proxy_url else None
 
-        async with httpx.AsyncClient(verify=self._auth_ssl_ctx, proxies=proxy_config, http1=True) as client:
+            async with httpx.AsyncClient(verify=self._auth_ssl_ctx, proxies=proxy_config, http1=True, timeout=10.0) as client:
 
-            print(f' \n url encoded: https://api.account.riotgames.com/aliases/v1/aliases?gameName={name_url_encoded}&tagLine={tag_url_encoded} ')
+                print(f' \n url encoded: https://api.account.riotgames.com/aliases/v1/aliases?gameName={name_url_encoded}&tagLine={tag_url_encoded} ')
 
-            response = await client.get(
-                f"https://api.account.riotgames.com/aliases/v1/aliases?gameName={name_url_encoded}&tagLine={tag_url_encoded}",
-                headers=header
-            )
+                response = await client.get(
+                    f"https://api.account.riotgames.com/aliases/v1/aliases?gameName={name_url_encoded}&tagLine={tag_url_encoded}",
+                    headers=header
+                )
 
-            response_data = response.json()
-
-            if response_data:
-                first_item = response_data[0]
-                puuid = first_item['puuid']
-                return puuid
+                if response.status_code == 200:
+                    response_data = response.json()
+                    if isinstance(response_data, list) and len(response_data) > 0:
+                        first_item = response_data[0]
+                        return first_item.get('puuid')
+                return None
+        except Exception as e:
+            print(f"Error on get_puuid_player: {e}")
+            return None
             
     def random_string(self, length=22):
         return ''.join(random.sample(string.ascii_letters + string.digits + '_', k=length))
