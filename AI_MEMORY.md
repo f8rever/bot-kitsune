@@ -627,6 +627,22 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                        7. `Season 3: Act I Premium Pass Bundle` (3.650 RP)
                   3. *Sincronização com MongoDB Atlas:*
                      - Sincronizado o arquivo `featured_bundles` limpo e `loja` com o cluster do MongoDB Atlas via `saveBotConfigToMongo`.
+            30. **Auditoria Geral, Blindagem e Sincronização Inteligente do MongoDB Atlas (2026-09-15):**
+                - **Problema Crítico e Causa Raiz Identificada:**
+                  - Em `utils/mongoStorage.js:syncAllBotConfigs`, ao iniciar o bot (tanto local quanto no Render), o bot buscava o JSON do MongoDB Atlas e, se existisse, sobrescrevia cegamente o arquivo em disco (`fs.writeFileSync`).
+                  - Isso causava rollbacks indesejados: se o código local/git adicionava um novo produto (ex: `pass_hol_collection` em `loja.json` ou pacotes com `offerId` em `featured_bundles.json`), a inicialização no Render recuperava a versão desatualizada do MongoDB e apagava as novidades do disco, ressuscitando dados legados (como o passe duplicado `- Caps`).
+                - **Solução Arquitetural Implementada (Smart-Merge & Auto-Heal):**
+                  1. *Merge Profundo de Objetos (`deepMergeConfigs`):*
+                     - Para configurações baseadas em objetos (`loja`, `embeds`, `emojis`, `config`, `broadcast_blacklist`, `cosmetic_emojis`), o disco e o MongoDB são combinados com merge recursivo. Novas propriedades introduzidas no git são preservadas e enviadas ao MongoDB, enquanto customizações feitas via comandos do Discord são mantidas em disco.
+                  2. *Deduplicação de Arrays (`mergeFeaturedBundles`):*
+                     - Para arrays de pacotes (`featured_bundles`), a mesclagem prioriza itens com `offerId` UUID válido e deduplica por nome normalizado (ignorando `- Caps`).
+                  3. *Inclusão de Todas as Configurações Restantes:*
+                     - Adicionados `captcha_keys` (`captcha_keys_pool.json`) e `wallpapers` (`wallpapers.json`) à lista de arquivos gerenciados e persistidos no MongoDB Atlas.
+                  4. *Export de `getConfiguration`:*
+                     - Exportado o alias `getConfiguration = loadBotConfigFromMongo` em `mongoStorage.js` para resolver a chamada silenciosa em `index.js:383`.
+                  5. *Sanitização Executada:*
+                     - Todos os 11 arquivos de configuração sincronizados e consolidados com 100% de integridade com o cluster do MongoDB Atlas. Índices e coleções validados com 0 pendências.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

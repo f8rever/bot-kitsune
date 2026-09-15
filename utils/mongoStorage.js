@@ -371,10 +371,58 @@ async function loadBotConfigFromMongo(configType) {
     }
 }
 
+function isPlainObject(val) {
+    return val !== null && typeof val === 'object' && !Array.isArray(val);
+}
+
+function deepMergeConfigs(target, source) {
+    const output = { ...target };
+    for (const key of Object.keys(source)) {
+        if (isPlainObject(source[key])) {
+            if (!(key in target)) {
+                output[key] = source[key];
+            } else {
+                output[key] = deepMergeConfigs(target[key], source[key]);
+            }
+        } else {
+            output[key] = source[key];
+        }
+    }
+    return output;
+}
+
+function mergeFeaturedBundles(diskArr, mongoArr) {
+    const map = new Map();
+    const seenNorm = new Map();
+
+    for (const item of (diskArr || [])) {
+        if (!item.id) continue;
+        const norm = (item.name || item.nome || '').toLowerCase().replace(/\s*-\s*caps/g, '').trim();
+        map.set(item.id, item);
+        if (norm) seenNorm.set(norm, item.id);
+    }
+
+    for (const item of (mongoArr || [])) {
+        if (!item.id) continue;
+        const norm = (item.name || item.nome || '').toLowerCase().replace(/\s*-\s*caps/g, '').trim();
+        if (seenNorm.has(norm) && seenNorm.get(norm) !== item.id) {
+            // Duplicate (e.g. old "- Caps" item with different ID) - skip!
+            continue;
+        }
+        if (!map.has(item.id)) {
+            map.set(item.id, item);
+            if (norm) seenNorm.set(norm, item.id);
+        }
+    }
+
+    return Array.from(map.values());
+}
+
 /**
  * Sincroniza todas as configurações do bot entre o MongoDB Atlas e os arquivos locais em config/
- * - Se existir na nuvem, restaura para o disco
- * - Se não existir na nuvem mas existir no disco, envia para a nuvem
+ * - Realiza merge inteligente e sanitização bidirecional
+ * - Impede que dados desatualizados na nuvem sobrescrevam novas adições feitas no código/git
+ * - Mantém tanto o disco local quanto o MongoDB Atlas 100% atualizados
  */
 async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) {
     const configFiles = [
@@ -386,22 +434,48 @@ async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) 
         { type: 'featured_bundles', file: 'featured_bundles.json' },
         { type: 'tft_arenas', file: 'tft_arenas.json' },
         { type: 'weekly_sales', file: 'weekly_sales.json' },
-        { type: 'cosmetic_emojis', file: 'cosmetic_emojis.json' }
+        { type: 'cosmetic_emojis', file: 'cosmetic_emojis.json' },
+        { type: 'captcha_keys', file: 'captcha_keys_pool.json' },
+        { type: 'wallpapers', file: 'wallpapers.json' }
     ];
 
     for (const item of configFiles) {
         const filePath = path.join(configDir, item.file);
         try {
+            let diskData = null;
+            if (fs.existsSync(filePath)) {
+                try {
+                    diskData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                } catch (e) {
+                    diskData = null;
+                }
+            }
+
             const mongoData = await loadBotConfigFromMongo(item.type);
-            if (mongoData && typeof mongoData === 'object' && Object.keys(mongoData).length > 0) {
-                // Nuvem tem dados: escreve no disco para uso local e rápido
-                fs.writeFileSync(filePath, JSON.stringify(mongoData, null, 2), 'utf8');
-                console.log(`[MongoDB Sync] 📥 Configuração '${item.file}' sincronizada da nuvem com o disco!`);
-            } else if (fs.existsSync(filePath)) {
-                // Nuvem não tem dados: sobe os dados locais para a nuvem
-                const localData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-                await saveBotConfigToMongo(item.type, localData);
-                console.log(`[MongoDB Sync] ⬆️ Configuração '${item.file}' enviada do disco para o MongoDB Atlas.`);
+            let finalData = null;
+
+            if (diskData && mongoData) {
+                if (item.type === 'featured_bundles') {
+                    finalData = mergeFeaturedBundles(diskData, mongoData);
+                } else if (Array.isArray(diskData) && Array.isArray(mongoData)) {
+                    finalData = diskData.length >= mongoData.length ? diskData : mongoData;
+                } else if (isPlainObject(diskData) && isPlainObject(mongoData)) {
+                    finalData = deepMergeConfigs(diskData, mongoData);
+                } else {
+                    finalData = diskData || mongoData;
+                }
+            } else if (diskData) {
+                finalData = diskData;
+            } else if (mongoData) {
+                finalData = mongoData;
+            }
+
+            if (finalData) {
+                // Escreve versão unificada no disco
+                fs.writeFileSync(filePath, JSON.stringify(finalData, null, 2), 'utf8');
+                // Persiste versão unificada no MongoDB Atlas
+                await saveBotConfigToMongo(item.type, finalData);
+                console.log(`[MongoDB Sync] 🔄 Configuração '${item.file}' sincronizada e consolidada com sucesso!`);
             }
         } catch (e) {
             console.error(`[MongoDB Sync Error] Falha ao sincronizar '${item.file}':`, e.message);
@@ -422,5 +496,6 @@ module.exports = {
     recordMemberVerified,
     saveBotConfigToMongo,
     loadBotConfigFromMongo,
+    getConfiguration: loadBotConfigFromMongo,
     syncAllBotConfigs
 };
