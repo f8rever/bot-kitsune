@@ -610,6 +610,23 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                      - 173 Champions, 522 Eternais, 170 Emotes, 68 Wards, 409 Ícones, 268 Little Legends, 8 Boosts, 20 Promoções da Semana e 13 Pacotes de Destaque testados. 100% possuem UUID `offer_id` CAP válido para envio de presentes.
                   7. *Persistência no MongoDB Atlas:*
                      - Sincronizados com sucesso os arquivos `embeds` e `loja` com a nuvem do MongoDB Atlas (`saveBotConfigToMongo`).
+            29. **Correção de Duplicata de Passes e Adição do Passe Coleção (`passes`) (2026-09-15):**
+                - **Problemas Identificados e Resolvidos:**
+                  1. *Passe Duplicado no Menu de Passes:*
+                     - O documento legado de `featured_bundles` no MongoDB Atlas continha `"Hall of Legends 2026 Pass - Caps"` sem `offerId`, gerando conflito com o item oficial `Hall of Legends 2026 Pass` do catálogo. Ambos apareciam no select menu.
+                     - Implementada deduplicação por nome normalizado (`replace(/\s*-\s*caps/g, '').trim()`) e unificação de chaves em `loadFullRiotCatalog()` em `index.js`.
+                  2. *Inclusão do Passe Coleção (5.035 RP):*
+                     - O item `Risen Legend Collection Pass (2026)` (5.035 RP) / `Passe Coleção Lenda Ascendida` não aparecia na categoria de Passes porque seu nome não continha a palavra "Pass" e estava apenas em Highlights.
+                     - Atualizado o filtro de `passes` em `index.js` para incluir explicitamente o Passe Coleção e as coleções do Hall of Legends, posicionando-os no topo ordenados por preço:
+                       1. `Hall of Legends 2026 Pass` (1.950 RP)
+                       2. `Risen Legend Collection Pass (2026)` (5.035 RP — Passe Coleção)
+                       3. `Immortalized Legend Collection (2026)` (32.035 RP)
+                       4. `Signature Immortalized Legend Collection (2026)` (58.865 RP)
+                       5. `Season 3: Act I Pass` (1.650 RP)
+                       6. `Season 3: Act I Pass Bundle` (2.650 RP)
+                       7. `Season 3: Act I Premium Pass Bundle` (3.650 RP)
+                  3. *Sincronização com MongoDB Atlas:*
+                     - Sincronizado o arquivo `featured_bundles` limpo e `loja` com o cluster do MongoDB Atlas via `saveBotConfigToMongo`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

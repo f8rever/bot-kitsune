@@ -136,17 +136,21 @@ function loadFullRiotCatalog(lang = 'en') {
         }
 
         const mergedMap = new Map();
+        const seenNormNames = new Map();
         items.forEach(item => {
-            if (!item.id) return;
+            if (!item.id && !item.nome) return;
+            const normName = (item.nome || '').toLowerCase().replace(/\s*-\s*caps/g, '').trim();
             const uniqueKey = item.offer_id || item.rawItem?.offer_id || item.rawItem?.offerId || item.id;
-            if (mergedMap.has(uniqueKey)) {
-                const existing = mergedMap.get(uniqueKey);
+            if (mergedMap.has(uniqueKey) || seenNormNames.has(normName)) {
+                const existing = mergedMap.get(uniqueKey) || seenNormNames.get(normName);
                 if (item.nome) existing.names.add(item.nome.toLowerCase());
                 if (item.iconUrl && !existing.iconUrl) existing.iconUrl = item.iconUrl;
                 if (item.price_rp && !existing.price_rp) existing.price_rp = item.price_rp;
+                if (item.offer_id && !existing.offer_id) existing.offer_id = item.offer_id;
             } else {
                 item.names = new Set([item.nome.toLowerCase()]);
                 mergedMap.set(uniqueKey, item);
+                seenNormNames.set(normName, item);
             }
         });
 
@@ -899,9 +903,9 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         let prefix = tipoFiltro === 'passes' ? 'Pass' : (tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule');
         const nameLower = nome.toLowerCase();
 
-        if (nameLower.includes('pass') || nameLower.includes('passe')) {
+        if (nameLower.includes('pass') || nameLower.includes('passe') || nameLower.includes('risen legend') || nameLower.includes('lenda ascendida') || nameLower.includes('immortalized') || nameLower.includes('imortalizada')) {
             prefix = 'Pass';
-            if (nameLower.includes('hall of legends') || nameLower.includes('hol')) {
+            if (nameLower.includes('hall of legends') || nameLower.includes('hol') || nameLower.includes('risen') || nameLower.includes('immortalized') || nameLower.includes('lenda')) {
                 lootIcon = (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '🎫').trim();
             } else {
                 lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
@@ -1279,7 +1283,12 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
             return (
                 t === 'EVENT_PASS' || 
-                ((t === 'BUNDLES' || t === 'BUNDLE') && (n.includes('pass') || n.includes('passe')))
+                ((t === 'BUNDLES' || t === 'BUNDLE') && (
+                    n.includes('pass') || n.includes('passe') ||
+                    n.includes('risen legend') || n.includes('lenda ascendida') ||
+                    n.includes('immortalized legend') || n.includes('lenda imortalizada') ||
+                    n.includes('signature immortalized') || n.includes('assinatura')
+                ))
             );
         });
         const ePassTitle = (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '🎫').trim();
@@ -1428,8 +1437,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
     if (tipoFiltro === 'passes') {
         results = results.sort((a, b) => {
-            const isHoLA = a.nome.toLowerCase().includes('hall of legends') || a.nome.toLowerCase().includes('hol');
-            const isHoLB = b.nome.toLowerCase().includes('hall of legends') || b.nome.toLowerCase().includes('hol');
+            const isHoLA = a.nome.toLowerCase().includes('hall of legends') || a.nome.toLowerCase().includes('hol') || a.nome.toLowerCase().includes('risen') || a.nome.toLowerCase().includes('immortalized') || a.nome.toLowerCase().includes('lenda');
+            const isHoLB = b.nome.toLowerCase().includes('hall of legends') || b.nome.toLowerCase().includes('hol') || b.nome.toLowerCase().includes('risen') || b.nome.toLowerCase().includes('immortalized') || b.nome.toLowerCase().includes('lenda');
             if (isHoLA && !isHoLB) return -1;
             if (!isHoLA && isHoLB) return 1;
             return a.price_rp - b.price_rp;
@@ -4955,10 +4964,11 @@ async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 
         results = currentCatalog.filter(x => {
             const n = x.nome.toLowerCase();
             const t = (x.tipo || '').toUpperCase();
-            return (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe')) &&
+            const isPassType = (t === 'EVENT_PASS' || t === 'PASS' || n.includes('pass') || n.includes('passe') || n.includes('risen legend') || n.includes('lenda ascendida') || n.includes('immortalized') || n.includes('imortalizada'));
+            return isPassType &&
                 !n.includes('chest') && !n.includes('baú') && !n.includes('key') && !n.includes('chave') && !n.includes('hextech') &&
                 !n.includes('clash') && !n.includes('new player') && !n.includes('mystery') && !n.includes('misterio') &&
-                !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') && !n.includes('signature') &&
+                !n.includes('three-peat') && !n.includes('banner') && !n.includes('chroma') &&
                 !n.includes('missions token bank pass') &&
                 !n.includes('orb') && !n.includes('orbe') && !n.includes('capsule') &&
                 !n.includes('eterno') && !n.includes('eternal') && !n.includes('statstone') && !n.includes('series') && !n.includes('série') &&
