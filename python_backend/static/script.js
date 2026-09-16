@@ -388,6 +388,8 @@ async function Api(task) {
                 if (saldoAmount) saldoAmount.innerText = data.saldo;
                 const rpCardNum = document.querySelector('.metrics-cards-grid .metric-card:nth-child(1) .metric-number');
                 if (rpCardNum) rpCardNum.innerText = `${data.saldo} RP`;
+                const headerRpVal = document.getElementById('header-rp-val');
+                if (headerRpVal) headerRpVal.innerText = `${data.saldo}`;
             }
 
             if ('daily_gifts_count' in data) {
@@ -500,7 +502,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             offer_id: details.offer_id,
                             item_id: details.item_id,
                             inventory_type: details.inventory_type || effectiveCategory.toUpperCase(),
-                            category: effectiveCategory
+                            category: effectiveCategory,
+                            icon_url: details.icon_url || details.iconUrl || details.icon || details.image || null
                         });
                     });
                 }
@@ -660,18 +663,34 @@ document.addEventListener('DOMContentLoaded', function() {
             let rpDisplay = isInvalidPrice(item.price_rp) ? '0' : item.price_rp;
             let priceText = `(${rpDisplay} RP)`;
 
+            const defaultImg = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-store/global/default/images/icon-mystery-item.png";
+            const cardImg = item.icon_url || defaultImg;
+
             listItem.innerHTML = `
-                <div class="d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-gift text-emerald"></i>
-                    <span>${item.name}</span>
+                <div class="item-card-thumbnail-box">
+                    <img src="${cardImg}" alt="${item.name}" class="item-card-thumb-img" loading="lazy" onerror="this.onerror=null;this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg';">
+                    <span class="item-rarity-pill ${rarity.class}" style="position: absolute; top: 6px; right: 6px;">${rarity.label}</span>
                 </div>
-                <span class="badge bg-light text-success border">${rpDisplay} RP</span>
+                <div class="item-card-body">
+                    <div class="item-card-name" title="${item.name}">${item.name}</div>
+                    <div class="item-card-meta-row">
+                        <div class="item-card-rp-price">
+                            <span class="rp-icon-gold">RP</span> ${rpDisplay}
+                        </div>
+                        <button type="button" class="btn-saas-outline" style="padding: 2px 7px; font-size: 10px;" title="Presentear">
+                            <i class="fa-solid fa-gift"></i>
+                        </button>
+                    </div>
+                </div>
             `;
 
             listItem.onclick = () => {
                 document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
                 listItem.classList.add('selected');
                 selectItem(item, priceText);
+                if (typeof toggleGiftingDrawer === 'function') {
+                    toggleGiftingDrawer(true);
+                }
             };
             fragment.appendChild(listItem);
         });
@@ -691,7 +710,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function selectItem(item, priceText) {
-        document.getElementById('selected-item-details').innerHTML = `<i class="fa-solid fa-check-circle text-cyan me-2"></i>Selected Item: <strong>${item.name}</strong> <span class="text-cyan">${priceText}</span>`;
+        const detailsEl = document.getElementById('selected-item-details');
+        if (detailsEl) {
+            detailsEl.innerHTML = `<i class="fa-solid fa-gift me-2" style="color: var(--lol-gold-2);"></i>Item Selecionado: <strong>${item.name}</strong> <span style="color: var(--lol-gold-1); margin-left: 6px;">${priceText}</span>`;
+        }
         selectedOfferId = item.offer_id;
         selectedItemId = item.item_id;
         selectedPrice = item.price_rp;
@@ -699,6 +721,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedItemName = item.name;
         selectedInventoryType = item.inventory_type;
     }
+    window.selectItem = selectItem;
 
     // Instant search input response
     let searchDebounceTimer = null;

@@ -642,6 +642,20 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                      - Exportado o alias `getConfiguration = loadBotConfigFromMongo` em `mongoStorage.js` para resolver a chamada silenciosa em `index.js:383`.
                   5. *Sanitização Executada:*
                      - Todos os 11 arquivos de configuração sincronizados e consolidados com 100% de integridade com o cluster do MongoDB Atlas. Índices e coleções validados com 0 pendências.
+            31. **Redesign do Dashboard Web: Loja Oficial do Client do LoL (`lol_giftapi-main`) (2026-09-16):**
+                - **Solicitação do Usuário:**
+                  - Transformar a interface web (`/api_frontend`) em uma réplica autêntica da Loja Oficial do Client do League of Legends.
+                  - Preservar 100% intacta a lógica de envio de presentes e tokens da Riot Games (`api_files/gift.py`, `riot_tokens.py`, etc.).
+                  - Criado previamente o backup congelado `C:\Users\jeff\Documents\endpoint lol.zip`.
+                - **Implementação Visual Realizada:**
+                  1. *Navegação Superior LoL Client:* Botão `JOGAR`, submodos (`LOL`, `CLASSIC`, `TFT`), abas de loja com tipografia e bordas douradas ativas (`DESTAQUES`, `CAMPEÕES`, `SKINS`, `ESPÓLIOS`, `ACESSÓRIOS`).
+                  2. *Top Right Status:* Botão `COMPRE RP`, saldos com ícones oficiais de RP dourado e Essência Azul, botão `🎁` de acesso ao Centro de Presentes, avatar do invocador com insígnia de nível e status online.
+                  3. *Destaques (Hall of Legends 2026):*
+                     - Hero Banner (60%): Arte oficial do Passe Hall of Legends 2026 (Orianna / Caps), descrição, paginação `[ 1 ] [ 2 ] [ 3 ]`, chips de recompensa (125 ME, 11 Orbes) e preço de 1950 RP.
+                     - Grid de 4 Cards (40%): Coleção Autografada (58865 RP), Coleção Imortalizada (32035 RP), Coleção Ascendida (5035 RP) e Passe HoL 2026 (1950 RP), com badges de tempo `⏱️ 4sem`. Barra do Game Pass removida conforme solicitado.
+                  4. *Cards de Catálogo em Grid:* Cada item do catálogo agora renderiza como Card oficial com thumbnail da Riot CDN, borda hextech metálica, tag de preço RP e selo de raridade.
+                  5. *Centro de Presentes Hextech (Gifting Center Drawer):* Painel lateral deslizante com contorno dourado LoL preservando todos os inputs e IDs originais (`username-password`, `nickname-tag`, `gift-message`, `Api('saldo')`, `Api('friend')`, `Api('gift')`).
+                  6. *Sincronização:* Arquivos sincronizados em `lol_giftapi-main/`, `python_backend/` e `c:\Users\jeff\Documents\lol_giftapi-main`.
 
 
 ### Servidores do Bot:
