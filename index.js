@@ -4641,42 +4641,99 @@ client.on('interactionCreate', async interaction => {
                 await buscarEExibirItens(busca, interaction, cor, 'selecionar_champion_menu', 'champions');
             }
             else if (interaction.customId === 'modal_fechar_ticket') {
-                const motivo = interaction.fields.getTextInputValue('ticket_motivo_fechamento');
+                const motivo = interaction.fields.getTextInputValue('ticket_motivo_fechamento') || 'Atendimento Concluído';
 
                 let ownerId = null;
-                if (interaction.channel.topic && interaction.channel.topic.includes('Ticket-Owner: ')) {
+                if (interaction.channel?.topic && interaction.channel.topic.includes('Ticket-Owner: ')) {
                     ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
                 }
 
-                await interaction.reply({ content: `🔒 Ticket sendo fechado por: *"${motivo}"* em 5 segundos...` }).catch(e => { if (e.code !== 10062 && e.code !== 40060) console.error(e); });
+                const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
+                const eCarregando = (customEmojis?.utilidades?.carregando || '⏳').trim();
+                const eCheck = (customEmojis?.utilidades?.sucesso || '✅').trim();
+                const eTicket = (customEmojis?.utilidades?.ticket || '🎫').trim();
+                const eFox = (customEmojis?.utilidades?.fox || '🦊').trim();
+                const eDoc = (customEmojis?.utilidades?.documento || '📝').trim();
+
+                const targetChannelId = interaction.channelId;
+                const targetGuild = interaction.guild;
+                const channelRef = interaction.channel;
+
+                if (global.ticketCarts && targetChannelId) {
+                    global.ticketCarts.delete(targetChannelId);
+                }
+
+                const closeEmbed = new EmbedBuilder()
+                    .setColor('#F43F5E')
+                    .setTitle(`${eFechar} Atendimento Finalizado`)
+                    .setDescription(
+                        `> ${eCheck} **Este ticket foi marcado como concluído.**\n\n` +
+                        `> 👤 **Fechado por:** ${interaction.user} (\`${interaction.user.tag}\`)\n` +
+                        `> ${eDoc} **Motivo:** *"${motivo}"*\n\n` +
+                        `> ${eCarregando} *Este canal será excluído automaticamente em \`5 segundos\`...*`
+                    )
+                    .setFooter({ text: 'Kitsune Store • Atendimento Finalizado', iconURL: client.user?.displayAvatarURL() })
+                    .setTimestamp();
+
+                await interaction.reply({ embeds: [closeEmbed] }).catch(async (e) => {
+                    if (e.code !== 10062 && e.code !== 40060) {
+                        await interaction.channel?.send({ embeds: [closeEmbed] }).catch(() => {});
+                    }
+                });
 
                 if (ownerId) {
-                    try {
-                        const owner = await client.users.fetch(ownerId);
-                        if (owner) {
-                            const starRow = new ActionRowBuilder().addComponents(
-                                new ButtonBuilder().setCustomId('rate_1').setLabel('⭐').setStyle(ButtonStyle.Secondary),
-                                new ButtonBuilder().setCustomId('rate_2').setLabel('⭐⭐').setStyle(ButtonStyle.Secondary),
-                                new ButtonBuilder().setCustomId('rate_3').setLabel('⭐⭐⭐').setStyle(ButtonStyle.Secondary),
-                                new ButtonBuilder().setCustomId('rate_4').setLabel('⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary),
-                                new ButtonBuilder().setCustomId('rate_5').setLabel('⭐⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary)
-                            );
-                            const ratingEmbed = new EmbedBuilder()
-                                .setColor('#F43F5E')
-                                .setTitle('Obrigado por usar nossos serviços! 🦊')
-                                .setDescription(`Seu ticket foi fechado pelo motivo: *"${motivo}"*\n\nComo você avaliaria o nosso atendimento hoje?`);
-                            await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => { });
+                    (async () => {
+                        try {
+                            const owner = await client.users.fetch(ownerId).catch(() => null);
+                            if (owner) {
+                                const starRow = new ActionRowBuilder().addComponents(
+                                    new ButtonBuilder().setCustomId('rate_1').setLabel('⭐').setStyle(ButtonStyle.Secondary),
+                                    new ButtonBuilder().setCustomId('rate_2').setLabel('⭐⭐').setStyle(ButtonStyle.Secondary),
+                                    new ButtonBuilder().setCustomId('rate_3').setLabel('⭐⭐⭐').setStyle(ButtonStyle.Secondary),
+                                    new ButtonBuilder().setCustomId('rate_4').setLabel('⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary),
+                                    new ButtonBuilder().setCustomId('rate_5').setLabel('⭐⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary)
+                                );
+                                const ratingEmbed = new EmbedBuilder()
+                                    .setColor('#F43F5E')
+                                    .setTitle(`Obrigado por usar nossos serviços! ${eFox}`)
+                                    .setDescription(
+                                        `Seu ticket foi encerrado com sucesso!\n\n` +
+                                        `> ${eDoc} **Motivo:** *"${motivo}"*\n\n` +
+                                        `Como você avaliaria o nosso atendimento hoje? Sua opinião nos ajuda a evoluir! ⭐`
+                                    )
+                                    .setFooter({ text: 'Kitsune Store • Avaliação de Atendimento', iconURL: client.user?.displayAvatarURL() })
+                                    .setTimestamp();
+                                await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => {});
+                            }
+                        } catch (err) {
+                            console.error('[Ticket Close] Falha ao enviar DM de avaliação:', err);
                         }
-                    } catch (err) {
-                        console.error('Failed to send DM to ticket owner:', err);
-                    }
+                    })();
                 }
 
                 setTimeout(async () => {
                     try {
-                        await interaction.channel.delete();
+                        let ch = channelRef;
+                        if (!ch || typeof ch.delete !== 'function') {
+                            ch = targetGuild?.channels.cache.get(targetChannelId)
+                                || await targetGuild?.channels.fetch(targetChannelId).catch(() => null)
+                                || await client.channels.fetch(targetChannelId).catch(() => null);
+                        }
+                        if (ch && typeof ch.delete === 'function') {
+                            await ch.delete(`Ticket encerrado por ${interaction.user.tag}: ${motivo}`);
+                        } else {
+                            console.error(`[Ticket Close] Canal ${targetChannelId} não encontrado para deleção.`);
+                        }
                     } catch (e) {
-                        console.error("Erro ao deletar canal:", e);
+                        console.error("[Ticket Close] Erro na primeira tentativa de deletar canal:", e);
+                        try {
+                            const fallbackCh = await client.channels.fetch(targetChannelId).catch(() => null);
+                            if (fallbackCh && typeof fallbackCh.delete === 'function') {
+                                await fallbackCh.delete(`Ticket encerrado por ${interaction.user.tag}: ${motivo}`);
+                            }
+                        } catch (retryErr) {
+                            console.error("[Ticket Close] Falha fatal ao deletar canal de ticket:", retryErr);
+                        }
                     }
                 }, 5000);
             }

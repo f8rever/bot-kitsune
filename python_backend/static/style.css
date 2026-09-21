@@ -61,10 +61,11 @@
 }
 
 body {
-    background-color: var(--lol-bg-deepest);
-    background-image: 
-        radial-gradient(circle at 50% 0%, rgba(10, 35, 56, 0.4) 0%, transparent 70%),
-        linear-gradient(180deg, rgba(9, 20, 40, 0.95) 0%, rgba(1, 10, 19, 0.98) 100%);
+    background-color: #010a13;
+    background-image: url('/static/images/lol_client_store_bg.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
     background-attachment: fixed;
     color: var(--lol-text-light);
     font-family: var(--font-lol-body);
@@ -94,91 +95,32 @@ body {
 /* ==========================================================================
    TOP CLIENT NAVIGATION BAR (LOL CLIENT STORE HEADER)
    ========================================================================== */
-.lol-top-client-bar {
+.lol-store-header-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 58px;
     background: linear-gradient(180deg, #111d2e 0%, #091428 100%);
     border-bottom: 2px solid var(--lol-gold-4);
-    padding: 0 20px;
+    padding: 0 24px;
     position: sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
 }
 
-.lol-nav-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-/* PLAY BUTTON ("JOGAR") */
-.btn-lol-play {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    padding: 0 26px;
-    background: linear-gradient(180deg, #1e3a5f 0%, #0e2440 100%);
-    border: 2px solid #005a82;
-    color: #f0e6d2;
-    font-family: var(--font-lol-display);
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(0, 90, 130, 0.45);
-    position: relative;
-    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
-    transition: all 0.2s ease;
-}
-.btn-lol-play:hover {
-    background: linear-gradient(180deg, #2b5182 0%, #153863 100%);
-    border-color: #0ac8b9;
-    box-shadow: 0 0 20px rgba(10, 200, 185, 0.6);
-    color: #ffffff;
-}
-
-/* SUB MODES (LOL, CLASSIC, TFT) */
-.lol-submodes-nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-left: 1px solid rgba(120, 90, 40, 0.4);
-    padding-left: 16px;
-}
-.lol-submode-btn {
-    background: none;
-    border: none;
-    color: var(--lol-text-muted);
-    font-family: var(--font-lol-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    padding: 4px 6px;
-}
-.lol-submode-btn:hover, .lol-submode-btn.active {
-    color: var(--lol-gold-1);
-    text-shadow: 0 0 8px rgba(200, 170, 110, 0.5);
-}
-
-/* STORE NAVIGATION TABS (DESTAQUES, CAMPEÕES, SKINS, ESPÓLIOS, ACESSÓRIOS) */
+/* STORE NAVIGATION TABS (FEATURED, CHAMPIONS, SKINS, LOOT, ACCESSORIES) */
 .lol-store-tabs {
     display: flex;
     align-items: center;
-    gap: 24px;
-    height: 64px;
+    gap: 26px;
+    height: 100%;
 }
 
 .lol-store-tab-btn {
     background: none;
     border: none;
-    color: #a09b8c;
+    color: #938c7b;
     font-family: var(--font-lol-display);
     font-size: 13px;
     font-weight: 700;
@@ -195,7 +137,7 @@ body {
 
 .lol-store-tab-btn:hover {
     color: #f0e6d2;
-    text-shadow: 0 0 8px rgba(200, 170, 110, 0.4);
+    text-shadow: 0 0 10px rgba(200, 170, 110, 0.5);
 }
 
 .lol-store-tab-btn.active {
@@ -210,18 +152,18 @@ body {
     right: 0;
     height: 3px;
     background: linear-gradient(90deg, #785a28 0%, #c8aa6e 50%, #785a28 100%);
-    box-shadow: 0 0 10px rgba(200, 170, 110, 0.8);
+    box-shadow: 0 0 12px rgba(200, 170, 110, 0.85);
 }
 
-/* TOP RIGHT USER & CURRENCY CONTROLS */
-.lol-nav-right {
+/* TOP RIGHT STORE CONTROLS */
+.lol-store-right-controls {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 }
 
-/* BUY RP BUTTON */
-.btn-buy-rp {
+/* PURCHASE RP BUTTON */
+.btn-purchase-rp {
     background: linear-gradient(180deg, #1e2837 0%, #111a24 100%);
     border: 1px solid var(--lol-gold-2);
     color: var(--lol-gold-1);
@@ -229,15 +171,64 @@ body {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.5px;
-    padding: 6px 14px;
+    padding: 7px 16px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(200, 170, 110, 0.25);
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
 }
-.btn-buy-rp:hover {
+.btn-purchase-rp:hover {
     background: linear-gradient(180deg, #2b394e 0%, #162230 100%);
     border-color: #f0e6d2;
-    box-shadow: 0 0 15px rgba(200, 170, 110, 0.5);
+    box-shadow: 0 0 16px rgba(200, 170, 110, 0.6);
+    color: #ffffff;
+}
+
+/* STORE ICON BUTTONS */
+.btn-store-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #1c2d42 0%, #0d1a29 100%);
+    border: 1px solid var(--lol-gold-4);
+    color: var(--lol-gold-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+}
+.btn-store-icon:hover {
+    border-color: var(--lol-gold-2);
+    box-shadow: 0 0 14px rgba(200, 170, 110, 0.5);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* LANGUAGE SELECTOR IN STORE HEADER */
+.store-lang-selector {
+    position: relative;
+}
+.btn-store-lang {
+    background: #040911;
+    border: 1px solid var(--lol-gold-4);
+    color: var(--lol-gold-1);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.btn-store-lang:hover {
+    border-color: var(--lol-gold-2);
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
 }
 
 /* RP & BLUE ESSENCE BADGES */
@@ -597,13 +588,208 @@ body {
     color: var(--lol-gold-1);
 }
 
+/* FAKER & CAPS SIGNATURE OVERLAY (CARD 1) */
+.faker-signature-overlay,
+.caps-signature-overlay {
+    position: absolute;
+    bottom: 60px;
+    left: 12px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.faker-cursive-text,
+.caps-cursive-text {
+    font-family: 'Brush Script MT', 'Segoe Script', cursive, sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: #ff4655;
+    background: linear-gradient(180deg, #fff2a3 0%, #c8aa6e 60%, #ff4655 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 14px rgba(200, 170, 110, 0.9), 0 2px 4px rgba(0,0,0,0.9);
+    letter-spacing: 2px;
+}
+.faker-badge-100,
+.caps-badge-100 {
+    font-size: 10px;
+    font-weight: 900;
+    background: rgba(10, 20, 35, 0.85);
+    border: 1px solid var(--lol-gold-2);
+    color: var(--lol-gold-1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    box-shadow: 0 0 8px rgba(200, 170, 110, 0.5);
+}
+
+/* ==========================================================================
+   AUTHENTIC LOL CLIENT STORE 5-COLUMN GRID & STORE CARDS
+   ========================================================================== */
+.store-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 1200px) {
+    .store-grid-5 {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    }
+}
+
+.section-heading-lol {
+    font-family: var(--font-lol-display);
+    font-size: 15px;
+    font-weight: 800;
+    color: #f0e6d2;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin: 36px 0 16px 0;
+    text-shadow: 0 0 12px rgba(200, 170, 110, 0.4);
+    border-left: 3px solid var(--lol-gold-2);
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.lol-store-card {
+    background: #081322;
+    border: 1px solid #1e2837;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+    min-height: 228px;
+}
+.lol-store-card:hover {
+    border-color: var(--lol-gold-2);
+    transform: translateY(-3px);
+    box-shadow: 0 0 18px rgba(200, 170, 110, 0.45);
+}
+
+.card-thumb-container {
+    width: 100%;
+    height: 155px;
+    position: relative;
+    overflow: hidden;
+    background: #040911;
+}
+.card-thumb-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+.lol-store-card:hover .card-thumb-container img {
+    transform: scale(1.07);
+}
+
+.card-details-box {
+    padding: 10px 12px;
+    background: linear-gradient(180deg, #091728 0%, #060e1a 100%);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 68px;
+    border-top: 1px solid rgba(120, 90, 40, 0.2);
+}
+
+.card-item-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 6px;
+    font-family: var(--font-lol-body);
+}
+
+.card-price-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.card-rp-val {
+    font-family: var(--font-lol-display);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--lol-gold-1);
+}
+.card-original-rp {
+    font-size: 11px;
+    color: #7a766c;
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+/* BADGES */
+.discount-badge-red {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #d13639;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 2px;
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+    letter-spacing: 0.5px;
+    font-family: var(--font-lol-body);
+}
+
+.timer-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(1, 10, 19, 0.88);
+    border: 1px solid rgba(200, 170, 110, 0.4);
+    color: var(--lol-gold-1);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    z-index: 5;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+}
+
+.bonus-badge-blue {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 90, 130, 0.9);
+    border: 1px solid #0ac8b9;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 2px;
+    z-index: 5;
+    letter-spacing: 0.5px;
+}
+
 /* ==========================================================================
    STORE CATALOG SECTION (SEARCH, FILTERS, CARDS GRID)
    ========================================================================== */
 .store-catalog-section {
-    background: rgba(9, 20, 40, 0.65);
-    border: 1px solid var(--lol-gold-4);
-    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
     margin-bottom: 24px;
     position: relative;
 }
@@ -688,16 +874,23 @@ body {
 
 /* CATALOG CARDS GRID VIEWPORT */
 .catalog-cards-viewport {
-    max-height: 720px;
-    overflow-y: auto;
-    padding-right: 6px;
+    max-height: none;
+    overflow-y: visible;
+    padding: 0 32px 60px 32px;
 }
 
 .saas-item-list-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 16px;
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+@media (max-width: 1360px) {
+    .saas-item-list-grid {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
 }
 
 /* INDIVIDUAL LOL ITEM CARD */
@@ -709,18 +902,23 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    min-height: auto;
+    border-radius: 6px;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 .catalog-card-node:hover {
     border-color: var(--lol-gold-2);
     transform: translateY(-3px);
+    border-radius: 6px;
     box-shadow: 0 0 16px rgba(200, 170, 110, 0.4);
 }
 .catalog-card-node.selected {
     border-color: #0ac8b9;
     box-shadow: 0 0 20px rgba(10, 200, 185, 0.7);
     background: #0c1c2e;
+    border-radius: 6px;
 }
 .catalog-card-node.selected::before {
     content: '✓';
@@ -743,24 +941,28 @@ body {
 
 .item-card-thumbnail-box {
     width: 100%;
-    height: 120px;
+    aspect-ratio: 3 / 4;
     position: relative;
     overflow: hidden;
-    background: #040911;
+    background: #02070e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px 5px 0 0;
 }
 .item-card-thumb-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     transition: transform 0.4s ease;
 }
 .catalog-card-node:hover .item-card-thumb-img {
-    transform: scale(1.08);
+    transform: none;
 }
 
 .item-card-body {
-    padding: 10px 12px;
+    padding: 10px 12px 14px 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -807,9 +1009,9 @@ body {
     border-radius: 2px;
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.rarity-ultimate { background: rgba(255, 199, 0, 0.2); color: #ffc700; border-color: #ffc700; }
+.rarity-ultimate { background: rgba(255, 130, 0, 0.2); color: #ff8200; border-color: #ff8200; }
 .rarity-mythic { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border-color: #a855f7; }
-.rarity-legendary { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border-color: #ef4444; }
+.rarity-legendary { background: rgba(255, 70, 85, 0.2); color: #ff4655; border-color: #ff4655; }
 .rarity-epic { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border-color: #3b82f6; }
 .rarity-chroma { background: rgba(236, 72, 153, 0.2); color: #f472b6; border-color: #ec4899; }
 .rarity-hextech { background: rgba(10, 200, 185, 0.2); color: #0ac8b9; border-color: #0ac8b9; }
@@ -947,6 +1149,73 @@ body {
     padding: 20px;
     overflow-y: auto;
     flex-grow: 1;
+}
+
+/* SELECTED SKIN HEXTECH BANNER IN DRAWER */
+.drawer-selected-item-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(14, 27, 47, 0.95) 0%, rgba(9, 20, 40, 0.98) 100%);
+    border: 1px solid var(--lol-gold-4);
+    border-left: 3px solid var(--lol-gold-2);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.drawer-item-thumb-wrapper {
+    width: 54px;
+    height: 54px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--lol-gold-4);
+    flex-shrink: 0;
+    background: #000;
+}
+.drawer-item-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.drawer-item-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+.drawer-item-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--lol-cyan-glow);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+.drawer-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f0e6d2;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--font-lol-body);
+}
+.drawer-item-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.drawer-rp-val {
+    color: var(--lol-gold-1);
+    font-weight: 700;
+    font-size: 12px;
+}
+.drawer-money-val {
+    color: #00ffcc;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: auto;
 }
 
 /* FORM FIELDS IN DRAWER */
@@ -1194,3 +1463,1748 @@ body {
         grid-template-rows: auto;
     }
 }
+
+/* ==========================================================================
+   LOLGIFTING FEATURES: SERVER SELECTOR BAR, RARITY GLOW & CART SYSTEM
+   ========================================================================== */
+
+/* 1. SERVER / REGION SELECTOR BAR (LOLGIFTING 1:1) */
+.server-region-bar {
+    background: rgba(4, 9, 17, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(20, 30, 43, 0.9);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 48px;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.server-region-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.server-region-right {
+    position: absolute;
+    right: 24px;
+}
+@media (max-width: 992px) {
+    .server-region-right {
+        position: static;
+    }
+}
+
+.server-region-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b7a8d;
+    white-space: nowrap;
+}
+
+.region-pills-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.region-pill {
+    background: #08111b;
+    border: 1px solid #1a2533;
+    color: #8a99a8;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.4;
+}
+
+.region-pill:hover {
+    background: #121c28;
+    border-color: #28374a;
+    color: #ffffff;
+}
+
+.region-pill.active {
+    background: #00d4a4;
+    border-color: #00d4a4;
+    color: #040d12;
+    font-weight: 800;
+    box-shadow: 0 0 12px rgba(0, 212, 164, 0.45);
+}
+
+/* CUSTOM OUTROS DROPDOWN MENU */
+.server-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.region-dropdown-btn {
+    padding-right: 10px;
+}
+
+.server-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 120px;
+    background: #0b1118;
+    border: 1px solid #1c2a3a;
+    border-radius: 3px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+}
+
+.server-dropdown-header {
+    font-size: 10px;
+    font-weight: 800;
+    color: #556475;
+    padding: 6px 14px 4px 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #16202c;
+    margin-bottom: 2px;
+}
+
+.server-dropdown-item {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8a99a8;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    text-align: left;
+}
+
+.server-dropdown-item:hover {
+    background: #141f2d;
+    color: #00d4a4;
+}
+
+.server-dropdown-item.active {
+    background: #00d4a4;
+    color: #040d12;
+    font-weight: 800;
+}
+
+.server-region-right {
+    display: flex;
+    align-items: center;
+}
+
+.server-currency-notice {
+    font-size: 12px;
+    color: #6b7a8d;
+    font-weight: 600;
+}
+
+.server-currency-notice .text-contrast {
+    color: #b0bcc9;
+    font-weight: 700;
+}
+
+/* ITEM CARD PRICE HIERARCHY (LOLGIFTING 1:1) */
+.item-card-price-stack {
+    margin-top: auto;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-card-price-money {
+    color: #00ffcc;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+.item-card-price-rp {
+    color: #c8aa6e;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 0.2px;
+}
+
+/* 2. CATALOG TOOLBAR: SORT DROPDOWN & LIVE SYNC BADGE */
+.catalog-tools-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.sort-dropdown-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sort-dropdown-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lol-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.sort-select {
+    background: #040911;
+    border: 1px solid var(--lol-gold-4);
+    color: #ffffff;
+    font-size: 12px;
+    font-family: var(--font-lol-body);
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+.sort-select:hover, .sort-select:focus {
+    border-color: var(--lol-gold-2);
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+}
+
+.catalog-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--lol-text-muted);
+    background: rgba(9, 20, 40, 0.8);
+    border: 1px solid rgba(120, 90, 40, 0.25);
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+.catalog-live-badge i {
+    color: var(--lol-emerald);
+}
+
+/* 3. VISUAL RARITY SYSTEM (EXACT LOLGIFTING IMPLEMENTATION) */
+@property --beam {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes store-float-levitate {
+    0%, 100% { transform: scale(1.15) translateY(0); }
+    50% { transform: scale(1.18) translateY(-8px); }
+}
+
+@keyframes store-art-levitate {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes rarity-beam-cw {
+    0% { --beam: 0deg; }
+    100% { --beam: 180deg; }
+}
+
+@keyframes rarity-beam-ccw {
+    0% { --beam: 360deg; }
+    100% { --beam: 180deg; }
+}
+
+.rarity-badge-official {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+.rarity-badge-official img {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.85));
+}
+
+/* Dynamic glow and beams per rarity */
+.rarity-glow-ultimate {
+    --rarity-color: #ff8200 !important; /* Ultimate: Vibrant Orange / Laranja (conforme áudio) */
+}
+.rarity-glow-mythic {
+    --rarity-color: #a855f7 !important; /* Mythic: Purple / Violeta */
+}
+.rarity-glow-legendary {
+    --rarity-color: #ff4655 !important; /* Legendary: Crimson Red / Vermelho */
+}
+.rarity-glow-epic {
+    --rarity-color: #0ac8b9 !important; /* Epic: Teal / Cyan */
+}
+.rarity-glow-chroma {
+    --rarity-color: #ec4899 !important; /* Chroma: Magenta / Rosa */
+}
+.rarity-glow-standard {
+    --rarity-color: #c8aa6e !important; /* Deluxe / Standard: Hextech Gold */
+}
+.rarity-glow-bundle {
+    --rarity-color: #c8aa6e !important; /* Bundles: Hextech Gold */
+}
+
+/* Square assets (Icons, Emotes, Wards) inside 3:4 thumbnail */
+.store-card-square {
+    object-fit: contain !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 78% !important;
+    max-height: 78% !important;
+    margin: auto !important;
+    display: block !important;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+/* Store card hover with rarity border and elevation */
+.catalog-card-node {
+    border: 1px solid var(--line, #1e2837);
+    background: #081325;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.catalog-card-node:hover {
+    border-color: var(--rarity-color, #c8aa6e) !important;
+    transform: translateY(-4px);
+    border-radius: 6px;
+    box-shadow: 0 0 20px -4px var(--rarity-color, rgba(200, 170, 110, 0.4)), 0 8px 24px -6px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Card Image stays completely still, crisp and steady on hover (No floating, bobbing or shaking) */
+.store-card-art,
+.store-card-art--float {
+    transform: none !important;
+    animation: none !important;
+    transition: filter 0.25s ease;
+}
+.catalog-card-node:hover .store-card-art,
+.catalog-card-node:hover .store-card-art--float {
+    transform: none !important;
+    animation: none !important;
+    filter: brightness(1.05);
+}
+
+/* Rarity Beams Sweeping Animation (Exact lolgifting mask composite) */
+.rarity-beams {
+    z-index: 35;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s;
+    position: absolute;
+    inset: -1px;
+    border-radius: 6px;
+}
+.catalog-card-node:hover .rarity-beams {
+    opacity: 1;
+}
+.rarity-beams:after, .rarity-beams:before {
+    content: "";
+    background: conic-gradient(from calc(var(--beam) - 16deg), transparent 0deg, var(--rarity-color, #0ac8b9) 16deg, transparent 32deg);
+    padding: 3px;
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    filter: drop-shadow(0 0 10px var(--rarity-color, #0ac8b9));
+    -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+    mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+    -webkit-mask-clip: content-box, border-box;
+    mask-clip: content-box, border-box;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+.catalog-card-node:hover .rarity-beams:before {
+    animation: rarity-beam-cw 1.15s cubic-bezier(.45,0,.55,1) infinite alternate;
+}
+.catalog-card-node:hover .rarity-beams:after {
+    animation: rarity-beam-ccw 1.15s cubic-bezier(.45,0,.55,1) infinite alternate;
+}
+
+/* Authentic LoL Client Hextech Action Button (1:1 League Store Aesthetic) */
+.buy-button {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #18283a 0%, #0c1724 100%);
+    border: 1px solid #785a28;
+    color: #cdbe91;
+    font-family: var(--font-lol-display);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1.25;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    min-height: 32px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    margin-top: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(.22, 1, .36, 1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+.buy-button:before {
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgba(200, 170, 110, 0.35) 50%, transparent 65%);
+    transition: transform 0.6s ease;
+    position: absolute;
+    inset: -40% -70%;
+    transform: translate(-60%);
+}
+.buy-button:hover:before {
+    transform: translate(60%);
+}
+.buy-button:hover {
+    background: linear-gradient(180deg, #22374e 0%, #102133 100%);
+    border-color: #c8aa6e;
+    color: #f0e6d2;
+    box-shadow: 0 0 14px rgba(200, 170, 110, 0.45), inset 0 0 8px rgba(10, 200, 185, 0.15);
+    transform: translateY(-1px);
+}
+.buy-button:active {
+    transform: translateY(0);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   CHAMPION SKINS CAROUSEL CARD STYLES (LoL Client Collection / Store)
+   ========================================================================== */
+.champ-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: linear-gradient(90deg, rgba(8, 18, 30, 0.95) 0%, rgba(3, 8, 15, 0.95) 100%);
+    border-bottom: 1px solid rgba(200, 170, 110, 0.25);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.champ-card-title {
+    color: #c8aa6e;
+    font-family: var(--font-lol-display);
+    font-weight: 800;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+.champ-card-counter {
+    color: #f0e6d2;
+    font-size: 9.5px;
+    font-weight: 700;
+    background: rgba(200, 170, 110, 0.15);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(200, 170, 110, 0.35);
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+.champ-card-counter:hover {
+    background: rgba(200, 170, 110, 0.25);
+    border-color: rgba(200, 170, 110, 0.6);
+}
+
+.champ-skin-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(3, 10, 18, 0.82);
+    border: 1px solid rgba(200, 170, 110, 0.45);
+    color: #f0e6d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 50%;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+}
+.catalog-card-node:hover .champ-skin-nav-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+.champ-skin-nav-btn:hover {
+    background: rgba(200, 170, 110, 0.25);
+    border-color: #f0e6d2;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(200, 170, 110, 0.7);
+    transform: translateY(-50%) scale(1.15);
+}
+.champ-skin-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+.champ-skin-nav-prev {
+    left: 6px;
+}
+.champ-skin-nav-next {
+    right: 6px;
+}
+
+/* Bottom skin dot indicators on image */
+.champ-skin-dots {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 15;
+    background: rgba(1, 8, 15, 0.75);
+    padding: 3px 7px;
+    border-radius: 12px;
+    border: 1px solid rgba(200, 170, 110, 0.2);
+    backdrop-filter: blur(6px);
+    max-width: 90%;
+    overflow: hidden;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+.catalog-card-node:hover .champ-skin-dots {
+    opacity: 1;
+    border-color: rgba(200, 170, 110, 0.45);
+}
+.champ-skin-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+}
+.champ-skin-dot:hover {
+    background: rgba(255, 255, 255, 0.85);
+    transform: scale(1.3);
+}
+.champ-skin-dot.active {
+    background: #c8aa6e;
+    width: 14px;
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(200, 170, 110, 0.8);
+}
+
+/* Bundle Chroma Badge (Pacotes Tab) */
+.bundle-chroma-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 78px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: rgba(1, 10, 19, 0.88);
+    border: 1px solid rgba(200, 170, 110, 0.45);
+    color: #c8aa6e;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(6px);
+    z-index: 16;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+}
+
+/* Subtle Smooth Transition for Champion Skins ("animaçãozinha bem sutil") */
+.store-card-art {
+    transition: opacity 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
+}
+.store-card-art.skin-transitioning {
+    opacity: 0.15 !important;
+    transform: scale(0.96) !important;
+}
+.champ-skin-info-transitioning {
+    opacity: 0.2 !important;
+    transform: translateY(3px) !important;
+    transition: opacity 0.18s ease, transform 0.18s ease !important;
+}
+
+/* DEDICATED HEXTECH FRAMING FOR ETERNALS ("os eternos... puxar o ícone do eterno certinho") */
+.eternal-card-thumbnail-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: radial-gradient(circle at 50% 40%, #152d47 0%, #081626 60%, #02070e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid rgba(200, 170, 110, 0.2);
+}
+.eternal-stone-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    height: 65%;
+    transition: transform 0.25s ease;
+}
+.catalog-card-node:hover .eternal-stone-container {
+    transform: scale(1.08);
+}
+.eternal-stone-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(10, 200, 185, 0.45));
+}
+.eternal-champ-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #c8aa6e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 8px rgba(200, 170, 110, 0.4);
+    background: #010a13;
+    overflow: hidden;
+    z-index: 10;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.catalog-card-node:hover .eternal-champ-badge {
+    transform: scale(1.1);
+    border-color: #f0e6d2;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 12px rgba(200, 170, 110, 0.7);
+}
+.eternal-champ-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.eternal-series-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(1, 10, 19, 0.85);
+    border: 1px solid rgba(200, 170, 110, 0.35);
+    color: #c8aa6e;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    z-index: 10;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+}
+
+/* DEDICATED HEXTECH FRAMING FOR SUMMONER ICONS & EMOTES */
+.item-card-square-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(circle at center, #13273e 0%, #081423 70%, #030810 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(200, 170, 110, 0.25);
+}
+.summoner-icon-frame {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 2px solid #c8aa6e;
+    box-shadow: 0 0 14px rgba(200, 170, 110, 0.35), inset 0 0 8px rgba(0, 0, 0, 0.6);
+    padding: 2px;
+    background: #010a13;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.catalog-card-node:hover .summoner-icon-frame {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.65), inset 0 0 10px rgba(0, 0, 0, 0.8);
+    border-color: #f0e6d2;
+}
+.summoner-icon-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+.emote-frame {
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+.catalog-card-node:hover .emote-frame {
+    transform: scale(1.12) translateY(-2px);
+    filter: drop-shadow(0 6px 16px rgba(10, 200, 185, 0.45));
+}
+.emote-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* View Mode Switcher in Toolbar */
+.skins-view-switcher {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(3, 10, 18, 0.85);
+    border: 1px solid rgba(200, 170, 110, 0.35);
+    border-radius: 20px;
+    padding: 3px;
+    margin-right: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.view-switch-btn {
+    background: transparent;
+    border: none;
+    color: #8a99ad;
+    font-family: var(--font-lol-body);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.view-switch-btn:hover {
+    color: #f0e6d2;
+}
+.view-switch-btn.active {
+    background: linear-gradient(180deg, #c8aa6e 0%, #8c6a2e 100%);
+    color: #010a13;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);
+}
+
+/* 4. CART SYSTEM (HEADER TRIGGER & SLIDE-OVER DRAWER) */
+.btn-cart-trigger {
+    background: linear-gradient(180deg, #182e44 0%, #0c1a27 100%);
+    border: 1px solid var(--lol-cyan-glow);
+    color: #ffffff;
+    font-family: var(--font-lol-display);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(10, 200, 185, 0.25);
+    transition: all 0.2s ease;
+}
+.btn-cart-trigger:hover {
+    background: linear-gradient(180deg, #234261 0%, #122437 100%);
+    border-color: #ffffff;
+    box-shadow: 0 0 16px rgba(10, 200, 185, 0.6);
+}
+.cart-count-badge {
+    background: var(--lol-cyan-glow);
+    color: #010a13;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(10, 200, 185, 0.7);
+}
+
+/* Quick Add to Cart button on item cards */
+.btn-quick-add-cart {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(1, 10, 19, 0.85);
+    border: 1px solid var(--lol-gold-3);
+    color: var(--lol-gold-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    z-index: 6;
+    transition: all 0.2s ease;
+    opacity: 0.85;
+}
+.btn-quick-add-cart:hover {
+    background: var(--lol-cyan-glow);
+    color: #010a13;
+    border-color: #ffffff;
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(10, 200, 185, 0.7);
+}
+
+/* CART SLIDE-OVER DRAWER */
+.cart-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(1, 10, 19, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.cart-drawer-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -520px;
+    width: 480px;
+    max-width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #091424 0%, #040911 100%);
+    border-left: 2px solid #785a28;
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.95);
+    z-index: 220;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cart-drawer.open {
+    right: 0;
+}
+
+.cart-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    padding: 0 20px;
+    border-bottom: 1px solid #785a28;
+    background: linear-gradient(90deg, #0a1726 0%, #102438 100%);
+}
+.cart-drawer-title {
+    font-family: var(--font-lol-display, 'Cinzel', serif);
+    font-size: 15px;
+    font-weight: 800;
+    color: #f0e6d2;
+    letter-spacing: 1.8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-drawer-body {
+    padding: 18px 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 42vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(10, 20, 35, 0.85);
+    border: 1px solid #1c2d42;
+    padding: 10px 12px;
+    border-radius: 4px;
+    position: relative;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.cart-item-card:hover {
+    border-color: #c8aa6e;
+    background: rgba(16, 32, 54, 0.95);
+}
+.cart-item-thumb {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #785a28;
+    border-radius: 3px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #02070e;
+}
+.cart-item-details {
+    flex: 1;
+    min-width: 0;
+}
+.cart-item-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f0e6d2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+.cart-item-rp {
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+}
+.cart-qty-stepper {
+    display: flex;
+    align-items: center;
+    background: #040a14;
+    border: 1px solid #785a28;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.btn-qty-step {
+    background: #0c1827;
+    border: none;
+    color: #c8aa6e;
+    font-size: 12px;
+    font-weight: 800;
+    width: 24px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.btn-qty-step:hover {
+    background: #c8aa6e;
+    color: #010a13;
+}
+.qty-value {
+    color: #f0e6d2;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 24px;
+    text-align: center;
+    user-select: none;
+}
+.btn-remove-cart-item {
+    background: none;
+    border: none;
+    color: #8c9ea8;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 6px;
+    border-radius: 3px;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+.btn-remove-cart-item:hover {
+    color: #ff4655;
+    transform: scale(1.15);
+}
+
+.cart-total-summary-box {
+    background: linear-gradient(180deg, #091524 0%, #050d18 100%);
+    border: 1px solid #785a28;
+    padding: 14px 16px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.cart-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a09b8c;
+    margin-bottom: 6px;
+}
+.cart-total-row:last-child {
+    margin-bottom: 0;
+    padding-top: 6px;
+    border-top: 1px solid rgba(120, 90, 40, 0.35);
+}
+.cart-total-val {
+    font-family: var(--font-lol-display, 'Cinzel', serif);
+    font-size: 15px;
+    font-weight: 800;
+    color: #f0e6d2;
+}
+
+.saas-field-group label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #c8aa6e;
+    margin-bottom: 5px;
+    display: block;
+}
+.saas-control {
+    width: 100%;
+    background: #040a14 !important;
+    border: 1px solid #1e2837 !important;
+    color: #f0e6d2 !important;
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+    border-radius: 3px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.saas-control:focus {
+    outline: none !important;
+    border-color: #c8aa6e !important;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.35) !important;
+}
+.saas-control::placeholder {
+    color: #5b6876 !important;
+    font-size: 11px !important;
+}
+.btn-dispatch-cart {
+    background: linear-gradient(180deg, #1e3a5a 0%, #0e1c2c 100%) !important;
+    border: 1px solid #785a28 !important;
+    color: #f0e6d2 !important;
+    font-family: var(--font-lol-display, 'Cinzel', serif) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    width: 100% !important;
+    padding: 12px !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+}
+.btn-dispatch-cart:hover {
+    background: linear-gradient(180deg, #2a4e78 0%, #14283e 100%) !important;
+    border-color: #c8aa6e !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 18px rgba(200, 170, 110, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   5. LOLGIFTING SUBTABS, HEADER BAR, CHROMAS SIDEBAR & CARD BADGES
+   ========================================================================== */
+.catalog-subtabs-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: rgba(2, 7, 14, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(30, 40, 55, 0.8);
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.subtab-btn {
+    position: relative;
+    padding: 13px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #7e7a70;
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+.subtab-btn:hover {
+    color: #f0e6d2;
+}
+.subtab-btn.active {
+    color: #0ac8b9;
+}
+.subtab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #0ac8b9;
+    box-shadow: 0 0 10px #0ac8b9;
+}
+
+/* ==========================================================================
+   LOLGIFTING TOP BRAND NAVBAR (EXACT 1:1)
+   ========================================================================== */
+.lolgifting-top-navbar {
+    background: rgba(3, 8, 17, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(18, 28, 42, 0.85);
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 150;
+    height: 48px;
+}
+.lolgifting-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.lolgifting-brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #091320;
+    border: 1px solid #1c2e44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 212, 164, 0.25);
+}
+.lolgifting-brand-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+.lolgifting-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+.brand-title-lol {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+.brand-title-store {
+    color: #00d4a4;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-left: 4px;
+}
+.brand-subtitle {
+    font-size: 11px;
+    color: #556475;
+}
+.brand-subname {
+    color: #8a99a8;
+    font-weight: 600;
+}
+.lolgifting-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.header-timestamp {
+    font-size: 11px;
+    color: #556475;
+    margin-right: 6px;
+}
+.header-lang-pills {
+    display: flex;
+    border: 1px solid #1a2736;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.header-lang-btn {
+    background: #050c14;
+    border: none;
+    color: #6b7a8d;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.header-lang-btn.active {
+    background: #00d4a4;
+    color: #02070e;
+}
+.header-btn-entrar {
+    background: #091320;
+    border: 1px solid #1c2e44;
+    color: #f0e6d2;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.header-btn-entrar:hover {
+    border-color: #00d4a4;
+    color: #00d4a4;
+}
+.header-btn-cart {
+    background: #091320;
+    border: 1px solid #00d4a4;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+.header-btn-cart:hover {
+    box-shadow: 0 0 12px rgba(0, 212, 164, 0.4);
+}
+.header-btn-comprar {
+    background: #00d4a4;
+    border: none;
+    color: #02070e;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 7px 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 212, 164, 0.35);
+    transition: all 0.15s ease;
+}
+.header-btn-comprar:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px rgba(0, 212, 164, 0.6);
+}
+
+.selected-item-bar {
+    display: none !important;
+}
+
+.catalog-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 32px 32px 18px 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: transparent;
+    border: none;
+}
+.catalog-breadcrumb-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #00d4a4;
+    margin-bottom: 6px;
+}
+.catalog-category-heading {
+    font-family: 'Cinzel', serif, var(--font-lol-display);
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f0e6d2;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+}
+.catalog-count-timestamp {
+    font-size: 12px;
+    color: #6b7a8d;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+.catalog-search-input-box {
+    width: 320px;
+    max-width: 100%;
+    background: #030810;
+    border: 1px solid #1c2838;
+    color: #f0e6d2;
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.catalog-search-input-box:focus {
+    border-color: #00d4a4;
+    box-shadow: 0 0 12px rgba(0, 212, 164, 0.4);
+}
+
+.chromas-layout-wrapper {
+    display: flex;
+    gap: 24px;
+    padding: 16px 24px 40px 24px;
+}
+.chromas-sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border-right: 1px solid #1e2837;
+    padding-right: 20px;
+}
+.chromas-sidebar-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.chromas-sidebar-label span {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #7e7a70;
+}
+.chromas-sidebar-select {
+    width: 100%;
+    background: #081325;
+    border: 1px solid #1e2837;
+    color: #f0e6d2;
+    padding: 8px 12px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.chromas-sidebar-select:hover, .chromas-sidebar-select:focus {
+    border-color: #0ac8b9;
+}
+.chromas-content-area {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.chroma-corner-pill {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(3, 8, 15, 0.88);
+    padding: 3px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+.chroma-corner-pill img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+}
+.skin-splash-hint {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 15;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(3, 10, 18, 0.85);
+    border: 1px solid rgba(200, 170, 110, 0.4);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #c8aa6e;
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+.catalog-card-node:hover .skin-splash-hint {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.skin-splash-hint:hover {
+    opacity: 1 !important;
+    color: #00ffcc !important;
+    border-color: #00ffcc !important;
+    background: rgba(0, 255, 204, 0.15) !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 0 14px rgba(0, 255, 204, 0.5) !important;
+}
+
+/* ==========================================================================
+   WALLPAPER / SPLASH ART LIGHTBOX MODAL (1:1 LOLGIFTING CINEMATIC VIEW)
+   ========================================================================== */
+.wallpaper-lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+.wallpaper-lightbox-overlay.open {
+    display: flex !important;
+    opacity: 1 !important;
+}
+.wallpaper-lightbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: modal-fade-zoom 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+    position: relative;
+}
+@keyframes modal-fade-zoom {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.wallpaper-modal-img {
+    max-width: 90vw;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 16px 56px rgba(0, 0, 0, 0.95), 0 0 2px rgba(255, 255, 255, 0.2);
+    image-rendering: -webkit-optimize-contrast;
+}
+.wallpaper-modal-title {
+    margin-top: 14px;
+    font-family: var(--font-lol-display), "Cinzel", "Beaufort for LOL", serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #f0e6d2;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+    user-select: none;
+}
+
+/* Card Carousel Controls (Chroma & Skin Navigation) */
+.card-carousel-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(2, 10, 20, 0.88);
+    border: 1px solid rgba(200, 170, 110, 0.6);
+    color: #f0e6d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    z-index: 22;
+    opacity: 0;
+    transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+}
+.catalog-card-node:hover .card-carousel-btn {
+    opacity: 0.9;
+}
+.card-carousel-btn:hover {
+    opacity: 1 !important;
+    background: #0ac8b9 !important;
+    color: #010a13 !important;
+    border-color: #0ac8b9 !important;
+    transform: translateY(-50%) scale(1.12);
+    box-shadow: 0 0 12px rgba(10, 200, 185, 0.8);
+}
+.card-carousel-prev {
+    left: 8px;
+}
+.card-carousel-next {
+    right: 8px;
+}
+.card-chroma-indicator-pill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 8px;
+    background: linear-gradient(180deg, rgba(2, 10, 20, 0.4) 0%, rgba(2, 10, 20, 0.95) 100%);
+    color: #c8aa6e;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    z-index: 15;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    border-top: 1px solid rgba(200, 170, 110, 0.2);
+}
+
+/* Modal Lightbox Carousel Arrows */
+.modal-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(4, 15, 30, 0.88);
+    border: 1px solid #c8aa6e;
+    color: #f0e6d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
+}
+.modal-nav-arrow:hover {
+    background: #c8aa6e;
+    color: #010a13;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 16px rgba(200, 170, 110, 0.8);
+}
+.modal-nav-prev {
+    left: -64px;
+}
+.modal-nav-next {
+    right: -64px;
+}
+@media (max-width: 991px) {
+    .modal-nav-prev { left: 8px; }
+    .modal-nav-next { right: 8px; }
+}
+.modal-close-btn {
+    position: absolute;
+    top: -42px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #a09b8c;
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+}
+.modal-close-btn:hover {
+    color: #f0e6d2;
+    transform: scale(1.15);
+}
+
+.modal-chroma-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    max-width: 80vw;
+}
+.modal-chroma-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(200, 170, 110, 0.4);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.modal-chroma-dot.active {
+    background: #c8aa6e;
+    border-color: #f0e6d2;
+    box-shadow: 0 0 8px rgba(200, 170, 110, 0.9);
+    transform: scale(1.3);
+}
+
+/* Authentic LoL Gifting Footer */
+.lolgifting-footer {
+    width: 100%;
+    background: linear-gradient(180deg, rgba(4, 12, 22, 0.85) 0%, #02070e 100%);
+    border-top: 1px solid #1e2837;
+    margin-top: 60px;
+    padding: 36px 24px 20px 24px;
+    color: #8a9ba8;
+    position: relative;
+    z-index: 5;
+}
+.footer-inner-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(30, 40, 55, 0.8);
+}
+.footer-brand-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footer-logos-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.footer-logo-riot {
+    height: 26px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0.9) grayscale(0.2);
+    transition: filter 0.25s ease;
+}
+.footer-logo-riot:hover {
+    filter: brightness(1.1) grayscale(0);
+}
+.footer-logo-divider {
+    width: 1px;
+    height: 22px;
+    background: rgba(200, 170, 110, 0.35);
+}
+.footer-logo-lol {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0.9);
+    transition: filter 0.25s ease;
+}
+.footer-logo-lol:hover {
+    filter: brightness(1.15);
+}
+.footer-brand-tagline {
+    font-size: 12px;
+    color: #6a7c92;
+    margin: 0;
+    letter-spacing: 0.4px;
+}
+.footer-links-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+@media (max-width: 768px) {
+    .footer-links-column {
+        align-items: flex-start;
+    }
+}
+.footer-links-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #c8aa6e;
+    font-weight: 700;
+}
+.footer-links-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.footer-btn-link {
+    background: rgba(9, 23, 40, 0.7);
+    border: 1px solid rgba(200, 170, 110, 0.3);
+    color: #cdbe91;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+.footer-btn-link:hover {
+    background: rgba(200, 170, 110, 0.15);
+    border-color: #c8aa6e;
+    color: #f0e6d2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.footer-disclaimer-bar {
+    max-width: 1360px;
+    margin: 16px auto 0 auto;
+    text-align: center;
+    font-size: 11px;
+    color: #4a5a6a;
+    line-height: 1.6;
+}
+
+
+

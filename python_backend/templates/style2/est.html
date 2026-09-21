@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ClubeDoEstudante</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="hM_-GD8D8FL4m7ZFOrQ9ce5_gpBei-lvpOruDabgFAZpK3BHo2GuqDY8LdZc8noyqvizeyCti-7SnaUrIdtEag">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="font-awesome.min.css">
+
+    <!-- Aplicação CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ex/ex_css.css') }}">
+
+</head>
+<body>
+    <div class="flex center around vh-100 bg-danger">
+        <div class="h-60 w-60 flex center around column">
+            <div class="w-30 flex center around mb-5">
+                <img style="max-width:250px" src="{{ url_for('static', filename='ex/ex_logo.png') }}" alt="Logo">
+
+            </div>
+
+            <div class="flex center justify-content-start column">
+                <i class="check-circle" style="background-color: white; border-radius: 50%; display: inline-block; width: 80px; height: 80px; text-align: center; font-size: 40px; color: red; margin-bottom: 20px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="60" height="60" style="transform: translate(0px, 8px) scale(1.0);">
+                        <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" fill="#DC3545"></path>
+                    </svg>
+                </i>
+                <p class="text-white fs-20">Carteirinha válida até {{ data }}</p>
+
+                <div class="card-details">
+                    <p class="text-white" style="font-size: 15px;"><span class="fw-700">Nome:</span> {{ nome }}</p>
+                    <p class="text-white" style="font-size: 15px;"><span class="fw-700">Instituição de ensino:</span> {{ universidade }}</p>
+                    <p class="text-white" style="font-size: 15px;"><span class="fw-700">Código de uso:</span> {{ codigo_uso }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

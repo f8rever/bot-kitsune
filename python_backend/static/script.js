@@ -453,13 +453,45 @@ setInterval(function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+let catalog = {};
+let selectedLanguage = 'pt';
+try {
+    const savedLang = localStorage.getItem('lg_store_language');
+    if (savedLang === 'en' || savedLang === 'pt') selectedLanguage = savedLang;
+} catch (e) {}
+
+let catalogIndexedItems = [];
+let giftCart = [];
+try {
+    const savedCart = localStorage.getItem('lg_gift_cart');
+    if (savedCart) giftCart = JSON.parse(savedCart);
+} catch (e) {
+    giftCart = [];
+}
+
+function changeStoreLanguage(lang) {
+    selectedLanguage = lang || 'pt';
+    try {
+        localStorage.setItem('lg_store_language', selectedLanguage);
+    } catch (e) {}
+    document.querySelectorAll('.header-lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === `btn-lang-${selectedLanguage}`);
+    });
+    const langSelect = document.getElementById('catalog-language');
+    if (langSelect) langSelect.value = selectedLanguage;
+    if (typeof window.applyUiTranslations === 'function') {
+        window.applyUiTranslations(selectedLanguage);
+    }
+    if (typeof window.fetchCatalog === 'function') {
+        window.fetchCatalog();
+    }
+}
+window.changeStoreLanguage = changeStoreLanguage;
+
+function initCatalogApp() {
     const searchInput = document.getElementById('search-item');
     const categoryRadios = document.querySelectorAll('input[name="category"]');
     const languageSelect = document.getElementById('catalog-language');
-    let catalog = {};
-    let selectedLanguage = 'pt';
-    let catalogIndexedItems = [];
 
     // Category pill/chip visual toggle listener
     categoryRadios.forEach(radio => {
@@ -509,11 +541,133 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
+            // Build Skin -> Chromas lookup map for instant bundle/skin carousel navigation
+            window.skinChromasMap = {};
+            const chromasCategory = catalog['Chromas'] || {};
+            for (const [chromaFullName, chromaDetails] of Object.entries(chromasCategory)) {
+                if (chromaFullName.includes('(') && chromaFullName.includes(')')) {
+                    const baseSkinName = chromaFullName.substring(0, chromaFullName.lastIndexOf('(')).trim();
+                    const chromaColor = chromaFullName.substring(chromaFullName.lastIndexOf('(') + 1, chromaFullName.lastIndexOf(')')).trim();
+                    
+                    let chromaImg = chromaDetails.icon_url || chromaDetails.iconUrl || '';
+                    if (!chromaImg && chromaDetails.item_id) {
+                        const cid = Number(chromaDetails.item_id);
+                        const champId = Math.floor(cid / 1000);
+                        chromaImg = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/${champId}/${cid}.png`;
+                    }
+                    
+                    const k = baseSkinName.toLowerCase();
+                    if (!window.skinChromasMap[k]) {
+                        window.skinChromasMap[k] = [];
+                    }
+                    window.skinChromasMap[k].push({
+                        fullName: chromaFullName,
+                        color: chromaColor,
+                        icon_url: chromaImg,
+                        item_id: chromaDetails.item_id,
+                        offer_id: chromaDetails.offer_id,
+                        price_rp: chromaDetails.price_rp || 290
+                    });
+                }
+            }
+
+            // Build Skin -> Splash Art fast lookup map (for Chroma Bundles)
+            window.skinToSplashMap = {};
+            const skinsCategory = catalog['Skins'] || {};
+            for (const [sName, sData] of Object.entries(skinsCategory)) {
+                if (sData && sData.icon_url) {
+                    window.skinToSplashMap[sName.toLowerCase().trim()] = {
+                        splash: sData.icon_url,
+                        loading: sData.icon_url.includes('/splash/') ? sData.icon_url.replace('/splash/', '/loading/') : sData.icon_url,
+                        name: sName
+                    };
+                }
+            }
+
+            // Build Champion -> All Skins grouped map for the Skins tab carousel
+            window.championsSkinsMap = {};
+            const champsCategory = catalog['Champions'] || {};
+            const idToChamp = {};
+            const idToKey = {};
+            for (const [cName, cData] of Object.entries(champsCategory)) {
+                if (cData && cData.item_id) {
+                    idToChamp[cData.item_id] = cName;
+                    if (cData.icon_url) {
+                        const m = cData.icon_url.match(/\/champion\/([^/]+)\.png/);
+                        if (m) idToKey[cData.item_id] = m[1];
+                    }
+                }
+            }
+
+            for (const [sName, sData] of Object.entries(skinsCategory)) {
+                let champ = idToChamp[sData.parent_id];
+                let champKey = idToKey[sData.parent_id] || '';
+                if (!champKey && sData.icon_url) {
+                    const m = sData.icon_url.match(/champion\/splash\/([A-Za-z]+)_/);
+                    if (m) champKey = m[1];
+                }
+                if (!champ) {
+                    champ = champKey || sName.split(' ')[0];
+                }
+                if (!champKey) champKey = champ;
+
+                if (!window.championsSkinsMap[champ]) {
+                    const cData = champsCategory[champ] || Object.values(champsCategory).find(c => c && c.item_id === sData.parent_id);
+                    const baseItem = {
+                        name: champ,
+                        championName: champ,
+                        isBase: true,
+                        item_id: cData ? cData.item_id : (sData.parent_id || 0),
+                        offer_id: cData ? cData.offer_id : '',
+                        price_rp: (cData && cData.price_rp) ? cData.price_rp : 790,
+                        category: 'Skin',
+                        inventory_type: 'CHAMPION',
+                        icon_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`,
+                        splash_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`,
+                        loading_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champKey}_0.jpg`,
+                        rarity_label: 'CAMPEÃO',
+                        rarity_color: '#c8aa6e'
+                    };
+
+                    window.championsSkinsMap[champ] = {
+                        championName: champ,
+                        championKey: champKey,
+                        skins: [baseItem],
+                        currentSkinIndex: 0
+                    };
+                }
+
+                const sSplash = sData.icon_url || '';
+                const sLoading = sSplash.includes('/splash/') ? sSplash.replace('/splash/', '/loading/') : sSplash;
+                window.championsSkinsMap[champ].skins.push({
+                    name: sName,
+                    ...sData,
+                    isBase: false,
+                    category: 'Skin',
+                    inventory_type: 'CHAMPION_SKIN',
+                    icon_url: sSplash,
+                    splash_url: sSplash,
+                    loading_url: sLoading
+                });
+            }
+
+            // Pre-sort skins (keeping base champion at slot 0 and skins chronologically)
+            for (const champ of Object.values(window.championsSkinsMap)) {
+                const baseItem = champ.skins[0];
+                const realSkins = champ.skins.slice(1);
+                realSkins.sort((a, b) => (Number(a.item_id) || 0) - (Number(b.item_id) || 0));
+                champ.skins = [baseItem, ...realSkins];
+                champ.currentSkinIndex = 0; // Starts always on base champion ("o boneco")
+            }
+            window.championsList = Object.values(window.championsSkinsMap);
+            window.championsList.sort((a, b) => a.championName.localeCompare(b.championName));
+
             filterItems();
         } catch (error) {
             console.error('Catalog fetch error:', error);
         }
     }
+    window.fetchCatalog = fetchCatalog;
 
     function normalizeText(text) {
         return (text || '')
@@ -537,10 +691,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (s === 'bundle' || s === 'bundles') {
             return (itemCat === 'bundles' || itemCat === 'bundle' || invType === 'BUNDLES' || invType === 'BUNDLE') &&
-                   !nameLower.includes('pass') && !nameLower.includes('passe') &&
                    !nameLower.includes('chest') && !nameLower.includes('baú') && !nameLower.includes('orb') && !nameLower.includes('orbe');
         }
         if (s === 'pass' || s === 'passes') {
+            const isEternal = itemCat === 'eternals' || itemCat === 'eternos' || invType === 'STATSTONE' || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('starter');
+            if (isEternal) return false;
             return itemCat === 'passes' || itemCat === 'pass' || invType === 'EVENT_PASS' || nameLower.includes('pass') || nameLower.includes('passe');
         }
         if (s === 'champion' || s === 'champions') {
@@ -576,29 +731,587 @@ document.addEventListener('DOMContentLoaded', function() {
         return itemCat === s || itemCat.startsWith(s) || s.startsWith(itemCat);
     }
 
+    let selectedActiveCategory = 'all';
+
+    function selectCatalogSubtab(cat, btn) {
+        document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        const headingEl = document.getElementById('catalogCategoryHeading');
+        const sidebarEl = document.getElementById('chromasSidebar');
+        const searchInput = document.getElementById('search-item');
+
+        const isEn = selectedLanguage === 'en';
+        const catTitlesPt = {
+            'all': 'CATÁLOGO', 'Skin': 'SKINS', 'Chroma': 'CHROMAS', 'Bundle': 'PACOTES', 'Pass': 'PASSES',
+            'Champion': 'CAMPEÕES', 'Emote': 'EMOTES', 'Icon': 'ÍCONES', 'Ward': 'SENTINELAS',
+            'LittleLegends': 'PEQUENAS LENDAS', 'TFTArena': 'TABULEIROS TFT', 'Eternals': 'ETERNALS',
+            'Mystery': 'MISTÉRIO', 'Hextech': 'HEXTEC'
+        };
+        const catTitlesEn = {
+            'all': 'CATALOG', 'Skin': 'SKINS', 'Chroma': 'CHROMAS', 'Bundle': 'BUNDLES', 'Pass': 'PASSES',
+            'Champion': 'CHAMPIONS', 'Emote': 'EMOTES', 'Icon': 'ICONS', 'Ward': 'WARDS',
+            'LittleLegends': 'LITTLE LEGENDS', 'TFTArena': 'TFT ARENAS', 'Eternals': 'ETERNALS',
+            'Mystery': 'MYSTERY', 'Hextech': 'HEXTECH'
+        };
+        const titles = isEn ? catTitlesEn : catTitlesPt;
+        if (headingEl) headingEl.textContent = titles[cat] || cat.toUpperCase();
+
+        if (sidebarEl) {
+            sidebarEl.style.display = (cat === 'Skin' || cat === 'Chroma') ? 'flex' : 'none';
+        }
+
+        if (searchInput) {
+            if (isEn) {
+                if (cat === 'Skin') searchInput.placeholder = 'Search skins or champions...';
+                else if (cat === 'Chroma') searchInput.placeholder = 'Search chromas...';
+                else if (cat === 'Champion') searchInput.placeholder = 'Search champions...';
+                else searchInput.placeholder = 'Search skins, champions, bundles...';
+            } else {
+                if (cat === 'Skin') searchInput.placeholder = 'Buscar skin ou campeão...';
+                else if (cat === 'Chroma') searchInput.placeholder = 'Buscar chroma...';
+                else if (cat === 'Champion') searchInput.placeholder = 'Buscar campeão...';
+                else searchInput.placeholder = 'Buscar skin, campeão, pacote...';
+            }
+        }
+
+        selectedActiveCategory = cat;
+
+        const switcherEl = document.getElementById('skinsViewSwitcher');
+        if (switcherEl) {
+            switcherEl.style.display = (cat === 'Skin') ? 'inline-flex' : 'none';
+        }
+
+        filterItems();
+    }
+    window.selectCatalogSubtab = selectCatalogSubtab;
+
+    window.selectedSkinViewMode = 'champion'; // 'champion' (default) or 'grid'
+
+    function setSkinViewMode(mode) {
+        window.selectedSkinViewMode = mode;
+        const btnChamp = document.getElementById('btnViewChamp');
+        const btnGrid = document.getElementById('btnViewGrid');
+        if (btnChamp && btnGrid) {
+            if (mode === 'champion') {
+                btnChamp.classList.add('active');
+                btnGrid.classList.remove('active');
+            } else {
+                btnChamp.classList.remove('active');
+                btnGrid.classList.add('active');
+            }
+        }
+        filterItems();
+    }
+    window.setSkinViewMode = setSkinViewMode;
+
     function filterItems() {
         const rawSearch = searchInput ? searchInput.value : '';
         const searchNormalized = normalizeText(rawSearch).trim();
         const searchTokens = searchNormalized ? searchNormalized.split(/\s+/).filter(Boolean) : [];
         
-        const selectedRadio = document.querySelector('input[name="category"]:checked');
-        const selectedCategory = selectedRadio ? selectedRadio.value : 'all';
+        // Champion Carousel Mode for the Skins Tab (as requested in audio)
+        if (selectedActiveCategory === 'Skin' && window.selectedSkinViewMode === 'champion') {
+            filterChampionSkins(searchTokens);
+            return;
+        }
+
         let items = catalogIndexedItems;
 
-        if (selectedCategory !== 'all') {
-            items = items.filter(item => matchesCategory(item, selectedCategory));
+        if (selectedActiveCategory !== 'all') {
+            items = items.filter(item => matchesCategory(item, selectedActiveCategory));
         }
 
         if (searchTokens.length > 0) {
             items = items.filter(item => {
                 const itemNorm = item.searchName;
-                // Every search token must match somewhere in the item's normalized name
                 return searchTokens.every(token => itemNorm.includes(token));
             });
         }
 
+        // Sidebar filters for Skins and Chromas (Rarity, Sort, Order)
+        if (selectedActiveCategory === 'Chroma' || selectedActiveCategory === 'Skin') {
+            const rarityFilter = document.getElementById('chroma-rarity-filter');
+            const rVal = rarityFilter ? rarityFilter.value.toLowerCase() : '';
+            if (rVal) {
+                items = items.filter(item => {
+                    const info = getItemRarityInfo(item.name, item.price_rp, item.category, item);
+                    const itemClass = (info.class || '').toLowerCase();
+                    const itemLabel = (info.label || '').toLowerCase();
+                    if (rVal === 'ultimate') {
+                        return itemClass.includes('ultimate') || itemLabel.includes('ultimate') || info.rank === 6;
+                    }
+                    if (rVal === 'mythic') {
+                        return itemClass.includes('mythic') || itemLabel.includes('mythic') || info.rank === 5;
+                    }
+                    if (rVal === 'legendary') {
+                        return itemClass.includes('legendary') || itemLabel.includes('legendary') || info.rank === 4;
+                    }
+                    if (rVal === 'epic') {
+                        return itemClass.includes('epic') || itemLabel.includes('epic') || info.rank === 3;
+                    }
+                    if (rVal === 'standard') {
+                        return itemClass.includes('standard') || itemClass.includes('deluxe') || itemLabel.includes('deluxe') || info.rank === 0;
+                    }
+                    return itemClass.includes(rVal) || itemLabel.includes(rVal);
+                });
+            }
+
+            const sortFilter = document.getElementById('chroma-sort-filter');
+            const sVal = sortFilter ? sortFilter.value : 'rarity';
+            const orderFilter = document.getElementById('chroma-order-filter');
+            const oVal = orderFilter ? orderFilter.value : 'desc';
+
+            if (sVal === 'price_asc') {
+                items = [...items].sort((a, b) => (Number(a.price_rp) || 0) - (Number(b.price_rp) || 0));
+            } else if (sVal === 'price_desc') {
+                items = [...items].sort((a, b) => (Number(b.price_rp) || 0) - (Number(a.price_rp) || 0));
+            } else if (sVal === 'name_asc') {
+                items = [...items].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+                if (oVal === 'desc') items.reverse();
+            } else if (sVal === 'rarity') {
+                items = [...items].sort((a, b) => {
+                    const rankA = getItemRarityInfo(a.name, a.price_rp, a.category, a).rank || 0;
+                    const rankB = getItemRarityInfo(b.name, b.price_rp, b.category, b).rank || 0;
+                    if (rankA !== rankB) {
+                        return oVal === 'asc' ? (rankA - rankB) : (rankB - rankA);
+                    }
+                    // Secondary tie-breaker by price
+                    return (Number(b.price_rp) || 0) - (Number(a.price_rp) || 0);
+                });
+            }
+        } else {
+            // Priority spotlight items list from lolgifting.store
+            const spotlightPriority = [
+                'miss fortune t1 mvp',
+                'veigar cripta de magma de prestígio (vívido)',
+                'miss fortune t1 mvp (olho de gato)',
+                'miss fortune t1 mvp (pérola)',
+                'miss fortune t1 mvp (quartzo-rosa)',
+                'miss fortune t1 mvp (rubi)',
+                'miss fortune t1 mvp (safira)'
+            ];
+
+            function getSpotlightIndex(name) {
+                const nl = (name || '').toLowerCase();
+                for (let i = 0; i < spotlightPriority.length; i++) {
+                    if (nl === spotlightPriority[i] || nl.startsWith(spotlightPriority[i])) return i;
+                }
+                return -1;
+            }
+
+            items = [...items].sort((a, b) => {
+                const rA = getItemRarityInfo(a.name, a.price_rp, a.category, a);
+                const rB = getItemRarityInfo(b.name, b.price_rp, b.category, b);
+
+                // 1. Ultimates (Rank 6) always at the top!
+                if (rA.rank === 6 && rB.rank !== 6) return -1;
+                if (rB.rank === 6 && rA.rank !== 6) return 1;
+                if (rA.rank === 6 && rB.rank === 6) {
+                    const diffRp = (Number(b.price_rp) || 0) - (Number(a.price_rp) || 0);
+                    if (diffRp !== 0) return diffRp;
+                    return a.name.localeCompare(b.name);
+                }
+
+                // 2. Spotlight featured items (Miss Fortune T1 MVP & Chromas, Veigar Cripta...)
+                const spotA = getSpotlightIndex(a.name);
+                const spotB = getSpotlightIndex(b.name);
+                if (spotA !== -1 && spotB !== -1) return spotA - spotB;
+                if (spotA !== -1 && spotB === -1) return -1;
+                if (spotB !== -1 && spotA === -1) return 1;
+
+                // 3. Higher rarity rank
+                if (rB.rank !== rA.rank) return rB.rank - rA.rank;
+
+                // 4. Higher RP
+                const diffRp = (Number(b.price_rp) || 0) - (Number(a.price_rp) || 0);
+                if (diffRp !== 0) return diffRp;
+
+                return a.name.localeCompare(b.name);
+            });
+        }
+
+        // Update live count (clean, without timestamps)
+        const countEl = document.getElementById('catalogCountTimestamp');
+        const isEn = selectedLanguage === 'en';
+        if (countEl) {
+            countEl.textContent = `${items.length.toLocaleString(isEn ? 'en-US' : 'pt-BR')} ${isEn ? 'items' : 'itens'}`;
+        }
+
         updateItemList(items);
     }
+    window.filterItems = filterItems;
+
+    // Filter and Render Champions in Carousel Mode
+    function filterChampionSkins(searchTokens) {
+        const list = document.getElementById('item-list');
+        if (!list) return;
+        list.innerHTML = '';
+
+        const isEn = selectedLanguage === 'en';
+        const rarityFilter = document.getElementById('chroma-rarity-filter');
+        const rVal = rarityFilter ? rarityFilter.value.toLowerCase() : '';
+        const sortFilter = document.getElementById('chroma-sort-filter');
+        const sVal = sortFilter ? sortFilter.value : 'name_asc';
+        const orderFilter = document.getElementById('chroma-order-filter');
+        const oVal = orderFilter ? orderFilter.value : 'asc';
+
+        let champions = (window.championsList || []).map(ch => ({
+            ...ch,
+            currentSkinIndex: ch.currentSkinIndex || 0
+        }));
+
+        if (searchTokens && searchTokens.length > 0) {
+            champions = champions.filter(champ => {
+                const champNorm = normalizeText(champ.championName);
+                const champMatches = searchTokens.every(t => champNorm.includes(t));
+                if (champMatches) return true;
+
+                // Match by skin name
+                const matchingSkinIndex = champ.skins.findIndex(s => {
+                    const skinNorm = normalizeText(s.name);
+                    return searchTokens.every(t => skinNorm.includes(t));
+                });
+                if (matchingSkinIndex !== -1) {
+                    champ.currentSkinIndex = matchingSkinIndex;
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        // Rarity filter
+        if (rVal) {
+            champions = champions.filter(champ => {
+                const matchIndex = champ.skins.findIndex(s => {
+                    const info = getItemRarityInfo(s.name, s.price_rp, 'Skin', s);
+                    const itemClass = (info.class || '').toLowerCase();
+                    const itemLabel = (info.label || '').toLowerCase();
+                    if (rVal === 'ultimate') return itemClass.includes('ultimate') || itemLabel.includes('ultimate') || info.rank === 6;
+                    if (rVal === 'mythic') return itemClass.includes('mythic') || itemLabel.includes('mythic') || info.rank === 5;
+                    if (rVal === 'legendary') return itemClass.includes('legendary') || itemLabel.includes('legendary') || info.rank === 4;
+                    if (rVal === 'epic') return itemClass.includes('epic') || itemLabel.includes('epic') || info.rank === 3;
+                    if (rVal === 'standard') return itemClass.includes('standard') || itemClass.includes('deluxe') || itemLabel.includes('deluxe') || info.rank === 0;
+                    return itemClass.includes(rVal) || itemLabel.includes(rVal);
+                });
+                if (matchIndex !== -1) {
+                    champ.currentSkinIndex = matchIndex;
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        // Sorting
+        if (sVal === 'name_asc') {
+            champions.sort((a, b) => a.championName.localeCompare(b.championName));
+            if (oVal === 'desc') champions.reverse();
+        } else if (sVal === 'price_asc' || sVal === 'price_desc') {
+            champions.sort((a, b) => {
+                const pA = Number(a.skins[a.currentSkinIndex]?.price_rp) || 0;
+                const pB = Number(b.skins[b.currentSkinIndex]?.price_rp) || 0;
+                return sVal === 'price_asc' ? (pA - pB) : (pB - pA);
+            });
+        } else if (sVal === 'rarity') {
+            champions.sort((a, b) => {
+                const sA = a.skins[a.currentSkinIndex];
+                const sB = b.skins[b.currentSkinIndex];
+                const rA = sA ? getItemRarityInfo(sA.name, sA.price_rp, 'Skin', sA).rank : 0;
+                const rB = sB ? getItemRarityInfo(sB.name, sB.price_rp, 'Skin', sB).rank : 0;
+                if (rA !== rB) return oVal === 'asc' ? (rA - rB) : (rB - rA);
+                return a.championName.localeCompare(b.championName);
+            });
+        }
+
+        // Live count
+        const countEl = document.getElementById('catalogCountTimestamp');
+        if (countEl) {
+            let totalSkins = champions.reduce((acc, c) => acc + (c.skins ? c.skins.length : 0), 0);
+            countEl.textContent = `${champions.length} ${isEn ? 'Champions' : 'Campeões'} · ${totalSkins.toLocaleString()} Skins`;
+        }
+
+        renderChampionCards(champions);
+    }
+
+    function renderChampionCards(champions) {
+        const list = document.getElementById('item-list');
+        if (!list) return;
+        const isEn = selectedLanguage === 'en';
+        const fragment = document.createDocumentFragment();
+
+        champions.forEach(champ => {
+            if (!champ.skins || champ.skins.length === 0) return;
+            const champKey = champ.championKey;
+            const curIdx = champ.currentSkinIndex || 0;
+            const activeSkin = champ.skins[curIdx] || champ.skins[0];
+            const isBase = (curIdx === 0 && activeSkin.isBase);
+            const totalSkinsCount = Math.max(1, champ.skins.length - 1);
+
+            const rarity = isBase 
+                ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
+                : getItemRarityInfo(activeSkin.name, activeSkin.price_rp, 'Skin', activeSkin);
+            const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
+
+            const card = document.createElement('li');
+            card.className = `catalog-card-node champion-skin-card ${rarity.glowClass || ''}`;
+            card.id = `champ_card_${champKey}`;
+            card.style.setProperty('--rarity-color', rarity.color);
+            card.setAttribute('data-rp', activeSkin.price_rp || '0');
+
+            const headerBadge = isBase
+                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #c8aa6e; min-height: 16px; letter-spacing: 0.08em;">
+                     ${isEn ? 'BASE CHAMPION' : 'CAMPEÃO'}
+                   </p>`
+                : (rarity.iconWebp 
+                    ? `<p class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; min-height: 16px;">
+                         <span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span>
+                         <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                       </p>`
+                    : `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; font-size: 10px; min-height: 16px; letter-spacing: 0.08em;">
+                         ${rarity.label}
+                       </p>`);
+
+            const navPrevBtn = champ.skins.length > 1 ? `
+                <button type="button" class="champ-skin-nav-btn champ-skin-nav-prev" onclick="event.stopPropagation(); window.navigateChampionSkin('${champKey}', -1)" title="${isEn ? 'Previous Skin' : 'Skin Anterior'}">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            ` : '';
+
+            const navNextBtn = champ.skins.length > 1 ? `
+                <button type="button" class="champ-skin-nav-btn champ-skin-nav-next" onclick="event.stopPropagation(); window.navigateChampionSkin('${champKey}', 1)" title="${isEn ? 'Next Skin' : 'Próxima Skin'}">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            ` : '';
+
+            const counterLabel = isBase 
+                ? (isEn ? 'Base Skin' : 'Skin Base')
+                : (isEn ? `${curIdx} of ${totalSkinsCount}` : `${curIdx} de ${totalSkinsCount}`);
+
+            let skinDotsHtml = '';
+            if (champ.skins.length > 1 && champ.skins.length <= 15) {
+                skinDotsHtml = `<div class="champ-skin-dots" id="champ_dots_${champKey}">` +
+                    champ.skins.map((s, idx) => `<span class="champ-skin-dot ${idx === cur ? 'active' : ''}" onclick="event.stopPropagation(); window.setChampionSkinIndex('${champKey}', ${idx})" title="${s.name}"></span>`).join('') +
+                `</div>`;
+            }
+
+            card.innerHTML = `
+                <div class="champ-card-header">
+                    <span class="champ-card-title">${champ.championName}</span>
+                    <span class="champ-card-counter" id="champ_counter_${champKey}">${counterLabel}</span>
+                </div>
+                <div class="item-card-thumbnail-box" style="position: relative; overflow: hidden; background: #02070e; aspect-ratio: 3 / 4; display: flex; align-items: center; justify-content: center;">
+                    <img id="champ_thumb_${champKey}" src="${activeSkin.loading_url}" alt="${activeSkin.name}" class="store-card-art" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%;" loading="lazy" onerror="if (this.src !== '${activeSkin.splash_url}') { this.src = '${activeSkin.splash_url}'; } else { this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png'; }">
+                    ${navPrevBtn}
+                    ${navNextBtn}
+                    ${skinDotsHtml}
+                    <button type="button" class="skin-splash-hint" onclick="event.stopPropagation(); window.openChampionWallpaper('${champKey}')" title="${isEn ? 'Enlarge Wallpaper' : 'Ampliar Wallpaper'}">
+                        <i class="fa-solid fa-expand me-1"></i>${isEn ? 'ZOOM' : 'AMPLIAR'}
+                    </button>
+                </div>
+                <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                    <div id="champ_rarity_${champKey}">
+                        ${headerBadge}
+                    </div>
+                    <div class="item-card-name font-semibold" id="champ_name_${champKey}" style="color: #f0e6d2; font-size: 12px; margin-bottom: 6px; line-height: 1.3; min-height: 32px; max-height: 32px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${activeSkin.name}">
+                        ${activeSkin.name}
+                    </div>
+                    <div class="item-card-price-stack" id="champ_prices_${champKey}">
+                        <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
+                        <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
+                    </div>
+                    <button type="button" class="buy-button" id="champ_btn_${champKey}" onclick="event.stopPropagation(); window.selectChampionCardSkin('${champKey}')">
+                        ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
+                    </button>
+                </div>
+            `;
+
+            card.onclick = () => {
+                document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
+                card.classList.add('selected');
+                window.selectChampionCardSkin(champKey);
+            };
+
+            fragment.appendChild(card);
+        });
+
+        list.appendChild(fragment);
+    }
+
+    window.navigateChampionSkin = function(champKey, dir) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins || champ.skins.length <= 1) return;
+
+        let cur = champ.currentSkinIndex || 0;
+        cur = (cur + dir + champ.skins.length) % champ.skins.length;
+        champ.currentSkinIndex = cur;
+
+        const newSkin = champ.skins[cur];
+        const isBase = (cur === 0 && newSkin.isBase);
+        const totalSkinsCount = Math.max(1, champ.skins.length - 1);
+        const isEn = selectedLanguage === 'en';
+
+        const rarity = isBase
+            ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
+            : getItemRarityInfo(newSkin.name, newSkin.price_rp, 'Skin', newSkin);
+        const priceInfo = formatItemPrice(newSkin.price_rp, currentSelectedRegion);
+
+        const imgEl = document.getElementById(`champ_thumb_${champKey}`);
+        const counterEl = document.getElementById(`champ_counter_${champKey}`);
+        const nameEl = document.getElementById(`champ_name_${champKey}`);
+        const rarityEl = document.getElementById(`champ_rarity_${champKey}`);
+        const pricesEl = document.getElementById(`champ_prices_${champKey}`);
+        const cardEl = document.getElementById(`champ_card_${champKey}`);
+        const dotsEl = document.getElementById(`champ_dots_${champKey}`);
+
+        // Smooth subtle transition ("animaçãozinha bem sutil")
+        if (imgEl) {
+            imgEl.classList.add('skin-transitioning');
+            if (nameEl) nameEl.classList.add('champ-skin-info-transitioning');
+            if (rarityEl) rarityEl.classList.add('champ-skin-info-transitioning');
+            if (pricesEl) pricesEl.classList.add('champ-skin-info-transitioning');
+
+            const nextUrl = newSkin.loading_url || newSkin.icon_url;
+            const preImg = new Image();
+            preImg.src = nextUrl;
+
+            setTimeout(() => {
+                imgEl.src = nextUrl;
+                imgEl.classList.remove('skin-transitioning');
+                if (nameEl) nameEl.classList.remove('champ-skin-info-transitioning');
+                if (rarityEl) rarityEl.classList.remove('champ-skin-info-transitioning');
+                if (pricesEl) pricesEl.classList.remove('champ-skin-info-transitioning');
+            }, 180);
+        }
+
+        if (counterEl) {
+            counterEl.textContent = isBase 
+                ? (isEn ? 'Base Skin' : 'Skin Base')
+                : (isEn ? `${cur} of ${totalSkinsCount}` : `${cur} de ${totalSkinsCount}`);
+        }
+        if (dotsEl) {
+            dotsEl.querySelectorAll('.champ-skin-dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === cur);
+            });
+        }
+        if (nameEl) {
+            nameEl.textContent = newSkin.name;
+            nameEl.title = newSkin.name;
+        }
+        if (rarityEl) {
+            rarityEl.innerHTML = isBase
+                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #c8aa6e; min-height: 16px; letter-spacing: 0.08em;">
+                     ${isEn ? 'BASE CHAMPION' : 'CAMPEÃO'}
+                   </p>`
+                : (rarity.iconWebp 
+                    ? `<p class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; min-height: 16px;">
+                         <span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span>
+                         <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                       </p>`
+                    : `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; font-size: 10px; min-height: 16px; letter-spacing: 0.08em;">
+                         ${rarity.label}
+                       </p>`);
+        }
+        if (pricesEl) {
+            pricesEl.innerHTML = `
+                <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
+                <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
+            `;
+        }
+        if (cardEl) {
+            cardEl.style.setProperty('--rarity-color', rarity.color);
+            cardEl.className = `catalog-card-node champion-skin-card ${rarity.glowClass || ''}`;
+        }
+    };
+
+    window.setChampionSkinIndex = function(champKey, targetIdx) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins || targetIdx < 0 || targetIdx >= champ.skins.length) return;
+        const diff = targetIdx - (champ.currentSkinIndex || 0);
+        if (diff === 0) return;
+        window.navigateChampionSkin(champKey, diff);
+    };
+
+    window.selectChampionCardSkin = function(champKey) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins) return;
+        const cur = champ.currentSkinIndex || 0;
+        const activeSkin = champ.skins[cur] || champ.skins[0];
+        const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
+        const priceText = `(${priceInfo.money} · ${priceInfo.rp})`;
+        selectItem(activeSkin, priceText);
+        
+        // Tactile Visual Feedback on button
+        const btn = document.getElementById(`champ_btn_${champKey}`);
+        if (btn) {
+            const originalText = btn.innerHTML;
+            const isEn = selectedLanguage === 'en';
+            btn.innerHTML = `<i class="fa-solid fa-check me-1" style="color: #010a13;"></i> ${isEn ? 'ADDED' : 'ADICIONADO'}`;
+            btn.style.background = 'linear-gradient(180deg, #00ffcc 0%, #0ac8b9 100%)';
+            btn.style.color = '#010a13';
+            btn.style.borderColor = '#00ffcc';
+            btn.style.boxShadow = '0 0 16px rgba(0, 255, 204, 0.7)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.style.borderColor = '';
+                btn.style.boxShadow = '';
+            }, 900);
+        }
+
+        if (typeof toggleGiftingDrawer === 'function') {
+            toggleGiftingDrawer(true);
+        }
+    };
+
+    window.openChampionWallpaper = function(champKey) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins) return;
+        const cur = champ.currentSkinIndex || 0;
+        const activeSkin = champ.skins[cur] || champ.skins[0];
+        
+        const itemKey = 'champ_skin_' + (activeSkin.offer_id || activeSkin.item_id || Math.random().toString(36).substr(2, 9));
+        window.catalogItemsStore = window.catalogItemsStore || {};
+        window.catalogItemsStore[itemKey] = {
+            ...activeSkin,
+            icon_url: activeSkin.splash_url || activeSkin.icon_url,
+            slides: champ.skins.map(s => ({
+                type: 'skin',
+                name: s.name,
+                label: s.name,
+                thumbUrl: s.loading_url,
+                fullUrl: s.splash_url || s.icon_url,
+                isChroma: false
+            })),
+            currentSlide: cur
+        };
+        openWallpaperModal(itemKey);
+    };
+
+    window.selectFeaturedCard = function(name, offerId, priceRp, itemId, invType) {
+        const cardImg = (name.includes('Leblanc') || name.includes('Pass') || name.includes('Passe'))
+            ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg'
+            : ((name.includes('Risen') || name.includes('Ascendida'))
+                ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg'
+                : 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg');
+
+        const item = {
+            name: name,
+            offer_id: offerId,
+            price_rp: priceRp,
+            price_ip: 0,
+            item_id: itemId,
+            icon_url: cardImg,
+            category: 'Bundles',
+            inventory_type: invType || 'BUNDLES'
+        };
+        const priceInfo = formatItemPrice(priceRp, currentSelectedRegion);
+        const priceText = `(${priceInfo.money} · ${priceInfo.rp})`;
+        selectItem(item, priceText);
+        if (typeof toggleGiftingDrawer === 'function') {
+            toggleGiftingDrawer(true);
+        }
+    };
 
     let currentFilteredItems = [];
     let currentRenderIndex = 0;
@@ -606,53 +1319,234 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateItemList(items) {
         const list = document.getElementById('item-list');
+        if (!list) return;
         list.innerHTML = '';
         currentFilteredItems = items;
         currentRenderIndex = 0;
         renderMoreItems();
     }
 
-    function getItemRarityInfo(name, priceRp, category) {
+    function getItemRarityInfo(name, priceRp, category, rawItem) {
         const nameLower = (name || '').toLowerCase();
         const rp = Number(priceRp) || 0;
+        const cat = (category || '').toLowerCase();
+        const isSkin = (cat === 'skins' || cat === 'skin' || (rawItem && (rawItem.inventory_type === 'CHAMPION_SKIN' || rawItem.inventoryType === 'CHAMPION_SKIN')));
 
-        if (nameLower.includes('croma') || nameLower.includes('chroma') || rp === 290) {
-            return { label: 'CHROMA', class: 'rarity-chroma', icon: 'fa-palette' };
+        if (cat === 'bundles' || cat === 'bundle' || nameLower.startsWith('pacote') || nameLower.startsWith('bundle') || nameLower.includes('conjunto') || nameLower.includes('coleção') || nameLower.includes('passe')) {
+            return { 
+                label: 'BUNDLE', 
+                class: 'rarity-bundle', 
+                glowClass: 'rarity-glow-bundle',
+                color: '#c8aa6e',
+                iconWebp: null, 
+                icon: 'fa-ticket',
+                rank: 2
+            };
         }
-        if (nameLower.includes('baú') || nameLower.includes('hextech') || nameLower.includes('chave') || nameLower.includes('orbe')) {
-            return { label: 'HEXTECH', class: 'rarity-hextech', icon: 'fa-box-open' };
+        if (cat === 'loot' || nameLower.includes('baú') || nameLower.includes('hextech') || nameLower.includes('chave') || nameLower.includes('orbe')) {
+            return { 
+                label: 'HEXTECH', 
+                class: 'rarity-hextech', 
+                glowClass: 'rarity-glow-mythic',
+                color: '#a855f7',
+                iconWebp: null, 
+                icon: 'fa-box-open',
+                rank: 2
+            };
         }
-        if (rp >= 3200 || nameLower.includes('ultimato') || nameLower.includes('ultimate')) {
-            return { label: 'ULTIMATE', class: 'rarity-ultimate', icon: 'fa-crown' };
+        if (cat === 'chromas' || cat === 'chroma' || nameLower.includes('croma') || nameLower.includes('chroma') || (rawItem && rawItem.subInventoryType === 'RECOLOR') || rp === 290) {
+            const isMythicChroma = nameLower.includes('t1 mvp') || nameLower.includes('cripta de magma') || nameLower.includes('prestígio') || nameLower.includes('prestige') || nameLower.includes('ascendida') || nameLower.includes('imortalizada') || nameLower.includes('faker') || nameLower.includes('mythic') || nameLower.includes('mítica');
+            if (isMythicChroma) {
+                return { 
+                    label: 'MYTHIC', 
+                    class: 'rarity-mythic', 
+                    glowClass: 'rarity-glow-mythic',
+                    color: '#a855f7',
+                    iconWebp: '/static/raridades/mythic.webp', 
+                    icon: 'fa-gem',
+                    rank: 5
+                };
+            }
+            const isLegendaryChroma = nameLower.includes('lendária') || nameLower.includes('legendary') || nameLower.includes('projeto: vayne') || nameLower.includes('project: vayne') || nameLower.includes('projeto: pyke') || nameLower.includes('project: pyke') || nameLower.includes('projeto: mordekaiser') || nameLower.includes('project: mordekaiser') || nameLower.includes('projeto: renekton') || nameLower.includes('project: renekton');
+            if (isLegendaryChroma) {
+                return { 
+                    label: 'LEGENDARY', 
+                    class: 'rarity-legendary', 
+                    glowClass: 'rarity-glow-legendary',
+                    color: '#ff4655',
+                    iconWebp: '/static/raridades/legendary.webp', 
+                    icon: 'fa-dragon',
+                    rank: 4
+                };
+            }
+            return { 
+                label: 'CHROMA', 
+                class: 'rarity-chroma', 
+                glowClass: 'rarity-glow-chroma',
+                color: '#ec4899',
+                iconWebp: '/static/raridades/chroma.webp', 
+                icon: 'fa-palette',
+                rank: 1
+            };
         }
-        if (rp >= 2400 || nameLower.includes('mítica') || nameLower.includes('mythic') || nameLower.includes('exalted') || nameLower.includes('ascendida')) {
-            return { label: 'MYTHIC', class: 'rarity-mythic', icon: 'fa-gem' };
+        if (cat === 'eternals' || cat === 'eternal' || nameLower.includes('eterno') || nameLower.includes('statstone')) {
+            return { 
+                label: 'ETERNALS', 
+                class: 'rarity-deluxe', 
+                glowClass: 'rarity-glow-standard',
+                color: '#c8aa6e',
+                iconWebp: null, 
+                icon: 'fa-shield-halved',
+                rank: 2
+            };
         }
-        if (rp === 1820 || nameLower.includes('lendária') || nameLower.includes('legendary')) {
-            return { label: 'LEGENDARY', class: 'rarity-legendary', icon: 'fa-dragon' };
+        if (cat === 'boosts' || cat === 'boost') {
+            return { 
+                label: 'BOOST', 
+                class: 'rarity-deluxe', 
+                glowClass: 'rarity-glow-standard',
+                color: '#0ac8b9',
+                iconWebp: null, 
+                icon: 'fa-bolt',
+                rank: 0
+            };
         }
-        if (rp === 1350 || nameLower.includes('épica') || nameLower.includes('epic')) {
-            return { label: 'EPIC', class: 'rarity-epic', icon: 'fa-bolt' };
+        if (cat === 'littlelegends' || cat === 'companions') {
+            return { 
+                label: 'PEQUENA LENDA', 
+                class: 'rarity-deluxe', 
+                glowClass: 'rarity-glow-standard',
+                color: '#0ac8b9',
+                iconWebp: null, 
+                icon: 'fa-paw',
+                rank: 0
+            };
         }
-        if (nameLower.includes('passe') || nameLower.includes('pacote') || nameLower.includes('conjunto') || nameLower.includes('coleção')) {
-            return { label: 'BUNDLE', class: 'rarity-bundle', icon: 'fa-ticket' };
+
+        const isExplicitUltimate = nameLower.includes('dj sona') || 
+                                   nameLower.includes('elementalista') || 
+                                   nameLower.includes('pulsefire ezreal') || 
+                                   (nameLower.includes('soul fighter') && nameLower.includes('samira')) || 
+                                   nameLower.includes('seraphine k/da all out') || 
+                                   (nameLower.includes('guardião espiritual') && nameLower.includes('udyr')) || 
+                                   nameLower.includes('vingadora exocósmica') ||
+                                   (rawItem && (rawItem.rarity === 'kUltimate' || rawItem.rarity === 'ultimate'));
+
+        if ((isSkin && (rp >= 2775 || isExplicitUltimate)) || (rawItem && (rawItem.rarity === 'kUltimate' || rawItem.rarity === 'ultimate'))) {
+            return { 
+                label: 'ULTIMATE', 
+                class: 'rarity-ultimate', 
+                glowClass: 'rarity-glow-ultimate',
+                color: '#ff8200',
+                iconWebp: '/static/raridades/ultimate.webp', 
+                icon: 'fa-crown',
+                rank: 6
+            };
         }
-        return { label: 'DELUXE', class: 'rarity-standard', icon: 'fa-shield-halved' };
+        if (isSkin && (rp >= 2400 || nameLower.includes('mítica') || nameLower.includes('mythic') || nameLower.includes('ascendida') || nameLower.includes('imortalizada'))) {
+            return { 
+                label: 'MYTHIC', 
+                class: 'rarity-mythic', 
+                glowClass: 'rarity-glow-mythic',
+                color: '#a855f7',
+                iconWebp: '/static/raridades/mythic.webp', 
+                icon: 'fa-gem',
+                rank: 5
+            };
+        }
+        if (isSkin && (rp === 1820 || nameLower.includes('lendária') || nameLower.includes('legendary') || (rawItem && rawItem.rarity === 'kLegendary'))) {
+            return { 
+                label: 'LEGENDARY', 
+                class: 'rarity-legendary', 
+                glowClass: 'rarity-glow-legendary',
+                color: '#ff4655',
+                iconWebp: '/static/raridades/legendary.webp', 
+                icon: 'fa-dragon',
+                rank: 4
+            };
+        }
+        if (isSkin && (rp === 1350 || nameLower.includes('épica') || nameLower.includes('epic') || (rawItem && rawItem.rarity === 'kEpic'))) {
+            return { 
+                label: 'EPIC', 
+                class: 'rarity-epic', 
+                glowClass: 'rarity-glow-epic',
+                color: '#0ac8b9',
+                iconWebp: '/static/raridades/epic.webp', 
+                icon: 'fa-bolt',
+                rank: 3
+            };
+        }
+        return { 
+            label: 'DELUXE', 
+            class: 'rarity-standard', 
+            glowClass: 'rarity-glow-standard',
+            color: '#c8aa6e',
+            iconWebp: null, 
+            icon: 'fa-shield-halved',
+            rank: 0
+        };
     }
+    window.getItemRarityInfo = getItemRarityInfo;
+
+    // =========================================================================
+    // PRICE CALCULATION & CURRENCY CONVERSION (LOLGIFTING 1:1)
+    // =========================================================================
+    let currentSelectedRegion = localStorage.getItem('lg_gift_region') || 'BR';
+
+    function formatItemPrice(rawRp, region) {
+        const rpNum = Number(rawRp) || 0;
+        const isBr = (region || currentSelectedRegion || 'BR').toUpperCase() === 'BR';
+        const rpFormatted = rpNum > 0 ? `${rpNum.toLocaleString('pt-BR')} RP` : '0 RP';
+        
+        if (rpNum <= 0) {
+            return {
+                money: isBr ? 'R$ 0,00' : '€ 0,00',
+                rp: '0 RP',
+                currency: isBr ? 'R$' : '€',
+                amount: 0
+            };
+        }
+
+        if (isBr) {
+            // lolgifting ratio: 3250 RP = R$ 65,00 (ratio 0.02)
+            const brl = rpNum * 0.02;
+            const moneyFormatted = `R$ ${brl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return {
+                money: moneyFormatted,
+                rp: rpFormatted,
+                currency: 'R$',
+                amount: brl
+            };
+        } else {
+            // Outside BR: 3250 RP = € 32,50 (ratio 0.01)
+            const eur = rpNum * 0.01;
+            const moneyFormatted = `€ ${eur.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return {
+                money: moneyFormatted,
+                rp: rpFormatted,
+                currency: '€',
+                amount: eur
+            };
+        }
+    }
+    window.formatItemPrice = formatItemPrice;
 
     function renderMoreItems() {
         const list = document.getElementById('item-list');
-        if (!currentFilteredItems || currentRenderIndex >= currentFilteredItems.length) return;
+        if (!list || !currentFilteredItems || currentRenderIndex >= currentFilteredItems.length) return;
 
         const fragment = document.createDocumentFragment();
         const nextChunk = currentFilteredItems.slice(currentRenderIndex, currentRenderIndex + CHUNK_SIZE);
         
         nextChunk.forEach(item => {
+            const isEn = selectedLanguage === 'en';
             const listItem = document.createElement('li');
-            listItem.className = 'catalog-card-node';
-
             const rarity = getItemRarityInfo(item.name, item.price_rp, item.category);
+            listItem.className = `catalog-card-node ${rarity.glowClass || ''}`;
+            listItem.style.setProperty('--rarity-color', rarity.color);
+            listItem.setAttribute('data-rp', item.price_rp || '0');
 
+            const priceInfo = formatItemPrice(item.price_rp, currentSelectedRegion);
             const isInvalidPrice = price => 
                 price === null || 
                 price === undefined || 
@@ -661,26 +1555,332 @@ document.addEventListener('DOMContentLoaded', function() {
                 price === "0";
 
             let rpDisplay = isInvalidPrice(item.price_rp) ? '0' : item.price_rp;
-            let priceText = `(${rpDisplay} RP)`;
+            let priceText = `(${priceInfo.money} · ${priceInfo.rp})`;
 
-            const defaultImg = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-store/global/default/images/icon-mystery-item.png";
-            const cardImg = item.icon_url || defaultImg;
+            const defaultImg = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png";
+            
+            const isBundle = Boolean(
+                item.category === 'Bundles' || 
+                item.category === 'Bundle' || 
+                item.category === 'Pacotes' || 
+                item.category === 'Pacote' || 
+                item.inventory_type === 'BUNDLES' || 
+                item.inventory_type === 'BUNDLE' || 
+                (item.name && (
+                    item.name.startsWith('Pacote') || 
+                    item.name.startsWith('Bundle') || 
+                    item.name.startsWith('Coleção') || 
+                    item.name.startsWith('Collection') ||
+                    item.name.startsWith('Conjunto') ||
+                    item.name.includes('Collection') ||
+                    item.name.includes('Coleção') ||
+                    item.name.includes('Legend') ||
+                    item.name.includes('Lenda') ||
+                    item.name.includes('Assinatura') ||
+                    item.name.includes('Signature') ||
+                    item.name.includes('Chroma Bundle') ||
+                    item.name.includes('Pacote Croma')
+                ))
+            );
+
+            const isChroma = !isBundle && Boolean(
+                item.category === 'Chromas' || 
+                item.category === 'Chroma' || 
+                item.category === 'Cromas' || 
+                item.category === 'Croma' || 
+                item.inventory_type === 'CHROMA' || 
+                (
+                    item.name && 
+                    item.name.includes('(') && 
+                    item.name.includes(')') && 
+                    !item.name.includes('(20') && 
+                    !item.name.includes('(19') && 
+                    !item.name.includes('Ato') && 
+                    !item.name.includes('Act') &&
+                    !item.name.includes('Legend') &&
+                    !item.name.includes('Lenda') &&
+                    !item.name.includes('Collection') &&
+                    !item.name.includes('Coleção') &&
+                    !item.name.includes('Bundle') &&
+                    !item.name.includes('Pacote') &&
+                    item.category !== 'Skins' &&
+                    item.category !== 'Skin' &&
+                    item.category !== 'Champions' &&
+                    item.category !== 'Champion' &&
+                    item.category !== 'Passes' &&
+                    item.category !== 'Pass' &&
+                    item.category !== 'Bundles' &&
+                    item.category !== 'Bundle' &&
+                    item.category !== 'Pacotes' &&
+                    item.category !== 'Pacote'
+                )
+            );
+            
+            let cardImg = item.icon_url || defaultImg;
+            if (isChroma && item.item_id) {
+                const cid = Number(item.item_id);
+                const champId = Math.floor(cid / 1000);
+                cardImg = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/${champId}/${cid}.png`;
+            } else if (isBundle) {
+                // Hall of Legends collections explicit splash guarantee
+                if (item.name && (item.name.includes('Lenda Ascendida') || item.name.includes('Risen Legend'))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg';
+                } else if (item.name && (item.name.includes('Lenda Imortalizada') || item.name.includes('Immortalized Legend') || item.name.includes('Assinatura') || item.name.includes('Signature'))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg';
+                } else if (item.name && (item.name.includes('Hall of Legends') && (item.name.includes('Pass') || item.name.includes('Passe')))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg';
+                } else {
+                    const cleanName = (item.name || '').replace(/^Pacote\s+Croma\s+/i, '').replace(/^Chroma\s+Bundle\s+/i, '').toLowerCase().trim();
+                    if (window.skinToSplashMap && window.skinToSplashMap[cleanName]) {
+                        const splashInfo = window.skinToSplashMap[cleanName];
+                        cardImg = splashInfo.splash;
+                    } else if (!cardImg || cardImg.includes('cloudfront.net') || cardImg.includes('chest_generic')) {
+                        const found = (catalogIndexedItems || []).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('cloudfront.net') && !s.icon_url.includes('chest_generic'));
+                        if (found) {
+                            cardImg = found.icon_url;
+                        } else {
+                            const fallbackFound = Object.values(window.catalogItemsStore || {}).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('cloudfront.net') && !s.icon_url.includes('chest_generic'));
+                            if (fallbackFound) cardImg = fallbackFound.icon_url;
+                        }
+                    }
+                }
+            } else if (!cardImg || cardImg.includes('cloudfront.net')) {
+                cardImg = defaultImg;
+            }
+
+            const rarityBadgeHtml = rarity.iconWebp 
+                ? `<p class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color};">
+                     <span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span>
+                     <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                   </p>`
+                : `<p class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color};">
+                     <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                   </p>`;
+
+            const safeItemJson = JSON.stringify({
+                name: item.name,
+                price_rp: item.price_rp,
+                price_ip: item.price_ip,
+                offer_id: item.offer_id,
+                item_id: item.item_id,
+                inventory_type: item.inventory_type,
+                icon_url: cardImg
+            }).replace(/"/g, '&quot;');
+
+            // Find chromas belonging to this item (for Bundles or Skins)
+            let baseSkinName = (item.name || '').trim();
+            if (isBundle) {
+                baseSkinName = baseSkinName.replace(/^Pacote\s+Croma\s+/i, '').replace(/^Chroma\s+Bundle\s+/i, '').trim();
+            }
+            const itemChromas = (window.skinChromasMap && window.skinChromasMap[baseSkinName.toLowerCase()]) ? window.skinChromasMap[baseSkinName.toLowerCase()] : [];
+            
+            let cardThumbImg = cardImg;
+            const isWideSplash = cardImg && cardImg.includes('/cdn/img/champion/splash/');
+            if (isWideSplash) {
+                cardThumbImg = cardImg.replace('/splash/', '/loading/');
+            }
+
+            const itemSlides = [
+                {
+                    type: 'skin',
+                    name: isBundle ? `${item.name} (${isEn ? 'Base Skin' : 'Skin Base'})` : item.name,
+                    label: isEn ? 'Base Skin' : 'Skin Base',
+                    thumbUrl: cardThumbImg,
+                    fullUrl: cardImg,
+                    isChroma: false
+                }
+            ];
+            if (itemChromas && itemChromas.length > 0) {
+                itemChromas.forEach((chr, idx) => {
+                    itemSlides.push({
+                        type: 'chroma',
+                        name: chr.fullName,
+                        label: chr.color,
+                        thumbUrl: chr.icon_url,
+                        fullUrl: chr.icon_url,
+                        isChroma: true,
+                        chromaIndex: idx + 1,
+                        chromasTotal: itemChromas.length
+                    });
+                });
+            }
+
+            window.catalogItemsStore = window.catalogItemsStore || {};
+            const itemKey = 'item_' + (item.offer_id || item.item_id || Math.random().toString(36).substr(2, 9));
+            window.catalogItemsStore[itemKey] = {
+                ...item,
+                icon_url: cardImg,
+                slides: itemSlides,
+                currentSlide: 0
+            };
+
+            let thumbnailContent = '';
+            if (isChroma) {
+                thumbnailContent = `
+                    <span class="rarity-beams" aria-hidden="true"></span>
+                    <div class="item-card-thumbnail-box" style="position: relative; overflow: hidden; background: #02070e; aspect-ratio: 3 / 4; display: flex; align-items: center; justify-content: center; border-radius: 5px 5px 0 0;">
+                        <img src="${cardImg}" alt="${item.name}" class="store-card-art store-card-chroma-model" style="max-width: 90%; max-height: 90%; width: auto; height: auto; object-fit: contain; padding: 12px 6px;" loading="lazy" onerror="this.onerror=null;this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                        <span class="chroma-corner-pill"><img src="/static/raridades/chroma.webp" alt="Chroma"> Chroma</span>
+                    </div>
+                `;
+            } else if (item.category === 'Icons' || item.category === 'Ícones' || (cardImg && cardImg.includes('profileicon'))) {
+                thumbnailContent = `
+                    <span class="rarity-beams" aria-hidden="true"></span>
+                    <div class="item-card-square-box" id="thumb_box_${itemKey}">
+                        <div class="summoner-icon-frame">
+                            <img id="thumb_img_${itemKey}" src="${cardImg}" alt="${item.name}" class="summoner-icon-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://ddragon.leagueoflegends.com/cdn/14.12.1/img/profileicon/1103.png';">
+                        </div>
+                    </div>
+                `;
+            } else if (item.category === 'Emotes' || (cardImg && (cardImg.includes('summoneremotes') || cardImg.includes('emotes')))) {
+                thumbnailContent = `
+                    <span class="rarity-beams" aria-hidden="true"></span>
+                    <div class="item-card-square-box" id="thumb_box_${itemKey}">
+                        <div class="emote-frame">
+                            <img id="thumb_img_${itemKey}" src="${cardImg}" alt="${item.name}" class="emote-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                        </div>
+                    </div>
+                `;
+            } else if (item.category === 'Eternals' || item.inventory_type === 'STATSTONE' || (item.category === 'Eternos')) {
+                const nameLower = (item.name || '').toLowerCase();
+                const isPass = nameLower.includes('passe') || nameLower.includes('pass');
+                const isSeries2 = nameLower.includes('série 2') || nameLower.includes('series 2');
+                const isStarter = nameLower.includes('inicial') || nameLower.includes('starter');
+
+                let stoneImg = '';
+                let seriesLabel = '';
+
+                if (isPass) {
+                    if (isSeries2) {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/pass2.png';
+                        seriesLabel = isEn ? 'PASS · SERIES 2' : 'PASSE · SÉRIE 2';
+                    } else if (isStarter) {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/passstarter.png';
+                        seriesLabel = isEn ? 'PASS · STARTER' : 'PASSE · SÉRIE INICIAL';
+                    } else {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/pass1.png';
+                        seriesLabel = isEn ? 'PASS · SERIES 1' : 'PASSE · SÉRIE 1';
+                    }
+                } else {
+                    if (isSeries2) {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/series2.png';
+                        seriesLabel = isEn ? 'SERIES 2' : 'SÉRIE 2';
+                    } else if (isStarter) {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/seriesstarter.png';
+                        seriesLabel = isEn ? 'STARTER' : 'SÉRIE INICIAL';
+                    } else {
+                        stoneImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/store/statstones/series1.png';
+                        seriesLabel = isEn ? 'SERIES 1' : 'SÉRIE 1';
+                    }
+                }
+
+                // If not a pass, display the champion icon badge alongside the eternal
+                const champBadgeHtml = (!isPass && cardImg && cardImg.includes('champion')) ? `
+                    <div class="eternal-champ-badge" title="${item.name.split('-')[0].trim()}">
+                        <img src="${cardImg}" alt="${item.name}" class="eternal-champ-avatar" loading="lazy" decoding="async">
+                    </div>
+                ` : '';
+
+                thumbnailContent = `
+                    <span class="rarity-beams" aria-hidden="true"></span>
+                    <div class="eternal-card-thumbnail-box" id="thumb_box_${itemKey}">
+                        <span class="eternal-series-badge"><i class="fa-solid fa-gem me-1" style="color: #0ac8b9; font-size: 8px;"></i>${seriesLabel}</span>
+                        <div class="eternal-stone-container">
+                            <img src="${stoneImg}" alt="${seriesLabel}" class="eternal-stone-img" loading="lazy" decoding="async">
+                        </div>
+                        ${champBadgeHtml}
+                    </div>
+                `;
+            } else {
+                const isSquareItem = (item.category === 'Wards' || item.category === 'Sentinelas' || (cardImg && cardImg.includes('ward')));
+                const imgClass = isSquareItem ? 'store-card-art store-card-square' : 'store-card-art';
+                const imgStyle = isSquareItem 
+                    ? 'object-fit: contain; width: auto; height: auto; max-width: 78%; max-height: 78%; margin: auto; display: block;'
+                    : 'width: 100%; height: 100%; object-fit: cover; object-position: center 15%;';
+
+                const zoomButton = !isSquareItem ? `
+                    <button type="button" class="skin-splash-hint" onclick="event.stopPropagation(); window.openWallpaperModal('${itemKey}')" title="${isEn ? 'Enlarge Wallpaper' : 'Ampliar Wallpaper'}">
+                        <i class="fa-solid fa-expand me-1"></i>${isEn ? 'ZOOM' : 'AMPLIAR'}
+                    </button>
+                ` : '';
+
+                const carouselButtons = itemSlides.length > 1 ? `
+                    <button type="button" class="card-carousel-btn card-carousel-prev" onclick="event.stopPropagation(); window.navigateCardSlide('${itemKey}', -1)" title="${isEn ? 'Previous' : 'Anterior'}">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="card-carousel-btn card-carousel-next" onclick="event.stopPropagation(); window.navigateCardSlide('${itemKey}', 1)" title="${isEn ? 'Next' : 'Próximo'}">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <div class="card-chroma-indicator-pill" id="chroma_pill_${itemKey}">
+                        <i class="fa-solid fa-layer-group me-1"></i> ${isBundle ? (isEn ? `Bundle · ${itemChromas.length} Chromas` : `Pacote · ${itemChromas.length} Cromas`) : (isEn ? `${itemChromas.length} Chromas available` : `${itemChromas.length} Cromas disponíveis`)}
+                    </div>
+                ` : '';
+
+                const isPassItem = item.category === 'Passes' || item.category === 'Pass' || item.inventory_type === 'EVENT_PASS' || (item.name && (item.name.toLowerCase().includes('pass') || item.name.toLowerCase().includes('passe')));
+                const isChromaBundle = isBundle && (item.name.startsWith('Pacote Croma') || item.name.startsWith('Chroma Bundle'));
+                const isSignatureCollection = isBundle && (item.name && (item.name.includes('Assinatura') || item.name.includes('Signature')));
+                const isHolCollection = isBundle && !isSignatureCollection && !isPassItem && (item.name && (item.name.includes('Lenda') || item.name.includes('Legend')));
+
+                let bundleBadgeHtml = '';
+                if (isPassItem) {
+                    const isHolPass = item.name && (item.name.includes('Hall of Legends') || item.name.includes('Lenda'));
+                    const isPremium = item.name && (item.name.includes('Premium') || item.name.includes('Bundle'));
+                    if (isHolPass) {
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #0ac8b9; color: #f0e6d2; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #0ac8b9;"></i> ${isEn ? 'PASS · 2026' : 'PASSE · 2026'}</span>`;
+                    } else if (isPremium) {
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #c8aa6e; color: #f0e6d2; background: rgba(15, 20, 30, 0.92);"><i class="fa-solid fa-gem" style="color: #c8aa6e;"></i> ${isEn ? 'PASS BUNDLE' : 'PACOTE PASSE'}</span>`;
+                    } else {
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #0ac8b9; color: #f0e6d2; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #0ac8b9;"></i> ${isEn ? 'EVENT PASS' : 'PASSE DE EVENTO'}</span>`;
+                    }
+                } else if (isChromaBundle) {
+                    bundleBadgeHtml = `<span class="bundle-chroma-badge"><i class="fa-solid fa-palette"></i> ${isEn ? 'Chroma Bundle' : 'Pacote Croma'}</span>`;
+                } else if (isSignatureCollection) {
+                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #f0e6d2; color: #f0e6d2; background: rgba(14, 25, 42, 0.92); box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);"><i class="fa-solid fa-signature" style="color: #c8aa6e;"></i> ${isEn ? 'FAKER SIGNATURE' : 'EDIÇÃO AUTOGRAFADA'}</span>`;
+                } else if (isHolCollection) {
+                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #c8aa6e; color: #f0e6d2; background: rgba(10, 18, 30, 0.9);"><i class="fa-solid fa-crown" style="color: #c8aa6e;"></i> ${isEn ? 'COLLECTION' : 'COLEÇÃO OFICIAL'}</span>`;
+                }
+
+                thumbnailContent = `
+                    <span class="rarity-beams" aria-hidden="true"></span>
+                    <div class="item-card-thumbnail-box" id="thumb_box_${itemKey}" style="position: relative; overflow: hidden; background: #02070e; aspect-ratio: 3 / 4; border-radius: 5px 5px 0 0; display: flex; align-items: center; justify-content: center;">
+                        <img id="thumb_img_${itemKey}" src="${cardThumbImg}" alt="${item.name}" class="${imgClass}" style="${imgStyle}" loading="lazy" onerror="if (this.src !== '${cardImg}') { this.src = '${cardImg}'; } else { this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png'; }">
+                        ${bundleBadgeHtml}
+                        ${carouselButtons}
+                        ${zoomButton}
+                    </div>
+                `;
+            }
+
+            let catTag = (item.category || '').toUpperCase();
+            if (catTag === 'SKIN' || catTag === 'SKINS') catTag = 'SKINS';
+            else if (catTag === 'CHROMA' || catTag === 'CHROMAS') catTag = 'CHROMAS';
+            else if (catTag === 'BUNDLE' || catTag === 'BUNDLES') catTag = isEn ? 'BUNDLES' : 'PACOTES';
+            else if (catTag === 'CHAMPION' || catTag === 'CHAMPIONS') catTag = isEn ? 'CHAMPIONS' : 'CAMPEÕES';
+            else if (catTag === 'EMOTE' || catTag === 'EMOTES') catTag = 'EMOTES';
+            else if (catTag === 'ICON' || catTag === 'ICONS') catTag = isEn ? 'ICONS' : 'ÍCONES';
+            else if (catTag === 'WARD' || catTag === 'WARDS') catTag = isEn ? 'WARDS' : 'SENTINELAS';
+
+            const headerBadge = rarity.iconWebp 
+                ? `<p class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; min-height: 16px;">
+                     <span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span>
+                     <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                   </p>`
+                : `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #6a7c92; font-size: 10px; min-height: 16px; letter-spacing: 0.08em;">
+                     ${catTag}
+                   </p>`;
 
             listItem.innerHTML = `
-                <div class="item-card-thumbnail-box">
-                    <img src="${cardImg}" alt="${item.name}" class="item-card-thumb-img" loading="lazy" onerror="this.onerror=null;this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg';">
-                    <span class="item-rarity-pill ${rarity.class}" style="position: absolute; top: 6px; right: 6px;">${rarity.label}</span>
-                </div>
-                <div class="item-card-body">
-                    <div class="item-card-name" title="${item.name}">${item.name}</div>
-                    <div class="item-card-meta-row">
-                        <div class="item-card-rp-price">
-                            <span class="rp-icon-gold">RP</span> ${rpDisplay}
-                        </div>
-                        <button type="button" class="btn-saas-outline" style="padding: 2px 7px; font-size: 10px;" title="Presentear">
-                            <i class="fa-solid fa-gift"></i>
-                        </button>
+                ${thumbnailContent}
+                <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                    ${headerBadge}
+                    <div class="item-card-name font-semibold" style="color: #f0e6d2; font-size: 12px; margin-bottom: 6px; line-height: 1.3; min-height: 32px; max-height: 32px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
+                    <div class="item-card-price-stack">
+                        <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
+                        <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
                     </div>
+                    <button type="button" class="buy-button" onclick="event.stopPropagation(); selectCardGift(${safeItemJson}, '${priceText.replace(/'/g, "\\'")}')">
+                        ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
+                    </button>
                 </div>
             `;
 
@@ -699,7 +1899,200 @@ document.addEventListener('DOMContentLoaded', function() {
         currentRenderIndex += CHUNK_SIZE;
     }
 
-    // Scroll listener for lazy loading remaining catalog items smoothly
+    function selectCardGift(item, priceText) {
+        selectItem(item, priceText);
+        if (typeof toggleGiftingDrawer === 'function') {
+            toggleGiftingDrawer(true);
+        }
+    }
+    window.selectCardGift = selectCardGift;
+
+    // Card Thumbnail Slide Navigation (Interactive Chroma & Skin Preview)
+    window.navigateCardSlide = function(itemKey, dir) {
+        const stored = window.catalogItemsStore ? window.catalogItemsStore[itemKey] : null;
+        if (!stored || !stored.slides || stored.slides.length <= 1) return;
+
+        let cur = stored.currentSlide || 0;
+        cur = (cur + dir + stored.slides.length) % stored.slides.length;
+        stored.currentSlide = cur;
+
+        const slide = stored.slides[cur];
+        const imgEl = document.getElementById('thumb_img_' + itemKey);
+        const pillEl = document.getElementById('chroma_pill_' + itemKey);
+
+        if (imgEl) {
+            imgEl.style.opacity = '0.35';
+            setTimeout(() => {
+                imgEl.src = slide.thumbUrl;
+                if (slide.isChroma) {
+                    imgEl.className = 'store-card-art store-card-chroma-model';
+                    imgEl.style.objectFit = 'contain';
+                    imgEl.style.maxWidth = '88%';
+                    imgEl.style.maxHeight = '88%';
+                    imgEl.style.padding = '12px 6px';
+                } else {
+                    imgEl.className = 'store-card-art';
+                    imgEl.style.objectFit = 'cover';
+                    imgEl.style.objectPosition = 'center 15%';
+                    imgEl.style.maxWidth = '100%';
+                    imgEl.style.maxHeight = '100%';
+                    imgEl.style.padding = '0';
+                }
+                imgEl.style.opacity = '1';
+            }, 80);
+        }
+
+        if (pillEl) {
+            const isEn = window.selectedLanguage === 'en';
+            if (cur === 0) {
+                pillEl.innerHTML = `<i class="fa-solid fa-star me-1" style="color: #c8aa6e;"></i> ${isEn ? 'Base Skin' : 'Skin Base'} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(0/${stored.slides.length - 1})</span>`;
+            } else {
+                pillEl.innerHTML = `<i class="fa-solid fa-palette me-1" style="color: #ec4899;"></i> ${slide.label} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(${cur}/${stored.slides.length - 1})</span>`;
+            }
+        }
+    };
+
+    // Fullscreen Wallpaper / Splash Art Modal Logic (1:1 Lolgifting Cinematic View with Chromas)
+    window.modalCurrentItemKey = null;
+    window.modalCurrentSlideIndex = 0;
+
+    function openWallpaperModal(itemKey) {
+        let item = (window.catalogItemsStore && window.catalogItemsStore[itemKey]) ? window.catalogItemsStore[itemKey] : null;
+        if (!item && Array.isArray(window.currentFilteredItems)) {
+            item = window.currentFilteredItems.find(i => ('item_' + (i.offer_id || i.item_id)) === itemKey);
+        }
+        if (!item) return;
+
+        window.modalCurrentItemKey = itemKey;
+        window.modalCurrentSlideIndex = item.currentSlide || 0;
+
+        let modal = document.getElementById('wallpaperLightboxModal');
+        if (!modal) return;
+
+        renderModalSlide();
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    window.openWallpaperModal = openWallpaperModal;
+
+    function renderModalSlide() {
+        const itemKey = window.modalCurrentItemKey;
+        const item = window.catalogItemsStore ? window.catalogItemsStore[itemKey] : null;
+        if (!item) return;
+
+        const defaultImg = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-store/global/default/images/icon-mystery-item.png";
+        const baseSplash = (item.icon_url || defaultImg).replace('/loading/', '/splash/');
+
+        const slides = item.slides && item.slides.length > 0 ? item.slides : [
+            {
+                type: 'skin',
+                name: item.name,
+                label: 'Skin',
+                fullUrl: baseSplash,
+                isChroma: false
+            }
+        ];
+
+        let cur = window.modalCurrentSlideIndex || 0;
+        if (cur < 0) cur = 0;
+        if (cur >= slides.length) cur = slides.length - 1;
+        window.modalCurrentSlideIndex = cur;
+
+        const slide = slides[cur];
+        const imgEl = document.getElementById('wallpaperModalImage');
+        const titleEl = document.getElementById('wallpaperModalItemName');
+        const prevBtn = document.getElementById('modalNavPrev');
+        const nextBtn = document.getElementById('modalNavNext');
+        const stripEl = document.getElementById('modalChromaStrip');
+
+        if (prevBtn) prevBtn.style.display = slides.length > 1 ? 'flex' : 'none';
+        if (nextBtn) nextBtn.style.display = slides.length > 1 ? 'flex' : 'none';
+
+        if (titleEl) {
+            if (cur === 0) {
+                titleEl.textContent = (item.name || '').toUpperCase();
+            } else {
+                titleEl.innerHTML = `${(item.name || '').toUpperCase()} <span style="color: #ec4899; font-size: 16px; margin-left: 8px;">· CROMA ${slide.label.toUpperCase()} (${cur}/${slides.length - 1})</span>`;
+            }
+        }
+
+        if (imgEl) {
+            imgEl.style.opacity = '0.35';
+            setTimeout(() => {
+                imgEl.src = slide.fullUrl;
+                imgEl.alt = slide.name;
+                if (slide.isChroma) {
+                    imgEl.style.objectFit = 'contain';
+                    imgEl.style.maxHeight = '72vh';
+                    imgEl.style.maxWidth = '72vw';
+                    imgEl.style.padding = '24px';
+                    imgEl.style.background = 'radial-gradient(circle, rgba(10, 25, 45, 0.8) 0%, rgba(2, 7, 14, 0.95) 75%)';
+                } else {
+                    imgEl.style.objectFit = 'contain';
+                    imgEl.style.maxHeight = '82vh';
+                    imgEl.style.maxWidth = '90vw';
+                    imgEl.style.padding = '0';
+                    imgEl.style.background = 'none';
+                }
+                imgEl.style.opacity = '1';
+            }, 80);
+        }
+
+        if (stripEl) {
+            if (slides.length > 1) {
+                stripEl.innerHTML = slides.map((s, idx) => `
+                    <div class="modal-chroma-dot ${idx === cur ? 'active' : ''}" onclick="event.stopPropagation(); window.setModalSlide(${idx})" title="${s.label}"></div>
+                `).join('');
+                stripEl.style.display = 'flex';
+            } else {
+                stripEl.style.display = 'none';
+            }
+        }
+    }
+
+    window.changeModalSlide = function(dir) {
+        const itemKey = window.modalCurrentItemKey;
+        const item = window.catalogItemsStore ? window.catalogItemsStore[itemKey] : null;
+        if (!item || !item.slides || item.slides.length <= 1) return;
+
+        window.modalCurrentSlideIndex = (window.modalCurrentSlideIndex + dir + item.slides.length) % item.slides.length;
+        renderModalSlide();
+    };
+
+    window.setModalSlide = function(idx) {
+        window.modalCurrentSlideIndex = idx;
+        renderModalSlide();
+    };
+
+    function closeWallpaperModal(e) {
+        const modal = document.getElementById('wallpaperLightboxModal');
+        if (modal) {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+    window.closeWallpaperModal = closeWallpaperModal;
+
+    document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('wallpaperLightboxModal');
+        if (modal && modal.classList.contains('open')) {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                closeWallpaperModal();
+            } else if (e.key === 'ArrowLeft') {
+                window.changeModalSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                window.changeModalSlide(1);
+            }
+        }
+    });
+
+    // Scroll listener for lazy loading remaining catalog items smoothly (natural document scroll)
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
+            renderMoreItems();
+        }
+    });
+
     const scrollBox = document.querySelector('.scrollable-box');
     if (scrollBox) {
         scrollBox.addEventListener('scroll', () => {
@@ -712,7 +2105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectItem(item, priceText) {
         const detailsEl = document.getElementById('selected-item-details');
         if (detailsEl) {
-            detailsEl.innerHTML = `<i class="fa-solid fa-gift me-2" style="color: var(--lol-gold-2);"></i>Item Selecionado: <strong>${item.name}</strong> <span style="color: var(--lol-gold-1); margin-left: 6px;">${priceText}</span>`;
+            detailsEl.innerHTML = `<i class="fa-solid fa-gift me-2" style="color: var(--lol-gold-2);"></i>Item Selecionado: <strong>${item.name}</strong> <span style="color: var(--lol-gold-1); margin-left: 6px;">${priceText || ''}</span>`;
         }
         selectedOfferId = item.offer_id;
         selectedItemId = item.item_id;
@@ -720,6 +2113,25 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedPriceIp = item.price_ip;
         selectedItemName = item.name;
         selectedInventoryType = item.inventory_type;
+
+        // Update Drawer Hextech Banner
+        const drawerBanner = document.getElementById('drawerSelectedItemBanner');
+        const drawerImg = document.getElementById('drawerGiftImg');
+        const drawerTitle = document.getElementById('drawerGiftTitle');
+        const drawerRp = document.getElementById('drawerGiftPriceRp');
+        const drawerMoney = document.getElementById('drawerGiftPriceMoney');
+
+        if (drawerBanner) drawerBanner.style.display = 'flex';
+        if (drawerImg) {
+            drawerImg.src = item.icon_url || "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg";
+            drawerImg.alt = item.name || '';
+        }
+        if (drawerTitle) drawerTitle.textContent = item.name || '';
+        if (drawerRp) drawerRp.textContent = `${item.price_rp || 0} RP`;
+        if (drawerMoney && typeof formatItemPrice === 'function') {
+            const pInfo = formatItemPrice(item.price_rp, currentSelectedRegion);
+            drawerMoney.textContent = pInfo.money || '';
+        }
     }
     window.selectItem = selectItem;
 
@@ -732,8 +2144,340 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // =========================================================================
+    // SERVER / REGION SELECTION LOGIC (LOLGIFTING 1:1 WITH OUTROS DROPDOWN)
+    // =========================================================================
+    function selectRegion(region, btn) {
+        if (!region) return;
+        currentSelectedRegion = region.toUpperCase();
+        localStorage.setItem('lg_gift_region', currentSelectedRegion);
+
+        // Update pills active state
+        document.querySelectorAll('.region-pill').forEach(p => {
+            const r = (p.getAttribute('data-region') || '').toUpperCase();
+            if (r) {
+                p.classList.toggle('active', r === currentSelectedRegion);
+            }
+        });
+
+        // Check if selected server belongs to OUTROS dropdown
+        const outrosList = ['OCE', 'KR', 'JP', 'TR', 'RU', 'VN', 'PH', 'SG', 'TH', 'TW', 'ME', 'OC1', 'JP1', 'TR1', 'VN2', 'PH2', 'SG2', 'TH2', 'TW2', 'ME1'];
+        const dropdownBtn = document.getElementById('btn-outros-dropdown');
+        const dropdownMenu = document.getElementById('outros-dropdown-menu');
+
+        if (dropdownMenu) dropdownMenu.style.display = 'none';
+
+        const isOutros = outrosList.includes(currentSelectedRegion);
+        if (dropdownBtn) {
+            if (isOutros) {
+                dropdownBtn.classList.add('active');
+                dropdownBtn.innerHTML = `${currentSelectedRegion} <i class="fa-solid fa-caret-down ms-1"></i>`;
+            } else {
+                dropdownBtn.classList.remove('active');
+                dropdownBtn.innerHTML = `OUTROS... <i class="fa-solid fa-caret-down ms-1"></i>`;
+            }
+        }
+
+        // Highlight active item inside dropdown menu
+        document.querySelectorAll('.server-dropdown-item').forEach(item => {
+            const r = (item.getAttribute('data-region') || '').toUpperCase();
+            item.classList.toggle('active', r === currentSelectedRegion);
+        });
+
+        // Update server currency notice on the right
+        const noticeEl = document.getElementById('server-currency-notice');
+        if (noticeEl) {
+            if (currentSelectedRegion === 'BR') {
+                noticeEl.innerHTML = `Preços em <span class="text-contrast">R$ · Pix</span>`;
+            } else {
+                noticeEl.innerHTML = `Preços em <span class="text-contrast">€ cartão / Stripe · -50% fora do BR</span>`;
+            }
+        }
+
+        // Dynamically update prices on all cards currently rendered in catalog
+        updateRenderedCardPrices();
+        if (typeof updateCartUI === 'function') updateCartUI();
+    }
+    window.selectRegion = selectRegion;
+
+    function toggleOutrosDropdown(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const menu = document.getElementById('outros-dropdown-menu');
+        if (!menu) return;
+        menu.style.display = (menu.style.display === 'none' || !menu.style.display) ? 'flex' : 'none';
+    }
+    window.toggleOutrosDropdown = toggleOutrosDropdown;
+
+    document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('serverDropdownWrapper');
+        const menu = document.getElementById('outros-dropdown-menu');
+        if (menu && wrapper && !wrapper.contains(e.target)) {
+            menu.style.display = 'none';
+        }
+    });
+
+    function updateRenderedCardPrices() {
+        document.querySelectorAll('#item-list .catalog-card-node').forEach(card => {
+            const rp = card.getAttribute('data-rp');
+            if (rp !== null) {
+                const info = formatItemPrice(rp, currentSelectedRegion);
+                const moneyEl = card.querySelector('.item-card-price-money');
+                const rpEl = card.querySelector('.item-card-price-rp');
+                if (moneyEl) moneyEl.textContent = info.money;
+                if (rpEl) rpEl.textContent = info.rp;
+            }
+        });
+    }
+    window.updateRenderedCardPrices = updateRenderedCardPrices;
+
+    function updateCartUI() {
+        localStorage.setItem('lg_gift_cart', JSON.stringify(giftCart));
+        const counterBadge = document.getElementById('cart-counter-badge');
+        const totalItemsEl = document.getElementById('cart-total-items-count');
+        const totalRpEl = document.getElementById('cart-total-rp');
+        const cartListEl = document.getElementById('cart-items-list');
+
+        const totalItemsCount = giftCart.reduce((acc, item) => acc + (item.qty || 1), 0);
+        if (counterBadge) counterBadge.textContent = totalItemsCount;
+        if (totalItemsEl) totalItemsEl.textContent = totalItemsCount;
+
+        const totalRp = giftCart.reduce((acc, item) => acc + ((Number(item.price_rp) || 0) * (item.qty || 1)), 0);
+        if (totalRpEl) totalRpEl.textContent = totalRp.toLocaleString('pt-BR');
+
+        const totalMoneyEl = document.getElementById('cart-total-money');
+        if (totalMoneyEl) {
+            const priceInfoTotal = formatItemPrice(totalRp, currentSelectedRegion);
+            totalMoneyEl.textContent = priceInfoTotal.money;
+        }
+
+        if (cartListEl) {
+            if (giftCart.length === 0) {
+                cartListEl.innerHTML = '<div class="text-center text-muted p-4" style="font-size: 11px;"><i class="fa-solid fa-cart-shopping me-2"></i>Seu carrinho está vazio. Adicione itens no catálogo!</div>';
+            } else {
+                cartListEl.innerHTML = giftCart.map((item, idx) => {
+                    const qty = item.qty || 1;
+                    const itemTotal = (Number(item.price_rp) || 0) * qty;
+                    const itemMoney = formatItemPrice(itemTotal, currentSelectedRegion);
+                    let itemThumb = item.icon_url || 'https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-store/global/default/images/icon-mystery-item.png';
+                    if (itemThumb.includes('/splash/')) {
+                        itemThumb = itemThumb.replace('/splash/', '/loading/');
+                    }
+                    return `
+                    <div class="cart-item-card">
+                        <img src="${itemThumb}" class="cart-item-thumb" alt="${item.name}" onerror="this.onerror=null;this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title" title="${item.name}">${item.name}</div>
+                            <div class="cart-item-rp">
+                                <span style="color: #00ffcc; font-weight: 700;">${itemMoney.money}</span>
+                                <span style="color: #c8aa6e; font-size: 10px; font-weight: 600;">(${itemTotal.toLocaleString('pt-BR')} RP)</span>
+                            </div>
+                        </div>
+                        <div class="cart-qty-stepper">
+                            <button type="button" class="btn-qty-step" onclick="changeItemQuantity(${idx}, ${qty - 1})" title="Diminuir">-</button>
+                            <span class="qty-value">${qty}</span>
+                            <button type="button" class="btn-qty-step" onclick="changeItemQuantity(${idx}, ${qty + 1})" title="Aumentar">+</button>
+                        </div>
+                        <button type="button" class="btn-remove-cart-item" onclick="removeFromCart(${idx})" title="Remover item">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                }).join('');
+            }
+        }
+    }
+    window.updateCartUI = updateCartUI;
+
+    function changeItemQuantity(idx, newQty) {
+        if (giftCart[idx]) {
+            const val = parseInt(newQty, 10);
+            if (val <= 0) {
+                removeFromCart(idx);
+            } else {
+                giftCart[idx].qty = val;
+                updateCartUI();
+            }
+        }
+    }
+    window.changeItemQuantity = changeItemQuantity;
+
+    function addToCart(item, evt) {
+        if (evt) evt.stopPropagation();
+        const existingIndex = giftCart.findIndex(i => (item.item_id && i.item_id === item.item_id) || (item.offer_id && i.offer_id === item.offer_id));
+        if (existingIndex !== -1) {
+            giftCart[existingIndex].qty = (giftCart[existingIndex].qty || 1) + 1;
+        } else {
+            giftCart.push({ ...item, qty: 1 });
+        }
+        updateCartUI();
+
+        if (evt && evt.currentTarget) {
+            const btn = evt.currentTarget;
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check text-success"></i> Adicionado!';
+            setTimeout(() => { btn.innerHTML = orig; }, 900);
+        }
+    }
+    window.addToCart = addToCart;
+
+    function removeFromCart(index) {
+        if (index >= 0 && index < giftCart.length) {
+            giftCart.splice(index, 1);
+            updateCartUI();
+        }
+    }
+    window.removeFromCart = removeFromCart;
+
+    function clearCart() {
+        giftCart = [];
+        updateCartUI();
+    }
+    window.clearCart = clearCart;
+
+    function toggleCartDrawer(forceState) {
+        const drawer = document.getElementById('cartDrawer');
+        const overlay = document.getElementById('cartDrawerOverlay');
+        if (!drawer || !overlay) return;
+        if (forceState !== undefined) {
+            drawer.classList.toggle('open', forceState);
+            overlay.classList.toggle('open', forceState);
+        } else {
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+        if (drawer.classList.contains('open')) {
+            updateCartUI();
+        }
+    }
+    window.toggleCartDrawer = toggleCartDrawer;
+
+    async function dispatchCartGifts() {
+        if (giftCart.length === 0) {
+            alert('O carrinho está vazio.');
+            return;
+        }
+        const recipientInput = document.getElementById('cart-recipient-id');
+        const recipientId = recipientInput ? recipientInput.value.trim() : '';
+        if (!recipientId || !recipientId.includes('#')) {
+            alert('Por favor informe o Riot ID do destinatário no formato Nome#TAG.');
+            if (recipientInput) recipientInput.focus();
+            return;
+        }
+
+        const messageInput = document.getElementById('cart-message');
+        const giftMessage = messageInput ? messageInput.value.trim() : '';
+        const statusDiv = document.getElementById('cart-result-status');
+        const dispatchBtn = document.getElementById('btn-dispatch-all-cart');
+
+        if (dispatchBtn) dispatchBtn.disabled = true;
+
+        const mainNicknameInput = document.getElementById('nickname-tag');
+        if (mainNicknameInput) mainNicknameInput.value = recipientId;
+        const mainMsgInput = document.getElementById('gift-message');
+        if (mainMsgInput) mainMsgInput.value = giftMessage;
+
+        // Build flat queue taking quantity into account
+        const flatQueue = [];
+        giftCart.forEach(item => {
+            const qty = item.qty || 1;
+            for (let q = 0; q < qty; q++) {
+                flatQueue.push(item);
+            }
+        });
+
+        if (statusDiv) {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'result-status-text alert alert-info';
+            statusDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Iniciando fila de ${flatQueue.length} presentes para <strong>${recipientId}</strong>...`;
+        }
+
+        let successCount = 0;
+        let failCount = 0;
+
+        for (let i = 0; i < flatQueue.length; i++) {
+            const item = flatQueue[i];
+            if (statusDiv) {
+                statusDiv.innerHTML = `
+                    <div style="margin-bottom: 6px;"><i class="fa-solid fa-paper-plane fa-fade me-2 text-warning"></i>Enviando [${i + 1}/${flatQueue.length}]: <strong>${item.name}</strong> para <strong>${recipientId}</strong>...</div>
+                    <div class="progress" style="height: 6px; background: #040911;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ${Math.round(((i + 1) / flatQueue.length) * 100)}%;"></div>
+                    </div>
+                `;
+            }
+
+            selectedOfferId = item.offer_id;
+            selectedPrice = item.price_rp;
+            selectedPriceIp = item.price_ip;
+            selectedItemId = item.item_id;
+            selectedItemName = item.name;
+            selectedInventoryType = item.inventory_type;
+
+            try {
+                if (typeof Api === 'function') {
+                    await Api('gift');
+                }
+                successCount++;
+            } catch (err) {
+                console.error('Falha ao enviar presente:', item.name, err);
+                failCount++;
+            }
+
+            if (i < flatQueue.length - 1) {
+                await new Promise(res => setTimeout(res, 1500));
+            }
+        }
+
+        if (dispatchBtn) dispatchBtn.disabled = false;
+
+        if (statusDiv) {
+            statusDiv.className = failCount === 0 ? 'result-status-text alert alert-success' : 'result-status-text alert alert-warning';
+            statusDiv.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i>Fila finalizada com sucesso! Itens enviados: <strong>${successCount}</strong>${failCount > 0 ? ` | Falhas: ${failCount}` : ''}`;
+        }
+    }
+    window.dispatchCartGifts = dispatchCartGifts;
+
+    // Restore saved region on init
+    const savedRegion = localStorage.getItem('lg_gift_region') || 'BR';
+    selectRegion(savedRegion);
+
+    // Initialize Cart badge counter
+    updateCartUI();
+
     const uiTranslations = {
         pt: {
+            filter_rarity: "Raridade",
+            filter_all: "Todas",
+            rarity_ultimate: "Ultimate",
+            rarity_mythic: "Mítica",
+            rarity_legendary: "Lendária",
+            rarity_epic: "Épica",
+            rarity_standard: "Padrão",
+            filter_sort: "Ordenar",
+            sort_rarity: "Por raridade",
+            sort_price_asc: "Menor preço",
+            sort_price_desc: "Maior preço",
+            sort_name_asc: "Nome (A-Z)",
+            filter_order: "Ordem",
+            order_rare_first: "Mais rara primeiro",
+            order_common_first: "Mais comum primeiro",
+            store_tag: "LOJA",
+            catalog_title: "CATÁLOGO",
+            catalog_count: "8.758 itens",
+            server_region_title: "SERVIDOR DO PRESENTE",
+            btn_enter: "ENTRAR",
+            btn_send_gift: "ENVIAR PRESENTE",
+            btn_gift_now: "Enviar Presente Agora",
+            drawer_selected_label: "ITEM SELECIONADO",
+            label_sender_acc: "Conta Riot Sender (user:pass)",
+            label_add_pass: "Senha Adicional (Opcional)",
+            label_token_url: "Token / Cookies de Sessão",
+            label_recipient: "Destinatário (Riot ID)",
+            label_gift_message: "Mensagem do Presente (Opcional)",
+            label_gift_qty: "Quantidade de Presentes",
+            simple_login_mode: "Modo Simples (user:pass)",
             menu_label: "NAVEGAÇÃO",
             nav_tab1: "Visão Geral & Loja",
             nav_tab2: "Histórico de Pedidos",
@@ -832,9 +2576,55 @@ document.addEventListener('DOMContentLoaded', function() {
             tab4_friends_list_title: "Lista de Amigos & Solicitações",
             filter_friends_placeholder: "Filtrar por Riot ID ou Tag...",
             th_riot_id: "Riot ID (Nome#TAG)",
-            th_friendship_time: "Tempo de Amizade"
+            th_friendship_time: "Tempo de Amizade",
+            tab_featured: "DESTAQUES",
+            tab_champions: "CAMPEÕES",
+            tab_skins: "SKINS",
+            tab_loot: "ESPÓLIOS",
+            tab_accessories: "ACESSÓRIOS",
+            btn_purchase_rp: "COMPRE RP",
+            heading_most_popular: "MAIS POPULARES",
+            view_by_champion: "Por Campeão",
+            view_all_skins: "Todas as Skins"
         },
         en: {
+            filter_rarity: "Rarity",
+            filter_all: "All",
+            rarity_ultimate: "Ultimate",
+            rarity_mythic: "Mythic",
+            rarity_legendary: "Legendary",
+            rarity_epic: "Epic",
+            rarity_standard: "Standard",
+            filter_sort: "Sort by",
+            sort_rarity: "By rarity",
+            sort_price_asc: "Lowest price",
+            sort_price_desc: "Highest price",
+            sort_name_asc: "Name (A-Z)",
+            filter_order: "Order",
+            order_rare_first: "Most rare first",
+            order_common_first: "Most common first",
+            store_tag: "STORE",
+            catalog_title: "CATALOG",
+            catalog_count: "8,758 items",
+            server_region_title: "GIFT SERVER",
+            btn_enter: "SIGN IN",
+            btn_send_gift: "SEND AS GIFT",
+            btn_gift_now: "Send Gift Now",
+            drawer_selected_label: "SELECTED ITEM",
+            label_sender_acc: "Riot Sender Account (user:pass)",
+            label_add_pass: "Additional Password (Optional)",
+            label_token_url: "Session Token / Cookies",
+            label_recipient: "Recipient (Riot ID)",
+            label_gift_message: "Gift Message (Optional)",
+            label_gift_qty: "Gift Quantity",
+            simple_login_mode: "Simple Mode (user:pass)",
+            tab_featured: "FEATURED",
+            tab_champions: "CHAMPIONS",
+            tab_skins: "SKINS",
+            tab_loot: "LOOT",
+            tab_accessories: "ACCESSORIES",
+            btn_purchase_rp: "PURCHASE RP",
+            heading_most_popular: "MOST POPULAR",
             menu_label: "NAVIGATION",
             nav_tab1: "Overview & Store",
             nav_tab2: "Order History",
@@ -933,12 +2723,15 @@ document.addEventListener('DOMContentLoaded', function() {
             tab4_friends_list_title: "Friend List & Requests",
             filter_friends_placeholder: "Filter by Riot ID or Tag...",
             th_riot_id: "Riot ID (Name#TAG)",
-            th_friendship_time: "Friendship Time"
+            th_friendship_time: "Friendship Time",
+            view_by_champion: "By Champion",
+            view_all_skins: "All Skins"
         }
     };
 
     function applyUiTranslations(lang) {
-        const dict = uiTranslations[lang] || uiTranslations.pt;
+        const isEn = (lang === 'en' || selectedLanguage === 'en');
+        const dict = uiTranslations[lang] || uiTranslations[isEn ? 'en' : 'pt'] || uiTranslations.pt;
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
@@ -947,7 +2740,41 @@ document.addEventListener('DOMContentLoaded', function() {
             const key = el.getAttribute('data-i18n-placeholder');
             if (dict[key]) el.setAttribute('placeholder', dict[key]);
         });
+
+        // Also update search input placeholder
+        const searchInput = document.getElementById('search-item');
+        if (searchInput) {
+            if (isEn) {
+                if (selectedActiveCategory === 'Skin') searchInput.placeholder = 'Search skins or champions...';
+                else if (selectedActiveCategory === 'Chroma') searchInput.placeholder = 'Search chromas...';
+                else if (selectedActiveCategory === 'Champion') searchInput.placeholder = 'Search champions...';
+                else searchInput.placeholder = 'Search skins, champions, bundles...';
+            } else {
+                if (selectedActiveCategory === 'Skin') searchInput.placeholder = 'Buscar skin ou campeão...';
+                else if (selectedActiveCategory === 'Chroma') searchInput.placeholder = 'Buscar chroma...';
+                else if (selectedActiveCategory === 'Champion') searchInput.placeholder = 'Buscar campeão...';
+                else searchInput.placeholder = 'Buscar skin, campeão, pacote...';
+            }
+        }
+
+        // Also update category heading
+        const headingEl = document.getElementById('catalogCategoryHeading');
+        const catTitlesPt = {
+            'all': 'CATÁLOGO', 'Skin': 'SKINS', 'Chroma': 'CHROMAS', 'Bundle': 'PACOTES',
+            'Champion': 'CAMPEÕES', 'Emote': 'EMOTES', 'Icon': 'ÍCONES', 'Ward': 'SENTINELAS',
+            'LittleLegends': 'PEQUENAS LENDAS', 'TFTArena': 'TABULEIROS TFT', 'Eternals': 'ETERNALS',
+            'Mystery': 'MISTÉRIO', 'Hextech': 'HEXTEC'
+        };
+        const catTitlesEn = {
+            'all': 'CATALOG', 'Skin': 'SKINS', 'Chroma': 'CHROMAS', 'Bundle': 'BUNDLES',
+            'Champion': 'CHAMPIONS', 'Emote': 'EMOTES', 'Icon': 'ICONS', 'Ward': 'WARDS',
+            'LittleLegends': 'LITTLE LEGENDS', 'TFTArena': 'TFT ARENAS', 'Eternals': 'ETERNALS',
+            'Mystery': 'MYSTERY', 'Hextech': 'HEXTECH'
+        };
+        const titles = isEn ? catTitlesEn : catTitlesPt;
+        if (headingEl) headingEl.textContent = titles[selectedActiveCategory] || selectedActiveCategory.toUpperCase();
     }
+    window.applyUiTranslations = applyUiTranslations;
 
     // Custom Sleek Language Dropdown Logic
     const dropdownTrigger = document.getElementById('lang-dropdown-trigger');
@@ -991,9 +2818,20 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchCatalog();
     });
 
+    // Sync initial active language button
+    document.querySelectorAll('.header-lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === `btn-lang-${selectedLanguage}`);
+    });
+
     applyUiTranslations(selectedLanguage);
     fetchCatalog();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCatalogApp);
+} else {
+    initCatalogApp();
+}
 
 
 // Carregar todos os itens inicialmente para a categoria "all"

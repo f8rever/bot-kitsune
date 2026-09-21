@@ -1621,25 +1621,30 @@ async def update_catalog():
     return jsonify({"message": "Catalog updated successfully"}), 200
 
 
+catalog_mtimes = {'pt': 0.0, 'en': 0.0}
+
 @app.route('/get-catalog')
 def get_catalog():
-    global catalog_cache_en, catalog_cache_pt
+    global catalog_cache_en, catalog_cache_pt, catalog_mtimes
     lang = request.args.get('lang', 'pt')
-    target = catalog_cache_en if lang == 'en' else catalog_cache_pt
-    if not target:
-        target_file = f'catalog_cache_{lang}.json'
-        p = get_catalog_file_path(target_file)
-        if p:
-            try:
+    target_file = f'catalog_cache_{lang}.json'
+    p = get_catalog_file_path(target_file)
+    if p:
+        try:
+            mtime = os.path.getmtime(p)
+            current_target = catalog_cache_en if lang == 'en' else catalog_cache_pt
+            if not current_target or mtime > catalog_mtimes.get(lang, 0.0):
                 with open(p, 'r', encoding='utf-8', errors='ignore') as f:
                     loaded = json.load(f)
                     if lang == 'en':
                         catalog_cache_en = loaded
                     else:
                         catalog_cache_pt = loaded
-                    return jsonify(loaded)
-            except Exception:
-                pass
+                    catalog_mtimes[lang] = mtime
+                return jsonify(loaded)
+        except Exception as e:
+            print(f"Error loading catalog file {p}: {e}")
+    target = catalog_cache_en if lang == 'en' else catalog_cache_pt
     return jsonify(target or {})
 
 

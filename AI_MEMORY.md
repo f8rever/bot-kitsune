@@ -654,8 +654,19 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                      - Hero Banner (60%): Arte oficial do Passe Hall of Legends 2026 (Orianna / Caps), descrição, paginação `[ 1 ] [ 2 ] [ 3 ]`, chips de recompensa (125 ME, 11 Orbes) e preço de 1950 RP.
                      - Grid de 4 Cards (40%): Coleção Autografada (58865 RP), Coleção Imortalizada (32035 RP), Coleção Ascendida (5035 RP) e Passe HoL 2026 (1950 RP), com badges de tempo `⏱️ 4sem`. Barra do Game Pass removida conforme solicitado.
                   4. *Cards de Catálogo em Grid:* Cada item do catálogo agora renderiza como Card oficial com thumbnail da Riot CDN, borda hextech metálica, tag de preço RP e selo de raridade.
-                  5. *Centro de Presentes Hextech (Gifting Center Drawer):* Painel lateral deslizante com contorno dourado LoL preservando todos os inputs e IDs originais (`username-password`, `nickname-tag`, `gift-message`, `Api('saldo')`, `Api('friend')`, `Api('gift')`).
-                  6. *Sincronização:* Arquivos sincronizados em `lol_giftapi-main/`, `python_backend/` e `c:\Users\jeff\Documents\lol_giftapi-main`.
+            27. **Correção Definitiva do Fechamento de Tickets e Redesign da Mensagem (2026-09-21):**
+                - **Problema Relatado:** O bot enviava a mensagem *"🔒 Ticket sendo fechado por: 'motivo' em 5 segundos..."*, mas o canal nunca era deletado e a mensagem era crua sem emojis personalizados.
+                - **Causas Raízes Identificadas:**
+                  1. *Bloqueio Síncrono no Envio da DM:* O envio da DM de avaliação com estrelas para o cliente (`await owner.send(...)`) era aguardado de forma bloqueante antes da chamada do `setTimeout(..., 5000)`. Se a DM demorasse, falhasse ou caísse em timeout na API do Discord, a exclusão do canal nunca era agendada.
+                  2. *Referência Frágil ao Canal:* Dentro do `setTimeout`, chamava-se diretamente `await interaction.channel.delete()`. Se a propriedade getter `channel` retornasse nulo ou parcial (não cacheado no Gateway no momento exato), causava exceção silenciosa no `catch`.
+                  3. *Mensagem Estática e Simples:* Mensagem de texto cru com emoji genérico 🔒 sem identidade visual Kitsune.
+                - **Soluções Implementadas:**
+                  1. *Embed Oficial com Emojis Personalizados:* Criada embed oficial estilizada (`#F43F5E`) contendo título com emoji animado (`customEmojis.utilidades.fechar`), destaque com quem fechou o ticket (`interaction.user`), motivo formatado e aviso de contagem regressiva de 5 segundos com emoji animado de carregamento (`customEmojis.utilidades.carregando`).
+                  2. *Desacoplamento Assíncrono da DM:* A rotina de envio de DM de avaliação com botões de estrelas (`rate_1` a `rate_5`) foi isolada em uma IIFE assíncrona desacoplada em background, impedindo qualquer atraso ou bloqueio no timer de exclusão.
+                  3. *Exclusão com Múltiplas Camadas de Fallback:* Se `interaction.channel` não estiver disponível, o bot tenta recuperar pelo cache da guilda (`targetGuild.channels.cache.get`), depois faz fetch direto na guilda (`targetGuild.channels.fetch`) e por fim no client (`client.channels.fetch`), com retry automático garantindo 100% de confiabilidade na exclusão.
+                  4. *Limpeza de Carrinho:* Adicionada limpeza imediata de `global.ticketCarts` ao fechar o ticket.
+                  5. *Canal Preso Deletado:* Canal de teste `nat1ef` que estava travado foi limpo e deletado com sucesso.
+
 
 
 ### Servidores do Bot:

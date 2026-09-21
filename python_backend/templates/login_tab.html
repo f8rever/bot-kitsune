@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONARCH SENDER - System Gifting</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="/static/api_hcaptcha.js" async defer></script>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(15, 10, 20, 0.75);
+            --primary-purple: #8a2be2;
+            --primary-light: #b366ff;
+            --white: #ffffff;
+            --gray-text: #a0a0a0;
+            --border-color: rgba(138, 43, 226, 0.25);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--bg-color);
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            color: var(--white);
+        }
+
+        #tsparticles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .monarch-login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 20px;
+            padding: 2px; /* Espaço para a borda animada */
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(138, 43, 226, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .monarch-login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(138, 43, 226, 0.15);
+        }
+
+        .monarch-border-fx {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 20px;
+            padding: 2px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Feixe de luz simétrico */
+        .monarch-border-fx::before,
+        .monarch-border-fx::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, var(--white) 0deg, var(--primary-purple) 15deg, transparent 40deg, transparent 320deg, var(--primary-purple) 345deg, var(--white) 360deg);
+        }
+
+        .monarch-border-fx::before {
+            animation: spinRight 2s ease-in-out infinite alternate;
+        }
+
+        .monarch-border-fx::after {
+            animation: spinLeft 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes spinRight {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(180deg); }
+        }
+
+        @keyframes spinLeft {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-180deg); }
+        }
+
+        .monarch-login-card-content {
+            background: transparent;
+            border-radius: 18px;
+            padding: 46px 38px;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .login-title span {
+            color: var(--primary-light);
+        }
+
+        .login-subtitle {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .input-group-custom label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-text);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-text);
+            font-size: 1.05rem;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 15px 20px 15px 50px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #555;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-purple);
+            background: rgba(20, 10, 30, 0.8);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+        }
+
+        .input-wrapper input:focus + i, 
+        .input-wrapper input:focus ~ i {
+            color: var(--primary-light);
+        }
+
+        .btn-login-submit {
+            width: 100%;
+            background: var(--white);
+            color: #050505;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-login-submit:hover {
+            background: var(--primary-light);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            min-height: 20px;
+            font-weight: 600;
+        }
+
+        .discord-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--gray-text);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .discord-login-btn i {
+            color: #5865f2;
+            font-size: 1.2rem;
+        }
+
+        .discord-login-btn:hover {
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fundo Animado com Partículas Diferentes -->
+    <div id="tsparticles"></div>
+
+    <!-- MONARCH SENDER LOGIN CARD -->
+    <div class="monarch-login-card">
+        <div class="monarch-border-fx"></div>
+        <div class="monarch-login-card-content">
+            <h1 class="login-title">Monarch<br><span>Sender</span></h1>
+            <div class="login-subtitle">System Gifting</div>
+
+            <form onsubmit="event.preventDefault(); login();" style="width: 100%;">
+                <div class="input-group-custom">
+                    <label>Username</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="login_api" placeholder="Enter your username" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+                <div class="input-group-custom">
+                    <label>License Key</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="key_api" placeholder="Enter your license key" required>
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                </div>
+                <button type="button" class="btn-login-submit" onclick="login()">
+                    Login <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="error-message" id="error-message"></div>
+
+            <a href="https://discord.gg/ZvVwPjMwR6" target="_blank" class="discord-login-btn">
+                <i class="fab fa-discord"></i> Join our Discord community
+            </a>
+        </div>
+    </div>
+
+    <!-- Bibliotecas de Partículas (tsParticles) -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            background: {
+                color: { value: "transparent" },
+            },
+            fpsLimit: 60,
+            particles: {
+                number: {
+                    value: 60,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                },
+                color: {
+                    value: ["#ffffff", "#8a2be2", "#b366ff"]
+                },
+                shape: {
+                    type: "circle"
+                },
+                opacity: {
+                    value: { min: 0.1, max: 0.6 },
+                    animation: {
+                        enable: true,
+                        speed: 1.5,
+                        minimumValue: 0.1
+                    }
+                },
+                size: {
+                    value: { min: 1, max: 3 },
+                    animation: {
+                        enable: true,
+                        speed: 2,
+                        minimumValue: 0.5
+                    }
+                },
+                move: {
+                    enable: true,
+                    speed: 0.5,
+                    direction: "top",
+                    random: true,
+                    straight: false,
+                    outModes: {
+                        default: "out"
+                    }
+                }
+            },
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "bubble"
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    bubble: {
+                        distance: 200,
+                        size: 6,
+                        duration: 2,
+                        opacity: 0.8
+                    },
+                    push: {
+                        quantity: 4
+                    }
+                }
+            },
+            detectRetina: true,
+        });
+    </script>
+    <script src="../static/script.js?v=1.2"></script>
+</body>
+</html>

@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends - Store</title>
+    <link rel="preconnect" href="https://ddragon.leagueoflegends.com" crossorigin>
+    <link rel="preconnect" href="https://raw.communitydragon.org" crossorigin>
+    <link rel="dns-prefetch" href="https://ddragon.leagueoflegends.com">
+    <link rel="dns-prefetch" href="https://raw.communitydragon.org">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/style.css?v=8.5">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/static/api_hcaptcha.js" async defer></script>
+</head>
+<body>
+
+    <!-- ====================================================================
+         TOP CLIENT STORE NAVIGATION BAR (AUTHENTIC LOL CLIENT STORE HEADER)
+         ==================================================================== -->
+    <!-- ====================================================================
+         TOP BRAND NAVIGATION BAR (EXACT 1:1 LOL GIFTING STORE HEADER)
+         ==================================================================== -->
+    <header class="lolgifting-top-navbar">
+        <div class="lolgifting-top-left-spacer"></div>
+
+        <!-- RIGHT: CONTROLS (LANG PT/EN, ENTRAR, ADMIN) -->
+        <div class="lolgifting-header-actions">
+            <div class="header-lang-pills">
+                <button type="button" class="header-lang-btn active" id="btn-lang-pt" onclick="changeStoreLanguage('pt')">PT</button>
+                <button type="button" class="header-lang-btn" id="btn-lang-en" onclick="changeStoreLanguage('en')">EN</button>
+            </div>
+
+            <button type="button" class="header-btn-entrar" onclick="toggleGiftingDrawer(true)" data-i18n="btn_enter">ENTRAR</button>
+
+            <!-- ADMIN SUITE TOGGLE (DISCREET) -->
+            <button type="button" class="btn-store-icon" onclick="toggleAdminNav()" title="Painel Administrativo & Logs" style="background: none; border: none; color: #4a5a6a; cursor: pointer; padding: 4px; font-size: 13px;">
+                <i class="fa-solid fa-sliders"></i>
+            </button>
+
+            <select id="catalog-language" style="display: none;">
+                <option value="pt" selected>Português</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <div id="overlay">
+            <div id="captchaContainer"></div>
+        </div>
+    </header>
+
+    <!-- SERVER / REGION SELECTOR BAR (LOLGIFTING FEATURE 1:1) -->
+    <div class="server-region-bar" id="serverRegionBar">
+        <div class="server-region-left">
+            <span class="server-region-title" data-i18n="server_region_title">SERVIDOR DO PRESENTE</span>
+            <div class="region-pills-row" role="group" aria-label="LoL Server">
+                <button type="button" class="region-pill active" data-region="BR" onclick="selectRegion('BR', this)">BR</button>
+                <button type="button" class="region-pill" data-region="LAN" onclick="selectRegion('LAN', this)">LAN</button>
+                <button type="button" class="region-pill" data-region="LAS" onclick="selectRegion('LAS', this)">LAS</button>
+                <button type="button" class="region-pill" data-region="EUW" onclick="selectRegion('EUW', this)">EUW</button>
+                <button type="button" class="region-pill" data-region="EUNE" onclick="selectRegion('EUNE', this)">EUNE</button>
+                <button type="button" class="region-pill" data-region="NA" onclick="selectRegion('NA', this)">NA</button>
+                
+                <!-- CUSTOM DROPDOWN BUTTON AND MENU (OUTROS...) -->
+                <div class="server-dropdown-wrapper" id="serverDropdownWrapper">
+                    <button type="button" class="region-pill region-dropdown-btn" id="btn-outros-dropdown" onclick="toggleOutrosDropdown(event)">
+                        OUTROS... <i class="fa-solid fa-caret-down ms-1"></i>
+                    </button>
+                    <div class="server-dropdown-menu" id="outros-dropdown-menu" style="display: none;">
+                        <div class="server-dropdown-header">OUTROS...</div>
+                        <div class="server-dropdown-item" data-region="OCE" onclick="selectRegion('OCE', this)">OCE</div>
+                        <div class="server-dropdown-item" data-region="KR" onclick="selectRegion('KR', this)">KR</div>
+                        <div class="server-dropdown-item" data-region="JP" onclick="selectRegion('JP', this)">JP</div>
+                        <div class="server-dropdown-item" data-region="TR" onclick="selectRegion('TR', this)">TR</div>
+                        <div class="server-dropdown-item" data-region="RU" onclick="selectRegion('RU', this)">RU</div>
+                        <div class="server-dropdown-item" data-region="VN" onclick="selectRegion('VN', this)">VN</div>
+                        <div class="server-dropdown-item" data-region="PH" onclick="selectRegion('PH', this)">PH</div>
+                        <div class="server-dropdown-item" data-region="SG" onclick="selectRegion('SG', this)">SG</div>
+                        <div class="server-dropdown-item" data-region="TH" onclick="selectRegion('TH', this)">TH</div>
+                        <div class="server-dropdown-item" data-region="TW" onclick="selectRegion('TW', this)">TW</div>
+                        <div class="server-dropdown-item" data-region="ME" onclick="selectRegion('ME', this)">ME</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="server-region-right"></div>
+    </div>
+
+    <!-- CATEGORY SUBTABS BAR (MATCHING LOLGIFTING EXACTLY) -->
+    <nav class="catalog-subtabs-nav" id="catalogSubtabsNav">
+        <button type="button" class="subtab-btn active" data-cat="all" onclick="selectCatalogSubtab('all', this)" data-i18n="cat_all">Todos</button>
+        <button type="button" class="subtab-btn" data-cat="Skin" onclick="selectCatalogSubtab('Skin', this)" data-i18n="cat_skins">Skins</button>
+        <button type="button" class="subtab-btn" data-cat="Chroma" onclick="selectCatalogSubtab('Chroma', this)" data-i18n="cat_chromas">Chromas</button>
+        <button type="button" class="subtab-btn" data-cat="Bundle" onclick="selectCatalogSubtab('Bundle', this)" data-i18n="cat_bundles">Pacotes</button>
+        <button type="button" class="subtab-btn" data-cat="Pass" onclick="selectCatalogSubtab('Pass', this)" data-i18n="cat_passes">Passes</button>
+        <button type="button" class="subtab-btn" data-cat="Champion" onclick="selectCatalogSubtab('Champion', this)" data-i18n="cat_champions">Campeões</button>
+        <button type="button" class="subtab-btn" data-cat="Emote" onclick="selectCatalogSubtab('Emote', this)" data-i18n="cat_emotes">Emotes</button>
+        <button type="button" class="subtab-btn" data-cat="Icon" onclick="selectCatalogSubtab('Icon', this)" data-i18n="cat_icons">Ícones</button>
+        <button type="button" class="subtab-btn" data-cat="Ward" onclick="selectCatalogSubtab('Ward', this)" data-i18n="cat_wards">Sentinelas</button>
+        <button type="button" class="subtab-btn" data-cat="LittleLegends" onclick="selectCatalogSubtab('LittleLegends', this)" data-i18n="cat_little_legends">Pequenas Lendas</button>
+        <button type="button" class="subtab-btn" data-cat="TFTArena" onclick="selectCatalogSubtab('TFTArena', this)" data-i18n="cat_tft_arena">Tabuleiros TFT</button>
+        <button type="button" class="subtab-btn" data-cat="Eternals" onclick="selectCatalogSubtab('Eternals', this)" data-i18n="cat_eternals">Eternals</button>
+        <button type="button" class="subtab-btn" data-cat="Mystery" onclick="selectCatalogSubtab('Mystery', this)" data-i18n="cat_mystery">Mistério</button>
+        <button type="button" class="subtab-btn" data-cat="Hextech" onclick="selectCatalogSubtab('Hextech', this)" data-i18n="cat_hextech">Hextec</button>
+    </nav>
+
+    <!-- MAIN STORE VIEWPORT -->
+    <main class="lol-main-viewport">
+
+        <!-- SECONDARY ADMIN TABS BAR (DISCREET / TOGGLEABLE) -->
+        <div class="secondary-tabs-bar" id="secondaryAdminBar" style="display: none;">
+            <button type="button" class="sec-tab-btn active" onclick="openTab(event, 'Tab1')"><i class="fa-solid fa-store me-1"></i> Loja Principal</button>
+            <button type="button" class="sec-tab-btn" onclick="openTab(event, 'Tab2')"><i class="fa-solid fa-receipt me-1"></i> Histórico de Pedidos</button>
+            <button type="button" class="sec-tab-btn" onclick="openTab(event, 'Tab3')"><i class="fa-solid fa-vault me-1"></i> Cofre de Contas & Chaves</button>
+            <button type="button" class="sec-tab-btn" onclick="openTab(event, 'Tab4')"><i class="fa-solid fa-user-group me-1"></i> Rede de Amigos</button>
+            <button type="button" class="btn-saas-outline ms-auto" onclick="logout()" style="padding: 3px 8px; font-size: 10px;">
+                <i class="fa-solid fa-power-off me-1"></i> Sair
+            </button>
+        </div>
+
+        <!-- ====================================================================
+             TAB 1: LOJA OFICIAL DO CLIENTE (AUTHENTIC CLIENT EXPERIENCE)
+             ==================================================================== -->
+        <div id="Tab1" class="tabcontent" style="display: block;">
+
+            <!-- ================================================================
+                 TIER 1 & 2 & 3: FEATURED SHOWCASE (VISIBLE ONLY ON 'FEATURED')
+                 ================================================================ -->
+            <div id="featured-showcase-container" style="display: none;">
+
+                <!-- ------------------------------------------------------------
+                     TIER 1: HERO CAROUSEL & 4 FEATURED COLLECTIONS (IMAGE 1)
+                     ------------------------------------------------------------ -->
+                <section class="destaques-showcase-grid mb-4">
+                    
+                    <!-- LEFT: HERO BANNER CAROUSEL -->
+                    <div class="hero-hol-banner" onclick="selectFeaturedCard('Coleção Assinatura Lenda Imortalizada (2026)', '33f48406-8d1c-4c77-87f4-e47b39796cc6', 58865, 99901660, 'BUNDLES')">
+                        <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg" alt="Hall of Legends 2026" class="hero-banner-img-bg" id="hero-carousel-img">
+                        <div class="hero-banner-gradient-overlay"></div>
+                        
+                        <div class="hero-banner-content">
+                            <div class="hero-badge-event">
+                                <i class="fa-solid fa-trophy"></i> HALL OF LEGENDS 2026
+                            </div>
+                            <h2 class="hero-banner-title" id="hero-banner-title-text">COLEÇÃO ASSINATURA LENDA IMORTALIZADA</h2>
+                            <p class="hero-banner-desc" id="hero-banner-desc-text">
+                                O legado eterno do Rei Demônio Inabalável, Faker.
+                            </p>
+
+                            <div class="hero-banner-footer">
+                                <div class="hero-price-tag">
+                                    <span class="rp-icon-gold">RP</span> <span id="hero-banner-price-text">58865</span>
+                                </div>
+
+                                <div class="hero-carousel-dots" onclick="event.stopPropagation()">
+                                    <button type="button" class="carousel-dot active" onclick="changeHeroSlide(1)">1</button>
+                                    <button type="button" class="carousel-dot" onclick="changeHeroSlide(2)">2</button>
+                                    <button type="button" class="carousel-dot" onclick="changeHeroSlide(3)">3</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: 2x2 GRID OF 4 FEATURED CARDS -->
+                    <div class="featured-cards-grid">
+                        
+                        <!-- CARD 1: SIGNATURE EDITION (58,865 RP) -->
+                        <div class="featured-hol-card" onclick="selectFeaturedCard('Coleção Assinatura Lenda Imortalizada (2026)', '33f48406-8d1c-4c77-87f4-e47b39796cc6', 58865, 99901660, 'BUNDLES')">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg" alt="Coleção Assinatura Lenda Imortalizada (2026)" class="featured-card-bg-img">
+                            <span class="featured-card-time-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="faker-signature-overlay">
+                                <span class="faker-cursive-text">FAKER</span>
+                                <span class="faker-badge-100">+100 <i class="fa-solid fa-trophy" style="color: #c8aa6e;"></i></span>
+                            </div>
+                            <div class="featured-card-info">
+                                <h4 class="featured-card-title">Coleção Assinatura Lenda Imortalizada (2026)</h4>
+                                <div class="featured-card-price"><span class="rp-icon-gold">RP</span> 58865</div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 2: IMMORTALIZED LEGEND (32,035 RP) -->
+                        <div class="featured-hol-card" onclick="selectFeaturedCard('Coleção Lenda Imortalizada (2026)', '70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb', 32035, 99901659, 'BUNDLES')">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg" alt="Coleção Lenda Imortalizada (2026)" class="featured-card-bg-img">
+                            <span class="featured-card-time-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="featured-card-info">
+                                <h4 class="featured-card-title">Coleção Lenda Imortalizada (2026)</h4>
+                                <div class="featured-card-price"><span class="rp-icon-gold">RP</span> 32035</div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: RISEN LEGEND COLLECTION (5,035 RP) -->
+                        <div class="featured-hol-card" onclick="selectFeaturedCard('Coleção Lenda Ascendida (2026)', '73d68c09-ff8b-4793-a380-b198438c21ab', 5035, 99901658, 'BUNDLES')">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg" alt="Coleção Lenda Ascendida (2026)" class="featured-card-bg-img">
+                            <span class="featured-card-time-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="featured-card-info">
+                                <h4 class="featured-card-title">Coleção Lenda Ascendida (2026)</h4>
+                                <div class="featured-card-price"><span class="rp-icon-gold">RP</span> 5035</div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 4: PASSE HALL OF LEGENDS (1,950 RP) -->
+                        <div class="featured-hol-card" onclick="selectFeaturedCard('Passe Hall of Legends 2026', '1a335511-a661-4d91-8522-abd3bc4f466c', 1950, 69901079, 'BUNDLES')">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg" alt="Passe Hall of Legends 2026" class="featured-card-bg-img">
+                            <span class="featured-card-time-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="featured-card-info">
+                                <h4 class="featured-card-title">Passe Hall of Legends 2026</h4>
+                                <div class="featured-card-price"><span class="rp-icon-gold">RP</span> 1950</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- ------------------------------------------------------------
+                     TIER 2: EVENT BUNDLES, PASSES & ORBS (IMAGE 2)
+                     ------------------------------------------------------------ -->
+                <section class="event-bundles-section mb-4">
+                    
+                    <!-- ROW 1: 5 CARDS -->
+                    <div class="store-grid-5 mb-3">
+                        
+                        <!-- 1. HoL Mega Orb Bundle (50x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hall of Legends 2026 Mega Orb Bundle', 'a7c18a88-9322-4ec1-81a0-45174f7db480', 12500, 69901078, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png" alt="Hall of Legends 2026 Mega Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hall of Legends 2026 Mega Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">12500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. HoL Premium Orb Bundle (25x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hall of Legends 2026 Premium Orb Bundle', 'ee0ff019-d562-4eef-af94-1412bdc58159', 6250, 69901077, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png" alt="Hall of Legends 2026 Premium Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hall of Legends 2026 Premium Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">6250</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. HoL Deluxe Orb Bundle (10x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hall of Legends 2026 Deluxe Orb Bundle', '5c4f967b-a28d-440e-abca-e6be04a5c530', 2500, 69901076, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png" alt="Hall of Legends 2026 Deluxe Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hall of Legends 2026 Deluxe Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">2500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. HoL Orb (1x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hall of Legends 2026 Orb', 'e5104b4f-1caa-4390-8268-064458af8ec3', 250, 69901075, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 4w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png" alt="Hall of Legends 2026 Orb">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hall of Legends 2026 Orb</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">250</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Season 3: Act I Premium Pass Bundle (-49%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Season 3: Act I Premium Pass Bundle', '6c82f475-023d-4968-a56c-e689c52b97ff', 3650, 69901073, 'BUNDLES')">
+                            <span class="discount-badge-red">-49%</span>
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png" alt="Season 3: Act I Premium Pass Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Season 3: Act I Premium Pass Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">3650</span>
+                                    <span class="card-original-rp">7100</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ROW 2: 5 CARDS -->
+                    <div class="store-grid-5">
+                        
+                        <!-- 1. Summoner's Premium Orb Bundle (25x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Summoner\'s Premium Orb Bundle', 'a57e075b-f79b-4c1a-a74b-5a12bb64bb8d', 6250, 69901069, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png" alt="Summoner's Premium Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Summoner's Premium Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">6250</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Summoner's Mega Orb Bundle (50x+4) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Summoner\'s Mega Orb Bundle', '7e1a069f-024d-45ae-851e-7a6d8444762c', 12500, 69901070, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png" alt="Summoner's Mega Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Summoner's Mega Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">12500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Summoner's Deluxe Orb Bundle (10x) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Summoner\'s Deluxe Orb Bundle', '95056487-39ef-447c-a513-97b9e4ce1f26', 2500, 69901068, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png" alt="Summoner's Deluxe Orb Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Summoner's Deluxe Orb Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">2500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Season 3: Act I Pass Bundle -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Season 3: Act I Pass Bundle', '33115367-9c70-4074-8a67-fa72271ac2d0', 2650, 69901072, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png" alt="Season 3: Act I Pass Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Season 3: Act I Pass Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">2650</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Season 3: Act I Pass -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Season 3: Act I Pass', '3c93e239-7195-4682-ac56-cb3510a8314f', 1650, 69901071, 'BUNDLES')">
+                            <span class="timer-badge"><i class="fa-regular fa-clock me-1"></i> 2w</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png" alt="Season 3: Act I Pass">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Season 3: Act I Pass</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">1650</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- ------------------------------------------------------------
+                     TIER 3: MOST POPULAR SECTION (IMAGES 3, 4, 5)
+                     ------------------------------------------------------------ -->
+                <section class="most-popular-section mb-5">
+                    
+                    <h2 class="section-heading-lol" data-i18n="heading_most_popular">MOST POPULAR</h2>
+
+                    <!-- ROW 1: 5 HEXTECH CHESTS & KEYS (IMAGE 3) -->
+                    <div class="store-grid-5 mb-3">
+                        
+                        <!-- 1. Hextech Chest -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hextech Chest', '3a24fd7a-1fcc-4861-a146-e0c2ec5ff646', 125, 1, 'HEXTECH_CRAFTING')">
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png" alt="Hextech Chest">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hextech Chest</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">125</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Hextech Key -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Hextech Key', 'f60cd2c5-4d55-49ef-b9fb-4bb1f196dd80', 125, 3, 'HEXTECH_CRAFTING')">
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png" alt="Hextech Key">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Hextech Key</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">125</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. 1 Hextech Chest and Key Bundle -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('1 Hextech Chest and Key Bundle', 'ed7812cc-7c29-4f74-b9e3-32bcbcfb1648', 195, 69900001, 'BUNDLES')">
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png" alt="1 Hextech Chest and Key Bundle">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">1 Hextech Chest and Key Bundle</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">195</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. 5 Hextech Chests & Keys + Bonus Essence! -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('5 Hextech Chests & Keys + Bonus Essence!', '3af2a355-17bf-4b1c-9d08-e1a12890b910', 975, 69900002, 'BUNDLES')">
+                            <span class="bonus-badge-blue">5x +</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle5_190x190.png" alt="5 Hextech Chests & Keys + Bonus Essence!">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">5 Hextech Chests & Keys + Bonus Essence!</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">975</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. 10 Hextech Chests & Keys + Bonus Set! -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('10 Hextech Chests & Keys + Bonus Set!', '7589cd21-251a-4f10-9fa7-2714a3805a78', 1950, 69900003, 'BUNDLES')">
+                            <span class="bonus-badge-blue">10x +</span>
+                            <div class="card-thumb-container">
+                                <img src="https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle10_BonusChest_190x190.png" alt="10 Hextech Chests & Keys + Bonus Set!">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">10 Hextech Chests & Keys + Bonus Set!</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">1950</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ROWS 2, 3, 4: 15 WEEKLY SKIN SALES (IMAGES 3, 4) -->
+                    <!-- ROW 2: SKINS 1-5 -->
+                    <div class="store-grid-5 mb-3">
+                        
+                        <!-- 1. PROJECT: Varus (-60%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('PROJECT: Varus', '13e1aaaa-2e8d-45a7-b391-11622361732f', 540, 110016, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-60%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Varus_16.jpg" alt="PROJECT: Varus">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">PROJECT: Varus</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">540</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Star Guardian Quinn (-55%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Star Guardian Quinn', '7733d680-c63d-4f09-93c9-3fb848d5e2c5', 607, 133014, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-55%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Quinn_14.jpg" alt="Star Guardian Quinn">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Star Guardian Quinn</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">607</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Forsaken Jayce (-45%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Forsaken Jayce', 'fa0213da-cde5-4808-9f88-0afaedbf5934', 742, 126003, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-45%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jayce_3.jpg" alt="Forsaken Jayce">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Forsaken Jayce</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">742</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Battle Boss Yasuo (-40%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Battle Boss Yasuo', 'ce77f673-65f9-4beb-bf26-31b9c86e5a57', 810, 157017, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-40%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yasuo_17.jpg" alt="Battle Boss Yasuo">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Battle Boss Yasuo</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">810</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. High Noon Thresh (-60%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('High Noon Thresh', 'c85bf85e-9857-4f8a-af6e-82714a5f85a2', 540, 412006, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-60%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_6.jpg" alt="High Noon Thresh">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">High Noon Thresh</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">540</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ROW 3: SKINS 6-10 (IMAGE 4) -->
+                    <div class="store-grid-5 mb-3">
+                        
+                        <!-- 6. Rain Shepherd Tristana (-30%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Rain Shepherd Tristana', '3fe3f26c-0d43-450a-939a-b875d27a417a', 944, 18070, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-30%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_70.jpg" alt="Rain Shepherd Tristana">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Rain Shepherd Tristana</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">944</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Pug Trainer Sejuani (-27%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Pug Trainer Sejuani', 'a5ca6f29-8a84-4fba-9868-05abb4f90b16', 975, 113048, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-27%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sejuani_48.jpg" alt="Pug Trainer Sejuani">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Pug Trainer Sejuani</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">975</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Battle Bunny Riven (-55%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Battle Bunny Riven', '79544f0f-53da-4c3e-a60a-dc52f4eb3a27', 438, 92003, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-55%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Riven_3.jpg" alt="Battle Bunny Riven">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Battle Bunny Riven</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">438</span>
+                                    <span class="card-original-rp">975</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 9. Academy Vladimir (-25%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Academy Vladimir', 'e375b714-ba06-4cf2-99fe-f80438398a6f', 562, 8007, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-25%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vladimir_7.jpg" alt="Academy Vladimir">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Academy Vladimir</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">562</span>
+                                    <span class="card-original-rp">750</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 10. Bubble Bash Blitzcrank (-27%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Bubble Bash Blitzcrank', 'c5311e95-34c9-4d58-89a5-b52e91fa5a7a', 975, 53066, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-27%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Blitzcrank_66.jpg" alt="Bubble Bash Blitzcrank">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Bubble Bash Blitzcrank</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">975</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ROW 4: SKINS 11-15 (IMAGE 4) -->
+                    <div class="store-grid-5 mb-3">
+                        
+                        <!-- 11. Papercraft Nunu & Willump (-60%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Papercraft Nunu & Willump', '5718573e-6f39-4fd1-aff2-cae4beb73178', 540, 20008, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-60%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nunu_8.jpg" alt="Papercraft Nunu & Willump">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Papercraft Nunu & Willump</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">540</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 12. Arcana Rakan (-50%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Arcana Rakan', 'a5f8afc2-7c12-4a7f-9f07-ea62bf868a3b', 675, 497018, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-50%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rakan_18.jpg" alt="Arcana Rakan">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Arcana Rakan</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">675</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 13. Heartthrob Caitlyn (-55%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Heartthrob Caitlyn', '4d26326f-516c-4acf-8b38-5e2e2b3ae4c2', 607, 51039, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-55%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_39.jpg" alt="Heartthrob Caitlyn">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Heartthrob Caitlyn</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">607</span>
+                                    <span class="card-original-rp">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 14. Pool Party Renekton (-55%) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Pool Party Renekton', 'b90f1c7d-447b-467b-aca0-a6c5c23194c4', 438, 58006, 'CHAMPION_SKIN')">
+                            <span class="discount-badge-red">-55%</span>
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renekton_6.jpg" alt="Pool Party Renekton">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Pool Party Renekton</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">438</span>
+                                    <span class="card-original-rp">975</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 15. Nightbringer Nasus (Regular / Owned) -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Nightbringer Nasus', '70c60eb2-9649-4595-ae4d-717c79b466b0', 1350, 75045, 'CHAMPION_SKIN')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_45.jpg" alt="Nightbringer Nasus">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Nightbringer Nasus</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">1350</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ROW 5: 5 CHAMPIONS (IMAGE 5) -->
+                    <div class="store-grid-5">
+                        
+                        <!-- 1. Yunara -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Yunara', '4455375e-3ea8-4ff0-b404-92cf768dac04', 975, 804, 'CHAMPION')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg" alt="Yunara">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Yunara</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">975</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Lucian -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Lucian', '63516f03-f598-4940-9c76-606a25dff1e0', 585, 236, 'CHAMPION')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lucian_0.jpg" alt="Lucian">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Lucian</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">585</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Pyke -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Pyke', 'f23c82da-633d-45d0-a4ed-b6aee7541a94', 790, 555, 'CHAMPION')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Pyke_0.jpg" alt="Pyke">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Pyke</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">790</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Xayah -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Xayah', 'f92b0fe0-9072-46a9-9d19-0391e60e3c00', 880, 498, 'CHAMPION')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Xayah_0.jpg" alt="Xayah">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Xayah</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">880</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Ornn -->
+                        <div class="lol-store-card" onclick="selectFeaturedCard('Ornn', 'b1ef7f4f-00f9-43d4-bd1d-fdcafc7209c6', 880, 516, 'CHAMPION')">
+                            <div class="card-thumb-container">
+                                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ornn_0.jpg" alt="Ornn">
+                            </div>
+                            <div class="card-details-box">
+                                <div class="card-item-title">Ornn</div>
+                                <div class="card-price-row">
+                                    <span class="rp-icon-gold">RP</span>
+                                    <span class="card-rp-val">880</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ================================================================
+                 DYNAMIC CATALOG VIEW (CHAMPIONS, SKINS, CHROMAS, BUNDLES, ETC.)
+                 ================================================================ -->
+            <section class="store-catalog-section" id="dynamic-catalog-section" style="display: block;">
+                
+                <!-- TOOLBAR ROW: LOJA / CATEGORY HEADING, TIMESTAMP & SEARCH BOX -->
+                <div class="catalog-header-bar">
+                    <div class="catalog-title-area">
+                        <p class="catalog-breadcrumb-tag" data-i18n="store_tag">LOJA</p>
+                        <h1 class="catalog-category-heading" id="catalogCategoryHeading" data-i18n="catalog_title">CATÁLOGO</h1>
+                        <p class="catalog-count-timestamp" id="catalogCountTimestamp" data-i18n="catalog_count">8.758 itens</p>
+                    </div>
+                    <div class="catalog-search-area" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <div class="skins-view-switcher" id="skinsViewSwitcher" style="display: none;">
+                            <button type="button" class="view-switch-btn active" id="btnViewChamp" onclick="setSkinViewMode('champion')">
+                                <i class="fa-solid fa-users"></i> <span data-i18n="view_by_champion">Por Campeão</span>
+                            </button>
+                            <button type="button" class="view-switch-btn" id="btnViewGrid" onclick="setSkinViewMode('grid')">
+                                <i class="fa-solid fa-grip"></i> <span data-i18n="view_all_skins">Todas as Skins</span>
+                            </button>
+                        </div>
+                        <input type="text" id="search-item" class="catalog-search-input-box" placeholder="Buscar skin, campeão, pacote..." data-i18n-placeholder="search_placeholder">
+                    </div>
+                </div>
+
+                <!-- HIDDEN RADIO INPUTS TO PRESERVE INTERNAL SCRIPTS COMPATIBILITY -->
+                <div style="display: none;">
+                    <input type="radio" name="category" value="all" checked>
+                    <input type="radio" name="category" value="Skin">
+                    <input type="radio" name="category" value="Chroma">
+                    <input type="radio" name="category" value="Bundle">
+                    <input type="radio" name="category" value="Pass">
+                    <input type="radio" name="category" value="Champion">
+                    <input type="radio" name="category" value="Emote">
+                    <input type="radio" name="category" value="Icon">
+                    <input type="radio" name="category" value="Ward">
+                    <input type="radio" name="category" value="LittleLegends">
+                    <input type="radio" name="category" value="TFTArena">
+                    <input type="radio" name="category" value="Boost">
+                    <input type="radio" name="category" value="Eternals">
+                    <input type="radio" name="category" value="Mystery">
+                    <input type="radio" name="category" value="Hextech">
+                </div>
+
+                <!-- MAIN CATALOG AREA WITH CHROMAS SIDEBAR SUPPORT -->
+                <div class="chromas-layout-wrapper" id="catalogLayoutWrapper">
+                    
+                    <!-- FILTER SIDEBAR (FOR SKINS & CHROMAS) -->
+                    <aside class="chromas-sidebar" id="chromasSidebar" style="display: none;">
+                        <label class="chromas-sidebar-label">
+                            <span data-i18n="filter_rarity">Raridade</span>
+                            <select class="chromas-sidebar-select" id="chroma-rarity-filter" onchange="filterItems()">
+                                <option value="" selected data-i18n="filter_all">Todas</option>
+                                <option value="ultimate" data-i18n="rarity_ultimate">Ultimate</option>
+                                <option value="mythic" data-i18n="rarity_mythic">Mítica</option>
+                                <option value="legendary" data-i18n="rarity_legendary">Lendária</option>
+                                <option value="epic" data-i18n="rarity_epic">Épica</option>
+                                <option value="standard" data-i18n="rarity_standard">Padrão</option>
+                            </select>
+                        </label>
+                        <label class="chromas-sidebar-label">
+                            <span data-i18n="filter_sort">Ordenar</span>
+                            <select class="chromas-sidebar-select" id="chroma-sort-filter" onchange="filterItems()">
+                                <option value="rarity" selected data-i18n="sort_rarity">Por raridade</option>
+                                <option value="price_asc" data-i18n="sort_price_asc">Menor preço</option>
+                                <option value="price_desc" data-i18n="sort_price_desc">Maior preço</option>
+                                <option value="name_asc" data-i18n="sort_name_asc">Nome (A-Z)</option>
+                            </select>
+                        </label>
+                        <label class="chromas-sidebar-label">
+                            <span data-i18n="filter_order">Ordem</span>
+                            <select class="chromas-sidebar-select" id="chroma-order-filter" onchange="filterItems()">
+                                <option value="desc" selected data-i18n="order_rare_first">Mais rara primeiro</option>
+                                <option value="asc" data-i18n="order_common_first">Mais comum primeiro</option>
+                            </select>
+                        </label>
+                    </aside>
+
+                    <!-- CATALOG CARDS GRID -->
+                    <div class="chromas-content-area" id="catalogContentArea">
+                        <div class="catalog-cards-viewport scrollable-box">
+                            <ul id="item-list" class="saas-item-list-grid"></ul>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- ====================================================================
+             TAB 2: HISTÓRICO DE PEDIDOS & TRANSAÇÕES
+             ==================================================================== -->
+        <div id="Tab2" class="tabcontent" style="display: none;">
+            <div class="saas-panel-card">
+                <div class="panel-card-header">
+                    <h3>Histórico de Pedidos & Transações</h3>
+                    <div class="header-action-btns">
+                        <button class="btn-saas-outline" onclick="exportOrders()"><i class="fa-solid fa-file-export me-1"></i> Exportar Log</button>
+                        <button class="btn-saas-danger" onclick="clearOrders()"><i class="fa-solid fa-trash me-1"></i> Limpar Log</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="saas-data-table">
+                        <thead>
+                            <tr>
+                                <th>Remetente</th>
+                                <th>Destinatário</th>
+                                <th>Item</th>
+                                <th>Custo (RP)</th>
+                                <th>Data do Pedido</th>
+                                <th>Conclusão</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             TAB 3: COFRE DE CONTAS & CHAVES API
+             ==================================================================== -->
+        <div id="Tab3" class="tabcontent" style="display: none;">
+            <div class="row g-3">
+                <div class="col-lg-4">
+                    <div class="saas-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Credencial Riot (user:pass)</h3>
+                        </div>
+                        <div class="saas-field-group">
+                            <label>Username:Password</label>
+                            <input type="text" id="user-pass" class="saas-control" placeholder="Username:Password">
+                        </div>
+                        <button type="button" class="btn-saas-primary w-100 mb-2" onclick="saveAccount()"><i class="fa-solid fa-floppy-disk me-1"></i> Salvar Conta</button>
+                        <button type="button" class="btn-saas-danger w-100 mb-3" onclick="clearAccounts()"><i class="fa-solid fa-trash-can me-1"></i> Limpar Todas as Contas</button>
+                        <div id="result-acc" class="result-status-text"></div>
+
+                        <hr style="border-color: var(--lol-gold-5); margin: 20px 0;">
+
+                        <div class="panel-card-header">
+                            <h3>Chave Captcha Solver</h3>
+                        </div>
+                        <div class="saas-field-group">
+                            <label>Chave CapMonster / 2Captcha</label>
+                            <input type="text" id="captcha-key" class="saas-control" placeholder="Cole sua chave API">
+                        </div>
+                        <button type="button" class="btn-saas-primary w-100" onclick="saveUserCaptcha()"><i class="fa-solid fa-shield-halved me-1"></i> Salvar Chave Captcha</button>
+                        <div id="result-savecaptcha" class="result-status-text mt-2"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="saas-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Contas Riot Cadastradas</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="saas-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Usuário:Senha</th>
+                                        <th>Região</th>
+                                        <th>Saldo RP</th>
+                                        <th>RP Pedido</th>
+                                        <th>RP Restante</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="accounts-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             TAB 4: REDE DE AMIGOS & DISPAROS EM MASSA
+             ==================================================================== -->
+        <div id="Tab4" class="tabcontent" style="display: none;">
+            <div class="row g-3">
+                <div class="col-lg-4">
+                    <div class="saas-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Operações de Amizade</h3>
+                        </div>
+                        <div class="saas-field-group">
+                            <label>Conta Operadora</label>
+                            <input type="text" id="user-pass-friendlist" class="saas-control" placeholder="Username:Password">
+                        </div>
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="button" class="btn-saas-primary" onclick="fetchFriends()"><i class="fa-solid fa-rotate me-1"></i> Carregar Amigos</button>
+                            <button type="button" class="btn-saas-emerald" onclick="acceptAllRequests()"><i class="fa-solid fa-user-check me-1"></i> Aceitar Todos os Pedidos</button>
+                        </div>
+
+                        <hr style="border-color: var(--lol-gold-5); margin: 16px 0;">
+
+                        <div class="saas-field-group">
+                            <label>Mensagem de Chat em Massa</label>
+                            <textarea id="mass_message" rows="3" class="saas-control" placeholder="Digite a mensagem para todos os amigos..."></textarea>
+                        </div>
+                        <button type="button" class="btn-saas-primary w-100 mb-3" onclick="massMessage()"><i class="fa-solid fa-paper-plane me-1"></i> Disparar Mensagens</button>
+
+                        <div class="saas-field-group">
+                            <label>Lista de Pedidos em Massa (.txt)</label>
+                            <input type="file" id="fileInput" accept=".txt" class="saas-control">
+                        </div>
+                        <button type="button" id="upload-riot-id-list" class="btn-saas-emerald w-100 mb-3"><i class="fa-solid fa-user-plus me-1"></i> Importar Lista (Máx 50)</button>
+
+                        <button type="button" class="btn-saas-danger w-100" onclick="removeAllFriends()"><i class="fa-solid fa-user-xmark me-1"></i> Limpar Amigos</button>
+                        <div id="result-friends" class="result-status-text mt-2"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="saas-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Lista de Amigos & Solicitações</h3>
+                        </div>
+                        <div class="lol-search-box mb-3 w-100">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="search-friends-input" class="lol-search-input" onkeyup="filterFriendsList(this.value)" placeholder="Filtrar por Riot ID ou Tag...">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="saas-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Riot ID (Nome#TAG)</th>
+                                        <th>Status</th>
+                                        <th>Tempo de Amizade</th>
+                                        <th class="text-end">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="friend-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTHENTIC LOL GIFTING STORE FOOTER -->
+        <footer class="lolgifting-footer">
+            <div class="footer-inner-container">
+                <div class="footer-brand-column">
+                    <div class="footer-logos-row">
+                        <img src="/static/images/riot_games_logo.svg" alt="Riot Games" class="footer-logo-riot">
+                        <div class="footer-logo-divider"></div>
+                        <img src="/static/images/lol_official_logo.svg" alt="League of Legends" class="footer-logo-lol">
+                    </div>
+                    <p class="footer-brand-tagline">LoL Gifting Store · Loja Oficial de Presentes Diretos via Riot ID</p>
+                </div>
+
+                <div class="footer-links-column">
+                    <span class="footer-links-title">Acesso Rápido</span>
+                    <div class="footer-links-buttons">
+                        <button type="button" class="footer-btn-link" onclick="toggleCartDrawer(true)">
+                            <i class="fa-solid fa-cart-shopping"></i> <span>Carrinho de Presentes</span>
+                        </button>
+                        <button type="button" class="footer-btn-link" onclick="openTab(event, 'Tab2')">
+                            <i class="fa-solid fa-receipt"></i> <span>Histórico de Pedidos</span>
+                        </button>
+                        <button type="button" class="footer-btn-link" onclick="toggleGiftingDrawer(true)">
+                            <i class="fa-solid fa-user-check"></i> <span>Verificar Amizade</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-disclaimer-bar">
+                <span>© 2026 LoL Gifting Store. League of Legends e Riot Games são marcas registradas da Riot Games, Inc. Todos os direitos reservados.</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- PERSISTENT BOTTOM SELECTION BAR -->
+    <footer class="selected-item-bar" style="display: none;">
+        <div class="selected-title-block">
+            <i class="fa-solid fa-gift" style="color: var(--lol-gold-2);"></i>
+            <span id="selected-item-details">Item Selecionado: Nenhum</span>
+        </div>
+        <div class="selected-inputs-row">
+            <button type="button" class="btn-open-gifting-drawer" onclick="toggleGiftingDrawer(true)">
+                <i class="fa-solid fa-paper-plane"></i> Centro de Presentes / Enviar
+            </button>
+        </div>
+    </footer>
+
+    <!-- HEXTECH GIFTING CENTER DRAWER (SLIDE-OVER FROM RIGHT) -->
+    <div class="gifting-drawer-overlay" id="giftingDrawerOverlay" onclick="toggleGiftingDrawer(false)"></div>
+    <aside class="gifting-center-drawer" id="giftingDrawer">
+        <div class="gifting-drawer-header">
+            <span class="gifting-drawer-title">
+                <i class="fa-solid fa-gift text-warning"></i> CENTRO DE PRESENTES RIOT
+            </span>
+            <button type="button" class="btn-close-drawer" onclick="toggleGiftingDrawer(false)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="gifting-drawer-body">
+            
+            <!-- SELECTED ITEM HEXTECH BANNER -->
+            <div class="drawer-selected-item-banner" id="drawerSelectedItemBanner" style="display: none;">
+                <div class="drawer-item-thumb-wrapper">
+                    <img src="" alt="" id="drawerGiftImg" class="drawer-item-thumb">
+                </div>
+                <div class="drawer-item-info">
+                    <span class="drawer-item-badge" data-i18n="drawer_selected_label">ITEM SELECIONADO</span>
+                    <h4 class="drawer-item-title" id="drawerGiftTitle">Skin Selecionada</h4>
+                    <div class="drawer-item-price-row">
+                        <span class="rp-icon-gold">RP</span>
+                        <span class="drawer-rp-val" id="drawerGiftPriceRp">1350</span>
+                        <span class="drawer-money-val" id="drawerGiftPriceMoney">R$ 15,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMPLE LOGIN TOGGLE -->
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
+                <label class="form-check-label" for="simple-login" style="font-size: 11px; color: var(--lol-gold-1); font-weight: 700;" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
+            </div>
+
+            <!-- INPUTS STACK -->
+            <div class="saas-field-group">
+                <label data-i18n="label_sender_acc">Conta Riot Sender (user:pass)</label>
+                <input type="text" id="username-password" class="saas-control" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder">
+            </div>
+
+            <div class="saas-field-group">
+                <label data-i18n="label_add_pass">Senha Adicional (Opcional)</label>
+                <input type="text" id="password" class="saas-control disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
+            </div>
+
+            <div class="saas-field-group">
+                <label data-i18n="label_token_url">Token / Cookies de Sessão</label>
+                <input type="text" id="tokens-url" class="saas-control" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
+            </div>
+
+            <div class="saas-field-group">
+                <label data-i18n="label_recipient">Destinatário (Riot ID)</label>
+                <input type="text" id="nickname-tag" class="saas-control" placeholder="Nickname#TAG" data-i18n-placeholder="recipient_placeholder">
+            </div>
+
+            <div class="saas-field-group">
+                <label data-i18n="label_gift_message">Mensagem do Presente (Opcional)</label>
+                <input type="text" id="gift-message" class="saas-control" placeholder="Escreva uma mensagem especial..." data-i18n-placeholder="msg_placeholder">
+            </div>
+
+            <div class="saas-field-group mb-4">
+                <label data-i18n="label_gift_qty">Quantidade de Presentes</label>
+                <div class="qty-stepper-box">
+                    <input type="range" id="gift-quantity-slider" min="1" max="55" value="1" class="form-range" style="flex-grow: 1;">
+                    <input type="number" id="gift-quantity-input" min="1" max="55" value="1" class="qty-num-input">
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="quick-buttons-stack">
+                <button type="button" class="quick-action-card" onclick="Api('saldo')">
+                    <div class="qa-icon"><i class="fa-solid fa-wallet text-warning"></i></div>
+                    <div class="qa-text">
+                        <strong data-i18n="qa_check_rp">Checar Saldo RP</strong>
+                        <span data-i18n="qa_check_rp_sub">Consultar saldo disponível da conta</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right qa-arrow"></i>
+                </button>
+
+                <button type="button" class="quick-action-card" onclick="Api('friend')">
+                    <div class="qa-icon" style="color: #00ff9d;"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="qa-text">
+                        <strong data-i18n="qa_send_friend">Enviar Amizade</strong>
+                        <span data-i18n="qa_send_friend_sub">Adicionar destinatário na lista do LoL</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right qa-arrow"></i>
+                </button>
+
+                <button type="button" class="quick-action-card qa-primary-card" onclick="Api('gift')">
+                    <div class="qa-icon" style="color: #ffc700;"><i class="fa-solid fa-paper-plane"></i></div>
+                    <div class="qa-text">
+                        <strong data-i18n="btn_gift_now">Enviar Presente Agora</strong>
+                        <span data-i18n="qa_dispatch_sub">Disparar item selecionado para o Riot ID</span>
+                    </div>
+                    <i class="fa-solid fa-paper-plane qa-arrow"></i>
+                </button>
+
+                <div id="result" class="result-status-text"></div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- CART SLIDE-OVER DRAWER (LOLGIFTING FEATURE) -->
+    <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="toggleCartDrawer(false)"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <span class="cart-drawer-title">
+                <i class="fa-solid fa-cart-shopping" style="color: var(--lol-cyan-glow);"></i> <span data-i18n="cart_drawer_title">CARRINHO DE PRESENTES</span>
+            </span>
+            <button type="button" class="btn-close-drawer" onclick="toggleCartDrawer(false)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="cart-drawer-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted" style="font-size: 11px; text-transform: uppercase; font-weight: 700;" data-i18n="cart_queue_label">Itens na Fila de Envio</span>
+                <button type="button" class="btn-saas-outline" onclick="clearCart()" style="padding: 2px 8px; font-size: 10px;">
+                    <i class="fa-solid fa-trash-can me-1"></i> <span data-i18n="btn_clear_cart">Limpar Fila</span>
+                </button>
+            </div>
+
+            <!-- DYNAMIC ITEMS LIST IN CART -->
+            <div id="cart-items-list" class="cart-items-list">
+                <!-- Injected by script.js -->
+            </div>
+
+            <!-- TOTAL SUMMARY -->
+            <div class="cart-total-summary-box">
+                <div class="cart-total-row">
+                    <span data-i18n="cart_total_items_label">Total de Itens:</span>
+                    <strong id="cart-total-items-count">0</strong>
+                </div>
+                <div class="cart-total-row">
+                    <span>Valor Estimado:</span>
+                    <strong id="cart-total-money" style="color: #00ffcc; font-size: 14px; font-weight: 800;">R$ 0,00</strong>
+                </div>
+                <div class="cart-total-row">
+                    <span data-i18n="cart_total_rp_label">Custo Total em RP:</span>
+                    <div class="cart-total-val">
+                        <span class="rp-icon-gold">RP</span>
+                        <span id="cart-total-rp">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECIPIENT RIOT ID FOR CART DISPATCH -->
+            <div class="saas-field-group mb-3">
+                <label data-i18n="label_recipient_riot_id">Destinatário Principal (Riot ID)</label>
+                <input type="text" id="cart-recipient-id" class="saas-control" placeholder="Nickname#TAG">
+            </div>
+
+            <div class="saas-field-group mb-3">
+                <label data-i18n="label_cart_msg">Mensagem para os Presentes (Opcional)</label>
+                <input type="text" id="cart-message" class="saas-control" placeholder="Escreva uma mensagem especial...">
+            </div>
+
+            <!-- BATCH DISPATCH BUTTON -->
+            <button type="button" class="btn-dispatch-cart mb-3" id="btn-dispatch-all-cart" onclick="dispatchCartGifts()">
+                <i class="fa-solid fa-paper-plane"></i> <span data-i18n="btn_dispatch_all">Disparar Fila de Presentes</span>
+            </button>
+
+            <div id="cart-result-status" class="result-status-text"></div>
+        </div>
+    </aside>
+
+    <!-- FULLSCREEN WALLPAPER / SPLASH ART LIGHTBOX MODAL (1:1 LOLGIFTING CINEMATIC VIEW) -->
+    <div id="wallpaperLightboxModal" class="wallpaper-lightbox-overlay" onclick="closeWallpaperModal(event)">
+        <div class="wallpaper-lightbox-container" onclick="event.stopPropagation()">
+            <button type="button" class="modal-close-btn" onclick="closeWallpaperModal(event)" title="Fechar (Esc)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button type="button" class="modal-nav-arrow modal-nav-prev" id="modalNavPrev" onclick="event.stopPropagation(); window.changeModalSlide(-1)" title="Anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="modal-nav-arrow modal-nav-next" id="modalNavNext" onclick="event.stopPropagation(); window.changeModalSlide(1)" title="Próximo">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <img id="wallpaperModalImage" src="" alt="Splash Art" class="wallpaper-modal-img">
+            <h3 id="wallpaperModalItemName" class="wallpaper-modal-title">DJ Sona</h3>
+            <div class="modal-chroma-strip" id="modalChromaStrip"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js?v=8.5"></script>
+    <script>
+        // Gifting Drawer Toggle
+        function toggleGiftingDrawer(forceState) {
+            const drawer = document.getElementById('giftingDrawer');
+            const overlay = document.getElementById('giftingDrawerOverlay');
+            if (!drawer || !overlay) return;
+            if (forceState !== undefined) {
+                if (forceState) {
+                    drawer.classList.add('open');
+                    overlay.classList.add('open');
+                } else {
+                    drawer.classList.remove('open');
+                    overlay.classList.remove('open');
+                }
+            } else {
+                drawer.classList.toggle('open');
+                overlay.classList.toggle('open');
+            }
+        }
+
+        // Toggle Admin Bar
+        function toggleAdminNav() {
+            const bar = document.getElementById('secondaryAdminBar');
+            if (bar) {
+                bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
+            }
+        }
+
+        // Switch Store Navigation Tabs (FEATURED, CHAMPIONS, SKINS, LOOT, ACCESSORIES)
+        function switchStoreTab(cat, btn) {
+            document.querySelectorAll('.lol-store-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const featuredContainer = document.getElementById('featured-showcase-container');
+            const dynamicCatalog = document.getElementById('dynamic-catalog-section');
+            const activeCatName = document.getElementById('activeCatalogCategoryName');
+
+            // Always ensure Tab1 (Store) is active
+            openTab(null, 'Tab1');
+
+            if (cat === 'Featured') {
+                if (featuredContainer) featuredContainer.style.display = 'block';
+                if (dynamicCatalog) dynamicCatalog.style.display = 'none';
+            } else {
+                if (featuredContainer) featuredContainer.style.display = 'none';
+                if (dynamicCatalog) dynamicCatalog.style.display = 'block';
+                if (activeCatName) {
+                    const catNames = {
+                        'Champion': 'CAMPEÕES / CHAMPIONS',
+                        'Skin': 'SKINS',
+                        'Hextech': 'ESPÓLIOS / LOOT',
+                        'Emote': 'ACESSÓRIOS / ACCESSORIES'
+                    };
+                    activeCatName.textContent = catNames[cat] || cat.toUpperCase();
+                }
+                switchStoreCategory(cat);
+            }
+        }
+
+        // Select Hero Featured Cards directly
+        function selectFeaturedCard(name, offerId, priceRp, itemId, invType) {
+            const cardImg = (name.includes('Leblanc') || name.includes('Pass') || name.includes('Passe'))
+                ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg'
+                : ((name.includes('Risen') || name.includes('Ascendida'))
+                    ? 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg'
+                    : 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg');
+
+            if (typeof selectItem === 'function') {
+                selectItem({
+                    name: name,
+                    offer_id: offerId,
+                    price_rp: priceRp,
+                    price_ip: 0,
+                    item_id: itemId,
+                    icon_url: cardImg,
+                    category: 'Bundles',
+                    inventory_type: invType || 'BUNDLES'
+                }, `(${priceRp} RP)`);
+            }
+            toggleGiftingDrawer(true);
+        }
+        window.selectFeaturedCard = selectFeaturedCard;
+
+        // Hero Carousel Slides (Hall of Legends 2026 Official)
+        const heroSlides = [
+            {
+                img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg',
+                title: 'COLEÇÃO ASSINATURA LENDA IMORTALIZADA',
+                desc: 'O legado supremo e eterno de Faker com assinatura exclusiva.',
+                name: 'Coleção Assinatura Lenda Imortalizada (2026)',
+                offerId: '33f48406-8d1c-4c77-87f4-e47b39796cc6',
+                price: 58865,
+                id: 99901660
+            },
+            {
+                img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg',
+                title: 'COLEÇÃO LENDA IMORTALIZADA',
+                desc: 'Celebre a história do League of Legends com o visual supremo da Ahri.',
+                name: 'Coleção Lenda Imortalizada (2026)',
+                offerId: '70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb',
+                price: 32035,
+                id: 99901659
+            },
+            {
+                img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg',
+                title: 'PASSE HALL OF LEGENDS 2026',
+                desc: 'Desbloqueie LeBlanc Lenda Ascendida e mais de 100 níveis exclusivos.',
+                name: 'Passe Hall of Legends 2026',
+                offerId: '1a335511-a661-4d91-8522-abd3bc4f466c',
+                price: 1950,
+                id: 69901079
+            }
+        ];
+
+        let currentHeroSlideIdx = 0;
+        function changeHeroSlide(index) {
+            currentHeroSlideIdx = index - 1;
+            const slide = heroSlides[currentHeroSlideIdx];
+            if (!slide) return;
+            const imgEl = document.getElementById('hero-carousel-img');
+            const titleEl = document.getElementById('hero-banner-title-text');
+            const descEl = document.getElementById('hero-banner-desc-text');
+            const priceEl = document.getElementById('hero-banner-price-text');
+            const bannerEl = document.querySelector('.hero-hol-banner');
+
+            if (imgEl) {
+                imgEl.style.transition = 'opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                imgEl.style.opacity = '0.3';
+                setTimeout(() => {
+                    imgEl.src = slide.img;
+                    imgEl.style.opacity = '1';
+                }, 140);
+            }
+            if (titleEl) titleEl.textContent = slide.title;
+            if (descEl) descEl.textContent = slide.desc;
+            if (priceEl) priceEl.textContent = slide.price;
+            if (bannerEl) {
+                bannerEl.onclick = () => {
+                    selectFeaturedCard(slide.name, slide.offerId, slide.price, slide.id, 'BUNDLES');
+                };
+            }
+            document.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentHeroSlideIdx);
+            });
+        }
+        window.changeHeroSlide = changeHeroSlide;
+
+        // Auto rotate hero carousel every 6 seconds
+        setInterval(() => {
+            const nextIdx = ((currentHeroSlideIdx + 1) % heroSlides.length) + 1;
+            changeHeroSlide(nextIdx);
+        }, 6000);
+
+        // Switch Category Pill Trigger
+        function switchStoreCategory(catVal) {
+            const radio = document.querySelector(`input[name="category"][value="${catVal}"]`);
+            if (radio) {
+                radio.checked = true;
+                document.querySelectorAll('.chip-item').forEach(c => c.classList.remove('active'));
+                if (radio.parentElement) radio.parentElement.classList.add('active');
+                if (typeof filterItems === 'function') filterItems();
+            } else if (catVal === 'all') {
+                const allRadio = document.querySelector('input[name="category"][value="all"]');
+                if (allRadio) {
+                    allRadio.checked = true;
+                    document.querySelectorAll('.chip-item').forEach(c => c.classList.remove('active'));
+                    if (allRadio.parentElement) allRadio.parentElement.classList.add('active');
+                    if (typeof filterItems === 'function') filterItems();
+                }
+            }
+        }
+
+        // Auxiliary Top Tabs Switcher (Tab1, Tab2, Tab3, Tab4)
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            const tablinks = document.getElementsByClassName("sec-tab-btn");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) targetTab.style.display = "block";
+            if (evt && evt.currentTarget) evt.currentTarget.classList.add("active");
+        }
+
+        function filterFriendsList(query) {
+            const q = query.toLowerCase().trim();
+            const rows = document.querySelectorAll("#friend-list tr");
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(q) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

@@ -17,12 +17,22 @@ __pycache__/
 
 # Temporary & Debug Files
 scratch/
+scratch_*
+2983-*.js
+4562-*.js
+lolgifting_catalogo_page.js
+*.log
+config/riot_browser_profile/
+
+# Media and HTML (exclude root temporary files, but keep templates and static assets)
 *.png
 *.jpg
 *.jpeg
 *.html
-*.log
-config/riot_browser_profile/
+!python_backend/templates/*.html
+!python_backend/templates/**/*.html
+!python_backend/static/**
+!pngs_catalogos/**
 
 # Redundant duplicate folder if kept locally
 lol_giftapi-main/
