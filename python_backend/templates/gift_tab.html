@@ -22,15 +22,32 @@
          TOP BRAND NAVIGATION BAR (EXACT 1:1 LOL GIFTING STORE HEADER)
          ==================================================================== -->
     <header class="lolgifting-top-navbar">
-        <div class="lolgifting-top-left-spacer"></div>
+        <!-- LEFT: AUTHENTIC BRAND / LOGO -->
+        <div class="lolgifting-brand" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;" title="League of Legends Store">
+            <div class="lolgifting-brand-icon">
+                <img src="/static/images/lol_official_logo.svg" alt="League of Legends">
+            </div>
+            <div class="lolgifting-brand-text">
+                <div><span class="brand-title-lol">LEAGUE OF LEGENDS</span><span class="brand-title-store">STORE</span></div>
+                <div class="brand-subtitle"><span class="brand-subname">GIFTING PLATFORM</span></div>
+            </div>
+        </div>
 
-        <!-- RIGHT: CONTROLS (LANG PT/EN, ENTRAR, ADMIN) -->
+        <!-- RIGHT: CONTROLS (LANG PT/EN, CARRINHO, ENTRAR, ADMIN) -->
         <div class="lolgifting-header-actions">
             <div class="header-lang-pills">
                 <button type="button" class="header-lang-btn active" id="btn-lang-pt" onclick="changeStoreLanguage('pt')">PT</button>
                 <button type="button" class="header-lang-btn" id="btn-lang-en" onclick="changeStoreLanguage('en')">EN</button>
             </div>
 
+            <!-- CART TRIGGER BUTTON WITH LIVE BADGE -->
+            <button type="button" class="btn-cart-trigger" id="btn-header-cart" onclick="toggleCartDrawer(true)" title="Carrinho de Presentes">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span data-i18n="btn_cart_label">CARRINHO</span>
+                <span class="cart-count-badge" id="cart-counter-badge">0</span>
+            </button>
+
+            <!-- OPERATOR / SENDER DRAWER TOGGLE -->
             <button type="button" class="header-btn-entrar" onclick="toggleGiftingDrawer(true)" data-i18n="btn_enter">ENTRAR</button>
 
             <!-- ADMIN SUITE TOGGLE (DISCREET) -->
@@ -1239,10 +1256,16 @@
                 </div>
             </div>
 
-            <!-- RECIPIENT RIOT ID FOR CART DISPATCH -->
+            <!-- RECIPIENT RIOT ID FOR CART DISPATCH (1:1 LOLGIFTING STYLE) -->
             <div class="saas-field-group mb-3">
-                <label data-i18n="label_recipient_riot_id">Destinatário Principal (Riot ID)</label>
-                <input type="text" id="cart-recipient-id" class="saas-control" placeholder="Nickname#TAG">
+                <label data-i18n="label_recipient_riot_id">Destinatário do Presente (Riot ID)</label>
+                <div class="riot-id-composite-input">
+                    <input type="text" id="cart-recipient-name" class="saas-control riot-name-input" placeholder="Nickname" oninput="syncCartRiotId()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <span class="riot-id-hash">#</span>
+                    <input type="text" id="cart-recipient-tag" class="saas-control riot-tag-input" placeholder="TAG" oninput="syncCartRiotId()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                </div>
+                <input type="hidden" id="cart-recipient-id" value="">
+                <small class="text-muted" style="font-size: 10px; margin-top: 4px; display: block;" data-i18n="hint_riot_id">Exemplo: SeuNome#BR1 ou Faker#KR1</small>
             </div>
 
             <div class="saas-field-group mb-3">
@@ -1250,12 +1273,50 @@
                 <input type="text" id="cart-message" class="saas-control" placeholder="Escreva uma mensagem especial...">
             </div>
 
+            <!-- DELIVERY EXPLAINER ACCORDION / BOX (1:1 LOLGIFTING FEATURE) -->
+            <div class="delivery-explainer-box mb-3">
+                <div class="delivery-explainer-title">
+                    <i class="fa-solid fa-clock-rotate-left" style="color: #00ffcc;"></i>
+                    <span data-i18n="delivery_how_works">COMO FUNCIONA A ENTREGA?</span>
+                </div>
+                <ol class="delivery-steps-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div class="step-info">
+                            <strong data-i18n="step1_title">Adicione o bot no LoL</strong>
+                            <span data-i18n="step1_desc">O bot envia o pedido de amizade para o seu Riot ID.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div class="step-info">
+                            <strong data-i18n="step2_title">Aceite no Client</strong>
+                            <span data-i18n="step2_desc">Basta aceitar a amizade na sua lista de amigos.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div class="step-info">
+                            <strong data-i18n="step3_title">Regra Riot (24 Horas)</strong>
+                            <span data-i18n="step3_desc">A Riot Games exige 24h de amizade antes do envio de presentes.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <div class="step-info">
+                            <strong data-i18n="step4_title">Entrega Automática</strong>
+                            <span data-i18n="step4_desc">Passadas as 24h, seus presentes chegam direto na sua conta!</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
             <!-- BATCH DISPATCH BUTTON -->
             <button type="button" class="btn-dispatch-cart mb-3" id="btn-dispatch-all-cart" onclick="dispatchCartGifts()">
-                <i class="fa-solid fa-paper-plane"></i> <span data-i18n="btn_dispatch_all">Disparar Fila de Presentes</span>
+                <i class="fa-solid fa-check-circle me-1"></i> <span data-i18n="btn_dispatch_all">Finalizar Pedido / Enviar Presentes</span>
             </button>
 
-            <div id="cart-result-status" class="result-status-text"></div>
+            <div id="cart-result-status" class="result-status-text" style="display: none;"></div>
         </div>
     </aside>
 

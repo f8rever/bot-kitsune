@@ -836,10 +836,8 @@ async def gift_send():
             }
 
             # Insere o documento na coleção de transações
-            #transactions_collection.insert_one(new_transaction)
-
-            #FinishOrderGift.delay(str(transaction_id))
-            #return jsonify({"status": "success", "message": "Transaction registered successfully"}), 200
+            transactions_collection.insert_one(new_transaction)
+            return jsonify({"status": "success", "message": "Transaction registered successfully", "order_id": str(transaction_id)}), 200
 
         
             
@@ -1646,6 +1644,27 @@ def get_catalog():
             print(f"Error loading catalog file {p}: {e}")
     target = catalog_cache_en if lang == 'en' else catalog_cache_pt
     return jsonify(target or {})
+
+
+@app.route('/get-sales')
+def get_sales():
+    sales_paths = [
+        os.path.join(current_dir, '..', 'config', 'weekly_sales.json'),
+        os.path.join(current_dir, 'config', 'weekly_sales.json'),
+        os.path.join(os.path.dirname(current_dir), 'config', 'weekly_sales.json'),
+        os.path.join(r'c:\Users\jeff\Documents\KITSUNE V2 BOT\config', 'weekly_sales.json'),
+        os.path.join(r'C:\Users\jeff\Documents\lol_giftapi-main\config', 'weekly_sales.json')
+    ]
+    for sp in sales_paths:
+        if os.path.exists(sp):
+            try:
+                with open(sp, 'r', encoding='utf-8', errors='ignore') as f:
+                    sales_data = json.load(f)
+                return jsonify(sales_data)
+            except Exception as e:
+                print(f"Error reading sales file {sp}: {e}")
+    return jsonify([])
+
 
 
 ###############################################################################################################################################################################################

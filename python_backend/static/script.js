@@ -502,6 +502,27 @@ function initCatalogApp() {
         });
     });
 
+    function isMythicSkin(item) {
+        if (!item) return false;
+        const cat = (item.category || '').toLowerCase();
+        const inv = (item.inventory_type || '').toUpperCase();
+        const isSkin = cat === 'skin' || cat === 'skins' || inv === 'CHAMPION_SKIN' || inv === 'SKIN';
+        if (!isSkin) return false;
+        
+        const nameLower = (item.name || '').toLowerCase();
+        
+        // Mythic skins in LoL: prestige, mythic/mítica, hextech, ashen knight, crystalis
+        if (nameLower.includes('prestige') || nameLower.includes('prestígio') || nameLower.includes('prestigio') ||
+            nameLower.includes('mítica') || nameLower.includes('mitica') || nameLower.includes('mythic') ||
+            nameLower.includes('hextec') || nameLower.includes('hextech') ||
+            nameLower.includes('cavaleiro das cinzas') || nameLower.includes('ashen knight') ||
+            nameLower.includes('cristalis') || nameLower.includes('crystalis')) {
+            return true;
+        }
+        return false;
+    }
+    window.isMythicSkin = isMythicSkin;
+
     async function fetchCatalog() {
         try {
             const response = await fetch(`/get-catalog?lang=${selectedLanguage}`);
@@ -520,6 +541,11 @@ function initCatalogApp() {
                         const nl = name.toLowerCase();
                         if (nl.includes('lenda ascendida') || nl.includes('lenda imortalizada') || nl.includes('risen legend') || nl.includes('immortalized legend') || nl.includes('hall of legends')) {
                             extraKeywords = ' hall of legends hol faker caps';
+                        }
+
+                        // Never sell / index mythic skins
+                        if (isMythicSkin({ name, category: effectiveCategory, inventory_type: details.inventory_type })) {
+                            return;
                         }
 
                         const uniqueKey = `${name}_${details.offer_id || details.item_id}`;
@@ -600,6 +626,9 @@ function initCatalogApp() {
             }
 
             for (const [sName, sData] of Object.entries(skinsCategory)) {
+                if (isMythicSkin({ name: sName, category: 'Skin', inventory_type: 'CHAMPION_SKIN' })) {
+                    continue;
+                }
                 let champ = idToChamp[sData.parent_id];
                 let champKey = idToKey[sData.parent_id] || '';
                 if (!champKey && sData.icon_url) {
@@ -677,14 +706,14 @@ function initCatalogApp() {
     }
 
     function matchesCategory(item, sel) {
-        if (!sel || sel === 'all') return true;
+        if (!sel || sel === 'all') return !isMythicSkin(item);
         const s = sel.toLowerCase();
         const itemCat = (item.category || '').toLowerCase();
         const invType = (item.inventory_type || '').toUpperCase();
         const nameLower = (item.name || '').toLowerCase();
 
         if (s === 'skin' || s === 'skins') {
-            return (itemCat === 'skins' || itemCat === 'skin') && (invType === 'CHAMPION_SKIN' || invType === 'SKIN') && !nameLower.includes('chroma') && !nameLower.includes('croma');
+            return (itemCat === 'skins' || itemCat === 'skin') && (invType === 'CHAMPION_SKIN' || invType === 'SKIN') && !nameLower.includes('chroma') && !nameLower.includes('croma') && !isMythicSkin(item);
         }
         if (s === 'chroma' || s === 'chromas') {
             return itemCat === 'chromas' || itemCat === 'chroma' || invType === 'CHROMA' || nameLower.includes('chroma') || nameLower.includes('croma');
@@ -1237,8 +1266,7 @@ function initCatalogApp() {
         const cur = champ.currentSkinIndex || 0;
         const activeSkin = champ.skins[cur] || champ.skins[0];
         const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
-        const priceText = `(${priceInfo.money} · ${priceInfo.rp})`;
-        selectItem(activeSkin, priceText);
+        addToCart(activeSkin);
         
         // Tactile Visual Feedback on button
         const btn = document.getElementById(`champ_btn_${champKey}`);
@@ -1259,8 +1287,8 @@ function initCatalogApp() {
             }, 900);
         }
 
-        if (typeof toggleGiftingDrawer === 'function') {
-            toggleGiftingDrawer(true);
+        if (typeof toggleCartDrawer === 'function') {
+            toggleCartDrawer(true);
         }
     };
 
@@ -1305,11 +1333,9 @@ function initCatalogApp() {
             category: 'Bundles',
             inventory_type: invType || 'BUNDLES'
         };
-        const priceInfo = formatItemPrice(priceRp, currentSelectedRegion);
-        const priceText = `(${priceInfo.money} · ${priceInfo.rp})`;
-        selectItem(item, priceText);
-        if (typeof toggleGiftingDrawer === 'function') {
-            toggleGiftingDrawer(true);
+        addToCart(item);
+        if (typeof toggleCartDrawer === 'function') {
+            toggleCartDrawer(true);
         }
     };
 
@@ -1878,8 +1904,8 @@ function initCatalogApp() {
                         <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
                         <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
                     </div>
-                    <button type="button" class="buy-button" onclick="event.stopPropagation(); selectCardGift(${safeItemJson}, '${priceText.replace(/'/g, "\\'")}')">
-                        ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
+                    <button type="button" class="buy-button" onclick="event.stopPropagation(); selectCardGift(${safeItemJson}, event)">
+                        <i class="fa-solid fa-cart-plus me-1"></i> ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
                     </button>
                 </div>
             `;
@@ -1888,9 +1914,6 @@ function initCatalogApp() {
                 document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
                 listItem.classList.add('selected');
                 selectItem(item, priceText);
-                if (typeof toggleGiftingDrawer === 'function') {
-                    toggleGiftingDrawer(true);
-                }
             };
             fragment.appendChild(listItem);
         });
@@ -1899,10 +1922,10 @@ function initCatalogApp() {
         currentRenderIndex += CHUNK_SIZE;
     }
 
-    function selectCardGift(item, priceText) {
-        selectItem(item, priceText);
-        if (typeof toggleGiftingDrawer === 'function') {
-            toggleGiftingDrawer(true);
+    function selectCardGift(item, evt) {
+        addToCart(item, evt);
+        if (typeof toggleCartDrawer === 'function') {
+            toggleCartDrawer(true);
         }
     }
     window.selectCardGift = selectCardGift;
@@ -2354,16 +2377,47 @@ function initCatalogApp() {
     }
     window.toggleCartDrawer = toggleCartDrawer;
 
+    function syncCartRiotId() {
+        const nameEl = document.getElementById('cart-recipient-name');
+        const tagEl = document.getElementById('cart-recipient-tag');
+        const fullEl = document.getElementById('cart-recipient-id');
+        if (!fullEl) return;
+        
+        let name = nameEl ? nameEl.value.trim() : '';
+        let tag = tagEl ? tagEl.value.trim().replace(/^#/, '') : '';
+        
+        // If user pasted "Name#TAG" directly into the first field
+        if (name.includes('#')) {
+            const parts = name.split('#');
+            name = parts[0].trim();
+            tag = parts[1].trim();
+            if (nameEl) nameEl.value = name;
+            if (tagEl) tagEl.value = tag;
+        }
+        
+        fullEl.value = (name && tag) ? `${name}#${tag}` : (name ? `${name}#` : '');
+        
+        // Also keep legacy input in sync
+        const mainNickname = document.getElementById('nickname-tag');
+        if (mainNickname) mainNickname.value = fullEl.value;
+    }
+    window.syncCartRiotId = syncCartRiotId;
+
     async function dispatchCartGifts() {
-        if (giftCart.length === 0) {
-            alert('O carrinho está vazio.');
+        if (!giftCart || giftCart.length === 0) {
+            alert(selectedLanguage === 'en' ? 'Your cart is empty. Add items from the catalog!' : 'O carrinho está vazio. Adicione itens no catálogo!');
             return;
         }
+
+        syncCartRiotId();
         const recipientInput = document.getElementById('cart-recipient-id');
         const recipientId = recipientInput ? recipientInput.value.trim() : '';
-        if (!recipientId || !recipientId.includes('#')) {
-            alert('Por favor informe o Riot ID do destinatário no formato Nome#TAG.');
-            if (recipientInput) recipientInput.focus();
+        if (!recipientId || !recipientId.includes('#') || recipientId.endsWith('#') || recipientId.startsWith('#')) {
+            alert(selectedLanguage === 'en' 
+                ? 'Please enter the recipient Riot ID in the format "Name#TAG".' 
+                : 'Por favor informe o Riot ID do destinatário no formato Nome#TAG (ex: SeuNome#BR1).');
+            const nameEl = document.getElementById('cart-recipient-name');
+            if (nameEl) nameEl.focus();
             return;
         }
 
@@ -2374,10 +2428,7 @@ function initCatalogApp() {
 
         if (dispatchBtn) dispatchBtn.disabled = true;
 
-        const mainNicknameInput = document.getElementById('nickname-tag');
-        if (mainNicknameInput) mainNicknameInput.value = recipientId;
-        const mainMsgInput = document.getElementById('gift-message');
-        if (mainMsgInput) mainMsgInput.value = giftMessage;
+        const [rName, rTag] = recipientId.split('#');
 
         // Build flat queue taking quantity into account
         const flatQueue = [];
@@ -2391,50 +2442,95 @@ function initCatalogApp() {
         if (statusDiv) {
             statusDiv.style.display = 'block';
             statusDiv.className = 'result-status-text alert alert-info';
-            statusDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Iniciando fila de ${flatQueue.length} presentes para <strong>${recipientId}</strong>...`;
+            statusDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>${selectedLanguage === 'en' ? 'Placing order for' : 'Processando pedido para'} <strong>${recipientId}</strong> (${flatQueue.length} ${selectedLanguage === 'en' ? 'items' : 'itens'})...`;
         }
 
         let successCount = 0;
         let failCount = 0;
+        const savedToken = localStorage.getItem('jwtToken');
+        const headers = { 'Content-Type': 'application/json' };
+        if (savedToken && savedToken !== 'null' && savedToken !== 'undefined') {
+            headers['Authorization'] = 'Bearer ' + savedToken;
+        }
 
         for (let i = 0; i < flatQueue.length; i++) {
             const item = flatQueue[i];
             if (statusDiv) {
                 statusDiv.innerHTML = `
-                    <div style="margin-bottom: 6px;"><i class="fa-solid fa-paper-plane fa-fade me-2 text-warning"></i>Enviando [${i + 1}/${flatQueue.length}]: <strong>${item.name}</strong> para <strong>${recipientId}</strong>...</div>
+                    <div style="margin-bottom: 6px;">
+                        <i class="fa-solid fa-paper-plane fa-fade me-2 text-warning"></i>
+                        [${i + 1}/${flatQueue.length}]: <strong>${item.name}</strong> &rarr; <strong>${recipientId}</strong>
+                    </div>
                     <div class="progress" style="height: 6px; background: #040911;">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ${Math.round(((i + 1) / flatQueue.length) * 100)}%;"></div>
                     </div>
                 `;
             }
 
-            selectedOfferId = item.offer_id;
-            selectedPrice = item.price_rp;
-            selectedPriceIp = item.price_ip;
-            selectedItemId = item.item_id;
-            selectedItemName = item.name;
-            selectedInventoryType = item.inventory_type;
-
             try {
-                if (typeof Api === 'function') {
-                    await Api('gift');
+                const payload = {
+                    task: 'order',
+                    name: rName,
+                    tag: rTag,
+                    item_name: item.name,
+                    offer_id: item.offer_id,
+                    item_id: item.item_id,
+                    inventory_type: item.inventory_type || item.category || 'CHAMPION_SKIN',
+                    price: Number(item.price_rp) || 0,
+                    price_ip: item.price_ip || 0,
+                    currency: 'RP',
+                    quantity: 1,
+                    giftmessage: giftMessage
+                };
+
+                const res = await fetch('/run-script', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (res.ok && (data.status === 'success' || data.message)) {
+                    successCount++;
+                } else if (data && data.status === 'success') {
+                    successCount++;
+                } else {
+                    console.warn('Order dispatch item warning:', item.name, data);
+                    failCount++;
                 }
-                successCount++;
             } catch (err) {
-                console.error('Falha ao enviar presente:', item.name, err);
+                console.error('Falha ao processar item do carrinho:', item.name, err);
                 failCount++;
             }
 
             if (i < flatQueue.length - 1) {
-                await new Promise(res => setTimeout(res, 1500));
+                await new Promise(r => setTimeout(r, 600));
             }
         }
 
         if (dispatchBtn) dispatchBtn.disabled = false;
 
         if (statusDiv) {
-            statusDiv.className = failCount === 0 ? 'result-status-text alert alert-success' : 'result-status-text alert alert-warning';
-            statusDiv.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i>Fila finalizada com sucesso! Itens enviados: <strong>${successCount}</strong>${failCount > 0 ? ` | Falhas: ${failCount}` : ''}`;
+            if (failCount === 0 || successCount > 0) {
+                statusDiv.className = 'result-status-text alert alert-success';
+                statusDiv.innerHTML = `
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fa-solid fa-circle-check text-success" style="font-size: 18px;"></i>
+                        <strong>${selectedLanguage === 'en' ? 'Order Placed Successfully!' : 'Pedido Realizado com Sucesso!'}</strong>
+                    </div>
+                    <div style="font-size: 12px; line-height: 1.4;">
+                        ${selectedLanguage === 'en'
+                            ? `Recipient: <strong>${recipientId}</strong><br>Items in queue: <strong>${successCount}</strong>.<br>The bot will send the friend request in LoL. Gifts are delivered after Riot's 24h friendship rule.`
+                            : `Destinatário: <strong>${recipientId}</strong><br>Itens na fila: <strong>${successCount}</strong>.<br>O bot enviará a solicitação de amizade no LoL. A entrega é realizada após a regra de 24h da Riot Games.`
+                        }
+                    </div>
+                `;
+                // Clear cart on success
+                giftCart = [];
+                updateCartUI();
+            } else {
+                statusDiv.className = 'result-status-text alert alert-danger';
+                statusDiv.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i>${selectedLanguage === 'en' ? 'Failed to place order. Please check your credentials or try again.' : 'Falha ao realizar pedido. Verifique seu saldo ou contate o suporte.'}`;
+            }
         }
     }
     window.dispatchCartGifts = dispatchCartGifts;
