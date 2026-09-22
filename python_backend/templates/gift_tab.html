@@ -650,6 +650,99 @@
 
     </div>
 
+    <!-- ====================================================================
+         3D SKIN OPTIONS MODAL (SKIN BASE / PACOTE CROMA / CROMAS INDIVIDUAIS)
+         ==================================================================== -->
+    <div class="skin-options-modal-overlay" id="skinOptionsModal" onclick="closeSkinOptionsModal(event)">
+        <div class="skin-options-modal-container" id="skinOptionsModalContainer" onclick="event.stopPropagation()">
+            <!-- Close Button -->
+            <button type="button" class="skin-modal-close-btn" onclick="closeSkinOptionsModal(event)" title="Fechar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header with Ambient Splash Art -->
+            <div class="skin-modal-header" id="skinModalHeader">
+                <div class="skin-modal-header-ambient-bg" id="skinModalAmbientBg"></div>
+                <div class="skin-modal-header-content">
+                    <img id="skinModalThumb" src="" alt="" class="skin-modal-header-thumb" onerror="this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                    <div class="skin-modal-header-meta">
+                        <div id="skinModalRarityBadge" class="skin-modal-rarity"></div>
+                        <h2 class="skin-modal-title" id="skinModalTitle">Nome da Skin</h2>
+                        <p class="skin-modal-subtitle">Escolha entre a Skin Base, o Pacote Croma Completo ou Cromas Individuais avulsos:</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div class="skin-modal-body">
+                
+                <!-- TOP TIERS: SKIN BASE vs PACOTE CROMA (SIDE-BY-SIDE) -->
+                <div class="skin-options-tiers-grid" id="skinOptionsTiersGrid">
+                    <!-- Option 1: Skin Base -->
+                    <div class="skin-option-card skin-base-card" id="modalSkinBaseCard">
+                        <div class="skin-option-card-badge">SKIN BASE</div>
+                        <div class="skin-option-card-inner">
+                            <img id="modalSkinBaseImg" src="" alt="Skin Base" class="skin-option-img">
+                            <div class="skin-option-info">
+                                <h3 class="skin-option-name" id="modalSkinBaseName">Skin Base</h3>
+                                <p class="skin-option-desc">Inclui apenas o modelo e efeitos visuais da skin original.</p>
+                                <div class="skin-option-prices" id="modalSkinBasePrices">
+                                    <span class="price-rp text-gold" id="modalSkinBaseRp">1.350 RP</span>
+                                    <span class="price-money text-teal" id="modalSkinBaseMoney">R$ 40,50</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-option-add btn-add-base-skin" id="modalBtnAddBaseSkin" onclick="addSkinOptionToCart('skin')">
+                            <i class="fa-solid fa-cart-plus me-1"></i> ADICIONAR SKIN
+                        </button>
+                    </div>
+
+                    <!-- Option 2: Pacote Croma Completo (Chroma Bundle) -->
+                    <div class="skin-option-card skin-bundle-card" id="modalSkinBundleCard">
+                        <div class="skin-option-card-badge bundle-glow-badge">
+                            <i class="fa-solid fa-crown me-1 text-gold"></i> PACOTE COMPLETO · RUBI EXCLUSIVO
+                        </div>
+                        <div class="skin-option-card-inner">
+                            <img id="modalSkinBundleImg" src="" alt="Pacote Croma" class="skin-option-img">
+                            <div class="skin-option-info">
+                                <h3 class="skin-option-name" id="modalSkinBundleName">Pacote Croma Completo</h3>
+                                <div class="bundle-perks-list" id="modalBundlePerks">
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> Skin Base Inclusa</div>
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> Todos os Cromas Oficiais</div>
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-gem text-gold me-1"></i> Croma Rubi Exclusivo do Pacote</div>
+                                </div>
+                                <div class="skin-option-prices" id="modalSkinBundlePrices">
+                                    <span class="price-rp text-gold" id="modalSkinBundleRp">3.090 RP</span>
+                                    <span class="price-money text-teal" id="modalSkinBundleMoney">R$ 92,70</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-option-add btn-add-bundle" id="modalBtnAddBundle" onclick="addSkinOptionToCart('bundle')">
+                            <i class="fa-solid fa-crown me-1"></i> ADICIONAR PACOTE COMPLETO
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: CROMAS INDIVIDUAIS AVULSOS (290 RP CADA) -->
+                <div class="skin-modal-chromas-section" id="skinModalChromasSection">
+                    <div class="chromas-section-header">
+                        <div class="section-title-wrap">
+                            <i class="fa-solid fa-palette text-cyan me-2"></i>
+                            <span class="section-title">Cromas Individuais (290 RP cada)</span>
+                            <span class="chromas-count-badge" id="modalChromasCountBadge">4 disponíveis</span>
+                        </div>
+                        <p class="section-subtitle">Já tem a skin? Escolha e envie apenas os cromas avulsos que desejar:</p>
+                    </div>
+
+                    <div class="chromas-individual-grid" id="modalChromasGrid">
+                        <!-- Populated dynamically with chromas -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- HCAPTCHA OVERLAY MODAL -->
     <div id="overlay" class="captcha-modal-overlay">
         <div id="captchaContainer" class="captcha-modal-box"></div>

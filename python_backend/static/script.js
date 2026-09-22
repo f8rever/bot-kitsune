@@ -472,6 +472,7 @@ try {
 } catch (e) {
     giftCart = [];
 }
+window.giftCart = giftCart;
 
 function changeStoreLanguage(lang) {
     selectedLanguage = lang || 'pt';
@@ -500,9 +501,13 @@ function initCatalogApp() {
     // Category pill/chip visual toggle listener
     categoryRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            document.querySelectorAll('.chip-item, .category-pill').forEach(pill => pill.classList.remove('active'));
+            document.querySelectorAll('.category-chip-item, .chip-item, .category-pill').forEach(pill => pill.classList.remove('active'));
             if (this.parentElement) this.parentElement.classList.add('active');
-            filterItems();
+            if (typeof selectCatalogSubtab === 'function') {
+                selectCatalogSubtab(this.value);
+            } else {
+                filterItems();
+            }
         });
     });
 
@@ -587,19 +592,64 @@ function initCatalogApp() {
                     }
                     
                     const k = baseSkinName.toLowerCase();
-                    if (!window.skinChromasMap[k]) {
-                        window.skinChromasMap[k] = [];
-                    }
-                    window.skinChromasMap[k].push({
+                    const kNorm = normalizeText(baseSkinName);
+                    if (!window.skinChromasMap[k]) window.skinChromasMap[k] = [];
+                    if (!window.skinChromasMap[kNorm]) window.skinChromasMap[kNorm] = [];
+
+                    const chrData = {
                         fullName: chromaFullName,
                         color: chromaColor,
                         icon_url: chromaImg,
                         item_id: chromaDetails.item_id,
                         offer_id: chromaDetails.offer_id,
-                        price_rp: chromaDetails.price_rp || 290
-                    });
+                        price_rp: chromaDetails.price_rp || 290,
+                        category: 'Chromas',
+                        inventory_type: 'CHROMA'
+                    };
+                    window.skinChromasMap[k].push(chrData);
+                    if (kNorm !== k) window.skinChromasMap[kNorm].push(chrData);
                 }
             }
+
+            // Build Skin -> Chroma Bundle lookup map
+            window.skinBundleMap = {};
+            const bundlesCategory = catalog['Bundles'] || {};
+            for (const [bName, bData] of Object.entries(bundlesCategory)) {
+                if (!bData) continue;
+                let cleanB = bName
+                    .replace(/^Pacote\s+Croma\s+/i, '')
+                    .replace(/^Chroma\s+Bundle\s+/i, '')
+                    .replace(/\s+Chroma\s+Bundle$/i, '')
+                    .replace(/\s+Pacote\s+Croma$/i, '')
+                    .trim();
+                const normB = normalizeText(cleanB);
+                const bObj = {
+                    name: bName,
+                    cleanSkinName: cleanB,
+                    price_rp: bData.price_rp,
+                    offer_id: bData.offer_id,
+                    item_id: bData.item_id,
+                    inventory_type: bData.inventory_type || 'BUNDLES',
+                    category: 'Bundles',
+                    icon_url: bData.icon_url || bData.iconUrl || null
+                };
+                window.skinBundleMap[normB] = bObj;
+                window.skinBundleMap[cleanB.toLowerCase()] = bObj;
+            }
+
+            // Helper to get skin chromas and bundle
+            window.getSkinOptions = function(skinName) {
+                if (!skinName) return { hasOptions: false, chromas: [], bundle: null };
+                const norm = normalizeText(skinName);
+                const low = skinName.toLowerCase().trim();
+                const chromas = (window.skinChromasMap && (window.skinChromasMap[norm] || window.skinChromasMap[low])) || [];
+                const bundle = (window.skinBundleMap && (window.skinBundleMap[norm] || window.skinBundleMap[low])) || null;
+                return {
+                    hasOptions: (chromas.length > 0 || bundle !== null),
+                    chromas: chromas,
+                    bundle: bundle
+                };
+            };
 
             // Build Skin -> Splash Art fast lookup map (for Chroma Bundles)
             window.skinToSplashMap = {};
@@ -1079,11 +1129,13 @@ function initCatalogApp() {
             const activeSkin = champ.skins[curIdx] || champ.skins[0];
             const isBase = (curIdx === 0 && activeSkin.isBase);
             const totalSkinsCount = Math.max(1, champ.skins.length - 1);
+            champ.selectedChromaIndex = -1;
 
             const rarity = isBase 
                 ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
                 : getItemRarityInfo(activeSkin.name, activeSkin.price_rp, 'Skin', activeSkin);
             const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
+            const skinOpts = !isBase ? window.getSkinOptions(activeSkin.name) : { hasOptions: false, chromas: [], bundle: null };
 
             const card = document.createElement('li');
             card.className = `catalog-card-node champion-skin-card ${rarity.glowClass || ''}`;
@@ -1123,8 +1175,41 @@ function initCatalogApp() {
             let skinDotsHtml = '';
             if (champ.skins.length > 1 && champ.skins.length <= 15) {
                 skinDotsHtml = `<div class="champ-skin-dots" id="champ_dots_${champKey}">` +
-                    champ.skins.map((s, idx) => `<span class="champ-skin-dot ${idx === cur ? 'active' : ''}" onclick="event.stopPropagation(); window.setChampionSkinIndex('${champKey}', ${idx})" title="${s.name}"></span>`).join('') +
+                    champ.skins.map((s, idx) => `<span class="champ-skin-dot ${idx === curIdx ? 'active' : ''}" onclick="event.stopPropagation(); window.setChampionSkinIndex('${champKey}', ${idx})" title="${s.name}"></span>`).join('') +
                 `</div>`;
+            }
+
+            let chromasBarHtml = '';
+            if (skinOpts.chromas && skinOpts.chromas.length > 0) {
+                chromasBarHtml = `
+                    <div class="champ-chromas-bar" id="champ_chromas_${champKey}">
+                        <div class="champ-chroma-swatch base-swatch active" 
+                             onclick="event.stopPropagation(); window.selectChampionCardChromaPreview('${champKey}', -1)" 
+                             title="${isEn ? 'Base Skin' : 'Skin Base'}">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        ${skinOpts.chromas.map((chr, cIdx) => `
+                            <div class="champ-chroma-swatch" 
+                                 onclick="event.stopPropagation(); window.selectChampionCardChromaPreview('${champKey}', ${cIdx})" 
+                                 title="${chr.color}">
+                                <img src="${chr.icon_url}" alt="${chr.color}" loading="lazy" onerror="this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                chromasBarHtml = `<div class="champ-chromas-bar" id="champ_chromas_${champKey}" style="display: none;"></div>`;
+            }
+
+            let optionsBtnHtml = '';
+            if (skinOpts.hasOptions) {
+                optionsBtnHtml = `
+                    <button type="button" class="champ-btn-options" id="champ_opts_btn_${champKey}" onclick="event.stopPropagation(); window.openSkinOptionsModalFromChamp('${champKey}')" title="${isEn ? 'View all Chromas & Bundle' : 'Ver Opções, Pacote e Cromas'}">
+                        <i class="fa-solid fa-layer-group me-1"></i> ${skinOpts.bundle ? (isEn ? 'Bundle & Chromas' : 'Opções & Pacote') : (isEn ? 'All Chromas' : 'Ver Cromas')}
+                    </button>
+                `;
+            } else {
+                optionsBtnHtml = `<div id="champ_opts_btn_${champKey}" style="display: none;"></div>`;
             }
 
             card.innerHTML = `
@@ -1141,6 +1226,7 @@ function initCatalogApp() {
                         <i class="fa-solid fa-expand me-1"></i>${isEn ? 'ZOOM' : 'AMPLIAR'}
                     </button>
                 </div>
+                ${chromasBarHtml}
                 <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
                     <div id="champ_rarity_${champKey}">
                         ${headerBadge}
@@ -1155,13 +1241,18 @@ function initCatalogApp() {
                     <button type="button" class="buy-button" id="champ_btn_${champKey}" onclick="event.stopPropagation(); window.selectChampionCardSkin('${champKey}')">
                         ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
                     </button>
+                    ${optionsBtnHtml}
                 </div>
             `;
 
             card.onclick = () => {
                 document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
                 card.classList.add('selected');
-                window.selectChampionCardSkin(champKey);
+                if (skinOpts.hasOptions) {
+                    window.openSkinOptionsModalFromChamp(champKey);
+                } else {
+                    window.selectChampionCardSkin(champKey);
+                }
             };
 
             fragment.appendChild(card);
@@ -1177,11 +1268,13 @@ function initCatalogApp() {
         let cur = champ.currentSkinIndex || 0;
         cur = (cur + dir + champ.skins.length) % champ.skins.length;
         champ.currentSkinIndex = cur;
+        champ.selectedChromaIndex = -1;
 
         const newSkin = champ.skins[cur];
         const isBase = (cur === 0 && newSkin.isBase);
         const totalSkinsCount = Math.max(1, champ.skins.length - 1);
         const isEn = selectedLanguage === 'en';
+        const skinOpts = !isBase ? window.getSkinOptions(newSkin.name) : { hasOptions: false, chromas: [], bundle: null };
 
         const rarity = isBase
             ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
@@ -1195,8 +1288,10 @@ function initCatalogApp() {
         const pricesEl = document.getElementById(`champ_prices_${champKey}`);
         const cardEl = document.getElementById(`champ_card_${champKey}`);
         const dotsEl = document.getElementById(`champ_dots_${champKey}`);
+        const barEl = document.getElementById(`champ_chromas_${champKey}`);
+        const optsContainer = document.getElementById(`champ_opts_btn_${champKey}`);
+        const btnEl = document.getElementById(`champ_btn_${champKey}`);
 
-        // Smooth subtle transition ("animaçãozinha bem sutil")
         if (imgEl) {
             imgEl.classList.add('skin-transitioning');
             if (nameEl) nameEl.classList.add('champ-skin-info-transitioning');
@@ -1254,6 +1349,161 @@ function initCatalogApp() {
             cardEl.style.setProperty('--rarity-color', rarity.color);
             cardEl.className = `catalog-card-node champion-skin-card ${rarity.glowClass || ''}`;
         }
+        if (btnEl) {
+            btnEl.innerHTML = isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO';
+            btnEl.onclick = (e) => {
+                e.stopPropagation();
+                window.selectChampionCardSkin(champKey);
+            };
+        }
+
+        // Update chromas bar
+        if (barEl) {
+            if (skinOpts.chromas && skinOpts.chromas.length > 0) {
+                barEl.style.display = 'flex';
+                barEl.innerHTML = `
+                    <div class="champ-chroma-swatch base-swatch active" 
+                         onclick="event.stopPropagation(); window.selectChampionCardChromaPreview('${champKey}', -1)" 
+                         title="${isEn ? 'Base Skin' : 'Skin Base'}">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    ${skinOpts.chromas.map((chr, cIdx) => `
+                        <div class="champ-chroma-swatch" 
+                             onclick="event.stopPropagation(); window.selectChampionCardChromaPreview('${champKey}', ${cIdx})" 
+                             title="${chr.color}">
+                            <img src="${chr.icon_url}" alt="${chr.color}" loading="lazy" onerror="this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                barEl.style.display = 'none';
+                barEl.innerHTML = '';
+            }
+        }
+
+        // Update options button
+        if (optsContainer) {
+            if (skinOpts.hasOptions) {
+                optsContainer.style.display = 'flex';
+                optsContainer.className = 'champ-btn-options';
+                optsContainer.innerHTML = `<i class="fa-solid fa-layer-group me-1"></i> ${skinOpts.bundle ? (isEn ? 'Bundle & Chromas' : 'Opções & Pacote') : (isEn ? 'All Chromas' : 'Ver Cromas')}`;
+                optsContainer.onclick = (e) => {
+                    e.stopPropagation();
+                    window.openSkinOptionsModalFromChamp(champKey);
+                };
+            } else {
+                optsContainer.style.display = 'none';
+            }
+        }
+    };
+
+    window.selectChampionCardChromaPreview = function(champKey, chromaIdx) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins) return;
+        const cur = champ.currentSkinIndex || 0;
+        const activeSkin = champ.skins[cur] || champ.skins[0];
+        const isEn = selectedLanguage === 'en';
+        const skinOpts = window.getSkinOptions(activeSkin.name);
+        
+        champ.selectedChromaIndex = chromaIdx;
+        
+        const imgEl = document.getElementById(`champ_thumb_${champKey}`);
+        const nameEl = document.getElementById(`champ_name_${champKey}`);
+        const rarityEl = document.getElementById(`champ_rarity_${champKey}`);
+        const pricesEl = document.getElementById(`champ_prices_${champKey}`);
+        const btnEl = document.getElementById(`champ_btn_${champKey}`);
+        const barEl = document.getElementById(`champ_chromas_${champKey}`);
+        
+        if (barEl) {
+            const swatches = barEl.querySelectorAll('.champ-chroma-swatch');
+            swatches.forEach((sw, sIdx) => {
+                if (chromaIdx === -1) {
+                    sw.classList.toggle('active', sIdx === 0);
+                } else {
+                    sw.classList.toggle('active', sIdx === (chromaIdx + 1));
+                }
+            });
+        }
+        
+        if (chromaIdx === -1 || !skinOpts || !skinOpts.chromas[chromaIdx]) {
+            // Restore Base Skin
+            champ.selectedChromaIndex = -1;
+            const rarity = getItemRarityInfo(activeSkin.name, activeSkin.price_rp, 'Skin', activeSkin);
+            const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
+            
+            if (imgEl) imgEl.src = activeSkin.loading_url || activeSkin.splash_url;
+            if (nameEl) {
+                nameEl.textContent = activeSkin.name;
+                nameEl.title = activeSkin.name;
+            }
+            if (rarityEl) {
+                rarityEl.innerHTML = rarity.iconWebp 
+                    ? `<p class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; min-height: 16px;">
+                         <span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span>
+                         <span style="color: ${rarity.color}; font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">${rarity.label}</span>
+                       </p>`
+                    : `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: ${rarity.color}; font-size: 10px; min-height: 16px; letter-spacing: 0.08em;">${rarity.label}</p>`;
+            }
+            if (pricesEl) {
+                pricesEl.innerHTML = `
+                    <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
+                    <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
+                `;
+            }
+            if (btnEl) {
+                btnEl.innerHTML = isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO';
+                btnEl.onclick = (e) => {
+                    e.stopPropagation();
+                    window.selectChampionCardSkin(champKey);
+                };
+            }
+        } else {
+            // Switch to Chroma Preview!
+            const chr = skinOpts.chromas[chromaIdx];
+            const priceInfo = formatItemPrice(chr.price_rp || 290, currentSelectedRegion);
+            
+            if (imgEl) imgEl.src = chr.icon_url;
+            if (nameEl) {
+                nameEl.textContent = chr.fullName;
+                nameEl.title = chr.fullName;
+            }
+            if (rarityEl) {
+                rarityEl.innerHTML = `<p class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1" style="color: var(--cyan-neon); min-height: 16px;">
+                    <span class="rarity-badge-official"><img src="/static/raridades/chroma.webp" alt="Chroma"></span>
+                    <span style="color: var(--cyan-neon); font-weight: 800; font-size: 10px; letter-spacing: 0.8px;">CROMA · ${chr.color.toUpperCase()}</span>
+                </p>`;
+            }
+            if (pricesEl) {
+                pricesEl.innerHTML = `
+                    <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
+                    <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
+                `;
+            }
+            if (btnEl) {
+                btnEl.innerHTML = `<i class="fa-solid fa-palette me-1"></i> ${isEn ? 'ADD CHROMA (290 RP)' : 'ADICIONAR CROMA (290 RP)'}`;
+                btnEl.onclick = (e) => {
+                    e.stopPropagation();
+                    addToCart({
+                        name: chr.fullName,
+                        item_id: chr.item_id,
+                        offer_id: chr.offer_id,
+                        price_rp: chr.price_rp || 290,
+                        category: 'Chromas',
+                        inventory_type: 'CHROMA',
+                        icon_url: chr.icon_url
+                    }, e);
+                    if (typeof toggleCartDrawer === 'function') toggleCartDrawer(true);
+                };
+            }
+        }
+    };
+
+    window.openSkinOptionsModalFromChamp = function(champKey) {
+        const champ = (window.championsList || []).find(c => c.championKey === champKey);
+        if (!champ || !champ.skins) return;
+        const cur = champ.currentSkinIndex || 0;
+        const activeSkin = champ.skins[cur] || champ.skins[0];
+        window.openSkinOptionsModalForSkin(activeSkin);
     };
 
     window.setChampionSkinIndex = function(champKey, targetIdx) {
@@ -1841,8 +2091,8 @@ function initCatalogApp() {
                     <button type="button" class="card-carousel-btn card-carousel-next" onclick="event.stopPropagation(); window.navigateCardSlide('${itemKey}', 1)" title="${isEn ? 'Next' : 'Próximo'}">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
-                    <div class="card-chroma-indicator-pill" id="chroma_pill_${itemKey}">
-                        <i class="fa-solid fa-layer-group me-1"></i> ${isBundle ? (isEn ? `Bundle · ${itemChromas.length} Chromas` : `Pacote · ${itemChromas.length} Cromas`) : (isEn ? `${itemChromas.length} Chromas available` : `${itemChromas.length} Cromas disponíveis`)}
+                    <div class="card-chroma-indicator-pill card-chroma-clickable" id="chroma_pill_${itemKey}" onclick="event.stopPropagation(); window.openSkinOptionsModalByKey('${itemKey}')" title="${isEn ? 'View Bundle & Chromas Options' : 'Ver Opções da Skin, Pacote e Cromas'}">
+                        <i class="fa-solid fa-palette me-1"></i> ${isBundle ? (isEn ? `Bundle · ${itemChromas.length} Chromas` : `Pacote · ${itemChromas.length} Cromas`) : (window.getSkinOptions(baseSkinName).bundle ? (isEn ? `Bundle + ${itemChromas.length} Chromas` : `Pacote + ${itemChromas.length} Cromas`) : (isEn ? `${itemChromas.length} Chromas available` : `${itemChromas.length} Cromas disponíveis`))}
                     </div>
                 ` : '';
 
@@ -1899,6 +2149,13 @@ function initCatalogApp() {
                      ${catTag}
                    </p>`;
 
+            const gridSkinOpts = (!isBundle && !isChroma) ? window.getSkinOptions(item.name) : { hasOptions: false, chromas: [], bundle: null };
+            const cardOptionsBtn = gridSkinOpts.hasOptions ? `
+                <button type="button" class="champ-btn-options" onclick="event.stopPropagation(); window.openSkinOptionsModalByKey('${itemKey}')" title="${isEn ? 'View Bundle & Chromas Options' : 'Ver Opções da Skin, Pacote e Cromas'}">
+                    <i class="fa-solid fa-layer-group me-1"></i> ${gridSkinOpts.bundle ? (isEn ? 'Options & Bundle' : 'Opções & Pacote') : (isEn ? 'All Chromas' : 'Ver Cromas')}
+                </button>
+            ` : '';
+
             listItem.innerHTML = `
                 ${thumbnailContent}
                 <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
@@ -1911,6 +2168,7 @@ function initCatalogApp() {
                     <button type="button" class="buy-button" onclick="event.stopPropagation(); selectCardGift(${safeItemJson}, event)">
                         <i class="fa-solid fa-cart-plus me-1"></i> ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
                     </button>
+                    ${cardOptionsBtn}
                 </div>
             `;
 
@@ -1918,6 +2176,9 @@ function initCatalogApp() {
                 document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
                 listItem.classList.add('selected');
                 selectItem(item, priceText);
+                if (gridSkinOpts.hasOptions) {
+                    window.openSkinOptionsModalByKey(itemKey);
+                }
             };
             fragment.appendChild(listItem);
         });
@@ -2100,12 +2361,183 @@ function initCatalogApp() {
     }
     window.closeWallpaperModal = closeWallpaperModal;
 
+    // =========================================================================
+    // 3D SKIN OPTIONS MODAL (SKIN BASE, PACOTE CROMA & CROMAS INDIVIDUAIS)
+    // =========================================================================
+    window.currentModalSkinItem = null;
+    window.currentModalBundleItem = null;
+    window.currentModalChromas = [];
+
+    window.openSkinOptionsModalForSkin = function(skinItem) {
+        if (!skinItem) return;
+        const modal = document.getElementById('skinOptionsModal');
+        if (!modal) return;
+        
+        const isEn = selectedLanguage === 'en';
+        const skinName = skinItem.name || '';
+        const skinOpts = window.getSkinOptions(skinName);
+        
+        window.currentModalSkinItem = skinItem;
+        window.currentModalBundleItem = skinOpts.bundle;
+        window.currentModalChromas = skinOpts.chromas || [];
+
+        // Header
+        const splashUrl = (skinItem.splash_url || skinItem.icon_url || '').replace('/loading/', '/splash/');
+        const loadingUrl = skinItem.loading_url || skinItem.icon_url || splashUrl;
+        
+        const ambientBg = document.getElementById('skinModalAmbientBg');
+        if (ambientBg) ambientBg.style.backgroundImage = `url('${splashUrl}')`;
+
+        const thumbImg = document.getElementById('skinModalThumb');
+        if (thumbImg) thumbImg.src = loadingUrl;
+
+        const titleEl = document.getElementById('skinModalTitle');
+        if (titleEl) titleEl.textContent = skinName;
+
+        const rarityBadge = document.getElementById('skinModalRarityBadge');
+        if (rarityBadge) {
+            const rarity = getItemRarityInfo(skinName, skinItem.price_rp, 'Skin', skinItem);
+            rarityBadge.innerHTML = rarity.iconWebp
+                ? `<span class="rarity-badge-official"><img src="${rarity.iconWebp}" alt="${rarity.label}"></span> <span style="color: ${rarity.color}; font-weight: 800; font-size: 11px;">${rarity.label}</span>`
+                : `<span style="color: ${rarity.color}; font-weight: 800; font-size: 11px;">${rarity.label}</span>`;
+        }
+
+        // Option 1: Skin Base
+        const baseImg = document.getElementById('modalSkinBaseImg');
+        if (baseImg) baseImg.src = loadingUrl;
+        const baseName = document.getElementById('modalSkinBaseName');
+        if (baseName) baseName.textContent = skinName;
+        const basePrice = formatItemPrice(skinItem.price_rp, currentSelectedRegion);
+        const baseRp = document.getElementById('modalSkinBaseRp');
+        if (baseRp) baseRp.textContent = basePrice.rp;
+        const baseMoney = document.getElementById('modalSkinBaseMoney');
+        if (baseMoney) baseMoney.textContent = basePrice.money;
+
+        // Option 2: Pacote Croma Completo (Bundle)
+        const bundleCard = document.getElementById('modalSkinBundleCard');
+        if (bundleCard) {
+            if (skinOpts.bundle) {
+                bundleCard.style.display = 'flex';
+                const bundleImg = document.getElementById('modalSkinBundleImg');
+                if (bundleImg) bundleImg.src = skinOpts.bundle.icon_url || loadingUrl;
+                const bundleName = document.getElementById('modalSkinBundleName');
+                if (bundleName) bundleName.textContent = skinOpts.bundle.name;
+                const bundlePrice = formatItemPrice(skinOpts.bundle.price_rp, currentSelectedRegion);
+                const bundleRp = document.getElementById('modalSkinBundleRp');
+                if (bundleRp) bundleRp.textContent = bundlePrice.rp;
+                const bundleMoney = document.getElementById('modalSkinBundleMoney');
+                if (bundleMoney) bundleMoney.textContent = bundlePrice.money;
+                
+                const perksEl = document.getElementById('modalBundlePerks');
+                if (perksEl) {
+                    perksEl.innerHTML = `
+                        <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-2"></i>${isEn ? 'Base Skin Included' : 'Skin Base Inclusa'}</div>
+                        <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-2"></i>${isEn ? `All ${skinOpts.chromas.length} Chromas Included` : `Todos os ${skinOpts.chromas.length} Cromas Inclusos`}</div>
+                        <div class="bundle-perk-item"><i class="fa-solid fa-gem text-gold me-2"></i>${isEn ? 'Ruby Chroma (Bundle Exclusive)' : 'Croma Rubi Exclusivo do Pacote'}</div>
+                    `;
+                }
+            } else {
+                bundleCard.style.display = 'none';
+            }
+        }
+
+        // Option 3: Individual Chromas Grid
+        const chromasSection = document.getElementById('skinModalChromasSection');
+        const chromasGrid = document.getElementById('modalChromasGrid');
+        const countBadge = document.getElementById('modalChromasCountBadge');
+
+        if (skinOpts.chromas && skinOpts.chromas.length > 0) {
+            if (chromasSection) chromasSection.style.display = 'block';
+            if (countBadge) countBadge.textContent = `${skinOpts.chromas.length} ${isEn ? 'available' : 'disponíveis'}`;
+            if (chromasGrid) {
+                const chromaPrice = formatItemPrice(290, currentSelectedRegion);
+                chromasGrid.innerHTML = skinOpts.chromas.map((chr, idx) => `
+                    <div class="chroma-mini-card" onclick="window.addSkinOptionToCart('chroma', ${idx}, event)">
+                        <img src="${chr.icon_url}" alt="${chr.color}" class="chroma-mini-img" loading="lazy" onerror="this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
+                        <div class="chroma-mini-color" title="${chr.color}">${chr.color}</div>
+                        <div class="chroma-mini-price">${chromaPrice.rp} · ${chromaPrice.money}</div>
+                        <button type="button" class="btn-chroma-quick-add" onclick="event.stopPropagation(); window.addSkinOptionToCart('chroma', ${idx}, event)">
+                            <i class="fa-solid fa-cart-plus"></i> ${isEn ? 'Add' : 'Adicionar'}
+                        </button>
+                    </div>
+                `).join('');
+            }
+        } else {
+            if (chromasSection) chromasSection.style.display = 'none';
+        }
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.openSkinOptionsModalByKey = function(itemKey) {
+        let item = (window.catalogItemsStore && window.catalogItemsStore[itemKey]) ? window.catalogItemsStore[itemKey] : null;
+        if (!item && Array.isArray(window.currentFilteredItems)) {
+            item = window.currentFilteredItems.find(i => ('item_' + (i.offer_id || i.item_id)) === itemKey);
+        }
+        if (!item) return;
+        window.openSkinOptionsModalForSkin(item);
+    };
+
+    function closeSkinOptionsModal(e) {
+        const modal = document.getElementById('skinOptionsModal');
+        if (modal) {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+    window.closeSkinOptionsModal = closeSkinOptionsModal;
+
+    window.addSkinOptionToCart = function(type, chromaIdx, evt) {
+        if (evt) evt.stopPropagation();
+        const isEn = selectedLanguage === 'en';
+        let targetItem = null;
+
+        if (type === 'skin') {
+            targetItem = window.currentModalSkinItem;
+        } else if (type === 'bundle') {
+            targetItem = window.currentModalBundleItem;
+        } else if (type === 'chroma' && chromaIdx !== undefined) {
+            const chr = window.currentModalChromas[chromaIdx];
+            if (chr) {
+                targetItem = {
+                    name: chr.fullName,
+                    item_id: chr.item_id,
+                    offer_id: chr.offer_id,
+                    price_rp: chr.price_rp || 290,
+                    category: 'Chromas',
+                    inventory_type: 'CHROMA',
+                    icon_url: chr.icon_url
+                };
+            }
+        }
+
+        if (!targetItem) return;
+        addToCart(targetItem, evt);
+
+        // Feedback
+        if (evt && evt.currentTarget) {
+            const btn = evt.currentTarget;
+            const origHtml = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> ${isEn ? 'Added!' : 'Adicionado!'}`;
+            btn.style.borderColor = '#00ffcc';
+            btn.style.color = '#00ffcc';
+            setTimeout(() => {
+                btn.innerHTML = origHtml;
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }, 900);
+        }
+    };
+
     document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            closeWallpaperModal();
+            closeSkinOptionsModal();
+        }
         const modal = document.getElementById('wallpaperLightboxModal');
         if (modal && modal.classList.contains('open')) {
-            if (e.key === 'Escape' || e.key === 'Esc') {
-                closeWallpaperModal();
-            } else if (e.key === 'ArrowLeft') {
+            if (e.key === 'ArrowLeft') {
                 window.changeModalSlide(-1);
             } else if (e.key === 'ArrowRight') {
                 window.changeModalSlide(1);
@@ -2339,6 +2771,7 @@ function initCatalogApp() {
         } else {
             giftCart.push({ ...item, qty: 1 });
         }
+        window.giftCart = giftCart;
         updateCartUI();
 
         if (evt && evt.currentTarget) {
@@ -2353,6 +2786,7 @@ function initCatalogApp() {
     function removeFromCart(index) {
         if (index >= 0 && index < giftCart.length) {
             giftCart.splice(index, 1);
+            window.giftCart = giftCart;
             updateCartUI();
         }
     }
@@ -2360,6 +2794,7 @@ function initCatalogApp() {
 
     function clearCart() {
         giftCart = [];
+        window.giftCart = giftCart;
         updateCartUI();
     }
     window.clearCart = clearCart;
