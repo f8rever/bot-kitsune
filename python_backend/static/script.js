@@ -42,19 +42,21 @@ const numberInput = document.getElementById('gift-quantity-input');
 
 // Atualiza o valor global e sincroniza a caixa de texto com o slider
 function updateValueFromSlider() {
+    if (!slider || !numberInput) return;
     selectedQuantity = parseInt(slider.value, 10); // Atualiza a variável global
     numberInput.value = selectedQuantity; // Sincroniza com a caixa de texto
 }
 
 // Atualiza o valor global e sincroniza o slider com a caixa de texto
 function updateValueFromNumberInput() {
+    if (!slider || !numberInput) return;
     let value = parseInt(numberInput.value, 10);
 
     // Garante que o valor esteja dentro dos limites
-    if (value < parseInt(numberInput.min, 10)) {
-        value = parseInt(numberInput.min, 10);
-    } else if (value > parseInt(numberInput.max, 10)) {
-        value = parseInt(numberInput.max, 10);
+    if (value < parseInt(numberInput.min || 1, 10)) {
+        value = parseInt(numberInput.min || 1, 10);
+    } else if (value > parseInt(numberInput.max || 55, 10)) {
+        value = parseInt(numberInput.max || 55, 10);
     }
 
     selectedQuantity = value; // Atualiza a variável global
@@ -62,15 +64,17 @@ function updateValueFromNumberInput() {
     numberInput.value = selectedQuantity;
 }
 
-// Listeners para atualizar o valor global e sincronizar os elementos
-slider.addEventListener('input', updateValueFromSlider);
-numberInput.addEventListener('input', updateValueFromNumberInput);
+// Listeners seguros para atualizar o valor global e sincronizar os elementos
+if (slider && numberInput) {
+    slider.addEventListener('input', updateValueFromSlider);
+    numberInput.addEventListener('input', updateValueFromNumberInput);
+}
 
 // Função para resetar o valor para 1
 function resetQuantity() {
     selectedQuantity = 1; // Atualiza a variável global
-    slider.value = selectedQuantity; // Reseta o slider
-    numberInput.value = selectedQuantity; // Reseta a caixa de texto
+    if (slider) slider.value = selectedQuantity; // Reseta o slider
+    if (numberInput) numberInput.value = selectedQuantity; // Reseta a caixa de texto
 }
 
 
@@ -2908,11 +2912,13 @@ function initCatalogApp() {
     }
 
     categoryRadios.forEach(radio => radio.addEventListener('change', filterItems));
-    languageSelect.addEventListener('change', () => {
-        selectedLanguage = languageSelect.value;
-        applyUiTranslations(selectedLanguage);
-        fetchCatalog();
-    });
+    if (languageSelect) {
+        languageSelect.addEventListener('change', () => {
+            selectedLanguage = languageSelect.value;
+            applyUiTranslations(selectedLanguage);
+            fetchCatalog();
+        });
+    }
 
     // Sync initial active language button
     document.querySelectorAll('.header-lang-btn').forEach(btn => {
@@ -2929,49 +2935,52 @@ if (document.readyState === 'loading') {
     initCatalogApp();
 }
 
-
-// Carregar todos os itens inicialmente para a categoria "all"
-/*window.onload = async () => {
-    const catalog = await fetchCatalog();
-    if (catalog) {
-        const allItems = getAllItems(catalog);
-        updateItemList(allItems);
-    }
-};*/
-
-
-
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     
     // Esconde todos os elementos com class="tabcontent"
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
         tabcontent[i].classList.remove("active");
     }
     
-    // Remove a classe "active" de todos os elementos com class="tablinks"
-    tablinks = document.getElementsByClassName("tab");
+    // Remove a classe "active" de todos os botões de navegação
+    tablinks = document.querySelectorAll(".main-nav-tab, .nav-menu-item, .tab, .sec-tab-btn");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
     
-    // Mostra o conteúdo da aba atual e adiciona uma classe "active" ao botão que abriu a aba
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
+    // Mostra o conteúdo da aba atual e adiciona classe "active"
+    const targetTab = document.getElementById(tabName);
+    if (targetTab) {
+        targetTab.style.display = "block";
+        targetTab.classList.add("active");
+    }
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Carregamento dinâmico automático por aba
+    if (tabName === 'Tab2' && typeof fetchOrders === 'function') {
+        fetchOrders();
+    } else if (tabName === 'Tab3' && typeof fetchAccounts === 'function') {
+        fetchAccounts();
+    }
 }
+window.openTab = openTab;
 
-// Adiciona um evento para abrir a primeira aba por padrão
+// Adiciona evento seguro para aba inicial
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementsByClassName("tab")[0].click();
-});
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementsByClassName("tab")[1].addEventListener('click', fetchOrders);
+    const firstTabBtn = document.querySelector(".main-nav-tab, .nav-menu-item, .tab");
+    const tab1 = document.getElementById('Tab1');
+    if (tab1) {
+        tab1.style.display = "block";
+        tab1.classList.add("active");
+    }
+    if (firstTabBtn) {
+        firstTabBtn.classList.add("active");
+    }
 });
 
 async function fetchOrders() {
@@ -3213,9 +3222,10 @@ async function saveAccount() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementsByClassName("tab")[2].addEventListener('click', fetchAccounts);
+    const tab2El = document.getElementsByClassName("tab")[2];
+    if (tab2El) tab2El.addEventListener('click', fetchAccounts);
     // Fetch accounts on load so metrics are updated immediately
-    fetchAccounts();
+    if (typeof fetchAccounts === 'function') fetchAccounts();
 });
 
 async function fetchAccounts() {
@@ -4056,12 +4066,17 @@ function validateRiotIdList(line) {
 }
 
 
-document.getElementById('upload-riot-id-list').addEventListener('click', function() {
-    document.getElementById('fileInput').click();
-});
+const uploadBtn = document.getElementById('upload-riot-id-list');
+const fileInputEl = document.getElementById('fileInput');
 
+if (uploadBtn && fileInputEl) {
+    uploadBtn.addEventListener('click', function() {
+        fileInputEl.click();
+    });
+}
 
-document.getElementById('fileInput').addEventListener('change', function() {
+if (fileInputEl) {
+    fileInputEl.addEventListener('change', function() {
     if (this.files.length > 0) {
         const file = this.files[0];
         const reader = new FileReader();
@@ -4098,7 +4113,8 @@ document.getElementById('fileInput').addEventListener('change', function() {
 
         reader.readAsText(file);
     }
-});
+    });
+}
 
 
 
@@ -4261,6 +4277,7 @@ function logout() {
         window.location.href = '/';
     });
 }
+window.logout = logout;
 
 
 async function getAuthCaptcha(userpass) {

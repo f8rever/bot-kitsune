@@ -654,18 +654,21 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                      - Hero Banner (60%): Arte oficial do Passe Hall of Legends 2026 (Orianna / Caps), descrição, paginação `[ 1 ] [ 2 ] [ 3 ]`, chips de recompensa (125 ME, 11 Orbes) e preço de 1950 RP.
                      - Grid de 4 Cards (40%): Coleção Autografada (58865 RP), Coleção Imortalizada (32035 RP), Coleção Ascendida (5035 RP) e Passe HoL 2026 (1950 RP), com badges de tempo `⏱️ 4sem`. Barra do Game Pass removida conforme solicitado.
                   4. *Cards de Catálogo em Grid:* Cada item do catálogo agora renderiza como Card oficial com thumbnail da Riot CDN, borda hextech metálica, tag de preço RP e selo de raridade.
-            27. **Correção Definitiva do Fechamento de Tickets e Redesign da Mensagem (2026-09-21):**
-                - **Problema Relatado:** O bot enviava a mensagem *"🔒 Ticket sendo fechado por: 'motivo' em 5 segundos..."*, mas o canal nunca era deletado e a mensagem era crua sem emojis personalizados.
-                - **Causas Raízes Identificadas:**
-                  1. *Bloqueio Síncrono no Envio da DM:* O envio da DM de avaliação com estrelas para o cliente (`await owner.send(...)`) era aguardado de forma bloqueante antes da chamada do `setTimeout(..., 5000)`. Se a DM demorasse, falhasse ou caísse em timeout na API do Discord, a exclusão do canal nunca era agendada.
-                  2. *Referência Frágil ao Canal:* Dentro do `setTimeout`, chamava-se diretamente `await interaction.channel.delete()`. Se a propriedade getter `channel` retornasse nulo ou parcial (não cacheado no Gateway no momento exato), causava exceção silenciosa no `catch`.
-                  3. *Mensagem Estática e Simples:* Mensagem de texto cru com emoji genérico 🔒 sem identidade visual Kitsune.
-                - **Soluções Implementadas:**
-                  1. *Embed Oficial com Emojis Personalizados:* Criada embed oficial estilizada (`#F43F5E`) contendo título com emoji animado (`customEmojis.utilidades.fechar`), destaque com quem fechou o ticket (`interaction.user`), motivo formatado e aviso de contagem regressiva de 5 segundos com emoji animado de carregamento (`customEmojis.utilidades.carregando`).
-                  2. *Desacoplamento Assíncrono da DM:* A rotina de envio de DM de avaliação com botões de estrelas (`rate_1` a `rate_5`) foi isolada em uma IIFE assíncrona desacoplada em background, impedindo qualquer atraso ou bloqueio no timer de exclusão.
-                  3. *Exclusão com Múltiplas Camadas de Fallback:* Se `interaction.channel` não estiver disponível, o bot tenta recuperar pelo cache da guilda (`targetGuild.channels.cache.get`), depois faz fetch direto na guilda (`targetGuild.channels.fetch`) e por fim no client (`client.channels.fetch`), com retry automático garantindo 100% de confiabilidade na exclusão.
-                  4. *Limpeza de Carrinho:* Adicionada limpeza imediata de `global.ticketCarts` ao fechar o ticket.
-                  5. *Canal Preso Deletado:* Canal de teste `nat1ef` que estava travado foi limpo e deletado com sucesso.
+            32. **Redesign 3D Simplificado e Funcional do Dashboard Web da API (2026-09-22):**
+                - **Solicitação do Usuário:**
+                  - Deixar a API site simples e funcional, no estilo da **V1**, eliminando os templates mockados pesados de carrosséis e vitrines (reservados para quando for criado um site dedicado completo no futuro), tornando o dashboard extremamente bonito, moderno e em **3D**, com **0 erros**.
+                - **Implementação Visual e Estrutural:**
+                  1. *Arquitetura Direta V1 com 4 Abas:* Restaurada a navegação horizontal em abas diretas (Loja & Catálogo, Histórico de Pedidos, Cofre de Contas, Rede de Amigos), com seletor de moedas/regiões (BR, NA, EUW, etc.), botão de carrinho 3D com contador em tempo real e perfil de usuário.
+                  2. *Estética 3D & Profundidade de Perspectiva:* Implementada inclinação e elevação nos cards (`perspective: 1000px`, `rotateX(2deg)`, `scale(1.02)`), sombras multicamadas com glow neon ciano/dourado/violeta, botões 3D táteis com clique em relevo e superfícies translúcidas em glassmorphism (`backdrop-filter: blur(20px)`).
+                  3. *Eliminação de Erros de JS (Zero Errors):*
+                     - Proteção completa contra referências nulas nos listeners de `slider`, `numberInput`, `languageSelect`, `upload-riot-id-list` e navegação de abas.
+                     - Inclusão de Favicon SVG nativo evitando requisições 404 em `/favicon.ico`.
+                     - Sintaxe validada e auditada com `node --check`.
+                  4. *Fluxo de Carrinho e Regras de Negócio:*
+                     - Manutenção estrita da exclusão de skins Míticas/Prestígio (`isMythicSkin`).
+                     - Gaveta de carrinho deslizante com aviso destacado das 24 horas de amizade exigidas pela Riot Games, campos para Riot ID (`Nome#TAG`) e disparo para a fila (`/run-script`).
+                  5. *Verificação Automatizada via Puppeteer:*
+                     - Navegação real executada localmente, autenticando com sucesso, carregando os itens do catálogo, abrindo o carrinho, alternando abas e confirmando **0 erros** no console do navegador.
 
 
 
