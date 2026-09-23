@@ -893,16 +893,31 @@ function initCatalogApp() {
         const searchNormalized = normalizeText(rawSearch).trim();
         const searchTokens = searchNormalized ? searchNormalized.split(/\s+/).filter(Boolean) : [];
         
-        // Champion Carousel Mode for the Skins Tab (as requested in audio)
-        if (selectedActiveCategory === 'Skin' && window.selectedSkinViewMode === 'champion') {
-            filterChampionSkins(searchTokens);
-            return;
+        // Champion Carousel Mode for the Skins Tab or when searching for a champion
+        if (window.selectedSkinViewMode === 'champion') {
+            if (selectedActiveCategory === 'Skin') {
+                filterChampionSkins(searchTokens);
+                return;
+            } else if (selectedActiveCategory === 'all' && searchTokens.length > 0) {
+                const hasMatchingChampion = (window.championsList || []).some(champ => {
+                    const champNorm = normalizeText(champ.championName);
+                    return searchTokens.every(t => champNorm.includes(t));
+                });
+                if (hasMatchingChampion) {
+                    filterChampionSkins(searchTokens);
+                    return;
+                }
+            }
         }
 
         let items = catalogIndexedItems;
 
         if (selectedActiveCategory !== 'all') {
             items = items.filter(item => matchesCategory(item, selectedActiveCategory));
+        } else {
+            // Em 'Todos', não exibir os 5.500 cromas avulsos soltos para não poluir o catálogo!
+            // Os cromas ficam acessíveis na aba 'Chromas' ou diretamente dentro de cada skin/campeão.
+            items = items.filter(item => !matchesCategory(item, 'Chroma'));
         }
 
         if (searchTokens.length > 0) {
@@ -1483,7 +1498,7 @@ function initCatalogApp() {
                 btnEl.innerHTML = `<i class="fa-solid fa-palette me-1"></i> ${isEn ? 'ADD CHROMA (290 RP)' : 'ADICIONAR CROMA (290 RP)'}`;
                 btnEl.onclick = (e) => {
                     e.stopPropagation();
-                    addToCart({
+                    const chrItem = {
                         name: chr.fullName,
                         item_id: chr.item_id,
                         offer_id: chr.offer_id,
@@ -1491,7 +1506,9 @@ function initCatalogApp() {
                         category: 'Chromas',
                         inventory_type: 'CHROMA',
                         icon_url: chr.icon_url
-                    }, e);
+                    };
+                    addToCart(chrItem, e);
+                    selectItem(chrItem, priceInfo.rp);
                     if (typeof toggleCartDrawer === 'function') toggleCartDrawer(true);
                 };
             }
@@ -1521,6 +1538,7 @@ function initCatalogApp() {
         const activeSkin = champ.skins[cur] || champ.skins[0];
         const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
         addToCart(activeSkin);
+        selectItem(activeSkin, priceInfo.rp);
         
         // Tactile Visual Feedback on button
         const btn = document.getElementById(`champ_btn_${champKey}`);
@@ -2452,13 +2470,18 @@ function initCatalogApp() {
             if (chromasGrid) {
                 const chromaPrice = formatItemPrice(290, currentSelectedRegion);
                 chromasGrid.innerHTML = skinOpts.chromas.map((chr, idx) => `
-                    <div class="chroma-mini-card" onclick="window.addSkinOptionToCart('chroma', ${idx}, event)">
+                    <div class="chroma-mini-card">
                         <img src="${chr.icon_url}" alt="${chr.color}" class="chroma-mini-img" loading="lazy" onerror="this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';">
                         <div class="chroma-mini-color" title="${chr.color}">${chr.color}</div>
                         <div class="chroma-mini-price">${chromaPrice.rp} · ${chromaPrice.money}</div>
-                        <button type="button" class="btn-chroma-quick-add" onclick="event.stopPropagation(); window.addSkinOptionToCart('chroma', ${idx}, event)">
-                            <i class="fa-solid fa-cart-plus"></i> ${isEn ? 'Add' : 'Adicionar'}
-                        </button>
+                        <div class="chroma-mini-actions">
+                            <button type="button" class="btn-chroma-quick-add" onclick="event.stopPropagation(); window.addSkinOptionToCart('chroma', ${idx}, event)" title="${isEn ? 'Add to Cart' : 'Adicionar ao Carrinho'}">
+                                <i class="fa-solid fa-cart-plus me-1"></i> ${isEn ? 'Cart' : 'Carrinho'}
+                            </button>
+                            <button type="button" class="btn-chroma-quick-send" onclick="event.stopPropagation(); window.selectSkinOptionForDirectSend('chroma', ${idx}, event)" title="${isEn ? 'Select for Direct Send' : 'Selecionar para Envio Direto'}">
+                                <i class="fa-solid fa-paper-plane me-1"></i> ${isEn ? 'Send' : 'Enviar'}
+                            </button>
+                        </div>
                     </div>
                 `).join('');
             }
@@ -2514,6 +2537,8 @@ function initCatalogApp() {
 
         if (!targetItem) return;
         addToCart(targetItem, evt);
+        const pInfo = formatItemPrice(targetItem.price_rp, currentSelectedRegion);
+        selectItem(targetItem, pInfo.rp);
 
         // Feedback
         if (evt && evt.currentTarget) {
@@ -2527,6 +2552,55 @@ function initCatalogApp() {
                 btn.style.borderColor = '';
                 btn.style.color = '';
             }, 900);
+        }
+    };
+
+    window.selectSkinOptionForDirectSend = function(type, chromaIdx, evt) {
+        if (evt) evt.stopPropagation();
+        const isEn = selectedLanguage === 'en';
+        let targetItem = null;
+
+        if (type === 'skin') {
+            targetItem = window.currentModalSkinItem;
+        } else if (type === 'bundle') {
+            targetItem = window.currentModalBundleItem;
+        } else if (type === 'chroma' && chromaIdx !== undefined) {
+            const chr = window.currentModalChromas[chromaIdx];
+            if (chr) {
+                targetItem = {
+                    name: chr.fullName,
+                    item_id: chr.item_id,
+                    offer_id: chr.offer_id,
+                    price_rp: chr.price_rp || 290,
+                    category: 'Chromas',
+                    inventory_type: 'CHROMA',
+                    icon_url: chr.icon_url
+                };
+            }
+        }
+
+        if (!targetItem) return;
+
+        const pInfo = formatItemPrice(targetItem.price_rp, currentSelectedRegion);
+        selectItem(targetItem, pInfo.rp);
+        closeSkinOptionsModal();
+
+        // Highlight selected item bar
+        const selBar = document.querySelector('.selected-item-bar-3d');
+        if (selBar) {
+            selBar.style.borderColor = 'var(--cyan-neon)';
+            selBar.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.4)';
+            setTimeout(() => {
+                selBar.style.borderColor = '';
+                selBar.style.boxShadow = '';
+            }, 1800);
+        }
+
+        // Focus recipient field on quick actions panel
+        const recipientInput = document.getElementById('nickname-tag');
+        if (recipientInput) {
+            recipientInput.focus();
+            recipientInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
 

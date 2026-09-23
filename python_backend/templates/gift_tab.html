@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KITSUNE SENDER — 3D SaaS Gifting Portal</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=3.1">
+    <link rel="stylesheet" href="/static/style.css?v=3.2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -692,9 +692,14 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn-option-add btn-add-base-skin" id="modalBtnAddBaseSkin" onclick="addSkinOptionToCart('skin')">
-                            <i class="fa-solid fa-cart-plus me-1"></i> ADICIONAR SKIN
-                        </button>
+                        <div class="skin-option-btn-row">
+                            <button type="button" class="btn-option-add btn-add-base-skin" id="modalBtnAddBaseSkin" onclick="addSkinOptionToCart('skin', undefined, event)">
+                                <i class="fa-solid fa-cart-plus me-1"></i> ADICIONAR AO CARRINHO
+                            </button>
+                            <button type="button" class="btn-option-select" id="modalBtnSelectBaseSkin" onclick="selectSkinOptionForDirectSend('skin', undefined, event)" title="Selecionar para envio direto na barra lateral">
+                                <i class="fa-solid fa-paper-plane me-1"></i> ENVIAR DIRETO
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Option 2: Pacote Croma Completo (Chroma Bundle) -->
@@ -717,9 +722,14 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn-option-add btn-add-bundle" id="modalBtnAddBundle" onclick="addSkinOptionToCart('bundle')">
-                            <i class="fa-solid fa-crown me-1"></i> ADICIONAR PACOTE COMPLETO
-                        </button>
+                        <div class="skin-option-btn-row">
+                            <button type="button" class="btn-option-add btn-add-bundle" id="modalBtnAddBundle" onclick="addSkinOptionToCart('bundle', undefined, event)">
+                                <i class="fa-solid fa-crown me-1"></i> ADICIONAR PACOTE
+                            </button>
+                            <button type="button" class="btn-option-select btn-option-select-bundle" id="modalBtnSelectBundle" onclick="selectSkinOptionForDirectSend('bundle', undefined, event)" title="Selecionar pacote para envio direto na barra lateral">
+                                <i class="fa-solid fa-paper-plane me-1"></i> ENVIAR PACOTE DIRETO
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -750,7 +760,7 @@
 
     <!-- SCRIPTS -->
     <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="/static/script.js?v=3.1"></script>
+    <script src="/static/script.js?v=3.2"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();

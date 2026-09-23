@@ -2002,6 +2002,81 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 6px 20px rgba(245, 197, 24, 0.6);
 }
 
+.skin-option-btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+.skin-option-btn-row .btn-option-add,
+.skin-option-btn-row .btn-option-select {
+    margin-top: 0;
+    flex: 1;
+}
+.btn-option-select {
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid var(--cyan-neon);
+    border-bottom: 3px solid #009977;
+    color: var(--cyan-neon);
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+}
+.btn-option-select:hover {
+    background: rgba(0, 255, 204, 0.25);
+    box-shadow: 0 0 14px rgba(0, 255, 204, 0.4);
+    transform: translateY(-1px);
+}
+.btn-option-select:active {
+    transform: translateY(2px);
+    border-bottom-width: 1px;
+}
+.btn-option-select-bundle {
+    border-color: #f5c518;
+    border-bottom-color: #b8860b;
+    color: #f5c518;
+    background: rgba(245, 197, 24, 0.1);
+}
+.btn-option-select-bundle:hover {
+    background: rgba(245, 197, 24, 0.25);
+    box-shadow: 0 0 14px rgba(245, 197, 24, 0.4);
+}
+.chroma-mini-actions {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    margin-top: 4px;
+}
+.chroma-mini-actions button {
+    flex: 1;
+    padding: 5px 2px;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-chroma-quick-send {
+    background: rgba(0, 255, 204, 0.15);
+    border: 1px solid var(--cyan-neon);
+    color: var(--cyan-neon);
+}
+.btn-chroma-quick-send:hover {
+    background: var(--cyan-neon);
+    color: #010a13;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
 /* SECTION 3: CROMAS INDIVIDUAIS */
 .skin-modal-chromas-section {
     background: rgba(15, 10, 30, 0.6);
