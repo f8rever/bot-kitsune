@@ -269,14 +269,14 @@
                 <div class="input-group-custom">
                     <label>Username</label>
                     <div class="input-wrapper">
-                        <input type="text" id="login_api" placeholder="Enter your username" required>
+                        <input type="text" id="login_api" placeholder="Enter your username" autocomplete="off" required>
                         <i class="fa-solid fa-user"></i>
                     </div>
                 </div>
                 <div class="input-group-custom">
                     <label>License Key</label>
                     <div class="input-wrapper">
-                        <input type="password" id="key_api" placeholder="Enter your license key" required>
+                        <input type="password" id="key_api" placeholder="Enter your license key" autocomplete="new-password" required>
                         <i class="fa-solid fa-key"></i>
                     </div>
                 </div>
@@ -369,6 +369,11 @@
             detectRetina: true,
         });
     </script>
-    <script src="../static/script.js?v=1.2"></script>
+    <script src="../static/script.js?v=3.3"></script>
+    <script>
+        // Limpa tokens armazenados no navegador ao carregar a tela de login
+        localStorage.removeItem('jwtToken');
+        sessionStorage.clear();
+    </script>
 </body>
 </html>

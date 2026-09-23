@@ -52,8 +52,9 @@ app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # Desabilitar CSRF para simplific
 app.config['MONGO_URI'] = uri
 #app.config['CELERY_BROKER'] = broker_url
 
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=30)  
-app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  
+app.config['JWT_SESSION_COOKIE'] = True
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=12)  
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(hours=12)  
 
 # Disable caching for development
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -156,45 +157,11 @@ def convert_objectid_to_str(data):
 
 @app.route("/", methods=['GET'])
 def login_page():
-
-    current_identity = None
-    valid = False
-    
-    # Tentativa de verificar o JWT
-    try:
-        verify_jwt_in_request()
-        current_identity = get_jwt_identity()
-        if current_identity:
-            #print("\n JWT encontrado")
-            valid, error_response, status_code = validate_session(current_identity)
-            #print("\n current identity encontrado")
-    except Exception as e:
-        print(f"\n Erro ao verificar JWT: {e}")
-
-    if 'access_token_cookie' in request.cookies:
-        access_token = request.cookies.get('access_token_cookie')
-        #print(f"\n access token encontrado: {access_token}")
-
-        try:
-            decoded_token = decode_token(access_token)
-            #print(f"\n decoded token: {decoded_token}")
-            expiration_time = decoded_token.get('exp')  # Verifica se o campo 'exp' está presente no payload
-            #print(f"\n exp time: {expiration_time}")
-            if expiration_time:
-                current_time = datetime.now(timezone.utc).timestamp()
-                if expiration_time > current_time and valid:
-                    #print("\n Redirecione a porra da pagina")
-                    # O token ainda não expirou, redireciona para gift_api
-                    return redirect(url_for('gift_page'))
-            else:
-                # O campo 'exp' não está presente, redireciona para gift_api
-                return redirect(url_for('gift_api'))
-        except Exception as e:
-            # O token expirou, redireciona para a tela de login
-            print(f"\n Erro exceção: {e}")
-            return render_template("login_tab.html")
-        
-    return render_template("login_tab.html")
+    # Sempre que abrir a página inicial da API (/), sempre exige login e limpa cookies/sessão anterior
+    response = make_response(render_template("login_tab.html"))
+    unset_jwt_cookies(response)
+    response.set_cookie('access_token_cookie', '', expires=0, path='/')
+    return response
 
 
 def parse_identity(identity):
@@ -278,9 +245,9 @@ def login():
 
     # Criar access token como string JSON para evitar 'Subject must be a string' em versões recentes do flask-jwt-extended
     identity_str = json.dumps([login, key, new_session_id])
-    access_token = create_access_token(identity=identity_str, expires_delta=timedelta(days=30))
+    access_token = create_access_token(identity=identity_str, expires_delta=timedelta(hours=12))
     response = jsonify(access_token=access_token)
-    set_access_cookies(response, access_token, max_age=timedelta(days=30))
+    set_access_cookies(response, access_token)  # Cookie de sessão (expira ao fechar o navegador)
 
     return response
 
