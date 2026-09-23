@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOL GIFT SENDER — League of Legends Gifting</title>
+    <title>League of Legends SENDER</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -116,16 +116,21 @@
 
         .login-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 2.2rem;
+            font-size: 1.7rem;
             font-weight: 900;
             color: var(--white);
             letter-spacing: 2px;
             margin-bottom: 4px;
             text-transform: uppercase;
+            line-height: 1.15;
+            white-space: nowrap;
         }
 
         .login-title span {
+            font-size: 2.2rem;
             color: var(--primary-light);
+            letter-spacing: 3px;
+            display: inline-block;
         }
 
         .login-subtitle {
@@ -258,12 +263,12 @@
     <!-- Fundo Animado com Partículas Diferentes -->
     <div id="tsparticles"></div>
 
-    <!-- LOL GIFT SENDER LOGIN CARD -->
+    <!-- LEAGUE OF LEGENDS SENDER LOGIN CARD -->
     <div class="monarch-login-card">
         <div class="monarch-border-fx"></div>
         <div class="monarch-login-card-content">
-            <h1 class="login-title">LoL Gift<br><span>Sender</span></h1>
-            <div class="login-subtitle">League of Legends Gifting</div>
+            <h1 class="login-title">League of Legends<br><span>Sender</span></h1>
+            <div class="login-subtitle">System Gifting</div>
 
             <form onsubmit="event.preventDefault(); login();" style="width: 100%;">
                 <div class="input-group-custom">
