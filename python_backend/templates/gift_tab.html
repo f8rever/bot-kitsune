@@ -33,22 +33,32 @@
             <!-- MAIN NAVIGATION TABS (V1 CLEAN & DIRECT) -->
             <nav class="nav-tabs-3d" id="mainNavTabs">
                 <button type="button" class="main-nav-tab active" onclick="openTab(event, 'Tab1')">
-                    <i class="fa-solid fa-store"></i> <span>Loja & Catálogo</span>
+                    <i class="fa-solid fa-store"></i> <span data-i18n="nav_tab1">Loja & Catálogo</span>
                 </button>
                 <button type="button" class="main-nav-tab" onclick="openTab(event, 'Tab2')">
-                    <i class="fa-solid fa-receipt"></i> <span>Histórico de Pedidos</span>
+                    <i class="fa-solid fa-receipt"></i> <span data-i18n="nav_tab2">Histórico de Pedidos</span>
                 </button>
                 <button type="button" class="main-nav-tab" onclick="openTab(event, 'Tab3')">
-                    <i class="fa-solid fa-vault"></i> <span>Cofre de Contas</span>
+                    <i class="fa-solid fa-vault"></i> <span data-i18n="nav_tab3">Cofre de Contas</span>
                 </button>
                 <button type="button" class="main-nav-tab" onclick="openTab(event, 'Tab4')">
-                    <i class="fa-solid fa-user-group"></i> <span>Rede de Amigos</span>
+                    <i class="fa-solid fa-user-group"></i> <span data-i18n="nav_tab4">Rede de Amigos</span>
                 </button>
             </nav>
 
-            <!-- TOP RIGHT CONTROLS: REGIONS + CART TRIGGER + USER -->
+            <!-- TOP RIGHT CONTROLS: LANGUAGE + REGIONS + CART TRIGGER + USER -->
             <div class="nav-controls-right">
                 
+                <!-- LANGUAGE TOGGLE (PT / EN) -->
+                <div class="lang-pills-group" id="langPillsGroup">
+                    <button type="button" class="lang-pill header-lang-btn active" id="btn-lang-pt" onclick="changeStoreLanguage('pt')" title="Mudar para Português">
+                        <span>🇧🇷</span> PT
+                    </button>
+                    <button type="button" class="lang-pill header-lang-btn" id="btn-lang-en" onclick="changeStoreLanguage('en')" title="Switch to English">
+                        <span>🇺🇸</span> EN
+                    </button>
+                </div>
+
                 <!-- REGION PILLS (MULTI-CURRENCY) -->
                 <div class="region-pills-group" id="regionPillsGroup">
                     <button type="button" class="region-pill active" data-region="BR" onclick="selectRegion('BR', this)">BR</button>
@@ -60,7 +70,7 @@
                             OUTROS... <i class="fa-solid fa-caret-down ms-1"></i>
                         </button>
                         <div class="server-dropdown-menu" id="outros-dropdown-menu" style="display: none;">
-                            <div class="server-dropdown-header">OUTRAS REGIÕES</div>
+                            <div class="server-dropdown-header" data-i18n="server_other_header">OUTRAS REGIÕES</div>
                             <div class="server-dropdown-item" data-region="OCE" onclick="selectRegion('OCE', this)">OCE</div>
                             <div class="server-dropdown-item" data-region="KR" onclick="selectRegion('KR', this)">KR</div>
                             <div class="server-dropdown-item" data-region="JP" onclick="selectRegion('JP', this)">JP</div>
@@ -79,7 +89,7 @@
                 <!-- 3D CART TRIGGER BUTTON -->
                 <button type="button" class="btn-cart-3d" id="navCartTrigger" onclick="toggleCartDrawer(true)" title="Abrir Carrinho">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="btn-cart-label">CARRINHO</span>
+                    <span class="btn-cart-label" data-i18n="btn_cart">CARRINHO</span>
                     <span class="cart-counter-badge" id="cart-counter-badge">0</span>
                 </button>
 
@@ -116,53 +126,53 @@
                 
                 <div class="metric-card-3d">
                     <div class="metric-top-row">
-                        <span class="metric-title">Saldo de RP</span>
+                        <span class="metric-title" data-i18n="card_rp_label">Saldo de RP</span>
                         <div class="metric-icon-box glow-gold">
                             <i class="fa-solid fa-wallet"></i>
                         </div>
                     </div>
                     <div class="metric-value-row">
                         <h2 class="metric-number-txt" id="saldo-amount">0 RP</h2>
-                        <span class="metric-trend trend-gold"><i class="fa-solid fa-sparkles"></i> Ao Vivo</span>
+                        <span class="metric-trend trend-gold"><i class="fa-solid fa-sparkles"></i> <span data-i18n="live_status">Ao Vivo</span></span>
                     </div>
                 </div>
 
                 <div class="metric-card-3d">
                     <div class="metric-top-row">
-                        <span class="metric-title">Itens no Catálogo</span>
+                        <span class="metric-title" data-i18n="card_items_label">Itens no Catálogo</span>
                         <div class="metric-icon-box glow-cyan">
                             <i class="fa-solid fa-box-open"></i>
                         </div>
                     </div>
                     <div class="metric-value-row">
                         <h2 class="metric-number-txt" id="catalogCountTimestamp">9.347+</h2>
-                        <span class="metric-trend trend-cyan"><i class="fa-solid fa-check"></i> Riot Store</span>
+                        <span class="metric-trend trend-cyan"><i class="fa-solid fa-check"></i> <span data-i18n="riot_store_status">Riot Store</span></span>
                     </div>
                 </div>
 
                 <div class="metric-card-3d">
                     <div class="metric-top-row">
-                        <span class="metric-title">Presentes Diários</span>
+                        <span class="metric-title" data-i18n="card_daily_gifts">Presentes Diários</span>
                         <div class="metric-icon-box glow-purple">
                             <i class="fa-solid fa-gift"></i>
                         </div>
                     </div>
                     <div class="metric-value-row">
                         <h2 class="metric-number-txt" id="daily-gifts-counter">0 / 10</h2>
-                        <span class="metric-trend trend-purple"><i class="fa-solid fa-shield-halved"></i> Limite Riot</span>
+                        <span class="metric-trend trend-purple"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="quota_status">Limite Riot</span></span>
                     </div>
                 </div>
 
                 <div class="metric-card-3d">
                     <div class="metric-top-row">
-                        <span class="metric-title">Contas Salvas</span>
+                        <span class="metric-title" data-i18n="card_saved_label">Contas Salvas</span>
                         <div class="metric-icon-box glow-emerald">
                             <i class="fa-solid fa-user-shield"></i>
                         </div>
                     </div>
                     <div class="metric-value-row">
                         <h2 class="metric-number-txt" id="total-saved-accounts">0</h2>
-                        <span class="metric-trend trend-emerald"><i class="fa-solid fa-shield-check"></i> Cofre Ativo</span>
+                        <span class="metric-trend trend-emerald"><i class="fa-solid fa-shield-check"></i> <span data-i18n="vault_status">Cofre Ativo</span></span>
                     </div>
                 </div>
 
@@ -178,16 +188,16 @@
                     <div class="catalog-panel-header">
                         <div class="catalog-heading-wrap">
                             <i class="fa-solid fa-store text-cyan fs-5"></i>
-                            <h3 class="catalog-panel-title" id="catalogCategoryHeading">CATÁLOGO DE ITENS</h3>
+                            <h3 class="catalog-panel-title" id="catalogCategoryHeading" data-i18n="catalog_header_title">CATÁLOGO DE ITENS</h3>
                         </div>
 
                         <!-- SKINS VIEW SWITCHER (CHAMPION vs GRID) -->
                         <div class="skins-view-switcher" id="skinsViewSwitcher" style="display: none;">
                             <button type="button" class="btn-switch-mode active" id="btnViewChamp" onclick="setSkinViewMode('champion')">
-                                <i class="fa-solid fa-users-viewfinder me-1"></i> Por Campeão
+                                <i class="fa-solid fa-users-viewfinder me-1"></i> <span data-i18n="view_by_champion">Por Campeão</span>
                             </button>
                             <button type="button" class="btn-switch-mode" id="btnViewGrid" onclick="setSkinViewMode('grid')">
-                                <i class="fa-solid fa-table-cells me-1"></i> Grid Geral
+                                <i class="fa-solid fa-table-cells me-1"></i> <span data-i18n="view_all_skins">Grid Geral</span>
                             </button>
                         </div>
 
@@ -201,46 +211,46 @@
                     <!-- CATEGORY CHIPS BAR (HIGH CONTRAST & RESPONSIVE) -->
                     <div class="category-chips-scroll-bar">
                         <label class="category-chip-item active">
-                            <input type="radio" name="category" value="all" checked> <i class="fa-solid fa-shapes"></i> <span>Todos</span>
+                            <input type="radio" name="category" value="all" checked> <i class="fa-solid fa-shapes"></i> <span data-i18n="cat_all">Todos</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Skin"> <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Skins</span>
+                            <input type="radio" name="category" value="Skin"> <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="cat_skins">Skins</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Chroma"> <i class="fa-solid fa-gem"></i> <span>Chromas</span>
+                            <input type="radio" name="category" value="Chroma"> <i class="fa-solid fa-gem"></i> <span data-i18n="cat_chromas">Chromas</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Bundle"> <i class="fa-solid fa-box-open"></i> <span>Pacotes</span>
+                            <input type="radio" name="category" value="Bundle"> <i class="fa-solid fa-box-open"></i> <span data-i18n="cat_bundles">Pacotes</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Pass"> <i class="fa-solid fa-ticket"></i> <span>Passes</span>
+                            <input type="radio" name="category" value="Pass"> <i class="fa-solid fa-ticket"></i> <span data-i18n="cat_passes">Passes</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Champion"> <i class="fa-solid fa-shield-halved"></i> <span>Campeões</span>
+                            <input type="radio" name="category" value="Champion"> <i class="fa-solid fa-shield-halved"></i> <span data-i18n="cat_champions">Campeões</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Emote"> <i class="fa-regular fa-face-smile"></i> <span>Emotes</span>
+                            <input type="radio" name="category" value="Emote"> <i class="fa-regular fa-face-smile"></i> <span data-i18n="cat_emotes">Emotes</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Icon"> <i class="fa-regular fa-circle-user"></i> <span>Ícones</span>
+                            <input type="radio" name="category" value="Icon"> <i class="fa-regular fa-circle-user"></i> <span data-i18n="cat_icons">Ícones</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Ward"> <i class="fa-solid fa-eye"></i> <span>Sentinelas</span>
+                            <input type="radio" name="category" value="Ward"> <i class="fa-solid fa-eye"></i> <span data-i18n="cat_wards">Sentinelas</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="LittleLegends"> <i class="fa-solid fa-dragon"></i> <span>Pequenas Lendas</span>
+                            <input type="radio" name="category" value="LittleLegends"> <i class="fa-solid fa-dragon"></i> <span data-i18n="cat_little_legends">Pequenas Lendas</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="TFTArena"> <i class="fa-solid fa-chess-board"></i> <span>Tabuleiros TFT</span>
+                            <input type="radio" name="category" value="TFTArena"> <i class="fa-solid fa-chess-board"></i> <span data-i18n="cat_tft_arena">Tabuleiros TFT</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Eternals"> <i class="fa-solid fa-fire-flame-curved"></i> <span>Eternals</span>
+                            <input type="radio" name="category" value="Eternals"> <i class="fa-solid fa-fire-flame-curved"></i> <span data-i18n="cat_eternals">Eternals</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Mystery"> <i class="fa-solid fa-circle-question"></i> <span>Mistério</span>
+                            <input type="radio" name="category" value="Mystery"> <i class="fa-solid fa-circle-question"></i> <span data-i18n="cat_mystery">Mistério</span>
                         </label>
                         <label class="category-chip-item">
-                            <input type="radio" name="category" value="Hextech"> <i class="fa-solid fa-cube"></i> <span>Hextec</span>
+                            <input type="radio" name="category" value="Hextech"> <i class="fa-solid fa-cube"></i> <span data-i18n="cat_hextech">Hextec</span>
                         </label>
                     </div>
 
@@ -283,12 +293,12 @@
                     <div class="selected-item-bar-3d">
                         <div class="selected-item-title-wrap">
                             <i class="fa-solid fa-hand-pointer text-cyan"></i>
-                            <span id="selected-item-details">Item Selecionado: Nenhum</span>
+                            <span id="selected-item-details" data-i18n="selected_item_none">Item Selecionado: Nenhum</span>
                         </div>
                         <div class="selected-item-actions-wrap">
-                            <input type="text" id="gift-message" class="saas-control-sm" placeholder="Mensagem do Presente (Opcional)">
+                            <input type="text" id="gift-message" class="saas-control-sm" placeholder="Mensagem do Presente (Opcional)" data-i18n-placeholder="msg_placeholder">
                             <div class="qty-stepper-box-3d">
-                                <span>Qtd:</span>
+                                <span data-i18n="qty_label">Qtd:</span>
                                 <input type="range" id="gift-quantity-slider" min="1" max="55" value="1">
                                 <input type="number" id="gift-quantity-input" min="1" max="55" value="1" class="qty-input-field">
                             </div>
@@ -301,34 +311,34 @@
                 <aside class="quick-actions-panel-3d">
                     <div class="qa-header-3d">
                         <i class="fa-solid fa-bolt-lightning text-gold"></i>
-                        <h3>Ações Rápidas & Sessão</h3>
+                        <h3 data-i18n="quick_actions_title">Ações Rápidas & Sessão</h3>
                     </div>
 
                     <!-- Simple Login Mode Switch -->
                     <div class="auth-mode-switch-box">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
-                            <label class="form-check-label" for="simple-login">Modo Simples (user:pass)</label>
+                            <label class="form-check-label" for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
                         </div>
                     </div>
 
                     <!-- Quick Inputs Stack -->
                     <div class="quick-inputs-stack-3d">
                         <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-user me-1 text-purple"></i> Conta Riot Sender</label>
-                            <input type="text" id="username-password" class="saas-input-3d" placeholder="Usuário:Senha">
+                            <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Riot Sender</span></label>
+                            <input type="text" id="username-password" class="saas-input-3d" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder">
                         </div>
                         <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-lock me-1 text-purple"></i> Senha Adicional (Opcional)</label>
-                            <input type="text" id="password" class="saas-input-3d disabled-input" placeholder="Senha" disabled>
+                            <label><i class="fa-solid fa-lock me-1 text-purple"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
+                            <input type="text" id="password" class="saas-input-3d disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
                         </div>
                         <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-key me-1 text-purple"></i> Token / Cookies de Sessão</label>
-                            <input type="text" id="tokens-url" class="saas-input-3d" placeholder="Token URL">
+                            <label><i class="fa-solid fa-key me-1 text-purple"></i> <span data-i18n="label_token_url">Token / Cookies de Sessão</span></label>
+                            <input type="text" id="tokens-url" class="saas-input-3d" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
                         </div>
                         <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> Destinatário (Riot ID)</label>
-                            <input type="text" id="nickname-tag" class="saas-input-3d" placeholder="Nickname#TAG (ex: SeuNome#BR1)">
+                            <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
+                            <input type="text" id="nickname-tag" class="saas-input-3d" placeholder="Nickname#TAG (ex: SeuNome#BR1)" data-i18n-placeholder="recipient_placeholder">
                         </div>
                     </div>
 
@@ -337,8 +347,8 @@
                         <button type="button" class="btn-qa-card-3d" onclick="Api('saldo')">
                             <div class="btn-qa-icon icon-gold"><i class="fa-solid fa-wallet"></i></div>
                             <div class="btn-qa-info">
-                                <strong>Checar Saldo RP</strong>
-                                <span>Consultar saldo da conta enviadora</span>
+                                <strong data-i18n="qa_check_rp">Checar Saldo RP</strong>
+                                <span data-i18n="qa_check_rp_sub">Consultar saldo da conta enviadora</span>
                             </div>
                             <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
                         </button>
@@ -346,8 +356,8 @@
                         <button type="button" class="btn-qa-card-3d" onclick="Api('friend')">
                             <div class="btn-qa-icon icon-emerald"><i class="fa-solid fa-user-plus"></i></div>
                             <div class="btn-qa-info">
-                                <strong>Enviar Amizade</strong>
-                                <span>Adicionar Riot ID do destinatário</span>
+                                <strong data-i18n="qa_send_friend">Enviar Amizade</strong>
+                                <span data-i18n="qa_send_friend_sub">Adicionar Riot ID do destinatário</span>
                             </div>
                             <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
                         </button>
@@ -355,14 +365,14 @@
                         <button type="button" class="btn-qa-card-3d btn-qa-primary-3d" onclick="Api('gift')">
                             <div class="btn-qa-icon icon-cyan"><i class="fa-solid fa-gift"></i></div>
                             <div class="btn-qa-info">
-                                <strong>Enviar Presente Direto</strong>
-                                <span>Disparar item selecionado</span>
+                                <strong data-i18n="qa_dispatch">Enviar Presente Direto</strong>
+                                <span data-i18n="qa_dispatch_sub">Disparar item selecionado</span>
                             </div>
-                            <i class="fa-solid fa-paper-plane btn-qa-arrow"></i>
+                            <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
                         </button>
-
-                        <div id="result" class="result-status-box-3d"></div>
                     </div>
+
+                    <div id="result" class="result-status-box-3d"></div>
                 </aside>
 
             </div>
@@ -375,16 +385,16 @@
         <div id="Tab2" class="tabcontent" style="display: none;">
             
             <div class="page-title-3d">
-                <h1>Histórico de Pedidos & Transações</h1>
-                <p>Acompanhe todos os disparos de presentes e compras executadas pela plataforma.</p>
+                <h1 data-i18n="tab2_title">Histórico de Pedidos & Transações</h1>
+                <p data-i18n="tab2_desc">Acompanhe todos os disparos de presentes e compras executadas pela plataforma.</p>
             </div>
 
             <div class="table-container-3d">
                 <div class="table-header-action-row">
-                    <h3 class="table-title-txt"><i class="fa-solid fa-receipt me-2 text-cyan"></i>Registros de Envio</h3>
+                    <h3 class="table-title-txt"><i class="fa-solid fa-receipt me-2 text-cyan"></i><span data-i18n="tab2_table_title">Registros de Envio</span></h3>
                     <div class="table-action-btns">
-                        <button type="button" class="btn-action-3d outline" onclick="exportOrders()"><i class="fa-solid fa-file-export me-1"></i> Exportar Log</button>
-                        <button type="button" class="btn-action-3d danger" onclick="clearOrders()"><i class="fa-solid fa-trash me-1"></i> Limpar Log</button>
+                        <button type="button" class="btn-action-3d outline" onclick="exportOrders()"><i class="fa-solid fa-file-export me-1"></i> <span data-i18n="tab2_btn_export">Exportar Log</span></button>
+                        <button type="button" class="btn-action-3d danger" onclick="clearOrders()"><i class="fa-solid fa-trash me-1"></i> <span data-i18n="tab2_btn_clear">Limpar Log</span></button>
                     </div>
                 </div>
 
@@ -392,14 +402,14 @@
                     <table class="saas-table-3d">
                         <thead>
                             <tr>
-                                <th>Remetente</th>
-                                <th>Destinatário</th>
-                                <th>Item</th>
-                                <th>Custo (RP)</th>
-                                <th>Data do Pedido</th>
-                                <th>Conclusão</th>
-                                <th>Status</th>
-                                <th class="text-end">Ações</th>
+                                <th data-i18n="tab2_th_sender">Remetente</th>
+                                <th data-i18n="tab2_th_recipient">Destinatário</th>
+                                <th data-i18n="tab2_th_item">Item</th>
+                                <th data-i18n="tab2_th_cost">Custo (RP)</th>
+                                <th data-i18n="tab2_th_date">Data do Pedido</th>
+                                <th data-i18n="tab2_th_completion">Conclusão</th>
+                                <th data-i18n="tab2_th_status">Status</th>
+                                <th class="text-end" data-i18n="tab2_th_actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="orders-list">
@@ -417,8 +427,8 @@
         <div id="Tab3" class="tabcontent" style="display: none;">
             
             <div class="page-title-3d">
-                <h1>Cofre de Contas & Chaves API</h1>
-                <p>Gerencie suas contas de envio Riot salvas e chaves de resolução de Captcha.</p>
+                <h1 data-i18n="tab3_title">Cofre de Contas & Chaves API</h1>
+                <p data-i18n="tab3_desc">Gerencie suas contas de envio Riot salvas e chaves de resolução de Captcha.</p>
             </div>
 
             <div class="split-columns-3d">
@@ -427,17 +437,17 @@
                 <div class="side-form-3d">
                     <div class="side-form-header">
                         <i class="fa-solid fa-shield-halved text-purple"></i>
-                        <h3>Gerenciador de Credenciais</h3>
+                        <h3 data-i18n="tab3_cred_title">Gerenciador de Credenciais</h3>
                     </div>
 
                     <div class="saas-field-3d mb-3">
-                        <label>Credencial Riot (user:pass)</label>
+                        <label data-i18n="tab3_cred_label">Credencial Riot (user:pass)</label>
                         <input type="text" id="user-pass" class="saas-input-3d" placeholder="Username:Password">
                     </div>
 
                     <div class="d-grid gap-2 mb-4">
-                        <button type="button" class="btn-3d-primary" onclick="saveAccount()"><i class="fa-solid fa-floppy-disk me-1"></i> Salvar Conta</button>
-                        <button type="button" class="btn-3d-danger" onclick="clearAccounts()"><i class="fa-solid fa-trash-can me-1"></i> Limpar Todas as Contas</button>
+                        <button type="button" class="btn-3d-primary" onclick="saveAccount()"><i class="fa-solid fa-floppy-disk me-1"></i> <span data-i18n="tab3_btn_save_acc">Salvar Conta</span></button>
+                        <button type="button" class="btn-3d-danger" onclick="clearAccounts()"><i class="fa-solid fa-trash-can me-1"></i> <span data-i18n="tab3_btn_clear_acc">Limpar Todas as Contas</span></button>
                         <div id="result-acc" class="result-status-box-3d mt-2"></div>
                     </div>
 
@@ -445,32 +455,32 @@
 
                     <div class="side-form-header">
                         <i class="fa-solid fa-key text-gold"></i>
-                        <h3>Chave Captcha Solver</h3>
+                        <h3 data-i18n="tab3_captcha_title">Chave Captcha Solver</h3>
                     </div>
 
                     <div class="saas-field-3d mb-3">
-                        <label>Chave CapMonster / 2Captcha</label>
-                        <input type="text" id="captcha-key" class="saas-input-3d" placeholder="Cole sua chave API">
+                        <label data-i18n="tab3_captcha_label">Chave CapMonster / 2Captcha</label>
+                        <input type="text" id="captcha-key" class="saas-input-3d" placeholder="Cole sua chave API" data-i18n-placeholder="tab3_captcha_placeholder">
                     </div>
-                    <button type="button" class="btn-3d-gold w-100" onclick="saveUserCaptcha()"><i class="fa-solid fa-shield-halved me-1"></i> Salvar Chave Captcha</button>
+                    <button type="button" class="btn-3d-gold w-100" onclick="saveUserCaptcha()"><i class="fa-solid fa-shield-halved me-1"></i> <span data-i18n="tab3_btn_save_captcha">Salvar Chave Captcha</span></button>
                     <div id="result-savecaptcha" class="result-status-box-3d mt-2"></div>
                 </div>
 
                 <!-- RIGHT: ACCOUNTS TABLE -->
                 <div class="table-container-3d flex-grow-1">
                     <div class="table-header-action-row">
-                        <h3 class="table-title-txt"><i class="fa-solid fa-users me-2 text-cyan"></i>Contas Riot Cadastradas</h3>
+                        <h3 class="table-title-txt"><i class="fa-solid fa-users me-2 text-cyan"></i><span data-i18n="tab3_table_title">Contas Riot Cadastradas</span></h3>
                     </div>
                     <div class="table-responsive-viewport">
                         <table class="saas-table-3d">
                             <thead>
                                 <tr>
-                                    <th>Usuário:Senha</th>
-                                    <th>Região</th>
-                                    <th>Saldo RP</th>
-                                    <th>RP Pedido</th>
-                                    <th>RP Restante</th>
-                                    <th class="text-end">Ações</th>
+                                    <th data-i18n="tab3_th_userpass">Usuário:Senha</th>
+                                    <th data-i18n="tab3_th_region">Região</th>
+                                    <th data-i18n="tab3_th_rp_balance">Saldo RP</th>
+                                    <th data-i18n="tab3_th_rp_ordered">RP Pedido</th>
+                                    <th data-i18n="tab3_th_rp_remaining">RP Restante</th>
+                                    <th class="text-end" data-i18n="tab3_th_actions">Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="accounts-list">
@@ -490,8 +500,8 @@
         <div id="Tab4" class="tabcontent" style="display: none;">
             
             <div class="page-title-3d">
-                <h1>Rede de Amigos & Disparos em Massa</h1>
-                <p>Gerencie amizades do League of Legends e solicite envios e mensagens em lote.</p>
+                <h1 data-i18n="tab4_title">Rede de Amigos & Disparos em Massa</h1>
+                <p data-i18n="tab4_desc">Gerencie amizades do League of Legends e solicite envios e mensagens em lote.</p>
             </div>
 
             <div class="split-columns-3d">
@@ -500,58 +510,58 @@
                 <div class="side-form-3d">
                     <div class="side-form-header">
                         <i class="fa-solid fa-user-group text-emerald"></i>
-                        <h3>Operações de Amizade</h3>
+                        <h3 data-i18n="tab4_ops_title">Operações de Amizade</h3>
                     </div>
 
                     <div class="saas-field-3d mb-3">
-                        <label>Conta Operadora (user:pass)</label>
+                        <label data-i18n="tab4_op_acc_label">Conta Operadora (user:pass)</label>
                         <input type="text" id="user-pass-friendlist" class="saas-input-3d" placeholder="Username:Password">
                     </div>
 
                     <div class="d-grid gap-2 mb-3">
-                        <button type="button" class="btn-3d-primary" onclick="fetchFriends()"><i class="fa-solid fa-rotate me-1"></i> Carregar Amigos</button>
-                        <button type="button" class="btn-3d-emerald" onclick="acceptAllRequests()"><i class="fa-solid fa-user-check me-1"></i> Aceitar Todos os Pedidos</button>
+                        <button type="button" class="btn-3d-primary" onclick="fetchFriends()"><i class="fa-solid fa-rotate me-1"></i> <span data-i18n="tab4_btn_fetch_friends">Carregar Amigos</span></button>
+                        <button type="button" class="btn-3d-emerald" onclick="acceptAllRequests()"><i class="fa-solid fa-user-check me-1"></i> <span data-i18n="tab4_btn_accept_all">Aceitar Todos os Pedidos</span></button>
                     </div>
 
                     <hr class="saas-divider-3d">
 
                     <div class="saas-field-3d mb-2">
-                        <label>Mensagem de Chat em Massa</label>
-                        <textarea id="mass_message" rows="3" class="saas-input-3d" placeholder="Digite a mensagem para todos os amigos..."></textarea>
+                        <label data-i18n="tab4_mass_msg_label">Mensagem de Chat em Massa</label>
+                        <textarea id="mass_message" rows="3" class="saas-input-3d" placeholder="Digite a mensagem para todos os amigos..." data-i18n-placeholder="tab4_mass_msg_placeholder"></textarea>
                     </div>
-                    <button type="button" class="btn-3d-primary w-100 mb-3" onclick="massMessage()"><i class="fa-solid fa-paper-plane me-1"></i> Disparar Mensagens</button>
+                    <button type="button" class="btn-3d-primary w-100 mb-3" onclick="massMessage()"><i class="fa-solid fa-paper-plane me-1"></i> <span data-i18n="tab4_btn_send_mass_msg">Disparar Mensagens</span></button>
 
                     <hr class="saas-divider-3d">
 
                     <div class="saas-field-3d mb-2">
-                        <label>Lista de Pedidos em Massa (.txt)</label>
+                        <label data-i18n="tab4_import_list_label">Lista de Pedidos em Massa (.txt)</label>
                         <input type="file" id="fileInput" accept=".txt" class="saas-input-3d">
                     </div>
-                    <button type="button" id="upload-riot-id-list" class="btn-3d-emerald w-100 mb-3"><i class="fa-solid fa-user-plus me-1"></i> Importar Lista (Máx 50)</button>
+                    <button type="button" id="upload-riot-id-list" class="btn-3d-emerald w-100 mb-3"><i class="fa-solid fa-user-plus me-1"></i> <span data-i18n="tab4_btn_import_list">Importar Lista (Máx 50)</span></button>
 
-                    <button type="button" class="btn-3d-danger w-100" onclick="removeAllFriends()"><i class="fa-solid fa-user-xmark me-1"></i> Limpar Amigos</button>
+                    <button type="button" class="btn-3d-danger w-100" onclick="removeAllFriends()"><i class="fa-solid fa-user-xmark me-1"></i> <span data-i18n="tab4_btn_clear_friends">Limpar Amigos</span></button>
                     <div id="result-friends" class="result-status-box-3d mt-2"></div>
                 </div>
 
                 <!-- RIGHT: FRIENDS LIST TABLE -->
                 <div class="table-container-3d flex-grow-1">
                     <div class="table-header-action-row mb-3">
-                        <h3 class="table-title-txt"><i class="fa-solid fa-address-book me-2 text-cyan"></i>Lista de Amigos & Solicitações</h3>
+                        <h3 class="table-title-txt"><i class="fa-solid fa-address-book me-2 text-cyan"></i><span data-i18n="tab4_table_title">Lista de Amigos & Solicitações</span></h3>
                     </div>
 
                     <div class="search-input-box-3d mb-3">
                         <i class="fa-solid fa-magnifying-glass search-icon-neon"></i>
-                        <input type="text" id="search-friends-input" onkeyup="filterFriendsList(this.value)" placeholder="Filtrar por Riot ID ou Tag...">
+                        <input type="text" id="search-friends-input" onkeyup="filterFriendsList(this.value)" placeholder="Filtrar por Riot ID ou Tag..." data-i18n-placeholder="tab4_search_placeholder">
                     </div>
 
                     <div class="table-responsive-viewport">
                         <table class="saas-table-3d">
                             <thead>
                                 <tr>
-                                    <th>Riot ID (Nome#TAG)</th>
-                                    <th>Status</th>
-                                    <th>Tempo de Amizade</th>
-                                    <th class="text-end">Ações</th>
+                                    <th data-i18n="tab4_th_riot_id">Riot ID (Nome#TAG)</th>
+                                    <th data-i18n="tab4_th_status">Status</th>
+                                    <th data-i18n="tab4_th_time">Tempo de Amizade</th>
+                                    <th class="text-end" data-i18n="tab4_th_actions">Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="friend-list">
@@ -576,7 +586,7 @@
         <div class="cart-drawer-header">
             <div class="cart-header-title">
                 <i class="fa-solid fa-cart-shopping text-cyan me-2"></i>
-                <span>SEU CARRINHO DE PRESENTES</span>
+                <span data-i18n="cart_drawer_title">SEU CARRINHO DE PRESENTES</span>
             </div>
             <button type="button" class="cart-btn-close-3d" onclick="toggleCartDrawer(false)" title="Fechar Carrinho">
                 <i class="fa-solid fa-xmark"></i>
@@ -589,8 +599,8 @@
             <div class="riot-friendship-alert-3d">
                 <i class="fa-solid fa-circle-exclamation alert-icon"></i>
                 <div class="alert-content">
-                    <strong>Regra de Entrega da Riot Games:</strong>
-                    <p>O destinatário precisa ser amigo da conta enviadora há pelo menos <b>24 horas</b> no League of Legends para que o presente seja liberado pela Riot.</p>
+                    <strong data-i18n="cart_riot_rule_title">Regra de Entrega da Riot Games:</strong>
+                    <p data-i18n="cart_riot_rule_desc">O destinatário precisa ser amigo da conta enviadora há pelo menos <b>24 horas</b> no League of Legends para que o presente seja liberado pela Riot.</p>
                 </div>
             </div>
 
@@ -598,23 +608,23 @@
             <div class="cart-items-scroll-box" id="cart-items-list">
                 <div class="cart-empty-state">
                     <i class="fa-solid fa-cart-arrow-down"></i>
-                    <p>Seu carrinho está vazio. Adicione itens do catálogo!</p>
+                    <p data-i18n="cart_empty_msg">Seu carrinho está vazio. Adicione itens do catálogo!</p>
                 </div>
             </div>
 
             <!-- COMPOSITE RIOT ID INPUT -->
             <div class="cart-recipient-section-3d">
-                <label class="cart-section-label"><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> Destinatário do Presente (Riot ID)</label>
+                <label class="cart-section-label"><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="cart_recipient_label">Destinatário do Presente (Riot ID)</span></label>
                 <div class="riot-id-composite-3d">
-                    <input type="text" id="cart-recipient-name" class="riot-id-name-input" placeholder="Nome no LoL" oninput="syncCartRiotId()">
+                    <input type="text" id="cart-recipient-name" class="riot-id-name-input" placeholder="Nome no LoL" data-i18n-placeholder="cart_riot_name_placeholder" oninput="syncCartRiotId()">
                     <span class="riot-id-separator">#</span>
-                    <input type="text" id="cart-recipient-tag" class="riot-id-tag-input" placeholder="TAG (ex: BR1)" oninput="syncCartRiotId()">
+                    <input type="text" id="cart-recipient-tag" class="riot-id-tag-input" placeholder="TAG (ex: BR1)" data-i18n-placeholder="cart_riot_tag_placeholder" oninput="syncCartRiotId()">
                 </div>
                 <!-- Hidden unified recipient input for API integration -->
                 <input type="hidden" id="cart-recipient-id">
 
-                <label class="cart-section-label mt-3"><i class="fa-regular fa-comment-dots me-1 text-gold"></i> Mensagem do Presente (Opcional)</label>
-                <input type="text" id="cart-message" class="saas-input-3d" placeholder="Mensagem personalizada in-game...">
+                <label class="cart-section-label mt-3"><i class="fa-regular fa-comment-dots me-1 text-gold"></i> <span data-i18n="cart_msg_label">Mensagem do Presente (Opcional)</span></label>
+                <input type="text" id="cart-message" class="saas-input-3d" placeholder="Mensagem personalizada in-game..." data-i18n-placeholder="cart_msg_placeholder">
             </div>
 
             <div id="cart-result-status" class="result-status-box-3d mt-2"></div>
@@ -625,25 +635,25 @@
         <div class="cart-drawer-footer">
             <div class="cart-totals-summary">
                 <div class="totals-row">
-                    <span>Total de Itens:</span>
+                    <span data-i18n="cart_total_items_label">Total de Itens:</span>
                     <strong id="cart-total-items-count">0</strong>
                 </div>
                 <div class="totals-row">
-                    <span>Custo em RP:</span>
+                    <span data-i18n="cart_cost_rp_label">Custo em RP:</span>
                     <strong class="text-gold" id="cart-total-rp">0 RP</strong>
                 </div>
                 <div class="totals-row totals-grand">
-                    <span>Total a Pagar:</span>
+                    <span data-i18n="cart_total_pay_label">Total a Pagar:</span>
                     <strong class="text-cyan" id="cart-total-money">R$ 0,00</strong>
                 </div>
             </div>
 
             <div class="cart-actions-stack">
                 <button type="button" class="btn-dispatch-cart-3d" id="btn-dispatch-all-cart" onclick="dispatchCartGifts()">
-                    <i class="fa-solid fa-paper-plane me-2"></i> FINALIZAR E ENVIAR FILA
+                    <i class="fa-solid fa-paper-plane me-2"></i> <span data-i18n="cart_btn_dispatch">FINALIZAR E ENVIAR FILA</span>
                 </button>
                 <button type="button" class="btn-clear-cart-3d" onclick="clearCart()">
-                    <i class="fa-solid fa-trash-can me-1"></i> Limpar Carrinho
+                    <i class="fa-solid fa-trash-can me-1"></i> <span data-i18n="cart_clear_all">Limpar Carrinho</span>
                 </button>
             </div>
         </div>
@@ -668,7 +678,7 @@
                     <div class="skin-modal-header-meta">
                         <div id="skinModalRarityBadge" class="skin-modal-rarity"></div>
                         <h2 class="skin-modal-title" id="skinModalTitle">Nome da Skin</h2>
-                        <p class="skin-modal-subtitle">Escolha entre a Skin Base, o Pacote Croma Completo ou Cromas Individuais avulsos:</p>
+                        <p class="skin-modal-subtitle" data-i18n="modal_skin_subtitle">Escolha entre a Skin Base, o Pacote Croma Completo ou Cromas Individuais avulsos:</p>
                     </div>
                 </div>
             </div>
@@ -680,12 +690,12 @@
                 <div class="skin-options-tiers-grid" id="skinOptionsTiersGrid">
                     <!-- Option 1: Skin Base -->
                     <div class="skin-option-card skin-base-card" id="modalSkinBaseCard">
-                        <div class="skin-option-card-badge">SKIN BASE</div>
+                        <div class="skin-option-card-badge" data-i18n="modal_skin_base_badge">SKIN BASE</div>
                         <div class="skin-option-card-inner">
                             <img id="modalSkinBaseImg" src="" alt="Skin Base" class="skin-option-img">
                             <div class="skin-option-info">
-                                <h3 class="skin-option-name" id="modalSkinBaseName">Skin Base</h3>
-                                <p class="skin-option-desc">Inclui apenas o modelo e efeitos visuais da skin original.</p>
+                                <h3 class="skin-option-name" id="modalSkinBaseName" data-i18n="modal_skin_base_title">Skin Base</h3>
+                                <p class="skin-option-desc" data-i18n="modal_skin_base_desc">Inclui apenas o modelo e efeitos visuais da skin original.</p>
                                 <div class="skin-option-prices" id="modalSkinBasePrices">
                                     <span class="price-rp text-gold" id="modalSkinBaseRp">1.350 RP</span>
                                     <span class="price-money text-teal" id="modalSkinBaseMoney">R$ 40,50</span>
@@ -694,10 +704,10 @@
                         </div>
                         <div class="skin-option-btn-row">
                             <button type="button" class="btn-option-add btn-add-base-skin" id="modalBtnAddBaseSkin" onclick="addSkinOptionToCart('skin', undefined, event)">
-                                <i class="fa-solid fa-cart-plus me-1"></i> ADICIONAR AO CARRINHO
+                                <i class="fa-solid fa-cart-plus me-1"></i> <span data-i18n="modal_add_cart">ADICIONAR AO CARRINHO</span>
                             </button>
                             <button type="button" class="btn-option-select" id="modalBtnSelectBaseSkin" onclick="selectSkinOptionForDirectSend('skin', undefined, event)" title="Selecionar para envio direto na barra lateral">
-                                <i class="fa-solid fa-paper-plane me-1"></i> ENVIAR DIRETO
+                                <i class="fa-solid fa-paper-plane me-1"></i> <span data-i18n="modal_send_direct">ENVIAR DIRETO</span>
                             </button>
                         </div>
                     </div>
@@ -705,16 +715,16 @@
                     <!-- Option 2: Pacote Croma Completo (Chroma Bundle) -->
                     <div class="skin-option-card skin-bundle-card" id="modalSkinBundleCard">
                         <div class="skin-option-card-badge bundle-glow-badge">
-                            <i class="fa-solid fa-crown me-1 text-gold"></i> PACOTE COMPLETO · RUBI EXCLUSIVO
+                            <i class="fa-solid fa-crown me-1 text-gold"></i> <span data-i18n="modal_bundle_badge">PACOTE COMPLETO · RUBI EXCLUSIVO</span>
                         </div>
                         <div class="skin-option-card-inner">
                             <img id="modalSkinBundleImg" src="" alt="Pacote Croma" class="skin-option-img">
                             <div class="skin-option-info">
-                                <h3 class="skin-option-name" id="modalSkinBundleName">Pacote Croma Completo</h3>
+                                <h3 class="skin-option-name" id="modalSkinBundleName" data-i18n="modal_bundle_title">Pacote Croma Completo</h3>
                                 <div class="bundle-perks-list" id="modalBundlePerks">
-                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> Skin Base Inclusa</div>
-                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> Todos os Cromas Oficiais</div>
-                                    <div class="bundle-perk-item"><i class="fa-solid fa-gem text-gold me-1"></i> Croma Rubi Exclusivo do Pacote</div>
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> <span data-i18n="modal_perk_base">Skin Base Inclusa</span></div>
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-check text-gold me-1"></i> <span data-i18n="modal_perk_chromas">Todos os Cromas Oficiais</span></div>
+                                    <div class="bundle-perk-item"><i class="fa-solid fa-gem text-gold me-1"></i> <span data-i18n="modal_perk_ruby">Croma Rubi Exclusivo do Pacote</span></div>
                                 </div>
                                 <div class="skin-option-prices" id="modalSkinBundlePrices">
                                     <span class="price-rp text-gold" id="modalSkinBundleRp">3.090 RP</span>
@@ -724,10 +734,10 @@
                         </div>
                         <div class="skin-option-btn-row">
                             <button type="button" class="btn-option-add btn-add-bundle" id="modalBtnAddBundle" onclick="addSkinOptionToCart('bundle', undefined, event)">
-                                <i class="fa-solid fa-crown me-1"></i> ADICIONAR PACOTE
+                                <i class="fa-solid fa-crown me-1"></i> <span data-i18n="modal_add_bundle">ADICIONAR PACOTE</span>
                             </button>
                             <button type="button" class="btn-option-select btn-option-select-bundle" id="modalBtnSelectBundle" onclick="selectSkinOptionForDirectSend('bundle', undefined, event)" title="Selecionar pacote para envio direto na barra lateral">
-                                <i class="fa-solid fa-paper-plane me-1"></i> ENVIAR PACOTE DIRETO
+                                <i class="fa-solid fa-paper-plane me-1"></i> <span data-i18n="modal_send_bundle_direct">ENVIAR PACOTE DIRETO</span>
                             </button>
                         </div>
                     </div>
@@ -738,10 +748,10 @@
                     <div class="chromas-section-header">
                         <div class="section-title-wrap">
                             <i class="fa-solid fa-palette text-cyan me-2"></i>
-                            <span class="section-title">Cromas Individuais (290 RP cada)</span>
+                            <span class="section-title" data-i18n="modal_chromas_title">Cromas Individuais (290 RP cada)</span>
                             <span class="chromas-count-badge" id="modalChromasCountBadge">4 disponíveis</span>
                         </div>
-                        <p class="section-subtitle">Já tem a skin? Escolha e envie apenas os cromas avulsos que desejar:</p>
+                        <p class="section-subtitle" data-i18n="modal_chromas_subtitle">Já tem a skin? Escolha e envie apenas os cromas avulsos que desejar:</p>
                     </div>
 
                     <div class="chromas-individual-grid" id="modalChromasGrid">

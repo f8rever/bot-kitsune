@@ -219,6 +219,41 @@ input:focus, select:focus, textarea:focus {
     gap: 14px;
 }
 
+/* LANGUAGE TOGGLE PILLS */
+.lang-pills-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(18, 14, 34, 0.7);
+    padding: 4px;
+    border-radius: 20px;
+    border: 1px solid var(--border-glass);
+}
+.lang-pill {
+    background: transparent;
+    border: none;
+    color: #8c7aa8;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    user-select: none;
+}
+.lang-pill:hover {
+    color: #ffffff;
+    background: rgba(157, 78, 221, 0.15);
+}
+.lang-pill.active {
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.6) 0%, rgba(112, 0, 255, 0.9) 100%);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(157, 78, 221, 0.6);
+}
+
 /* REGION PILLS */
 .region-pills-group {
     display: flex;
