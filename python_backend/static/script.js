@@ -734,15 +734,14 @@ function initCatalogApp() {
                 });
             }
 
-            // Pre-sort skins (keeping base champion at slot 0 and skins chronologically)
+            // Pre-sort skins (in the Skins tab, display only purchasable skins, not the base champion)
             for (const champ of Object.values(window.championsSkinsMap)) {
-                const baseItem = champ.skins[0];
-                const realSkins = champ.skins.slice(1);
+                const realSkins = champ.skins.filter(s => !s.isBase);
                 realSkins.sort((a, b) => (Number(a.item_id) || 0) - (Number(b.item_id) || 0));
-                champ.skins = [baseItem, ...realSkins];
-                champ.currentSkinIndex = 0; // Starts always on base champion ("o boneco")
+                champ.skins = realSkins.length > 0 ? realSkins : champ.skins;
+                champ.currentSkinIndex = 0; // Starts on the champion's first actual skin!
             }
-            window.championsList = Object.values(window.championsSkinsMap);
+            window.championsList = Object.values(window.championsSkinsMap).filter(c => c.skins && c.skins.length > 0 && !c.skins[0].isBase);
             window.championsList.sort((a, b) => a.championName.localeCompare(b.championName));
 
             filterItems();
@@ -774,7 +773,8 @@ function initCatalogApp() {
         }
         if (s === 'bundle' || s === 'bundles') {
             return (itemCat === 'bundles' || itemCat === 'bundle' || invType === 'BUNDLES' || invType === 'BUNDLE') &&
-                   !nameLower.includes('chest') && !nameLower.includes('baú') && !nameLower.includes('orb') && !nameLower.includes('orbe');
+                   !nameLower.includes('chest') && !nameLower.includes('baú') && !nameLower.includes('orb') && !nameLower.includes('orbe') &&
+                   !nameLower.includes('passe ') && !nameLower.includes('pass ');
         }
         if (s === 'pass' || s === 'passes') {
             const isEternal = itemCat === 'eternals' || itemCat === 'eternos' || invType === 'STATSTONE' || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('starter');
@@ -1143,7 +1143,6 @@ function initCatalogApp() {
             const curIdx = champ.currentSkinIndex || 0;
             const activeSkin = champ.skins[curIdx] || champ.skins[0];
             const isBase = (curIdx === 0 && activeSkin.isBase);
-            const totalSkinsCount = Math.max(1, champ.skins.length - 1);
             champ.selectedChromaIndex = -1;
 
             const rarity = isBase 
@@ -1183,9 +1182,10 @@ function initCatalogApp() {
                 </button>
             ` : '';
 
+            const totalSkinsCount = champ.skins.length;
             const counterLabel = isBase 
                 ? (isEn ? 'Base Skin' : 'Skin Base')
-                : (isEn ? `${curIdx} of ${totalSkinsCount}` : `${curIdx} de ${totalSkinsCount}`);
+                : (isEn ? `${curIdx + 1} of ${totalSkinsCount}` : `${curIdx + 1} de ${totalSkinsCount}`);
 
             let skinDotsHtml = '';
             if (champ.skins.length > 1 && champ.skins.length <= 15) {
@@ -1287,7 +1287,6 @@ function initCatalogApp() {
 
         const newSkin = champ.skins[cur];
         const isBase = (cur === 0 && newSkin.isBase);
-        const totalSkinsCount = Math.max(1, champ.skins.length - 1);
         const isEn = selectedLanguage === 'en';
         const skinOpts = !isBase ? window.getSkinOptions(newSkin.name) : { hasOptions: false, chromas: [], bundle: null };
 
@@ -1326,10 +1325,11 @@ function initCatalogApp() {
             }, 180);
         }
 
+        const totalSkinsCount = champ.skins.length;
         if (counterEl) {
             counterEl.textContent = isBase 
                 ? (isEn ? 'Base Skin' : 'Skin Base')
-                : (isEn ? `${cur} of ${totalSkinsCount}` : `${cur} de ${totalSkinsCount}`);
+                : (isEn ? `${cur + 1} of ${totalSkinsCount}` : `${cur + 1} de ${totalSkinsCount}`);
         }
         if (dotsEl) {
             dotsEl.querySelectorAll('.champ-skin-dot').forEach((dot, idx) => {
@@ -1793,14 +1793,16 @@ function initCatalogApp() {
 
     function formatItemPrice(rawRp, region) {
         const rpNum = Number(rawRp) || 0;
-        const isBr = (region || currentSelectedRegion || 'BR').toUpperCase() === 'BR';
+        const reg = (region || currentSelectedRegion || 'BR').toUpperCase();
+        const isBr = reg === 'BR';
+        const isNa = reg === 'NA' || reg === 'LAS' || reg === 'LAN';
         const rpFormatted = rpNum > 0 ? `${rpNum.toLocaleString('pt-BR')} RP` : '0 RP';
         
         if (rpNum <= 0) {
             return {
-                money: isBr ? 'R$ 0,00' : '€ 0,00',
+                money: isBr ? 'R$ 0,00' : (isNa ? '$ 0.00' : '€ 0,00'),
                 rp: '0 RP',
-                currency: isBr ? 'R$' : '€',
+                currency: isBr ? 'R$' : (isNa ? '$' : '€'),
                 amount: 0
             };
         }
@@ -1815,8 +1817,18 @@ function initCatalogApp() {
                 currency: 'R$',
                 amount: brl
             };
+        } else if (isNa) {
+            // NA (North America): 3250 RP = $ 32.50 (USD, ratio 0.01)
+            const usd = rpNum * 0.01;
+            const moneyFormatted = `$ ${usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return {
+                money: moneyFormatted,
+                rp: rpFormatted,
+                currency: '$',
+                amount: usd
+            };
         } else {
-            // Outside BR: 3250 RP = € 32,50 (ratio 0.01)
+            // Outside BR / Europe: 3250 RP = € 32,50 (ratio 0.01)
             const eur = rpNum * 0.01;
             const moneyFormatted = `€ ${eur.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
             return {
@@ -2722,8 +2734,10 @@ function initCatalogApp() {
         if (noticeEl) {
             if (currentSelectedRegion === 'BR') {
                 noticeEl.innerHTML = `Preços em <span class="text-contrast">R$ · Pix</span>`;
+            } else if (currentSelectedRegion === 'NA' || currentSelectedRegion === 'LAS' || currentSelectedRegion === 'LAN') {
+                noticeEl.innerHTML = `Preços em <span class="text-contrast">$ · Dólar / Stripe</span>`;
             } else {
-                noticeEl.innerHTML = `Preços em <span class="text-contrast">€ cartão / Stripe · -50% fora do BR</span>`;
+                noticeEl.innerHTML = `Preços em <span class="text-contrast">€ · Euro / Stripe</span>`;
             }
         }
 
