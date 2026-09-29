@@ -117,134 +117,78 @@
     <main class="saas-viewport-3d">
 
         <!-- ====================================================================
-             TAB 1: LOJA & CATÁLOGO (V1 ENHANCED WITH 3D DEPTH)
+             TAB 1: LOJA & CATÁLOGO (NOVO DESIGN 3D SIMPLES & DIRETO)
              ==================================================================== -->
         <div id="Tab1" class="tabcontent" style="display: block;">
             
-            <!-- 4 STAT METRIC 3D CARDS -->
-            <section class="metrics-grid-3d">
-                
-                <div class="metric-card-3d">
-                    <div class="metric-top-row">
-                        <span class="metric-title" data-i18n="card_rp_label">Saldo de RP</span>
-                        <div class="metric-icon-box glow-gold">
-                            <i class="fa-solid fa-wallet"></i>
+            <!-- KITSUNE 3D GIFTING CONSOLE (HERO DISPATCH DOCK) -->
+            <div class="kitsune-console-3d">
+                <div class="kc-top-bar">
+                    <div class="kc-badge">
+                        <span class="kc-live-dot"></span>
+                        <i class="fa-solid fa-bolt text-gold me-1"></i>
+                        <span data-i18n="quick_actions_title">Disparo de Presentes & Sessão</span>
+                    </div>
+
+                    <div class="kc-toggles">
+                        <div class="kc-switch-wrap">
+                            <input type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
+                            <label for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
                         </div>
-                    </div>
-                    <div class="metric-value-row">
-                        <h2 class="metric-number-txt" id="saldo-amount">0 RP</h2>
-                        <span class="metric-trend trend-gold"><i class="fa-solid fa-sparkles"></i> <span data-i18n="live_status">Ao Vivo</span></span>
-                    </div>
-                </div>
-
-                <div class="metric-card-3d">
-                    <div class="metric-top-row">
-                        <span class="metric-title" data-i18n="card_items_label">Itens no Catálogo</span>
-                        <div class="metric-icon-box glow-cyan">
-                            <i class="fa-solid fa-box-open"></i>
-                        </div>
-                    </div>
-                    <div class="metric-value-row">
-                        <h2 class="metric-number-txt" id="catalogCountTimestamp">9.347+</h2>
-                        <span class="metric-trend trend-cyan"><i class="fa-solid fa-check"></i> <span data-i18n="riot_store_status">Riot Store</span></span>
-                    </div>
-                </div>
-
-                <div class="metric-card-3d">
-                    <div class="metric-top-row">
-                        <span class="metric-title" data-i18n="card_daily_gifts">Presentes Diários</span>
-                        <div class="metric-icon-box glow-purple">
-                            <i class="fa-solid fa-gift"></i>
-                        </div>
-                    </div>
-                    <div class="metric-value-row">
-                        <h2 class="metric-number-txt" id="daily-gifts-counter">0 / 10</h2>
-                        <span class="metric-trend trend-purple"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="quota_status">Limite Riot</span></span>
-                    </div>
-                </div>
-
-                <div class="metric-card-3d">
-                    <div class="metric-top-row">
-                        <span class="metric-title" data-i18n="card_saved_label">Contas Salvas</span>
-                        <div class="metric-icon-box glow-emerald">
-                            <i class="fa-solid fa-user-shield"></i>
-                        </div>
-                    </div>
-                    <div class="metric-value-row">
-                        <h2 class="metric-number-txt" id="total-saved-accounts">0</h2>
-                        <span class="metric-trend trend-emerald"><i class="fa-solid fa-shield-check"></i> <span data-i18n="vault_status">Cofre Ativo</span></span>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- ====================================================================
-                 BARRA DE SESSÃO & AÇÕES RÁPIDAS (HORIZONTAL 3D DASHBOARD DOCK)
-                 ==================================================================== -->
-            <div class="quick-session-bar-3d">
-                <div class="qs-bar-header">
-                    <div class="qs-bar-title">
-                        <i class="fa-solid fa-bolt-lightning text-gold"></i>
-                        <span data-i18n="quick_actions_title">Ações Rápidas & Sessão</span>
-                    </div>
-
-                    <div class="qs-bar-controls">
-                        <!-- Simple Login Mode Switch -->
-                        <div class="auth-mode-switch-box">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
-                                <label class="form-check-label" for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn-toggle-advanced" onclick="toggleAdvancedSessionFields()" id="btnToggleAdvanced" title="Mais opções de sessão">
-                            <i class="fa-solid fa-sliders"></i> <span data-i18n="advanced_options">Avançado</span>
+                        <button type="button" class="kc-btn-advanced" onclick="toggleAdvancedSessionFields()" id="btnToggleAdvanced">
+                            <i class="fa-solid fa-sliders me-1"></i> <span data-i18n="advanced_options">Avançado</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="qs-inputs-actions-grid">
-                    <div class="qs-input-field">
-                        <label><i class="fa-solid fa-user text-purple me-1"></i> <span data-i18n="label_sender_acc">Conta Riot Sender</span></label>
-                        <input type="text" id="username-password" class="saas-input-3d" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder">
+                <div class="kc-main-grid">
+                    <div class="kc-field">
+                        <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Enviadora</span></label>
+                        <div class="kc-input-box">
+                            <input type="text" id="username-password" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder" autocomplete="off">
+                        </div>
                     </div>
 
-                    <div class="qs-input-field">
-                        <label><i class="fa-solid fa-crosshairs text-cyan me-1"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
-                        <input type="text" id="nickname-tag" class="saas-input-3d" placeholder="Nickname#TAG (ex: SeuNome#BR1)" data-i18n-placeholder="recipient_placeholder">
+                    <div class="kc-field">
+                        <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
+                        <div class="kc-input-box">
+                            <input type="text" id="nickname-tag" placeholder="Nickname#TAG (ex: Invocador#BR1)" data-i18n-placeholder="recipient_placeholder" autocomplete="off">
+                        </div>
                     </div>
 
-                    <div class="qs-buttons-group">
-                        <button type="button" class="btn-qa-pill btn-qa-rp" onclick="Api('saldo')" title="Checar saldo de RP">
-                            <i class="fa-solid fa-wallet"></i>
-                            <span data-i18n="qa_check_rp">Checar Saldo RP</span>
+                    <div class="kc-actions-group">
+                        <button type="button" class="kc-btn kc-btn-rp" onclick="Api('saldo')" title="Checar Saldo RP">
+                            <i class="fa-solid fa-coins me-1"></i>
+                            <span data-i18n="qa_check_rp">Saldo RP</span>
                         </button>
-
-                        <button type="button" class="btn-qa-pill btn-qa-friend" onclick="Api('friend')" title="Enviar amizade no LoL">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <span data-i18n="qa_send_friend">Enviar Amizade</span>
+                        <button type="button" class="kc-btn kc-btn-friend" onclick="Api('friend')" title="Enviar Pedido de Amizade">
+                            <i class="fa-solid fa-user-plus me-1"></i>
+                            <span data-i18n="qa_send_friend">Amizade</span>
                         </button>
-
-                        <button type="button" class="btn-qa-pill btn-qa-gift" onclick="Api('gift')" title="Disparar presente direto">
-                            <i class="fa-solid fa-gift"></i>
+                        <button type="button" class="kc-btn kc-btn-gift" onclick="Api('gift')" title="Enviar Presente Direto">
+                            <i class="fa-solid fa-gift me-1"></i>
                             <span data-i18n="qa_dispatch">Enviar Presente</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Advanced / Optional Fields (Collapsed by default) -->
-                <div class="qs-advanced-row" id="qsAdvancedRow" style="display: none;">
-                    <div class="qs-input-field">
-                        <label><i class="fa-solid fa-lock text-purple me-1"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
-                        <input type="text" id="password" class="saas-input-3d disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
+                <!-- Collapsible Advanced Drawer -->
+                <div class="kc-advanced-drawer" id="qsAdvancedRow" style="display: none;">
+                    <div class="kc-field">
+                        <label><i class="fa-solid fa-lock me-1"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
+                        <div class="kc-input-box">
+                            <input type="text" id="password" class="disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
+                        </div>
                     </div>
-                    <div class="qs-input-field">
-                        <label><i class="fa-solid fa-key text-purple me-1"></i> <span data-i18n="label_token_url">Token / Cookies de Sessão</span></label>
-                        <input type="text" id="tokens-url" class="saas-input-3d" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
+                    <div class="kc-field">
+                        <label><i class="fa-solid fa-key me-1"></i> <span data-i18n="label_token_url">Token / URL de Sessão</span></label>
+                        <div class="kc-input-box">
+                            <input type="text" id="tokens-url" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Status / Result Message Banner -->
+                <!-- Live Status / Result Message Banner -->
                 <div id="result" class="result-status-box-3d"></div>
             </div>
 
