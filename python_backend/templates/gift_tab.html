@@ -353,31 +353,130 @@
             font-size: 0.9rem !important;
         }
 
+        /* Rarity Dynamic Classes */
+        .rarity-glow-ultimate { --rarity-color: #ff8200 !important; }
+        .rarity-glow-mythic { --rarity-color: #a855f7 !important; }
+        .rarity-glow-legendary { --rarity-color: #ff4655 !important; }
+        .rarity-glow-epic { --rarity-color: #0ac8b9 !important; }
+        .rarity-glow-chroma { --rarity-color: #ec4899 !important; }
+        .rarity-glow-standard { --rarity-color: #c8aa6e !important; }
+        .rarity-glow-bundle { --rarity-color: #c8aa6e !important; }
+
+        @property --beam {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        @keyframes rarity-beam-cw {
+            0% { --beam: 0deg; }
+            100% { --beam: 180deg; }
+        }
+
+        @keyframes rarity-beam-ccw {
+            0% { --beam: 360deg; }
+            100% { --beam: 180deg; }
+        }
+
+        /* Rarity Beams Sweeping Animation */
+        .rarity-beams {
+            z-index: 35;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .3s;
+            position: absolute;
+            inset: -1px;
+            border-radius: 12px;
+        }
+
+        #item-list li:hover .rarity-beams,
+        .catalog-card-node:hover .rarity-beams,
+        #item-list li.selected .rarity-beams,
+        .catalog-card-node.selected .rarity-beams {
+            opacity: 1;
+        }
+
+        .rarity-beams:after, .rarity-beams:before {
+            content: "";
+            background: conic-gradient(from calc(var(--beam) - 16deg), transparent 0deg, var(--rarity-color, #0ac8b9) 16deg, transparent 32deg);
+            padding: 2px;
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            filter: drop-shadow(0 0 8px var(--rarity-color, #0ac8b9));
+            -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+            mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+            -webkit-mask-clip: content-box, border-box;
+            mask-clip: content-box, border-box;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        #item-list li:hover .rarity-beams:before,
+        .catalog-card-node:hover .rarity-beams:before,
+        #item-list li.selected .rarity-beams:before,
+        .catalog-card-node.selected .rarity-beams:before {
+            animation: rarity-beam-cw 1.15s cubic-bezier(.45,0,.55,1) infinite alternate;
+        }
+
+        #item-list li:hover .rarity-beams:after,
+        .catalog-card-node:hover .rarity-beams:after,
+        #item-list li.selected .rarity-beams:after,
+        .catalog-card-node.selected .rarity-beams:after {
+            animation: rarity-beam-ccw 1.15s cubic-bezier(.45,0,.55,1) infinite alternate;
+        }
+
         /* 3D Catalog Card Nodes */
         #item-list li, .catalog-card-node {
             background: rgba(12, 8, 20, 0.92) !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 16px !important;
+            border-radius: 12px !important;
             overflow: hidden !important;
             cursor: pointer !important;
-            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7) !important;
+            transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
             position: relative !important;
         }
 
         #item-list li:hover, .catalog-card-node:hover {
-            transform: translateY(-8px) scale(1.03) !important;
-            border-color: var(--rarity-color, #a855f7) !important;
-            box-shadow: 0 0 22px var(--rarity-color, #a855f7),
-                        0 0 55px var(--rarity-color, #a855f7),
-                        0 0 90px var(--rarity-color, rgba(168, 85, 247, 0.45)),
-                        0 18px 40px rgba(0, 0, 0, 0.95) !important;
+            border-color: var(--rarity-color, #c8aa6e) !important;
+            transform: translateY(-4px) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 20px -4px var(--rarity-color, rgba(200, 170, 110, 0.4)), 0 8px 24px -6px rgba(0, 0, 0, 0.8) !important;
             z-index: 10 !important;
         }
 
         #item-list li.selected, .catalog-card-node.selected {
-            border-color: var(--rarity-color, #a855f7) !important;
-            box-shadow: 0 0 25px var(--rarity-color, #a855f7), inset 0 0 14px rgba(255, 255, 255, 0.12) !important;
+            border-color: var(--rarity-color, #0ac8b9) !important;
+            box-shadow: 0 0 22px var(--rarity-color, rgba(10, 200, 185, 0.7)), inset 0 0 10px rgba(255, 255, 255, 0.08) !important;
+            background: #0c1c2e !important;
+            border-radius: 12px !important;
+            transform: translateY(-4px) !important;
+        }
+
+        #item-list li.selected::before, .catalog-card-node.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--rarity-color, #0ac8b9);
+            color: #010a13;
+            font-size: 12px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 40;
+            box-shadow: 0 0 10px var(--rarity-color, rgba(10, 200, 185, 0.8));
+            animation: badgePop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         #item-list li:hover .store-card-art, .catalog-card-node:hover .store-card-art {
@@ -1149,7 +1248,7 @@
             detectRetina: true
         });
     </script>
-    <script src="/static/script.js?v=8.0"></script>
+    <script src="/static/script.js?v=9.0"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();

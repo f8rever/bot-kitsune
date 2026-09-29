@@ -2148,8 +2148,8 @@ function initCatalogApp() {
                     </div>
                     <div class="item-card-name font-semibold" style="color: #f0e6d2; font-size: 13px; margin-bottom: 6px; line-height: 1.3; min-height: 34px; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
                     <div class="item-card-price-stack" style="margin-top: 4px;">
-                        <div class="item-card-price-rp text-gold font-bold" style="font-size: 13px; display: flex; align-items: center; gap: 5px;">
-                            <i class="fa-solid fa-coins" style="color: #f59e0b; font-size: 11px;"></i>
+                        <div class="item-card-price-rp text-gold font-bold" style="font-size: 13px; display: flex; align-items: center; gap: 6px;">
+                            <img src="/static/images/icon-rp.png" alt="RP" class="rp-currency-icon" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle;">
                             <span>${rpDisplay} RP</span>
                         </div>
                     </div>
