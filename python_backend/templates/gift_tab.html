@@ -178,202 +178,204 @@
 
             </section>
 
-            <!-- SPLIT CONTENT: STORE CATALOG (LEFT) + QUICK ACTIONS (RIGHT) -->
-            <div class="store-split-layout-3d">
-                
-                <!-- MAIN STORE CATALOG PANEL (3D GLASS) -->
-                <div class="catalog-panel-3d">
-                    
-                    <!-- PANEL TOP BAR: CATEGORY HEADING & CONTROLS -->
-                    <div class="catalog-panel-header">
-                        <div class="catalog-heading-wrap">
-                            <i class="fa-solid fa-store text-cyan fs-5"></i>
-                            <h3 class="catalog-panel-title" id="catalogCategoryHeading" data-i18n="catalog_header_title">CATÁLOGO DE ITENS</h3>
-                        </div>
-
-                        <!-- SKINS VIEW SWITCHER (CHAMPION vs GRID) -->
-                        <div class="skins-view-switcher" id="skinsViewSwitcher" style="display: none;">
-                            <button type="button" class="btn-switch-mode active" id="btnViewChamp" onclick="setSkinViewMode('champion')">
-                                <i class="fa-solid fa-users-viewfinder me-1"></i> <span data-i18n="view_by_champion">Por Campeão</span>
-                            </button>
-                            <button type="button" class="btn-switch-mode" id="btnViewGrid" onclick="setSkinViewMode('grid')">
-                                <i class="fa-solid fa-table-cells me-1"></i> <span data-i18n="view_all_skins">Grid Geral</span>
-                            </button>
-                        </div>
-
-                        <!-- HIDDEN LANGUAGE SELECTOR FOR SCRIPT INTEROP -->
-                        <select id="catalog-language" style="display: none;">
-                            <option value="pt" selected>Português</option>
-                            <option value="en">English</option>
-                        </select>
+            <!-- ====================================================================
+                 BARRA DE SESSÃO & AÇÕES RÁPIDAS (HORIZONTAL 3D DASHBOARD DOCK)
+                 ==================================================================== -->
+            <div class="quick-session-bar-3d">
+                <div class="qs-bar-header">
+                    <div class="qs-bar-title">
+                        <i class="fa-solid fa-bolt-lightning text-gold"></i>
+                        <span data-i18n="quick_actions_title">Ações Rápidas & Sessão</span>
                     </div>
 
-                    <!-- CATEGORY CHIPS BAR (HIGH CONTRAST & RESPONSIVE) -->
-                    <div class="category-chips-scroll-bar">
-                        <label class="category-chip-item active">
-                            <input type="radio" name="category" value="all" checked> <i class="fa-solid fa-shapes"></i> <span data-i18n="cat_all">Todos</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Skin"> <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="cat_skins">Skins</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Chroma"> <i class="fa-solid fa-gem"></i> <span data-i18n="cat_chromas">Chromas</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Bundle"> <i class="fa-solid fa-box-open"></i> <span data-i18n="cat_bundles">Pacotes</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Pass"> <i class="fa-solid fa-ticket"></i> <span data-i18n="cat_passes">Passes</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Champion"> <i class="fa-solid fa-shield-halved"></i> <span data-i18n="cat_champions">Campeões</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Emote"> <i class="fa-regular fa-face-smile"></i> <span data-i18n="cat_emotes">Emotes</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Icon"> <i class="fa-regular fa-circle-user"></i> <span data-i18n="cat_icons">Ícones</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Ward"> <i class="fa-solid fa-eye"></i> <span data-i18n="cat_wards">Sentinelas</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="LittleLegends"> <i class="fa-solid fa-dragon"></i> <span data-i18n="cat_little_legends">Pequenas Lendas</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="TFTArena"> <i class="fa-solid fa-chess-board"></i> <span data-i18n="cat_tft_arena">Tabuleiros TFT</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Eternals"> <i class="fa-solid fa-fire-flame-curved"></i> <span data-i18n="cat_eternals">Eternals</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Mystery"> <i class="fa-solid fa-circle-question"></i> <span data-i18n="cat_mystery">Mistério</span>
-                        </label>
-                        <label class="category-chip-item">
-                            <input type="radio" name="category" value="Hextech"> <i class="fa-solid fa-cube"></i> <span data-i18n="cat_hextech">Hextec</span>
-                        </label>
-                    </div>
-
-                    <!-- SEARCH & SECONDARY FILTERS ROW -->
-                    <div class="search-filters-row-3d">
-                        <div class="search-input-box-3d">
-                            <i class="fa-solid fa-magnifying-glass search-icon-neon"></i>
-                            <input type="text" id="search-item" placeholder="Buscar skins, campeões, passes, pacotes..." autocomplete="off">
-                        </div>
-
-                        <!-- OPTIONAL CHROMAS / SKINS QUICK FILTERS -->
-                        <div class="chromas-quick-filters" id="chromasSidebar" style="display: none;">
-                            <select id="chroma-rarity-filter" class="saas-select-sm" onchange="filterItems()">
-                                <option value="">Todas Raridades</option>
-                                <option value="ultimate">Ultimate</option>
-                                <option value="mythic">Mítica</option>
-                                <option value="legendary">Lendária</option>
-                                <option value="epic">Épica</option>
-                                <option value="standard">Padrão</option>
-                            </select>
-                            <select id="chroma-sort-filter" class="saas-select-sm" onchange="filterItems()">
-                                <option value="rarity">Ordenar: Raridade</option>
-                                <option value="price_desc">Preço: Maior</option>
-                                <option value="price_asc">Preço: Menor</option>
-                                <option value="name_asc">Nome: A-Z</option>
-                            </select>
-                            <select id="chroma-order-filter" class="saas-select-sm" style="display: none;">
-                                <option value="desc" selected>Desc</option>
-                                <option value="asc">Asc</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 3D CATALOG GRID VIEWPORT -->
-                    <div class="catalog-grid-viewport-3d">
-                        <ul id="item-list" class="catalog-cards-grid-3d"></ul>
-                    </div>
-
-                    <!-- SELECTED ITEM FOOTER BAR -->
-                    <div class="selected-item-bar-3d">
-                        <div class="selected-item-title-wrap">
-                            <i class="fa-solid fa-hand-pointer text-cyan"></i>
-                            <span id="selected-item-details" data-i18n="selected_item_none">Item Selecionado: Nenhum</span>
-                        </div>
-                        <div class="selected-item-actions-wrap">
-                            <input type="text" id="gift-message" class="saas-control-sm" placeholder="Mensagem do Presente (Opcional)" data-i18n-placeholder="msg_placeholder">
-                            <div class="qty-stepper-box-3d">
-                                <span data-i18n="qty_label">Qtd:</span>
-                                <input type="range" id="gift-quantity-slider" min="1" max="55" value="1">
-                                <input type="number" id="gift-quantity-input" min="1" max="55" value="1" class="qty-input-field">
+                    <div class="qs-bar-controls">
+                        <!-- Simple Login Mode Switch -->
+                        <div class="auth-mode-switch-box">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
+                                <label class="form-check-label" for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
                             </div>
                         </div>
-                    </div>
 
+                        <button type="button" class="btn-toggle-advanced" onclick="toggleAdvancedSessionFields()" id="btnToggleAdvanced" title="Mais opções de sessão">
+                            <i class="fa-solid fa-sliders"></i> <span data-i18n="advanced_options">Avançado</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- RIGHT COLUMN: QUICK ACTIONS & SESSION CONSOLE (3D) -->
-                <aside class="quick-actions-panel-3d">
-                    <div class="qa-header-3d">
-                        <i class="fa-solid fa-bolt-lightning text-gold"></i>
-                        <h3 data-i18n="quick_actions_title">Ações Rápidas & Sessão</h3>
+                <div class="qs-inputs-actions-grid">
+                    <div class="qs-input-field">
+                        <label><i class="fa-solid fa-user text-purple me-1"></i> <span data-i18n="label_sender_acc">Conta Riot Sender</span></label>
+                        <input type="text" id="username-password" class="saas-input-3d" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder">
                     </div>
 
-                    <!-- Simple Login Mode Switch -->
-                    <div class="auth-mode-switch-box">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
-                            <label class="form-check-label" for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
-                        </div>
+                    <div class="qs-input-field">
+                        <label><i class="fa-solid fa-crosshairs text-cyan me-1"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
+                        <input type="text" id="nickname-tag" class="saas-input-3d" placeholder="Nickname#TAG (ex: SeuNome#BR1)" data-i18n-placeholder="recipient_placeholder">
                     </div>
 
-                    <!-- Quick Inputs Stack -->
-                    <div class="quick-inputs-stack-3d">
-                        <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Riot Sender</span></label>
-                            <input type="text" id="username-password" class="saas-input-3d" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder">
-                        </div>
-                        <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-lock me-1 text-purple"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
-                            <input type="text" id="password" class="saas-input-3d disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
-                        </div>
-                        <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-key me-1 text-purple"></i> <span data-i18n="label_token_url">Token / Cookies de Sessão</span></label>
-                            <input type="text" id="tokens-url" class="saas-input-3d" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
-                        </div>
-                        <div class="saas-field-3d">
-                            <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
-                            <input type="text" id="nickname-tag" class="saas-input-3d" placeholder="Nickname#TAG (ex: SeuNome#BR1)" data-i18n-placeholder="recipient_placeholder">
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons Stack (3D Click Tactile) -->
-                    <div class="quick-buttons-stack-3d">
-                        <button type="button" class="btn-qa-card-3d" onclick="Api('saldo')">
-                            <div class="btn-qa-icon icon-gold"><i class="fa-solid fa-wallet"></i></div>
-                            <div class="btn-qa-info">
-                                <strong data-i18n="qa_check_rp">Checar Saldo RP</strong>
-                                <span data-i18n="qa_check_rp_sub">Consultar saldo da conta enviadora</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
+                    <div class="qs-buttons-group">
+                        <button type="button" class="btn-qa-pill btn-qa-rp" onclick="Api('saldo')" title="Checar saldo de RP">
+                            <i class="fa-solid fa-wallet"></i>
+                            <span data-i18n="qa_check_rp">Checar Saldo RP</span>
                         </button>
 
-                        <button type="button" class="btn-qa-card-3d" onclick="Api('friend')">
-                            <div class="btn-qa-icon icon-emerald"><i class="fa-solid fa-user-plus"></i></div>
-                            <div class="btn-qa-info">
-                                <strong data-i18n="qa_send_friend">Enviar Amizade</strong>
-                                <span data-i18n="qa_send_friend_sub">Adicionar Riot ID do destinatário</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
+                        <button type="button" class="btn-qa-pill btn-qa-friend" onclick="Api('friend')" title="Enviar amizade no LoL">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span data-i18n="qa_send_friend">Enviar Amizade</span>
                         </button>
 
-                        <button type="button" class="btn-qa-card-3d btn-qa-primary-3d" onclick="Api('gift')">
-                            <div class="btn-qa-icon icon-cyan"><i class="fa-solid fa-gift"></i></div>
-                            <div class="btn-qa-info">
-                                <strong data-i18n="qa_dispatch">Enviar Presente Direto</strong>
-                                <span data-i18n="qa_dispatch_sub">Disparar item selecionado</span>
-                            </div>
-                            <i class="fa-solid fa-chevron-right btn-qa-arrow"></i>
+                        <button type="button" class="btn-qa-pill btn-qa-gift" onclick="Api('gift')" title="Disparar presente direto">
+                            <i class="fa-solid fa-gift"></i>
+                            <span data-i18n="qa_dispatch">Enviar Presente</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Advanced / Optional Fields (Collapsed by default) -->
+                <div class="qs-advanced-row" id="qsAdvancedRow" style="display: none;">
+                    <div class="qs-input-field">
+                        <label><i class="fa-solid fa-lock text-purple me-1"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
+                        <input type="text" id="password" class="saas-input-3d disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
+                    </div>
+                    <div class="qs-input-field">
+                        <label><i class="fa-solid fa-key text-purple me-1"></i> <span data-i18n="label_token_url">Token / Cookies de Sessão</span></label>
+                        <input type="text" id="tokens-url" class="saas-input-3d" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
+                    </div>
+                </div>
+
+                <!-- Status / Result Message Banner -->
+                <div id="result" class="result-status-box-3d"></div>
+            </div>
+
+            <!-- ====================================================================
+                 PAINEL PRINCIPAL DO CATÁLOGO (3D FULL WIDTH)
+                 ==================================================================== -->
+            <div class="catalog-panel-3d">
+                
+                <!-- PANEL TOP BAR: CATEGORY HEADING & CONTROLS -->
+                <div class="catalog-panel-header">
+                    <div class="catalog-heading-wrap">
+                        <i class="fa-solid fa-store text-cyan fs-5"></i>
+                        <h3 class="catalog-panel-title" id="catalogCategoryHeading" data-i18n="catalog_header_title">CATÁLOGO DE ITENS</h3>
+                    </div>
+
+                    <!-- SKINS VIEW SWITCHER (CHAMPION vs GRID) -->
+                    <div class="skins-view-switcher" id="skinsViewSwitcher" style="display: none;">
+                        <button type="button" class="btn-switch-mode active" id="btnViewChamp" onclick="setSkinViewMode('champion')">
+                            <i class="fa-solid fa-users-viewfinder me-1"></i> <span data-i18n="view_by_champion">Por Campeão</span>
+                        </button>
+                        <button type="button" class="btn-switch-mode" id="btnViewGrid" onclick="setSkinViewMode('grid')">
+                            <i class="fa-solid fa-table-cells me-1"></i> <span data-i18n="view_all_skins">Grid Geral</span>
                         </button>
                     </div>
 
-                    <div id="result" class="result-status-box-3d"></div>
-                </aside>
+                    <!-- HIDDEN LANGUAGE SELECTOR FOR SCRIPT INTEROP -->
+                    <select id="catalog-language" style="display: none;">
+                        <option value="pt" selected>Português</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+
+                <!-- CATEGORY CHIPS BAR (HIGH CONTRAST & RESPONSIVE) -->
+                <div class="category-chips-scroll-bar">
+                    <label class="category-chip-item active">
+                        <input type="radio" name="category" value="all" checked> <i class="fa-solid fa-shapes"></i> <span data-i18n="cat_all">Todos</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Skin"> <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="cat_skins">Skins</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Chroma"> <i class="fa-solid fa-gem"></i> <span data-i18n="cat_chromas">Chromas</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Bundle"> <i class="fa-solid fa-box-open"></i> <span data-i18n="cat_bundles">Pacotes</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Pass"> <i class="fa-solid fa-ticket"></i> <span data-i18n="cat_passes">Passes</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Champion"> <i class="fa-solid fa-shield-halved"></i> <span data-i18n="cat_champions">Campeões</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Emote"> <i class="fa-regular fa-face-smile"></i> <span data-i18n="cat_emotes">Emotes</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Icon"> <i class="fa-regular fa-circle-user"></i> <span data-i18n="cat_icons">Ícones</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Ward"> <i class="fa-solid fa-eye"></i> <span data-i18n="cat_wards">Sentinelas</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="LittleLegends"> <i class="fa-solid fa-dragon"></i> <span data-i18n="cat_little_legends">Pequenas Lendas</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="TFTArena"> <i class="fa-solid fa-chess-board"></i> <span data-i18n="cat_tft_arena">Tabuleiros TFT</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Eternals"> <i class="fa-solid fa-fire-flame-curved"></i> <span data-i18n="cat_eternals">Eternals</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Mystery"> <i class="fa-solid fa-circle-question"></i> <span data-i18n="cat_mystery">Mistério</span>
+                    </label>
+                    <label class="category-chip-item">
+                        <input type="radio" name="category" value="Hextech"> <i class="fa-solid fa-cube"></i> <span data-i18n="cat_hextech">Hextec</span>
+                    </label>
+                </div>
+
+                <!-- SEARCH & SECONDARY FILTERS ROW -->
+                <div class="search-filters-row-3d">
+                    <div class="search-input-box-3d">
+                        <i class="fa-solid fa-magnifying-glass search-icon-neon"></i>
+                        <input type="text" id="search-item" placeholder="Buscar skins, campeões, passes, pacotes..." autocomplete="off">
+                    </div>
+
+                    <!-- OPTIONAL CHROMAS / SKINS QUICK FILTERS -->
+                    <div class="chromas-quick-filters" id="chromasSidebar" style="display: none;">
+                        <select id="chroma-rarity-filter" class="saas-select-sm" onchange="filterItems()">
+                            <option value="">Todas Raridades</option>
+                            <option value="ultimate">Ultimate</option>
+                            <option value="mythic">Mítica</option>
+                            <option value="legendary">Lendária</option>
+                            <option value="epic">Épica</option>
+                            <option value="standard">Padrão</option>
+                        </select>
+                        <select id="chroma-sort-filter" class="saas-select-sm" onchange="filterItems()">
+                            <option value="rarity">Ordenar: Raridade</option>
+                            <option value="price_desc">Preço: Maior</option>
+                            <option value="price_asc">Preço: Menor</option>
+                            <option value="name_asc">Nome: A-Z</option>
+                        </select>
+                        <select id="chroma-order-filter" class="saas-select-sm" style="display: none;">
+                            <option value="desc" selected>Desc</option>
+                            <option value="asc">Asc</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 3D CATALOG GRID VIEWPORT -->
+                <div class="catalog-grid-viewport-3d">
+                    <ul id="item-list" class="catalog-cards-grid-3d"></ul>
+                </div>
+
+                <!-- SELECTED ITEM FOOTER BAR -->
+                <div class="selected-item-bar-3d">
+                    <div class="selected-item-title-wrap">
+                        <i class="fa-solid fa-hand-pointer text-cyan"></i>
+                        <span id="selected-item-details" data-i18n="selected_item_none">Item Selecionado: Nenhum</span>
+                    </div>
+                    <div class="selected-item-actions-wrap">
+                        <input type="text" id="gift-message" class="saas-control-sm" placeholder="Mensagem do Presente (Opcional)" data-i18n-placeholder="msg_placeholder">
+                        <div class="qty-stepper-box-3d">
+                            <span data-i18n="qty_label">Qtd:</span>
+                            <input type="range" id="gift-quantity-slider" min="1" max="55" value="1">
+                            <input type="number" id="gift-quantity-input" min="1" max="55" value="1" class="qty-input-field">
+                        </div>
+                        <button type="button" class="btn-dispatch-bottom-3d" onclick="Api('gift')">
+                            <i class="fa-solid fa-gift me-1"></i> <span data-i18n="qa_dispatch">Enviar Presente</span>
+                        </button>
+                    </div>
+                </div>
 
             </div>
 
@@ -768,7 +770,6 @@
         <div id="captchaContainer" class="captcha-modal-box"></div>
     </div>
 
-    <!-- SCRIPTS -->
     <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="/static/script.js?v=3.5"></script>
     <script>
@@ -779,6 +780,16 @@
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(q) ? "" : "none";
             });
+        }
+
+        function toggleAdvancedSessionFields() {
+            const row = document.getElementById('qsAdvancedRow');
+            if (row) {
+                const isHidden = row.style.display === 'none' || !row.style.display;
+                row.style.display = isHidden ? 'grid' : 'none';
+                const btn = document.getElementById('btnToggleAdvanced');
+                if (btn) btn.classList.toggle('active', isHidden);
+            }
         }
     </script>
 </body>
