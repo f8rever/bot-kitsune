@@ -4,35 +4,35 @@
    KITSUNE SENDER 3D — DESIGN SYSTEM & TOKENS
    ========================================================================== */
 :root {
-    --bg-dark: #07060d;
-    --bg-surface: rgba(15, 12, 28, 0.85);
-    --bg-surface-hover: rgba(26, 21, 46, 0.95);
-    --bg-card: rgba(18, 14, 32, 0.9);
-    --bg-card-hover: rgba(28, 22, 50, 0.98);
-    --bg-input: #0b0817;
+    --bg-dark: #07050d;
+    --bg-surface: rgba(13, 8, 22, 0.85);
+    --bg-surface-hover: rgba(20, 14, 34, 0.95);
+    --bg-card: rgba(14, 9, 26, 0.9);
+    --bg-card-hover: rgba(22, 14, 40, 0.98);
+    --bg-input: #090514;
     
-    /* Neon & Metallic Accent Colors */
-    --purple-primary: #7000ff;
-    --purple-neon: #9d4edd;
-    --purple-light: #c4b5fd;
-    --cyan-neon: #00ffcc;
-    --cyan-dim: #0ac8b9;
-    --gold-hextech: #c8aa6e;
-    --gold-bright: #f0e6d2;
-    --emerald-neon: #00ff9d;
-    --ruby-neon: #ff0055;
+    /* Neon & Metallic Accent Colors - Monarch Cyber */
+    --purple-primary: #a855f7;
+    --purple-neon: #c084fc;
+    --purple-light: #d8b4fe;
+    --cyan-neon: #00f0ff;
+    --cyan-dim: #0284c7;
+    --gold-hextech: #f59e0b;
+    --gold-bright: #fbbf24;
+    --emerald-neon: #10b981;
+    --ruby-neon: #ef4444;
     
     /* 3D Glass & Border Tokens */
-    --border-glass: rgba(157, 78, 221, 0.25);
-    --border-glass-top: rgba(255, 255, 255, 0.12);
-    --border-cyan-glow: rgba(0, 255, 204, 0.5);
-    --border-gold-glow: rgba(200, 170, 110, 0.5);
-    --border-purple-glow: rgba(157, 78, 221, 0.6);
+    --border-glass: rgba(168, 85, 247, 0.22);
+    --border-glass-top: rgba(255, 255, 255, 0.15);
+    --border-cyan-glow: rgba(0, 240, 255, 0.45);
+    --border-gold-glow: rgba(245, 158, 11, 0.45);
+    --border-purple-glow: rgba(168, 85, 247, 0.5);
     
     /* 3D Shadows & Lighting */
-    --shadow-3d-card: 0 14px 32px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.5);
-    --shadow-3d-hover: 0 22px 48px rgba(0, 0, 0, 0.85), 0 0 24px rgba(157, 78, 221, 0.35);
-    --shadow-inset-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-3d-card: 0 16px 36px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+    --shadow-3d-hover: 0 24px 50px rgba(0, 0, 0, 0.9), 0 0 26px rgba(168, 85, 247, 0.35);
+    --shadow-inset-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -2px 0 rgba(0, 0, 0, 0.4);
     
     /* Typography */
     --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -58,11 +58,11 @@ html {
 body.saas-body-theme {
     background-color: var(--bg-dark);
     background-image: 
-        radial-gradient(circle at 10% 10%, rgba(157, 78, 221, 0.14) 0%, transparent 40%),
-        radial-gradient(circle at 90% 20%, rgba(0, 255, 204, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(112, 0, 255, 0.12) 0%, transparent 50%);
+        radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 55%),
+        radial-gradient(circle at 10% 25%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 75%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     background-attachment: fixed;
-    color: #ffffff;
+    color: #f1f5f9;
     font-family: var(--font-main);
     min-height: 100vh;
     max-width: 100%;
@@ -75,15 +75,15 @@ body.saas-body-theme {
     height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #080611;
+    background: #06080d;
 }
 ::-webkit-scrollbar-thumb {
-    background: #251a42;
+    background: #171d2b;
     border-radius: 4px;
-    border: 1px solid rgba(157, 78, 221, 0.3);
+    border: 1px solid rgba(0, 240, 255, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #9d4edd;
+    background: #00f0ff;
 }
 
 /* Global Input Overrides */
@@ -184,7 +184,7 @@ input:focus, select:focus, textarea:focus {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(18, 14, 34, 0.7);
+    background: rgba(14, 18, 28, 0.7);
     padding: 5px 8px;
     border-radius: 30px;
     border: 1px solid var(--border-glass);
@@ -193,7 +193,7 @@ input:focus, select:focus, textarea:focus {
 .main-nav-tab {
     background: transparent;
     border: 1px solid transparent;
-    color: #a79dc2;
+    color: #94a3b8;
     padding: 8px 18px;
     border-radius: 24px;
     font-size: 13px;
@@ -209,13 +209,13 @@ input:focus, select:focus, textarea:focus {
 }
 .main-nav-tab:hover {
     color: #ffffff;
-    background: rgba(157, 78, 221, 0.15);
+    background: rgba(0, 240, 255, 0.12);
 }
 .main-nav-tab.active {
     color: #ffffff;
-    background: linear-gradient(135deg, rgba(157, 78, 221, 0.3) 0%, rgba(112, 0, 255, 0.45) 100%);
-    border: 1px solid var(--purple-neon);
-    box-shadow: 0 4px 14px rgba(112, 0, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.25) 0%, rgba(2, 132, 199, 0.45) 100%);
+    border: 1px solid var(--cyan-neon);
+    box-shadow: 0 4px 14px rgba(0, 240, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* CONTROLS RIGHT */
@@ -230,7 +230,7 @@ input:focus, select:focus, textarea:focus {
     display: flex;
     align-items: center;
     gap: 4px;
-    background: rgba(18, 14, 34, 0.7);
+    background: rgba(14, 18, 28, 0.7);
     padding: 4px;
     border-radius: 20px;
     border: 1px solid var(--border-glass);
@@ -238,7 +238,7 @@ input:focus, select:focus, textarea:focus {
 .lang-pill {
     background: transparent;
     border: none;
-    color: #8c7aa8;
+    color: #94a3b8;
     padding: 4px 10px;
     font-size: 11px;
     font-weight: 700;
@@ -252,12 +252,13 @@ input:focus, select:focus, textarea:focus {
 }
 .lang-pill:hover {
     color: #ffffff;
-    background: rgba(157, 78, 221, 0.15);
+    background: rgba(0, 240, 255, 0.15);
 }
 .lang-pill.active {
-    background: linear-gradient(135deg, rgba(157, 78, 221, 0.6) 0%, rgba(112, 0, 255, 0.9) 100%);
-    color: #ffffff;
-    box-shadow: 0 0 12px rgba(157, 78, 221, 0.6);
+    background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
+    color: #06111e;
+    font-weight: 800;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
 }
 
 /* REGION PILLS */
@@ -575,15 +576,15 @@ input:focus, select:focus, textarea:focus {
 .kc-field label {
     font-size: 11px;
     font-weight: 700;
-    color: #c4b5fd;
+    color: #94a3b8;
     margin-bottom: 6px;
     display: flex;
     align-items: center;
     letter-spacing: 0.3px;
 }
 .kc-input-box input {
-    background: #090614 !important;
-    border: 1px solid rgba(168, 85, 247, 0.25) !important;
+    background: #090c14 !important;
+    border: 1px solid rgba(0, 240, 255, 0.2) !important;
     border-radius: 12px !important;
     padding: 10px 14px;
     font-size: 12.5px;
@@ -594,9 +595,9 @@ input:focus, select:focus, textarea:focus {
     width: 100%;
 }
 .kc-input-box input:focus {
-    border-color: #00f2fe !important;
-    box-shadow: 0 0 16px rgba(0, 242, 254, 0.35) !important;
-    background: #0d0a1e !important;
+    border-color: #00f0ff !important;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.35) !important;
+    background: #0e121d !important;
 }
 
 .kc-actions-group {
@@ -659,16 +660,16 @@ input:focus, select:focus, textarea:focus {
 }
 
 .kc-btn-gift {
-    background: linear-gradient(180deg, #a855f7 0%, #6d28d9 100%);
+    background: linear-gradient(180deg, #00d2ff 0%, #0066ff 100%);
     border: 1px solid rgba(255, 255, 255, 0.35);
-    border-bottom: 3px solid #4c1d95;
+    border-bottom: 3px solid #0044cc;
     color: #ffffff;
-    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45);
+    box-shadow: 0 6px 20px rgba(0, 150, 255, 0.45);
     text-shadow: 0 1px 2px rgba(0,0,0,0.6);
 }
 .kc-btn-gift:hover {
     filter: brightness(1.15);
-    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.65);
+    box-shadow: 0 8px 24px rgba(0, 210, 255, 0.65);
     transform: translateY(-2px);
 }
 .kc-btn-gift:active {
@@ -803,8 +804,8 @@ input:focus, select:focus, textarea:focus {
     display: none !important;
 }
 .category-chip-item:hover {
-    background: rgba(157, 78, 221, 0.22);
-    border-color: rgba(157, 78, 221, 0.45);
+    background: rgba(0, 240, 255, 0.15);
+    border-color: rgba(0, 240, 255, 0.4);
     color: #ffffff;
     transform: translateY(-1px);
 }
@@ -813,15 +814,16 @@ input:focus, select:focus, textarea:focus {
     transform: scale(1.15);
 }
 .category-chip-item.active {
-    background: linear-gradient(135deg, rgba(157, 78, 221, 0.45) 0%, rgba(112, 0, 255, 0.7) 100%);
-    border-color: var(--purple-neon);
-    color: #ffffff;
-    box-shadow: 0 4px 14px rgba(112, 0, 255, 0.45);
+    background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #06111e;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(0, 240, 255, 0.45);
 }
 .category-chip-item.active i {
     opacity: 1;
-    color: #00ffcc;
-    filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.6));
+    color: #06111e;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
 /* SEARCH & FILTERS ROW */
@@ -1086,9 +1088,9 @@ input:focus, select:focus, textarea:focus {
 
 /* 3D TACTILE "ADICIONAR AO CARRINHO" BUTTON */
 .buy-button {
-    background: linear-gradient(180deg, #9d4edd 0%, #7000ff 100%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 3px solid #4a00b0;
+    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 3px solid #075985;
     border-radius: 8px;
     color: #ffffff;
     font-family: var(--font-main);
@@ -1097,7 +1099,7 @@ input:focus, select:focus, textarea:focus {
     padding: 7px 10px;
     cursor: pointer;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 12px rgba(112, 0, 255, 0.35);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
     transition: all 0.15s ease;
     display: flex;
     align-items: center;
@@ -1106,12 +1108,12 @@ input:focus, select:focus, textarea:focus {
 }
 .buy-button:hover {
     filter: brightness(1.15);
-    box-shadow: 0 6px 18px rgba(112, 0, 255, 0.55);
+    box-shadow: 0 6px 18px rgba(0, 240, 255, 0.45);
 }
 .buy-button:active {
     transform: translateY(2px);
     border-bottom-width: 1px;
-    box-shadow: 0 2px 6px rgba(112, 0, 255, 0.35);
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
 }
 
 /* SELECTED ITEM BAR (DRAWER AT FOOTER OF CATALOG) */
@@ -2399,5 +2401,46 @@ input:focus, select:focus, textarea:focus {
         overflow-x: auto;
         max-width: 100%;
     }
+}
+
+/* ==========================================================================
+   MONARCH 3D LIGHT-BEAM BORDER FX & ENHANCEMENTS
+   ========================================================================== */
+.monarch-border-fx {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 20px;
+    padding: 2px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.monarch-border-fx::before,
+.monarch-border-fx::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, #ffffff 0deg, #a855f7 20deg, transparent 45deg, transparent 315deg, #a855f7 340deg, #ffffff 360deg);
+}
+
+.monarch-border-fx::before {
+    animation: spinRight 2.5s ease-in-out infinite alternate;
+}
+
+.monarch-border-fx::after {
+    animation: spinLeft 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes spinRight {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
+}
+
+@keyframes spinLeft {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-180deg); }
 }
 

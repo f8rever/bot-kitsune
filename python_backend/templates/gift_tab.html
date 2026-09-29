@@ -3,17 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KITSUNE SENDER — 3D SaaS Gifting Portal</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>League of Legends Sender — Sistema de Presentes 3D</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=3.4">
+    <link rel="stylesheet" href="/static/style.css?v=7.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <script src="/static/api_hcaptcha.js" async defer></script>
+    <style>
+        /* ==========================================================================
+           MONARCH 3D CYBER THEME — DIRECT EMBED TO GUARANTEE FRESH RENDERING
+           ========================================================================== */
+        body.saas-body-theme {
+            background: #07050d !important;
+            background-image: 
+                radial-gradient(ellipse 80% 40% at 50% -10%, rgba(138, 43, 226, 0.22) 0%, transparent 70%),
+                radial-gradient(circle at 15% 85%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 65%, rgba(245, 158, 11, 0.06) 0%, transparent 45%) !important;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #tsparticles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .saas-viewport-3d, .saas-navbar-3d {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Navbar 3D */
+        .saas-navbar-3d {
+            background: rgba(10, 6, 18, 0.82) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25) !important;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7) !important;
+            padding: 10px 24px;
+        }
+
+        .brand-cube-icon {
+            background: linear-gradient(135deg, #a855f7, #6366f1) !important;
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.6) !important;
+            border-radius: 10px;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 16px;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 900 !important;
+            color: #ffffff !important;
+            letter-spacing: 1.5px !important;
+            font-size: 1.05rem !important;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, #a855f7, #ec4899) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            font-weight: 800 !important;
+            font-size: 0.75rem !important;
+            letter-spacing: 2px !important;
+        }
+
+        /* Main Nav Tabs */
+        .main-nav-tab {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #94a3b8 !important;
+            border-radius: 10px !important;
+            padding: 8px 16px !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .main-nav-tab:hover {
+            background: rgba(168, 85, 247, 0.15) !important;
+            border-color: rgba(168, 85, 247, 0.4) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .main-nav-tab.active {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(99, 102, 241, 0.2)) !important;
+            border: 1px solid rgba(168, 85, 247, 0.6) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.35) !important;
+        }
+
+        /* 3D Gifting Console with Monarch Light-Beam Border */
+        .kitsune-console-3d {
+            background: rgba(13, 8, 22, 0.88) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-radius: 20px !important;
+            position: relative !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.12) !important;
+            margin-bottom: 24px !important;
+            padding: 2px !important;
+            overflow: hidden !important;
+            border: none !important;
+        }
+
+        .monarch-border-fx {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 20px;
+            padding: 2px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .monarch-border-fx::before,
+        .monarch-border-fx::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, #ffffff 0deg, #a855f7 20deg, transparent 45deg, transparent 315deg, #a855f7 340deg, #ffffff 360deg);
+        }
+
+        .monarch-border-fx::before {
+            animation: spinRight 2.5s ease-in-out infinite alternate;
+        }
+
+        .monarch-border-fx::after {
+            animation: spinLeft 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes spinRight {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(180deg); }
+        }
+
+        @keyframes spinLeft {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-180deg); }
+        }
+
+        .kc-inner-content {
+            background: rgba(12, 7, 20, 0.95);
+            border-radius: 18px;
+            padding: 20px 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kc-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .kc-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .kc-live-dot {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+            animation: livePulse 2s infinite ease-in-out;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+
+        .kc-field label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .kc-input-box input {
+            width: 100%;
+            background: rgba(7, 4, 14, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
+            font-weight: 500 !important;
+            transition: all 0.25s ease !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .kc-input-box input:focus {
+            outline: none !important;
+            border-color: #a855f7 !important;
+            background: rgba(15, 8, 28, 0.9) !important;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        /* 3D TACTILE BUTTONS */
+        .kc-actions-group {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .kc-btn {
+            border: none !important;
+            border-radius: 12px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 800 !important;
+            font-size: 0.9rem !important;
+            letter-spacing: 0.5px !important;
+            padding: 12px 20px !important;
+            cursor: pointer !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            transition: all 0.15s ease-out !important;
+            position: relative !important;
+            white-space: nowrap !important;
+        }
+
+        /* Gold RP Button */
+        .kc-btn-rp {
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important;
+            color: #1e1100 !important;
+            box-shadow: 0 4px 0 #92400e, 0 8px 18px rgba(245, 158, 11, 0.35) !important;
+        }
+        .kc-btn-rp:hover {
+            background: linear-gradient(180deg, #fcd34d 0%, #f59e0b 100%) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 0 #92400e, 0 12px 24px rgba(245, 158, 11, 0.5) !important;
+        }
+        .kc-btn-rp:active {
+            transform: translateY(3px) !important;
+            box-shadow: 0 1px 0 #92400e, 0 4px 10px rgba(245, 158, 11, 0.3) !important;
+        }
+
+        /* Emerald Amizade Button */
+        .kc-btn-friend {
+            background: linear-gradient(180deg, #34d399 0%, #059669 100%) !important;
+            color: #022013 !important;
+            box-shadow: 0 4px 0 #065f46, 0 8px 18px rgba(16, 185, 129, 0.35) !important;
+        }
+        .kc-btn-friend:hover {
+            background: linear-gradient(180deg, #6ee7b7 0%, #10b981 100%) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 0 #065f46, 0 12px 24px rgba(16, 185, 129, 0.5) !important;
+        }
+        .kc-btn-friend:active {
+            transform: translateY(3px) !important;
+            box-shadow: 0 1px 0 #065f46, 0 4px 10px rgba(16, 185, 129, 0.3) !important;
+        }
+
+        /* Monarch Purple Presente Button */
+        .kc-btn-gift {
+            background: linear-gradient(180deg, #c084fc 0%, #7c3aed 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 0 #581c87, 0 8px 22px rgba(168, 85, 247, 0.45) !important;
+        }
+        .kc-btn-gift:hover {
+            background: linear-gradient(180deg, #d8b4fe 0%, #8b5cf6 100%) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 0 #581c87, 0 14px 28px rgba(168, 85, 247, 0.6) !important;
+        }
+        .kc-btn-gift:active {
+            transform: translateY(3px) !important;
+            box-shadow: 0 1px 0 #581c87, 0 4px 12px rgba(168, 85, 247, 0.35) !important;
+        }
+
+        /* Catalog Panel & Open Layout */
+        .catalog-panel-3d {
+            background: rgba(13, 8, 22, 0.75) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(168, 85, 247, 0.18) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75) !important;
+            padding: 24px !important;
+        }
+
+        /* Category Chips */
+        .category-chip-item {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 10px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            font-size: 0.82rem !important;
+            padding: 7px 14px !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .category-chip-item:hover {
+            background: rgba(168, 85, 247, 0.15) !important;
+            border-color: rgba(168, 85, 247, 0.4) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .category-chip-item.active {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(99, 102, 241, 0.25)) !important;
+            border: 1px solid #a855f7 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.4) !important;
+        }
+
+        /* Search Bar */
+        .search-input-box-3d {
+            background: rgba(7, 4, 14, 0.75) !important;
+            border: 1px solid rgba(168, 85, 247, 0.2) !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .search-input-box-3d input {
+            background: transparent !important;
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
+        }
+
+        /* 3D Catalog Card Nodes */
+        #item-list li, .catalog-card-node {
+            background: rgba(15, 9, 26, 0.9) !important;
+            border: 1px solid rgba(168, 85, 247, 0.18) !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
+        }
+
+        #item-list li:hover, .catalog-card-node:hover {
+            transform: translateY(-8px) scale(1.02) !important;
+            border-color: rgba(192, 132, 252, 0.6) !important;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 24px rgba(168, 85, 247, 0.3) !important;
+        }
+
+        .champ-card-header {
+            background: rgba(8, 4, 16, 0.8) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            padding: 8px 12px !important;
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+        }
+
+        /* Buy Button 3D Tactile */
+        .buy-button {
+            background: linear-gradient(180deg, #c084fc 0%, #7c3aed 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 10px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 800 !important;
+            font-size: 0.82rem !important;
+            letter-spacing: 0.5px !important;
+            padding: 10px 14px !important;
+            cursor: pointer !important;
+            width: 100% !important;
+            margin-top: 10px !important;
+            box-shadow: 0 3px 0 #581c87, 0 6px 16px rgba(168, 85, 247, 0.35) !important;
+            transition: all 0.15s ease-out !important;
+        }
+
+        .buy-button:hover {
+            background: linear-gradient(180deg, #d8b4fe 0%, #8b5cf6 100%) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 0 #581c87, 0 10px 22px rgba(168, 85, 247, 0.5) !important;
+        }
+
+        .buy-button:active {
+            transform: translateY(2px) !important;
+            box-shadow: 0 1px 0 #581c87, 0 3px 8px rgba(168, 85, 247, 0.3) !important;
+        }
+    </style>
 </head>
 <body class="saas-body-theme">
+
+    <!-- FLOATING STARDUST PARTICLES (SAME AS LOGIN) -->
+    <div id="tsparticles"></div>
 
     <!-- 3D TOP NAVIGATION BAR -->
     <header class="saas-navbar-3d" id="mainHeader">
@@ -25,7 +422,7 @@
                     <i class="fa-solid fa-crown"></i>
                 </div>
                 <div class="brand-text-stack">
-                    <span class="brand-name">KITSUNE</span>
+                    <span class="brand-name">LEAGUE OF LEGENDS</span>
                     <span class="brand-badge">SENDER 3D</span>
                 </div>
             </div>
@@ -121,75 +518,78 @@
              ==================================================================== -->
         <div id="Tab1" class="tabcontent" style="display: block;">
             
-            <!-- KITSUNE 3D GIFTING CONSOLE (HERO DISPATCH DOCK) -->
-            <div class="kitsune-console-3d">
-                <div class="kc-top-bar">
-                    <div class="kc-badge">
-                        <span class="kc-live-dot"></span>
-                        <i class="fa-solid fa-bolt text-gold me-1"></i>
-                        <span data-i18n="quick_actions_title">Disparo de Presentes & Sessão</span>
+            <!-- KITSUNE 3D GIFTING CONSOLE (HERO DISPATCH DOCK WITH MONARCH LIGHT BEAM) -->
+            <div class="kitsune-console-3d monarch-card-3d">
+                <div class="monarch-border-fx"></div>
+                <div class="kc-inner-content">
+                    <div class="kc-top-bar">
+                        <div class="kc-badge">
+                            <span class="kc-live-dot"></span>
+                            <i class="fa-solid fa-bolt text-gold me-1"></i>
+                            <span data-i18n="quick_actions_title">Disparo de Presentes & Sessão</span>
+                        </div>
+
+                        <div class="kc-toggles">
+                            <div class="kc-switch-wrap">
+                                <input type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
+                                <label for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
+                            </div>
+                            <button type="button" class="kc-btn-advanced" onclick="toggleAdvancedSessionFields()" id="btnToggleAdvanced">
+                                <i class="fa-solid fa-sliders me-1"></i> <span data-i18n="advanced_options">Avançado</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="kc-toggles">
-                        <div class="kc-switch-wrap">
-                            <input type="checkbox" id="simple-login" onchange="toggleLoginMode(this.checked)" checked>
-                            <label for="simple-login" data-i18n="simple_login_mode">Modo Simples (user:pass)</label>
+                    <div class="kc-main-grid">
+                        <div class="kc-field">
+                            <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Enviadora</span></label>
+                            <div class="kc-input-box">
+                                <input type="text" id="username-password" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder" autocomplete="off">
+                            </div>
                         </div>
-                        <button type="button" class="kc-btn-advanced" onclick="toggleAdvancedSessionFields()" id="btnToggleAdvanced">
-                            <i class="fa-solid fa-sliders me-1"></i> <span data-i18n="advanced_options">Avançado</span>
-                        </button>
+
+                        <div class="kc-field">
+                            <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
+                            <div class="kc-input-box">
+                                <input type="text" id="nickname-tag" placeholder="Nickname#TAG (ex: Invocador#BR1)" data-i18n-placeholder="recipient_placeholder" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="kc-actions-group">
+                            <button type="button" class="kc-btn kc-btn-rp" onclick="Api('saldo')" title="Checar Saldo RP">
+                                <i class="fa-solid fa-coins me-1"></i>
+                                <span data-i18n="qa_check_rp">Saldo RP</span>
+                            </button>
+                            <button type="button" class="kc-btn kc-btn-friend" onclick="Api('friend')" title="Enviar Pedido de Amizade">
+                                <i class="fa-solid fa-user-plus me-1"></i>
+                                <span data-i18n="qa_send_friend">Amizade</span>
+                            </button>
+                            <button type="button" class="kc-btn kc-btn-gift" onclick="Api('gift')" title="Enviar Presente Direto">
+                                <i class="fa-solid fa-gift me-1"></i>
+                                <span data-i18n="qa_dispatch">Enviar Presente</span>
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- Collapsible Advanced Drawer -->
+                    <div class="kc-advanced-drawer" id="qsAdvancedRow" style="display: none;">
+                        <div class="kc-field">
+                            <label><i class="fa-solid fa-lock me-1"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
+                            <div class="kc-input-box">
+                                <input type="text" id="password" class="disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
+                            </div>
+                        </div>
+                        <div class="kc-field">
+                            <label><i class="fa-solid fa-key me-1"></i> <span data-i18n="label_token_url">Token / URL de Sessão</span></label>
+                            <div class="kc-input-box">
+                                <input type="text" id="tokens-url" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Status / Result Message Banner -->
+                    <div id="result" class="result-status-box-3d"></div>
                 </div>
-
-                <div class="kc-main-grid">
-                    <div class="kc-field">
-                        <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Enviadora</span></label>
-                        <div class="kc-input-box">
-                            <input type="text" id="username-password" placeholder="Usuário:Senha" data-i18n-placeholder="sender_placeholder" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="kc-field">
-                        <label><i class="fa-solid fa-crosshairs me-1 text-cyan"></i> <span data-i18n="label_recipient">Destinatário (Riot ID)</span></label>
-                        <div class="kc-input-box">
-                            <input type="text" id="nickname-tag" placeholder="Nickname#TAG (ex: Invocador#BR1)" data-i18n-placeholder="recipient_placeholder" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="kc-actions-group">
-                        <button type="button" class="kc-btn kc-btn-rp" onclick="Api('saldo')" title="Checar Saldo RP">
-                            <i class="fa-solid fa-coins me-1"></i>
-                            <span data-i18n="qa_check_rp">Saldo RP</span>
-                        </button>
-                        <button type="button" class="kc-btn kc-btn-friend" onclick="Api('friend')" title="Enviar Pedido de Amizade">
-                            <i class="fa-solid fa-user-plus me-1"></i>
-                            <span data-i18n="qa_send_friend">Amizade</span>
-                        </button>
-                        <button type="button" class="kc-btn kc-btn-gift" onclick="Api('gift')" title="Enviar Presente Direto">
-                            <i class="fa-solid fa-gift me-1"></i>
-                            <span data-i18n="qa_dispatch">Enviar Presente</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Collapsible Advanced Drawer -->
-                <div class="kc-advanced-drawer" id="qsAdvancedRow" style="display: none;">
-                    <div class="kc-field">
-                        <label><i class="fa-solid fa-lock me-1"></i> <span data-i18n="label_add_pass">Senha Adicional (Opcional)</span></label>
-                        <div class="kc-input-box">
-                            <input type="text" id="password" class="disabled-input" placeholder="Senha" data-i18n-placeholder="pass_placeholder" disabled>
-                        </div>
-                    </div>
-                    <div class="kc-field">
-                        <label><i class="fa-solid fa-key me-1"></i> <span data-i18n="label_token_url">Token / URL de Sessão</span></label>
-                        <div class="kc-input-box">
-                            <input type="text" id="tokens-url" placeholder="Token URL" data-i18n-placeholder="token_placeholder">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Live Status / Result Message Banner -->
-                <div id="result" class="result-status-box-3d"></div>
             </div>
 
             <!-- ====================================================================
@@ -715,7 +1115,32 @@
     </div>
 
     <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="/static/script.js?v=3.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            background: { color: { value: "transparent" } },
+            fpsLimit: 60,
+            particles: {
+                number: { value: 50, density: { enable: true, area: 850 } },
+                color: { value: ["#ffffff", "#a855f7", "#00f0ff", "#fbbf24"] },
+                shape: { type: "circle" },
+                opacity: { value: { min: 0.1, max: 0.6 }, animation: { enable: true, speed: 1.2, minimumValue: 0.1 } },
+                size: { value: { min: 1, max: 2.5 }, animation: { enable: true, speed: 1.5, minimumValue: 0.5 } },
+                move: { enable: true, speed: 0.45, direction: "top", random: true, straight: false, outModes: { default: "out" } }
+            },
+            interactivity: {
+                events: {
+                    onHover: { enable: true, mode: "bubble" },
+                    resize: true
+                },
+                modes: {
+                    bubble: { distance: 180, size: 5, duration: 2, opacity: 0.8 }
+                }
+            },
+            detectRetina: true
+        });
+    </script>
+    <script src="/static/script.js?v=7.0"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();
