@@ -1209,9 +1209,6 @@ function initCatalogApp() {
                     ${navPrevBtn}
                     ${navNextBtn}
                     ${skinDotsHtml}
-                    <button type="button" class="skin-splash-hint" onclick="event.stopPropagation(); window.openChampionWallpaper('${champKey}')" title="${isEn ? 'Enlarge Wallpaper' : 'Ampliar Wallpaper'}">
-                        <i class="fa-solid fa-expand me-1"></i>${isEn ? 'ZOOM' : 'AMPLIAR'}
-                    </button>
                 </div>
                 ${chromasBarHtml}
                 <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
@@ -1585,7 +1582,37 @@ function initCatalogApp() {
 
     let currentFilteredItems = [];
     let currentRenderIndex = 0;
-    const CHUNK_SIZE = 60;
+    const CHUNK_SIZE = 42;
+
+    function updateCatalogLoadMoreUI() {
+        const box = document.getElementById('catalogLoadMoreBox');
+        if (!box) return;
+        const isEn = selectedLanguage === 'en';
+        const total = currentFilteredItems ? currentFilteredItems.length : 0;
+
+        if (total === 0) {
+            box.innerHTML = '';
+            return;
+        }
+
+        if (currentRenderIndex < total) {
+            box.innerHTML = `
+                <button type="button" class="btn-load-more-cyber" onclick="window.renderMoreItems()">
+                    <i class="fa-solid fa-angles-down text-cyan"></i>
+                    <span>${isEn ? 'Load More Items' : 'Carregar Mais Itens'}</span>
+                    <span style="font-size: 11px; opacity: 0.8; margin-left: 4px;">(${currentRenderIndex} / ${total})</span>
+                </button>
+            `;
+        } else {
+            box.innerHTML = `
+                <div class="catalog-end-pill">
+                    <i class="fa-solid fa-circle-check text-cyan"></i>
+                    <span>${isEn ? `You reached the end of the catalog (${total} items)` : `Você chegou ao fim do catálogo (${total} itens)`}</span>
+                </div>
+            `;
+        }
+    }
+    window.updateCatalogLoadMoreUI = updateCatalogLoadMoreUI;
 
     function updateItemList(items) {
         const list = document.getElementById('item-list');
@@ -1594,6 +1621,7 @@ function initCatalogApp() {
         currentFilteredItems = items;
         currentRenderIndex = 0;
         renderMoreItems();
+        updateCatalogLoadMoreUI();
     }
 
     function getItemRarityInfo(name, priceRp, category, rawItem) {
@@ -2080,11 +2108,7 @@ function initCatalogApp() {
                     ? 'object-fit: contain; width: auto; height: auto; max-width: 78%; max-height: 78%; margin: auto; display: block;'
                     : 'width: 100%; height: 100%; object-fit: cover; object-position: center 15%;';
 
-                const zoomButton = !isSquareItem ? `
-                    <button type="button" class="skin-splash-hint" onclick="event.stopPropagation(); window.openWallpaperModal('${itemKey}')" title="${isEn ? 'Enlarge Wallpaper' : 'Ampliar Wallpaper'}">
-                        <i class="fa-solid fa-expand me-1"></i>${isEn ? 'ZOOM' : 'AMPLIAR'}
-                    </button>
-                ` : '';
+                const zoomButton = '';
 
                 const carouselButtons = '';
 
@@ -2165,8 +2189,10 @@ function initCatalogApp() {
         });
 
         list.appendChild(fragment);
-        currentRenderIndex += CHUNK_SIZE;
+        currentRenderIndex += nextChunk.length;
+        updateCatalogLoadMoreUI();
     }
+    window.renderMoreItems = renderMoreItems;
 
     function selectCardGift(item, evt) {
         addToCart(item, evt);
@@ -2582,12 +2608,7 @@ function initCatalogApp() {
         }
     });
 
-    // Scroll listener for lazy loading remaining catalog items smoothly (natural document scroll)
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
-            renderMoreItems();
-        }
-    });
+    // Catalog uses bounded pagination/load-more without hijacking window scroll
 
     const scrollBox = document.querySelector('.scrollable-box');
     if (scrollBox) {
