@@ -355,18 +355,37 @@
 
         /* 3D Catalog Card Nodes */
         #item-list li, .catalog-card-node {
-            background: rgba(15, 9, 26, 0.9) !important;
-            border: 1px solid rgba(168, 85, 247, 0.18) !important;
+            background: rgba(12, 8, 20, 0.92) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
             border-radius: 16px !important;
             overflow: hidden !important;
+            cursor: pointer !important;
             transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65) !important;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7) !important;
+            position: relative !important;
         }
 
         #item-list li:hover, .catalog-card-node:hover {
-            transform: translateY(-8px) scale(1.02) !important;
-            border-color: rgba(192, 132, 252, 0.6) !important;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 24px rgba(168, 85, 247, 0.3) !important;
+            transform: translateY(-8px) scale(1.03) !important;
+            border-color: var(--rarity-color, #a855f7) !important;
+            box-shadow: 0 0 22px var(--rarity-color, #a855f7),
+                        0 0 55px var(--rarity-color, #a855f7),
+                        0 0 90px var(--rarity-color, rgba(168, 85, 247, 0.45)),
+                        0 18px 40px rgba(0, 0, 0, 0.95) !important;
+            z-index: 10 !important;
+        }
+
+        #item-list li.selected, .catalog-card-node.selected {
+            border-color: var(--rarity-color, #a855f7) !important;
+            box-shadow: 0 0 25px var(--rarity-color, #a855f7), inset 0 0 14px rgba(255, 255, 255, 0.12) !important;
+        }
+
+        #item-list li:hover .store-card-art, .catalog-card-node:hover .store-card-art {
+            transform: scale(1.05);
+        }
+
+        .store-card-art {
+            transition: transform 0.35s ease;
         }
 
         .champ-card-header {
@@ -602,16 +621,6 @@
                     <div class="catalog-heading-wrap">
                         <i class="fa-solid fa-store text-cyan fs-5"></i>
                         <h3 class="catalog-panel-title" id="catalogCategoryHeading" data-i18n="catalog_header_title">CATÁLOGO DE ITENS</h3>
-                    </div>
-
-                    <!-- SKINS VIEW SWITCHER (CHAMPION vs GRID) -->
-                    <div class="skins-view-switcher" id="skinsViewSwitcher" style="display: none;">
-                        <button type="button" class="btn-switch-mode active" id="btnViewChamp" onclick="setSkinViewMode('champion')">
-                            <i class="fa-solid fa-users-viewfinder me-1"></i> <span data-i18n="view_by_champion">Por Campeão</span>
-                        </button>
-                        <button type="button" class="btn-switch-mode" id="btnViewGrid" onclick="setSkinViewMode('grid')">
-                            <i class="fa-solid fa-table-cells me-1"></i> <span data-i18n="view_all_skins">Grid Geral</span>
-                        </button>
                     </div>
 
                     <!-- HIDDEN LANGUAGE SELECTOR FOR SCRIPT INTEROP -->
@@ -1140,7 +1149,7 @@
             detectRetina: true
         });
     </script>
-    <script src="/static/script.js?v=7.0"></script>
+    <script src="/static/script.js?v=8.0"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();

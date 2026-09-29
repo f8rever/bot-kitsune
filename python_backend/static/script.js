@@ -862,28 +862,17 @@ function initCatalogApp() {
 
         const switcherEl = document.getElementById('skinsViewSwitcher');
         if (switcherEl) {
-            switcherEl.style.display = (cat === 'Skin') ? 'inline-flex' : 'none';
+            switcherEl.style.display = 'none';
         }
 
         filterItems();
     }
     window.selectCatalogSubtab = selectCatalogSubtab;
 
-    window.selectedSkinViewMode = 'champion'; // 'champion' (default) or 'grid'
+    window.selectedSkinViewMode = 'grid'; // Always grid: individual skin cards, no carousels
 
     function setSkinViewMode(mode) {
-        window.selectedSkinViewMode = mode;
-        const btnChamp = document.getElementById('btnViewChamp');
-        const btnGrid = document.getElementById('btnViewGrid');
-        if (btnChamp && btnGrid) {
-            if (mode === 'champion') {
-                btnChamp.classList.add('active');
-                btnGrid.classList.remove('active');
-            } else {
-                btnChamp.classList.remove('active');
-                btnGrid.classList.add('active');
-            }
-        }
+        window.selectedSkinViewMode = 'grid';
         filterItems();
     }
     window.setSkinViewMode = setSkinViewMode;
@@ -892,23 +881,6 @@ function initCatalogApp() {
         const rawSearch = searchInput ? searchInput.value : '';
         const searchNormalized = normalizeText(rawSearch).trim();
         const searchTokens = searchNormalized ? searchNormalized.split(/\s+/).filter(Boolean) : [];
-        
-        // Champion Carousel Mode for the Skins Tab or when searching for a champion
-        if (window.selectedSkinViewMode === 'champion') {
-            if (selectedActiveCategory === 'Skin') {
-                filterChampionSkins(searchTokens);
-                return;
-            } else if (selectedActiveCategory === 'all' && searchTokens.length > 0) {
-                const hasMatchingChampion = (window.championsList || []).some(champ => {
-                    const champNorm = normalizeText(champ.championName);
-                    return searchTokens.every(t => champNorm.includes(t));
-                });
-                if (hasMatchingChampion) {
-                    filterChampionSkins(searchTokens);
-                    return;
-                }
-            }
-        }
 
         let items = catalogIndexedItems;
 
@@ -1746,7 +1718,7 @@ function initCatalogApp() {
                 label: 'MYTHIC', 
                 class: 'rarity-mythic', 
                 glowClass: 'rarity-glow-mythic',
-                color: '#a855f7',
+                color: '#c026d3',
                 iconWebp: '/static/raridades/mythic.webp', 
                 icon: 'fa-gem',
                 rank: 5
@@ -1757,7 +1729,7 @@ function initCatalogApp() {
                 label: 'LEGENDARY', 
                 class: 'rarity-legendary', 
                 glowClass: 'rarity-glow-legendary',
-                color: '#ff4655',
+                color: '#ef4444',
                 iconWebp: '/static/raridades/legendary.webp', 
                 icon: 'fa-dragon',
                 rank: 4
@@ -1768,7 +1740,7 @@ function initCatalogApp() {
                 label: 'EPIC', 
                 class: 'rarity-epic', 
                 glowClass: 'rarity-glow-epic',
-                color: '#0ac8b9',
+                color: '#00f0ff',
                 iconWebp: '/static/raridades/epic.webp', 
                 icon: 'fa-bolt',
                 rank: 3
@@ -1778,7 +1750,7 @@ function initCatalogApp() {
             label: 'DELUXE', 
             class: 'rarity-standard', 
             glowClass: 'rarity-glow-standard',
-            color: '#c8aa6e',
+            color: '#3b82f6',
             iconWebp: null, 
             icon: 'fa-shield-halved',
             rank: 0
@@ -2114,17 +2086,7 @@ function initCatalogApp() {
                     </button>
                 ` : '';
 
-                const carouselButtons = itemSlides.length > 1 ? `
-                    <button type="button" class="card-carousel-btn card-carousel-prev" onclick="event.stopPropagation(); window.navigateCardSlide('${itemKey}', -1)" title="${isEn ? 'Previous' : 'Anterior'}">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <button type="button" class="card-carousel-btn card-carousel-next" onclick="event.stopPropagation(); window.navigateCardSlide('${itemKey}', 1)" title="${isEn ? 'Next' : 'Próximo'}">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <div class="card-chroma-indicator-pill card-chroma-clickable" id="chroma_pill_${itemKey}" onclick="event.stopPropagation(); window.openSkinOptionsModalByKey('${itemKey}')" title="${isEn ? 'View Bundle & Chromas Options' : 'Ver Opções da Skin, Pacote e Cromas'}">
-                        <i class="fa-solid fa-palette me-1"></i> ${isBundle ? (isEn ? `Bundle · ${itemChromas.length} Chromas` : `Pacote · ${itemChromas.length} Cromas`) : (window.getSkinOptions(baseSkinName).bundle ? (isEn ? `Bundle + ${itemChromas.length} Chromas` : `Pacote + ${itemChromas.length} Cromas`) : (isEn ? `${itemChromas.length} Chromas available` : `${itemChromas.length} Cromas disponíveis`))}
-                    </div>
-                ` : '';
+                const carouselButtons = '';
 
                 const isPassItem = item.category === 'Passes' || item.category === 'Pass' || item.inventory_type === 'EVENT_PASS' || (item.name && (item.name.toLowerCase().includes('pass') || item.name.toLowerCase().includes('passe')));
                 const isChromaBundle = isBundle && (item.name.startsWith('Pacote Croma') || item.name.startsWith('Chroma Bundle'));
@@ -2155,7 +2117,6 @@ function initCatalogApp() {
                     <div class="item-card-thumbnail-box" id="thumb_box_${itemKey}" style="position: relative; overflow: hidden; background: #02070e; aspect-ratio: 3 / 4; border-radius: 5px 5px 0 0; display: flex; align-items: center; justify-content: center;">
                         <img id="thumb_img_${itemKey}" src="${cardThumbImg}" alt="${item.name}" class="${imgClass}" style="${imgStyle}" loading="lazy" onerror="if (this.src !== '${cardImg}') { this.src = '${cardImg}'; } else { this.onerror=null; this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png'; }">
                         ${bundleBadgeHtml}
-                        ${carouselButtons}
                         ${zoomButton}
                     </div>
                 `;
@@ -2179,36 +2140,26 @@ function initCatalogApp() {
                      ${catTag}
                    </p>`;
 
-            const gridSkinOpts = (!isBundle && !isChroma) ? window.getSkinOptions(item.name) : { hasOptions: false, chromas: [], bundle: null };
-            const cardOptionsBtn = gridSkinOpts.hasOptions ? `
-                <button type="button" class="champ-btn-options" onclick="event.stopPropagation(); window.openSkinOptionsModalByKey('${itemKey}')" title="${isEn ? 'View Bundle & Chromas Options' : 'Ver Opções da Skin, Pacote e Cromas'}">
-                    <i class="fa-solid fa-layer-group me-1"></i> ${gridSkinOpts.bundle ? (isEn ? 'Options & Bundle' : 'Opções & Pacote') : (isEn ? 'All Chromas' : 'Ver Cromas')}
-                </button>
-            ` : '';
-
             listItem.innerHTML = `
                 ${thumbnailContent}
                 <div class="item-card-body" style="padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
-                    ${headerBadge}
-                    <div class="item-card-name font-semibold" style="color: #f0e6d2; font-size: 12px; margin-bottom: 6px; line-height: 1.3; min-height: 32px; max-height: 32px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
-                    <div class="item-card-price-stack">
-                        <div class="item-card-price-money text-teal font-bold" style="font-size: 14px;">${priceInfo.money}</div>
-                        <div class="item-card-price-rp text-gold" style="font-size: 11px;">${priceInfo.rp}</div>
+                    <div class="item-card-header-row">
+                        ${headerBadge}
                     </div>
-                    <button type="button" class="buy-button" onclick="event.stopPropagation(); selectCardGift(${safeItemJson}, event)">
-                        <i class="fa-solid fa-cart-plus me-1"></i> ${isEn ? 'ADD TO CART' : 'ADICIONAR AO CARRINHO'}
-                    </button>
-                    ${cardOptionsBtn}
+                    <div class="item-card-name font-semibold" style="color: #f0e6d2; font-size: 13px; margin-bottom: 6px; line-height: 1.3; min-height: 34px; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
+                    <div class="item-card-price-stack" style="margin-top: 4px;">
+                        <div class="item-card-price-rp text-gold font-bold" style="font-size: 13px; display: flex; align-items: center; gap: 5px;">
+                            <i class="fa-solid fa-coins" style="color: #f59e0b; font-size: 11px;"></i>
+                            <span>${rpDisplay} RP</span>
+                        </div>
+                    </div>
                 </div>
             `;
 
             listItem.onclick = () => {
                 document.querySelectorAll('#item-list li').forEach(el => el.classList.remove('selected'));
                 listItem.classList.add('selected');
-                selectItem(item, priceText);
-                if (gridSkinOpts.hasOptions) {
-                    window.openSkinOptionsModalByKey(itemKey);
-                }
+                selectItem(item, `(${rpDisplay} RP)`);
             };
             fragment.appendChild(listItem);
         });
