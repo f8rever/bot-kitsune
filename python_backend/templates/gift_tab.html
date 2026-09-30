@@ -8,7 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>League of Legends Sender — Sistema de Presentes</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=9.3">
+    <link rel="stylesheet" href="/static/style.css?v=9.4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,199 +150,224 @@
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.9);
         }
 
-        /* 3D Gifting Console with Monarch Light-Beam Border */
+        /* ==========================================================================
+           CLEAN, SIMPLE & MODERN SEND PANEL (DISPATCH DOCK)
+           ========================================================================== */
         .kitsune-console-3d {
-            background: rgba(13, 8, 22, 0.88) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            border-radius: 20px !important;
+            background: rgba(14, 10, 24, 0.72) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+            margin-bottom: 16px !important;
+            padding: 16px 22px !important;
             position: relative !important;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.12) !important;
-            margin-bottom: 24px !important;
-            padding: 2px !important;
             overflow: hidden !important;
-            border: none !important;
+            transition: border-color 0.25s ease !important;
         }
 
-        .monarch-border-fx {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 20px;
-            padding: 2px;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .monarch-border-fx::before,
-        .monarch-border-fx::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, #ffffff 0deg, #a855f7 20deg, transparent 45deg, transparent 315deg, #a855f7 340deg, #ffffff 360deg);
-        }
-
-        .monarch-border-fx::before {
-            animation: spinRight 2.5s ease-in-out infinite alternate;
-        }
-
-        .monarch-border-fx::after {
-            animation: spinLeft 2.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes spinRight {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(180deg); }
-        }
-
-        @keyframes spinLeft {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-180deg); }
+        .kitsune-console-3d:hover {
+            border-color: rgba(255, 255, 255, 0.12) !important;
         }
 
         .kc-inner-content {
-            background: rgba(12, 7, 20, 0.95);
-            border-radius: 18px;
-            padding: 20px 24px;
-            position: relative;
-            z-index: 2;
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
         }
 
         .kc-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 12px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
         }
 
         .kc-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.5px;
+            display: flex !important;
+            align-items: center !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.88rem !important;
+            font-weight: 700 !important;
+            color: #e2e8f0 !important;
+            letter-spacing: 0.5px !important;
         }
 
-        .kc-live-dot {
-            width: 8px; height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
-            animation: livePulse 2s infinite ease-in-out;
+        .kc-toggles {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
         }
 
-        @keyframes livePulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.6; }
+        .kc-switch-wrap {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            font-size: 0.8rem !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+        }
+
+        .kc-switch-wrap input[type="checkbox"] {
+            accent-color: #00f0ff !important;
+            cursor: pointer !important;
+            width: 15px !important;
+            height: 15px !important;
+        }
+
+        .kc-btn-advanced {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.09) !important;
+            border-radius: 8px !important;
+            color: #94a3b8 !important;
+            font-size: 0.78rem !important;
+            font-weight: 600 !important;
+            padding: 5px 12px !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+        }
+
+        .kc-btn-advanced:hover, .kc-btn-advanced.active {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+        }
+
+        .kc-main-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr auto !important;
+            gap: 14px !important;
+            align-items: flex-end !important;
+        }
+
+        .kc-field {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
         }
 
         .kc-field label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #cbd5e1;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
+            font-size: 0.76rem !important;
+            font-weight: 700 !important;
+            color: #94a3b8 !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            display: flex !important;
+            align-items: center !important;
+            margin: 0 !important;
         }
 
         .kc-input-box input {
-            width: 100%;
-            background: rgba(7, 4, 14, 0.8) !important;
+            width: 100% !important;
+            height: 42px !important;
+            background: rgba(8, 6, 14, 0.75) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            border-radius: 12px !important;
-            padding: 12px 16px !important;
+            border-radius: 10px !important;
+            padding: 0 14px !important;
             color: #ffffff !important;
-            font-size: 0.9rem !important;
+            font-size: 0.88rem !important;
             font-weight: 500 !important;
-            transition: all 0.25s ease !important;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            transition: all 0.2s ease !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
         }
 
         .kc-input-box input:focus {
             outline: none !important;
-            border-color: #a855f7 !important;
-            background: rgba(15, 8, 28, 0.9) !important;
-            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+            border-color: #00f0ff !important;
+            background: rgba(12, 9, 20, 0.9) !important;
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.18), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
         }
 
-        /* 3D TACTILE BUTTONS */
+        /* MODERN SLEEK ACTION BUTTONS */
         .kc-actions-group {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
+            display: flex !important;
+            gap: 10px !important;
+            align-items: center !important;
         }
 
         .kc-btn {
-            border: none !important;
-            border-radius: 12px !important;
+            height: 42px !important;
+            border: 1px solid transparent !important;
+            border-radius: 10px !important;
             font-family: 'Outfit', sans-serif !important;
-            font-weight: 800 !important;
-            font-size: 0.9rem !important;
-            letter-spacing: 0.5px !important;
-            padding: 12px 20px !important;
+            font-weight: 700 !important;
+            font-size: 0.84rem !important;
+            letter-spacing: 0.3px !important;
+            padding: 0 18px !important;
             cursor: pointer !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
             gap: 8px !important;
-            transition: all 0.15s ease-out !important;
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
             position: relative !important;
             white-space: nowrap !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         }
 
         /* Gold RP Button */
         .kc-btn-rp {
-            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important;
-            color: #1e1100 !important;
-            box-shadow: 0 4px 0 #92400e, 0 8px 18px rgba(245, 158, 11, 0.35) !important;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(217, 119, 6, 0.28) 100%) !important;
+            border: 1px solid rgba(245, 158, 11, 0.45) !important;
+            color: #fbbf24 !important;
         }
         .kc-btn-rp:hover {
-            background: linear-gradient(180deg, #fcd34d 0%, #f59e0b 100%) !important;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            color: #0b0700 !important;
+            border-color: #f59e0b !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 6px 0 #92400e, 0 12px 24px rgba(245, 158, 11, 0.5) !important;
+            box-shadow: 0 0 18px rgba(245, 158, 11, 0.45), 0 6px 16px rgba(0, 0, 0, 0.4) !important;
         }
         .kc-btn-rp:active {
-            transform: translateY(3px) !important;
-            box-shadow: 0 1px 0 #92400e, 0 4px 10px rgba(245, 158, 11, 0.3) !important;
+            transform: translateY(1px) !important;
         }
 
         /* Emerald Amizade Button */
         .kc-btn-friend {
-            background: linear-gradient(180deg, #34d399 0%, #059669 100%) !important;
-            color: #022013 !important;
-            box-shadow: 0 4px 0 #065f46, 0 8px 18px rgba(16, 185, 129, 0.35) !important;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.28) 100%) !important;
+            border: 1px solid rgba(16, 185, 129, 0.45) !important;
+            color: #34d399 !important;
         }
         .kc-btn-friend:hover {
-            background: linear-gradient(180deg, #6ee7b7 0%, #10b981 100%) !important;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            border-color: #10b981 !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 6px 0 #065f46, 0 12px 24px rgba(16, 185, 129, 0.5) !important;
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45), 0 6px 16px rgba(0, 0, 0, 0.4) !important;
         }
         .kc-btn-friend:active {
-            transform: translateY(3px) !important;
-            box-shadow: 0 1px 0 #065f46, 0 4px 10px rgba(16, 185, 129, 0.3) !important;
+            transform: translateY(1px) !important;
         }
 
-        /* Monarch Purple Presente Button */
+        /* Purple / Cyan Presente Hero Button */
         .kc-btn-gift {
-            background: linear-gradient(180deg, #c084fc 0%, #7c3aed 100%) !important;
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%) !important;
+            border: 1px solid rgba(192, 132, 252, 0.55) !important;
             color: #ffffff !important;
-            box-shadow: 0 4px 0 #581c87, 0 8px 22px rgba(168, 85, 247, 0.45) !important;
         }
         .kc-btn-gift:hover {
-            background: linear-gradient(180deg, #d8b4fe 0%, #8b5cf6 100%) !important;
+            background: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%) !important;
+            color: #ffffff !important;
+            border-color: #c084fc !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 6px 0 #581c87, 0 14px 28px rgba(168, 85, 247, 0.6) !important;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.5), 0 6px 16px rgba(0, 0, 0, 0.4) !important;
         }
         .kc-btn-gift:active {
-            transform: translateY(3px) !important;
-            box-shadow: 0 1px 0 #581c87, 0 4px 12px rgba(168, 85, 247, 0.35) !important;
+            transform: translateY(1px) !important;
+        }
+
+        /* Result Status Message Banner */
+        .result-status-box-3d {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            transition: all 0.25s ease;
         }
 
         /* Catalog Panel & Open Layout */
@@ -707,15 +732,13 @@
              ==================================================================== -->
         <div id="Tab1" class="tabcontent" style="display: block;">
             
-            <!-- KITSUNE 3D GIFTING CONSOLE (HERO DISPATCH DOCK WITH MONARCH LIGHT BEAM) -->
-            <div class="kitsune-console-3d monarch-card-3d">
-                <div class="monarch-border-fx"></div>
+            <!-- KITSUNE SEND PANEL (CLEAN & SIMPLE) -->
+            <div class="kitsune-console-3d" id="kitsuneSendPanel">
                 <div class="kc-inner-content">
                     <div class="kc-top-bar">
                         <div class="kc-badge">
-                            <span class="kc-live-dot"></span>
-                            <i class="fa-solid fa-bolt text-gold me-1"></i>
-                            <span data-i18n="quick_actions_title">Disparo de Presentes & Sessão</span>
+                            <i class="fa-solid fa-paper-plane text-cyan me-2"></i>
+                            <span data-i18n="quick_actions_title">Painel de Envio</span>
                         </div>
 
                         <div class="kc-toggles">
@@ -747,13 +770,13 @@
                         <div class="kc-actions-group">
                             <button type="button" class="kc-btn kc-btn-rp" onclick="Api('saldo')" title="Checar Saldo RP">
                                 <i class="fa-solid fa-coins me-1"></i>
-                                <span data-i18n="qa_check_rp">Saldo RP</span>
+                                <span data-i18n="qa_check_rp">Checar Saldo</span>
                             </button>
                             <button type="button" class="kc-btn kc-btn-friend" onclick="Api('friend')" title="Enviar Pedido de Amizade">
                                 <i class="fa-solid fa-user-plus me-1"></i>
-                                <span data-i18n="qa_send_friend">Amizade</span>
+                                <span data-i18n="qa_send_friend">Enviar Amizade</span>
                             </button>
-                            <button type="button" class="kc-btn kc-btn-gift" onclick="Api('gift')" title="Enviar Presente Direto">
+                            <button type="button" class="kc-btn kc-btn-gift" onclick="Api('gift')" title="Enviar Presente">
                                 <i class="fa-solid fa-gift me-1"></i>
                                 <span data-i18n="qa_dispatch">Enviar Presente</span>
                             </button>
@@ -1322,7 +1345,7 @@
             detectRetina: true
         });
     </script>
-    <script src="/static/script.js?v=9.3"></script>
+    <script src="/static/script.js?v=9.4"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();
