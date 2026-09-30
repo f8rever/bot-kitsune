@@ -6,13 +6,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>League of Legends Sender — Sistema de Presentes 3D</title>
+    <title>League of Legends Sender — Sistema de Presentes</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=9.2">
+    <link rel="stylesheet" href="/static/style.css?v=9.3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23eb0029%22><path d=%22M13.458.86 0 7.093l3.353 12.761 2.552-.313-.701-8.024.838-.373 1.447 8.202 4.361-.535-.775-8.857.83-.37 1.591 9.025 4.412-.542-.849-9.708.84-.374 1.74 9.87L24 17.318V3.5Zm.316 19.356.222 1.256L24 23.14v-4.18l-10.22 1.256Z%22/></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <script src="/static/api_hcaptcha.js" async defer></script>
     <style>
@@ -55,12 +55,22 @@
         }
 
         .brand-cube-icon {
-            background: linear-gradient(135deg, #a855f7, #6366f1) !important;
-            box-shadow: 0 0 16px rgba(168, 85, 247, 0.6) !important;
-            border-radius: 10px;
-            width: 36px; height: 36px;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 16px;
+            background: linear-gradient(135deg, #eb0029 0%, #a3001a 100%) !important;
+            box-shadow: 0 0 20px rgba(235, 0, 41, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            border-radius: 11px !important;
+            width: 38px !important;
+            height: 38px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #ffffff !important;
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+        }
+
+        .brand-cube-icon:hover {
+            box-shadow: 0 0 28px rgba(235, 0, 41, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+            transform: scale(1.06);
         }
 
         .brand-name {
@@ -72,7 +82,7 @@
         }
 
         .brand-badge {
-            background: linear-gradient(135deg, #a855f7, #ec4899) !important;
+            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%) !important;
             -webkit-background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
             font-weight: 800 !important;
@@ -80,30 +90,64 @@
             letter-spacing: 2px !important;
         }
 
-        /* Main Nav Tabs */
+        /* Enhanced Top Nav Tabs Dock */
+        .nav-tabs-3d {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            background: rgba(14, 10, 26, 0.78) !important;
+            backdrop-filter: blur(18px) !important;
+            -webkit-backdrop-filter: blur(18px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.09) !important;
+            padding: 5px 6px !important;
+            border-radius: 14px !important;
+            box-shadow: 0 4px 22px rgba(0, 0, 0, 0.5) !important;
+        }
+
         .main-nav-tab {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            background: transparent !important;
+            border: 1px solid transparent !important;
             color: #94a3b8 !important;
             border-radius: 10px !important;
-            padding: 8px 16px !important;
-            font-size: 0.85rem !important;
+            padding: 9px 18px !important;
+            font-size: 0.86rem !important;
             font-weight: 600 !important;
-            transition: all 0.25s ease !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            cursor: pointer !important;
+            transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+        }
+
+        .main-nav-tab i {
+            font-size: 14px !important;
+            color: #c084fc !important;
+            transition: all 0.2s ease !important;
         }
 
         .main-nav-tab:hover {
-            background: rgba(168, 85, 247, 0.15) !important;
-            border-color: rgba(168, 85, 247, 0.4) !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
             color: #ffffff !important;
-            transform: translateY(-1px);
+            transform: translateY(-1px) !important;
+        }
+
+        .main-nav-tab:hover i {
+            color: #e9d5ff !important;
+            transform: scale(1.1);
         }
 
         .main-nav-tab.active {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(99, 102, 241, 0.2)) !important;
-            border: 1px solid rgba(168, 85, 247, 0.6) !important;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.32) 0%, rgba(99, 102, 241, 0.38) 100%) !important;
+            border: 1px solid rgba(192, 132, 252, 0.6) !important;
             color: #ffffff !important;
-            box-shadow: 0 0 16px rgba(168, 85, 247, 0.35) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+        }
+
+        .main-nav-tab.active i {
+            color: #ffffff !important;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.9);
         }
 
         /* 3D Gifting Console with Monarch Light-Beam Border */
@@ -593,18 +637,20 @@
     <header class="saas-navbar-3d" id="mainHeader">
         <div class="nav-container-3d">
             
-            <!-- BRAND LOGO -->
+            <!-- BRAND LOGO WITH RIOT GAMES ICON (NO 3D) -->
             <div class="brand-block-3d">
-                <div class="brand-cube-icon">
-                    <i class="fa-solid fa-crown"></i>
+                <div class="brand-cube-icon riot-brand-icon" title="Riot Games">
+                    <svg class="riot-fist-svg" viewBox="0 0 24 24" width="22" height="22" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.458.86 0 7.093l3.353 12.761 2.552-.313-.701-8.024.838-.373 1.447 8.202 4.361-.535-.775-8.857.83-.37 1.591 9.025 4.412-.542-.849-9.708.84-.374 1.74 9.87L24 17.318V3.5Zm.316 19.356.222 1.256L24 23.14v-4.18l-10.22 1.256Z"/>
+                    </svg>
                 </div>
                 <div class="brand-text-stack">
                     <span class="brand-name">LEAGUE OF LEGENDS</span>
-                    <span class="brand-badge">SENDER 3D</span>
+                    <span class="brand-badge">SENDER</span>
                 </div>
             </div>
 
-            <!-- MAIN NAVIGATION TABS (V1 CLEAN & DIRECT) -->
+            <!-- MAIN NAVIGATION TABS (ENHANCED DOCK) -->
             <nav class="nav-tabs-3d" id="mainNavTabs">
                 <button type="button" class="main-nav-tab active" onclick="openTab(event, 'Tab1')">
                     <i class="fa-solid fa-store"></i> <span data-i18n="nav_tab1">Loja & Catálogo</span>
@@ -620,7 +666,7 @@
                 </button>
             </nav>
 
-            <!-- TOP RIGHT CONTROLS: LANGUAGE + REGIONS + CART TRIGGER + USER -->
+            <!-- TOP RIGHT CONTROLS: LANGUAGE + USER -->
             <div class="nav-controls-right">
                 
                 <!-- LANGUAGE TOGGLE (PT / EN) -->
@@ -632,40 +678,6 @@
                         <span>🇺🇸</span> EN
                     </button>
                 </div>
-
-                <!-- REGION PILLS (MULTI-CURRENCY) -->
-                <div class="region-pills-group" id="regionPillsGroup">
-                    <button type="button" class="region-pill active" data-region="BR" onclick="selectRegion('BR', this)">BR</button>
-                    <button type="button" class="region-pill" data-region="NA" onclick="selectRegion('NA', this)">NA</button>
-                    <button type="button" class="region-pill" data-region="EUW" onclick="selectRegion('EUW', this)">EUW</button>
-                    
-                    <div class="server-dropdown-wrapper" id="serverDropdownWrapper">
-                        <button type="button" class="region-pill region-dropdown-btn" id="btn-outros-dropdown" onclick="toggleOutrosDropdown(event)">
-                            OUTROS... <i class="fa-solid fa-caret-down ms-1"></i>
-                        </button>
-                        <div class="server-dropdown-menu" id="outros-dropdown-menu" style="display: none;">
-                            <div class="server-dropdown-header" data-i18n="server_other_header">OUTRAS REGIÕES</div>
-                            <div class="server-dropdown-item" data-region="OCE" onclick="selectRegion('OCE', this)">OCE</div>
-                            <div class="server-dropdown-item" data-region="KR" onclick="selectRegion('KR', this)">KR</div>
-                            <div class="server-dropdown-item" data-region="JP" onclick="selectRegion('JP', this)">JP</div>
-                            <div class="server-dropdown-item" data-region="TR" onclick="selectRegion('TR', this)">TR</div>
-                            <div class="server-dropdown-item" data-region="RU" onclick="selectRegion('RU', this)">RU</div>
-                            <div class="server-dropdown-item" data-region="VN" onclick="selectRegion('VN', this)">VN</div>
-                            <div class="server-dropdown-item" data-region="PH" onclick="selectRegion('PH', this)">PH</div>
-                            <div class="server-dropdown-item" data-region="SG" onclick="selectRegion('SG', this)">SG</div>
-                            <div class="server-dropdown-item" data-region="TH" onclick="selectRegion('TH', this)">TH</div>
-                            <div class="server-dropdown-item" data-region="TW" onclick="selectRegion('TW', this)">TW</div>
-                            <div class="server-dropdown-item" data-region="ME" onclick="selectRegion('ME', this)">ME</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3D CART TRIGGER BUTTON -->
-                <button type="button" class="btn-cart-3d" id="navCartTrigger" onclick="toggleCartDrawer(true)" title="Abrir Carrinho">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="btn-cart-label" data-i18n="btn_cart">CARRINHO</span>
-                    <span class="cart-counter-badge" id="cart-counter-badge">0</span>
-                </button>
 
                 <!-- USER PROFILE & LOGOUT -->
                 <div class="user-profile-badge-3d">
@@ -1310,7 +1322,7 @@
             detectRetina: true
         });
     </script>
-    <script src="/static/script.js?v=9.2"></script>
+    <script src="/static/script.js?v=9.3"></script>
     <script>
         function filterFriendsList(query) {
             const q = (query || '').toLowerCase().trim();
