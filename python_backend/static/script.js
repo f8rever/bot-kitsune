@@ -898,7 +898,12 @@ function initCatalogApp() {
         if (searchTokens.length > 0) {
             items = items.filter(item => {
                 const itemNorm = item.searchName;
-                return searchTokens.every(token => itemNorm.includes(token));
+                return searchTokens.every(token => {
+                    if ((token === 'orb' || token === 'orbe') && (item.category === 'skins' || item.category === 'Skin' || (item.inventory_type || '').toUpperCase() === 'CHAMPION_SKIN')) {
+                        return false;
+                    }
+                    return itemNorm.includes(token);
+                });
             });
         }
 
@@ -1934,16 +1939,34 @@ function initCatalogApp() {
                 const cid = Number(item.item_id);
                 const champId = Math.floor(cid / 1000);
                 cardImg = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/${champId}/${cid}.png`;
+            } else if (item.icon_url && !item.icon_url.includes('chest_generic') && !item.icon_url.includes('default.png')) {
+                cardImg = item.icon_url;
             } else if (isBundle || item.category === 'Passes' || item.category === 'Pass' || item.category === 'Loot') {
                 const nLower = (item.name || '').toLowerCase();
-                if ((nLower.includes('mundial 2024') || nLower.includes('worlds 2024')) && (nLower.includes('pass') || nLower.includes('passe'))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg';
-                } else if ((nLower.includes('temporada') || nLower.includes('season')) && (nLower.includes('premium') || nLower.includes('tristana'))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg';
+                if ((nLower.includes('temporada') || nLower.includes('season')) && (nLower.includes('premium') || nLower.includes('tristana'))) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png';
+                } else if ((nLower.includes('temporada') || nLower.includes('season')) && nLower.includes('pacote')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png';
                 } else if ((nLower.includes('temporada') || nLower.includes('season')) && (nLower.includes('pass') || nLower.includes('passe'))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg';
-                } else if (nLower.includes('orbe') || nLower.includes('orb')) {
-                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png';
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png';
+                } else if (nLower.includes('hall of legends') && (nLower.includes('pass') || nLower.includes('passe'))) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png';
+                } else if (nLower.includes('hall of legends') && nLower.includes('mega')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png';
+                } else if (nLower.includes('hall of legends') && nLower.includes('premium')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png';
+                } else if (nLower.includes('hall of legends') && nLower.includes('deluxe')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png';
+                } else if (nLower.includes('hall of legends') && (nLower.includes('orbe') || nLower.includes('orb'))) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png';
+                } else if ((nLower.includes('invocador') || nLower.includes('summoner')) && nLower.includes('mega')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png';
+                } else if ((nLower.includes('invocador') || nLower.includes('summoner')) && nLower.includes('premium')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png';
+                } else if ((nLower.includes('invocador') || nLower.includes('summoner')) && nLower.includes('deluxe')) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png';
+                } else if ((nLower.includes('invocador') || nLower.includes('summoner')) && (nLower.includes('orbe') || nLower.includes('orb'))) {
+                    cardImg = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901067.png';
                 } else if (nLower.includes('artesão') || nLower.includes('masterwork')) {
                     cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png';
                 } else if (nLower.includes('chave') || nLower.includes('key')) {
@@ -1952,25 +1975,21 @@ function initCatalogApp() {
                     cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';
                 } else if (nLower.includes('esports') || nLower.includes('cápsula') || nLower.includes('capsule')) {
                     cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/loot_esports2024_capsule_final_490px.png';
-                } else if (item.icon_url && !item.icon_url.includes('cloudfront.net') && !item.icon_url.includes('chest_generic')) {
-                    cardImg = item.icon_url;
                 } else {
                     const cleanName = (item.name || '').replace(/^Pacote\s+Croma\s+/i, '').replace(/^Chroma\s+Bundle\s+/i, '').toLowerCase().trim();
                     if (window.skinToSplashMap && window.skinToSplashMap[cleanName]) {
                         const splashInfo = window.skinToSplashMap[cleanName];
                         cardImg = splashInfo.splash;
-                    } else if (!cardImg || cardImg.includes('cloudfront.net') || cardImg.includes('chest_generic')) {
-                        const found = (catalogIndexedItems || []).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('cloudfront.net') && !s.icon_url.includes('chest_generic'));
+                    } else {
+                        const found = (catalogIndexedItems || []).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('chest_generic'));
                         if (found) {
                             cardImg = found.icon_url;
                         } else {
-                            const fallbackFound = Object.values(window.catalogItemsStore || {}).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('cloudfront.net') && !s.icon_url.includes('chest_generic'));
+                            const fallbackFound = Object.values(window.catalogItemsStore || {}).find(s => s && s.name && s.name.toLowerCase().includes(cleanName) && s.icon_url && !s.icon_url.includes('chest_generic'));
                             if (fallbackFound) cardImg = fallbackFound.icon_url;
                         }
                     }
                 }
-            } else if (!cardImg || cardImg.includes('cloudfront.net')) {
-                cardImg = defaultImg;
             }
 
             const rarityBadgeHtml = rarity.iconWebp 
