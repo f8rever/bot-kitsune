@@ -34,7 +34,6 @@ function loadFullRiotCatalog(lang = 'en') {
 
     let catalogPath = [
         path.join(__dirname, 'config', targetFile),
-        path.join(__dirname, 'lol_giftapi-main', targetFile),
         path.join(__dirname, 'python_backend', targetFile),
         path.join(__dirname, 'python_backend', 'api_files', targetFile),
         path.join(__dirname, 'data', 'catalogo.json')
