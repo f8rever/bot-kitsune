@@ -107557,7 +107557,7 @@
       "status": "available"
     },
     "5 Hextech Chests & Keys + Bonus Essence!": {
-      "offer_id": "3af2a355-17bf-4b1c-9d08-e1a12890b910",
+      "offer_id": "b2b9fdb3-43c1-4609-b670-987cf6cd0cc2",
       "item_id": 69900002,
       "price_rp": 975,
       "regular_rp": 975,
@@ -107569,7 +107569,7 @@
       "status": "available"
     },
     "10 Hextech Chests & Keys + Bonus Set!": {
-      "offer_id": "7589cd21-251a-4f10-9fa7-2714a3805a78",
+      "offer_id": "c3ca0ec4-54d2-471a-c781-a98de7de1dd3",
       "item_id": 69900003,
       "price_rp": 1950,
       "regular_rp": 1950,
@@ -110184,47 +110184,131 @@
       "is_available": true,
       "status": "available"
     },
-    "Risen Legend Collection (2026)": {
-      "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
-      "item_id": 99901658,
-      "price_rp": 5035,
-      "regular_rp": 5035,
+    "10 Worlds 2024 Orbs + 1 Bonus": {
+      "offer_id": "95056487-39ef-447c-a513-97b9e4ce1f26",
+      "item_id": 69901068,
+      "price_rp": 2500,
+      "regular_rp": 2500,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Immortalized Legend Collection (2026)": {
-      "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
-      "item_id": 99901659,
-      "price_rp": 32035,
-      "regular_rp": 32035,
+    "25 Worlds 2024 Orbs + 1 Exclusive Bag": {
+      "offer_id": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
+      "item_id": 69901069,
+      "price_rp": 6250,
+      "regular_rp": 6250,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Signature Immortalized Legend Collection (2026)": {
-      "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
-      "item_id": 99901660,
-      "price_rp": 58865,
-      "regular_rp": 58865,
+    "50 Worlds 2024 Orbs + 2 Bags": {
+      "offer_id": "7e1a069f-024d-45ae-851e-7a6d8444762c",
+      "item_id": 69901070,
+      "price_rp": 12500,
+      "regular_rp": 12500,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "1 Hextech Chest & Key Bundle": {
+      "offer_id": "a1a8ecb2-32b0-4598-a56f-876bf5bcfbb1",
+      "item_id": 69900001,
+      "price_rp": 195,
+      "regular_rp": 195,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "1 Masterwork Chest & Key Bundle": {
+      "offer_id": "d4db1fd5-65e3-482b-d892-ba9ef8ef2ee4",
+      "item_id": 69900004,
+      "price_rp": 225,
+      "regular_rp": 225,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "5 Masterwork Chests & Keys + Bonus Essence!": {
+      "offer_id": "e5ec2fe6-76f4-493c-e903-cb0fa9fa3ff5",
+      "item_id": 69900005,
+      "price_rp": 1125,
+      "regular_rp": 1125,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "10 Masterwork Chests & Keys + Bonus Set!": {
+      "offer_id": "f6fd30f7-8705-4a4d-fa14-dc10ba0b4006",
+      "item_id": 69900006,
+      "price_rp": 2250,
+      "regular_rp": 2250,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png",
       "is_available": true,
       "status": "available"
     }
   },
   "Passes": {
-    "Season 3: Act I Pass": {
+    "Worlds 2024 Pass": {
       "offer_id": "3c93e239-7195-4682-ac56-cb3510a8314f",
       "item_id": 69901071,
+      "price_rp": 1650,
+      "regular_rp": 1650,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Worlds 2024 Pass Bundle": {
+      "offer_id": "33115367-9c70-4074-8a67-fa72271ac2d0",
+      "item_id": 69901072,
+      "price_rp": 2650,
+      "regular_rp": 2650,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Worlds 2024 Premium Pass Bundle": {
+      "offer_id": "6c82f475-023d-4968-a56c-e689c52b97ff",
+      "item_id": 69901073,
+      "price_rp": 3650,
+      "regular_rp": 3650,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg",
+      "is_available": true,
+      "status": "available"
+    },
+    "Season Pass: Act I": {
+      "offer_id": "e7a87fea-67a2-4693-b63e-563cb9136717",
+      "item_id": 69901063,
       "price_rp": 1650,
       "regular_rp": 1650,
       "sale_rp": null,
@@ -110234,9 +110318,9 @@
       "is_available": true,
       "status": "available"
     },
-    "Season 3: Act I Pass Bundle": {
-      "offer_id": "33115367-9c70-4074-8a67-fa72271ac2d0",
-      "item_id": 69901072,
+    "Season Pass Bundle: Act I": {
+      "offer_id": "8ec9e08f-6396-4787-a759-19568538e435",
+      "item_id": 69901064,
       "price_rp": 2650,
       "regular_rp": 2650,
       "sale_rp": null,
@@ -110246,33 +110330,21 @@
       "is_available": true,
       "status": "available"
     },
-    "Season 3: Act I Premium Pass Bundle": {
-      "offer_id": "6c82f475-023d-4968-a56c-e689c52b97ff",
-      "item_id": 69901073,
+    "Season Premium Pass Bundle: Act I": {
+      "offer_id": "5a7908ac-9731-46a2-8c7a-cf294afc1a44",
+      "item_id": 69901065,
       "price_rp": 3650,
       "regular_rp": 3650,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hall of Legends 2026 Pass": {
-      "offer_id": "1a335511-a661-4d91-8522-abd3bc4f466c",
-      "item_id": 69901079,
-      "price_rp": 1950,
-      "regular_rp": 1950,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg",
+      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg",
       "is_available": true,
       "status": "available"
     }
   },
   "Loot": {
-    "Summoner's Orb": {
+    "Worlds 2024 Orb": {
       "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
       "item_id": 69901067,
       "price_rp": 250,
@@ -110280,11 +110352,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Summoner's Deluxe Orb Bundle": {
+    "10 Worlds 2024 Orbs + 1 Bonus": {
       "offer_id": "95056487-39ef-447c-a513-97b9e4ce1f26",
       "item_id": 69901068,
       "price_rp": 2500,
@@ -110292,11 +110364,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Summoner's Premium Orb Bundle": {
+    "25 Worlds 2024 Orbs + 1 Exclusive Bag": {
       "offer_id": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
       "item_id": 69901069,
       "price_rp": 6250,
@@ -110304,11 +110376,11 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Summoner's Mega Orb Bundle": {
+    "50 Worlds 2024 Orbs + 2 Bags": {
       "offer_id": "7e1a069f-024d-45ae-851e-7a6d8444762c",
       "item_id": 69901070,
       "price_rp": 12500,
@@ -110316,62 +110388,25 @@
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png",
       "is_available": true,
       "status": "available"
     },
-    "Hall of Legends 2026 Orb": {
-      "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
-      "item_id": 69901075,
-      "price_rp": 250,
-      "regular_rp": 250,
+    "Esports 2024 Capsule": {
+      "offer_id": "42617dfb-d09f-4318-971c-4382bfdb8371",
+      "item_id": 676,
+      "price_rp": 750,
+      "regular_rp": 750,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hall of Legends 2026 Deluxe Orb Bundle": {
-      "offer_id": "5c4f967b-a28d-440e-abca-e6be04a5c530",
-      "item_id": 69901076,
-      "price_rp": 2500,
-      "regular_rp": 2500,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hall of Legends 2026 Premium Orb Bundle": {
-      "offer_id": "ee0ff019-d562-4eef-af94-1412bdc58159",
-      "item_id": 69901077,
-      "price_rp": 6250,
-      "regular_rp": 6250,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hall of Legends 2026 Mega Orb Bundle": {
-      "offer_id": "a7c18a88-9322-4ec1-81a0-45174f7db480",
-      "item_id": 69901078,
-      "price_rp": 12500,
-      "regular_rp": 12500,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/faerie_court-_loot_orb_final_490.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/loot_esports2024_capsule_final_490px.png",
       "is_available": true,
       "status": "available"
     },
     "Hextech Chest": {
       "offer_id": "3a24fd7a-1fcc-4861-a146-e0c2ec5ff646",
       "item_id": 1,
-      "parent_id": null,
       "price_rp": 125,
       "regular_rp": 125,
       "sale_rp": null,
@@ -110384,46 +110419,54 @@
     "Hextech Key": {
       "offer_id": "f60cd2c5-4d55-49ef-b9fb-4bb1f196dd80",
       "item_id": 3,
-      "parent_id": null,
       "price_rp": 125,
       "regular_rp": 125,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "HEXTECH_CRAFTING",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/hexkitkat_key_490px.png",
       "is_available": true,
       "status": "available"
     },
-    "Mystery Skin Gift": {
+    "Masterwork Chest": {
+      "offer_id": "84d720ea-d2f1-4f18-bc1c-529a65c97ea1",
+      "item_id": 688,
+      "price_rp": 165,
+      "regular_rp": 165,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "HEXTECH_CRAFTING",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Mystery Skin": {
       "offer_id": "79b0d3cc-5fd0-4cbd-a986-54d2d1e5c9e2",
       "item_id": 1,
-      "parent_id": null,
       "price_rp": 490,
       "regular_rp": 490,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "MYSTERY",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/season3_2026_act1_mysteryskin.png",
       "is_available": true,
       "status": "available"
     },
-    "Mystery Champion Gift": {
+    "Mystery Champion": {
       "offer_id": "526ee5a2-9c99-4f68-b65d-1b7c81c0d6b4",
       "item_id": 3,
-      "parent_id": null,
       "price_rp": 490,
       "regular_rp": 490,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "MYSTERY",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png",
+      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/championpermanent_490x490.png",
       "is_available": true,
       "status": "available"
     },
-    "Mystery Chest Gift": {
+    "Mystery Chest": {
       "offer_id": "1dac545d-6ba1-472e-b800-83f936ec5da9",
       "item_id": 4,
-      "parent_id": null,
       "price_rp": 790,
       "regular_rp": 790,
       "sale_rp": null,

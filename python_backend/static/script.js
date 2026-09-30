@@ -772,14 +772,17 @@ function initCatalogApp() {
             return itemCat === 'chromas' || itemCat === 'chroma' || invType === 'CHROMA' || nameLower.includes('chroma') || nameLower.includes('croma');
         }
         if (s === 'bundle' || s === 'bundles') {
-            return (itemCat === 'bundles' || itemCat === 'bundle' || invType === 'BUNDLES' || invType === 'BUNDLE') &&
-                   !nameLower.includes('chest') && !nameLower.includes('baú') && !nameLower.includes('orb') && !nameLower.includes('orbe') &&
-                   !nameLower.includes('passe ') && !nameLower.includes('pass ');
+            const isSinglePass = (nameLower.startsWith('passe ') || nameLower.startsWith('pass ') || nameLower === 'pass' || nameLower === 'passe') && !nameLower.includes('pacote') && !nameLower.includes('bundle');
+            if (isSinglePass) return false;
+            return (itemCat === 'bundles' || itemCat === 'bundle' || invType === 'BUNDLES' || invType === 'BUNDLE') ||
+                   nameLower.includes('pacote') || nameLower.includes('bundle') || nameLower.includes('conjunto') || nameLower.includes('coleção') || nameLower.includes('collection') || nameLower.includes('orbe') || nameLower.includes('orb') || nameLower.includes('baú') || nameLower.includes('chest');
         }
         if (s === 'pass' || s === 'passes') {
             const isEternal = itemCat === 'eternals' || itemCat === 'eternos' || invType === 'STATSTONE' || nameLower.includes('series') || nameLower.includes('série') || nameLower.includes('starter');
             if (isEternal) return false;
-            return itemCat === 'passes' || itemCat === 'pass' || invType === 'EVENT_PASS' || nameLower.includes('pass') || nameLower.includes('passe');
+            if (itemCat === 'champions' || itemCat === 'skins' || itemCat === 'chromas' || itemCat === 'icons' || invType === 'CHAMPION' || invType === 'CHAMPION_SKIN' || invType === 'CHROMA' || invType === 'HEX_ICON') return false;
+            if (nameLower.includes('passos') || nameLower.includes('ícone') || nameLower.includes('icon')) return false;
+            return itemCat === 'passes' || itemCat === 'pass' || invType === 'EVENT_PASS' || /\b(passe|pass|passes)\b/i.test(nameLower);
         }
         if (s === 'champion' || s === 'champions') {
             return itemCat === 'champions' || itemCat === 'champion' || invType === 'CHAMPION' || invType === 'CHAMPIONS';
@@ -1931,14 +1934,26 @@ function initCatalogApp() {
                 const cid = Number(item.item_id);
                 const champId = Math.floor(cid / 1000);
                 cardImg = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/${champId}/${cid}.png`;
-            } else if (isBundle) {
-                // Hall of Legends collections explicit splash guarantee
-                if (item.name && (item.name.includes('Lenda Ascendida') || item.name.includes('Risen Legend'))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg';
-                } else if (item.name && (item.name.includes('Lenda Imortalizada') || item.name.includes('Immortalized Legend') || item.name.includes('Assinatura') || item.name.includes('Signature'))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg';
-                } else if (item.name && (item.name.includes('Hall of Legends') && (item.name.includes('Pass') || item.name.includes('Passe')))) {
-                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg';
+            } else if (isBundle || item.category === 'Passes' || item.category === 'Pass' || item.category === 'Loot') {
+                const nLower = (item.name || '').toLowerCase();
+                if ((nLower.includes('mundial 2024') || nLower.includes('worlds 2024')) && (nLower.includes('pass') || nLower.includes('passe'))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg';
+                } else if ((nLower.includes('temporada') || nLower.includes('season')) && (nLower.includes('premium') || nLower.includes('tristana'))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_79.jpg';
+                } else if ((nLower.includes('temporada') || nLower.includes('season')) && (nLower.includes('pass') || nLower.includes('passe'))) {
+                    cardImg = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg';
+                } else if (nLower.includes('orbe') || nLower.includes('orb')) {
+                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png';
+                } else if (nLower.includes('artesão') || nLower.includes('masterwork')) {
+                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png';
+                } else if (nLower.includes('chave') || nLower.includes('key')) {
+                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/hexkitkat_key_490px.png';
+                } else if (nLower.includes('baú') || nLower.includes('chest')) {
+                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';
+                } else if (nLower.includes('esports') || nLower.includes('cápsula') || nLower.includes('capsule')) {
+                    cardImg = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/loot_esports2024_capsule_final_490px.png';
+                } else if (item.icon_url && !item.icon_url.includes('cloudfront.net') && !item.icon_url.includes('chest_generic')) {
+                    cardImg = item.icon_url;
                 } else {
                     const cleanName = (item.name || '').replace(/^Pacote\s+Croma\s+/i, '').replace(/^Chroma\s+Bundle\s+/i, '').toLowerCase().trim();
                     if (window.skinToSplashMap && window.skinToSplashMap[cleanName]) {
