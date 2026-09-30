@@ -658,6 +658,19 @@ input:focus, select:focus, textarea:focus {
     transform: translateY(1px);
     border-bottom-width: 1px;
 }
+.kc-rp-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.6));
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+.kc-btn-rp:hover .kc-rp-icon {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.95));
+}
 
 .kc-btn-friend {
     background: linear-gradient(180deg, #10b981 0%, #047857 100%);

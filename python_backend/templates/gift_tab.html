@@ -8,7 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>League of Legends Sender — Sistema de Presentes</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=9.4">
+    <link rel="stylesheet" href="/static/style.css?v=9.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -326,6 +326,20 @@
         }
         .kc-btn-rp:active {
             transform: translateY(1px) !important;
+        }
+
+        .kc-rp-icon {
+            width: 16px !important;
+            height: 16px !important;
+            object-fit: contain !important;
+            display: inline-block !important;
+            vertical-align: middle !important;
+            filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.6)) !important;
+            transition: transform 0.2s ease, filter 0.2s ease !important;
+        }
+        .kc-btn-rp:hover .kc-rp-icon {
+            transform: scale(1.18) !important;
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.95)) !important;
         }
 
         /* Emerald Amizade Button */
@@ -769,7 +783,7 @@
 
                         <div class="kc-actions-group">
                             <button type="button" class="kc-btn kc-btn-rp" onclick="Api('saldo')" title="Checar Saldo RP">
-                                <i class="fa-solid fa-coins me-1"></i>
+                                <img src="/static/images/icon-rp.png" alt="RP" class="kc-rp-icon me-1">
                                 <span data-i18n="qa_check_rp">Checar Saldo</span>
                             </button>
                             <button type="button" class="kc-btn kc-btn-friend" onclick="Api('friend')" title="Enviar Pedido de Amizade">
