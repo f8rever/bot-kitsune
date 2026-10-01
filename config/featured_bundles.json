@@ -115,5 +115,85 @@
     "price_rp": 2795,
     "inventoryType": "BUNDLES",
     "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg"
+  },
+  {
+    "id": 69901071,
+    "itemId": 69901071,
+    "offerId": "3c93e239-7195-4682-ac56-cb3510a8314f",
+    "name": "Passe do Mundial 2024",
+    "name_en": "Worlds 2024 Pass",
+    "price_rp": 1650,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+  },
+  {
+    "id": 69901072,
+    "itemId": 69901072,
+    "offerId": "33115367-9c70-4074-8a67-fa72271ac2d0",
+    "name": "Pacote Passe do Mundial 2024",
+    "name_en": "Worlds 2024 Pass Bundle",
+    "price_rp": 2650,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+  },
+  {
+    "id": 69901073,
+    "itemId": 69901073,
+    "offerId": "6c82f475-023d-4968-a56c-e689c52b97ff",
+    "name": "Pacote Passe Premium do Mundial 2024",
+    "name_en": "Worlds 2024 Premium Pass Bundle",
+    "price_rp": 3650,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+  },
+  {
+    "id": 69901068,
+    "itemId": 69901068,
+    "offerId": "95056487-39ef-447c-a513-97b9e4ce1f26",
+    "name": "Pacote de 10 Orbes do Mundial 2024 + 1 Grátis",
+    "name_en": "10 Worlds 2024 Orbs + 1 Bonus",
+    "price_rp": 2500,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+  },
+  {
+    "id": 69901069,
+    "itemId": 69901069,
+    "offerId": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
+    "name": "Pacote de 25 Orbes do Mundial 2024 + 1 Sacola",
+    "name_en": "25 Worlds 2024 Orbs + 1 Exclusive Bag",
+    "price_rp": 6250,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+  },
+  {
+    "id": 69901070,
+    "itemId": 69901070,
+    "offerId": "7e1a069f-024d-45ae-851e-7a6d8444762c",
+    "name": "Pacote de 50 Orbes do Mundial 2024 + 2 Sacolas",
+    "name_en": "50 Worlds 2024 Orbs + 2 Bags",
+    "price_rp": 12500,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+  },
+  {
+    "id": 69900003,
+    "itemId": 69900003,
+    "offerId": "c3ca0ec4-54d2-471a-c781-a98de7de1dd3",
+    "name": "10 Baús e Chaves Hextec + 1 conjunto adicional!",
+    "name_en": "10 Hextech Chests & Keys + Bonus Set!",
+    "price_rp": 1950,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png"
+  },
+  {
+    "id": 69900006,
+    "itemId": 69900006,
+    "offerId": "f6fd30f7-8705-4a4d-fa14-dc10ba0b4006",
+    "name": "10 Baús do Mestre Artesão e Chaves + 1 conjunto adicional!",
+    "name_en": "10 Masterwork Chests & Keys + Bonus Set!",
+    "price_rp": 2250,
+    "inventoryType": "BUNDLES",
+    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png"
   }
 ]

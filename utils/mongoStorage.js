@@ -460,7 +460,7 @@ async function syncAllBotConfigs(configDir = path.join(__dirname, '../config')) 
                 } else if (Array.isArray(diskData) && Array.isArray(mongoData)) {
                     finalData = diskData.length >= mongoData.length ? diskData : mongoData;
                 } else if (isPlainObject(diskData) && isPlainObject(mongoData)) {
-                    finalData = deepMergeConfigs(diskData, mongoData);
+                    finalData = deepMergeConfigs(mongoData, diskData);
                 } else {
                     finalData = diskData || mongoData;
                 }
