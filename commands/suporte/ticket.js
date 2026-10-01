@@ -51,7 +51,7 @@ module.exports = {
         }
 
         const bLabel = cfg.buttonLabel || 'Comprar aqui';
-        const bEmoji = cfg.buttonEmoji || '<:dinheiro:1527368514057408713>';
+        const bEmoji = cfg.buttonEmoji || '<:dinheiro:1555074386732650527>';
 
         const btn = new ActionRowBuilder().addComponents(
             new ButtonBuilder()

@@ -28,7 +28,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('👋 Desconectado da Call!')
                 .setColor('#F43F5E')
-                .setDescription(`<a:whitearrow:1346152146814636032> O bot Kitsune foi desconectado do canal de voz com sucesso por ${interaction.user}.`)
+                .setDescription(`<a:whitearrow:1555074441933758624> O bot Kitsune foi desconectado do canal de voz com sucesso por ${interaction.user}.`)
                 .setFooter({ text: 'Kitsune Voice', iconURL: interaction.client.user.displayAvatarURL() })
                 .setTimestamp();
 

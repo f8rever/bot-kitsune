@@ -143,8 +143,8 @@ module.exports = {
                 .setColor('#F43F5E')
                 .setThumbnail('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg')
                 .setDescription(
-                    `<a:whitearrow:1346152146814636032> **Desconto Global Ativo:** \`${globalPct}% OFF\`\n` +
-                    `<a:whitearrow:1346152146814636032> *Itens sem desconto de categoria herdam automaticamente a porcentagem global.*\n\n` +
+                    `<a:whitearrow:1555074441933758624> **Desconto Global Ativo:** \`${globalPct}% OFF\`\n` +
+                    `<a:whitearrow:1555074441933758624> *Itens sem desconto de categoria herdam automaticamente a porcentagem global.*\n\n` +
                     `### 🏷️ Descontos por Categoria:`
                 )
                 .setFooter({ text: 'Kitsune Store • Use /desconto set para alterar', iconURL: interaction.client.user.displayAvatarURL() })
@@ -197,8 +197,8 @@ module.exports = {
                 .setColor('#3B82F6')
                 .setDescription(
                     categoriaInput === 'global'
-                        ? `<a:whitearrow:1346152146814636032> Todos os descontos da loja foram **resetados** para o padrão (0% OFF).\n<a:whitearrow:1346152146814636032> Os preços em \`loja.json\` e no \`/table\` foram recalculados com o valor integral.`
-                        : `<a:whitearrow:1346152146814636032> O desconto da categoria **${categoriaInput}** foi resetado e agora herda a regra global (\`${loja.promocao_porcentagem || 0}% OFF\`).`
+                        ? `<a:whitearrow:1555074441933758624> Todos os descontos da loja foram **resetados** para o padrão (0% OFF).\n<a:whitearrow:1555074441933758624> Os preços em \`loja.json\` e no \`/table\` foram recalculados com o valor integral.`
+                        : `<a:whitearrow:1555074441933758624> O desconto da categoria **${categoriaInput}** foi resetado e agora herda a regra global (\`${loja.promocao_porcentagem || 0}% OFF\`).`
                 )
                 .setFooter({ text: 'Kitsune Store • Configuração de Preços' })
                 .setTimestamp();
@@ -251,9 +251,9 @@ module.exports = {
             .setColor('#57F287')
             .setThumbnail('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg')
             .setDescription(
-                `<a:whitearrow:1346152146814636032> Alvo: **${catNome}**\n` +
-                `<a:whitearrow:1346152146814636032> Novo Desconto: **${pct}% OFF**\n` +
-                `<a:whitearrow:1346152146814636032> Status: **Preços de \`loja.json\` e \`/table\` recalculados automaticamente!**\n\n` +
+                `<a:whitearrow:1555074441933758624> Alvo: **${catNome}**\n` +
+                `<a:whitearrow:1555074441933758624> Novo Desconto: **${pct}% OFF**\n` +
+                `<a:whitearrow:1555074441933758624> Status: **Preços de \`loja.json\` e \`/table\` recalculados automaticamente!**\n\n` +
                 `> 💡 *Todos os clientes verão os novos valores com desconto imediatamente nos catálogos e na tabela de preços.*`
             )
             .setFooter({ text: 'Kitsune Store • Sistema de Descontos' })

@@ -176,7 +176,7 @@ module.exports = {
                 .setColor(botConfig.cor || '#57F287')
                 .setThumbnail(botConfig.logo_url || 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg')
                 .setDescription(
-                    `<a:whitearrow:1346152146814636032> As seguintes alterações foram salvas e aplicadas em tempo real:\n\n` +
+                    `<a:whitearrow:1555074441933758624> As seguintes alterações foram salvas e aplicadas em tempo real:\n\n` +
                     alteracoes.map(a => `> ${a}`).join('\n')
                 )
                 .setFooter({ text: 'Kitsune Store • Configurações Globais', iconURL: interaction.client.user.displayAvatarURL() })
@@ -198,7 +198,7 @@ module.exports = {
             .setColor(botConfig.cor || '#F43F5E')
             .setThumbnail(botConfig.logo_url || 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg')
             .setDescription(
-                `<a:whitearrow:1346152146814636032> Aqui estão os parâmetros e configurações gerais ativas no bot para este servidor:\n\n` +
+                `<a:whitearrow:1555074441933758624> Aqui estão os parâmetros e configurações gerais ativas no bot para este servidor:\n\n` +
                 `### ⚙️ Parâmetros Gerais:`
             )
             .addFields([

@@ -96,7 +96,7 @@ function getLoadingEmbed(customText = 'Carregando dados da loja...') {
     try {
         customEmojis = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/emojis.json'), 'utf8'));
     } catch (e) {}
-    const loadingEmoji = (customEmojis?.status?.loading || '<a:loading:1527669507211137148>').trim();
+    const loadingEmoji = (customEmojis?.status?.loading || '<a:loading:1555074450221961348>').trim();
 
     return new EmbedBuilder()
         .setColor('#F43F5E')

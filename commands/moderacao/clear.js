@@ -74,7 +74,7 @@ module.exports = {
                 .setTitle('🧹 Limpeza de Chat Concluída!')
                 .setColor('#2ECC71')
                 .setDescription(
-                    `<a:whitearrow:1346152146814636032> A limpeza do canal ${interaction.channel} foi executada com sucesso!\n\n` +
+                    `<a:whitearrow:1555074441933758624> A limpeza do canal ${interaction.channel} foi executada com sucesso!\n\n` +
                     `> 🗑️ **Mensagens Deletadas:** \`${count}\` mensagem(ns)\n` +
                     `> 🎯 **Filtro Aplicado:** ${filtroTexto}\n` +
                     `> 🛡️ **Moderador:** ${interaction.user}`

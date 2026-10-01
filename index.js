@@ -1024,12 +1024,12 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
             }
             return formatarStr('Orb', (customEmojis?.loot?.orb || '🔮').trim());
         } else if (invType === 'HEXTECH' || nome.toLowerCase().includes('hextech')) {
-            let icon = (customEmojis?.loot?.chest || '<:hextech:1133606219181981789>').trim();
+            let icon = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
             if (nome.toLowerCase().includes('key') && !nome.toLowerCase().includes('chest')) icon = (customEmojis?.loot?.key || '🔑').trim();
             else if (nome.toLowerCase().includes('bundle') || nome.toLowerCase().includes('set')) icon = (customEmojis?.bundles?.set || '<:lol_bundle_set:1544591078622236763>').trim();
             return formatarStr('Hextech Loot', icon);
         }
-        return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim());
+        return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim());
     }
     else if (tipoFiltro === 'champions') {
         return formatarStr('Champion', (customEmojis?.skins?.champion || '⚔️').trim());
@@ -1265,7 +1265,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     } else if (tipoFiltro === 'most_popular') {
         const { getLoLMostPopularItems } = require('./utils/syncWeeklySales.js');
         results = getLoLMostPopularItems(currentCatalog);
-        const ePopTitle = (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim();
+        const ePopTitle = (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim();
         titulo = lang === 'pt' ? `${ePopTitle} ${results.length} Itens Mais Populares` : `${ePopTitle} ${results.length} Most Popular Items`;
         customId = 'selecionar_popular_menu';
     } else if (tipoFiltro === 'passes') {
@@ -1352,7 +1352,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const t = (x.tipo || '').toUpperCase();
             return (t === 'CHAMPION' || t === 'CHAMPIONS') && x.rawItem?.active !== false;
         });
-        const eChampTitle = (customEmojis?.menu?.champions || '<:mchamp:1342089827071561728>').trim();
+        const eChampTitle = (customEmojis?.menu?.champions || '<:mchamp:1555074230050095114>').trim();
         titulo = lang === 'pt' ? `${eChampTitle} ${results.length} Campeões` : `${eChampTitle} ${results.length} Champions`;
         customId = 'selecionar_champion_menu';
     } else if (tipoFiltro === 'eternos') {
@@ -1724,7 +1724,7 @@ async function atualizarEmbedTicket(channel, client) {
     const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
     const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
     const eVariacao = cart.items[0] ? cart.items[0].eVariacao : (customEmojis?.ticket?.variacao || '🌟').trim();
-    const eDinheiro = '<:dinheiro:1527368514057408713>';
+    const eDinheiro = '<:dinheiro:1555074386732650527>';
 
     const userRegiao = (cart.regiao || 'BR').toUpperCase();
     const lang = 'en'; // Catálogo do bot 100% em inglês
@@ -2193,7 +2193,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         const eRiotId = (customEmojis?.ticket?.riot_id || '🎮').trim();
         const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
         const eRP = (customEmojis?.loja_produtos?.moeda || '💎').trim();
-        const eDinheiro = '<:dinheiro:1527368514057408713>';
+        const eDinheiro = '<:dinheiro:1555074386732650527>';
 
         const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, {
             staffRoles: staffRolesMention,
@@ -2275,7 +2275,7 @@ function buildStoreMainMenu(customEmojis) {
                 label: 'Skins & Chromas',
                 description: 'Champion Skins & Chromas',
                 value: 'cat_skins',
-                emoji: (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1342089845559791650>').trim()
+                emoji: (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim()
             },
             {
                 label: 'Loot & Passes',
@@ -2287,7 +2287,7 @@ function buildStoreMainMenu(customEmojis) {
                 label: 'Champions & Eternals',
                 description: 'All 173 Champions & Statstone Series',
                 value: 'cat_champions',
-                emoji: (customEmojis?.menu_principal?.champions_eternals || customEmojis?.skins?.champion || '<:mchamp:1342089827071561728>').trim()
+                emoji: (customEmojis?.menu_principal?.champions_eternals || customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim()
             },
             {
                 label: 'Accessories',
@@ -2468,7 +2468,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
                 { label: 'Featured & Launch Bundles', description: 'Hall of Legends 2026 Collections, Border Sets & Launch Bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim() },
                 { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
-                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1527367612168802374>').trim() }
+                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -3875,7 +3875,7 @@ client.on('interactionCreate', async interaction => {
                     .setTitle('🔔 Payment Notification | Pagamento Informado')
                     .setColor('#10B981')
                     .setDescription(
-                        `<a:whitearrow:1346152146814636032> The customer **${interaction.user}** has marked this order as **PAID**!\n\n` +
+                        `<a:whitearrow:1555074441933758624> The customer **${interaction.user}** has marked this order as **PAID**!\n\n` +
                         `> 📸 **Next Step:** Please upload the payment screenshot/receipt in this channel.\n` +
                         `> 🛡️ **Staff:** ${staffMention} has been alerted to verify and deliver your order.`
                     )

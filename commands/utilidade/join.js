@@ -62,7 +62,7 @@ module.exports = {
                 .setColor('#F43F5E')
                 .setThumbnail(interaction.client.user.displayAvatarURL())
                 .setDescription(
-                    `<a:whitearrow:1346152146814636032> O bot Kitsune entrou com sucesso na call:\n\n` +
+                    `<a:whitearrow:1555074441933758624> O bot Kitsune entrou com sucesso na call:\n\n` +
                     `> 🔊 **Canal:** ${voiceChannel} (\`${voiceChannel.name}\`)\n` +
                     `> 👥 **Membros na Call:** \`${voiceChannel.members.size}\` membro(s)\n` +
                     `> 🛡️ **Status:** \`Conectado (Call 24/7 Ativa)\`\n` +
