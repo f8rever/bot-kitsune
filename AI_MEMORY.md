@@ -24,9 +24,8 @@ Principais diretórios:
 - `data/` — dados estáticos (catalogo.json, champion.json, championMap.json, skins_rarity.json)
 - `database/` — banco de dados local (database.json em JSON, catalogo.db em SQLite)
 - `events/` — event handlers do Discord (guildMemberAdd, messageCreate)
-- `python_backend/` — backend Python completo (Flask + MongoDB) — versão original/legada da API de gifting
-- `lol_giftapi-main/` — cópia/fork da API Python de gifting (mesma estrutura do python_backend, redundante)
-- `scripts/` — scripts auxiliares (deploy.js, check_db.js, checkSchema.js, download_catalog_pngs.js, importBundles.js)
+- `python_backend/` — backend Python completo (Flask + MongoDB) — API REST de gifting e Dashboard Web Oficial
+- `scripts/` — scripts auxiliares (deploy.js, restore_all_dead_emojis.js, push_configs_to_mongo.js, restore_official_passes_and_loot.py, sync_mirrors.py, etc.)
 - `utils/` — módulos utilitários (riotAuth.js, riotXmpp.js, catalog.js, catalogSync.js, customEmbeds.js, embedFormat.js)
 - `pngs_catalogos/` — imagens PNG dos itens do catálogo organizadas por categoria (skins, cromas, passes, etc.)
 
@@ -116,7 +115,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 ---
 
-## ESTADO ATUAL (2026-09-03)
+## ESTADO ATUAL (2026-10-07)
 
 **Estado funcional/operacional**:
 - **21 Comandos Slash 100% Válidos** (inclui `/anuncio`, `/anuncio-blacklist` e `/checar-amizade`).
@@ -672,6 +671,60 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 
 
 
+            33. **Redesign dos Cards de Catálogo, Paginação Bounded & Cleanup do Projeto Web (`python_backend`) (2026-09-29 / 2026-09-30):**
+                - **Refatoração Completa da Interface:**
+                  - Cards de catálogo simplificados: remoção do botão confuso "Add to cart" e de carrosséis desnecessários; cada card agora exibe apenas seu preço em RP oficial e badge/glow de raridade animado com hover refinado.
+                  - Adição de ícones oficiais em alta resolução do RP Hextech (`icon-rp.png` e `icon-rp-72.png`) no botão de checar saldo e nos cards de produtos.
+                  - Paginação limitada com botão dinâmico "Carregar Mais" ("Load More") e remoção do botão de zoom obsoleto (`v=9.2`).
+                  - Substituição do logotipo superior pelo Punho oficial da Riot Games, eliminação de badges 3D infladas e refinamento das abas de navegação.
+                  - Painel de envio direto redesenhado com tipografia limpa, posicionamento simplificado e terminologia direta.
+                - **Cleanup Estrutural do Repositório (`de1429c`):**
+                  - Removida por completo a pasta redundante `lol_giftapi-main/`, centralizando 100% da API e do frontend web na pasta `python_backend/`.
+                  - Limpeza de artefatos obsoletos (`app.yaml`, `vercel.json`, `test_mongo.py`, workflow legado).
+                  - Adicionado script de sincronização e espelhamento `scripts/sync_mirrors.py` e validador `scripts/verify_dashboard.js`.
+
+            34. **Restauração e Atualização de Passes de Batalha, Orbes e Espólios Oficiais (2026-09-30):**
+                - **Atualização do Catálogo de Passes:**
+                  - Atualizados passes para as temporadas ativas da Riot Games (Worlds 2024 e Season 3: Ato I), expurgando coleções expiradas do Hall of Legends do catálogo regular e mantendo apenas pacotes válidos e orbes.
+                  - Imagens e resoluções dos passes e pacotes de orbes restauradas com artes oficiais da CDN da Riot Games (`d392eissrffsyf.cloudfront.net`).
+                - **Scripts de Manutenção e Validação:**
+                  - Criado `scripts/update_passes_and_loot.py` e `scripts/restore_official_passes_and_loot.py` para sincronização automatizada dos caches `catalog_cache_en.json` e `catalog_cache_pt.json` tanto no bot Discord (`config/`) quanto na API (`python_backend/`).
+                  - Criado `scripts/verify_passes_and_bundles.js` para auditoria rápida de integridade dos itens.
+
+            35. **Restauração em Massa de Emojis Mortos & Blindagem de Application Emojis (2026-10-01):**
+                - **Problema:** Emojis antigos hospedados em guilds/servidores de terceiros foram deletados ou ficaram inacessíveis, gerando textos quebrados como `:nome_emoji:` em dezenas de embeds e menus.
+                - **Solução Automatizada com `restore_all_dead_emojis.js`:**
+                  - Varredura de todos os arquivos de configuração (`config/emojis.json`, `config/embeds.json`, `python_backend/embeds.json`).
+                  - Download automático dos assets de imagens e GIFs diretamente do CDN do Discord e upload instantâneo para os **Application Emojis** do bot (escopo global sem limite de slots por guilda).
+                  - Substituição em massa de todos os IDs antigos em arquivos de comandos (`config.js`, `desconto.js`, `clear.js`, `ticket.js`, `join.js`, `leave.js`), `index.js` e embeds.
+                  - Criados novos Application Emojis como `<a:planeta:1555074358903308340>`, `<a:whitearrow:1555074441933758624>`, cristais de raridade (`ultimate`, `mythic`, `legendary`, `epic`, `common`, `transcendent`, `exalted`), espólios hextech e baús.
+                - **Sincronização e Prioridade do Disco no MongoDB Atlas:**
+                  - Criado `scripts/push_configs_to_mongo.js` para forçar atualização no MongoDB Atlas.
+                  - Em `utils/mongoStorage.js`, ajustada a rotina de boot para priorizar configurações atualizadas do disco local sobre dados legados ou desatualizados do MongoDB.
+
+            36. **Suporte a Menção do Cliente no Canal do Ticket & Formatação Inteligente (2026-10-03):**
+                - **Atualização do Template `ticket_order_received`:**
+                  - Atualizada a embed em `config/embeds.json` e `python_backend/embeds.json` para exibir explicitamente `{cliente} | {staffRoles}` na mensagem de aguardo de atendimento.
+                - **Blindagem em `utils/customEmbeds.js`:**
+                  - Implementado fallback inteligente para garantir que mesmo se o banco tiver templates legados apenas com `{staffRoles}`, a menção do cliente seja anexada com segurança.
+                  - Limpeza automática de pipes ou espaços vazios caso `staffRoles` ou `cliente` não estejam definidos.
+
+
+            37. **Atualização Oficial do Catálogo da Riot Games & Sincronização Geral de UUIDs (2026-10-07):**
+                - **Autenticação e Fetch Direto na Storefront API:**
+                  - As contas de catálogo (Tuan8539 RU para EN e lucasgg112 BR1 para PT) foram autenticadas com sucesso no LoL client token flow.
+                  - Baixadas 10.291 ofertas oficiais ativas da Storefront API da Riot Games, gerando o dump bruto catalog.json (19.4 MB).
+                  - O catálogo em inglês saltou para 9.638 itens (+1.545 novos itens) e em português para 10.205 itens (+3.501 novos itens).
+                - **Compilação Store-First & Enriquecimento CDragon (utils/buildFullCatalog.js):**
+                  - Recompilado todo o catálogo unindo os dados oficiais com CommunityDragon e DDragon.
+                  - Total de itens compilados: 1.399 Skins, 5.618 Cromas, 173 Campeões, 522 Eternos, 249 Pacotes, 4 Passes e 13 Espólios.
+                  - Garantidos 100% dos UUIDs oficiais (offer_id) da Riot Store para envio de presentes via CAP Gifting em todas as categorias.
+                  - Preservação estrita das artes em alta resolução da Riot CDN para passes, orbes e pacotes especiais (restore_official_passes_and_loot.py).
+                - **Sincronização Completa entre Módulos:**
+                  - Sincronizados com integridade de hash SHA-256 os arquivos catalog_cache_en.json, catalog_cache_pt.json, catalog.json e featured_bundles.json entre config/, python_backend/, python_backend/api_files/ e C:\Users\jeff\Documents\lol_giftapi-main.
+                  - Validado o carregamento e as buscas de skins, passes e espólios no Bot Discord com 100% de sucesso.
+
+
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
 - `1482818033838719201` — KITSUNE x GAMING v2
@@ -685,7 +738,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 1. [x] Solucionado problema com gifting de passes e coleções (Hall of Legends / Faker) via API CAP Orders com UUIDs reais e desbloqueio de tipo BUNDLES.
 
 ### Emojis & Cosméticos (Opcional / Futuro)
-2. [ ] Cristais de Raridade (Ultimate, Lendária, Épica, Comum) — já mapeados com os emojis oficiais existentes no servidor.
+2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.
 3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
 
 ### Venda White-Label (Futuro)
@@ -705,3 +758,4 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 8. Registrar o próximo passo.
 9. Não apagar informações históricas importantes.
 10. Se o contexto da conversa tiver sido perdido, reconstruir o contexto usando este arquivo e os arquivos do projeto.
+11. Sempre que fizer qualquer alteração ou update no código, realizar o git commit e git push para a branch main, permitindo o deploy contínuo no Render.

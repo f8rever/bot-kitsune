@@ -99,7 +99,7 @@
   },
   "ticket_order_received": {
     "title": "<a:planeta:1555074358903308340> Order Received",
-    "description": "<a:whitearrow:1555074441933758624> Please wait a moment. Our team will assist you shortly so you can proceed with your purchase.\n<a:whitearrow:1555074441933758624> {staffRoles}",
+    "description": "<a:whitearrow:1555074441933758624> Please wait a moment. Our team will assist you shortly so you can proceed with your purchase.\n<a:whitearrow:1555074441933758624> {cliente} | {staffRoles}",
     "color": "#FFFFFF",
     "thumbnail": "",
     "image": "",

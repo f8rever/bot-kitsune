@@ -28,9 +28,18 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     desc = desc.replace(/{fox}/g, fox).replace(/\\n/g, '\n');
     
     for (const [key, val] of Object.entries(extraVars)) {
-        desc = desc.replace(new RegExp(`{${key}}`, 'g'), val);
-        title = title.replace(new RegExp(`{${key}}`, 'g'), val);
+        desc = desc.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
+        title = title.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
     }
+
+    // Fallback inteligente caso a configuração da embed ainda tenha apenas {staffRoles}
+    if (extraVars.cliente && extraVars.staffRoles && desc.includes(extraVars.staffRoles) && !desc.includes(extraVars.cliente)) {
+        const fullMention = [extraVars.cliente, extraVars.staffRoles].filter(Boolean).join(' | ');
+        desc = desc.replace(extraVars.staffRoles, fullMention);
+    }
+
+    // Limpeza de barras soltas caso staffRoles ou cliente estejam vazios
+    desc = desc.replace(/\s+\|\s+$/gm, '').replace(/<a:whitearrow:1555074441933758624>\s+\|\s+/g, '<a:whitearrow:1555074441933758624> ');
 
     if (title && title.trim()) embed.setTitle(title.trim());
     if (desc && desc.trim()) embed.setDescription(desc.trim());
