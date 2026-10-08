@@ -27,19 +27,34 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     title = title.replace(/{fox}/g, fox).replace(/\\n/g, '\n');
     desc = desc.replace(/{fox}/g, fox).replace(/\\n/g, '\n');
     
+    // Auto-detectar mencao do cliente se fornecido via interactionOrUser
+    if (!extraVars.cliente && interactionOrUser) {
+        const uId = interactionOrUser.user?.id || interactionOrUser.id;
+        if (uId) {
+            extraVars.cliente = `<@${uId}>`;
+        }
+    }
+
     for (const [key, val] of Object.entries(extraVars)) {
         desc = desc.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
         title = title.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
     }
 
-    // Fallback inteligente caso a configuração da embed ainda tenha apenas {staffRoles}
+    // Fallback inteligente caso a configuracao da embed ainda tenha apenas {staffRoles}
     if (extraVars.cliente && extraVars.staffRoles && desc.includes(extraVars.staffRoles) && !desc.includes(extraVars.cliente)) {
         const fullMention = [extraVars.cliente, extraVars.staffRoles].filter(Boolean).join(' | ');
         desc = desc.replace(extraVars.staffRoles, fullMention);
     }
 
+    // Limpeza de tags nao substituidas para evitar {cliente} ou {staffRoles} literais no embed
+    desc = desc.replace(/{cliente}\s*\|\s*/g, extraVars.cliente ? `${extraVars.cliente} | ` : '')
+               .replace(/{cliente}/g, extraVars.cliente || '')
+               .replace(/\|\s*{staffRoles}/g, extraVars.staffRoles ? `| ${extraVars.staffRoles}` : '')
+               .replace(/{staffRoles}/g, extraVars.staffRoles || '');
+
     // Limpeza de barras soltas caso staffRoles ou cliente estejam vazios
-    desc = desc.replace(/\s+\|\s+$/gm, '').replace(/<a:whitearrow:1555074441933758624>\s+\|\s+/g, '<a:whitearrow:1555074441933758624> ');
+    desc = desc.replace(/\s+\|\s*$/gm, '').replace(/^\s*\|\s*/gm, '').replace(/<a:whitearrow:1555074441933758624>\s*\|\s*/g, '<a:whitearrow:1555074441933758624> ');
+    desc = desc.replace(/\n<a:whitearrow:1555074441933758624>\s*$/g, '');
 
     if (title && title.trim()) embed.setTitle(title.trim());
     if (desc && desc.trim()) embed.setDescription(desc.trim());

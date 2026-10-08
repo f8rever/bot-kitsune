@@ -1737,7 +1737,25 @@ async function atualizarEmbedTicket(channel, client) {
         .filter(id => id && channel.guild.roles.cache.has(id));
     const staffRoles = staffRolesArray.length > 0 ? staffRolesArray.map(id => `<@&${id}>`).join(' ') : '';
 
-    const embed = buildCustomEmbed('ticket_order_received', client, null, {
+    let clientId = cart.ownerId;
+    if (!clientId && channel.topic && channel.topic.includes('Ticket-Owner:')) {
+        clientId = channel.topic.split('Ticket-Owner:')[1].trim().split(/\s+/)[0];
+    }
+    if (!clientId && channel.permissionOverwrites) {
+        const memberOverwrite = channel.permissionOverwrites.cache.find(po => 
+            po.id !== channel.guild.id && 
+            po.id !== client.user.id && 
+            !staffRolesArray.includes(po.id) &&
+            po.type === 1
+        );
+        if (memberOverwrite) clientId = memberOverwrite.id;
+    }
+    if (clientId && !cart.ownerId) cart.ownerId = clientId;
+
+    const cliente = clientId ? `<@${clientId}>` : '';
+
+    const embed = buildCustomEmbed('ticket_order_received', client, clientId ? { id: clientId } : null, {
+        cliente,
         staffRoles,
         itemSelecionado: details.itemSelecionado,
         variacao: details.variacao,
@@ -2196,6 +2214,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         const eDinheiro = '<:dinheiro:1555074386732650527>';
 
         const embed = buildCustomEmbed('ticket_order_received', interaction.client, interaction, {
+            cliente: `<@${interaction.user.id}>`,
             staffRoles: staffRolesMention,
             itemSelecionado: nomeReal,
             variacao,
@@ -2228,8 +2247,6 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
             ]
         });
 
-        const initialMention = staffRolesMention ? `${interaction.user} | ${staffRolesMention}` : `${interaction.user}`;
-        await canal.send({ content: initialMention });
         await atualizarEmbedTicket(canal, interaction.client);
 
         const isPt = (regiaoStr === 'BR' || regiaoStr === 'BR1');
