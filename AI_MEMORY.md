@@ -728,6 +728,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - As menções do comprador e da equipe de suporte agora ficam exclusivamente formatadas dentro da embed (`ticket_order_received`).
                   - Corrigido o envio da variável `cliente` (`<@userId>`) tanto na criação do ticket quanto em `atualizarEmbedTicket` (resolvido via `cart.ownerId`, `channel.topic` ou `permissionOverwrites`).
                   - Aprimorado `buildCustomEmbed` em `utils/customEmbeds.js` para auto-detectar o cliente a partir de `interactionOrUser` e limpar quaisquer tags órfãs `{cliente}` ou barras (`|`) soltas caso alguma variável esteja ausente.
+                - **Implementação do Menu Plano Direto (Opção 2 - Sem Submenus) com Emojis Oficiais do LoL:**
+                  - Substituídas as categorias genéricas intermediárias por 10 opções de ação direta no `buildStoreMainMenu`: Champion Skins (`compra_skins`), Chromas (`compra_chromas`), Weekly Sales (`compra_sales`), Season Event Passes (`compra_passes`), Orbs & Capsules (`compra_orbes`), Hextech Chests & Keys (`compra_hextech`), Featured & Launch Bundles (`compra_highlights`), Champions (`compra_champions`), Mystery Gifts (`compra_misterio`) e Accessories (`cat_accessories`).
+                  - Cada opção conta com emoji personalizado oficial do League of Legends (`legendary`, `15croma`, `lol_sale`, `lol_pass_hol`, `lol_orb_hol`, `hextech`, `lol_exclusive_pack`, `mchamp`, `lol_mystery_skin`, `lol_poro_emote`).
+                  - Ao selecionar qualquer item, o bot dispara diretamente o modal de busca ou abre o catálogo instantaneamente, sem telas ou submenus intermediários.
+                  - Simplificado o botão global "Back to Menu" para retornar sempre ao menu principal plano.
 
 
 ### Servidores do Bot:

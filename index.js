@@ -1494,12 +1494,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     const pageItems = results.slice(pagina * ITEMS_PER_PAGE, (pagina + 1) * ITEMS_PER_PAGE);
 
     if (pageItems.length === 0) {
-        let backCustomId = 'voltar_menu_modal';
-        if (['skins', 'cromas', 'bundles'].includes(tipoFiltro)) backCustomId = 'voltar_cat_skins';
-        else if (['orbes', 'passes', 'hextech', 'misterio'].includes(tipoFiltro)) backCustomId = 'voltar_cat_loot';
-        else if (['champions', 'eternos'].includes(tipoFiltro)) backCustomId = 'voltar_cat_champions';
-        else if (['emotes', 'wards', 'icones', 'boosts', 'little_legends', 'tft_arena'].includes(tipoFiltro)) backCustomId = 'voltar_cat_accessories';
-        else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) backCustomId = 'voltar_cat_highlights';
+        const backCustomId = 'voltar_menu_modal';
 
         const btnRow = new ActionRowBuilder().addComponents(
             buildStoreBackButton(backCustomId, 'Back to Menu')
@@ -1546,19 +1541,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
     actionRows.push(menu);
 
     const btnRow = new ActionRowBuilder();
-
-    let backCustomId = 'voltar_menu_modal';
-    if (['skins', 'cromas', 'bundles'].includes(tipoFiltro)) {
-        backCustomId = 'voltar_cat_skins';
-    } else if (['orbes', 'passes', 'hextech', 'misterio'].includes(tipoFiltro)) {
-        backCustomId = 'voltar_cat_loot';
-    } else if (['champions', 'eternos'].includes(tipoFiltro)) {
-        backCustomId = 'voltar_cat_champions';
-    } else if (['emotes', 'wards', 'icones', 'boosts', 'little_legends', 'tft_arena'].includes(tipoFiltro)) {
-        backCustomId = 'voltar_cat_accessories';
-    } else if (['highlights', 'sales', 'most_popular'].includes(tipoFiltro)) {
-        backCustomId = 'voltar_cat_highlights';
-    }
+    const backCustomId = 'voltar_menu_modal';
 
     btnRow.addComponents(
         buildStoreBackButton(backCustomId, 'Back to Menu'),
@@ -2286,37 +2269,78 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
 }
 
 function buildStoreMainMenu(customEmojis) {
+    const eSkin = (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim();
+    const eChroma = (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim();
+    const eSale = (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim();
+    const ePass = (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '<:lol_pass_hol:1549297894220369991>').trim();
+    const eOrb = (customEmojis?.loot?.orb_hol || customEmojis?.loot?.orb || '<:lol_orb_hol:1549297901841424524>').trim();
+    const eHextech = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
+    const eBundle = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim();
+    const eChamp = (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim();
+    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:lol_mystery_skin:1544591070204010598>').trim();
+    const eAccessories = (customEmojis?.acessorios?.emotes || customEmojis?.acessorios?.menu || '<:lol_poro_emote:1544493296879935489>').trim();
+
     return new ActionRowBuilder().addComponents(
-        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a LoL Store Category').addOptions([
+        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Choose what you wish to purchase...').addOptions([
             {
-                label: 'Skins & Chromas',
-                description: 'Champion Skins & Chromas',
-                value: 'cat_skins',
-                emoji: (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim()
+                label: 'Champion Skins',
+                description: 'Search & buy all League of Legends skins',
+                value: 'compra_skins',
+                emoji: eSkin
             },
             {
-                label: 'Loot & Passes',
-                description: 'Orbs, Event Passes, Hextech Chests & Mystery',
-                value: 'cat_loot',
-                emoji: (customEmojis?.menu_principal?.loot_passes || customEmojis?.loot?.orb || '<:orb:1528415461010575511>').trim()
+                label: 'Chromas (290 RP)',
+                description: 'Search & buy all champion chromas',
+                value: 'compra_chromas',
+                emoji: eChroma
             },
             {
-                label: 'Champions & Eternals',
-                description: 'All 173 Champions & Statstone Series',
-                value: 'cat_champions',
-                emoji: (customEmojis?.menu_principal?.champions_eternals || customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim()
+                label: 'Weekly Sales (On Sale)',
+                description: 'Official Riot discounts (-27% to -60% off)',
+                value: 'compra_sales',
+                emoji: eSale
             },
             {
-                label: 'Accessories',
-                description: 'Emotes, Ward Skins & Summoner Icons',
+                label: 'Season Event Passes',
+                description: 'Hall of Legends Pass & Seasonal Event Passes',
+                value: 'compra_passes',
+                emoji: ePass
+            },
+            {
+                label: 'Orbs & Capsules',
+                description: "Hall of Legends & Summoner's Orbs (250 - 12,500 RP)",
+                value: 'compra_orbes',
+                emoji: eOrb
+            },
+            {
+                label: 'Hextech Chests & Keys',
+                description: 'Hextech Chest (125 RP), Keys & Bundles',
+                value: 'compra_hextech',
+                emoji: eHextech
+            },
+            {
+                label: 'Featured & Launch Bundles',
+                description: 'Hall of Legends Collections & Border Sets',
+                value: 'compra_highlights',
+                emoji: eBundle
+            },
+            {
+                label: 'Champions (173)',
+                description: 'Search & purchase all 173 Champions',
+                value: 'compra_champions',
+                emoji: eChamp
+            },
+            {
+                label: 'Mystery Gifts',
+                description: 'Mystery Skin (490 RP), Champion & Chest',
+                value: 'compra_misterio',
+                emoji: eMystery
+            },
+            {
+                label: 'Accessories & Emotes',
+                description: 'Emotes (350 RP), Ward Skins & Summoner Icons',
                 value: 'cat_accessories',
-                emoji: (customEmojis?.menu_principal?.accessories || customEmojis?.acessorios?.menu || '👑').trim()
-            },
-            {
-                label: 'Featured',
-                description: 'Launch Bundles, Weekly Sales & Most Popular',
-                value: 'cat_highlights',
-                emoji: (customEmojis?.menu_principal?.featured || customEmojis?.menu_principal?.highlights_bundles || customEmojis?.bundles?.bundle || '<:lol_bundle_set:1544591078622236763>').trim()
+                emoji: eAccessories
             }
         ])
     );
@@ -2734,7 +2758,7 @@ client.on('interactionCreate', async interaction => {
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     await enviarPaginaCatalogo(interaction, 'most_popular', 0, false);
                 } else if (opcao === 'compra_skins') {
-                    abrirModalBusca(interaction, 'buscar_campeao_modal', '👕 Search Skins', 'Enter the champion\'s name:');
+                    abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_chromas') {
                     abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🎨 Search Chromas', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_champions') {
@@ -3977,27 +4001,12 @@ client.on('interactionCreate', async interaction => {
                 return;
             }
 
-            else if (interaction.customId === 'voltar_menu_modal') {
+            else if (interaction.customId === 'voltar_menu_modal' || interaction.customId.startsWith('voltar_cat_')) {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
                 const menu = buildStoreMainMenu(customEmojis);
 
                 await interaction.update({ content: '', embeds: [embed], components: [menu] });
                 return;
-            }
-            else if (interaction.customId === 'voltar_cat_skins') {
-                return await exibirMenuCategoriaLoja(interaction, 'cat_skins');
-            }
-            else if (interaction.customId === 'voltar_cat_loot') {
-                return await exibirMenuCategoriaLoja(interaction, 'cat_loot');
-            }
-            else if (interaction.customId === 'voltar_cat_champions') {
-                return await exibirMenuCategoriaLoja(interaction, 'cat_champions');
-            }
-            else if (interaction.customId === 'voltar_cat_accessories') {
-                return await exibirMenuCategoriaLoja(interaction, 'cat_accessories');
-            }
-            else if (interaction.customId === 'voltar_cat_highlights') {
-                return await exibirMenuCategoriaLoja(interaction, 'cat_highlights');
             }
 
             else if (interaction.customId === 'fechar_ticket') {
