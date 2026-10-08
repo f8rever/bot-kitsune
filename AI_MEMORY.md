@@ -723,6 +723,11 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Sincronização Completa entre Módulos:**
                   - Sincronizados com integridade de hash SHA-256 os arquivos catalog_cache_en.json, catalog_cache_pt.json, catalog.json e featured_bundles.json entre config/, python_backend/, python_backend/api_files/ e C:\Users\jeff\Documents\lol_giftapi-main.
                   - Validado o carregamento e as buscas de skins, passes e espólios no Bot Discord com 100% de sucesso.
+                - **Correção da Identificação do Cliente e Remoção de Ping Externo no Ticket:**
+                  - Removida a mensagem de texto separada enviada fora da embed (`canal.send({ content: initialMention })`) na criação do canal de ticket.
+                  - As menções do comprador e da equipe de suporte agora ficam exclusivamente formatadas dentro da embed (`ticket_order_received`).
+                  - Corrigido o envio da variável `cliente` (`<@userId>`) tanto na criação do ticket quanto em `atualizarEmbedTicket` (resolvido via `cart.ownerId`, `channel.topic` ou `permissionOverwrites`).
+                  - Aprimorado `buildCustomEmbed` em `utils/customEmbeds.js` para auto-detectar o cliente a partir de `interactionOrUser` e limpar quaisquer tags órfãs `{cliente}` ou barras (`|`) soltas caso alguma variável esteja ausente.
 
 
 ### Servidores do Bot:
