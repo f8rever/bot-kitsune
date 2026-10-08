@@ -32,6 +32,17 @@ async function push() {
     );
     console.log('✅ Updated embeds in MongoDB Atlas kitsune_bot.bot_configurations!');
 
+    const salesPath = path.join(__dirname, '..', 'config', 'weekly_sales.json');
+    if (fs.existsSync(salesPath)) {
+        const sales = JSON.parse(fs.readFileSync(salesPath, 'utf8'));
+        await col.updateOne(
+            { configType: 'weekly_sales' },
+            { $set: { data: sales, updatedAt: new Date() } },
+            { upsert: true }
+        );
+        console.log(`✅ Updated ${sales.length} weekly_sales in MongoDB Atlas kitsune_bot.bot_configurations!`);
+    }
+
     // Verification
     const emCheck = await col.findOne({ configType: 'emojis' });
     console.log('New Mongo emojis.ticket.regiao:', emCheck.data?.ticket?.regiao);
