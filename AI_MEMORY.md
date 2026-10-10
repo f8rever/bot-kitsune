@@ -734,6 +734,18 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Ao selecionar qualquer item, o bot dispara diretamente o modal de busca ou abre o catálogo instantaneamente, sem telas ou submenus intermediários.
                   - Simplificado o botão global "Back to Menu" para retornar sempre ao menu principal plano.
 
+            38. **Atualização Completa de Imagens Oficiais dos Catálogos do Bot e da API Python (2026-10-10):**
+                - **Correção de Imagens Oficiais de Passes e Pacotes:**
+                  - Substituídas todas as imagens genéricas (splash arts de campeões como Leblanc_55 e Viego_37) em `featured_bundles.json` e nos catálogos pelas URLs oficiais em alta resolução do CDN da Riot Storefront Cloudfront (`https://d392eissrffsyf.cloudfront.net/storeImages/bundles/...`).
+                  - Validadas todas as URLs com HTTP 200 (Passes Hall of Legends 2026, Passe do Mundial 2024, Orbes e Pacotes de Baús Hextech).
+                - **Recompilação Completa e Enriquecimento Multi-Catálogo:**
+                  - Recompilado todo o catálogo unificado com `utils/buildFullCatalog.js` e `scripts/restore_official_passes_and_loot.py`.
+                  - Injetadas as novas artes oficiais em `config/catalog_cache_en.json`, `config/catalog_cache_pt.json` e `config/featured_bundles.json`.
+                - **Sincronização Total com os Módulos da API Python:**
+                  - Propagados todos os catálogos atualizados para `python_backend/catalog_cache_*.json`, `python_backend/api_files/` e para a pasta externa `C:\Users\jeff\Documents\lol_giftapi-main\`.
+                - **Persistência no MongoDB Atlas:**
+                  - Executado `scripts/push_configs_to_mongo.js` para garantir que o banco em nuvem receba e sincronize todas as configurações, coleções e embeds mais recentes.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

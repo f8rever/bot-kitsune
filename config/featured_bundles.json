@@ -6,7 +6,7 @@
     "name": "Hall of Legends 2026 Pass",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png"
   },
   {
     "id": 99901661,
@@ -15,7 +15,7 @@
     "name": "Risen Legend Collection Pass (2026)",
     "price_rp": 5035,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png"
   },
   {
     "id": 99901662,
@@ -24,7 +24,7 @@
     "name": "Immortalized Legend Collection (2026)",
     "price_rp": 32035,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png"
   },
   {
     "id": 99901663,
@@ -33,7 +33,7 @@
     "name": "Signature Immortalized Legend Collection (2026)",
     "price_rp": 58865,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png"
   },
   {
     "id": 99901664,
@@ -42,7 +42,7 @@
     "name": "Passe Hall of Legends 2026",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png"
   },
   {
     "id": 99901665,
@@ -124,7 +124,7 @@
     "name_en": "Worlds 2024 Pass",
     "price_rp": 1650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png"
   },
   {
     "id": 69901072,
@@ -134,7 +134,7 @@
     "name_en": "Worlds 2024 Pass Bundle",
     "price_rp": 2650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png"
   },
   {
     "id": 69901073,
@@ -144,7 +144,7 @@
     "name_en": "Worlds 2024 Premium Pass Bundle",
     "price_rp": 3650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png"
   },
   {
     "id": 69901068,
@@ -154,7 +154,7 @@
     "name_en": "10 Worlds 2024 Orbs + 1 Bonus",
     "price_rp": 2500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png"
   },
   {
     "id": 69901069,
@@ -164,7 +164,7 @@
     "name_en": "25 Worlds 2024 Orbs + 1 Exclusive Bag",
     "price_rp": 6250,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png"
   },
   {
     "id": 69901070,
@@ -174,7 +174,7 @@
     "name_en": "50 Worlds 2024 Orbs + 2 Bags",
     "price_rp": 12500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png"
   },
   {
     "id": 69900003,
@@ -184,7 +184,7 @@
     "name_en": "10 Hextech Chests & Keys + Bonus Set!",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png"
   },
   {
     "id": 69900006,
