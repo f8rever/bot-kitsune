@@ -343,7 +343,14 @@ async function buildFullCatalog() {
             'Orbe Hall of Legends 2026': 'Hall of Legends 2026 Orb',
             'Pacote de Orbes Deluxe Hall of Legends 2026': 'Hall of Legends 2026 Deluxe Orb Bundle',
             'Pacote de Orbes Premium Hall of Legends 2026': 'Hall of Legends 2026 Premium Orb Bundle',
-            'Pacote de Orbes Mega Hall of Legends 2026': 'Hall of Legends 2026 Mega Orb Bundle'
+            'Pacote de Orbes Mega Hall of Legends 2026': 'Hall of Legends 2026 Mega Orb Bundle',
+            'Passe da Temporada 3: Mundial 2026': 'Season 3: Worlds 2026 Pass',
+            'Pacote Passe da Temporada 3: Mundial 2026': 'Season 3: Worlds 2026 Pass Bundle',
+            'Pacote Passe Premium da Temporada 3: Mundial 2026': 'Season 3: Worlds 2026 Premium Pass Bundle',
+            'Orbe do Mundial 2026': 'Worlds 2026 Orb',
+            'Pacote de Orbes Deluxe do Mundial 2026': 'Worlds 2026 Deluxe Orb Bundle',
+            'Pacote de Orbes Premium do Mundial 2026': 'Worlds 2026 Premium Orb Bundle',
+            'Pacote de Orbes Mega do Mundial 2026': 'Worlds 2026 Mega Orb Bundle'
         };
         if (ptToEnMap[rawEnName]) rawEnName = ptToEnMap[rawEnName];
 
@@ -704,14 +711,16 @@ async function buildFullCatalog() {
                 const isEnOnly = item.id >= 99901660 && item.id <= 99901663;
                 const isPass = item.name.toLowerCase().includes('pass') || item.name.toLowerCase().includes('passe');
                 const isSkin = (item.inventoryType || '').toUpperCase() === 'CHAMPION_SKIN';
+                const isLoot = item.name.toLowerCase().includes('orbe') || item.name.toLowerCase().includes('orb') || item.name.toLowerCase().includes('baú') || item.name.toLowerCase().includes('chest');
 
-                const targetCategory = isPass ? 'Passes' : (isSkin ? 'Skins' : 'Bundles');
+                const targetCategory = isPass ? 'Passes' : (isLoot ? 'Loot' : (isSkin ? 'Skins' : 'Bundles'));
 
                 if (!isEnOnly) {
                     catalogPt[targetCategory][item.name] = bObj;
                 }
                 if (!isPtOnly) {
-                    catalogEn[targetCategory][item.name] = bObj;
+                    const enName = item.name_en || item.name;
+                    catalogEn[targetCategory][enName] = bObj;
                 }
             });
         } catch (e) {}

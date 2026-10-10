@@ -746,6 +746,26 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Persistência no MongoDB Atlas:**
                   - Executado `scripts/push_configs_to_mongo.js` para garantir que o banco em nuvem receba e sincronize todas as configurações, coleções e embeds mais recentes.
 
+            39. **Auditoria Completa & Restauração dos Passes Ativos do LoL (Mundial 2026 & Hall of Legends) (2026-10-10):**
+                - **Descoberta da Causa Raiz:**
+                  - Uma análise profunda do dump oficial da Riot Store (`catalog.json`, 10.291 itens) revelou que os itens de passe do Mundial/Temporada anteriores (`69901071`, `69901072`, `69901073` - Ato I / Mundial 2024) estavam expirados e foram retirados da loja pela Riot.
+                  - Os passes oficiais atualmente ativos na Riot Storefront são da Temporada 3: Mundial 2026: `69901080` (Passe 1650 RP), `69901081` (Pacote 2650 RP) e `69901082` (Pacote Premium 3650 RP), junto do Hall of Legends 2026 (`69901079`, `99901658`, `99901659`, `99901660`).
+                  - Os novos passes não apareciam porque `scripts/restore_official_passes_and_loot.py` estava com um dicionário hardcoded contendo apenas os IDs antigos (`69901071`..`69901073`) e sobrescrevia `cat['Passes'] = passes` após a compilação, eliminando os passes reais.
+                  - Além disso, `config/featured_bundles.json` também apontava para os IDs obsoletos de 2024.
+                - **Correção e Atualização de Todos os Passes Ativos:**
+                  - Injetados os passes ativos com UUIDs reais e artes Cloudfront verificadas com HTTP 200:
+                    - `69901080` / `c5ebe5a5-a967-4d05-b82b-63600c1d9e1a`: *Passe da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Pass* (1650 RP)
+                    - `69901081` / `8b82c6ad-94be-4611-b82e-a0e7401bb232`: *Pacote Passe da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Pass Bundle* (2650 RP)
+                    - `69901082` / `c4179766-1310-423e-a62e-522aa4219ae9`: *Pacote Passe Premium da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Premium Pass Bundle* (3650 RP)
+                    - `69901079` / `1a335511-a661-4d91-8522-abd3bc4f466c`: *Passe Hall of Legends 2026* / *Hall of Legends 2026 Pass* (1950 RP)
+                    - `99901658` / `73d68c09-ff8b-4793-a380-b198438c21ab`: *Passe Coleção Lenda Ascendida (2026)* (5035 RP)
+                    - `99901659` / `70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb`: *Coleção Lenda Imortalizada (2026)* (32035 RP)
+                    - `99901660` / `33f48406-8d1c-4c77-87f4-e47b39796cc6`: *Coleção Assinatura Lenda Imortalizada (2026)* (58865 RP)
+                    - Orbes e Pacotes do Mundial 2026 (`69901083`..`69901086`).
+                - **Sincronização & Recompilação Multi-Arquitetura:**
+                  - Atualizados `featured_bundles.json`, `buildFullCatalog.js`, `restore_official_passes_and_loot.py` e replicados para `python_backend/` e `lol_giftapi-main/`.
+                  - Executado `push_configs_to_mongo.js` para atualizar o Atlas.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

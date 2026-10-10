@@ -10,10 +10,17 @@ IMAGES = {
     69901076: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png',
     69901077: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png',
     69901078: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png',
-    # Season 3: Act I
-    69901071: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png',
-    69901072: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png',
-    69901073: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png',
+    99901658: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png',
+    99901659: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png',
+    99901660: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png',
+    # Season 3: Worlds 2026
+    69901080: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png',
+    69901081: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png',
+    69901082: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png',
+    69901083: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901083.png',
+    69901084: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png',
+    69901085: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png',
+    69901086: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png',
     # Invocador
     69901067: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901067.png',
     69901068: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png',
@@ -34,39 +41,75 @@ PASSES_PT = {
         "is_available": True,
         "status": "available"
     },
-    "Passe da 3ª Temporada – Ato I": {
-        "offer_id": "3c93e239-7195-4682-ac56-cb3510a8314f",
-        "item_id": 69901071,
+    "Passe Coleção Lenda Ascendida (2026)": {
+        "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
+        "item_id": 99901658,
+        "price_rp": 5035,
+        "regular_rp": 5035,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901658],
+        "is_available": True,
+        "status": "available"
+    },
+    "Coleção Lenda Imortalizada (2026)": {
+        "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
+        "item_id": 99901659,
+        "price_rp": 32035,
+        "regular_rp": 32035,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901659],
+        "is_available": True,
+        "status": "available"
+    },
+    "Coleção Assinatura Lenda Imortalizada (2026)": {
+        "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
+        "item_id": 99901660,
+        "price_rp": 58865,
+        "regular_rp": 58865,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901660],
+        "is_available": True,
+        "status": "available"
+    },
+    "Passe da Temporada 3: Mundial 2026": {
+        "offer_id": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
+        "item_id": 69901080,
         "price_rp": 1650,
         "regular_rp": 1650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901071],
+        "icon_url": IMAGES[69901080],
         "is_available": True,
         "status": "available"
     },
-    "Pacote Passe da 3ª Temporada – Ato I": {
-        "offer_id": "33115367-9c70-4074-8a67-fa72271ac2d0",
-        "item_id": 69901072,
+    "Pacote Passe da Temporada 3: Mundial 2026": {
+        "offer_id": "8b82c6ad-94be-4611-b82e-a0e7401bb232",
+        "item_id": 69901081,
         "price_rp": 2650,
         "regular_rp": 2650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901072],
+        "icon_url": IMAGES[69901081],
         "is_available": True,
         "status": "available"
     },
-    "Pacote Passe Premium da 3ª Temporada – Ato I": {
-        "offer_id": "6c82f475-023d-4968-a56c-e689c52b97ff",
-        "item_id": 69901073,
+    "Pacote Passe Premium da Temporada 3: Mundial 2026": {
+        "offer_id": "c4179766-1310-423e-a62e-522aa4219ae9",
+        "item_id": 69901082,
         "price_rp": 3650,
         "regular_rp": 3650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901073],
+        "icon_url": IMAGES[69901082],
         "is_available": True,
         "status": "available"
     }
@@ -85,45 +128,131 @@ PASSES_EN = {
         "is_available": True,
         "status": "available"
     },
-    "Season 3: Act I Pass": {
-        "offer_id": "3c93e239-7195-4682-ac56-cb3510a8314f",
-        "item_id": 69901071,
+    "Risen Legend Collection Pass (2026)": {
+        "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
+        "item_id": 99901658,
+        "price_rp": 5035,
+        "regular_rp": 5035,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901658],
+        "is_available": True,
+        "status": "available"
+    },
+    "Immortalized Legend Collection (2026)": {
+        "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
+        "item_id": 99901659,
+        "price_rp": 32035,
+        "regular_rp": 32035,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901659],
+        "is_available": True,
+        "status": "available"
+    },
+    "Signature Immortalized Legend Collection (2026)": {
+        "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
+        "item_id": 99901660,
+        "price_rp": 58865,
+        "regular_rp": 58865,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[99901660],
+        "is_available": True,
+        "status": "available"
+    },
+    "Season 3: Worlds 2026 Pass": {
+        "offer_id": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
+        "item_id": 69901080,
         "price_rp": 1650,
         "regular_rp": 1650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901071],
+        "icon_url": IMAGES[69901080],
         "is_available": True,
         "status": "available"
     },
-    "Season 3: Act I Pass Bundle": {
-        "offer_id": "33115367-9c70-4074-8a67-fa72271ac2d0",
-        "item_id": 69901072,
+    "Season 3: Worlds 2026 Pass Bundle": {
+        "offer_id": "8b82c6ad-94be-4611-b82e-a0e7401bb232",
+        "item_id": 69901081,
         "price_rp": 2650,
         "regular_rp": 2650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901072],
+        "icon_url": IMAGES[69901081],
         "is_available": True,
         "status": "available"
     },
-    "Season 3: Act I Premium Pass Bundle": {
-        "offer_id": "6c82f475-023d-4968-a56c-e689c52b97ff",
-        "item_id": 69901073,
+    "Season 3: Worlds 2026 Premium Pass Bundle": {
+        "offer_id": "c4179766-1310-423e-a62e-522aa4219ae9",
+        "item_id": 69901082,
         "price_rp": 3650,
         "regular_rp": 3650,
         "sale_rp": None,
         "discount_percent": None,
         "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901073],
+        "icon_url": IMAGES[69901082],
         "is_available": True,
         "status": "available"
     }
 }
 
 LOOT_PT = {
+    # Worlds 2026
+    "Orbe do Mundial 2026": {
+        "offer_id": "2ec59c23-48da-4cf6-ba97-7427289f81be",
+        "item_id": 69901083,
+        "price_rp": 250,
+        "regular_rp": 250,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901083],
+        "is_available": True,
+        "status": "available"
+    },
+    "Pacote de Orbes Deluxe do Mundial 2026": {
+        "offer_id": "65cf331d-b586-4c74-98ae-36ff06f36306",
+        "item_id": 69901084,
+        "price_rp": 2500,
+        "regular_rp": 2500,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901084],
+        "is_available": True,
+        "status": "available"
+    },
+    "Pacote de Orbes Premium do Mundial 2026": {
+        "offer_id": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+        "item_id": 69901085,
+        "price_rp": 6250,
+        "regular_rp": 6250,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901085],
+        "is_available": True,
+        "status": "available"
+    },
+    "Pacote de Orbes Mega do Mundial 2026": {
+        "offer_id": "73854eb1-b0db-4299-8051-fb105658e3ca",
+        "item_id": 69901086,
+        "price_rp": 12500,
+        "regular_rp": 12500,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901086],
+        "is_available": True,
+        "status": "available"
+    },
+    # Hall of Legends 2026
     "Orbe Hall of Legends 2026": {
         "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
         "item_id": 69901075,
@@ -172,6 +301,7 @@ LOOT_PT = {
         "is_available": True,
         "status": "available"
     },
+    # Invocador
     "Orbe do Invocador": {
         "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
         "item_id": 69901067,
@@ -288,6 +418,56 @@ LOOT_PT = {
 }
 
 LOOT_EN = {
+    # Worlds 2026
+    "Worlds 2026 Orb": {
+        "offer_id": "2ec59c23-48da-4cf6-ba97-7427289f81be",
+        "item_id": 69901083,
+        "price_rp": 250,
+        "regular_rp": 250,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901083],
+        "is_available": True,
+        "status": "available"
+    },
+    "Worlds 2026 Deluxe Orb Bundle": {
+        "offer_id": "65cf331d-b586-4c74-98ae-36ff06f36306",
+        "item_id": 69901084,
+        "price_rp": 2500,
+        "regular_rp": 2500,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901084],
+        "is_available": True,
+        "status": "available"
+    },
+    "Worlds 2026 Premium Orb Bundle": {
+        "offer_id": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+        "item_id": 69901085,
+        "price_rp": 6250,
+        "regular_rp": 6250,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901085],
+        "is_available": True,
+        "status": "available"
+    },
+    "Worlds 2026 Mega Orb Bundle": {
+        "offer_id": "73854eb1-b0db-4299-8051-fb105658e3ca",
+        "item_id": 69901086,
+        "price_rp": 12500,
+        "regular_rp": 12500,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901086],
+        "is_available": True,
+        "status": "available"
+    },
+    # Hall of Legends 2026
     "Hall of Legends 2026 Orb": {
         "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
         "item_id": 69901075,
@@ -336,6 +516,7 @@ LOOT_EN = {
         "is_available": True,
         "status": "available"
     },
+    # Invocador
     "Summoner's Orb": {
         "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
         "item_id": 69901067,

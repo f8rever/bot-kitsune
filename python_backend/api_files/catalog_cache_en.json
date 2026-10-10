@@ -110085,14 +110085,14 @@
       "status": "available"
     },
     "10 Baús e Chaves Hextec + 1 conjunto adicional!": {
-      "offer_id": "c3ca0ec4-54d2-471a-c781-a98de7de1dd3",
+      "offer_id": "7589cd21-251a-4f10-9fa7-2714a3805a78",
       "item_id": 69900003,
       "price_rp": 1950,
       "regular_rp": 1950,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle10_BonusChest_190x190.png",
       "is_available": true,
       "status": "available"
     },
@@ -112975,54 +112975,6 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg",
       "is_available": true,
       "status": "available"
-    },
-    "Pacote de 10 Orbes do Mundial 2024 + 1 Grátis": {
-      "offer_id": "95056487-39ef-447c-a513-97b9e4ce1f26",
-      "item_id": 69901068,
-      "price_rp": 2500,
-      "regular_rp": 2500,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Pacote de 25 Orbes do Mundial 2024 + 1 Sacola": {
-      "offer_id": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
-      "item_id": 69901069,
-      "price_rp": 6250,
-      "regular_rp": 6250,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Pacote de 50 Orbes do Mundial 2024 + 2 Sacolas": {
-      "offer_id": "7e1a069f-024d-45ae-851e-7a6d8444762c",
-      "item_id": 69901070,
-      "price_rp": 12500,
-      "regular_rp": 12500,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "10 Baús do Mestre Artesão e Chaves + 1 conjunto adicional!": {
-      "offer_id": "f6fd30f7-8705-4a4d-fa14-dc10ba0b4006",
-      "item_id": 69900006,
-      "price_rp": 2250,
-      "regular_rp": 2250,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "BUNDLES",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/masterwork_chest_224.png",
-      "is_available": true,
-      "status": "available"
     }
   },
   "Passes": {
@@ -113038,44 +112990,128 @@
       "is_available": true,
       "status": "available"
     },
-    "Season 3: Act I Pass": {
-      "offer_id": "3c93e239-7195-4682-ac56-cb3510a8314f",
-      "item_id": 69901071,
+    "Risen Legend Collection Pass (2026)": {
+      "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
+      "item_id": 99901658,
+      "price_rp": 5035,
+      "regular_rp": 5035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Immortalized Legend Collection (2026)": {
+      "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
+      "item_id": 99901659,
+      "price_rp": 32035,
+      "regular_rp": 32035,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Signature Immortalized Legend Collection (2026)": {
+      "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
+      "item_id": 99901660,
+      "price_rp": 58865,
+      "regular_rp": 58865,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Season 3: Worlds 2026 Pass": {
+      "offer_id": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
+      "item_id": 69901080,
       "price_rp": 1650,
       "regular_rp": 1650,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png",
       "is_available": true,
       "status": "available"
     },
-    "Season 3: Act I Pass Bundle": {
-      "offer_id": "33115367-9c70-4074-8a67-fa72271ac2d0",
-      "item_id": 69901072,
+    "Season 3: Worlds 2026 Pass Bundle": {
+      "offer_id": "8b82c6ad-94be-4611-b82e-a0e7401bb232",
+      "item_id": 69901081,
       "price_rp": 2650,
       "regular_rp": 2650,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png",
       "is_available": true,
       "status": "available"
     },
-    "Season 3: Act I Premium Pass Bundle": {
-      "offer_id": "6c82f475-023d-4968-a56c-e689c52b97ff",
-      "item_id": 69901073,
+    "Season 3: Worlds 2026 Premium Pass Bundle": {
+      "offer_id": "c4179766-1310-423e-a62e-522aa4219ae9",
+      "item_id": 69901082,
       "price_rp": 3650,
       "regular_rp": 3650,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png",
       "is_available": true,
       "status": "available"
     }
   },
   "Loot": {
+    "Worlds 2026 Orb": {
+      "offer_id": "2ec59c23-48da-4cf6-ba97-7427289f81be",
+      "item_id": 69901083,
+      "price_rp": 250,
+      "regular_rp": 250,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901083.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Worlds 2026 Deluxe Orb Bundle": {
+      "offer_id": "65cf331d-b586-4c74-98ae-36ff06f36306",
+      "item_id": 69901084,
+      "price_rp": 2500,
+      "regular_rp": 2500,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Worlds 2026 Premium Orb Bundle": {
+      "offer_id": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+      "item_id": 69901085,
+      "price_rp": 6250,
+      "regular_rp": 6250,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Worlds 2026 Mega Orb Bundle": {
+      "offer_id": "73854eb1-b0db-4299-8051-fb105658e3ca",
+      "item_id": 69901086,
+      "price_rp": 12500,
+      "regular_rp": 12500,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png",
+      "is_available": true,
+      "status": "available"
+    },
     "Hall of Legends 2026 Orb": {
       "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
       "item_id": 69901075,

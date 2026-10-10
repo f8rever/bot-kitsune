@@ -117,64 +117,64 @@
     "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg"
   },
   {
-    "id": 69901071,
-    "itemId": 69901071,
-    "offerId": "3c93e239-7195-4682-ac56-cb3510a8314f",
-    "name": "Passe do Mundial 2024",
-    "name_en": "Worlds 2024 Pass",
+    "id": 69901080,
+    "itemId": 69901080,
+    "offerId": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
+    "name": "Passe da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Pass",
     "price_rp": 1650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png"
   },
   {
-    "id": 69901072,
-    "itemId": 69901072,
-    "offerId": "33115367-9c70-4074-8a67-fa72271ac2d0",
-    "name": "Pacote Passe do Mundial 2024",
-    "name_en": "Worlds 2024 Pass Bundle",
+    "id": 69901081,
+    "itemId": 69901081,
+    "offerId": "8b82c6ad-94be-4611-b82e-a0e7401bb232",
+    "name": "Pacote Passe da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Pass Bundle",
     "price_rp": 2650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png"
   },
   {
-    "id": 69901073,
-    "itemId": 69901073,
-    "offerId": "6c82f475-023d-4968-a56c-e689c52b97ff",
-    "name": "Pacote Passe Premium do Mundial 2024",
-    "name_en": "Worlds 2024 Premium Pass Bundle",
+    "id": 69901082,
+    "itemId": 69901082,
+    "offerId": "c4179766-1310-423e-a62e-522aa4219ae9",
+    "name": "Pacote Passe Premium da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Premium Pass Bundle",
     "price_rp": 3650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png"
   },
   {
-    "id": 69901068,
-    "itemId": 69901068,
-    "offerId": "95056487-39ef-447c-a513-97b9e4ce1f26",
-    "name": "Pacote de 10 Orbes do Mundial 2024 + 1 Grátis",
-    "name_en": "10 Worlds 2024 Orbs + 1 Bonus",
+    "id": 69901084,
+    "itemId": 69901084,
+    "offerId": "65cf331d-b586-4c74-98ae-36ff06f36306",
+    "name": "Pacote de Orbes Deluxe do Mundial 2026",
+    "name_en": "Worlds 2026 Deluxe Orb Bundle",
     "price_rp": 2500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png"
   },
   {
-    "id": 69901069,
-    "itemId": 69901069,
-    "offerId": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
-    "name": "Pacote de 25 Orbes do Mundial 2024 + 1 Sacola",
-    "name_en": "25 Worlds 2024 Orbs + 1 Exclusive Bag",
+    "id": 69901085,
+    "itemId": 69901085,
+    "offerId": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+    "name": "Pacote de Orbes Premium do Mundial 2026",
+    "name_en": "Worlds 2026 Premium Orb Bundle",
     "price_rp": 6250,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png"
   },
   {
-    "id": 69901070,
-    "itemId": 69901070,
-    "offerId": "7e1a069f-024d-45ae-851e-7a6d8444762c",
-    "name": "Pacote de 50 Orbes do Mundial 2024 + 2 Sacolas",
-    "name_en": "50 Worlds 2024 Orbs + 2 Bags",
+    "id": 69901086,
+    "itemId": 69901086,
+    "offerId": "73854eb1-b0db-4299-8051-fb105658e3ca",
+    "name": "Pacote de Orbes Mega do Mundial 2026",
+    "name_en": "Worlds 2026 Mega Orb Bundle",
     "price_rp": 12500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png"
   },
   {
     "id": 69900003,
