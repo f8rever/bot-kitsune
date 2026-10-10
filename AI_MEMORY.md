@@ -766,6 +766,28 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Atualizados `featured_bundles.json`, `buildFullCatalog.js`, `restore_official_passes_and_loot.py` e replicados para `python_backend/` e `lol_giftapi-main/`.
                   - Executado `push_configs_to_mongo.js` para atualizar o Atlas.
 
+            40. **Remoção Total do Hall of Legends / Faker, Motor de Rastreamento de Diffs e Pipeline Automático de Sincronização (2026-10-10):**
+                - **Remoção e Purga Definitiva do Faker / Hall of Legends:**
+                  - Expurgados todos os 8 blocos estáticos do Hall of Legends (`69901079`, `99901658`, `99901659`, `99901660`) de `config/featured_bundles.json` e `python_backend/featured_bundles.json`.
+                  - Removidos passes e orbes do Hall of Legends (`69901075`..`69901078`) de `scripts/restore_official_passes_and_loot.py`.
+                  - Em `utils/buildFullCatalog.js`, eliminado o bypass da linha 29 em `isRestrictedOrNonRP` e adicionado bloqueio explícito de `hall of legends` e `faker` no parser para evitar que qualquer oferta expirada seja injetada.
+                  - Categoria de Passes limpa e reduzida para estritamente os 3 passes oficiais ativos da Temporada 3: Mundial 2026 (`69901080`, `69901081`, `69901082`).
+                - **Sistema de Rastreamento de Diffs (Adicionados e Removidos):**
+                  - Implementado comparador delta em `utils/buildFullCatalog.js` que avalia o catálogo anterior (`catalog_cache_en.json`) contra o novo compilado.
+                  - Registra detalhadamente itens adicionados e removidos por categoria (Skins, Cromas, Pacotes, Passes, Campeões, Espólios, etc.) e salva o relatório estruturado em `config/catalog_last_diff.json`.
+                  - Exibe no terminal um relatório visual ASCII formatado com o saldo de alterações sempre que o catálogo é compilado.
+                - **Pipeline Unificado de Sincronização (`scripts/sync_all_catalog.py`):**
+                  - Criado orquestrador automatizado que executa sequencialmente:
+                    1. Recompilação do catálogo completo e geração de diffs (`utils/buildFullCatalog.js`).
+                    2. Injeção e validação de passes e espólios oficiais ativos (`scripts/restore_official_passes_and_loot.py`).
+                    3. Replicação com integridade SHA-256 para `python_backend/`, `api_files/` e `C:\Users\jeff\Documents\lol_giftapi-main\` (`scripts/sync_mirrors.py`).
+                    4. Persistência de configurações e embeds no MongoDB Atlas (`scripts/push_configs_to_mongo.js`).
+                  - Resolvido travamento do Node.js em `scripts/push_configs_to_mongo.js` adicionando `process.exit(0)`.
+                  - Corrigida codificação de saída em ambientes Windows (UTF-8 no `sys.stdout`).
+                - **Hook Automático no Backend Python (`python_backend/main_backend.py`):**
+                  - Injetada chamada automática a `scripts/sync_all_catalog.py` no término da rota/função `update_catalog_cache()`.
+                  - Agora, sempre que o usuário acionar a atualização de catálogo pelo painel web ou API Python, todo o ecossistema do Bot Discord, caches locais, espelhos e MongoDB Atlas são automaticamente atualizados e sincronizados em ~20 segundos sem intervenção manual.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

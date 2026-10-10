@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-10-10T23:36:18.090Z",
+  "total_anterior": 9012,
+  "total_novo": 9010,
+  "added": [
+    {
+      "name": "Baú Hextec",
+      "category": "Loot",
+      "item_id": 1,
+      "price_rp": 125
+    },
+    {
+      "name": "Chave Hextec",
+      "category": "Loot",
+      "item_id": 3,
+      "price_rp": 125
+    },
+    {
+      "name": "Presente - Skin Misteriosa",
+      "category": "Loot",
+      "item_id": 1,
+      "price_rp": 490
+    },
+    {
+      "name": "Presente - Campeão Misterioso",
+      "category": "Loot",
+      "item_id": 3,
+      "price_rp": 490
+    },
+    {
+      "name": "Presente - Baú Misterioso",
+      "category": "Loot",
+      "item_id": 4,
+      "price_rp": 790
+    },
+    {
+      "name": "10 Hextech Chests & Keys + Bonus Set!",
+      "category": "Loot",
+      "item_id": 69900003,
+      "price_rp": 1950
+    },
+    {
+      "name": "10 Masterwork Chests & Keys + Bonus Set!",
+      "category": "Loot",
+      "item_id": 69900006,
+      "price_rp": 2250
+    }
+  ],
+  "removed": [
+    {
+      "name": "Summoner's Orb",
+      "category": "Loot",
+      "item_id": 69901067,
+      "price_rp": 250
+    },
+    {
+      "name": "Summoner's Deluxe Orb Bundle",
+      "category": "Loot",
+      "item_id": 69901068,
+      "price_rp": 2500
+    },
+    {
+      "name": "Summoner's Premium Orb Bundle",
+      "category": "Loot",
+      "item_id": 69901069,
+      "price_rp": 6250
+    },
+    {
+      "name": "Summoner's Mega Orb Bundle",
+      "category": "Loot",
+      "item_id": 69901070,
+      "price_rp": 12500
+    },
+    {
+      "name": "Hextech Chest",
+      "category": "Loot",
+      "item_id": 1,
+      "price_rp": 125
+    },
+    {
+      "name": "Hextech Key",
+      "category": "Loot",
+      "item_id": 3,
+      "price_rp": 125
+    },
+    {
+      "name": "Mystery Skin Gift",
+      "category": "Loot",
+      "item_id": 1,
+      "price_rp": 490
+    },
+    {
+      "name": "Mystery Champion Gift",
+      "category": "Loot",
+      "item_id": 3,
+      "price_rp": 490
+    },
+    {
+      "name": "Mystery Chest Gift",
+      "category": "Loot",
+      "item_id": 4,
+      "price_rp": 790
+    }
+  ]
+}

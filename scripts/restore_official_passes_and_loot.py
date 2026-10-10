@@ -2,17 +2,8 @@ import os
 import json
 import shutil
 
-# Official image mapping
+# Official image mapping - Apenas itens ativos da loja oficial
 IMAGES = {
-    # Hall of Legends 2026
-    69901079: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png',
-    69901075: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png',
-    69901076: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png',
-    69901077: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png',
-    69901078: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png',
-    99901658: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png',
-    99901659: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png',
-    99901660: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png',
     # Season 3: Worlds 2026
     69901080: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png',
     69901081: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png',
@@ -29,54 +20,6 @@ IMAGES = {
 }
 
 PASSES_PT = {
-    "Passe Hall of Legends 2026": {
-        "offer_id": "1a335511-a661-4d91-8522-abd3bc4f466c",
-        "item_id": 69901079,
-        "price_rp": 1950,
-        "regular_rp": 1950,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901079],
-        "is_available": True,
-        "status": "available"
-    },
-    "Passe Coleção Lenda Ascendida (2026)": {
-        "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
-        "item_id": 99901658,
-        "price_rp": 5035,
-        "regular_rp": 5035,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901658],
-        "is_available": True,
-        "status": "available"
-    },
-    "Coleção Lenda Imortalizada (2026)": {
-        "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
-        "item_id": 99901659,
-        "price_rp": 32035,
-        "regular_rp": 32035,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901659],
-        "is_available": True,
-        "status": "available"
-    },
-    "Coleção Assinatura Lenda Imortalizada (2026)": {
-        "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
-        "item_id": 99901660,
-        "price_rp": 58865,
-        "regular_rp": 58865,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901660],
-        "is_available": True,
-        "status": "available"
-    },
     "Passe da Temporada 3: Mundial 2026": {
         "offer_id": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
         "item_id": 69901080,
@@ -116,54 +59,6 @@ PASSES_PT = {
 }
 
 PASSES_EN = {
-    "Hall of Legends 2026 Pass": {
-        "offer_id": "1a335511-a661-4d91-8522-abd3bc4f466c",
-        "item_id": 69901079,
-        "price_rp": 1950,
-        "regular_rp": 1950,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901079],
-        "is_available": True,
-        "status": "available"
-    },
-    "Risen Legend Collection Pass (2026)": {
-        "offer_id": "73d68c09-ff8b-4793-a380-b198438c21ab",
-        "item_id": 99901658,
-        "price_rp": 5035,
-        "regular_rp": 5035,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901658],
-        "is_available": True,
-        "status": "available"
-    },
-    "Immortalized Legend Collection (2026)": {
-        "offer_id": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
-        "item_id": 99901659,
-        "price_rp": 32035,
-        "regular_rp": 32035,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901659],
-        "is_available": True,
-        "status": "available"
-    },
-    "Signature Immortalized Legend Collection (2026)": {
-        "offer_id": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
-        "item_id": 99901660,
-        "price_rp": 58865,
-        "regular_rp": 58865,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[99901660],
-        "is_available": True,
-        "status": "available"
-    },
     "Season 3: Worlds 2026 Pass": {
         "offer_id": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
         "item_id": 69901080,
@@ -249,55 +144,6 @@ LOOT_PT = {
         "discount_percent": None,
         "inventory_type": "BUNDLES",
         "icon_url": IMAGES[69901086],
-        "is_available": True,
-        "status": "available"
-    },
-    # Hall of Legends 2026
-    "Orbe Hall of Legends 2026": {
-        "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
-        "item_id": 69901075,
-        "price_rp": 250,
-        "regular_rp": 250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901075],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Deluxe Hall of Legends 2026": {
-        "offer_id": "5c4f967b-a28d-440e-abca-e6be04a5c530",
-        "item_id": 69901076,
-        "price_rp": 2500,
-        "regular_rp": 2500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901076],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Premium Hall of Legends 2026": {
-        "offer_id": "ee0ff019-d562-4eef-af94-1412bdc58159",
-        "item_id": 69901077,
-        "price_rp": 6250,
-        "regular_rp": 6250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901077],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Mega Hall of Legends 2026": {
-        "offer_id": "a7c18a88-9322-4ec1-81a0-45174f7db480",
-        "item_id": 69901078,
-        "price_rp": 12500,
-        "regular_rp": 12500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901078],
         "is_available": True,
         "status": "available"
     },
@@ -464,55 +310,6 @@ LOOT_EN = {
         "discount_percent": None,
         "inventory_type": "BUNDLES",
         "icon_url": IMAGES[69901086],
-        "is_available": True,
-        "status": "available"
-    },
-    # Hall of Legends 2026
-    "Hall of Legends 2026 Orb": {
-        "offer_id": "e5104b4f-1caa-4390-8268-064458af8ec3",
-        "item_id": 69901075,
-        "price_rp": 250,
-        "regular_rp": 250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901075],
-        "is_available": True,
-        "status": "available"
-    },
-    "Hall of Legends 2026 Deluxe Orb Bundle": {
-        "offer_id": "5c4f967b-a28d-440e-abca-e6be04a5c530",
-        "item_id": 69901076,
-        "price_rp": 2500,
-        "regular_rp": 2500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901076],
-        "is_available": True,
-        "status": "available"
-    },
-    "Hall of Legends 2026 Premium Orb Bundle": {
-        "offer_id": "ee0ff019-d562-4eef-af94-1412bdc58159",
-        "item_id": 69901077,
-        "price_rp": 6250,
-        "regular_rp": 6250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901077],
-        "is_available": True,
-        "status": "available"
-    },
-    "Hall of Legends 2026 Mega Orb Bundle": {
-        "offer_id": "a7c18a88-9322-4ec1-81a0-45174f7db480",
-        "item_id": 69901078,
-        "price_rp": 12500,
-        "regular_rp": 12500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901078],
         "is_available": True,
         "status": "available"
     },

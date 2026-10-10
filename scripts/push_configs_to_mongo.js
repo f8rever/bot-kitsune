@@ -53,6 +53,10 @@ async function push() {
 
     await client.close();
     console.log('[Mongo Push] 🎉 Concluído com sucesso!');
+    process.exit(0);
 }
 
-push().catch(console.error);
+push().catch(err => {
+    console.error(err);
+    process.exit(1);
+});

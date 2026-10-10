@@ -7,6 +7,7 @@ if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
 import json
+import subprocess
 import random
 from secrets import token_urlsafe
 import aiohttp
@@ -1403,6 +1404,15 @@ async def update_catalog_cache(username, password, file_name):
                 print(f"   ... e mais +{len(new_items) - 15} novos itens adicionados.")
         else:
             print("✨ O catálogo já estava 100% atualizado com todas as novidades.")
+
+        # Disparar pipeline automático de compilação, diff e atualização do Bot Discord
+        try:
+            print("\n🔄 [Auto-Sync] Disparando pipeline de compilação Store-First e atualização do Bot Discord...")
+            sync_script = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'sync_all_catalog.py'))
+            if os.path.exists(sync_script):
+                subprocess.run([sys.executable, sync_script], check=False)
+        except Exception as e:
+            print(f"⚠️ Erro ao disparar sync_all_catalog: {e}")
 
 
 async def fetch_catalogs(lang=None):

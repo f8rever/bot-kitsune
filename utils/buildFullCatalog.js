@@ -25,15 +25,12 @@ function isRestrictedOrNonRP(name, rawItem = null) {
         return true;
     }
 
-    // Exceção: Pacotes e itens oficiais do Hall of Legends (Caps / Faker / Ahri / Tristana / Passes)
-    if (n.includes('hall of legends') || n.includes('caps') || n.includes('faker') || rawItem?.itemId === 69901079 || (rawItem?.itemId >= 99901657 && rawItem?.itemId <= 99901667)) {
-        return false;
-    }
-
     // 1. Prestígio (compradas exclusivamente via Essência Mítica)
     if (n.includes('prestige') || n.includes('prestigio')) return true;
 
-    // 2. Gacha / Variantes Míticas / Sanctum / Hall of Legends
+    // 2. Gacha / Variantes Míticas / Sanctum / Hall of Legends / Eventos Passados
+    if (n.includes('hall of legends') || n.includes('faker')) return true;
+    if (rawItem?.itemId === 69901079 || (rawItem?.itemId >= 99901657 && rawItem?.itemId <= 99901667)) return true;
     if (n.includes('quantum') || n.includes('quantico') || n.includes('quantica')) return true;
     if (n.includes('erasure') || n.includes('erradicacao')) return true;
     if (n.includes('breakout') || n.includes('destemido')) return true;
@@ -726,7 +723,55 @@ async function buildFullCatalog() {
         } catch (e) {}
     }
 
-    // 4. Salvar arquivos de cache gerados
+    // 4. Calcular Diferença / Diff de Itens Adicionados e Removidos
+    const oldCachePath = path.join(__dirname, '../config/catalog_cache_en.json');
+    let oldCatalogEn = {};
+    if (fs.existsSync(oldCachePath)) {
+        try {
+            oldCatalogEn = JSON.parse(fs.readFileSync(oldCachePath, 'utf8'));
+        } catch (e) {}
+    }
+
+    const diffReport = {
+        timestamp: new Date().toISOString(),
+        total_anterior: 0,
+        total_novo: 0,
+        added: [],
+        removed: []
+    };
+
+    const allCategories = Array.from(new Set([...Object.keys(oldCatalogEn), ...Object.keys(catalogEn)]));
+    for (const cat of allCategories) {
+        const oldItems = oldCatalogEn[cat] || {};
+        const newItems = catalogEn[cat] || {};
+
+        diffReport.total_anterior += Object.keys(oldItems).length;
+        diffReport.total_novo += Object.keys(newItems).length;
+
+        for (const name of Object.keys(newItems)) {
+            if (!oldItems[name]) {
+                diffReport.added.push({
+                    name,
+                    category: cat,
+                    item_id: newItems[name].item_id,
+                    price_rp: newItems[name].price_rp
+                });
+            }
+        }
+
+        for (const name of Object.keys(oldItems)) {
+            if (!newItems[name]) {
+                diffReport.removed.push({
+                    name,
+                    category: cat,
+                    item_id: oldItems[name].item_id,
+                    price_rp: oldItems[name].price_rp
+                });
+            }
+        }
+    }
+
+    // 5. Salvar arquivos de cache gerados
     const targetDirs = [
         path.join(__dirname, '../config'),
         path.join(__dirname, '../lol_giftapi-main'),
@@ -741,6 +786,8 @@ async function buildFullCatalog() {
             const enPath = path.join(d, 'catalog_cache_en.json');
             fs.writeFileSync(ptPath, JSON.stringify(catalogPt, null, 2), 'utf8');
             fs.writeFileSync(enPath, JSON.stringify(catalogEn, null, 2), 'utf8');
+            const diffPath = path.join(d, 'catalog_last_diff.json');
+            fs.writeFileSync(diffPath, JSON.stringify(diffReport, null, 2), 'utf8');
         }
     }
 
@@ -763,6 +810,36 @@ async function buildFullCatalog() {
     console.log(`   - 🎫 Passes: ${totalPasses}`);
     console.log(`   - 🎁 Espólios: ${totalLoot}`);
 
+    console.log(`\n=======================================================`);
+    console.log(`📊 RELATÓRIO DE SINCRONIZAÇÃO DO CATÁLOGO (DIFF)`);
+    console.log(`=======================================================`);
+    console.log(`Total Anterior: ${diffReport.total_anterior} ➔ Novo Total: ${diffReport.total_novo} (Diferença: ${diffReport.total_novo - diffReport.total_anterior})`);
+    
+    if (diffReport.added.length > 0) {
+        console.log(`\n🟢 ITENS ADICIONADOS / ATUALIZADOS (${diffReport.added.length}):`);
+        diffReport.added.slice(0, 15).forEach(item => {
+            console.log(`   + [${item.category}] ${item.name} (${item.price_rp} RP)`);
+        });
+        if (diffReport.added.length > 15) {
+            console.log(`   ... e mais +${diffReport.added.length - 15} outros itens.`);
+        }
+    } else {
+        console.log(`\n🟢 Nenhum item novo adicionado.`);
+    }
+
+    if (diffReport.removed.length > 0) {
+        console.log(`\n🔴 ITENS REMOVIDOS / EXPIRADOS DA LOJA (${diffReport.removed.length}):`);
+        diffReport.removed.slice(0, 15).forEach(item => {
+            console.log(`   - [${item.category}] ${item.name} (${item.price_rp} RP)`);
+        });
+        if (diffReport.removed.length > 15) {
+            console.log(`   ... e mais -${diffReport.removed.length - 15} outros itens.`);
+        }
+    } else {
+        console.log(`\n🔴 Nenhum item expirado removido.`);
+    }
+    console.log(`=======================================================\n`);
+
     return {
         totalSkins,
         totalChromas,
@@ -770,6 +847,7 @@ async function buildFullCatalog() {
         totalBundles,
         totalPasses,
         totalLoot,
+        diffReport,
         elapsed
     };
 }
