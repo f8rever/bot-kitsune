@@ -22517,18 +22517,6 @@
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_72.jpg",
       "is_available": true,
       "status": "available"
-    },
-    "Heartsong Seraphine": {
-      "offer_id": "6e199f43-39c9-4709-97de-aadded6602c5",
-      "item_id": 147069,
-      "price_rp": 1820,
-      "regular_rp": 1820,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
-      "is_available": true,
-      "status": "available"
     }
   },
   "Chromas": {
@@ -112621,7 +112609,7 @@
       "status": "available"
     },
     "Pacote Croma Ezreal HEARTSTEEL Live My Life": {
-      "offer_id": "5ef30a45-0b6a-48a4-a97c-b6665d9eaa95",
+      "offer_id": 79900921,
       "item_id": 79900921,
       "price_rp": 3087,
       "regular_rp": 3087,
@@ -112633,7 +112621,7 @@
       "status": "available"
     },
     "Pacote Croma Kayn HEARTSTEEL Live My Life": {
-      "offer_id": "396bb316-3ec0-41a6-aed7-88a470f68bf6",
+      "offer_id": 79900922,
       "item_id": 79900922,
       "price_rp": 2620,
       "regular_rp": 2620,
@@ -112645,7 +112633,7 @@
       "status": "available"
     },
     "Pacote Croma Aphelios HEARTSTEEL Live My Life": {
-      "offer_id": "38100ed5-0e70-452a-aa08-8595a639893a",
+      "offer_id": 79900923,
       "item_id": 79900923,
       "price_rp": 3235,
       "regular_rp": 3235,
@@ -112657,7 +112645,7 @@
       "status": "available"
     },
     "Pacote Croma Yone HEARTSTEEL Live My Life": {
-      "offer_id": "bd982ebe-d10a-4c25-8494-84f425d652dc",
+      "offer_id": 79900924,
       "item_id": 79900924,
       "price_rp": 3190,
       "regular_rp": 3190,
@@ -112669,7 +112657,7 @@
       "status": "available"
     },
     "Pacote Croma K'Sante HEARTSTEEL Live My Life": {
-      "offer_id": "5158f9cf-2fa7-4b8d-9076-26a985efe819",
+      "offer_id": 79900925,
       "item_id": 79900925,
       "price_rp": 3235,
       "regular_rp": 3235,
@@ -112848,51 +112836,75 @@
       "is_available": true,
       "status": "available"
     },
-    "Heartsong Seraphine Border Set": {
-      "offer_id": "247c9f4f-eb89-453f-9725-68f0b190e7ce",
-      "item_id": 99901657,
-      "price_rp": 2720,
-      "regular_rp": 2720,
+    "Conjunto Moldura Janna Congregação das Bruxas": {
+      "offer_id": "fcef4895-5b2a-4bf9-878b-71ddb8c74ca4",
+      "item_id": 99901661,
+      "price_rp": 3012,
+      "regular_rp": 3012,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901661.png",
       "is_available": true,
       "status": "available"
     },
-    "Heartsong Seraphine Chroma Bundle": {
-      "offer_id": "bba11048-c7c5-485c-911b-c2fd1fe86bdf",
-      "item_id": 79900916,
-      "price_rp": 3035,
-      "regular_rp": 3035,
+    "Conjunto Moldura Ezreal HEARTSTEEL Live My Life": {
+      "offer_id": 99901662,
+      "item_id": 99901662,
+      "price_rp": 2542,
+      "regular_rp": 2542,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901662.png",
       "is_available": true,
       "status": "available"
     },
-    "Ocean Song Soraka Chroma Bundle": {
-      "offer_id": "4c88ef8b-c17a-4a38-ae16-7435558d58ce",
-      "item_id": 79900914,
-      "price_rp": 2795,
-      "regular_rp": 2795,
+    "Conjunto Moldura Kayn HEARTSTEEL Live My Life": {
+      "offer_id": 99901663,
+      "item_id": 99901663,
+      "price_rp": 2645,
+      "regular_rp": 2645,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Soraka_63.jpg",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901663.png",
       "is_available": true,
       "status": "available"
     },
-    "Ocean Song Jinx Chroma Bundle": {
-      "offer_id": "62981d1c-65df-4795-8fe3-46bdb7ef80e7",
-      "item_id": 79900915,
-      "price_rp": 2795,
-      "regular_rp": 2795,
+    "Conjunto Moldura Aphelios HEARTSTEEL Live My Life": {
+      "offer_id": 99901664,
+      "item_id": 99901664,
+      "price_rp": 2690,
+      "regular_rp": 2690,
       "sale_rp": null,
       "discount_percent": null,
       "inventory_type": "BUNDLES",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901664.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Conjunto Moldura Yone HEARTSTEEL Live My Life": {
+      "offer_id": 99901665,
+      "item_id": 99901665,
+      "price_rp": 2645,
+      "regular_rp": 2645,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901665.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Conjunto Moldura K'Sante HEARTSTEEL Live My Life": {
+      "offer_id": 99901666,
+      "item_id": 99901666,
+      "price_rp": 2690,
+      "regular_rp": 2690,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901666.png",
       "is_available": true,
       "status": "available"
     }
@@ -112981,6 +112993,18 @@
       "discount_percent": null,
       "inventory_type": "BUNDLES",
       "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png",
+      "is_available": true,
+      "status": "available"
+    },
+    "Baú de Skin Misteriosa de Ápice do Entretenimento": {
+      "offer_id": "b8040c86-79c5-46f5-8ef7-a78a5277b62a",
+      "item_id": 69901087,
+      "price_rp": 850,
+      "regular_rp": 850,
+      "sale_rp": null,
+      "discount_percent": null,
+      "inventory_type": "BUNDLES",
+      "icon_url": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png",
       "is_available": true,
       "status": "available"
     },

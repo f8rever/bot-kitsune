@@ -818,6 +818,28 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Emojis e configurações persistidos no MongoDB Atlas via `push_configs_to_mongo.js`.
                   - Commit e push realizados para `main`, disparando deploy no Render.
 
+            43. **Sincronização Total da Loja Oficial via Client (LCU) — Destaques, Campeões, Skins, Espólios & Acessórios (2026-10-16):**
+                - **Extração 100% ao Vivo do Client do LoL Conectado:**
+                  - Extraídas 10.332 ofertas da loja oficial em tempo real através da API `/lol-store/v1/catalog`, `/lol-store/v1/catalog/sales` e `/lol-store/v1/featured-page`.
+                  - **Promoções Oficiais da Semana (`weekly_sales.json`):** Capturadas e formatadas com metadados do CDragon as 20 ofertas ativas com desconto (-27% a -60% off): Viktor, Seraphine Fênix Graciosa, Kai'Sa, Kindred, Super Kennen, Illaoi, Renekton, Mordekaiser Deus Antigo, Ahri Estrela do Pop, Kai'Sa Tinta Sombria, Ekko Tempestade de Areia, Qiyana Chefona, Amumu Festa Surpresa, Udyr Faixa Preta, Blitzcrank Nocaute, Nocturne Saqueador, Yone Florescer Espiritual, Pantheon Couraça de Aço, Sett Lutador Espiritual e Smolder Escamas Celestiais.
+                  - **Aba Destaques & Pacotes de Lançamento (`featured_bundles.json`):**
+                    - Adicionados os 5 Novos Conjuntos de Moldura **HEARTSTEEL: Live My Life** (Ezreal 2542 RP, Kayn 2645 RP, Aphelios 2690 RP, Yone 2645 RP, K'Sante 2690 RP) com UUIDs oficiais e ícones de alta resolução.
+                    - Adicionados os 5 Pacotes Croma **HEARTSTEEL: Live My Life** (Ezreal 3087 RP, Kayn 2620 RP, Aphelios 3235 RP, Yone 3190 RP, K'Sante 3235 RP).
+                    - Inserido o novo **Baú de Skin Misteriosa de Ápice do Entretenimento** (850 RP, itemId `69901087`, offerId `b8040c86-79c5-46f5-8ef7-a78a5277b62a`).
+                    - Inseridos os 3 Passes da Temporada 3: Mundial 2026 (1650, 2650 e 3650 RP) e os 3 Pacotes de Orbes do Mundial 2026 (Deluxe 2500 RP, Premium 6250 RP, Mega 12500 RP).
+                    - Inseridos os 3 Pacotes Hextec de Destaque (195 RP, 975 RP e 1950 RP).
+                  - **Espólios (Loot & Passes):**
+                    - Adicionado `69901087` a `scripts/restore_official_passes_and_loot.py` em `LOOT_PT` e `LOOT_EN` com a arte oficial Cloudfront (`820.png`).
+                    - Sincronizados todos os 10 arquivos `catalog_cache_*.json` locais e nos espelhos externos (`lol_giftapi-main`).
+                  - **Correção Estrutural de Filtros e Categorias no Bot:**
+                    - Em `utils/buildFullCatalog.js`, removido o bloqueio rígido legado de IDs (`99901657..99901667`) que estava descartando os novos conjuntos HEARTSTEEL (99901662-99901666).
+                    - Em `index.js`, removida a filtragem residual de IDs (`99901660..99901667`) em `loadFullRiotCatalog` e `enviarPaginaCatalogo`, garantindo que todos os pacotes em destaque sejam exibidos sem omissões tanto em inglês quanto em português.
+                    - Ajustada a ordenação de `highlights` para manter a ordem curada de `featured_bundles.json` (HEARTSTEEL no topo).
+                - **Sincronização e Deploy:**
+                  - Executado o pipeline completo `sync_all_catalog.py` (buildFullCatalog -> restore_official_passes_and_loot -> sync_mirrors -> push_configs_to_mongo).
+                  - Promoções da semana atualizadas com sucesso no MongoDB Atlas (`kitsune_bot.bot_configurations`).
+                  - Commit e push realizados para `origin main` disparando deploy automático no Render.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

@@ -1,0 +1,6357 @@
+{
+  "carousel": {
+    "banners": [
+      {
+        "destination": "Hextech/BUNDLES_69901080+BUNDLES_69901081+BUNDLES_69901082",
+        "id": 35825,
+        "imgUrl": "//d392eissrffsyf.cloudfront.net/storeImages/banners/2026.10.07_HeartSteel_2026/LCU_STORE_26_20_HEARTSTEEL_Live_My_Life_Prestige.PT.jpg",
+        "items": [
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 69901080
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 69901081
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 69901082
+          }
+        ],
+        "pageType": "hextech",
+        "title": "26.20 Prestige HEARTSTEEL Live My Life Sett",
+        "type": "Page"
+      },
+      {
+        "destination": "Bundles_skins/BUNDLES_79900921+BUNDLES_79900922+BUNDLES_79900923+BUNDLES_79900924+BUNDLES_79900925+BUNDLES_99901662+BUNDLES_99901663+BUNDLES_99901664+BUNDLES_99901665+BUNDLES_99901666",
+        "id": 35824,
+        "imgUrl": "//d392eissrffsyf.cloudfront.net/storeImages/banners/2026.10.07_HeartSteel_2026/LCU_STORE_26_20_HEARTSTEEL_Live_My_Life_Epics.PT.jpg",
+        "items": [
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 79900921
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 79900922
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 79900923
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 79900924
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 79900925
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 99901662
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 99901663
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 99901664
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 99901665
+          },
+          {
+            "inventoryType": "BUNDLES",
+            "itemId": 99901666
+          }
+        ],
+        "pageType": "bundles_skins",
+        "title": "26.20 HeartSteel 2026 Epics",
+        "type": "Page"
+      },
+      {
+        "destination": "",
+        "id": 35826,
+        "imgUrl": "//d392eissrffsyf.cloudfront.net/storeImages/banners/2026.10.07_HeartSteel_2026/LCU_STORE_26_20_Magma_Chamber_Prestige_Jax.PT.jpg",
+        "title": "26.20 Prestige Magama Chamber Jax Mythic Shop",
+        "type": "Mythic Shop"
+      }
+    ]
+  },
+  "catalog": [
+    {
+      "iconUrl": "championsskin_523048.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523048,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Quartzo-rosa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_64072.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 64072,
+      "maxQuantity": 1,
+      "name": "Lee Sin Tinta Sombria",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 64
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1749664800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_64",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Rosa do Deserto",
+      "iconUrl": "360_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 360,
+      "maxQuantity": 1,
+      "name": "Samira",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1600693200000,
+      "rp": 790,
+      "tags": [
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897022.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897022,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Tanzanita)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_901001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 901001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Smolder Escamas Celestiais",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 901
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1706727600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 45,
+        "rp": 742
+      },
+      "tags": [
+        "champions_901",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Guardião das Correntes",
+      "iconUrl": "412_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 412,
+      "maxQuantity": 1,
+      "name": "Thresh",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1358467200000,
+      "rp": 790,
+      "tags": [
+        "ranged",
+        "support",
+        "tank",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "discountedRp": 1650,
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/eventpass/66.png",
+          "inventoryType": "EVENT_PASS",
+          "itemId": 66,
+          "name": "Passe da Temporada 3: Mundial 2026",
+          "quantity": 1,
+          "rp": 1650,
+          "subInventoryType": "LOL_EVENT_PASS",
+          "tags": []
+        },
+        {
+          "description": "o Chefe",
+          "discountedRp": 0,
+          "iconUrl": "875_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 875,
+          "name": "Sett",
+          "owned": true,
+          "quantity": 1,
+          "rp": 585,
+          "tags": [
+            "fighter"
+          ]
+        },
+        {
+          "description": "Receba 500 de EXP na Trilha do Passe de Batalha da Temporada 3: Mundial 2026.",
+          "discountedRp": 0,
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/progression/5.png",
+          "inventoryType": "PROGRESSION",
+          "itemId": 21,
+          "name": "Aumento de Nível do Passe de Batalha da Temporada 3: Mundial 2026",
+          "quantity": 10,
+          "rp": 95,
+          "tags": []
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de espólio na Loja Mítica.",
+          "discountedRp": 500,
+          "iconUrl": "championsskin_875077.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 875077,
+          "name": "Sett HEARTSTEEL Live My Life de Prestígio (Vívido)",
+          "quantity": 1,
+          "rp": 500,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_875"
+          ]
+        },
+        {
+          "discountedRp": 500,
+          "iconUrl": "emote_5181.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5181,
+          "name": "Gola levantada",
+          "quantity": 1,
+          "rp": 500,
+          "tags": []
+        },
+        {
+          "description": "Lançado em 2026 durante a Temporada 3: Mundial 2026.",
+          "discountedRp": 1000,
+          "iconUrl": "profileIcon7313.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7313,
+          "name": "Ícone Super-Hora do Show",
+          "quantity": 1,
+          "rp": 1000,
+          "tags": []
+        },
+        {
+          "discountedRp": 0,
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/storeCards/Currency/mythic-essence-qty-25-49.png",
+          "inventoryType": "CURRENCY",
+          "itemId": 105,
+          "name": "25 Essências Míticas",
+          "quantity": 1,
+          "rp": 2500,
+          "subInventoryType": "lol_mythic_essence",
+          "tags": []
+        }
+      ],
+      "description": "Obtenha o Passe da Temporada 3: Mundial 2026 e ganhe recompensas exclusivas no League of Legends. O último dia para ganhar recompensas do Passe de Batalha é 07/01/2027 (às 04:59 BRT).",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901082,
+      "metadata": [
+        {
+          "type": "PAW_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082_StorePAW.png"
+        },
+        {
+          "type": "ALTERNATIVE_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082_PassPAW.png"
+        },
+        {
+          "type": "DYNAMIC_TAG",
+          "value": "{\"tag\": \"charityLOL_ESPORTS\",\"activeDate\":\"2025-10-15T00:00:00.000-0700\",\"inactiveDate\":\"2027-01-31T00:00:00.000-0700\"}"
+        }
+      ],
+      "name": "Pacote Passe Premium da Temporada 3: Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 3650,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "A Faísca de Zaun",
+      "iconUrl": "221_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 221,
+      "maxQuantity": 1,
+      "name": "Zeri",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1642683600000,
+      "rp": 880,
+      "tags": [
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_53003.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 53003,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Blitzcrank Nocaute",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 53
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 50,
+        "rp": 260
+      },
+      "tags": [
+        "champions_53",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_5013.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 5013,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Xin Zhao Caçador de Dragões",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 5
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1489057200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_5",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_9001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 9001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Fiddlesticks Espectral",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 9
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "tags": [
+        "champions_9",
+        "jade_compatible",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_147004.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 147004,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Seraphine Fênix Graciosa",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 147
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1630587600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 607
+      },
+      "tags": [
+        "champions_147",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777082.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777082,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Tanzanita)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Mestre das Cartas",
+      "iconUrl": "4_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 4,
+      "maxQuantity": 1,
+      "name": "Twisted Fate",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 260,
+      "tags": [
+        "assassin",
+        "pusher",
+        "ranged",
+        "mage",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_82044.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 82044,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Mordekaiser Deus Antigo",
+      "owned": true,
+      "ownedQuantity": 1,
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 82
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1697047200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 607
+      },
+      "tags": [
+        "champions_82",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897026.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897026,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Olho de Gato)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_888010.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 888010,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Renata Glasc Noite Apavorante",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 888
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1663876800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_888",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_141034.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 141034,
+      "maxQuantity": 1,
+      "name": "Kayn HEARTSTEEL Live My Life (Quartzo-rosa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 141
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_141",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Revenã de Ferro",
+      "iconUrl": "82_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 82,
+      "maxQuantity": 1,
+      "name": "Mordekaiser",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "pusher",
+        "melee",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_518010.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 518010,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Neeko Guardiã Estelar",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 518
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1568293200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_518",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Eterno Pesadelo",
+      "iconUrl": "56_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 56,
+      "maxQuantity": 1,
+      "name": "Nocturne",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1300251600000,
+      "rp": 790,
+      "tags": [
+        "assassin",
+        "melee",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523044.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523044,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Pérola)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Soberana Sombria",
+      "iconUrl": "134_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 134,
+      "maxQuantity": 1,
+      "name": "Syndra",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1347408000000,
+      "rp": 790,
+      "tags": [
+        "mage",
+        "ranged",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5185.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5185,
+      "maxQuantity": 1,
+      "name": "Batidas relaxantes",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 350,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_412059.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 412059,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Thresh Tio da Limpeza",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 412
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1726077600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_412",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_711020.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 711020,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Vex Astromante",
+      "owned": true,
+      "ownedQuantity": 1,
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 711
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1747245600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_711",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+      "iconUrl": "championsskin_777078.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777078,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Rubi)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Ícone que concede a moldura para este Campeão.",
+      "iconUrl": "profileIcon7307.jpg",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "SUMMONER_ICON",
+      "itemId": 7307,
+      "maxQuantity": 1,
+      "name": "Ícone Moldura K'Sante HEARTSTEEL Live My Life",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 550,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81081.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81081,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Olho de Gato)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Cantora Sonhadora",
+      "iconUrl": "147_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 147,
+      "maxQuantity": 1,
+      "name": "Seraphine",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1603976400000,
+      "rp": 790,
+      "tags": [
+        "mage",
+        "support",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_26006.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 26006,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Zilean Frenesi Açucarado",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 26
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1576587600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_26",
+        "jade_compatible",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "A Melancolista",
+      "iconUrl": "711_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 711,
+      "maxQuantity": 1,
+      "name": "Vex",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1632402000000,
+      "rp": 790,
+      "tags": [
+        "mage",
+        "support",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Caçadora de Recompensas",
+      "iconUrl": "21_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 225,
+      "itemId": 21,
+      "maxQuantity": 1,
+      "name": "Miss Fortune",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 260,
+      "tags": [
+        "ranged",
+        "carry",
+        "marksman",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81086.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81086,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Peridoto)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 195,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "10 Essências Míticas",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_generic"
+            },
+            {
+              "childTableDescriptions": [],
+              "description": "Espólios exclusivos",
+              "descriptionLong": "Inclui espólios exclusivos como Annie Hextec, Darius Nova Temível e Vayne Ladra de Almas.",
+              "id": "LOOTTABLE_chest_generic_4"
+            }
+          ],
+          "description": "Uma surpresa em cada baú. Requer uma Chave Hextec para abrir.",
+          "discountedRp": 97,
+          "fulfillmentMapping": "CHEST_generic",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "description": "Fragmento de skin",
+                  "descriptionLong": "Revela um fragmento de skin aleatória.",
+                  "id": "LOOTTABLE_chest_generic_1"
+                },
+                {
+                  "description": "Fragmento de skin de sentinela",
+                  "descriptionLong": "Revela um fragmento de skin de sentinela aleatória.",
+                  "id": "LOOTTABLE_chest_generic_3"
+                },
+                {
+                  "description": "Emote",
+                  "descriptionLong": "Revela um emote aleatório.",
+                  "id": "LOOTTABLE_chest_generic_5"
+                },
+                {
+                  "description": "Ícone de invocador",
+                  "descriptionLong": "Adorno usado sempre que iniciar sessão.",
+                  "id": "LOOTBUNDLE_icon_cosmetic_1"
+                },
+                {
+                  "description": "Fragmento de Campeão",
+                  "descriptionLong": "Revela um fragmento de Campeão aleatório.",
+                  "id": "LOOTTABLE_chest_generic_2"
+                }
+              ],
+              "description": "Fragmento de skin, fragmento de Campeão, fragmento de skin de sentinela ou ícone de invocador",
+              "id": "LOOTTABLE_CHEST_champion_mastery_1"
+            }
+          ],
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 1,
+          "name": "Baú Hextec",
+          "quantity": 1,
+          "rp": 125,
+          "subInventoryType": "CHEST",
+          "tags": [
+            "hextech_chest"
+          ]
+        },
+        {
+          "description": "Abre um Baú Hextec. Para aqueles momentos em que um conjunto de gazua não é o suficiente.",
+          "discountedRp": 97,
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 3,
+          "name": "Chave Hextec",
+          "quantity": 1,
+          "rp": 125,
+          "subInventoryType": "MATERIAL",
+          "tags": [
+            "hextech_material"
+          ]
+        }
+      ],
+      "description": "Comece a criar agora mesmo. Vem com uma Chave Hextec e um Baú Hextec.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 250,
+      "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png",
+      "inactiveDate": "2999-09-25T00:00:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69900001,
+      "minimumLevel": 5,
+      "name": "Pacote - 1 Baú Hextec e Chave",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1537833600000,
+      "rp": 195,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "Ícone que concede a moldura para este Campeão.",
+      "iconUrl": "profileIcon7311.jpg",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "SUMMONER_ICON",
+      "itemId": 7311,
+      "maxQuantity": 1,
+      "name": "Ícone Moldura Yone HEARTSTEEL Live My Life",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 550,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Ceifador das Sombras",
+          "discountedRp": 395,
+          "iconUrl": "141_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 141,
+          "name": "Kayn",
+          "owned": true,
+          "quantity": 1,
+          "rp": 790,
+          "tags": [
+            "jungler"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_141032.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032,
+          "name": "Kayn HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_141"
+          ]
+        },
+        {
+          "description": "Ícone que concede a moldura para este Campeão.",
+          "discountedRp": 550,
+          "iconUrl": "profileIcon7309.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7309,
+          "name": "Ícone Moldura Kayn HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 550,
+          "tags": []
+        },
+        {
+          "discountedRp": 350,
+          "iconUrl": "emote_5184.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5184,
+          "name": "Sorriso malicioso",
+          "quantity": 1,
+          "rp": 350,
+          "tags": []
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 3040,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901663.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 99901663,
+      "name": "Conjunto Moldura Kayn HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2250,
+      "subInventoryType": "BORDER_SET_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Bruxa Entre Mundos",
+      "iconUrl": "893_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 893,
+      "maxQuantity": 1,
+      "name": "Aurora",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1721239200000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        "assassin",
+        "freljord",
+        "vastaya",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_48004.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 48004,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Guarda Trundle",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 48
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1417132800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 750,
+      "tags": [
+        "champions_48",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_875045.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 875045,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Sett Soul Fighter",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 875
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1689883200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 45,
+        "rp": 742
+      },
+      "tags": [
+        "champions_875",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Arauto das Máquinas",
+      "iconUrl": "112_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 112,
+      "maxQuantity": 1,
+      "name": "Viktor",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1323738600000,
+      "rp": 880,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 352
+      },
+      "tags": [
+        "mage",
+        "ranged",
+        "pusher",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 250,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 816,
+          "name": "Orbe do Mundial 2026",
+          "quantity": 50,
+          "rp": 250,
+          "subInventoryType": "CHEST",
+          "tags": []
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_539_2"
+            }
+          ],
+          "description": "Contém 2 Fragmentos de Skin de 975 RP ou mais E 1 Fragmento de Skin de 1.350 RP ou menos. Chance bônus de receber Essência Mítica e 2 Fragmentos de Skin aleatórios de qualquer valor.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_818",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_539"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_458_1"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/818.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 818,
+          "name": "Saco de Brindes do Mundial 2026",
+          "quantity": 2,
+          "rp": 750,
+          "subInventoryType": "CHEST",
+          "tags": []
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Contém 3 Fragmentos de Skin de 1.350 RP ou menos OU 4 Fragmentos de Skin de 975 RP ou mais OU 4 skins permanentes aleatórias. Chance bônus de receber Essência Mítica.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_819",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_CHEST_459_2"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHEST_476_1"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHEST_459_1"
+                }
+              ],
+              "id": "LOOTTABLE_CHEST_769"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/819.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 819,
+          "name": "Pacote Exclusivo do Mundial 2026",
+          "quantity": 1,
+          "rp": 750,
+          "subInventoryType": "CHEST",
+          "tags": []
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 817,
+          "name": "Orbe de Bônus do Mundial 2026",
+          "quantity": 4,
+          "rp": 0,
+          "subInventoryType": "CHEST",
+          "tags": []
+        }
+      ],
+      "description": "Receba 50 Orbes do Mundial 2026. Cada um contém um Fragmento de Skin aleatório garantido, com chance de conceder um Saco de Brindes do Mundial 2026. O pacote inclui 2 Sacos de Brindes do Mundial 2026, um Pacote Exclusivo do Mundial 2026 e 4 Orbes do Mundial 2026 adicionais.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 14750,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901086,
+      "minimumLevel": 5,
+      "name": "Pacote de Orbes Mega do Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 12500,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_79029.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 79029,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Gragas Velho Oeste",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 79
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1710957600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_79",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Sacerdotisa Cráquem",
+      "iconUrl": "420_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 420,
+      "maxQuantity": 1,
+      "name": "Illaoi",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1448434800000,
+      "rp": 790,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 45,
+        "rp": 434
+      },
+      "tags": [
+        "fighter",
+        "tank",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Rebelde",
+      "iconUrl": "498_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 498,
+      "maxQuantity": 1,
+      "name": "Xayah",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1492588800000,
+      "rp": 880,
+      "tags": [
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "os Caçadores Eternos",
+      "iconUrl": "203_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 203,
+      "maxQuantity": 1,
+      "name": "Kindred",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1444784400000,
+      "rp": 880,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 352
+      },
+      "tags": [
+        "marksman",
+        "assassin",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "O Orgulho de Nazumah",
+          "discountedRp": 440,
+          "iconUrl": "897_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 897,
+          "name": "K'Sante",
+          "owned": true,
+          "quantity": 1,
+          "rp": 880,
+          "tags": [
+            "Tank",
+            "Warden",
+            "Shurima"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_897018.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018,
+          "name": "K'Sante HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+          "discountedRp": 290,
+          "iconUrl": "championsskin_897019.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897019,
+          "name": "K'Sante HEARTSTEEL Live My Life (Rubi)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897020.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897020,
+          "name": "K'Sante HEARTSTEEL Live My Life (Safira)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897021.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897021,
+          "name": "K'Sante HEARTSTEEL Live My Life (Turquesa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897022.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897022,
+          "name": "K'Sante HEARTSTEEL Live My Life (Tanzanita)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897023.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897023,
+          "name": "K'Sante HEARTSTEEL Live My Life (Quartzo-rosa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897024.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897024,
+          "name": "K'Sante HEARTSTEEL Live My Life (Obsidiana)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897025.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897025,
+          "name": "K'Sante HEARTSTEEL Live My Life (Pérola)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_897026.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897026,
+          "name": "K'Sante HEARTSTEEL Live My Life (Olho de Gato)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_897"
+          ]
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900925.jpg",
+      "inventoryType": "BUNDLES",
+      "itemId": 79900925,
+      "name": "Pacote Croma K'Sante HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2795,
+      "subInventoryType": "CHROMA_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_145048.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 145048,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Kai'Sa Tinta Sombria",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 145
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1683144000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 45,
+        "rp": 742
+      },
+      "tags": [
+        "champions_145",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_498047.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 498047,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Xayah Morcego de Batalha",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 498
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1721239200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_498",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Andarilho Espiritual",
+      "iconUrl": "77_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 77,
+      "maxQuantity": 1,
+      "name": "Udyr",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "melee",
+        "jungler",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Monge Cego",
+      "iconUrl": "64_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 64,
+      "maxQuantity": 1,
+      "name": "Lee Sin",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1301644800000,
+      "rp": 585,
+      "tags": [
+        "assassin",
+        "melee",
+        "fighter",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "O Orgulho de Nazumah",
+      "iconUrl": "897_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 897,
+      "maxQuantity": 1,
+      "name": "K'Sante",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1667505600000,
+      "rp": 880,
+      "tags": [
+        "Tank",
+        "Warden",
+        "Shurima",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897023.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897023,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Quartzo-rosa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Visionário",
+      "iconUrl": "910_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 910,
+      "maxQuantity": 1,
+      "name": "Hwei",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1701889200000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Raposa de Nove Caudas",
+      "iconUrl": "103_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 103,
+      "maxQuantity": 1,
+      "name": "Ahri",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1323741900000,
+      "rp": 790,
+      "tags": [
+        "mage",
+        "ranged",
+        "assassin",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5184.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5184,
+      "maxQuantity": 1,
+      "name": "Sorriso malicioso",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 350,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 250,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 816,
+          "name": "Orbe do Mundial 2026",
+          "quantity": 1,
+          "rp": 250,
+          "subInventoryType": "CHEST",
+          "tags": []
+        }
+      ],
+      "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 250,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901083.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901083,
+      "minimumLevel": 5,
+      "name": "Orbe do Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 250,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81080.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81080,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Safira)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Imperatriz dos Elementos",
+      "iconUrl": "246_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 246,
+      "maxQuantity": 1,
+      "name": "Qiyana",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1561726800000,
+      "rp": 880,
+      "tags": [
+        "assassin",
+        "fighter",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523047.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523047,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Obsidiana)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_80004.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 80004,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Pantheon Blindado",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 80
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1312221600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 30,
+        "rp": 682
+      },
+      "tags": [
+        "champions_80",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777081.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777081,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Pérola)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "a Arma dos Devotos",
+          "discountedRp": 440,
+          "iconUrl": "523_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 523,
+          "name": "Aphelios",
+          "owned": true,
+          "quantity": 1,
+          "rp": 880,
+          "tags": [
+            "marksman"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_523041.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041,
+          "name": "Aphelios HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+          "discountedRp": 290,
+          "iconUrl": "championsskin_523042.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523042,
+          "name": "Aphelios HEARTSTEEL Live My Life (Rubi)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523043.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523043,
+          "name": "Aphelios HEARTSTEEL Live My Life (Tanzanita)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523044.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523044,
+          "name": "Aphelios HEARTSTEEL Live My Life (Pérola)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523045.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523045,
+          "name": "Aphelios HEARTSTEEL Live My Life (Olho de Gato)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523046.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523046,
+          "name": "Aphelios HEARTSTEEL Live My Life (Peridoto)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523047.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523047,
+          "name": "Aphelios HEARTSTEEL Live My Life (Obsidiana)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523048.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523048,
+          "name": "Aphelios HEARTSTEEL Live My Life (Quartzo-rosa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_523049.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523049,
+          "name": "Aphelios HEARTSTEEL Live My Life (Água-marinha)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_523"
+          ]
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900923.jpg",
+      "inventoryType": "BUNDLES",
+      "itemId": 79900923,
+      "name": "Pacote Croma Aphelios HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2795,
+      "subInventoryType": "CHROMA_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Explorador Pródigo",
+      "iconUrl": "81_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 81,
+      "maxQuantity": 1,
+      "name": "Ezreal",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278954000000,
+      "rp": 585,
+      "tags": [
+        "mage",
+        "marksman",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Lâmina Sinistra",
+      "iconUrl": "55_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 55,
+      "maxQuantity": 1,
+      "name": "Katarina",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 790,
+      "tags": [
+        "assassin",
+        "melee",
+        "recommended",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_145014.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 145014,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Kai'Sa K/DA",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 145
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1541214000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_145",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Ameaça Mecânica",
+      "iconUrl": "68_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 68,
+      "maxQuantity": 1,
+      "name": "Rumble",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1303880400000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        " melee",
+        " pusher",
+        "fighter",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81084.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81084,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Obsidiana)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "O Filhote Flamejante ",
+      "iconUrl": "901_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 901,
+      "maxQuantity": 1,
+      "name": "Smolder",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1706727600000,
+      "rp": 880,
+      "tags": [
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Chefe",
+      "iconUrl": "875_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 875,
+      "maxQuantity": 1,
+      "name": "Sett",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1578999600000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Sombra da Guerra",
+      "iconUrl": "120_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 120,
+      "maxQuantity": 1,
+      "name": "Hecarim",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1333843320000,
+      "rp": 880,
+      "tags": [
+        "fighter",
+        "jungler",
+        "melee",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "A Baronesa da Química",
+      "iconUrl": "888_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 888,
+      "maxQuantity": 1,
+      "name": "Renata Glasc",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1645102800000,
+      "rp": 880,
+      "tags": [
+        "support",
+        "zaun",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 1950,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "10 Essências Míticas",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_generic"
+            },
+            {
+              "childTableDescriptions": [],
+              "description": "Espólios exclusivos",
+              "descriptionLong": "Inclui espólios exclusivos como Annie Hextec, Darius Nova Temível e Vayne Ladra de Almas.",
+              "id": "LOOTTABLE_chest_generic_4"
+            }
+          ],
+          "description": "Uma surpresa em cada baú. Requer uma Chave Hextec para abrir.",
+          "discountedRp": 97,
+          "fulfillmentMapping": "CHEST_generic",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "description": "Fragmento de skin",
+                  "descriptionLong": "Revela um fragmento de skin aleatória.",
+                  "id": "LOOTTABLE_chest_generic_1"
+                },
+                {
+                  "description": "Fragmento de skin de sentinela",
+                  "descriptionLong": "Revela um fragmento de skin de sentinela aleatória.",
+                  "id": "LOOTTABLE_chest_generic_3"
+                },
+                {
+                  "description": "Emote",
+                  "descriptionLong": "Revela um emote aleatório.",
+                  "id": "LOOTTABLE_chest_generic_5"
+                },
+                {
+                  "description": "Ícone de invocador",
+                  "descriptionLong": "Adorno usado sempre que iniciar sessão.",
+                  "id": "LOOTBUNDLE_icon_cosmetic_1"
+                },
+                {
+                  "description": "Fragmento de Campeão",
+                  "descriptionLong": "Revela um fragmento de Campeão aleatório.",
+                  "id": "LOOTTABLE_chest_generic_2"
+                }
+              ],
+              "description": "Fragmento de skin, fragmento de Campeão, fragmento de skin de sentinela ou ícone de invocador",
+              "id": "LOOTTABLE_CHEST_champion_mastery_1"
+            }
+          ],
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 1,
+          "name": "Baú Hextec",
+          "quantity": 10,
+          "rp": 125,
+          "subInventoryType": "CHEST",
+          "tags": [
+            "hextech_chest"
+          ]
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "10 Essências Míticas",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_generic"
+            },
+            {
+              "childTableDescriptions": [],
+              "description": "Espólios exclusivos",
+              "descriptionLong": "Inclui espólios exclusivos como Annie Hextec, Darius Nova Temível e Vayne Ladra de Almas.",
+              "id": "LOOTTABLE_chest_generic_4"
+            }
+          ],
+          "description": "Uma surpresa em cada baú. Requer uma Chave Hextec para abrir.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_generic",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "description": "Fragmento de skin",
+                  "descriptionLong": "Revela um fragmento de skin aleatória.",
+                  "id": "LOOTTABLE_chest_generic_1"
+                },
+                {
+                  "description": "Fragmento de skin de sentinela",
+                  "descriptionLong": "Revela um fragmento de skin de sentinela aleatória.",
+                  "id": "LOOTTABLE_chest_generic_3"
+                },
+                {
+                  "description": "Emote",
+                  "descriptionLong": "Revela um emote aleatório.",
+                  "id": "LOOTTABLE_chest_generic_5"
+                },
+                {
+                  "description": "Ícone de invocador",
+                  "descriptionLong": "Adorno usado sempre que iniciar sessão.",
+                  "id": "LOOTBUNDLE_icon_cosmetic_1"
+                },
+                {
+                  "description": "Fragmento de Campeão",
+                  "descriptionLong": "Revela um fragmento de Campeão aleatório.",
+                  "id": "LOOTTABLE_chest_generic_2"
+                }
+              ],
+              "description": "Fragmento de skin, fragmento de Campeão, fragmento de skin de sentinela ou ícone de invocador",
+              "id": "LOOTTABLE_CHEST_champion_mastery_1"
+            }
+          ],
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 10,
+          "name": "Baú Hextec Bônus",
+          "quantity": 1,
+          "rp": 125,
+          "subInventoryType": "CHEST",
+          "tags": [
+            "hextech_chest"
+          ]
+        },
+        {
+          "description": "Abre um Baú Hextec. Para aqueles momentos em que um conjunto de gazua não é o suficiente.",
+          "discountedRp": 97,
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 3,
+          "name": "Chave Hextec",
+          "quantity": 10,
+          "rp": 125,
+          "subInventoryType": "MATERIAL",
+          "tags": [
+            "hextech_material"
+          ]
+        },
+        {
+          "description": "Abre um Baú Hextec. Para aqueles momentos em que um conjunto de gazua não é o suficiente.",
+          "discountedRp": 0,
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 11,
+          "name": "Chave Hextec Bônus",
+          "quantity": 1,
+          "rp": 125,
+          "subInventoryType": "MATERIAL",
+          "tags": [
+            "hextech_material"
+          ]
+        }
+      ],
+      "description": "De 0 a 10, daríamos nota 11 a esse pacote. Vem com 10 Chaves Hextec para abrir 10 Baús Hextec, mais um conjunto adicional.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 2750,
+      "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle10_BonusChest_190x190.png",
+      "inactiveDate": "2999-09-25T00:00:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69900003,
+      "minimumLevel": 5,
+      "name": "10 Baús e Chaves Hextec + 1 conjunto adicional!",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1537833600000,
+      "rp": 1950,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_245001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 245001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Ekko Tempestade de Areia",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 245
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1432800000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 390
+      },
+      "tags": [
+        "champions_245",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_887039.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 887039,
+      "maxQuantity": 1,
+      "name": "Gwen Pastora de Chuvas",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 887
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1763578800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_887",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_141035.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 141035,
+      "maxQuantity": 1,
+      "name": "Kayn HEARTSTEEL Live My Life (Olho de Gato)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 141
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_141",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523043.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523043,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Tanzanita)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_53047.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 53047,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Blitzcrank Zenith Games",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 53
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1662667200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_53",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+      "iconUrl": "championsskin_523042.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523042,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Rubi)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 975,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "10 Essências Míticas",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_generic"
+            },
+            {
+              "childTableDescriptions": [],
+              "description": "Espólios exclusivos",
+              "descriptionLong": "Inclui espólios exclusivos como Annie Hextec, Darius Nova Temível e Vayne Ladra de Almas.",
+              "id": "LOOTTABLE_chest_generic_4"
+            }
+          ],
+          "description": "Uma surpresa em cada baú. Requer uma Chave Hextec para abrir.",
+          "discountedRp": 97,
+          "fulfillmentMapping": "CHEST_generic",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "description": "Fragmento de skin",
+                  "descriptionLong": "Revela um fragmento de skin aleatória.",
+                  "id": "LOOTTABLE_chest_generic_1"
+                },
+                {
+                  "description": "Fragmento de skin de sentinela",
+                  "descriptionLong": "Revela um fragmento de skin de sentinela aleatória.",
+                  "id": "LOOTTABLE_chest_generic_3"
+                },
+                {
+                  "description": "Emote",
+                  "descriptionLong": "Revela um emote aleatório.",
+                  "id": "LOOTTABLE_chest_generic_5"
+                },
+                {
+                  "description": "Ícone de invocador",
+                  "descriptionLong": "Adorno usado sempre que iniciar sessão.",
+                  "id": "LOOTBUNDLE_icon_cosmetic_1"
+                },
+                {
+                  "description": "Fragmento de Campeão",
+                  "descriptionLong": "Revela um fragmento de Campeão aleatório.",
+                  "id": "LOOTTABLE_chest_generic_2"
+                }
+              ],
+              "description": "Fragmento de skin, fragmento de Campeão, fragmento de skin de sentinela ou ícone de invocador",
+              "id": "LOOTTABLE_CHEST_champion_mastery_1"
+            }
+          ],
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 1,
+          "name": "Baú Hextec",
+          "quantity": 5,
+          "rp": 125,
+          "subInventoryType": "CHEST",
+          "tags": [
+            "hextech_chest"
+          ]
+        },
+        {
+          "description": "Abre um Baú Hextec. Para aqueles momentos em que um conjunto de gazua não é o suficiente.",
+          "discountedRp": 97,
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 3,
+          "name": "Chave Hextec",
+          "quantity": 5,
+          "rp": 125,
+          "subInventoryType": "MATERIAL",
+          "tags": [
+            "hextech_material"
+          ]
+        },
+        {
+          "description": "Usado para aprimorar Fragmentos de Skin em skins permanentes.",
+          "discountedRp": 0,
+          "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-04-24_MSI/orange_essence.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 5,
+          "name": "Essência Laranja",
+          "quantity": 50,
+          "rp": 0,
+          "subInventoryType": "CURRENCY",
+          "tags": [
+            "hextech_currency"
+          ]
+        }
+      ],
+      "description": "Para o criador casual. Vem com cinco Baús Hextec e Chaves Hextec, mais 50 Essências Laranja adicionais.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 1250,
+      "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle5_190x190.png",
+      "inactiveDate": "2999-09-25T00:00:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69900002,
+      "minimumLevel": 5,
+      "name": "5 Baús e Chaves Hextec + Essência adicional!",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1537833600000,
+      "rp": 975,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_85003.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 85003,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Kennen Carateca",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 85
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1289174400000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "tags": [
+        "champions_85",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Coração da Tempestade",
+      "iconUrl": "85_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 85,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "EXTRA_STORE_CARD_DECORATOR_BADGE",
+          "value": "{\"icon\":\"karma\",\"position\":\"top-right\",\"activeDate\":\"2020-06-25T13:00:00.000-0700\",\"inactiveDate\":\"2020-07-23T13:00:00.000-0700\"}"
+        }
+      ],
+      "name": "Kennen",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        "ranged",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Olho do Crepúsculo",
+      "iconUrl": "98_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 98,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "EXTRA_STORE_CARD_DECORATOR_BADGE",
+          "value": "{\"icon\":\"karma\",\"position\":\"top-right\",\"activeDate\":\"2020-06-25T13:00:00.000-0700\",\"inactiveDate\":\"2020-07-23T13:00:00.000-0700\"}"
+        }
+      ],
+      "name": "Shen",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 790,
+      "tags": [
+        "melee",
+        "tank",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777077.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777077,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81085.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81085,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Pérola)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Titã das Profundezas",
+      "iconUrl": "111_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 111,
+      "maxQuantity": 1,
+      "name": "Nautilus",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1329062520000,
+      "rp": 880,
+      "tags": [
+        "fighter",
+        "tank",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "Abra para revelar 1 skin misteriosa permanente (temática). Skins que você já tem não podem ser obtidas novamente, e as probabilidades individuais aumentarão proporcionalmente à medida que você obtiver mais skins. No entanto, se todas as skins já tiverem sido habilitadas, você as obterá por meio da Criação Hextec com as probabilidades base.",
+          "discountedRp": 850,
+          "fulfillmentMapping": "CHEST_820",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_238010"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_30004"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_429002"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_2004"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_897008"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_84015"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_412002"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_777045"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_83002"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_103004"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_234010"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_92007"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_103028"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_28015"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_81043"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_145026"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_37026"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_157018"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_13011"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_235001"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_84032"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_246002"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_523030"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_37002"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_82003"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_102005"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_84009"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_28006"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_58042"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_121011"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_22009"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_10033"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_2035"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_83021"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_10009"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_268014"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_30017"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_82023"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_103015"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_875056"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_234037"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_5047"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_141020"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_145014"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_59030"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_7029"
+                },
+                {
+                  "id": "LOOTBUNDLE_CHAMPION_SKIN_245019"
+                }
+              ],
+              "id": "LOOTTABLE_CHEST_820"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 820,
+          "name": "Baú de Skin Misteriosa do Ápice do Entretenimento",
+          "quantity": 1,
+          "rp": 850,
+          "subInventoryType": "CHEST",
+          "tags": []
+        }
+      ],
+      "description": "Abra para revelar 1 skin misteriosa permanente (temática). Skins que você já tem não podem ser obtidas novamente, e as probabilidades individuais aumentarão proporcionalmente à medida que você obtiver mais skins. No entanto, se todas as skins já tiverem sido habilitadas, você as obterá por meio da Criação Hextec com as probabilidades base.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 850,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901087,
+      "name": "Baú de Skin Misteriosa de Ápice do Entretenimento",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 850,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "Ícone que concede a moldura para este Campeão.",
+      "iconUrl": "profileIcon7310.jpg",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "SUMMONER_ICON",
+      "itemId": 7310,
+      "maxQuantity": 1,
+      "name": "Ícone Moldura Aphelios HEARTSTEEL Live My Life",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 550,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "a Arma dos Devotos",
+          "discountedRp": 440,
+          "iconUrl": "523_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 523,
+          "name": "Aphelios",
+          "owned": true,
+          "quantity": 1,
+          "rp": 880,
+          "tags": [
+            "marksman"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_523041.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041,
+          "name": "Aphelios HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_523"
+          ]
+        },
+        {
+          "description": "Ícone que concede a moldura para este Campeão.",
+          "discountedRp": 550,
+          "iconUrl": "profileIcon7310.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7310,
+          "name": "Ícone Moldura Aphelios HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 550,
+          "tags": []
+        },
+        {
+          "discountedRp": 350,
+          "iconUrl": "emote_5185.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5185,
+          "name": "Batidas relaxantes",
+          "quantity": 1,
+          "rp": 350,
+          "tags": []
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 3130,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901664.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 99901664,
+      "name": "Conjunto Moldura Aphelios HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2250,
+      "subInventoryType": "BORDER_SET_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_75010.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 75010,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Nasus Quebra-mundos",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 75
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1478775600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 750,
+      "tags": [
+        "champions_75",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Inesquecido",
+          "discountedRp": 395,
+          "iconUrl": "777_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 777,
+          "name": "Yone",
+          "owned": true,
+          "quantity": 1,
+          "rp": 790,
+          "tags": [
+            "fighter",
+            "assassin"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_777077.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077,
+          "name": "Yone HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+          "discountedRp": 290,
+          "iconUrl": "championsskin_777078.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777078,
+          "name": "Yone HEARTSTEEL Live My Life (Rubi)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777079.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777079,
+          "name": "Yone HEARTSTEEL Live My Life (Quartzo-rosa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777080.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777080,
+          "name": "Yone HEARTSTEEL Live My Life (Olho de Gato)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777081.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777081,
+          "name": "Yone HEARTSTEEL Live My Life (Pérola)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777082.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777082,
+          "name": "Yone HEARTSTEEL Live My Life (Tanzanita)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777083.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777083,
+          "name": "Yone HEARTSTEEL Live My Life (Safira)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777084.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777084,
+          "name": "Yone HEARTSTEEL Live My Life (Esmeralda)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_777085.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777085,
+          "name": "Yone HEARTSTEEL Live My Life (Obsidiana)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_777"
+          ]
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900924.jpg",
+      "inventoryType": "BUNDLES",
+      "itemId": 79900924,
+      "name": "Pacote Croma Yone HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2795,
+      "subInventoryType": "CHROMA_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_55021.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 55021,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Katarina Lua Sangrenta",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 55
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1582203600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_55",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bonusItemDescriptions": [
+        {
+          "childTableDescriptions": [
+            {
+              "id": "LOOTBUNDLE_mythic_10"
+            }
+          ],
+          "description": "10 Essências Míticas",
+          "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+          "id": "LOOTTABLE_CHEST_champion_mastery_2"
+        },
+        {
+          "childTableDescriptions": [],
+          "id": "LOOTBUNDLE_CHEST_generic"
+        },
+        {
+          "childTableDescriptions": [],
+          "description": "Espólios exclusivos",
+          "descriptionLong": "Inclui espólios exclusivos como Annie Hextec, Darius Nova Temível e Vayne Ladra de Almas.",
+          "id": "LOOTTABLE_chest_generic_4"
+        }
+      ],
+      "description": "Uma surpresa em cada baú. Requer uma Chave Hextec para abrir.",
+      "fulfillmentMapping": "CHEST_generic",
+      "guaranteedItemDescriptions": [
+        {
+          "childTableDescriptions": [
+            {
+              "description": "Fragmento de skin",
+              "descriptionLong": "Revela um fragmento de skin aleatória.",
+              "id": "LOOTTABLE_chest_generic_1"
+            },
+            {
+              "description": "Fragmento de skin de sentinela",
+              "descriptionLong": "Revela um fragmento de skin de sentinela aleatória.",
+              "id": "LOOTTABLE_chest_generic_3"
+            },
+            {
+              "description": "Emote",
+              "descriptionLong": "Revela um emote aleatório.",
+              "id": "LOOTTABLE_chest_generic_5"
+            },
+            {
+              "description": "Ícone de invocador",
+              "descriptionLong": "Adorno usado sempre que iniciar sessão.",
+              "id": "LOOTBUNDLE_icon_cosmetic_1"
+            },
+            {
+              "description": "Fragmento de Campeão",
+              "descriptionLong": "Revela um fragmento de Campeão aleatório.",
+              "id": "LOOTTABLE_chest_generic_2"
+            }
+          ],
+          "description": "Fragmento de skin, fragmento de Campeão, fragmento de skin de sentinela ou ícone de invocador",
+          "id": "LOOTTABLE_CHEST_champion_mastery_1"
+        }
+      ],
+      "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png",
+      "inactiveDate": "2999-09-25T00:00:00.000+00:00",
+      "inventoryType": "HEXTECH_CRAFTING",
+      "itemId": 1,
+      "minimumLevel": 5,
+      "name": "Baú Hextec",
+      "purchaseLimitReached": false,
+      "releaseDate": 1537833600000,
+      "rp": 125,
+      "subInventoryType": "CHEST",
+      "tags": [
+        "hextech_chest",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Arma dos Devotos",
+      "iconUrl": "523_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 523,
+      "maxQuantity": 1,
+      "name": "Aphelios",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1576058400000,
+      "rp": 880,
+      "tags": [
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_85007.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 85007,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Super Kennen",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 85
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1490871600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 750,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 300
+      },
+      "tags": [
+        "champions_85",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Caçadora Bestial",
+      "iconUrl": "76_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 76,
+      "maxQuantity": 1,
+      "name": "Nidalee",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 790,
+      "tags": [
+        "ranged",
+        "melee",
+        "pusher",
+        "assassin",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897018.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897018,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Ceifador das Sombras",
+      "iconUrl": "141_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 141,
+      "maxQuantity": 1,
+      "name": "Kayn",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1499846400000,
+      "rp": 790,
+      "tags": [
+        "jungler",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Arma Secreta",
+      "iconUrl": "154_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 154,
+      "maxQuantity": 1,
+      "name": "Zac",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1364490000000,
+      "rp": 880,
+      "tags": [
+        "fighter",
+        "tank",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_154001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 154001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Zac Arma Especial",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 154
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1364569200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "tags": [
+        "champions_154",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5183.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5183,
+      "maxQuantity": 1,
+      "name": "Essa é pra vocês",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 350,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Garoto que Estilhaçou o Tempo",
+      "iconUrl": "245_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 245,
+      "maxQuantity": 1,
+      "name": "Ekko",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1432800000000,
+      "rp": 790,
+      "tags": [
+        "assassin",
+        "fighter",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777084.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777084,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Esmeralda)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Ceifador das Sombras",
+          "discountedRp": 395,
+          "iconUrl": "141_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 141,
+          "name": "Kayn",
+          "owned": true,
+          "quantity": 1,
+          "rp": 790,
+          "tags": [
+            "jungler"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_141032.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032,
+          "name": "Kayn HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_141"
+          ]
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+          "discountedRp": 290,
+          "iconUrl": "championsskin_141033.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141033,
+          "name": "Kayn HEARTSTEEL Live My Life (Rubi)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_141"
+          ]
+        },
+        {
+          "discountedRp": 195,
+          "iconUrl": "championsskin_141034.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141034,
+          "name": "Kayn HEARTSTEEL Live My Life (Quartzo-rosa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_141"
+          ]
+        },
+        {
+          "discountedRp": 195,
+          "iconUrl": "championsskin_141035.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141035,
+          "name": "Kayn HEARTSTEEL Live My Life (Olho de Gato)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_141"
+          ]
+        },
+        {
+          "discountedRp": 195,
+          "iconUrl": "championsskin_141036.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141036,
+          "name": "Kayn HEARTSTEEL Live My Life (Tanzanita)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_141"
+          ]
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900922.jpg",
+      "inventoryType": "BUNDLES",
+      "itemId": 79900922,
+      "name": "Pacote Croma Kayn HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2225,
+      "subInventoryType": "CHROMA_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_103004.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 103004,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Ahri Estrela do Pop",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 103
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1385362800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 40,
+        "rp": 585
+      },
+      "tags": [
+        "champions_103",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+      "iconUrl": "championsskin_81079.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81079,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Rubi)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Caçadora Noturna",
+      "iconUrl": "67_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 67,
+      "maxQuantity": 1,
+      "name": "Vayne",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1305079200000,
+      "rp": 790,
+      "tags": [
+        "carry",
+        "ranged",
+        "assassin",
+        "stealth",
+        "marksman",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523046.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523046,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Peridoto)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Lança Indestrutível",
+      "iconUrl": "80_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 80,
+      "maxQuantity": 1,
+      "name": "Pantheon",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278954000000,
+      "rp": 585,
+      "tags": [
+        "assassin",
+        "fighter",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523020.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523020,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Aphelios Florescer Espiritual",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1665086400000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Filha do Vazio",
+      "iconUrl": "145_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 145,
+      "maxQuantity": 1,
+      "name": "Kai'Sa",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1520409600000,
+      "rp": 585,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 263
+      },
+      "tags": [
+        "<<tag>>",
+        "marksman",
+        "marksmen",
+        "void",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777080.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777080,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Olho de Gato)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Ícone que concede a moldura para este Campeão.",
+      "iconUrl": "profileIcon7309.jpg",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "SUMMONER_ICON",
+      "itemId": 7309,
+      "maxQuantity": 1,
+      "name": "Ícone Moldura Kayn HEARTSTEEL Live My Life",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 550,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Costureira Encantada",
+      "iconUrl": "887_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 887,
+      "maxQuantity": 1,
+      "name": "Gwen",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1618491600000,
+      "rp": 880,
+      "tags": [
+        "fighter",
+        "mage",
+        "<<tag>>",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_4009.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 4009,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Twisted Fate Punguista",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 4
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1437527700000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 750,
+      "tags": [
+        "champions_4",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "discountedRp": 1650,
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/eventpass/66.png",
+          "inventoryType": "EVENT_PASS",
+          "itemId": 66,
+          "name": "Passe da Temporada 3: Mundial 2026",
+          "quantity": 1,
+          "rp": 1650,
+          "subInventoryType": "LOL_EVENT_PASS",
+          "tags": []
+        }
+      ],
+      "description": "Obtenha o Passe da Temporada 3: Mundial 2026 e ganhe recompensas exclusivas no League of Legends. O último dia para ganhar recompensas do Passe de Batalha é 07/01/2027 (às 04:59 BRT).",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 1650,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901080,
+      "metadata": [
+        {
+          "type": "PAW_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080_StorePAW.png"
+        },
+        {
+          "type": "ALTERNATIVE_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080_PassPAW.png"
+        },
+        {
+          "type": "DYNAMIC_TAG",
+          "value": "{\"tag\": \"charityLOL_ESPORTS\",\"activeDate\":\"2025-10-15T00:00:00.000-0700\",\"inactiveDate\":\"2027-01-31T00:00:00.000-0700\"}"
+        }
+      ],
+      "name": "Passe da Temporada 3: Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 1650,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81083.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81083,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Quartzo-rosa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_141036.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 141036,
+      "maxQuantity": 1,
+      "name": "Kayn HEARTSTEEL Live My Life (Tanzanita)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 141
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_141",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Camaleoa Curiosa",
+      "iconUrl": "518_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 518,
+      "maxQuantity": 1,
+      "name": "Neeko",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1543996800000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Carniceiro das Areias",
+      "iconUrl": "58_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 58,
+      "maxQuantity": 1,
+      "name": "Renekton",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1295413200000,
+      "rp": 880,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 395
+      },
+      "tags": [
+        "fighter",
+        "melee",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897024.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897024,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Obsidiana)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Múmia Triste",
+      "iconUrl": "32_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 225,
+      "itemId": 32,
+      "maxQuantity": 1,
+      "name": "Amumu",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278975600000,
+      "rp": 260,
+      "tags": [
+        "melee",
+        "tank",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_21040.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 21040,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Miss Fortune Pacto Quebrado",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 21
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1678395600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_21",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_56003.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 56003,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Nocturne Devastador",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 56
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1310587200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 208
+      },
+      "tags": [
+        "champions_56",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Inesquecido",
+          "discountedRp": 395,
+          "iconUrl": "777_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 777,
+          "name": "Yone",
+          "owned": true,
+          "quantity": 1,
+          "rp": 790,
+          "tags": [
+            "fighter",
+            "assassin"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_777077.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077,
+          "name": "Yone HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_777"
+          ]
+        },
+        {
+          "description": "Ícone que concede a moldura para este Campeão.",
+          "discountedRp": 550,
+          "iconUrl": "profileIcon7311.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7311,
+          "name": "Ícone Moldura Yone HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 550,
+          "tags": []
+        },
+        {
+          "discountedRp": 350,
+          "iconUrl": "emote_5186.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5186,
+          "name": "Sério?",
+          "quantity": 1,
+          "rp": 350,
+          "tags": []
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 3040,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901665.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 99901665,
+      "name": "Conjunto Moldura Yone HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2250,
+      "subInventoryType": "BORDER_SET_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_32008.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 32008,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Amumu Festa Surpresa",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 32
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1427832060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 607
+      },
+      "tags": [
+        "champions_32",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523041.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523041,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_76007.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 76007,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Nidalee Reinos Combatentes",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 76
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1423566000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "tags": [
+        "champions_76",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_111009.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 111009,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Nautilus Pergaminhos Shan Hai",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 111
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1611838800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_111",
+        "jade_compatible",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_141032.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 141032,
+      "maxQuantity": 1,
+      "name": "Kayn HEARTSTEEL Live My Life",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 141
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_141",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_221001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 221001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Zeri Rosa Definhada",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 221
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1642683600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_221",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_77001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 77001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Udyr Faixa Preta",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 77
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 208
+      },
+      "tags": [
+        "champions_77",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Abre um Baú Hextec. Para aqueles momentos em que um conjunto de gazua não é o suficiente.",
+      "iconUrl": "//d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png",
+      "inactiveDate": "2999-07-10T23:59:59.000+00:00",
+      "inventoryType": "HEXTECH_CRAFTING",
+      "itemId": 3,
+      "minimumLevel": 5,
+      "name": "Chave Hextec",
+      "purchaseLimitReached": false,
+      "releaseDate": 1530079800000,
+      "rp": 125,
+      "subInventoryType": "MATERIAL",
+      "tags": [
+        "hextech_material",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+      "iconUrl": "championsskin_897019.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897019,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Rubi)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Curador das Areias",
+      "iconUrl": "75_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 75,
+      "maxQuantity": 1,
+      "name": "Nasus",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "pusher",
+        "melee",
+        "recommended",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "a Bruxa Gélida",
+      "iconUrl": "127_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 127,
+      "maxQuantity": 1,
+      "name": "Lissandra",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1367301600000,
+      "rp": 880,
+      "tags": [
+        "mage",
+        "ranged",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 250,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 816,
+          "name": "Orbe do Mundial 2026",
+          "quantity": 10,
+          "rp": 250,
+          "subInventoryType": "CHEST",
+          "tags": []
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 817,
+          "name": "Orbe de Bônus do Mundial 2026",
+          "quantity": 1,
+          "rp": 0,
+          "subInventoryType": "CHEST",
+          "tags": []
+        }
+      ],
+      "description": "Receba 10 Orbes do Mundial 2026 e 1 Orbe Bônus. Cada um contém um Fragmento de Skin aleatório garantido, com chance de conceder um Saco de Brindes do Mundial 2026.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 2500,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901084,
+      "minimumLevel": 5,
+      "name": "Pacote de Orbes Deluxe do Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2500,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777085.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777085,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Obsidiana)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777083.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777083,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Safira)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Colosso Morto-Vivo",
+      "iconUrl": "14_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 14,
+      "maxQuantity": 1,
+      "name": "Sion",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "melee",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_67067.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 67067,
+      "maxQuantity": 1,
+      "name": "Vayne Maldição Demoníaca",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 67
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1777485600000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1820,
+      "tags": [
+        "champions_67",
+        "legendary",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Explorador Pródigo",
+          "discountedRp": 292,
+          "iconUrl": "81_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 81,
+          "name": "Ezreal",
+          "owned": true,
+          "quantity": 1,
+          "rp": 585,
+          "tags": [
+            "mage",
+            "marksman",
+            "jade_compatible"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_81078.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078,
+          "name": "Ezreal HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+          "discountedRp": 290,
+          "iconUrl": "championsskin_81079.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81079,
+          "name": "Ezreal HEARTSTEEL Live My Life (Rubi)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81080.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81080,
+          "name": "Ezreal HEARTSTEEL Live My Life (Safira)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81081.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81081,
+          "name": "Ezreal HEARTSTEEL Live My Life (Olho de Gato)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81082.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81082,
+          "name": "Ezreal HEARTSTEEL Live My Life (Tanzanita)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81083.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81083,
+          "name": "Ezreal HEARTSTEEL Live My Life (Quartzo-rosa)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81084.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81084,
+          "name": "Ezreal HEARTSTEEL Live My Life (Obsidiana)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81085.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81085,
+          "name": "Ezreal HEARTSTEEL Live My Life (Pérola)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "discountedRp": 165,
+          "iconUrl": "championsskin_81086.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81086,
+          "name": "Ezreal HEARTSTEEL Live My Life (Peridoto)",
+          "quantity": 1,
+          "rp": 290,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_81"
+          ]
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/79900921.jpg",
+      "inventoryType": "BUNDLES",
+      "itemId": 79900921,
+      "name": "Pacote Croma Ezreal HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2795,
+      "subInventoryType": "CHROMA_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Grande Golem a Vapor",
+      "iconUrl": "53_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 53,
+      "maxQuantity": 1,
+      "name": "Blitzcrank",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278954000000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "tank",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "discountedRp": 1650,
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/eventpass/66.png",
+          "inventoryType": "EVENT_PASS",
+          "itemId": 66,
+          "name": "Passe da Temporada 3: Mundial 2026",
+          "quantity": 1,
+          "rp": 1650,
+          "subInventoryType": "LOL_EVENT_PASS",
+          "tags": []
+        },
+        {
+          "description": "Este croma foi lançado como um item exclusivo de espólio na Loja Mítica.",
+          "discountedRp": 500,
+          "iconUrl": "championsskin_875077.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 875077,
+          "name": "Sett HEARTSTEEL Live My Life de Prestígio (Vívido)",
+          "quantity": 1,
+          "rp": 500,
+          "subInventoryType": "RECOLOR",
+          "tags": [
+            "champions_875"
+          ]
+        },
+        {
+          "description": "o Chefe",
+          "discountedRp": 0,
+          "iconUrl": "875_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 875,
+          "name": "Sett",
+          "owned": true,
+          "quantity": 1,
+          "rp": 585,
+          "tags": [
+            "fighter"
+          ]
+        },
+        {
+          "discountedRp": 500,
+          "iconUrl": "emote_5181.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5181,
+          "name": "Gola levantada",
+          "quantity": 1,
+          "rp": 500,
+          "tags": []
+        }
+      ],
+      "description": "Obtenha o Passe da Temporada 3: Mundial 2026 e ganhe recompensas exclusivas no League of Legends. O último dia para ganhar recompensas do Passe de Batalha é 07/01/2027 (às 04:59 BRT).",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901081,
+      "metadata": [
+        {
+          "type": "PAW_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081_StorePAW.png"
+        },
+        {
+          "type": "ALTERNATIVE_SPLASH_IMAGE",
+          "value": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081_PassPAW.png"
+        },
+        {
+          "type": "DYNAMIC_TAG",
+          "value": "{\"tag\": \"charityLOL_ESPORTS\",\"activeDate\":\"2025-10-15T00:00:00.000-0700\",\"inactiveDate\":\"2027-01-31T00:00:00.000-0700\"}"
+        }
+      ],
+      "name": "Pacote Passe da Temporada 3: Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2650,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Badernista",
+      "iconUrl": "79_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 79,
+      "maxQuantity": 1,
+      "name": "Gragas",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278954000000,
+      "rp": 790,
+      "tags": [
+        "fighter",
+        "mage",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897021.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897021,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Turquesa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Imperdoável",
+      "iconUrl": "157_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 157,
+      "maxQuantity": 1,
+      "name": "Yasuo",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1386889200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_98022.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 98022,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Shen PsyOps",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 98
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1599138000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_98",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81078.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81078,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5182.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5182,
+      "maxQuantity": 1,
+      "name": "Encanto irresistível",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 350,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "Receba 500 de EXP na Trilha do Passe de Batalha da Temporada 3: Mundial 2026.",
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/progression/5.png",
+      "inventoryType": "PROGRESSION",
+      "itemId": 21,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "COUNTER_ID",
+          "value": "69f1972d-45c8-55ce-82d9-9ea932d9b9d4"
+        },
+        {
+          "type": "DELTA",
+          "value": "500"
+        }
+      ],
+      "name": "Aumento de Nível do Passe de Batalha da Temporada 3: Mundial 2026",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 95,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_246001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 246001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Qiyana Chefona",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 246
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1561726800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 55,
+        "rp": 607
+      },
+      "tags": [
+        "champions_246",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Gatilho Desenfreado",
+      "iconUrl": "222_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 222,
+      "maxQuantity": 1,
+      "name": "Jinx",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1381348800000,
+      "rp": 790,
+      "tags": [
+        "ranged",
+        "marksman",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5186.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5186,
+      "maxQuantity": 1,
+      "name": "Sério?",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 350,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/eventpass/66.png",
+      "inventoryType": "EVENT_PASS",
+      "itemId": 66,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "NON_PURCHASABLE_ITEM",
+          "value": "{\"itemId\":66,\"inventoryType\":\"EVENT_PASS\"}"
+        }
+      ],
+      "minimumLevel": 5,
+      "name": "Passe da Temporada 3: Mundial 2026",
+      "purchaseLimitReached": false,
+      "releaseDate": 1784059200000,
+      "rp": 1650,
+      "subInventoryType": "LOL_EVENT_PASS",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523045.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523045,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Olho de Gato)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Senescal de Demacia",
+      "iconUrl": "5_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 5,
+      "maxQuantity": 1,
+      "name": "Xin Zhao",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "fighter",
+        "melee",
+        "assassin",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_14050.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 14050,
+      "maxQuantity": 1,
+      "name": "Sion Pizzaiolo",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 14
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1779991200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_14",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Este croma foi lançado como um item exclusivo de pacote em 2026.",
+      "iconUrl": "championsskin_141033.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 141033,
+      "maxQuantity": 1,
+      "name": "Kayn HEARTSTEEL Live My Life (Rubi)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 141
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 141032
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_141",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897025.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897025,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Pérola)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "Ícone que concede a moldura para este Campeão.",
+      "iconUrl": "profileIcon7308.jpg",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "SUMMONER_ICON",
+      "itemId": 7308,
+      "maxQuantity": 1,
+      "name": "Ícone Moldura Ezreal HEARTSTEEL Live My Life",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 550,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Ente Sinistro",
+      "iconUrl": "57_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 2400,
+      "itemId": 57,
+      "maxQuantity": 1,
+      "name": "Maokai",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1297994400000,
+      "rp": 880,
+      "tags": [
+        "melee",
+        "pusher",
+        "tank",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_81082.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 81082,
+      "maxQuantity": 1,
+      "name": "Ezreal HEARTSTEEL Live My Life (Tanzanita)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 81
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_81",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Yone Florescer Espiritual",
+      "owned": true,
+      "ownedQuantity": 1,
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1596718800000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "sale": {
+        "endDate": "2026-10-19T17:00:00.000+00:00",
+        "percentOff": 60,
+        "rp": 540
+      },
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_777079.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777079,
+      "maxQuantity": 1,
+      "name": "Yone HEARTSTEEL Live My Life (Quartzo-rosa)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 777
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777077
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_777",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_154033.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 154033,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "EXTRA_STORE_CARD_DECORATOR_BADGE",
+          "value": "{\"icon\":\"silvershields_3000\",\"position\":\"top-right\",\"activeDate\":\"2026-01-21T20:00:00.000-0000\",\"inactiveDate\":\"2026-04-29T06:59:00.000-0000\"}"
+        },
+        {
+          "type": "DYNAMIC_TAG",
+          "value": "{\"tag\":\"silvershields_3000\",\"activeDate\":\"2026-01-21T20:00:00.000-0000\",\"inactiveDate\":\"2026-04-29T06:59:00.000-0000\"}"
+        }
+      ],
+      "name": "Zac Embalos no Espaço",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 154
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1776276000000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 1350,
+      "tags": [
+        "champions_154",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "O Orgulho de Nazumah",
+          "discountedRp": 440,
+          "iconUrl": "897_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 897,
+          "name": "K'Sante",
+          "owned": true,
+          "quantity": 1,
+          "rp": 880,
+          "tags": [
+            "Tank",
+            "Warden",
+            "Shurima"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_897018.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018,
+          "name": "K'Sante HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_897"
+          ]
+        },
+        {
+          "description": "Ícone que concede a moldura para este Campeão.",
+          "discountedRp": 550,
+          "iconUrl": "profileIcon7307.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7307,
+          "name": "Ícone Moldura K'Sante HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 550,
+          "tags": []
+        },
+        {
+          "discountedRp": 350,
+          "iconUrl": "emote_5182.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5182,
+          "name": "Encanto irresistível",
+          "quantity": 1,
+          "rp": 350,
+          "tags": []
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 3130,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901666.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 99901666,
+      "name": "Conjunto Moldura K'Sante HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2250,
+      "subInventoryType": "BORDER_SET_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_57002.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 57002,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Maokai Xamanista",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 57
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1297987200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 520,
+      "tags": [
+        "champions_57",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "a Imperatriz do Vazio",
+      "iconUrl": "200_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 200,
+      "maxQuantity": 1,
+      "name": "Bel'Veth",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1654804800000,
+      "rp": 790,
+      "tags": [
+        "Fighter",
+        "Assassin",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Terror Ancestral",
+      "iconUrl": "9_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 9,
+      "maxQuantity": 1,
+      "name": "Fiddlesticks",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "mage",
+        "jungler",
+        "ranged",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_157001.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 157001,
+      "maxQuantity": 1,
+      "metadata": [
+        {
+          "type": "tomacco",
+          "value": "kUniversal"
+        }
+      ],
+      "name": "Yasuo Velho Oeste",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 157
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1386889200000,
+      "requiredChampHasRewardsProgram": false,
+      "rp": 975,
+      "tags": [
+        "champions_157",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "description": "o Inesquecido",
+      "iconUrl": "777_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 777,
+      "maxQuantity": 1,
+      "name": "Yone",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1596718800000,
+      "rp": 790,
+      "tags": [
+        "fighter",
+        "assassin",
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Rei dos Trolls",
+      "iconUrl": "48_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 1575,
+      "itemId": 48,
+      "maxQuantity": 1,
+      "name": "Trundle",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1291179600000,
+      "rp": 790,
+      "tags": [
+        "fighter",
+        "melee",
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "description": "o Explorador Pródigo",
+          "discountedRp": 292,
+          "iconUrl": "81_Web_0.jpg",
+          "inventoryType": "CHAMPION",
+          "itemId": 81,
+          "name": "Ezreal",
+          "owned": true,
+          "quantity": 1,
+          "rp": 585,
+          "tags": [
+            "mage",
+            "marksman",
+            "jade_compatible"
+          ]
+        },
+        {
+          "discountedRp": 1350,
+          "iconUrl": "championsskin_81078.jpg",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 81078,
+          "name": "Ezreal HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 1350,
+          "tags": [
+            "champions_81"
+          ]
+        },
+        {
+          "description": "Ícone que concede a moldura para este Campeão.",
+          "discountedRp": 550,
+          "iconUrl": "profileIcon7308.jpg",
+          "inventoryType": "SUMMONER_ICON",
+          "itemId": 7308,
+          "name": "Ícone Moldura Ezreal HEARTSTEEL Live My Life",
+          "quantity": 1,
+          "rp": 550,
+          "tags": []
+        },
+        {
+          "discountedRp": 350,
+          "iconUrl": "emote_5183.png",
+          "inventoryType": "EMOTE",
+          "itemId": 5183,
+          "name": "Essa é pra vocês",
+          "quantity": 1,
+          "rp": 350,
+          "tags": []
+        }
+      ],
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 2835,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901662.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 99901662,
+      "name": "Conjunto Moldura Ezreal HEARTSTEEL Live My Life",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 2250,
+      "subInventoryType": "BORDER_SET_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_897020.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 897020,
+      "maxQuantity": 1,
+      "name": "K'Sante HEARTSTEEL Live My Life (Safira)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 897
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 897018
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_897",
+        "CHAMPION_requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "emote_5181.png",
+      "inactiveDate": "2026-11-18T19:00:00.000+00:00",
+      "inventoryType": "EMOTE",
+      "itemId": 5181,
+      "maxQuantity": 1,
+      "name": "Gola levantada",
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 500,
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "bundleDiscountEnabled": true,
+      "bundleDiscountMinCost": 0,
+      "bundleItems": [
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "CHEST_818"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            }
+          ],
+          "description": "Abra para revelar um Fragmento de Skin aleatório garantido, com a chance de obter um Saco de Brindes do Mundial 2026.",
+          "discountedRp": 250,
+          "fulfillmentMapping": "CHEST_816",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_288_2"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/816.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 816,
+          "name": "Orbe do Mundial 2026",
+          "quantity": 25,
+          "rp": 250,
+          "subInventoryType": "CHEST",
+          "tags": []
+        },
+        {
+          "bonusItemDescriptions": [
+            {
+              "childTableDescriptions": [
+                {
+                  "id": "LOOTBUNDLE_mythic_10"
+                }
+              ],
+              "description": "Essência Mítica",
+              "descriptionLong": "Usada para habilitar conteúdo exclusivo de espólios como skins, sentinelas e muito mais.",
+              "id": "LOOTTABLE_CHEST_champion_mastery_3"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_223_2"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_539_2"
+            }
+          ],
+          "description": "Contém 2 Fragmentos de Skin de 975 RP ou mais E 1 Fragmento de Skin de 1.350 RP ou menos. Chance bônus de receber Essência Mítica e 2 Fragmentos de Skin aleatórios de qualquer valor.",
+          "discountedRp": 0,
+          "fulfillmentMapping": "CHEST_818",
+          "guaranteedItemDescriptions": [
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTBUNDLE_CHEST_539"
+            },
+            {
+              "childTableDescriptions": [],
+              "id": "LOOTTABLE_CHEST_458_1"
+            }
+          ],
+          "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/818.png",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 818,
+          "name": "Saco de Brindes do Mundial 2026",
+          "quantity": 1,
+          "rp": 750,
+          "subInventoryType": "CHEST",
+          "tags": []
+        }
+      ],
+      "description": "Receba 25 Orbes do Mundial 2026. Cada um contém um Fragmento de Skin aleatório garantido, com chance de conceder um Saco de Brindes do Mundial 2026. O pacote inclui um Saco de Brindes do Mundial 2026.",
+      "disclaimerId": "BUNDLE_PURCHASE_DISCLAIMER",
+      "fullPrice": 7000,
+      "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png",
+      "inactiveDate": "2027-01-07T07:59:00.000+00:00",
+      "inventoryType": "BUNDLES",
+      "itemId": 69901085,
+      "minimumLevel": 5,
+      "name": "Pacote de Orbes Premium do Mundial 2026",
+      "owned": false,
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396000000,
+      "rp": 6250,
+      "subInventoryType": "HEXTECH_BUNDLE",
+      "tags": [
+        "requirement_owned"
+      ]
+    },
+    {
+      "description": "o Guardião do Tempo",
+      "iconUrl": "26_Web_0.jpg",
+      "inventoryType": "CHAMPION",
+      "ip": 675,
+      "itemId": 26,
+      "maxQuantity": 1,
+      "name": "Zilean",
+      "owned": true,
+      "ownedQuantity": 1,
+      "purchaseLimitReached": false,
+      "releaseDate": 1278979200000,
+      "rp": 585,
+      "tags": [
+        "mage",
+        "support",
+        "ranged",
+        "jade_compatible",
+        "requirement_owned"
+      ]
+    },
+    {
+      "iconUrl": "championsskin_523049.jpg",
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 523049,
+      "maxQuantity": 1,
+      "name": "Aphelios HEARTSTEEL Live My Life (Água-marinha)",
+      "parentItem": {
+        "inventoryType": "CHAMPION",
+        "itemId": 523
+      },
+      "purchaseLimitReached": false,
+      "releaseDate": 1791396060000,
+      "requiredChampHasRewardsProgram": false,
+      "requirements": [
+        {
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 523041
+        }
+      ],
+      "rp": 290,
+      "subInventoryType": "RECOLOR",
+      "tags": [
+        "champions_523",
+        "CHAMPION_requirement_owned"
+      ]
+    }
+  ],
+  "featuredSections": [
+    {
+      "callouts": [
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901082
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901080
+        }
+      ],
+      "sectionId": "whatsnew",
+      "titleTraKey": "SVU_FEATURED_HEADER_WHATS_NEW"
+    },
+    {
+      "callouts": [
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901086
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901083
+        }
+      ],
+      "sectionId": "featured",
+      "titleTraKey": "SVU_FEATURED_HEADER_FEATURED_ITEMS"
+    },
+    {
+      "callouts": [],
+      "sectionId": "recommended",
+      "titleTraKey": "SVU_FEATURED_HEADER_RECOMMENDED"
+    },
+    {
+      "callouts": [
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901081
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901085
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901084
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 79900925
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 79900923
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69901087
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 79900921
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 99901665
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 99901663
+        },
+        {
+          "endDate": "2026-10-21T18:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 99901664
+        }
+      ],
+      "sectionId": "topseller",
+      "titleTraKey": "SVU_FEATURED_HEADER_TOP_SELLERS"
+    },
+    {
+      "callouts": [
+        {
+          "endDate": "2099-10-23T11:00:00.000+00:00",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 1
+        },
+        {
+          "endDate": "2999-01-09T19:00:00.000+00:00",
+          "inventoryType": "HEXTECH_CRAFTING",
+          "itemId": 3
+        },
+        {
+          "endDate": "2999-01-09T19:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69900001
+        },
+        {
+          "endDate": "2999-01-09T19:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69900002
+        },
+        {
+          "endDate": "2999-01-09T19:00:00.000+00:00",
+          "inventoryType": "BUNDLES",
+          "itemId": 69900003
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 245001
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 777001
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 103004
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 80004
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 53003
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 145048
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 56003
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 147004
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 901001
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 85007
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 32008
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 77001
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 246001
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 82044
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION_SKIN",
+          "itemId": 875045
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION",
+          "itemId": 112
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION",
+          "itemId": 58
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION",
+          "itemId": 203
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION",
+          "itemId": 420
+        },
+        {
+          "endDate": "2026-10-19T17:00:00.000+00:00",
+          "inventoryType": "CHAMPION",
+          "itemId": 145
+        }
+      ],
+      "sectionId": "popular",
+      "titleTraKey": "SVU_FEATURED_HEADER_MOST_POPULAR"
+    }
+  ],
+  "layout": "classic",
+  "player": {
+    "accountId": 2445907428552320,
+    "ip": 137230,
+    "rp": 803,
+    "summonerLevel": 476
+  }
+}

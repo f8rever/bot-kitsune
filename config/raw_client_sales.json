@@ -1,0 +1,382 @@
+[
+  {
+    "active": true,
+    "id": 85316,
+    "item": {
+      "inventoryType": "CHAMPION",
+      "itemId": 112
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 352,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85308,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 147004
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 607,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85320,
+    "item": {
+      "inventoryType": "CHAMPION",
+      "itemId": 145
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 263,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85318,
+    "item": {
+      "inventoryType": "CHAMPION",
+      "itemId": 203
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 352,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85310,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 85007
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 300,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85319,
+    "item": {
+      "inventoryType": "CHAMPION",
+      "itemId": 420
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 434,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85317,
+    "item": {
+      "inventoryType": "CHAMPION",
+      "itemId": 58
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 395,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85314,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 82044
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 607,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85303,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 103004
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 585,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85306,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 145048
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 742,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85301,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 245001
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 390,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85313,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 246001
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 607,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85311,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 32008
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 607,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85312,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 77001
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 208,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85305,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 53003
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 260,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85307,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 56003
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 208,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85302,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 777001
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 540,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85304,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 80004
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 682,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85315,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 875045
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 742,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  },
+  {
+    "active": true,
+    "id": 85309,
+    "item": {
+      "inventoryType": "CHAMPION_SKIN",
+      "itemId": 901001
+    },
+    "sale": {
+      "endDate": "2026-10-19T17:00:00.000+00:00",
+      "prices": [
+        {
+          "cost": 742,
+          "currency": "RP",
+          "discount": 0.0
+        }
+      ],
+      "startDate": "2026-10-12T17:00:00.000+00:00"
+    }
+  }
+]

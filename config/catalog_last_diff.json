@@ -1,8 +1,104 @@
 {
-  "timestamp": "2026-10-16T03:29:45.828Z",
+  "timestamp": "2026-10-16T03:53:10.605Z",
   "total_anterior": 9012,
-  "total_novo": 9010,
+  "total_novo": 9024,
   "added": [
+    {
+      "name": "Conjunto Moldura Janna Congregação das Bruxas",
+      "category": "Bundles",
+      "item_id": 99901661,
+      "price_rp": 3012
+    },
+    {
+      "name": "Conjunto Moldura Ezreal HEARTSTEEL Live My Life",
+      "category": "Bundles",
+      "item_id": 99901662,
+      "price_rp": 2542
+    },
+    {
+      "name": "Conjunto Moldura Kayn HEARTSTEEL Live My Life",
+      "category": "Bundles",
+      "item_id": 99901663,
+      "price_rp": 2645
+    },
+    {
+      "name": "Conjunto Moldura Aphelios HEARTSTEEL Live My Life",
+      "category": "Bundles",
+      "item_id": 99901664,
+      "price_rp": 2690
+    },
+    {
+      "name": "Conjunto Moldura Yone HEARTSTEEL Live My Life",
+      "category": "Bundles",
+      "item_id": 99901665,
+      "price_rp": 2645
+    },
+    {
+      "name": "Conjunto Moldura K'Sante HEARTSTEEL Live My Life",
+      "category": "Bundles",
+      "item_id": 99901666,
+      "price_rp": 2690
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Ezreal Border Set",
+      "category": "Bundles",
+      "item_id": 99901662,
+      "price_rp": 2542
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Kayn Border Set",
+      "category": "Bundles",
+      "item_id": 99901663,
+      "price_rp": 2645
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Aphelios Border Set",
+      "category": "Bundles",
+      "item_id": 99901664,
+      "price_rp": 2690
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Yone Border Set",
+      "category": "Bundles",
+      "item_id": 99901665,
+      "price_rp": 2645
+    },
+    {
+      "name": "HEARTSTEEL Live My Life K'Sante Border Set",
+      "category": "Bundles",
+      "item_id": 99901666,
+      "price_rp": 2690
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Ezreal Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900921,
+      "price_rp": 3087
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Kayn Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900922,
+      "price_rp": 2620
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Aphelios Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900923,
+      "price_rp": 3235
+    },
+    {
+      "name": "HEARTSTEEL Live My Life Yone Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900924,
+      "price_rp": 3190
+    },
+    {
+      "name": "HEARTSTEEL Live My Life K'Sante Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900925,
+      "price_rp": 3235
+    },
     {
       "name": "Baú Hextec",
       "category": "Loot",
@@ -34,19 +130,55 @@
       "price_rp": 790
     },
     {
+      "name": "Peak Entertainment Mystery Skin Chest",
+      "category": "Loot",
+      "item_id": 69901087,
+      "price_rp": 850
+    },
+    {
       "name": "10 Hextech Chests & Keys + Bonus Set!",
       "category": "Loot",
       "item_id": 69900003,
       "price_rp": 1950
     },
     {
-      "name": "10 Masterwork Chests & Keys + Bonus Set!",
+      "name": "5 Hextech Chests & Keys + Bonus Essence!",
       "category": "Loot",
-      "item_id": 69900006,
-      "price_rp": 2250
+      "item_id": 69900002,
+      "price_rp": 975
+    },
+    {
+      "name": "1 Hextech Chest & Key Bundle",
+      "category": "Loot",
+      "item_id": 69900001,
+      "price_rp": 195
     }
   ],
   "removed": [
+    {
+      "name": "Heartsong Seraphine Border Set",
+      "category": "Bundles",
+      "item_id": 99901657,
+      "price_rp": 2720
+    },
+    {
+      "name": "Heartsong Seraphine Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900916,
+      "price_rp": 3035
+    },
+    {
+      "name": "Ocean Song Soraka Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900914,
+      "price_rp": 2795
+    },
+    {
+      "name": "Ocean Song Jinx Chroma Bundle",
+      "category": "Bundles",
+      "item_id": 79900915,
+      "price_rp": 2795
+    },
     {
       "name": "Summoner's Orb",
       "category": "Loot",

@@ -12,6 +12,8 @@ IMAGES = {
     69901084: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png',
     69901085: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png',
     69901086: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png',
+    # Ápice do Entretenimento
+    69901087: 'https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png',
     # Invocador
     69901067: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901067.png',
     69901068: 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png',
@@ -144,6 +146,19 @@ LOOT_PT = {
         "discount_percent": None,
         "inventory_type": "BUNDLES",
         "icon_url": IMAGES[69901086],
+        "is_available": True,
+        "status": "available"
+    },
+    # Ápice do Entretenimento
+    "Baú de Skin Misteriosa de Ápice do Entretenimento": {
+        "offer_id": "b8040c86-79c5-46f5-8ef7-a78a5277b62a",
+        "item_id": 69901087,
+        "price_rp": 850,
+        "regular_rp": 850,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901087],
         "is_available": True,
         "status": "available"
     },
@@ -313,6 +328,19 @@ LOOT_EN = {
         "is_available": True,
         "status": "available"
     },
+    # Peak Entertainment
+    "Peak Entertainment Mystery Skin Chest": {
+        "offer_id": "b8040c86-79c5-46f5-8ef7-a78a5277b62a",
+        "item_id": 69901087,
+        "price_rp": 850,
+        "regular_rp": 850,
+        "sale_rp": None,
+        "discount_percent": None,
+        "inventory_type": "BUNDLES",
+        "icon_url": IMAGES[69901087],
+        "is_available": True,
+        "status": "available"
+    },
     # Invocador
     "Summoner's Orb": {
         "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
@@ -452,17 +480,27 @@ for p, passes, loot in paths_to_update:
             json.dump(cat, f, indent=2, ensure_ascii=False)
         print(f"Updated {p} ({len(passes)} passes, {len(loot)} loot)")
 
-# Also sync featured_bundles.json
-src_feat = 'config/featured_bundles.json'
-feat_dests = [
-    'python_backend/featured_bundles.json',
-    r'C:\Users\jeff\Documents\lol_giftapi-main\featured_bundles.json',
-    r'C:\Users\jeff\Documents\lol_giftapi-main\config\featured_bundles.json',
-    r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\featured_bundles.json'
+# Also sync featured_bundles.json and weekly_sales.json
+json_syncs = [
+    ('config/featured_bundles.json', [
+        'python_backend/featured_bundles.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\featured_bundles.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\config\featured_bundles.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\featured_bundles.json'
+    ]),
+    ('config/weekly_sales.json', [
+        'python_backend/weekly_sales.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\weekly_sales.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\config\weekly_sales.json',
+        r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\weekly_sales.json'
+    ])
 ]
-for dst in feat_dests:
-    if os.path.exists(os.path.dirname(dst)):
-        shutil.copy2(src_feat, dst)
-        print(f"Synced {src_feat} -> {dst}")
+
+for src_file, dests in json_syncs:
+    if os.path.exists(src_file):
+        for dst in dests:
+            if os.path.exists(os.path.dirname(dst)):
+                shutil.copy2(src_file, dst)
+                print(f"Synced {src_file} -> {dst}")
 
 print("\nDone restoring official passes and loot!")

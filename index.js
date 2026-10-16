@@ -117,12 +117,10 @@ function loadFullRiotCatalog(lang = 'en') {
                 const feat = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
                 const isPt = lang === 'pt' || lang === 'pt_BR';
                 for (const f of feat) {
-                    if (isPt && f.id >= 99901660 && f.id <= 99901663) continue;
-                    if (!isPt && f.id >= 99901664 && f.id <= 99901667) continue;
-
+                    const itemName = isPt ? (f.name_pt || f.name) : (f.name || f.name_pt);
                     items.push({
                         id: f.itemId || f.id,
-                        nome: f.name,
+                        nome: itemName,
                         tipo: (f.inventoryType || 'BUNDLES').toUpperCase(),
                         parent_id: null,
                         iconUrl: f.iconUrl || null,
@@ -1153,17 +1151,13 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
 
             if (featList.length > 0) {
                 const isPt = lang === 'pt' || lang === 'pt_BR';
-                const filteredFeat = featList.filter(b => {
-                    if (isPt && b.id >= 99901660 && b.id <= 99901663) return false;
-                    if (!isPt && b.id >= 99901664 && b.id <= 99901667) return false;
-                    return true;
-                });
-                results = filteredFeat.map(b => {
-                    const catItem = currentCatalog.find(c => String(c.id) === String(b.id) || (c.nome && c.nome.toLowerCase() === b.name.toLowerCase()));
+                results = featList.map(b => {
+                    const bundleName = isPt ? (b.name_pt || b.name) : (b.name || b.name_pt);
+                    const catItem = currentCatalog.find(c => String(c.id) === String(b.id) || (c.nome && c.nome.toLowerCase() === bundleName.toLowerCase()));
                     const itemType = b.inventoryType || catItem?.tipo || catItem?.rawItem?.inventoryType || 'BUNDLES';
                     return {
                         id: b.id,
-                        nome: b.name,
+                        nome: bundleName,
                         tipo: itemType,
                         iconUrl: b.iconUrl || catItem?.iconUrl || null,
                         price_rp: b.price_rp,
@@ -1441,13 +1435,10 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             return (a.price_rp || 0) - (b.price_rp || 0);
         });
     } else if (tipoFiltro === 'highlights') {
-        results = results.sort((a, b) => {
-            const isHoLA = a.nome.toLowerCase().includes('hall of legends') || a.nome.toLowerCase().includes('legend collection') || a.nome.toLowerCase().includes('lenda');
-            const isHoLB = b.nome.toLowerCase().includes('hall of legends') || b.nome.toLowerCase().includes('legend collection') || b.nome.toLowerCase().includes('lenda');
-            if (isHoLA && !isHoLB) return -1;
-            if (!isHoLA && isHoLB) return 1;
-            return (b.price_rp || 0) - (a.price_rp || 0);
-        });
+        // Preserva a ordem curada de featured_bundles.json caso exista, ou ordena por preço decrescente
+        if (!featList || featList.length === 0) {
+            results = results.sort((a, b) => (b.price_rp || 0) - (a.price_rp || 0));
+        }
     } else if (tipoFiltro === 'champions') {
         results = results.sort((a, b) => a.nome.localeCompare(b.nome));
     } else if (tipoFiltro === 'eternos') {

@@ -30,7 +30,7 @@ function isRestrictedOrNonRP(name, rawItem = null) {
 
     // 2. Gacha / Variantes Míticas / Sanctum / Hall of Legends / Eventos Passados
     if (n.includes('hall of legends') || n.includes('faker')) return true;
-    if (rawItem?.itemId === 69901079 || (rawItem?.itemId >= 99901657 && rawItem?.itemId <= 99901667)) return true;
+    if (rawItem?.itemId === 69901079 || (rawItem?.itemId >= 99901657 && rawItem?.itemId <= 99901660)) return true;
     if (n.includes('quantum') || n.includes('quantico') || n.includes('quantica')) return true;
     if (n.includes('erasure') || n.includes('erradicacao')) return true;
     if (n.includes('breakout') || n.includes('destemido')) return true;
@@ -286,7 +286,7 @@ async function buildFullCatalog() {
     rawCatalog.forEach(item => {
         const invType = (item.inventoryType || '').toUpperCase();
         const itemId = item.itemId;
-        const offerId = item.offerId;
+        const offerId = item.offerId || item.id;
         if (!itemId || !offerId) return;
 
         // Determinar status de disponibilidade na loja oficial
@@ -704,21 +704,16 @@ async function buildFullCatalog() {
                     status: 'available'
                 };
 
-                const isPtOnly = item.id >= 99901664 && item.id <= 99901667;
-                const isEnOnly = item.id >= 99901660 && item.id <= 99901663;
-                const isPass = item.name.toLowerCase().includes('pass') || item.name.toLowerCase().includes('passe');
+                const isPass = item.name.toLowerCase().includes('pass') || (item.name_pt && item.name_pt.toLowerCase().includes('passe'));
                 const isSkin = (item.inventoryType || '').toUpperCase() === 'CHAMPION_SKIN';
-                const isLoot = item.name.toLowerCase().includes('orbe') || item.name.toLowerCase().includes('orb') || item.name.toLowerCase().includes('baú') || item.name.toLowerCase().includes('chest');
+                const isLoot = item.name.toLowerCase().includes('orbe') || item.name.toLowerCase().includes('orb') || item.name.toLowerCase().includes('chest') || (item.name_pt && item.name_pt.toLowerCase().includes('baú'));
 
                 const targetCategory = isPass ? 'Passes' : (isLoot ? 'Loot' : (isSkin ? 'Skins' : 'Bundles'));
 
-                if (!isEnOnly) {
-                    catalogPt[targetCategory][item.name] = bObj;
-                }
-                if (!isPtOnly) {
-                    const enName = item.name_en || item.name;
-                    catalogEn[targetCategory][enName] = bObj;
-                }
+                const ptName = item.name_pt || item.name;
+                const enName = item.name || item.name_pt;
+                catalogPt[targetCategory][ptName] = bObj;
+                catalogEn[targetCategory][enName] = bObj;
             });
         } catch (e) {}
     }
