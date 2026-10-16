@@ -2244,13 +2244,13 @@ function buildStoreMainMenu(customEmojis) {
     const eSkin = (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim();
     const eChroma = (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim();
     const eSale = (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim();
-    const ePass = (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1544493308015804429>').trim();
-    const eOrb = (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1544493304983322736>').trim();
+    const ePass = (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim();
+    const eOrb = (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim();
     const eHextech = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
-    const eBundle = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim();
+    const eBundle = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim();
     const eChamp = (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim();
-    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:lol_mystery_skin:1544591070204010598>').trim();
-    const eAccessories = (customEmojis?.acessorios?.emotes || customEmojis?.acessorios?.menu || '<:lol_poro_emote:1544493296879935489>').trim();
+    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+    const eAccessories = (customEmojis?.acessorios?.emotes || customEmojis?.acessorios?.menu || '<:poro_emote:1560503291568201729>').trim();
 
     return new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Choose what you wish to purchase...').addOptions([
@@ -2421,8 +2421,8 @@ function buildNavButtonsPreviewRow() {
 }
 
 async function exibirMenuCategoriaLoja(interaction, categoria) {
-    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:lol_mystery_skin:1544591070204010598>').trim();
-    const eEmotes = (customEmojis?.acessorios?.emotes || '<:lol_poro_emote:1544493296879935489>').trim();
+    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+    const eEmotes = (customEmojis?.acessorios?.emotes || '<:poro_emote:1560503291568201729>').trim();
     const eWards = (customEmojis?.acessorios?.wards || '<:lol_star_ward:1544493299270680717>').trim();
     const eIcones = (customEmojis?.acessorios?.icones || '<:22icone:1544482040206983241>').trim();
 
@@ -2446,8 +2446,8 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_loot') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Loot option').addOptions([
-                { label: 'Orbs & Capsules', description: "Worlds 2026 & Summoner's Orbs (250 - 12,500 RP)", value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1544493304983322736>').trim() },
-                { label: 'Season Event Passes', description: 'Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1544493308015804429>').trim() },
+                { label: 'Orbs & Capsules', description: "Worlds 2026 & Summoner's Orbs (250 - 12,500 RP)", value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim() },
+                { label: 'Season Event Passes', description: 'Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim() },
                 { label: 'Hextech Chests & Keys', description: 'Hextech Chest (125 RP), Keys, 1x, 5x & 10x Bundles', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
                 { label: 'Mystery Gifts', description: 'Mystery Skin (490 RP), Mystery Champion & Mystery Chest', value: 'compra_misterio', emoji: eMystery }
             ])
@@ -2479,7 +2479,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_highlights') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
-                { label: 'Featured & Launch Bundles', description: 'Featured Packs, Border Sets & Chroma Bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:lol_exclusive_pack:1544591088084590636>').trim() },
+                { label: 'Featured & Launch Bundles', description: 'Featured Packs, Border Sets & Chroma Bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim() },
                 { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
                 { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
             ])

@@ -1,11 +1,11 @@
 {
   "menu_principal": {
     "skins_chromas": "<:legendary:1555074221338665080>",
-    "loot_passes": "<:lol_orb_hol:1549297901841424524>",
+    "loot_passes": "<:lol_orb_s3:1555074434048725083>",
     "champions_eternals": "<:mchamp:1555074230050095114>",
-    "accessories": "<:lol_poro_emote:1544493296879935489>",
-    "featured": "<:lol_exclusive_pack:1544591088084590636>",
-    "highlights_bundles": "<:lol_exclusive_pack:1544591088084590636>"
+    "accessories": "<:poro_emote:1560503291568201729>",
+    "featured": "<:exclusive_pack:1560503285977190460>",
+    "highlights_bundles": "<:exclusive_pack:1560503285977190460>"
   },
   "skins": {
     "ultimate": "<:ultimate:1555074238875181157>",
@@ -13,7 +13,7 @@
     "legendary": "<:legendary:1555074221338665080>",
     "epic": "<:epic:1555074256415625246>",
     "common": "<:11default:1555074264921800714>",
-    "mystery": "<:lol_mystery_skin:1544591070204010598>",
+    "mystery": "<:mystery_skin:1560503288762339350>",
     "champion": "<:mchamp:1555074230050095114>",
     "croma": "<:15croma:1555074272614154270>",
     "eternos": "<:1eternos:1544481988147290152>",
@@ -23,8 +23,8 @@
     "exalted": "<:exalted:1555074290045423626>"
   },
   "loot": {
-    "pass": "<:lol_pass_s3:1544493308015804429>",
-    "orb": "<:lol_orb_s3:1544493304983322736>",
+    "pass": "<:lol_pass_s3:1560503114253996042>",
+    "orb": "<:lol_orb_s3:1555074434048725083>",
     "megaorb": "<:lol_megaorb:1546370593983697108>",
     "deluxe": "<:lol_deluxe_orb:1546370599054737478>",
     "premium": "<:lol_premium_orb:1546370596789682307>",
@@ -32,14 +32,14 @@
     "key": "<:key1:1555074307275759667>",
     "chestkey": "<:chestkey:1555074316591439935>",
     "masterwork_chest": "<:masterwork:1555074325361590352>",
-    "mystery": "<:lol_mystery_skin:1544591070204010598>",
+    "mystery": "<:mystery_skin:1560503288762339350>",
     "capsule": "💊",
     "token": "🪙",
     "grab_bag": "<:lol_grab_bag:1544591084200534116>"
   },
   "acessorios": {
-    "menu": "<:lol_poro_emote:1544493296879935489>",
-    "emotes": "<:lol_poro_emote:1544493296879935489>",
+    "menu": "<:poro_emote:1560503291568201729>",
+    "emotes": "<:poro_emote:1560503291568201729>",
     "wards": "<:lol_star_ward:1544493299270680717>",
     "icones": "<:22icone:1544482040206983241>",
     "boosts": "<:16xp:1544482296541749302>",
@@ -54,9 +54,9 @@
     "mystery_emote": "<:lol_mystery_emote:1544591072485842964>"
   },
   "bundles": {
-    "menu": "<:lol_exclusive_pack:1544591088084590636>",
-    "bundle": "<:lol_exclusive_pack:1544591088084590636>",
-    "exclusive_pack": "<:lol_exclusive_pack:1544591088084590636>",
+    "menu": "<:exclusive_pack:1560503285977190460>",
+    "bundle": "<:exclusive_pack:1560503285977190460>",
+    "exclusive_pack": "<:exclusive_pack:1560503285977190460>",
     "sale": "<:lol_sale:1547388458488823868>",
     "most_popular": "<a:pr_fire01:1555074334391799834>",
     "signature": "<:MSP_Autograph:1555074342583410710>",

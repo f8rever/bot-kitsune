@@ -841,6 +841,20 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Promoções da semana atualizadas com sucesso no MongoDB Atlas (`kitsune_bot.bot_configurations`).
                   - Commit e push realizados para `origin main` disparando deploy automático no Render.
 
+            44. **Correção Definitiva de Emojis do Menu Principal da Loja (Application Emojis) (2026-10-16):**
+                - **Diagnóstico do Erro 10014 (Unknown Emoji):**
+                  - Ao abrir o catálogo de vendas após o modal de Riot ID (`modal_riot_id`), o bot retornava `Erro Interno: Alguns emojis configurados em emojis.json são inválidos ou o bot não tem acesso a eles`.
+                  - A auditoria revelou que os emojis de orbe (`lol_orb_s3:1544493304983322736`) e passe (`lol_pass_s3:1544493308015804429`) apontavam para IDs de servidores antigos que não estavam mais disponíveis para o bot em select menus.
+                - **Resolução e Migração para Application Emojis:**
+                  - Feito upload via API do Discord (`client.application.emojis.create`) tornando todos os 10 itens do menu principal em Application Emojis permanentes:
+                    - Passe Season 3: `<:lol_pass_s3:1560503114253996042>`
+                    - Orbe Season 3: `<:lol_orb_s3:1555074434048725083>`
+                    - Pacote Exclusivo / Destaques: `<:exclusive_pack:1560503285977190460>`
+                    - Presente Misterioso: `<:mystery_skin:1560503288762339350>`
+                    - Acessórios / Emote: `<:poro_emote:1560503291568201729>`
+                  - Atualizados `config/emojis.json` e todos os fallbacks em `index.js` (`buildStoreMainMenu`, `exibirMenuCategoriaLoja`).
+                  - Emojis atualizados persistidos no MongoDB Atlas e enviados para produção no Render.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
