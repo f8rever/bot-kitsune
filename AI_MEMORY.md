@@ -804,6 +804,20 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Sincronizado `python_backend/api_files/featured_bundles.json` com os pacotes ativos limpos.
                 - **Validação:** Verificada a integridade e sintaxe de todo o projeto (`node --check index.js` e `python -m py_compile main_backend.py`) com 100% de sucesso.
 
+            42. **Atualização Completa da Temática de Passes/Orbes (Mundial 2026 Season 3) & Criação da Skill LCU (2026-10-16):**
+                - **Correção da Temática da Loja no Bot:**
+                  - Identificado que `index.js` ainda continha textos, descrições e emojis legados apontando para "Hall of Legends Pass" e "Hall of Legends & Summoner's Orbs".
+                  - Atualizadas todas as descrições nos menus (`buildStoreMainMenu`, `cat_loot`, `cat_highlights`) para a temática ativa: **Temporada 3: Mundial 2026 (Worlds 2026)**.
+                  - Atualizados os emojis oficiais padrão em `config/emojis.json` e `index.js`: Passe Season 3 (`<:lol_pass_s3:1544493308015804429>`) e Orbe Season 3 (`<:lol_orb_s3:1544493304983322736>`). Removidas as chaves residuais `_hol`.
+                  - Limpo o filtro de busca e a ordenação de passes/orbes em `enviarPaginaCatalogo`, eliminando a priorização do HoL e ordenando estritamente por preço e disponibilidade.
+                - **Criação da Skill Antigravity `lol-client` (.agents/skills/lol-client):**
+                  - Criada a skill oficial com `SKILL.md` (e espelho global em `~/.gemini/config/skills/lol-client`).
+                  - Implementado `detect_lcu.py`: detecta automaticamente processos `LeagueClientUx` / `LeagueClient`, extrai porta, lockfile e credenciais de autenticação básica (`riot:<token>`), e obtém o perfil do invocador logado (`É o Jeff#Babys`, Nível 476).
+                  - Implementado `sync_live_catalog.py`: conecta diretamente na API interna do cliente do LoL (`/lol-store/v1/catalog`), extrai 10.332 ofertas ativas em tempo real e dispara a esteira de sincronização completa (`sync_all_catalog.py`).
+                - **Persistência e Deploy:**
+                  - Emojis e configurações persistidos no MongoDB Atlas via `push_configs_to_mongo.js`.
+                  - Commit e push realizados para `main`, disparando deploy no Render.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
