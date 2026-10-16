@@ -28,6 +28,7 @@ Principais diretórios:
 - `scripts/` — scripts auxiliares (deploy.js, restore_all_dead_emojis.js, push_configs_to_mongo.js, restore_official_passes_and_loot.py, sync_mirrors.py, etc.)
 - `utils/` — módulos utilitários (riotAuth.js, riotXmpp.js, catalog.js, catalogSync.js, customEmbeds.js, embedFormat.js)
 - `pngs_catalogos/` — imagens PNG dos itens do catálogo organizadas por categoria (skins, cromas, passes, etc.)
+- `.agents/skills/lol-client/` — skill do Antigravity para detecção do LoL Client (LCU), extração de lockfile e sincronização ao vivo de catálogo, promoções e destaques.
 
 Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica principal do bot monolítica.
 
