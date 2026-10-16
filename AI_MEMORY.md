@@ -874,6 +874,23 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Menus e Embeds: `config/embeds.json` atualizado com as descrições oficiais do Mundial 2026 e HEARTSTEEL.
                   - Correção de Escopo: `featList` movido para escopo de função em `enviarPaginaCatalogo`, corrigindo erro `featList is not defined`.
                   - Sincronização MongoDB Atlas & Espelhos: Executados `push_configs_to_mongo.js` e `sync_all_catalog.py` com sucesso.
+            46. **Simplificação e Aperfeiçoamento da Estrutura do Catálogo da Loja & Alinhamento com o Raio-X do LoL Client (2026-10-16):**
+                - **Estruturação Limpa em 5 Categorias Oficiais do Cliente:**
+                  - Substituído o menu desordenado de 10 opções soltas em `buildStoreMainMenu` pelas **5 abas centrais e padronizadas** do cliente oficial de League of Legends:
+                    1. 🌟 **Featured & Offers (`cat_highlights`):** Passes do Mundial 2026, Pacotes HEARTSTEEL Live My Life, Orbes e as 20 Promoções da Semana da Riot com emoji `<:exclusive_pack:1560503285977190460>`.
+                    2. 👕 **Champion Skins & Chromas (`cat_skins`):** Busca e seleção de todas as skins de campeões e cromas (290 RP) com emoji `<:legendary:1555074221338665080>`.
+                    3. 📦 **Loot, Passes & Chests (`cat_loot`):** Passes Mundial 2026, Orbes, Baús Hextec & Presentes Misteriosos com emoji `<:lol_orb_s3:1555074434048725083>`.
+                    4. ⚔️ **Champions & Eternals (`cat_champions`):** Todos os 173 Campeões e Séries de Estatísticas Eternos com emoji `<:mchamp:1555074230050095114>`.
+                    5. 🎭 **Summoner Accessories (`cat_accessories`):** Emotes (350 RP), Sentinelas (640 RP) e Ícones de Invocador (250 RP) com emoji `<:poro_emote:1560503291568201729>`.
+                - **Organização e Curadoria de Destaques (`featured_bundles.json`):**
+                  - Reordenados os itens com os Passes do Mundial 2026 e Orbes no topo absoluto da lista, adicionando o Orbe avulso (`Worlds 2026 Orb` - 250 RP, ID `69901083`) e mantendo o Baú do Ápice do Entretenimento (`Peak Entertainment Mystery Skin Chest` - 850 RP) e todos os Conjuntos de Moldura e Cromas HEARTSTEEL Live My Life.
+                - **Integração Completa de `selecionar_sale_menu`:**
+                  - Em `enviarPaginaCatalogo`, a categoria `sales` agora gera select menus com `customId = 'selecionar_sale_menu'`, registrado e processado nativamente no `interactionCreate` de `index.js`.
+                  - Em `getActualItemType`, preservado `tipoFiltro === 'sales'` para garantir que o cálculo de preço e a variação no ticket apliquem o preço promocional com desconto (-27% a -60%) e o emoji oficial `<:lol_sale:1547388458488823868>`.
+                - **URLs dos Ícones das Promoções Semanais:**
+                  - Atualizados todos os 20 itens de `config/weekly_sales.json` com URLs diretas do Data Dragon oficial (splashes e ícones), corrigindo links quebrados.
+                - **Sincronização & Persistência:**
+                  - Sincronizados `config/weekly_sales.json` e `config/featured_bundles.json` com `python_backend/` e com a coleção `bot_configurations` no MongoDB Atlas via `scripts/push_configs_to_mongo.js`.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

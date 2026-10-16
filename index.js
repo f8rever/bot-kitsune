@@ -742,6 +742,7 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
 }
 
 function getActualItemType(nome, tipoFiltro, rawItem = null) {
+    if (tipoFiltro === 'sales') return 'sales';
     if (rawItem) {
         const invType = (rawItem.inventoryType || rawItem.inventory_type || rawItem.tipo || '').toUpperCase();
         if (invType === 'CHAMPION_SKIN' || invType === 'SKIN') {
@@ -1287,7 +1288,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         }
         const eSaleTitle = (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim();
         titulo = lang === 'pt' ? `${eSaleTitle} ${results.length} Promoções da Semana (On Sale)` : `${eSaleTitle} ${results.length} Weekly Sales (On Sale)`;
-        customId = 'selecionar_skin_menu';
+        customId = 'selecionar_sale_menu';
     } else if (tipoFiltro === 'most_popular') {
         const { getLoLMostPopularItems } = require('./utils/syncWeeklySales.js');
         results = getLoLMostPopularItems(currentCatalog);
@@ -2275,76 +2276,41 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
 }
 
 function buildStoreMainMenu(customEmojis) {
-    const eSkin = (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim();
-    const eChroma = (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim();
-    const eSale = (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim();
-    const ePass = (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim();
-    const eOrb = (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim();
-    const eHextech = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
-    const eBundle = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim();
-    const eChamp = (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim();
-    const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
-    const eAccessories = (customEmojis?.acessorios?.emotes || customEmojis?.acessorios?.menu || '<:poro_emote:1560503291568201729>').trim();
+    const eFeatured = (customEmojis?.menu_principal?.featured || customEmojis?.bundles?.exclusive_pack || '<:exclusive_pack:1560503285977190460>').trim();
+    const eSkin = (customEmojis?.menu_principal?.skins_chromas || customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim();
+    const eLoot = (customEmojis?.menu_principal?.loot_passes || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim();
+    const eChamp = (customEmojis?.menu_principal?.champions_eternals || customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim();
+    const eAccessories = (customEmojis?.menu_principal?.accessories || customEmojis?.acessorios?.emotes || '<:poro_emote:1560503291568201729>').trim();
 
     return new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Choose what you wish to purchase...').addOptions([
             {
-                label: 'Champion Skins',
-                description: 'Search & buy all League of Legends skins',
-                value: 'compra_skins',
+                label: 'Featured & Offers',
+                description: 'Worlds 2026 Passes, HEARTSTEEL & 20 Weekly Sales (-27% to -60%)',
+                value: 'cat_highlights',
+                emoji: eFeatured
+            },
+            {
+                label: 'Champion Skins & Chromas',
+                description: 'Search & buy all League skins and champion chromas (290 RP)',
+                value: 'cat_skins',
                 emoji: eSkin
             },
             {
-                label: 'Chromas (290 RP)',
-                description: 'Search & buy all champion chromas',
-                value: 'compra_chromas',
-                emoji: eChroma
+                label: 'Loot, Passes & Chests',
+                description: 'Worlds 2026 Passes, Orbs, Hextech Chests & Mystery Gifts',
+                value: 'cat_loot',
+                emoji: eLoot
             },
             {
-                label: 'Weekly Sales (On Sale)',
-                description: 'Official Riot discounts (-27% to -60% off)',
-                value: 'compra_sales',
-                emoji: eSale
-            },
-            {
-                label: 'Season Event Passes',
-                description: 'Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)',
-                value: 'compra_passes',
-                emoji: ePass
-            },
-            {
-                label: 'Orbs & Capsules',
-                description: "Worlds 2026 & Summoner's Orbs (250 - 12,500 RP)",
-                value: 'compra_orbes',
-                emoji: eOrb
-            },
-            {
-                label: 'Hextech Chests & Keys',
-                description: 'Hextech Chest (125 RP), Keys & Bundles',
-                value: 'compra_hextech',
-                emoji: eHextech
-            },
-            {
-                label: 'Featured & Launch Bundles',
-                description: 'Featured Packs, Border Sets & Chroma Bundles',
-                value: 'compra_highlights',
-                emoji: eBundle
-            },
-            {
-                label: 'Champions (173)',
-                description: 'Search & purchase all 173 Champions',
-                value: 'compra_champions',
+                label: 'Champions & Eternals',
+                description: 'Search all 173 Champions and Eternals Series I & II',
+                value: 'cat_champions',
                 emoji: eChamp
             },
             {
-                label: 'Mystery Gifts',
-                description: 'Mystery Skin (490 RP), Champion & Chest',
-                value: 'compra_misterio',
-                emoji: eMystery
-            },
-            {
-                label: 'Accessories & Emotes',
-                description: 'Emotes (350 RP), Ward Skins & Summoner Icons',
+                label: 'Summoner Accessories',
+                description: 'Emotes (350 RP), Ward Skins (640 RP) & Summoner Icons (250 RP)',
                 value: 'cat_accessories',
                 emoji: eAccessories
             }
@@ -2513,9 +2479,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_highlights') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
-                { label: 'Featured & Launch Bundles', description: 'Featured Packs, Border Sets & Chroma Bundles', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim() },
-                { label: 'Weekly Sales (On Sale)', description: 'Weekly discounted skins with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
-                { label: 'Most Popular', description: 'Best-selling Hextech chests, weekly skins & champions on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
+                { label: 'Weekly Sales (On Sale)', description: '20 discounted skins & champions with official Riot discounts (-27% to -60%)', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
+                { label: 'Featured & Launch Bundles', description: 'Worlds 2026 Passes, Orbs, HEARTSTEEL & Mystery Chest', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim() },
+                { label: 'Most Popular', description: 'Best-selling passes, orbs & skins on sale', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2937,10 +2903,11 @@ client.on('interactionCreate', async interaction => {
                 return;
             }
 
-            else if (['selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_croma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu', 'selecionar_popular_menu'].includes(interaction.customId)) {
+            else if (['selecionar_sale_menu', 'selecionar_skin_menu', 'selecionar_chroma_menu', 'selecionar_croma_menu', 'selecionar_eterno_menu', 'selecionar_champion_menu', 'selecionar_passe_menu', 'selecionar_highlight_menu', 'selecionar_bundle_menu', 'selecionar_misterio_menu', 'selecionar_hextech_menu', 'selecionar_orbes_menu', 'selecionar_emote_menu', 'selecionar_icone_menu', 'selecionar_ward_menu', 'selecionar_lenda_menu', 'selecionar_arena_menu', 'selecionar_boost_menu', 'selecionar_popular_menu'].includes(interaction.customId)) {
                 if (interaction.values[0] === 'nenhum') return interaction.reply({ content: 'Invalid option.', ephemeral: true });
                 let tipo = 'skins';
-                if (interaction.customId === 'selecionar_chroma_menu' || interaction.customId === 'selecionar_croma_menu') tipo = 'cromas';
+                if (interaction.customId === 'selecionar_sale_menu') tipo = 'sales';
+                else if (interaction.customId === 'selecionar_chroma_menu' || interaction.customId === 'selecionar_croma_menu') tipo = 'cromas';
                 else if (interaction.customId === 'selecionar_eterno_menu') tipo = 'eternos';
                 else if (interaction.customId === 'selecionar_champion_menu') tipo = 'champions';
                 else if (interaction.customId === 'selecionar_passe_menu') tipo = 'passes';
