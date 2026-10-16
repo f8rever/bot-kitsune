@@ -36,7 +36,7 @@ function loadFullRiotCatalog(lang = 'en') {
         path.join(__dirname, 'config', targetFile),
         path.join(__dirname, 'python_backend', targetFile),
         path.join(__dirname, 'python_backend', 'api_files', targetFile),
-        path.join(__dirname, 'data', 'catalogo.json')
+        path.join(__dirname, 'config', 'catalog.json')
     ].find(p => fs.existsSync(p));
 
     if (!catalogPath) return [];
@@ -3064,7 +3064,6 @@ client.on('interactionCreate', async interaction => {
                         subgroupTitle = '🌟 Featured & Ofertas Especiais';
                         subgroupOptions = [
                             { label: 'Menu da Categoria (Featured)', description: 'Embed de apresentação com banner e descrição', value: 'category_highlights', emoji: (customEmojis?.menu_principal?.featured || '<:lol_bundle_set:1544591078622236763>').trim() },
-                            { label: 'Painel Hall of Legends (/halloflegends)', description: 'Embed do evento especial Hall of Legends 2026 (Caps)', value: 'hall_of_legends', emoji: '🏆' },
                             { label: 'Catálogo de Featured & Pacotes', description: 'Página de bundles e ofertas em destaque', value: 'catalog_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() },
                             { label: 'Catálogo de Promoções Semanais', description: 'Página de skins em promoção (On Sale)', value: 'catalog_sales', emoji: '🏷️' },
                             { label: 'Catálogo de Mais Populares', description: 'Página de baús, passes e orbes mais populares', value: 'catalog_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<:lol_exclusive_pack:1544591088084590636>').trim() }

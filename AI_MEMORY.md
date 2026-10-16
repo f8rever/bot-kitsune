@@ -788,6 +788,22 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Injetada chamada automática a `scripts/sync_all_catalog.py` no término da rota/função `update_catalog_cache()`.
                   - Agora, sempre que o usuário acionar a atualização de catálogo pelo painel web ou API Python, todo o ecossistema do Bot Discord, caches locais, espelhos e MongoDB Atlas são automaticamente atualizados e sincronizados em ~20 segundos sem intervenção manual.
 
+            41. **Limpeza Geral de Arquivos Obsoletos, Dumps Duplicados e Otimização do Projeto (2026-10-16):**
+                - **Remoção de Arquivos Mortos e Duplicados (+21 MB liberados):**
+                  - `data/catalogo.json` (19.4 MB): dump duplicado eliminado (o bot agora aponta diretamente para `config/catalog.json`).
+                  - `data/champion.json` (153 KB): arquivo estático legado não referenciado removido.
+                  - `database/catalogo.db` (795 KB): banco local SQLite obsoleto de julho/2026 removido (substituído integralmente pelo MongoDB Atlas).
+                  - `python_backend/catalog_cache.json` (906 KB): cache legado de 2024 removido.
+                  - `python_backend/cap_keys.txt`, `generate_en.py`, `create_key.py`: scripts e arquivos temporários antigos removidos.
+                  - `commands/suporte/halloflegends.js`: comando slash legado `/halloflegends` removido (evento HoL expirado).
+                  - `scripts/checkSchema.js`, `check_db.js`, `importBundles.js`, `update_passes_and_loot.py`, `prepare_hol_emojis.py`, `upload_hol_emojis.js`, `verify_dashboard.js`, `verify_passes_and_bundles.js`: scripts antigos e de teste excluídos.
+                  - `scratch/` e `scripts/`: screenshots antigas de teste removidas (`screenshot_dashboard_*.png`, `bundles_screenshot.png`, `passes_screenshot.png`).
+                - **Refinamento do Código:**
+                  - Em `index.js`, ajustada a rota de fallback em `loadFullRiotCatalog` para `config/catalog.json` e removida a opção legada de Hall of Legends do submenu de Featured.
+                  - Em `commands/admin/embeds.js`, removida a opção de edição de embed do Hall of Legends.
+                  - Sincronizado `python_backend/api_files/featured_bundles.json` com os pacotes ativos limpos.
+                - **Validação:** Verificada a integridade e sintaxe de todo o projeto (`node --check index.js` e `python -m py_compile main_backend.py`) com 100% de sucesso.
+
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

@@ -1,77 +1,5 @@
 [
   {
-    "id": 99901660,
-    "itemId": 69901079,
-    "offerId": "1a335511-a661-4d91-8522-abd3bc4f466c",
-    "name": "Hall of Legends 2026 Pass",
-    "price_rp": 1950,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg"
-  },
-  {
-    "id": 99901661,
-    "itemId": 99901658,
-    "offerId": "73d68c09-ff8b-4793-a380-b198438c21ab",
-    "name": "Risen Legend Collection Pass (2026)",
-    "price_rp": 5035,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_85.jpg"
-  },
-  {
-    "id": 99901662,
-    "itemId": 99901659,
-    "offerId": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
-    "name": "Immortalized Legend Collection (2026)",
-    "price_rp": 32035,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg"
-  },
-  {
-    "id": 99901663,
-    "itemId": 99901660,
-    "offerId": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
-    "name": "Signature Immortalized Legend Collection (2026)",
-    "price_rp": 58865,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_86.jpg"
-  },
-  {
-    "id": 99901664,
-    "itemId": 69901079,
-    "offerId": "1a335511-a661-4d91-8522-abd3bc4f466c",
-    "name": "Passe Hall of Legends 2026",
-    "price_rp": 1950,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Leblanc_55.jpg"
-  },
-  {
-    "id": 99901665,
-    "itemId": 99901658,
-    "offerId": "73d68c09-ff8b-4793-a380-b198438c21ab",
-    "name": "Passe Coleção Lenda Ascendida (2026)",
-    "price_rp": 5035,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901658_1.png"
-  },
-  {
-    "id": 99901666,
-    "itemId": 99901659,
-    "offerId": "70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb",
-    "name": "Coleção Lenda Imortalizada (2026)",
-    "price_rp": 32035,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png"
-  },
-  {
-    "id": 99901667,
-    "itemId": 99901660,
-    "offerId": "33f48406-8d1c-4c77-87f4-e47b39796cc6",
-    "name": "Coleção Assinatura Lenda Imortalizada (2026)",
-    "price_rp": 58865,
-    "inventoryType": "BUNDLES",
-    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901660_1.png"
-  },
-  {
     "id": 147069,
     "itemId": 147069,
     "offerId": "6e199f43-39c9-4709-97de-aadded6602c5",
@@ -117,64 +45,64 @@
     "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_65.jpg"
   },
   {
-    "id": 69901071,
-    "itemId": 69901071,
-    "offerId": "3c93e239-7195-4682-ac56-cb3510a8314f",
-    "name": "Passe do Mundial 2024",
-    "name_en": "Worlds 2024 Pass",
+    "id": 69901080,
+    "itemId": 69901080,
+    "offerId": "c5ebe5a5-a967-4d05-b82b-63600c1d9e1a",
+    "name": "Passe da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Pass",
     "price_rp": 1650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png"
   },
   {
-    "id": 69901072,
-    "itemId": 69901072,
-    "offerId": "33115367-9c70-4074-8a67-fa72271ac2d0",
-    "name": "Pacote Passe do Mundial 2024",
-    "name_en": "Worlds 2024 Pass Bundle",
+    "id": 69901081,
+    "itemId": 69901081,
+    "offerId": "8b82c6ad-94be-4611-b82e-a0e7401bb232",
+    "name": "Pacote Passe da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Pass Bundle",
     "price_rp": 2650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png"
   },
   {
-    "id": 69901073,
-    "itemId": 69901073,
-    "offerId": "6c82f475-023d-4968-a56c-e689c52b97ff",
-    "name": "Pacote Passe Premium do Mundial 2024",
-    "name_en": "Worlds 2024 Premium Pass Bundle",
+    "id": 69901082,
+    "itemId": 69901082,
+    "offerId": "c4179766-1310-423e-a62e-522aa4219ae9",
+    "name": "Pacote Passe Premium da Temporada 3: Mundial 2026",
+    "name_en": "Season 3: Worlds 2026 Premium Pass Bundle",
     "price_rp": 3650,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Viego_37.jpg"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png"
   },
   {
-    "id": 69901068,
-    "itemId": 69901068,
-    "offerId": "95056487-39ef-447c-a513-97b9e4ce1f26",
-    "name": "Pacote de 10 Orbes do Mundial 2024 + 1 Grátis",
-    "name_en": "10 Worlds 2024 Orbs + 1 Bonus",
+    "id": 69901084,
+    "itemId": 69901084,
+    "offerId": "65cf331d-b586-4c74-98ae-36ff06f36306",
+    "name": "Pacote de Orbes Deluxe do Mundial 2026",
+    "name_en": "Worlds 2026 Deluxe Orb Bundle",
     "price_rp": 2500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png"
   },
   {
-    "id": 69901069,
-    "itemId": 69901069,
-    "offerId": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
-    "name": "Pacote de 25 Orbes do Mundial 2024 + 1 Sacola",
-    "name_en": "25 Worlds 2024 Orbs + 1 Exclusive Bag",
+    "id": 69901085,
+    "itemId": 69901085,
+    "offerId": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+    "name": "Pacote de Orbes Premium do Mundial 2026",
+    "name_en": "Worlds 2026 Premium Orb Bundle",
     "price_rp": 6250,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png"
   },
   {
-    "id": 69901070,
-    "itemId": 69901070,
-    "offerId": "7e1a069f-024d-45ae-851e-7a6d8444762c",
-    "name": "Pacote de 50 Orbes do Mundial 2024 + 2 Sacolas",
-    "name_en": "50 Worlds 2024 Orbs + 2 Bags",
+    "id": 69901086,
+    "itemId": 69901086,
+    "offerId": "73854eb1-b0db-4299-8051-fb105658e3ca",
+    "name": "Pacote de Orbes Mega do Mundial 2026",
+    "name_en": "Worlds 2026 Mega Orb Bundle",
     "price_rp": 12500,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/worlds2024_orb.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png"
   },
   {
     "id": 69900003,
@@ -184,7 +112,7 @@
     "name_en": "10 Hextech Chests & Keys + Bonus Set!",
     "price_rp": 1950,
     "inventoryType": "BUNDLES",
-    "iconUrl": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png"
+    "iconUrl": "https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png"
   },
   {
     "id": 69900006,
