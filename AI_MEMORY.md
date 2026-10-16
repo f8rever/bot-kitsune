@@ -855,6 +855,24 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Atualizados `config/emojis.json` e todos os fallbacks em `index.js` (`buildStoreMainMenu`, `exibirMenuCategoriaLoja`).
                   - Emojis atualizados persistidos no MongoDB Atlas e enviados para produção no Render.
 
+            45. **Resolução Completa de Imagens Oficiais e Posicionamento Preciso de Emojis de Aplicação nos Menus e Tickets (2026-10-16):**
+                - **Imagens Oficiais dos Passes e Orbes do Mundial 2026 & Destaques:**
+                  - Passes de Temporada (Worlds 2026 Season 3): `69901080.png` (1650 RP), `69901081.png` (2650 RP), `69901082.png` (3650 RP) apontando diretamente para `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/...`
+                  - Orbes do Mundial 2026: `69901083.png` (250 RP), `69901084.png` (2500 RP), `69901085.png` (6250 RP), `69901086.png` (12500 RP).
+                  - Baú de Skin Misteriosa de Ápice do Entretenimento (`69901087`): `https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png`.
+                  - Conjuntos Moldura HEARTSTEEL Live My Life (`99901662` a `99901666`): `99901662.png` a `99901666.png`.
+                  - Pacotes de Croma HEARTSTEEL (`79900921` a `79900925`): `79900921.jpg` a `79900925.jpg`.
+                  - Pacotes Hextec: `69900003`, `69900002`, `69900001` e ícones oficiais de Baús e Chaves.
+                - **Limpeza de Resíduos e Aplicação de Emojis em Todo o Bot:**
+                  - `obterDetalhesItem` em `index.js`:
+                    - Passes vinculados ao emoji verificado `<:lol_pass_s3:1560503114253996042>`.
+                    - Orbes (Padrão, Deluxe, Premium, Mega) vinculados ao emoji verificado `<:lol_orb_s3:1555074434048725083>`.
+                    - Baú de Skin Misteriosa / Presentes Misteriosos vinculados a `<:mystery_skin:1560503288762339350>`.
+                    - Conjuntos de Moldura e Destaques vinculados a `<:exclusive_pack:1560503285977190460>`.
+                    - Itens Hextec (Baú, Chave, Baú+Chave) vinculados a `<:hextech:1555074299000524932>`, `<:key1:1555074307275759667>`, `<:chestkey:1555074316591439935>`.
+                  - `atualizarEmbedTicket`: Prioridade absoluta para `iconUrl` oficial do catálogo Cloudfront, com fallbacks estritos mapeando todos os IDs do Mundial 2026, HEARTSTEEL e Hextec diretamente para artes em alta definição.
+                  - Menus e Embeds: `config/embeds.json` atualizado com as descrições oficiais do Mundial 2026 e HEARTSTEEL.
+                  - Sincronização MongoDB Atlas & Espelhos: Executados `push_configs_to_mongo.js` e `sync_all_catalog.py` com sucesso.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service

@@ -896,42 +896,49 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Eternals Series', (customEmojis?.skins?.eternos || '🏆').trim());
     }
     else if (tipoFiltro === 'passes' || tipoFiltro === 'orbes' || tipoFiltro === 'hextech') {
-        let lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
+        let lootIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
         let prefix = tipoFiltro === 'passes' ? 'Pass' : (tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule');
         const nameLower = nome.toLowerCase();
 
-        if (nameLower.includes('pass') || nameLower.includes('passe') || nameLower.includes('risen legend') || nameLower.includes('lenda ascendida') || nameLower.includes('immortalized') || nameLower.includes('imortalizada')) {
+        if (nameLower.includes('pass') || nameLower.includes('passe')) {
             prefix = 'Pass';
-            if (nameLower.includes('hall of legends') || nameLower.includes('hol') || nameLower.includes('risen') || nameLower.includes('immortalized') || nameLower.includes('lenda')) {
-                lootIcon = (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '🎫').trim();
-            } else {
-                lootIcon = (customEmojis?.loot?.pass || '🎫').trim();
-            }
+            lootIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
         } else {
             prefix = tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule';
-            if (nameLower.includes('hall of legends') || nameLower.includes('hol')) {
-                if (nameLower.includes('mega')) lootIcon = (customEmojis?.loot?.megaorb_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nameLower.includes('deluxe')) lootIcon = (customEmojis?.loot?.deluxe_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nameLower.includes('premium')) lootIcon = (customEmojis?.loot?.premium_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else lootIcon = (customEmojis?.loot?.orb_hol || '🔮').trim();
+            if (nameLower.includes('mega') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
+                lootIcon = (customEmojis?.loot?.megaorb || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            } else if (nameLower.includes('deluxe') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
+                lootIcon = (customEmojis?.loot?.deluxe || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            } else if (nameLower.includes('premium') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
+                lootIcon = (customEmojis?.loot?.premium || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            } else if (nameLower.includes('orb') || nameLower.includes('orbe')) {
+                lootIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            } else if (nameLower.includes('capsule') || nameLower.includes('cápsula')) {
+                lootIcon = (customEmojis?.loot?.capsule || '💊').trim();
+            } else if (nameLower.includes('masterwork') && (nameLower.includes('chest') || nameLower.includes('baú'))) {
+                lootIcon = (customEmojis?.loot?.masterwork_chest || '<:masterwork:1555074325361590352>').trim();
+            } else if ((nameLower.includes('chest') || nameLower.includes('baú')) && (nameLower.includes('key') || nameLower.includes('chave'))) {
+                lootIcon = (customEmojis?.loot?.chestkey || '<:chestkey:1555074316591439935>').trim();
+            } else if (nameLower.includes('key') || nameLower.includes('chave')) {
+                lootIcon = (customEmojis?.loot?.key || '<:key1:1555074307275759667>').trim();
+            } else if (nameLower.includes('chest') || nameLower.includes('baú')) {
+                if (nameLower.includes('ápice') || nameLower.includes('peak') || nameLower.includes('mystery')) {
+                    lootIcon = (customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+                    prefix = 'Mystery Chest';
+                } else {
+                    lootIcon = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
+                }
+            } else if (nameLower.includes('pack') || nameLower.includes('pacote') || nameLower.includes('bundle') || nameLower.includes('conjunto')) {
+                lootIcon = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim();
+            } else {
+                lootIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
             }
-            else if (nameLower.includes('mega') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.megaorb || '🔮').trim();
-            else if (nameLower.includes('deluxe') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.deluxe || '🔮').trim();
-            else if (nameLower.includes('premium') && nameLower.includes('orb')) lootIcon = (customEmojis?.loot?.premium || '🔮').trim();
-            else if (nameLower.includes('orb') || nameLower.includes('orbe')) lootIcon = (customEmojis?.loot?.orb || '🔮').trim();
-            else if (nameLower.includes('capsule') || nameLower.includes('cápsula')) lootIcon = (customEmojis?.loot?.capsule || '💊').trim();
-            else if (nameLower.includes('masterwork') && nameLower.includes('chest')) lootIcon = (customEmojis?.loot?.masterwork_chest || '🎁').trim();
-            else if (nameLower.includes('chest') && nameLower.includes('key')) lootIcon = (customEmojis?.loot?.chestkey || '📦').trim();
-            else if (nameLower.includes('chest') || nameLower.includes('baú')) lootIcon = (customEmojis?.loot?.chest || '🔑').trim();
-            else if (nameLower.includes('key') || nameLower.includes('chave')) lootIcon = (customEmojis?.loot?.key || '🔑').trim();
-            else if (nameLower.includes('pack') || nameLower.includes('pacote')) lootIcon = (customEmojis?.loot?.pack || '📦').trim();
-            else lootIcon = (customEmojis?.loot?.orb || '🔮').trim();
         }
         return formatarStr(prefix, lootIcon);
     }
     else if (tipoFiltro === 'highlights') {
         const isSkin = (rawItem && (rawItem.inventoryType === 'CHAMPION_SKIN' || rawItem.inventoryType === 'SKIN')) ||
-            (!nome.toLowerCase().includes('bundle') && !nome.toLowerCase().includes('set') && !nome.toLowerCase().includes('pack'));
+            (!nome.toLowerCase().includes('bundle') && !nome.toLowerCase().includes('set') && !nome.toLowerCase().includes('pack') && !nome.toLowerCase().includes('pass') && !nome.toLowerCase().includes('passe') && !nome.toLowerCase().includes('orb') && !nome.toLowerCase().includes('orbe') && !nome.toLowerCase().includes('chest') && !nome.toLowerCase().includes('baú'));
 
         if (isSkin) {
             const nomeLower = nome.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
@@ -956,24 +963,40 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
             }
         }
 
-        let bundleIcon = (customEmojis?.bundles?.bundle || customEmojis?.menu_principal?.highlights_bundles || '🌟').trim();
+        const nameLower = nome.toLowerCase();
+        let bundleIcon = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim();
         let prefix = 'Highlight';
-        if (nome.toLowerCase().includes('hall of legends') || nome.toLowerCase().includes('lenda ascendida') || nome.toLowerCase().includes('lenda imortalizada') || nome.toLowerCase().includes('risen legend') || nome.toLowerCase().includes('immortalized legend') || nome.toLowerCase().includes('hol')) {
-            prefix = 'Hall of Legends';
-            if (nome.toLowerCase().includes('pass') || nome.toLowerCase().includes('passe')) {
-                bundleIcon = (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '🎫').trim();
-            } else if (nome.toLowerCase().includes('orb') || nome.toLowerCase().includes('orbe')) {
-                if (nome.toLowerCase().includes('mega')) bundleIcon = (customEmojis?.loot?.megaorb_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nome.toLowerCase().includes('deluxe')) bundleIcon = (customEmojis?.loot?.deluxe_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nome.toLowerCase().includes('premium')) bundleIcon = (customEmojis?.loot?.premium_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else bundleIcon = (customEmojis?.loot?.orb_hol || '🔮').trim();
+
+        if (nameLower.includes('pass') || nameLower.includes('passe')) {
+            prefix = 'Season Pass';
+            bundleIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
+        } else if (nameLower.includes('orb') || nameLower.includes('orbe')) {
+            prefix = 'Event Orb';
+            bundleIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+        } else if (nameLower.includes('chest') || nameLower.includes('baú')) {
+            if (nameLower.includes('ápice') || nameLower.includes('peak') || nameLower.includes('mystery')) {
+                prefix = 'Mystery Chest';
+                bundleIcon = (customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+            } else if (nameLower.includes('key') || nameLower.includes('chave')) {
+                prefix = 'Hextech Bundle';
+                bundleIcon = (customEmojis?.loot?.chestkey || '<:chestkey:1555074316591439935>').trim();
             } else {
-                bundleIcon = (customEmojis?.skins?.transcendent || '🏆').trim();
+                prefix = 'Hextech Chest';
+                bundleIcon = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
             }
+        } else if (nameLower.includes('border set') || nameLower.includes('conjunto moldura') || nameLower.includes('heartsteel')) {
+            prefix = 'Border Set';
+            bundleIcon = (customEmojis?.bundles?.exclusive_pack || '<:exclusive_pack:1560503285977190460>').trim();
+        } else if (nameLower.includes('chroma pack') || nameLower.includes('chroma bundle') || nameLower.includes('pacote croma')) {
+            prefix = 'Chroma Bundle';
+            bundleIcon = (customEmojis?.bundles?.chroma || '<:15croma:1555074272614154270>').trim();
+        } else if (nameLower.includes('signature edition')) {
+            prefix = 'Signature Edition';
+            bundleIcon = (customEmojis?.bundles?.signature || (customEmojis?.skins?.transcendent || '🌟')).trim();
+        } else if (nameLower.includes('set') || nameLower.includes('conjunto')) {
+            prefix = 'Set';
+            bundleIcon = (customEmojis?.bundles?.exclusive_pack || (customEmojis?.bundles?.set || '<:exclusive_pack:1560503285977190460>')).trim();
         }
-        else if (nome.toLowerCase().includes('signature edition')) { prefix = 'Signature Edition'; bundleIcon = (customEmojis?.skins?.transcendent || '🌟').trim(); }
-        else if (nome.toLowerCase().includes('chroma pack') || nome.toLowerCase().includes('chroma bundle')) { prefix = 'Chroma Bundle'; bundleIcon = (customEmojis?.bundles?.chroma || '🎨').trim(); }
-        else if (nome.toLowerCase().includes('set')) { prefix = 'Set'; bundleIcon = (customEmojis?.bundles?.set || '✨').trim(); }
         return formatarStr(prefix, bundleIcon);
     }
     else if (tipoFiltro === 'sales') {
@@ -1008,23 +1031,19 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
             const disc = rawItem?.discount_percent ? `-${rawItem.discount_percent}%` : '';
             return formatarStr(disc ? `Champion (${disc})` : 'Champion', (customEmojis?.skins?.champion || '⚔️').trim());
         } else if (invType === 'PASSES' || nome.toLowerCase().includes('pass') || nome.toLowerCase().includes('passe')) {
-            if (nome.toLowerCase().includes('hall of legends') || nome.toLowerCase().includes('hol')) {
-                return formatarStr('Pass', (customEmojis?.loot?.pass_hol || customEmojis?.loot?.pass || '🎫').trim());
-            }
-            return formatarStr('Pass', (customEmojis?.loot?.pass || '🎫').trim());
+            return formatarStr('Pass', (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim());
         } else if (invType === 'ORBES' || nome.toLowerCase().includes('orb') || nome.toLowerCase().includes('orbe')) {
-            if (nome.toLowerCase().includes('hall of legends') || nome.toLowerCase().includes('hol')) {
-                let icon = (customEmojis?.loot?.orb_hol || '🔮').trim();
-                if (nome.toLowerCase().includes('mega')) icon = (customEmojis?.loot?.megaorb_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nome.toLowerCase().includes('deluxe')) icon = (customEmojis?.loot?.deluxe_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                else if (nome.toLowerCase().includes('premium')) icon = (customEmojis?.loot?.premium_hol || customEmojis?.loot?.orb_hol || '🔮').trim();
-                return formatarStr('Orb', icon);
-            }
-            return formatarStr('Orb', (customEmojis?.loot?.orb || '🔮').trim());
-        } else if (invType === 'HEXTECH' || nome.toLowerCase().includes('hextech')) {
+            let icon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            if (nome.toLowerCase().includes('mega')) icon = (customEmojis?.loot?.megaorb || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            else if (nome.toLowerCase().includes('deluxe')) icon = (customEmojis?.loot?.deluxe || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            else if (nome.toLowerCase().includes('premium')) icon = (customEmojis?.loot?.premium || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            return formatarStr('Orb', icon);
+        } else if (invType === 'HEXTECH' || nome.toLowerCase().includes('hextech') || nome.toLowerCase().includes('chest') || nome.toLowerCase().includes('baú')) {
             let icon = (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim();
-            if (nome.toLowerCase().includes('key') && !nome.toLowerCase().includes('chest')) icon = (customEmojis?.loot?.key || '🔑').trim();
-            else if (nome.toLowerCase().includes('bundle') || nome.toLowerCase().includes('set')) icon = (customEmojis?.bundles?.set || '<:lol_bundle_set:1544591078622236763>').trim();
+            if (nome.toLowerCase().includes('ápice') || nome.toLowerCase().includes('peak') || nome.toLowerCase().includes('mystery')) icon = (customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+            else if (nome.toLowerCase().includes('key') && !nome.toLowerCase().includes('chest') && !nome.toLowerCase().includes('baú')) icon = (customEmojis?.loot?.key || '<:key1:1555074307275759667>').trim();
+            else if ((nome.toLowerCase().includes('chest') || nome.toLowerCase().includes('baú')) && (nome.toLowerCase().includes('key') || nome.toLowerCase().includes('chave'))) icon = (customEmojis?.loot?.chestkey || '<:chestkey:1555074316591439935>').trim();
+            else if (nome.toLowerCase().includes('bundle') || nome.toLowerCase().includes('set')) icon = (customEmojis?.bundles?.exclusive_pack || '<:exclusive_pack:1560503285977190460>').trim();
             return formatarStr('Hextech Loot', icon);
         }
         return formatarStr('Most Popular', (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim());
@@ -1063,7 +1082,20 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Boost', (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '⚡').trim());
     }
     else if (tipoFiltro === 'misterio') {
-        return formatarStr('Mystery Gift', (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '🎁').trim());
+        const nameLower = nome.toLowerCase();
+        let emj = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+        let prefix = 'Mystery Gift';
+        if (nameLower.includes('champion') || nameLower.includes('campeão')) {
+            prefix = 'Mystery Champion';
+            emj = (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim();
+        } else if (nameLower.includes('chest') || nameLower.includes('baú')) {
+            prefix = 'Mystery Chest';
+            emj = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+        } else {
+            prefix = 'Mystery Skin';
+            emj = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
+        }
+        return formatarStr(prefix, emj);
     }
 
 
@@ -1736,60 +1768,62 @@ async function atualizarEmbedTicket(channel, client) {
             
             const nomeLower = (item.nome || '').toLowerCase();
             
+            const itemIdNum = parseInt(item.itemId || catItemEncontrado?.id, 10);
+            
             // Prioridade 1: Se o item não for campeão/skin e tiver iconUrl oficial válido no catálogo, usar diretamente!
             if (catItemEncontrado?.iconUrl && catItemEncontrado.iconUrl.startsWith('http') && item.tipo !== 'skins' && item.tipo !== 'cromas' && item.tipo !== 'champions') {
                 ddragonUrl = catItemEncontrado.iconUrl;
             }
-            // 1. Orbes e Passes Hall of Legends
-            else if (nomeLower.includes('hall of legends') || nomeLower.includes('hol')) {
-                if (nomeLower.includes('pass') || nomeLower.includes('passe')) {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png';
-                } else if (nomeLower.includes('mega')) {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png';
-                } else if (nomeLower.includes('premium')) {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png';
-                } else if (nomeLower.includes('deluxe')) {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png';
-                } else {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png';
-                }
+            // 2. Passes de Temporada (Worlds 2026 Season 3)
+            else if (nomeLower.includes('premium pass') || nomeLower.includes('passe premium') || itemIdNum === 69901082 || (nomeLower.includes('pass') && nomeLower.includes('3650'))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901082.png';
+            } else if (nomeLower.includes('pass bundle') || nomeLower.includes('pacote passe') || itemIdNum === 69901081 || (nomeLower.includes('pass') && nomeLower.includes('2650'))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901081.png';
+            } else if (nomeLower.includes('pass') || nomeLower.includes('passe') || itemIdNum === 69901080) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901080.png';
             }
-            // 2. Orbes Oficiais e Mega Orbe
-            else if (nomeLower.includes('mega orb') || nomeLower.includes('mega orbe') || (nomeLower.includes('mega') && nomeLower.includes('12500'))) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901070.png';
-            } else if (nomeLower.includes('premium orb') || nomeLower.includes('orbe premium') || (nomeLower.includes('premium') && nomeLower.includes('6250'))) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901069.png';
-            } else if (nomeLower.includes('deluxe orb') || nomeLower.includes('orbe deluxe') || (nomeLower.includes('deluxe') && nomeLower.includes('2500'))) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901068.png';
-            } else if (nomeLower.includes('summoner\'s orb') || (item.tipo === 'orbes' && nomeLower.includes('orb'))) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901067.png';
+            // 3. Orbes do Mundial 2026 (Worlds 2026 Orbs)
+            else if (nomeLower.includes('mega orb') || nomeLower.includes('mega orbe') || itemIdNum === 69901086 || nomeLower.includes('12500')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901086.png';
+            } else if (nomeLower.includes('premium orb') || nomeLower.includes('orbe premium') || itemIdNum === 69901085 || (nomeLower.includes('premium') && nomeLower.includes('6250'))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901085.png';
+            } else if (nomeLower.includes('deluxe orb') || nomeLower.includes('orbe deluxe') || itemIdNum === 69901084 || (nomeLower.includes('deluxe') && nomeLower.includes('2500'))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901084.png';
+            } else if (nomeLower.includes('worlds 2026 orb') || nomeLower.includes('orbe do mundial') || itemIdNum === 69901083 || (item.tipo === 'orbes' && (nomeLower.includes('orb') || nomeLower.includes('orbe')))) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901083.png';
             }
-            // 3. Passes de Temporada
-            else if (nomeLower.includes('premium pass') || nomeLower.includes('passe premium') || nomeLower.includes('3650')) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901073.png';
-            } else if (nomeLower.includes('pass bundle') || nomeLower.includes('pacote passe') || nomeLower.includes('2650')) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901072.png';
-            } else if (nomeLower.includes('pass') || nomeLower.includes('passe')) {
-                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901071.png';
+            // 4. Baú de Skin Misteriosa de Ápice do Entretenimento (Peak Entertainment Mystery Skin Chest)
+            else if (itemIdNum === 69901087 || nomeLower.includes('ápice') || nomeLower.includes('apice') || nomeLower.includes('peak entertainment')) {
+                ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png';
             }
-            // 3. Hextec, Baús e Chaves
+            // 5. HEARTSTEEL Live My Life Sets & Chroma Bundles
+            else if (itemIdNum >= 99901662 && itemIdNum <= 99901666) {
+                ddragonUrl = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemIdNum}.png`;
+            } else if (itemIdNum >= 79900921 && itemIdNum <= 79900925) {
+                ddragonUrl = `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/${itemIdNum}.jpg`;
+            }
+            // 6. Hextec, Baús e Chaves
             else if (nomeLower.includes('chest') || nomeLower.includes('baú') || nomeLower.includes('hextech') || nomeLower.includes('key') || nomeLower.includes('chave')) {
                 if (nomeLower.includes('key') && !nomeLower.includes('chest') && !nomeLower.includes('baú')) {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechKey_190x190%20%281%29.png';
-                } else if (nomeLower.includes('bundle') || nomeLower.includes('set') || nomeLower.includes('conjunto') || nomeLower.includes('195') || nomeLower.includes('975') || nomeLower.includes('1950')) {
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/hexkitkat_key_490px.png';
+                } else if (nomeLower.includes('10') && (nomeLower.includes('bundle') || nomeLower.includes('set') || nomeLower.includes('conjunto') || itemIdNum === 69900003)) {
+                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle10_BonusChest_190x190.png';
+                } else if (nomeLower.includes('5') && (nomeLower.includes('bundle') || nomeLower.includes('set') || nomeLower.includes('conjunto') || itemIdNum === 69900002)) {
+                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestBundle5_190x190.png';
+                } else if (nomeLower.includes('bundle') || nomeLower.includes('set') || nomeLower.includes('conjunto') || itemIdNum === 69900001) {
                     ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChestSet_190x190.png';
                 } else {
-                    ddragonUrl = 'https://d392eissrffsyf.cloudfront.net/en/live-banners/2017-06-01_VSAssets/HextechChest_190x190.png';
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';
                 }
             }
-            // 4. Presentes Mistério
+            // 7. Presentes Mistério Tradicionais
             else if (nomeLower.includes('mystery') || nomeLower.includes('mistério') || nomeLower.includes('misterio')) {
                 if (nomeLower.includes('champion') || nomeLower.includes('campeão')) {
-                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/2.png';
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/championpermanent_490x490.png';
                 } else if (nomeLower.includes('chest') || nomeLower.includes('baú')) {
-                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/4.png';
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/chest_generic.png';
                 } else {
-                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/hextech-items/1.png';
+                    ddragonUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/season3_2026_act1_mysteryskin.png';
                 }
             }
             // 5. Skins & Cromas
@@ -2436,8 +2470,8 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_skins') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Skins option').addOptions([
-                { label: 'Skins', description: 'Browse all giftable skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '👕').trim() },
-                { label: 'Chromas', description: 'Browse all champion chromas (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '🎨').trim() }
+                { label: 'Skins', description: 'Browse all giftable skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim() },
+                { label: 'Chromas', description: 'Browse all champion chromas (290 RP)', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2448,7 +2482,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Loot option').addOptions([
                 { label: 'Orbs & Capsules', description: "Worlds 2026 & Summoner's Orbs (250 - 12,500 RP)", value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim() },
                 { label: 'Season Event Passes', description: 'Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim() },
-                { label: 'Hextech Chests & Keys', description: 'Hextech Chest (125 RP), Keys, 1x, 5x & 10x Bundles', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '🔑').trim() },
+                { label: 'Hextech Chests & Keys', description: 'Hextech Chest (125 RP), Keys, 1x, 5x & 10x Bundles', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim() },
                 { label: 'Mystery Gifts', description: 'Mystery Skin (490 RP), Mystery Champion & Mystery Chest', value: 'compra_misterio', emoji: eMystery }
             ])
         );
@@ -2458,8 +2492,8 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
     if (categoria === 'cat_champions') {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Champions option').addOptions([
-                { label: 'Champions', description: 'Search among all 173 League of Legends Champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '⚔️').trim() },
-                { label: 'Eternals', description: 'Search Series I & II Statstones (600 RP)', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '🏆').trim() }
+                { label: 'Champions', description: 'Search among all 173 League of Legends Champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim() },
+                { label: 'Eternals', description: 'Search Series I & II Statstones (600 RP)', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '<:1eternos:1544481988147290152>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2824,13 +2858,19 @@ client.on('interactionCreate', async interaction => {
                         global.ticketCarts.set(interaction.channel.id, cart);
                     }
 
+                    const catItemEncontrado = findCatalogItem(itemId, nomeReal);
+                    const raw = catItemEncontrado ? catItemEncontrado.rawItem : null;
+                    const details = obterDetalhesItem(nomeReal, 'highlights', obterDadosLoja(), '0.00', raw, 'en');
+                    const variacao = details.desc ? details.desc.split('|')[0].trim() : 'Highlight';
+                    const eVariacao = details.emoji || (customEmojis?.bundles?.exclusive_pack || '<:exclusive_pack:1560503285977190460>').trim();
+
                     cart.items.push({
                         nome: nomeReal,
                         itemId: itemId,
                         rp: calcRp,
                         tipo: 'highlights',
-                        variacao: 'Hall of Legends',
-                        eVariacao: (customEmojis?.skins?.transcendent || '🏆').trim()
+                        variacao: variacao,
+                        eVariacao: eVariacao
                     });
 
                     await interaction.reply({ content: `✅ **${nomeReal}** has been added to your cart successfully!`, ephemeral: true }).catch(() => {});

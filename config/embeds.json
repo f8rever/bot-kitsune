@@ -71,7 +71,7 @@
   },
   "category_loot": {
     "title": "📦 Kitsune Store | Loot, Passes & Chests",
-    "description": "<a:whitearrow:1555074441933758624> **Select a Loot category below:**\n\n> <:lol_orb_hol:1549297901841424524> **Orbs & Capsules:** Hall of Legends (250 RP) & Summoner's Orbs (Deluxe, Premium & Mega)\n> <:lol_pass_hol:1549297894220369991> **Season Event Passes:** Hall of Legends Pass (1950 RP) & Season 3 Passes (1650 - 3650 RP)\n> 🔑 **Hextech Chests & Keys:** Hextech Chest (125 RP), Key (125 RP), 1x (195 RP), 5x (975 RP), 10x (1950 RP) Bundles\n> <:lol_mystery_skin:1544591070204010598> **Mystery Gifts:** Mystery Skin (490 RP), Mystery Champion (490 RP), Mystery Chest (790 RP)",
+    "description": "<a:whitearrow:1555074441933758624> **Select a Loot category below:**\n\n> <:lol_orb_s3:1555074434048725083> **Orbs & Capsules:** Worlds 2026 Orbs (250 RP) & Bundles (Deluxe, Premium & Mega)\n> <:lol_pass_s3:1560503114253996042> **Season Event Passes:** Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)\n> <:hextech:1555074299000524932> **Hextech Chests & Keys:** Hextech Chest (125 RP), Key (125 RP), 1x (195 RP), 5x (975 RP), 10x (1950 RP) Bundles\n> <:mystery_skin:1560503288762339350> **Mystery Gifts:** Peak Entertainment Mystery Chest (850 RP), Mystery Skin (490 RP), Mystery Champion (490 RP), Mystery Chest (790 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg"
@@ -84,15 +84,15 @@
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
   },
   "category_accessories": {
-    "title": "<:lol_poro_emote:1544493296879935489> Kitsune Store | Summoner Accessories",
-    "description": "<a:whitearrow:1555074441933758624> **Select the Accessories category below:**\n\n> <:lol_poro_emote:1544493296879935489> **Emotes:** All official giftable emotes (350 RP)\n> <:lol_star_ward:1544493299270680717> **Ward Skins:** Cosmetic ward skins (640 RP)\n> <:22icone:1544482040206983241> **Summoner Icons:** Official summoner icons (250 RP)",
+    "title": "<:poro_emote:1560503291568201729> Kitsune Store | Summoner Accessories",
+    "description": "<a:whitearrow:1555074441933758624> **Select the Accessories category below:**\n\n> <:poro_emote:1560503291568201729> **Emotes:** All official giftable emotes (350 RP)\n> <:lol_star_ward:1544493299270680717> **Ward Skins:** Cosmetic ward skins (640 RP)\n> <:22icone:1544482040206983241> **Summoner Icons:** Official summoner icons (250 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_7.jpg"
   },
   "category_highlights": {
-    "title": "<:lol_exclusive_pack:1544591088084590636> Kitsune Store | Featured",
-    "description": "<a:whitearrow:1555074441933758624> **Featured Store Offers & Launch Content:**\n\n> <:lol_exclusive_pack:1544591088084590636> **Featured & Launch Bundles:** Hall of Legends 2026 Collections, Border Sets & Launch Bundles\n> <:lol_sale:1547388458488823868> **Weekly Sales (On Sale):** Official weekly discounted skins directly from the client store (-27% to -60% off)\n> <a:pr_fire01:1555074334391799834> **Most Popular:** Best-selling Hextech chests, weekly skins & champions on sale",
+    "title": "<:exclusive_pack:1560503285977190460> Kitsune Store | Featured",
+    "description": "<a:whitearrow:1555074441933758624> **Featured Store Offers & Launch Content:**\n\n> <:exclusive_pack:1560503285977190460> **Featured & Launch Bundles:** Worlds 2026 Season 3 Passes, HEARTSTEEL Live My Life Border Sets & Chroma Bundles\n> <:lol_sale:1547388458488823868> **Weekly Sales (On Sale):** Official weekly discounted skins directly from the client store (-27% to -60% off)\n> <a:pr_fire01:1555074334391799834> **Most Popular:** Best-selling Worlds 2026 passes, orbs & skins on sale",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kaisa_14.jpg"
@@ -802,7 +802,7 @@
     "footerText": "© Kitsune - Copyright 2026",
     "fields": [
       {
-        "name": "<:lol_pass_hol:1549297894220369991> Hall of Legends 2026 Pass — 1,950 RP",
+        "name": "<:lol_pass_s3:1560503114253996042> Hall of Legends 2026 Pass — 1,950 RP",
         "value": "• Instant unlock: **Risen Legend Skin**\n• 100-level event reward track\n• 125 Mythic Essence, 11 Event Orbs, exclusive icons, emotes & chromas",
         "inline": false
       },
