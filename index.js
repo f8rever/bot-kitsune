@@ -1157,6 +1157,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         let results = [];
         let titulo = '';
         let customId = '';
+        let featList = [];
 
         if (tipoFiltro === 'skins') {
             results = currentCatalog.filter(x => {
@@ -1176,7 +1177,6 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             customId = 'selecionar_chroma_menu';
         } else if (tipoFiltro === 'highlights') {
             const featBundlesPath = path.join(__dirname, 'config', 'featured_bundles.json');
-            let featList = [];
             try {
                 featList = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
             } catch (e) {}

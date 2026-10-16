@@ -872,6 +872,7 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                     - Itens Hextec (Baú, Chave, Baú+Chave) vinculados a `<:hextech:1555074299000524932>`, `<:key1:1555074307275759667>`, `<:chestkey:1555074316591439935>`.
                   - `atualizarEmbedTicket`: Prioridade absoluta para `iconUrl` oficial do catálogo Cloudfront, com fallbacks estritos mapeando todos os IDs do Mundial 2026, HEARTSTEEL e Hextec diretamente para artes em alta definição.
                   - Menus e Embeds: `config/embeds.json` atualizado com as descrições oficiais do Mundial 2026 e HEARTSTEEL.
+                  - Correção de Escopo: `featList` movido para escopo de função em `enviarPaginaCatalogo`, corrigindo erro `featList is not defined`.
                   - Sincronização MongoDB Atlas & Espelhos: Executados `push_configs_to_mongo.js` e `sync_all_catalog.py` com sucesso.
 
 ### Servidores do Bot:
