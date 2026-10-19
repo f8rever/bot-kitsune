@@ -897,9 +897,10 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                 - **Resiliência do Servidor Express (`index.js`):**
                   - Configurado bind explícito em `0.0.0.0` na porta definida por `process.env.PORT` para aceitar conexões IPv4/IPv6 em ambientes Linux (Render).
                   - Adicionada rota de healthcheck `/healthz` (200 OK) e blindada a rota `/status` com `try/catch` e verificações seguras contra `ReferenceError` antes do cliente Discord estar completamente autenticado.
-                - **Restauração e Deploy:**
-                  - Bot iniciado com sucesso (`🟢 Kitsune Bot online como kitsune#9755!`), com 21 slash commands globais registrados, MongoDB Atlas conectado e 685 emojis carregados.
-                  - Realizado commit e push para `origin main` (`ba01373`) para manter a integração contínua atualizada.
+                - **Scripts de Inicialização e Resiliência Local:**
+                  - Criado `iniciar_bot.bat` com loop infinito de auto-reinício (reinicia o node em 5 segundos caso caia por qualquer motivo).
+                  - Criado `iniciar_bot_oculto.vbs` para execução 100% invisível em segundo plano sem janela aberta no Windows.
+                  - Realizado commit e push para `origin main` (`3417e7f`) com catálogo de destaques e scripts sincronizados.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
