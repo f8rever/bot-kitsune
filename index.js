@@ -4,14 +4,23 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 app.get('/', (req, res) => res.send('Bot Kitsune está Online e rodando!'));
-app.get('/status', (req, res) => res.json({
-    online: client.isReady(),
-    tag: client.user ? client.user.tag : null,
-    uptime: client.uptime,
-    servers: client.guilds ? client.guilds.cache.map(g => ({ id: g.id, name: g.name })) : []
-}));
+app.get('/healthz', (req, res) => res.status(200).send('OK'));
+app.get('/status', (req, res) => {
+    try {
+        const isReady = typeof client !== 'undefined' && client && typeof client.isReady === 'function' && client.isReady();
+        res.json({
+            status: 'online',
+            discord_ready: isReady,
+            tag: (isReady && client.user) ? client.user.tag : null,
+            uptime: (isReady && client.uptime) ? client.uptime : 0,
+            servers: (isReady && client.guilds?.cache) ? client.guilds.cache.map(g => ({ id: g.id, name: g.name })) : []
+        });
+    } catch (e) {
+        res.json({ status: 'starting', error: e.message });
+    }
+});
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🌐 Servidor Web iniciado na porta ${PORT} para UptimeRobot.`));
+app.listen(PORT, '0.0.0.0', () => console.log(`🌐 Servidor Web iniciado na porta ${PORT} para UptimeRobot.`));
 
 process.on('unhandledRejection', (reason) => {
     if (reason?.code === 'UND_ERR_CONNECT_TIMEOUT' || reason?.code === 10062 || reason?.code === 40060) return;
