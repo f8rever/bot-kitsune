@@ -901,6 +901,14 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Criado `iniciar_bot.bat` com loop infinito de auto-reinício (reinicia o node em 5 segundos caso caia por qualquer motivo).
                   - Criado `iniciar_bot_oculto.vbs` para execução 100% invisível em segundo plano sem janela aberta no Windows.
                   - Realizado commit e push para `origin main` (`3417e7f`) com catálogo de destaques e scripts sincronizados.
+            48. **Otimização de Interação da Loja & Resposta Imediata (2026-10-19):**
+                - **Simplificação de Descrições do Catálogo (`buildStoreMainMenu` & `exibirMenuCategoriaLoja`):**
+                  - Descrições do select menu principal limpas e diretas: `Featured & Offers` (`Bundles, passes and weekly sales`), `Champion Skins & Chromas` (`Skins and chromas`), `Loot, Passes & Chests` (`Passes, orbs and chests`), `Champions & Eternals` (`Champions and Eternals`), `Summoner Accessories` (`Emotes, ward skins and icons`).
+                  - Eliminados valores em RP redundantes e textos poluídos dos submenus.
+                - **Blindagem do Botão "Buy here" (`abrir_loja`):**
+                  - Substituído o delay artificial de 2500ms (`setTimeout(2500)`) por `interaction.deferReply({ ephemeral: true })` imediato (<30ms).
+                  - Eliminado o risco de timeout de 3 segundos do Discord (`kitsune não respondeu a tempo`), garantindo resposta instantânea e proteção com `try/catch`.
+                  - Executado via `iniciar_bot.bat` para garantir que o processo se mantenha online e resiliente.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
