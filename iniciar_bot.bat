@@ -5,6 +5,7 @@ echo ==============================================
 echo       KITSUNE V2 BOT - INICIALIZANDO...
 echo ==============================================
 cd /d "%~dp0"
+set "PATH=%LOCALAPPDATA%\Programs\nodejs;%PATH%"
 
 :loop
 echo [%date% %time%] Iniciando Kitsune Bot...

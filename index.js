@@ -20,7 +20,13 @@ app.get('/status', (req, res) => {
     }
 });
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => console.log(`🌐 Servidor Web iniciado na porta ${PORT} para UptimeRobot.`));
+const server = app.listen(PORT, '0.0.0.0', () => console.log(`🌐 Servidor Web iniciado na porta ${PORT} para UptimeRobot.`));
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.warn(`[Single-Instance Guard] Porta ${PORT} já está em uso por outra instância do bot. Encerrando duplicata para evitar conflitos.`);
+        process.exit(0);
+    }
+});
 
 process.on('unhandledRejection', (reason) => {
     if (reason?.code === 'UND_ERR_CONNECT_TIMEOUT' || reason?.code === 10062 || reason?.code === 40060) return;
@@ -2498,6 +2504,20 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 }
 
 client.on('interactionCreate', async interaction => {
+    // Anti-Timeout Guard: Discord cancels interactions not acknowledged within 3000ms.
+    // If an interaction is approaching the deadline without being acknowledged, auto-acknowledge it to keep it alive.
+    const safetyTimer = setTimeout(async () => {
+        try {
+            if (!interaction.deferred && !interaction.replied) {
+                if (interaction.isButton() || interaction.isStringSelectMenu() || interaction.isChannelSelectMenu() || interaction.isRoleSelectMenu() || interaction.isUserSelectMenu()) {
+                    await interaction.deferUpdate().catch(() => {});
+                } else if (interaction.isChatInputCommand() || interaction.isModalSubmit()) {
+                    await interaction.deferReply({ ephemeral: true }).catch(() => {});
+                }
+            }
+        } catch (e) {}
+    }, 2200);
+
     try {
         if (interaction.isChatInputCommand()) {
             const command = client.commands.get(interaction.commandName);
@@ -4769,6 +4789,8 @@ client.on('interactionCreate', async interaction => {
         }
     } catch (e) {
         console.error('ERRO INTERNO:', e);
+    } finally {
+        clearTimeout(safetyTimer);
     }
 });
 
@@ -4787,10 +4809,10 @@ function abrirModalBusca(interaction, id, titulo, label) {
 
 async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 'skins', pagina = 0, isUpdate = false) {
     const ITEMS_PER_PAGE = 25;
-    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
     if (!isUpdate) {
-        await interaction.reply({ content: `${loadEmj} ${getLoadStr('search')}`, ephemeral: true });
-        await new Promise(resolve => setTimeout(resolve, 2500));
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.deferReply({ ephemeral: true }).catch(() => {});
+        }
     }
 
     const buscaLimpa = busca.trim().toLowerCase();
