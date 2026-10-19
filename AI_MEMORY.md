@@ -891,6 +891,15 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Atualizados todos os 20 itens de `config/weekly_sales.json` com URLs diretas do Data Dragon oficial (splashes e ícones), corrigindo links quebrados.
                 - **Sincronização & Persistência:**
                   - Sincronizados `config/weekly_sales.json` e `config/featured_bundles.json` com `python_backend/` e com a coleção `bot_configurations` no MongoDB Atlas via `scripts/push_configs_to_mongo.js`.
+            47. **Diagnóstico e Restauração de Disponibilidade do Bot (2026-10-19):**
+                - **Causa Raiz Identificada:**
+                  - O processo do bot não estava ativo devido ao desligamento da máquina após a queda de energia relatada pelo usuário, combinado com a suspensão/inatividade do serviço no Render.
+                - **Resiliência do Servidor Express (`index.js`):**
+                  - Configurado bind explícito em `0.0.0.0` na porta definida por `process.env.PORT` para aceitar conexões IPv4/IPv6 em ambientes Linux (Render).
+                  - Adicionada rota de healthcheck `/healthz` (200 OK) e blindada a rota `/status` com `try/catch` e verificações seguras contra `ReferenceError` antes do cliente Discord estar completamente autenticado.
+                - **Restauração e Deploy:**
+                  - Bot iniciado com sucesso (`🟢 Kitsune Bot online como kitsune#9755!`), com 21 slash commands globais registrados, MongoDB Atlas conectado e 685 emojis carregados.
+                  - Realizado commit e push para `origin main` (`ba01373`) para manter a integração contínua atualizada.
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
