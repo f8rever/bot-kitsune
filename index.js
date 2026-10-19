@@ -3917,61 +3917,64 @@ client.on('interactionCreate', async interaction => {
                 return interaction.reply({ content: '🛠️ **Em breve!** Este sistema está em desenvolvimento.', ephemeral: true }).catch(() => { });
             }
             if (interaction.customId === 'abrir_loja') {
-                const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                await interaction.reply({ content: `${loadEmj} ${getLoadStr('auth')}`, ephemeral: true });
-
-                await new Promise(resolve => setTimeout(resolve, 2500));
-
-                if (!userStoreSessions.has(interaction.user.id)) {
-                    userStoreSessions.set(interaction.user.id, { regiao: 'NA', riotId: 'Unknown' });
-                }
-
-                const embed = buildCustomEmbed('store_authentication', interaction.client, interaction);
-
-                const regionNames = {
-                    'br': 'Brazil', 'na': 'North America', 'euw': 'Europe West', 'eune': 'Europe Nordic & East',
-                    'lan': 'Latin America North', 'las': 'Latin America South', 'oce': 'Oceania', 'tr': 'Turkey',
-                    'ru': 'Russia', 'jp': 'Japan', 'kr': 'South Korea', 'ph': 'Philippines', 'sg': 'Singapore, Malaysia, & Indonesia',
-                    'tw': 'Taiwan, Hong Kong, & Macao', 'th': 'Thailand', 'vn': 'Vietnam'
-                };
-
-                const objRegioes = customEmojis?.lol_regions || {};
-                const opcoesRegiao = Object.keys(objRegioes).map(k => {
-                    const emjStr = (objRegioes[k] || '').trim();
-                    const desc = regionNames[k.toLowerCase()] || `Region: ${k.toUpperCase()}`;
-                    let emojiObj = null;
-                    const match = emjStr.match(/<a?:(\w+):(\d+)>/);
-                    if (match) {
-                        emojiObj = { name: match[1], id: match[2] };
-                    } else if (emjStr) {
-                        emojiObj = emjStr;
-                    }
-                    return {
-                        label: k.toUpperCase(),
-                        description: desc,
-                        value: k.toUpperCase(),
-                        ...(emojiObj ? { emoji: emojiObj } : {})
-                    };
-                });
-
-                if (opcoesRegiao.length === 0) {
-                    opcoesRegiao.push({ label: 'NA', value: 'NA', emoji: '🌍' });
-                }
-
-                const regiaoMenu = new ActionRowBuilder().addComponents(
-                    new StringSelectMenuBuilder()
-                        .setCustomId('menu_regiao')
-                        .setPlaceholder('Select your region')
-                        .addOptions(opcoesRegiao)
-                );
-
                 try {
+                    if (!interaction.deferred && !interaction.replied) {
+                        await interaction.deferReply({ ephemeral: true }).catch(() => {});
+                    }
+
+                    if (!userStoreSessions.has(interaction.user.id)) {
+                        userStoreSessions.set(interaction.user.id, { regiao: 'NA', riotId: 'Unknown' });
+                    }
+
+                    const embed = buildCustomEmbed('store_authentication', interaction.client, interaction);
+
+                    const regionNames = {
+                        'br': 'Brazil', 'na': 'North America', 'euw': 'Europe West', 'eune': 'Europe Nordic & East',
+                        'lan': 'Latin America North', 'las': 'Latin America South', 'oce': 'Oceania', 'tr': 'Turkey',
+                        'ru': 'Russia', 'jp': 'Japan', 'kr': 'South Korea', 'ph': 'Philippines', 'sg': 'Singapore, Malaysia, & Indonesia',
+                        'tw': 'Taiwan, Hong Kong, & Macao', 'th': 'Thailand', 'vn': 'Vietnam'
+                    };
+
+                    const objRegioes = customEmojis?.lol_regions || {};
+                    const opcoesRegiao = Object.keys(objRegioes).map(k => {
+                        const emjStr = (objRegioes[k] || '').trim();
+                        const desc = regionNames[k.toLowerCase()] || `Region: ${k.toUpperCase()}`;
+                        let emojiObj = null;
+                        const match = emjStr.match(/<a?:(\w+):(\d+)>/);
+                        if (match) {
+                            emojiObj = { name: match[1], id: match[2] };
+                        } else if (emjStr) {
+                            emojiObj = emjStr;
+                        }
+                        return {
+                            label: k.toUpperCase(),
+                            description: desc,
+                            value: k.toUpperCase(),
+                            ...(emojiObj ? { emoji: emojiObj } : {})
+                        };
+                    });
+
+                    if (opcoesRegiao.length === 0) {
+                        opcoesRegiao.push({ label: 'NA', value: 'NA', emoji: '🌍' });
+                    }
+
+                    const regiaoMenu = new ActionRowBuilder().addComponents(
+                        new StringSelectMenuBuilder()
+                            .setCustomId('menu_regiao')
+                            .setPlaceholder('Select your region')
+                            .addOptions(opcoesRegiao)
+                    );
+
                     await interaction.editReply({ content: '', embeds: [embed], components: [regiaoMenu] });
                 } catch (e) {
                     console.error("Erro ao enviar menu de regiões:", e);
-                    if (e.code === 50035) {
-                        await interaction.editReply({ content: '❌ **Error:** One or more emojis set for the **LoL Regions** in the Emoji Manager are invalid or inaccessible to the bot! Please go to `/emojis` -> Utilities -> LoL Regions and fix/remove them.', embeds: [], components: [] });
-                    }
+                    try {
+                        if (e.code === 50035) {
+                            await interaction.editReply({ content: '❌ **Error:** One or more emojis set for the **LoL Regions** in the Emoji Manager are invalid or inaccessible to the bot! Please go to `/emojis` -> Utilities -> LoL Regions and fix/remove them.', embeds: [], components: [] });
+                        } else {
+                            await interaction.editReply({ content: '❌ Erro ao abrir a loja. Tente novamente!', embeds: [], components: [] });
+                        }
+                    } catch (err) {}
                 }
                 return;
             }
