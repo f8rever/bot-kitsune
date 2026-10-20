@@ -44,7 +44,16 @@ const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
 
+const _catalogCacheRAM = {};
+function clearCatalogCacheRAM() {
+    for (const k in _catalogCacheRAM) delete _catalogCacheRAM[k];
+}
+
 function loadFullRiotCatalog(lang = 'en') {
+    const cacheKey = (lang === 'pt' || lang === 'pt_BR') ? 'pt' : 'en';
+    if (_catalogCacheRAM[cacheKey] && _catalogCacheRAM[cacheKey].length > 0) {
+        return _catalogCacheRAM[cacheKey];
+    }
     const targetFile = (lang === 'pt' || lang === 'pt_BR') ? 'catalog_cache_pt.json' : 'catalog_cache_en.json';
 
     let catalogPath = [
@@ -166,7 +175,9 @@ function loadFullRiotCatalog(lang = 'en') {
             }
         });
 
-        return Array.from(mergedMap.values());
+        const finalItems = Array.from(mergedMap.values());
+        _catalogCacheRAM[cacheKey] = finalItems;
+        return finalItems;
     } catch (e) {
         console.error(`Erro ao carregar catálogo:`, e);
         return [];
@@ -302,10 +313,18 @@ function loadEvents(dir) {
 }
 loadEvents(path.join(__dirname, 'events'));
 
+let _lojaDataCache = null;
+function clearLojaDataCache() {
+    _lojaDataCache = null;
+}
 function obterDadosLoja() {
+    if (_lojaDataCache) return _lojaDataCache;
     const p = path.join(__dirname, 'config', 'loja.json');
     try {
-        if (fs.existsSync(p)) return JSON.parse(fs.readFileSync(p, 'utf8'));
+        if (fs.existsSync(p)) {
+            _lojaDataCache = JSON.parse(fs.readFileSync(p, 'utf8'));
+            return _lojaDataCache;
+        }
     } catch (e) { console.error("Erro loja.json", e); }
     return {};
 }
@@ -912,23 +931,40 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Eternals Series', (customEmojis?.skins?.eternos || '🏆').trim());
     }
     else if (tipoFiltro === 'passes' || tipoFiltro === 'orbes' || tipoFiltro === 'hextech') {
-        let lootIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
+        let lootIcon = (customEmojis?.loot?.worlds_pass || customEmojis?.loot?.pass || '<:lol_worlds_pass:1562218043835158568>').trim();
         let prefix = tipoFiltro === 'passes' ? 'Pass' : (tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule');
         const nameLower = nome.toLowerCase();
 
         if (nameLower.includes('pass') || nameLower.includes('passe')) {
             prefix = 'Pass';
-            lootIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
+            if (nameLower.includes('worlds') || nameLower.includes('mundial')) {
+                lootIcon = (customEmojis?.loot?.worlds_pass || '<:lol_worlds_pass:1562218043835158568>').trim();
+            } else if (nameLower.includes('hall of legends') || nameLower.includes('hol')) {
+                lootIcon = (customEmojis?.loot?.pass_hol || '<:lol_pass_hol:1549297894220369991>').trim();
+            } else {
+                lootIcon = (customEmojis?.loot?.worlds_pass || customEmojis?.loot?.pass || '<:lol_worlds_pass:1562218043835158568>').trim();
+            }
         } else {
             prefix = tipoFiltro === 'hextech' ? 'Hextech' : 'Orb & Capsule';
+            const isWorlds = nameLower.includes('worlds') || nameLower.includes('mundial');
+            const isSummoner = nameLower.includes('summoner') || nameLower.includes('invocador');
+
             if (nameLower.includes('mega') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
-                lootIcon = (customEmojis?.loot?.megaorb || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+                if (isWorlds) lootIcon = (customEmojis?.loot?.worlds_mega || '<:lol_worlds_mega:1562218035018993758>').trim();
+                else if (isSummoner) lootIcon = (customEmojis?.loot?.summoner_mega || '<:lol_summoner_mega:1562218076458721300>').trim();
+                else lootIcon = (customEmojis?.loot?.worlds_mega || customEmojis?.loot?.megaorb || '<:lol_worlds_mega:1562218035018993758>').trim();
             } else if (nameLower.includes('deluxe') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
-                lootIcon = (customEmojis?.loot?.deluxe || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+                if (isWorlds) lootIcon = (customEmojis?.loot?.worlds_deluxe || '<:lol_worlds_deluxe:1562218019068059658>').trim();
+                else if (isSummoner) lootIcon = (customEmojis?.loot?.summoner_deluxe || '<:lol_summoner_deluxe:1562218060574629979>').trim();
+                else lootIcon = (customEmojis?.loot?.worlds_deluxe || customEmojis?.loot?.deluxe || '<:lol_worlds_deluxe:1562218019068059658>').trim();
             } else if (nameLower.includes('premium') && (nameLower.includes('orb') || nameLower.includes('orbe'))) {
-                lootIcon = (customEmojis?.loot?.premium || customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+                if (isWorlds) lootIcon = (customEmojis?.loot?.worlds_premium || '<:lol_worlds_premium:1562218026961735883>').trim();
+                else if (isSummoner) lootIcon = (customEmojis?.loot?.summoner_premium || '<:lol_summoner_premium:1562218068640399390>').trim();
+                else lootIcon = (customEmojis?.loot?.worlds_premium || customEmojis?.loot?.premium || '<:lol_worlds_premium:1562218026961735883>').trim();
             } else if (nameLower.includes('orb') || nameLower.includes('orbe')) {
-                lootIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+                if (isWorlds) lootIcon = (customEmojis?.loot?.worlds_orb || '<:lol_worlds_orb:1562218010633048178>').trim();
+                else if (isSummoner) lootIcon = (customEmojis?.loot?.summoner_orb || '<:lol_summoner_orb:1562218052764827739>').trim();
+                else lootIcon = (customEmojis?.loot?.worlds_orb || customEmojis?.loot?.orb || '<:lol_worlds_orb:1562218010633048178>').trim();
             } else if (nameLower.includes('capsule') || nameLower.includes('cápsula')) {
                 lootIcon = (customEmojis?.loot?.capsule || '💊').trim();
             } else if (nameLower.includes('masterwork') && (nameLower.includes('chest') || nameLower.includes('baú'))) {
@@ -947,7 +983,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
             } else if (nameLower.includes('pack') || nameLower.includes('pacote') || nameLower.includes('bundle') || nameLower.includes('conjunto')) {
                 lootIcon = (customEmojis?.bundles?.exclusive_pack || customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim();
             } else {
-                lootIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+                lootIcon = (customEmojis?.loot?.worlds_orb || customEmojis?.loot?.orb || '<:lol_worlds_orb:1562218010633048178>').trim();
             }
         }
         return formatarStr(prefix, lootIcon);
@@ -985,10 +1021,13 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
 
         if (nameLower.includes('pass') || nameLower.includes('passe')) {
             prefix = 'Season Pass';
-            bundleIcon = (customEmojis?.loot?.pass || '<:lol_pass_s3:1560503114253996042>').trim();
+            bundleIcon = (customEmojis?.loot?.worlds_pass || customEmojis?.loot?.pass || '<:lol_worlds_pass:1562218043835158568>').trim();
         } else if (nameLower.includes('orb') || nameLower.includes('orbe')) {
             prefix = 'Event Orb';
-            bundleIcon = (customEmojis?.loot?.orb || '<:lol_orb_s3:1555074434048725083>').trim();
+            if (nameLower.includes('mega')) bundleIcon = (customEmojis?.loot?.worlds_mega || '<:lol_worlds_mega:1562218035018993758>').trim();
+            else if (nameLower.includes('premium')) bundleIcon = (customEmojis?.loot?.worlds_premium || '<:lol_worlds_premium:1562218026961735883>').trim();
+            else if (nameLower.includes('deluxe')) bundleIcon = (customEmojis?.loot?.worlds_deluxe || '<:lol_worlds_deluxe:1562218019068059658>').trim();
+            else bundleIcon = (customEmojis?.loot?.worlds_orb || customEmojis?.loot?.orb || '<:lol_worlds_orb:1562218010633048178>').trim();
         } else if (nameLower.includes('chest') || nameLower.includes('baú')) {
             if (nameLower.includes('ápice') || nameLower.includes('peak') || nameLower.includes('mystery')) {
                 prefix = 'Mystery Chest';
@@ -2744,20 +2783,11 @@ client.on('interactionCreate', async interaction => {
                 }
 
                 if (opcao === 'compra_highlights') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'highlights', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'highlights', 0, true);
                 } else if (opcao === 'compra_sales') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'sales', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'sales', 0, true);
                 } else if (opcao === 'compra_most_popular') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'most_popular', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'most_popular', 0, true);
                 } else if (opcao === 'compra_skins') {
                     abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_chromas') {
@@ -2765,62 +2795,29 @@ client.on('interactionCreate', async interaction => {
                 } else if (opcao === 'compra_champions') {
                     abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
                 } else if (opcao === 'compra_passes') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'passes', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'passes', 0, true);
                 } else if (opcao === 'compra_bundles') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'bundles', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'bundles', 0, true);
                 } else if (opcao === 'compra_eternos') {
                     abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
                 } else if (opcao === 'compra_misterio') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'misterio', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'misterio', 0, true);
                 } else if (opcao === 'compra_hextech') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'hextech', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'hextech', 0, true);
                 } else if (opcao === 'compra_orbes') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'orbes', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'orbes', 0, true);
                 } else if (opcao === 'compra_emotes') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'emotes', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'emotes', 0, true);
                 } else if (opcao === 'compra_icones') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'icones', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'icones', 0, true);
                 } else if (opcao === 'compra_wards') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'wards', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'wards', 0, true);
                 } else if (opcao === 'compra_little_legends') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'little_legends', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'little_legends', 0, true);
                 } else if (opcao === 'compra_tft_arena') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'tft_arena', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'tft_arena', 0, true);
                 } else if (opcao === 'compra_boosts') {
-                    const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                    await interaction.update({ content: `${loadEmj} ${getLoadStr('catalog')}`, embeds: [], components: [] });
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    await enviarPaginaCatalogo(interaction, 'boosts', 0, false);
+                    return await enviarPaginaCatalogo(interaction, 'boosts', 0, true);
                 }
             }
 
@@ -4000,14 +3997,9 @@ client.on('interactionCreate', async interaction => {
             }
 
             else if (interaction.customId === 'confirmar_regiao_store') {
-                const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                await interaction.update({ content: `${loadEmj} ${getLoadStr('sales')}`, embeds: [], components: [] });
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
                 const menu = buildStoreMainMenu(customEmojis);
-
-                await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
+                await interaction.update({ content: '', embeds: [embed], components: [menu] });
                 return;
             }
 

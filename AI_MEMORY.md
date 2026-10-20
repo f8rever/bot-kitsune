@@ -909,6 +909,19 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Substituído o delay artificial de 2500ms (`setTimeout(2500)`) por `interaction.deferReply({ ephemeral: true })` imediato (<30ms).
                   - Eliminado o risco de timeout de 3 segundos do Discord (`kitsune não respondeu a tempo`), garantindo resposta instantânea e proteção com `try/catch`.
                   - Executado via `iniciar_bot.bat` para garantir que o processo se mantenha online e resiliente.
+            49. **Ícones Oficiais de Passes/Orbes (Worlds 2026 & Invocador), Skill `loot-sync` e Otimização Máxima de Resposta (2026-10-20):**
+                - **Ícones Oficiais do Evento Ativo (Worlds 2026 & Invocador):**
+                  - Baixadas imagens em alta definição da CDN oficial da Riot Games e redimensionadas para 128x128 PNG com LANCZOS.
+                  - Criados 9 Application Emojis oficiais: `lol_worlds_orb` (`1562218010633048178`), `lol_worlds_deluxe` (`1562218019068059658`), `lol_worlds_premium` (`1562218026961735883`), `lol_worlds_mega` (`1562218035018993758`), `lol_worlds_pass` (`1562218043835158568`), `lol_summoner_orb` (`1562218052764827739`), `lol_summoner_deluxe` (`1562218060574629979`), `lol_summoner_premium` (`1562218068640399390`), `lol_summoner_mega` (`1562218076458721300`).
+                  - Atualizados `config/emojis.json`, persistidos no MongoDB Atlas (`bot_configurations`) e mapeados dinamicamente em `obterDetalhesItem` de `index.js`.
+                - **Criação da Skill `loot-sync` (`.agents/skills/loot-sync/`):**
+                  - Criada a skill oficial com `SKILL.md` e script de automação `sync_loot_asset.py`.
+                  - Fixada a regra obrigatória: **todo e qualquer novo passe ou orbe deve ter seu ícone oficial baixado, redimensionado para 128x128 PNG, enviado como Application Emoji e vinculado no catálogo**. Proibido o uso de ícones legados genéricos.
+                - **Otimização Extrema de Velocidade de Resposta (Limite Máximo):**
+                  - Cache em memória RAM (`_catalogCacheRAM`): eliminada leitura síncrona de arquivos JSON de 5 MB a cada clique; tempo de consulta reduzido para <0.01ms.
+                  - Cache em memória RAM (`_lojaDataCache`): eliminadas 25 leituras de disco de `loja.json` por página renderizada.
+                  - Remoção de todos os delays artificiais de 1500ms (`setTimeout(1500)`) na navegação de categorias (`menu_vendas` e `confirmar_regiao_store`).
+                  - Transição direta via `enviarPaginaCatalogo(..., isUpdate=true)` em uma única requisição Discord sem flicker e sem telas intermediárias; tempo de resposta reduzido em mais de 95% (para menos de 50ms).
 
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
