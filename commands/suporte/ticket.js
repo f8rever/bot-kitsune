@@ -6,6 +6,8 @@ const path = require('path');
 module.exports = {
     name: 'ticket',
     description: '🛒 Envia o painel fixo de compras da Kitsune Store.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'canal',
@@ -21,14 +23,14 @@ module.exports = {
         const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
         const hasStaffRole = staffRoles.some(roleId => interaction.member.roles.cache.has(roleId));
 
-        const targetChannel = interaction.options.getChannel('canal');
-
-        if (targetChannel && !isAdmin && !hasStaffRole) {
+        if (!isAdmin && !hasStaffRole) {
             return interaction.reply({
-                content: '🚫 Você precisa ser Administrador ou Staff para enviar o painel da loja em outro canal.',
+                content: '🚫 Você precisa ser Administrador ou Staff para enviar o painel da loja.',
                 ephemeral: true
             });
         }
+
+        const targetChannel = interaction.options.getChannel('canal');
 
         const embed = buildCustomEmbed('ticket_welcome', interaction.client, interaction);
 

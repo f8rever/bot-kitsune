@@ -1,10 +1,12 @@
-const { EmbedBuilder, REST, Routes } = require('discord.js');
+const { EmbedBuilder, REST, Routes, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     name: 'deploy',
-    description: 'Força o re-deploy e atualização imediata de todos os comandos Slash na API do Discord.',
+    description: '🚀 Força o re-deploy e atualização imediata de todos os comandos Slash na API do Discord.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     async execute(interaction) {
-        const isAdmin = interaction.member.permissions.has('Administrator');
+        const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
         const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
         const hasStaffRole = staffRoles.some(roleId => interaction.member.roles.cache.has(roleId));
 
@@ -38,7 +40,9 @@ module.exports = {
                     commandsBody.push({
                         name: cmd.name,
                         description: cmd.description,
-                        options: cmd.options || []
+                        options: cmd.options || [],
+                        default_member_permissions: cmd.default_member_permissions !== undefined ? cmd.default_member_permissions : null,
+                        dm_permission: cmd.dm_permission !== undefined ? cmd.dm_permission : false
                     });
                 }
             });

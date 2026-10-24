@@ -8,6 +8,8 @@ const DEFAULT_RESTORECORD_URL = 'https://discord.com/oauth2/authorize?client_id=
 module.exports = {
     name: 'verify-panel',
     description: '🦊 Envia o painel oficial de verificação com link direto para o RestoreCord.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'canal',

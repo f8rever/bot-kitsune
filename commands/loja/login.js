@@ -1,4 +1,4 @@
-const { ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { getStoreBalance, getEntitlements, reauthWithSSID } = require('../../utils/riotAuth.js');
@@ -30,7 +30,9 @@ function buildDashboardButtons() {
 
 module.exports = {
     name: 'login',
-    description: 'Seleciona e conecta a uma conta Riot salva. Exibe o painel completo da conta após autenticar.',
+    description: '🦊 Seleciona e gerencia a conta Riot ativa (Saldo de RP, amigos e inventário).',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'conta',
@@ -88,6 +90,14 @@ module.exports = {
 
     // ── Execute ───────────────────────────────────────────────────────────────
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem gerenciar sessões Riot.', ephemeral: true });
+        }
+
         await interaction.deferReply({ ephemeral: true });
 
         const { accountsPath, accounts } = loadAccountsFromDisk();

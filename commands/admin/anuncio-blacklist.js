@@ -4,6 +4,8 @@ const { getBlacklist, addToBlacklist, removeFromBlacklist, clearBlacklist } = re
 module.exports = {
     name: 'anuncio-blacklist',
     description: '🛡️ Gerencia a lista negra (Blacklist) de membros excluídos dos anúncios e mass DM.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'acao',

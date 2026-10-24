@@ -3,7 +3,8 @@ const { getUserInvites } = require('../../utils/mongoStorage.js');
 
 module.exports = {
     name: 'invites',
-    description: 'Consulta a contagem e estatísticas de convites de um usuário ou de si mesmo.',
+    description: '📊 Consulta a contagem e estatísticas de convites de um membro ou de si mesmo.',
+    dm_permission: false,
     options: [
         {
             name: 'usuario',

@@ -5,7 +5,9 @@ const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'emojis',
-    description: '🦊 Kitsune | Gerenciador e Editor Visual de Emojis do Bot',
+    description: '🦊 Gerenciador e Editor Visual de Emojis do Bot.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     async execute(interaction) {
         const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
         const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);

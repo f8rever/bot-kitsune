@@ -107,19 +107,23 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 - [x] Ícone/imagem do item no catálogo (HD)
 
 ### Administração
-- [x] Configuração centralizada (`/config`, `/config-store`, `/desconto`, `/embeds`, `/emojis`)
+- [x] Configuração centralizada (`/config`, `/desconto`, `/embeds`, `/emojis`)
 - [x] Gerenciamento de 12 categorias de emojis
 - [x] Deploy/re-deploy de comandos Slash
 
 ### Moderação & Utilidades
-- [x] `/clear`, `/join`, `/leave`, `/table`, `/invites`, `/verify-panel`
+- [x] `/clear`, `/invites`, `/verify-panel`
 
 ---
 
-## ESTADO ATUAL (2026-10-07)
+## ESTADO ATUAL (2026-10-24)
 
 **Estado funcional/operacional**:
-- **21 Comandos Slash 100% Válidos** (inclui `/anuncio`, `/anuncio-blacklist` e `/checar-amizade`).
+- **17 Comandos Slash Oficiais & Seguros (Auditados e Limpos)**:
+  - Comandos espúrios/legados do RestoreCord (`/ping`, `/setup`, `/bypass`, `/rep`, `/pull`, `/blacklist`, `/Member Info`, `/RC - Bypass`, `/syncroles`, `/feedback`, `/vouch`, `/RC - Blacklist`) foram 100% purgados da API global do Discord.
+  - Comandos desnecessários no repo (`/join`, `/leave`, `/table`, `/config-store`) foram completamente removidos.
+  - Comandos administrativos e de gifting agora possuem `default_member_permissions` (Administrator ou ManageMessages) e verificação estrita de Staff no `execute()`, impedindo que usuários comuns visualizem ou executem comandos sensíveis no `/` do Discord.
+  - O único comando público de membros é `/invites` (estatísticas de convites).
 - **Sistema de Verificação de Amizade & Elegibilidade de Gifting (`commands/loja/checar-amizade.js` & `utils/friendshipChecker.js`):**
   - Acionamento direto pelo botão `⏱️ Checar Amizade & 24h` (`btn_check_friendship`) na embed do ticket ou via slash command `/checar-amizade`.
   - Suporte a seleção de conta Riot (`alt`) com menu e autocomplete interativo com saldo de RP e status em tempo real.

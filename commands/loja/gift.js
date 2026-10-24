@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const { searchItems, getItemByName } = require('../../utils/catalog.js');
 const { sendGiftV3, getFriendList } = require('../../utils/riotAuth.js');
 const fs = require('fs');
@@ -57,7 +57,9 @@ function getActiveSession(userId) {
 
 module.exports = {
     name: 'gift',
-    description: 'Envia um presente para um amigo.',
+    description: '🎁 Envia um presente in-game da conta Riot ativa para um Riot ID.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     friendlistCacheMap: friendlistCacheMap,
     options: [
         {
@@ -199,9 +201,17 @@ module.exports = {
         return interaction.respond([]);
     },
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Você precisa ser Staff ou Administrador para enviar presentes via comando.', ephemeral: true });
+        }
+
         const session = getActiveSession(interaction.user.id);
         if (!session) {
-            return interaction.reply({ content: '❌ No account configured. Use `/link` or `/addaccount` first.', ephemeral: true });
+            return interaction.reply({ content: '❌ Nenhuma conta Riot ativa configurada. Use `/link` ou `/login` primeiro.', ephemeral: true });
         }
         
         await interaction.deferReply({ ephemeral: true });

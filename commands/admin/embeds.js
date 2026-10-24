@@ -3,7 +3,9 @@ const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'embeds',
-    description: '🦊 Kitsune | Painel de Gerenciamento de Embeds',
+    description: '🦊 Painel de Gerenciamento e Edição Visual de Embeds do Bot.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     async execute(interaction) {
         const isAdmin = interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
         const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);

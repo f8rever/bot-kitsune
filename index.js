@@ -440,7 +440,9 @@ client.once(Events.ClientReady, async () => {
                     commandsBody.push({
                         name: cmd.name,
                         description: cmd.description,
-                        options: cmd.options || []
+                        options: cmd.options || [],
+                        default_member_permissions: cmd.default_member_permissions !== undefined ? cmd.default_member_permissions : null,
+                        dm_permission: cmd.dm_permission !== undefined ? cmd.dm_permission : false
                     });
                 }
             });

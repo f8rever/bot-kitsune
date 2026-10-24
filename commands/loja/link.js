@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const { parseTokensFromUrl, getEntitlements, getUserInfo, getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, getStoreBalance, getFriendList } = require('../../utils/riotAuth.js');
 const fs = require('fs');
 const path = require('path');
@@ -6,7 +6,9 @@ const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'link',
-    description: 'Vincula uma conta Riot utilizando a URL de redirecionamento do navegador.',
+    description: '🔗 Vincula uma conta Riot (Alt) via URL de redirecionamento ou Cookie SSID.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'url',
@@ -22,6 +24,14 @@ module.exports = {
         }
     ],
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem vincular contas Riot ao bot.', ephemeral: true });
+        }
+
         await interaction.deferReply({ ephemeral: true });
         
         const inputString = interaction.options.getString('url');

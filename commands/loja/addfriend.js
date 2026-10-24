@@ -7,12 +7,15 @@ const {
     getChatUri,
     reauthWithSSID
 } = require('../../utils/riotAuth.js');
+const { PermissionsBitField } = require('discord.js');
 const { RiotChatClient } = require('../../utils/riotXmpp.js');
 const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'addfriend',
-    description: 'Envia um pedido de amizade da conta Riot ativa para um Riot ID (Nome#TAG).',
+    description: '➕ Envia um pedido de amizade da conta Riot ativa para um Riot ID (Nome#TAG).',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'riot_id',
@@ -22,6 +25,14 @@ module.exports = {
         }
     ],
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem adicionar amigos na conta Riot.', ephemeral: true });
+        }
+
         await interaction.deferReply({ ephemeral: true });
 
         // ── 1. Carregar contas vinculadas ──────────────────────────────────

@@ -11,6 +11,8 @@ const {
 module.exports = {
     name: 'anuncio',
     description: '📢 Cria e dispara anúncios e comunicados na DM dos membros ou em canais de texto.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'destino',

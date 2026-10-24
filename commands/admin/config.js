@@ -5,7 +5,9 @@ const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 module.exports = {
     name: 'config',
-    description: '🦊 Kitsune | Painel e Configuração Geral do Servidor (Cores, Cargos, Canais e Links).',
+    description: '🦊 Painel e Configuração Geral do Servidor (Cores, Cargos, Canais e Links).',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'cor',

@@ -3,7 +3,8 @@ const {
     EmbedBuilder, 
     ActionRowBuilder, 
     ButtonBuilder, 
-    ButtonStyle 
+    ButtonStyle,
+    PermissionsBitField
 } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +13,8 @@ const { checkFriendshipEligibility, getSavedAccounts } = require('../../utils/fr
 module.exports = {
     name: 'checar-amizade',
     description: '⏱️ Checa tempo de amizade e elegibilidade para envio de presentes (24h e 7 dias).',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'conta',
@@ -82,6 +85,14 @@ module.exports = {
     },
 
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem checar elegibilidade de amizade.', ephemeral: true });
+        }
+
         await interaction.deferReply({ ephemeral: true });
 
         const selectedAccount = interaction.options.getString('conta');

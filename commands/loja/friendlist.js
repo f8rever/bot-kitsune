@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { getFriendList, getGeopasToken, decodeGeopasAffinity, getChatDom, getChatUri, reauthWithSSID } = require('../../utils/riotAuth.js');
@@ -42,7 +42,9 @@ function formatTimerDetailed(friendsSince) {
 
 module.exports = {
     name: 'friendlist',
-    description: 'Gerencia, visualiza tempo de amizade e aceita pedidos na conta Riot ativa.',
+    description: '👥 Gerencia amigos, consulta timers de amizade e aceita pedidos na conta Riot ativa.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'action',
@@ -64,6 +66,14 @@ module.exports = {
         }
     ],
     async execute(interaction) {
+        const isAdmin = interaction.member?.permissions?.has(PermissionsBitField.Flags.Administrator);
+        const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+        const hasStaffRole = staffRoles.some(roleId => interaction.member?.roles?.cache?.has(roleId));
+
+        if (!isAdmin && !hasStaffRole) {
+            return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem gerenciar amigos da conta Riot.', ephemeral: true });
+        }
+
         await interaction.deferReply({ ephemeral: true });
 
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');

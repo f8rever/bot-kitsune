@@ -19,7 +19,9 @@ function getCommands(dir) {
                 commands.push({
                     name: command.name,
                     description: command.description,
-                    options: command.options || []
+                    options: command.options || [],
+                    default_member_permissions: command.default_member_permissions !== undefined ? command.default_member_permissions : null,
+                    dm_permission: command.dm_permission !== undefined ? command.dm_permission : false
                 });
             }
         }
@@ -40,10 +42,14 @@ const rest = new REST({ version: '10' }).setToken(token);
 
         if (process.env.GUILD_ID && clientId) {
             console.log(`⚡ Limpando comandos da Guild (${process.env.GUILD_ID}) para evitar duplicados...`);
-            await rest.put(
-                Routes.applicationGuildCommands(clientId, process.env.GUILD_ID),
-                { body: [] }
-            );
+            try {
+                await rest.put(
+                    Routes.applicationGuildCommands(clientId, process.env.GUILD_ID),
+                    { body: [] }
+                );
+            } catch (guildErr) {
+                console.warn(`⚠️ Não foi possível limpar guild commands (${process.env.GUILD_ID}): ${guildErr.message}`);
+            }
         }
 
         if (clientId) {

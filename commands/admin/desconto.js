@@ -75,6 +75,8 @@ function recalcularPrecosLoja(loja) {
 module.exports = {
     name: 'desconto',
     description: '🦊 Gerencia, consulta e altera os descontos da loja em tempo real.',
+    default_member_permissions: PermissionsBitField.Flags.Administrator.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'acao',

@@ -5,6 +5,8 @@ const path = require('path');
 module.exports = {
     name: 'clear',
     description: '🧹 Limpa mensagens do chat com filtros inteligentes (quantidade, usuário ou apenas bots).',
+    default_member_permissions: PermissionsBitField.Flags.ManageMessages.toString(),
+    dm_permission: false,
     options: [
         {
             name: 'quantidade',
