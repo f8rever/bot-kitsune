@@ -46,7 +46,8 @@ module.exports = {
     // ── Autocomplete ─────────────────────────────────────────────────────────
     async autocomplete(interaction) {
         try {
-            const focusedValue = (interaction.options.getFocused() || '').toLowerCase().trim();
+            const rawFocused = interaction.options.getFocused();
+            const focusedValue = String(typeof rawFocused === 'object' ? (rawFocused?.value || '') : (rawFocused || '')).toLowerCase().trim();
             const { accounts } = loadAccountsFromDisk();
             const choices = Object.keys(accounts);
 

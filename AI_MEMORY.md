@@ -939,6 +939,17 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 ### Bundles & Pacotes
 1. [x] Solucionado problema com gifting de passes e coleções (Hall of Legends / Faker) via API CAP Orders com UUIDs reais e desbloqueio de tipo BUNDLES.
 
+### Auditoria e Correção Geral dos Comandos Slash (Outubro 2026)
+- **Diagnóstico do Comando com Erro:** `/checar-amizade`
+  - *Causa Raiz:* `utils/friendshipChecker.js` importava e chamava `getFriendlistGiftInfo(acc.accessToken, region)` de `utils/riotAuth.js`. No entanto, a função `getFriendlistGiftInfo` (definida na linha 246 de `riotAuth.js`) **não estava incluída no `module.exports`**.
+  - *Impacto:* Toda vez que o comando `/checar-amizade` era disparado com uma conta selecionada (ou via botão de checagem em tickets), o Node.js lançava `TypeError: getFriendlistGiftInfo is not a function`.
+  - *Correção:* Exportada a função `getFriendlistGiftInfo` e o alias `riotLogin: loginWithRiotCredentials` em `utils/riotAuth.js`.
+- **Melhorias e Blindagens Adicionais em Comandos:**
+  - `commands/moderacao/clear.js`: Tratamento defensivo para `messagesToDelete.size === 1`, utilizando `singleMsg.delete()` em vez de `channel.bulkDelete(...)`, evitando o erro 50016 da API do Discord.
+  - `commands/loja/gift.js`: Substituição de `interaction.followUp(...)` por `interaction.editReply(...)` após o `deferReply()`, evitando mensagens de "pensando..." pendentes.
+  - `commands/admin/verify-panel.js`, `commands/loja/checar-amizade.js`, `commands/loja/login.js`: Sanitização resiliente de `focusedValue` nos manipuladores de autocomplete para garantir que tipos objeto/indefinidos nunca quebrem o `.toLowerCase()`.
+  - **Status:** Todos os 17 comandos ativos auditados e com 100% de aprovação em testes de estrutura e execução.
+
 ### Emojis & Cosméticos (Opcional / Futuro)
 2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.
 3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.

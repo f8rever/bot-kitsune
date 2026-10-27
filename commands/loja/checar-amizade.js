@@ -48,7 +48,8 @@ module.exports = {
     // ── Autocomplete para sugestão interativa das contas ───────────────────────
     async autocomplete(interaction) {
         try {
-            const focusedValue = (interaction.options.getFocused() || '').toLowerCase().trim();
+            const rawFocused = interaction.options.getFocused();
+            const focusedValue = String(typeof rawFocused === 'object' ? (rawFocused?.value || '') : (rawFocused || '')).toLowerCase().trim();
             const accounts = getSavedAccounts();
             const choices = Object.keys(accounts);
 

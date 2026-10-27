@@ -65,8 +65,15 @@ module.exports = {
                 });
             }
 
-            const deleted = await interaction.channel.bulkDelete(messagesToDelete, true);
-            const count = deleted.size;
+            let count = 0;
+            if (messagesToDelete.size === 1) {
+                const singleMsg = messagesToDelete.first();
+                await singleMsg.delete();
+                count = 1;
+            } else {
+                const deleted = await interaction.channel.bulkDelete(messagesToDelete, true);
+                count = deleted.size;
+            }
 
             let filtroTexto = 'Todas as mensagens recentes';
             if (targetUser) filtroTexto = `Apenas de ${targetUser}`;

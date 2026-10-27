@@ -28,7 +28,8 @@ module.exports = {
     ],
 
     async autocomplete(interaction) {
-        const focusedValue = interaction.options.getFocused();
+        const rawFocused = interaction.options.getFocused();
+        const focusedValue = String(typeof rawFocused === 'object' ? (rawFocused?.value || '') : (rawFocused || '')).toLowerCase().trim();
         const configPath = path.join(__dirname, '../../config/config.json');
         let savedUrl = DEFAULT_RESTORECORD_URL;
 
@@ -49,8 +50,8 @@ module.exports = {
         ];
 
         const filtered = choices.filter(choice =>
-            choice.name.toLowerCase().includes(focusedValue.toLowerCase()) ||
-            choice.value.toLowerCase().includes(focusedValue.toLowerCase())
+            choice.name.toLowerCase().includes(focusedValue) ||
+            choice.value.toLowerCase().includes(focusedValue)
         );
 
         await interaction.respond(filtered.slice(0, 25)).catch(() => {});

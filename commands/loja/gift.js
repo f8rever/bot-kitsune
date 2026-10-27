@@ -266,12 +266,11 @@ module.exports = {
         
         const item = getItemByName(itemName, lang);
         if (!item) {
-            return interaction.followUp({ content: '❌ Item não encontrado no catálogo.', ephemeral: true });
+            return interaction.editReply({ content: '❌ Item não encontrado no catálogo.' });
         }
         if (item.isAvailable === false || item.status === 'off') {
-            return interaction.followUp({
-                content: `❌ O item **${item.name}** está atualmente marcado como **Ausente / Fora da Loja** da Riot Games e não pode ser presenteado no momento.`,
-                ephemeral: true
+            return interaction.editReply({
+                content: `❌ O item **${item.name}** está atualmente marcado como **Ausente / Fora da Loja** da Riot Games e não pode ser presenteado no momento.`
             });
         }
         
@@ -318,17 +317,17 @@ module.exports = {
         });
 
         if (!friendInfo && (!friends || friends.length === 0)) {
-            return interaction.followUp({ content: '❌ O token da conta Riot expirou. Por favor, faça login novamente com o comando `/login` para renovar a sessão.', ephemeral: true });
+            return interaction.editReply({ content: '❌ O token da conta Riot expirou. Por favor, faça login novamente com o comando `/login` para renovar a sessão.' });
         }
         
         if (!friendInfo) {
-            return interaction.followUp({ content: `❌ Amigo **${riotId}** não foi localizado na lista da conta **${session.accountName}**. Selecione o amigo nas sugestões do comando /gift.`, ephemeral: true });
+            return interaction.editReply({ content: `❌ Amigo **${riotId}** não foi localizado na lista da conta **${session.accountName}**. Selecione o amigo nas sugestões do comando /gift.` });
         }
         
         const { getStoreBalance } = require('../../utils/riotAuth.js');
         const storeInfo = await getStoreBalance(session.accessToken, session.entitlementsToken, session.region);
         if (!storeInfo || !storeInfo.accountId) {
-            return interaction.followUp({ content: '❌ Falha ao obter o saldo da conta na Riot. Tente novamente em alguns instantes.', ephemeral: true });
+            return interaction.editReply({ content: '❌ Falha ao obter o saldo da conta na Riot. Tente novamente em alguns instantes.' });
         }
         
         const accountId = storeInfo.accountId;
@@ -336,7 +335,7 @@ module.exports = {
         const totalPrice = item.price * quantity;
         
         if (storeInfo.rp < totalPrice) {
-            return interaction.followUp({ content: `❌ Saldo insuficiente! Você tem **${storeInfo.rp} RP**, mas ${quantity}x o item custa **${totalPrice} RP**.`, ephemeral: true });
+            return interaction.editReply({ content: `❌ Saldo insuficiente! Você tem **${storeInfo.rp} RP**, mas ${quantity}x o item custa **${totalPrice} RP**.` });
         }
 
         const { sendGift, getUserInfo, getPuuidByRiotId } = require('../../utils/riotAuth.js');
@@ -382,7 +381,7 @@ module.exports = {
         }
 
         if (!receiverPuuid) {
-            return interaction.followUp({ content: `❌ Não foi possível identificar a conta de **${friendInfo.name}**. Verifique se a amizade está ativa no League of Legends.`, ephemeral: true });
+            return interaction.editReply({ content: `❌ Não foi possível identificar a conta de **${friendInfo.name}**. Verifique se a amizade está ativa no League of Legends.` });
         }
 
         console.log(`[Gift] Purchaser PUUID: ${purchaserPuuid} | Receiver ID: ${receiverPuuid}`);
@@ -492,7 +491,7 @@ module.exports = {
                 console.error('[Gift Log Error]', e.message);
             }
 
-            return interaction.followUp({ embeds: [embed], ephemeral: true });
+            return interaction.editReply({ embeds: [embed] });
         } else {
             const errorMsg = typeof result.error === 'object' ? (result.error.message || JSON.stringify(result.error)) : result.error;
             const failEmbed = buildCustomEmbed('gift_failed', interaction.client, interaction, {
@@ -500,7 +499,7 @@ module.exports = {
                 receiverName: riotId,
                 errorMsg: errorMsg
             });
-            return interaction.followUp({ embeds: [failEmbed], ephemeral: true });
+            return interaction.editReply({ embeds: [failEmbed] });
         }
     }
 };

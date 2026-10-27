@@ -591,5 +591,7 @@ module.exports = {
     checkAccountBan,
     reauthWithSSID,
     loginWithRiotCredentials,
+    riotLogin: loginWithRiotCredentials,
+    getFriendlistGiftInfo,
     fetchStoreCatalogFromRiot
 };
