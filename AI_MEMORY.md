@@ -948,7 +948,21 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - `commands/moderacao/clear.js`: Tratamento defensivo para `messagesToDelete.size === 1`, utilizando `singleMsg.delete()` em vez de `channel.bulkDelete(...)`, evitando o erro 50016 da API do Discord.
   - `commands/loja/gift.js`: Substituição de `interaction.followUp(...)` por `interaction.editReply(...)` após o `deferReply()`, evitando mensagens de "pensando..." pendentes.
   - `commands/admin/verify-panel.js`, `commands/loja/checar-amizade.js`, `commands/loja/login.js`: Sanitização resiliente de `focusedValue` nos manipuladores de autocomplete para garantir que tipos objeto/indefinidos nunca quebrem o `.toLowerCase()`.
-  - **Status:** Todos os 17 comandos ativos auditados e com 100% de aprovação em testes de estrutura e execução.
+  - **Status:** Todos os 18 comandos ativos auditados e com 100% de aprovação em testes de estrutura e execução.
+
+### Correção Completa do Fechamento de Tickets (Outubro 2026)
+- **Diagnóstico das Falhas ao Fechar Tickets:**
+  1. *Quebra por Newline no Cabeçalho HTTP:* O input de motivo do modal usava `TextInputStyle.Paragraph` com `setRequired(true)`. Ao digitar com quebras de linha (`\n`), a chamada `ch.delete(reason)` enviava o cabeçalho `X-Audit-Log-Reason` com quebra de linha, fazendo o cliente HTTP do Node (`undici`) quebrar com `TypeError [ERR_INVALID_CHAR]: Invalid character in header content ["X-Audit-Log-Reason"]`. Como o fallback repetia o mesmo motivo com quebra de linha, a deleção falhava fatalmente e o canal nunca era excluído.
+  2. *Erro 40060 no Modal Submit:* Se o timer de segurança de 2.2s deferisse a submissão do modal, `interaction.reply` lançava erro 40060 e o código ignorava silenciosamente sem responder ao Discord, travando o modal em "Esta interação falhou".
+  3. *Falta de Retorno e Bloqueio de Usuários:* O modal exigia preenchimento obrigatório e não encerrava a execução com `return;`.
+- **Solução Implementada:**
+  - Criada a função unificada e resiliente `fecharCanalTicket(channel, closedByUser, motivo, client, guild, interaction)` em `index.js`.
+  - Motivo de fechamento agora é sanitizado removendo qualquer `\r`, `\n` ou caractere inválido para o cabeçalho de auditoria do Discord.
+  - Implementado fallback de deleção sem reason caso a API do Discord recuse o motivo, e alerta de permissão caso falte `ManageChannels`.
+  - Modal agora usa `TextInputStyle.Short` com `setRequired(false)` e placeholder claro, permitindo fechar com 1 clique.
+  - Criado comando slash oficial `/fechar` em [commands/suporte/fechar.js](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/commands/suporte/fechar.js) com suporte para clientes e staff.
+  - Adicionado suporte a comandos rápidos de texto (`!fechar`, `!close`, `-fechar`, `-close`) dentro de canais de ticket em [events/messageCreate.js](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/events/messageCreate.js).
+  - Exportadas as funções `fecharCanalTicket` e `atualizarEmbedTicket` no `module.exports` de `index.js`.
 
 ### Emojis & Cosméticos (Opcional / Futuro)
 2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.

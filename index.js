@@ -2072,6 +2072,135 @@ async function responderResultadoChecagem(interaction, res, accountName, targetR
     return interaction.editReply({ embeds: [embed], components: [] });
 }
 
+async function fecharCanalTicket(channel, closedByUser, motivo, client, guild, interaction = null) {
+    if (!channel) {
+        if (interaction) {
+            return interaction.reply({ content: '❌ Canal inválido.', ephemeral: true }).catch(() => {});
+        }
+        return false;
+    }
+
+    const isTicket = channel.name?.startsWith('🎫') ||
+        (channel.topic && channel.topic.includes('Ticket-Owner')) ||
+        (global.ticketCarts && global.ticketCarts.has(channel.id));
+
+    if (!isTicket) {
+        if (interaction) {
+            return interaction.reply({
+                content: '❌ Este comando só pode ser utilizado dentro de um canal de ticket!',
+                ephemeral: true
+            }).catch(() => {});
+        }
+        return false;
+    }
+
+    const targetChannelId = channel.id;
+    const cleanMotivo = (motivo && motivo.trim()) ? motivo.trim() : 'Atendimento Concluído';
+    const safeAuditReason = `Ticket encerrado por ${closedByUser?.tag || closedByUser?.username || 'Staff'}: ${cleanMotivo.replace(/[\r\n\t]+/g, ' ').substring(0, 80)}`;
+
+    let ownerId = null;
+    if (global.ticketCarts && global.ticketCarts.has(targetChannelId)) {
+        ownerId = global.ticketCarts.get(targetChannelId).ownerId;
+        global.ticketCarts.delete(targetChannelId);
+    }
+    if (!ownerId && channel.topic && channel.topic.includes('Ticket-Owner:')) {
+        ownerId = channel.topic.split('Ticket-Owner:')[1].trim().split(/\s+/)[0];
+    }
+
+    const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
+    const eCarregando = (customEmojis?.utilidades?.carregando || '⏳').trim();
+    const eCheck = (customEmojis?.utilidades?.sucesso || '✅').trim();
+    const eFox = (customEmojis?.utilidades?.fox || '🦊').trim();
+    const eDoc = (customEmojis?.utilidades?.documento || '📝').trim();
+
+    const closeEmbed = new EmbedBuilder()
+        .setColor('#F43F5E')
+        .setTitle(`${eFechar} Atendimento Finalizado`)
+        .setDescription(
+            `> ${eCheck} **Este ticket foi marcado como concluído.**\n\n` +
+            `> 👤 **Fechado por:** ${closedByUser} (\`${closedByUser?.tag || closedByUser?.username}\`)\n` +
+            `> ${eDoc} **Motivo:** *"${cleanMotivo}"*\n\n` +
+            `> ${eCarregando} *Este canal será excluído automaticamente em \`4 segundos\`...*`
+        )
+        .setFooter({ text: 'Kitsune Store • Atendimento Finalizado', iconURL: client.user?.displayAvatarURL() })
+        .setTimestamp();
+
+    if (interaction) {
+        if (interaction.deferred) {
+            await interaction.editReply({ embeds: [closeEmbed] }).catch(() => {});
+        } else if (!interaction.replied) {
+            await interaction.reply({ embeds: [closeEmbed] }).catch(async () => {
+                await channel.send({ embeds: [closeEmbed] }).catch(() => {});
+            });
+        } else {
+            await interaction.followUp({ embeds: [closeEmbed] }).catch(() => {});
+        }
+    } else {
+        await channel.send({ embeds: [closeEmbed] }).catch(() => {});
+    }
+
+    // Enviar DM de avaliação para o dono do ticket
+    if (ownerId && ownerId !== closedByUser?.id) {
+        (async () => {
+            try {
+                const owner = await client.users.fetch(ownerId).catch(() => null);
+                if (owner) {
+                    const starRow = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('rate_1').setLabel('⭐').setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder().setCustomId('rate_2').setLabel('⭐⭐').setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder().setCustomId('rate_3').setLabel('⭐⭐⭐').setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder().setCustomId('rate_4').setLabel('⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder().setCustomId('rate_5').setLabel('⭐⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary)
+                    );
+                    const ratingEmbed = new EmbedBuilder()
+                        .setColor('#F43F5E')
+                        .setTitle(`Obrigado por usar nossos serviços! ${eFox}`)
+                        .setDescription(
+                            `Seu ticket foi encerrado com sucesso!\n\n` +
+                            `> ${eDoc} **Motivo:** *"${cleanMotivo}"*\n\n` +
+                            `Como você avaliaria o nosso atendimento hoje? Sua opinião nos ajuda a evoluir! ⭐`
+                        )
+                        .setFooter({ text: 'Kitsune Store • Avaliação de Atendimento', iconURL: client.user?.displayAvatarURL() })
+                        .setTimestamp();
+                    await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => {});
+                }
+            } catch (err) {
+                console.error('[Ticket Close] Falha ao enviar DM de avaliação:', err.message);
+            }
+        })();
+    }
+
+    setTimeout(async () => {
+        try {
+            let ch = channel;
+            if (!ch || typeof ch.delete !== 'function') {
+                ch = guild?.channels.cache.get(targetChannelId)
+                    || await guild?.channels.fetch(targetChannelId).catch(() => null)
+                    || await client.channels.fetch(targetChannelId).catch(() => null);
+            }
+            if (ch && typeof ch.delete === 'function') {
+                try {
+                    await ch.delete(safeAuditReason);
+                } catch (reasonErr) {
+                    console.warn('[Ticket Close] Falha na deleção com motivo, tentando sem motivo:', reasonErr.message);
+                    await ch.delete();
+                }
+            } else {
+                console.error(`[Ticket Close] Canal ${targetChannelId} não encontrado para deleção.`);
+            }
+        } catch (e) {
+            console.error("[Ticket Close] Erro fatal ao deletar canal:", e);
+            try {
+                await channel?.send({
+                    content: `⚠️ **Aviso:** Não foi possível excluir este canal automaticamente (\`${e.message}\`). Verifique se o bot possui a permissão de **Gerenciar Canais (Manage Channels)** neste servidor.`
+                }).catch(() => {});
+            } catch (_) {}
+        }
+    }, 4000);
+
+    return true;
+}
+
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     if (!global.activeTicketCreations) global.activeTicketCreations = new Set();
     if (global.activeTicketCreations.has(interaction.user.id)) {
@@ -4016,9 +4145,17 @@ client.on('interactionCreate', async interaction => {
             else if (interaction.customId === 'fechar_ticket') {
                 const modal = new ModalBuilder().setCustomId('modal_fechar_ticket').setTitle('🔒 Close Ticket');
                 modal.addComponents(new ActionRowBuilder().addComponents(
-                    new TextInputBuilder().setCustomId('ticket_motivo_fechamento').setLabel('Reason for closing:').setStyle(TextInputStyle.Paragraph).setRequired(true)
+                    new TextInputBuilder()
+                        .setCustomId('ticket_motivo_fechamento')
+                        .setLabel('Reason for closing:')
+                        .setPlaceholder('Ex: Atendimento concluído (opcional)')
+                        .setStyle(TextInputStyle.Short)
+                        .setRequired(false)
                 ));
-                interaction.showModal(modal).catch(e => { if (e.code !== 10062 && e.code !== 40060) console.error("Erro ao abrir modal_fechar_ticket:", e); });
+                await interaction.showModal(modal).catch(e => {
+                    if (e.code !== 10062 && e.code !== 40060) console.error("Erro ao abrir modal_fechar_ticket:", e);
+                });
+                return;
             }
             else if (interaction.customId === 'editar_pedido') {
                 const modal = new ModalBuilder().setCustomId('modal_editar_pedido').setTitle('✏️ Edit Details');
@@ -4671,100 +4808,8 @@ client.on('interactionCreate', async interaction => {
             }
             else if (interaction.customId === 'modal_fechar_ticket') {
                 const motivo = interaction.fields.getTextInputValue('ticket_motivo_fechamento') || 'Atendimento Concluído';
-
-                let ownerId = null;
-                if (interaction.channel?.topic && interaction.channel.topic.includes('Ticket-Owner: ')) {
-                    ownerId = interaction.channel.topic.split('Ticket-Owner: ')[1].trim();
-                }
-
-                const eFechar = (customEmojis?.utilidades?.fechar || '🔒').trim();
-                const eCarregando = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                const eCheck = (customEmojis?.utilidades?.sucesso || '✅').trim();
-                const eTicket = (customEmojis?.utilidades?.ticket || '🎫').trim();
-                const eFox = (customEmojis?.utilidades?.fox || '🦊').trim();
-                const eDoc = (customEmojis?.utilidades?.documento || '📝').trim();
-
-                const targetChannelId = interaction.channelId;
-                const targetGuild = interaction.guild;
-                const channelRef = interaction.channel;
-
-                if (global.ticketCarts && targetChannelId) {
-                    global.ticketCarts.delete(targetChannelId);
-                }
-
-                const closeEmbed = new EmbedBuilder()
-                    .setColor('#F43F5E')
-                    .setTitle(`${eFechar} Atendimento Finalizado`)
-                    .setDescription(
-                        `> ${eCheck} **Este ticket foi marcado como concluído.**\n\n` +
-                        `> 👤 **Fechado por:** ${interaction.user} (\`${interaction.user.tag}\`)\n` +
-                        `> ${eDoc} **Motivo:** *"${motivo}"*\n\n` +
-                        `> ${eCarregando} *Este canal será excluído automaticamente em \`5 segundos\`...*`
-                    )
-                    .setFooter({ text: 'Kitsune Store • Atendimento Finalizado', iconURL: client.user?.displayAvatarURL() })
-                    .setTimestamp();
-
-                await interaction.reply({ embeds: [closeEmbed] }).catch(async (e) => {
-                    if (e.code !== 10062 && e.code !== 40060) {
-                        await interaction.channel?.send({ embeds: [closeEmbed] }).catch(() => {});
-                    }
-                });
-
-                if (ownerId) {
-                    (async () => {
-                        try {
-                            const owner = await client.users.fetch(ownerId).catch(() => null);
-                            if (owner) {
-                                const starRow = new ActionRowBuilder().addComponents(
-                                    new ButtonBuilder().setCustomId('rate_1').setLabel('⭐').setStyle(ButtonStyle.Secondary),
-                                    new ButtonBuilder().setCustomId('rate_2').setLabel('⭐⭐').setStyle(ButtonStyle.Secondary),
-                                    new ButtonBuilder().setCustomId('rate_3').setLabel('⭐⭐⭐').setStyle(ButtonStyle.Secondary),
-                                    new ButtonBuilder().setCustomId('rate_4').setLabel('⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary),
-                                    new ButtonBuilder().setCustomId('rate_5').setLabel('⭐⭐⭐⭐⭐').setStyle(ButtonStyle.Secondary)
-                                );
-                                const ratingEmbed = new EmbedBuilder()
-                                    .setColor('#F43F5E')
-                                    .setTitle(`Obrigado por usar nossos serviços! ${eFox}`)
-                                    .setDescription(
-                                        `Seu ticket foi encerrado com sucesso!\n\n` +
-                                        `> ${eDoc} **Motivo:** *"${motivo}"*\n\n` +
-                                        `Como você avaliaria o nosso atendimento hoje? Sua opinião nos ajuda a evoluir! ⭐`
-                                    )
-                                    .setFooter({ text: 'Kitsune Store • Avaliação de Atendimento', iconURL: client.user?.displayAvatarURL() })
-                                    .setTimestamp();
-                                await owner.send({ embeds: [ratingEmbed], components: [starRow] }).catch(() => {});
-                            }
-                        } catch (err) {
-                            console.error('[Ticket Close] Falha ao enviar DM de avaliação:', err);
-                        }
-                    })();
-                }
-
-                setTimeout(async () => {
-                    try {
-                        let ch = channelRef;
-                        if (!ch || typeof ch.delete !== 'function') {
-                            ch = targetGuild?.channels.cache.get(targetChannelId)
-                                || await targetGuild?.channels.fetch(targetChannelId).catch(() => null)
-                                || await client.channels.fetch(targetChannelId).catch(() => null);
-                        }
-                        if (ch && typeof ch.delete === 'function') {
-                            await ch.delete(`Ticket encerrado por ${interaction.user.tag}: ${motivo}`);
-                        } else {
-                            console.error(`[Ticket Close] Canal ${targetChannelId} não encontrado para deleção.`);
-                        }
-                    } catch (e) {
-                        console.error("[Ticket Close] Erro na primeira tentativa de deletar canal:", e);
-                        try {
-                            const fallbackCh = await client.channels.fetch(targetChannelId).catch(() => null);
-                            if (fallbackCh && typeof fallbackCh.delete === 'function') {
-                                await fallbackCh.delete(`Ticket encerrado por ${interaction.user.tag}: ${motivo}`);
-                            }
-                        } catch (retryErr) {
-                            console.error("[Ticket Close] Falha fatal ao deletar canal de ticket:", retryErr);
-                        }
-                    }
-                }, 5000);
+                await fecharCanalTicket(interaction.channel, interaction.user, motivo, client, interaction.guild, interaction);
+                return;
             }
             else if (interaction.customId === 'modal_editar_pedido') {
                 const newRegion = interaction.fields.getTextInputValue('new_region').toUpperCase().trim();
@@ -5433,3 +5478,9 @@ setTimeout(() => {
     refreshAccountsTask();
     setInterval(refreshAccountsTask, 60 * 1000);
 }, 5000);
+
+module.exports = {
+    atualizarEmbedTicket,
+    fecharCanalTicket
+};
+

@@ -7,6 +7,35 @@ module.exports = {
     async execute(message) {
         if (message.author.bot || !message.guild) return;
 
+        const contentLower = (message.content || '').toLowerCase().trim();
+
+        // --- COMANDO RÁPIDO PARA FECHAR TICKET (!fechar, !close, -fechar, -close) ---
+        if (['!fechar', '!close', '-fechar', '-close'].includes(contentLower)) {
+            const isTicket = message.channel?.name?.startsWith('🎫') ||
+                (message.channel?.topic && message.channel.topic.includes('Ticket-Owner')) ||
+                (global.ticketCarts && global.ticketCarts.has(message.channel?.id));
+
+            if (isTicket) {
+                const isOwner = (global.ticketCarts?.get(message.channel.id)?.ownerId === message.author.id) ||
+                    (message.channel.topic && message.channel.topic.includes(message.author.id));
+                const isAdmin = message.member?.permissions?.has(1n << 3n); // Administrator
+                const staffRoles = (process.env.STAFF_ROLE_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
+                const hasStaffRole = staffRoles.some(roleId => message.member?.roles?.cache?.has(roleId));
+
+                if (isOwner || isAdmin || hasStaffRole) {
+                    try {
+                        const { fecharCanalTicket } = require('../index.js');
+                        if (typeof fecharCanalTicket === 'function') {
+                            await fecharCanalTicket(message.channel, message.author, 'Comando rápido de texto', message.client, message.guild, null);
+                            return;
+                        }
+                    } catch (closeErr) {
+                        console.error('[Prefix Close Error]', closeErr);
+                    }
+                }
+            }
+        }
+
         const dbPath = path.join(__dirname, '../database/database.json');
         let db = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
         const userId = message.author.id;
