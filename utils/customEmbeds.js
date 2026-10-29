@@ -35,6 +35,50 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
         }
     }
 
+    // Injetar valores padrão das tabelas de preços caso seja um embed de tabela
+    if (embedId && embedId.startsWith('tabela_')) {
+        let loja = {};
+        try {
+            loja = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/loja.json'), 'utf8'));
+        } catch (e) {}
+
+        const tableDefaults = {
+            price_3250: loja.skins?.ultimate?.desconto || '10.49',
+            price_1820: loja.skins?.legendary?.desconto || '5.75',
+            price_1350: loja.skins?.epic?.desconto || '4.25',
+            price_975: loja.skins?.common_975?.desconto || '3.25',
+            price_750: loja.skins?.common_750?.desconto || '3.25',
+            price_520: loja.skins?.common_520?.desconto || '1.75',
+            price_490: loja.skins?.mystery_skin?.desconto || '1.59',
+            price_champ_490: loja.skins?.mystery_champ?.desconto || '1.59',
+            skinsDiscount: loja.desconto_skins ?? 50,
+            price_1650: loja.loot?.pass_1?.desconto || '5.39',
+            price_2650: loja.loot?.pass_2?.desconto || '8.64',
+            price_3650: loja.loot?.pass_3?.desconto || '11.74',
+            price_2500: loja.loot?.orb_1?.desconto || '8.00',
+            price_6250: loja.loot?.orb_2?.desconto || '20.25',
+            price_12500: loja.loot?.orb_3?.desconto || '40.74',
+            price_225: loja.loot?.chest_key_1?.desconto || '0.65',
+            price_1125: loja.loot?.chest_key_5?.desconto || '3.15',
+            price_2250: loja.loot?.chest_key_10?.desconto || '6.25',
+            lootDiscount: loja.desconto_chests ?? 55,
+            passesDiscount: loja.desconto_passes ?? 50,
+            price_290: loja.skins?.croma?.desconto || '1.39',
+            price_350: (350 * 0.006 * (1 - (loja.desconto_emotes ?? 30) / 100)).toFixed(2),
+            price_640: (640 * 0.006 * (1 - (loja.desconto_wards ?? 30) / 100)).toFixed(2),
+            price_250: (250 * 0.006 * (1 - (loja.desconto_icones ?? 30) / 100)).toFixed(2),
+            price_clash_975: (975 * 0.006 * (1 - (loja.desconto_acessorios ?? 30) / 100)).toFixed(2),
+            price_boost_3490: (3490 * 0.006 * (1 - (loja.desconto_boosts ?? 30) / 100)).toFixed(2),
+            acessoriosDiscount: loja.desconto_acessorios ?? 30
+        };
+
+        for (const [k, v] of Object.entries(tableDefaults)) {
+            if (extraVars[k] === undefined) {
+                extraVars[k] = v;
+            }
+        }
+    }
+
     for (const [key, val] of Object.entries(extraVars)) {
         desc = desc.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
         title = title.replace(new RegExp(`{${key}}`, 'g'), val !== undefined && val !== null ? val : '');
@@ -104,7 +148,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
                 fValue = fValue.replace(new RegExp(`{${key}}`, 'g'), val);
             }
             
-            if (fValue.trim() === '\`\`' || fValue.trim() === '""' || fValue.trim() === '') continue;
+            if (fValue.trim() === '``' || fValue.trim() === '""' || fValue.trim() === '') continue;
             
             if (fName.trim()) {
                 embed.addFields({ name: fName, value: fValue, inline: f.inline || false });
