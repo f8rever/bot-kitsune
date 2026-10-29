@@ -12,8 +12,8 @@ if (!fs.existsSync(BANNERS_DIR)) {
 // Map<filePath, { promise: Promise<info>, listeners: Set<Function>, lastPct: number, lastStage: string }>
 const activeConversions = new Map();
 
-const TARGET_DURATION_SEC = 3.2;
-const TARGET_FPS = 16;
+const TARGET_DURATION_SEC = 8.0;
+const TARGET_FPS = 14;
 const TOTAL_FRAMES = Math.round(TARGET_DURATION_SEC * TARGET_FPS);
 
 /**
@@ -67,7 +67,7 @@ function getGifCacheInfo(url) {
     const baseMatch = path.basename(cleanUrl.split('?')[0], path.extname(cleanUrl.split('?')[0]))
         .replace(/[^a-zA-Z0-9_-]/g, '')
         .slice(0, 28);
-    const fileName = `livehd_${baseMatch || 'banner'}_${hash}.gif`;
+    const fileName = `live8s_${baseMatch || 'banner'}_${hash}.gif`;
     const filePath = path.join(BANNERS_DIR, fileName);
     return {
         fileName,
@@ -264,32 +264,32 @@ async function ensureGifFromVideoUrl(url, onProgress = null) {
 
             notify(24, 'Extraindo paleta de cores HD (256 cores)...');
 
-            // Passo 1: Extração da paleta de cores em alta resolução com Lanczos
+            // Passo 1: Extração da paleta de cores em sRGB real com Lanczos (corrige vídeos 12-bit BT.709 da Riot)
             await runFfmpegWithProgress(
                 [
                     '-y',
                     '-t', String(TARGET_DURATION_SEC),
                     '-i', tempVideoPath,
-                    '-vf', 'fps=8,scale=680:-1:flags=lanczos,palettegen=max_colors=256:stats_mode=full',
+                    '-vf', 'fps=8,scale=600:-1:flags=lanczos+accurate_rnd+full_chroma_int,format=rgb24,palettegen=max_colors=256:stats_mode=full',
                     tempPalettePath
                 ],
                 ratio => {
                     const pct = 24 + Math.round(ratio * 12); // 24% -> 36%
-                    notify(pct, 'Mapeando paleta de cores Ultra HD...');
+                    notify(pct, 'Mapeando paleta de cores sRGB Ultra HD...');
                 },
-                60000
+                90000
             );
 
-            notify(38, 'Renderizando quadros do GIF animado em Ultra HD...');
+            notify(38, 'Renderizando 8 segundos de animação em Ultra HD...');
 
-            // Passo 2: Codificação Ultra HD com Lanczos + Floyd-Steinberg (zero quadriculado, nitidez máxima)
+            // Passo 2: Codificação 8.0s com Lanczos sRGB + Bayer Scale 5 (zero chiado entre quadros e longa duração)
             await runFfmpegWithProgress(
                 [
                     '-y',
                     '-t', String(TARGET_DURATION_SEC),
                     '-i', tempVideoPath,
                     '-i', tempPalettePath,
-                    '-lavfi', `fps=${TARGET_FPS},scale=680:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=floyd_steinberg:diff_mode=rectangle`,
+                    '-lavfi', `fps=${TARGET_FPS},scale=600:-1:flags=lanczos+accurate_rnd+full_chroma_int,format=rgb24[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`,
                     '-loop', '0',
                     tempGifPath
                 ],
