@@ -15,6 +15,7 @@ const {
     MessageComponentInteraction,
     ModalSubmitInteraction
 } = require('discord.js');
+const { isVideoBannerUrl, getGifCacheInfo, ensureGifFromVideoUrl } = require('./webmToGif.js');
 
 const DEFAULT_ACCENT_COLOR = 0xF43F5E; // Kitsune Rose
 
@@ -367,6 +368,7 @@ function enableGlobalComponentsV2() {
     isPatched = true;
 
     const originalResolveBody = MessagePayload.prototype.resolveBody;
+    const originalResolveFiles = MessagePayload.prototype.resolveFiles;
 
     // Preservar referência à mensagem original durante editReply após deferUpdate()
     for (const InteractionProto of [MessageComponentInteraction?.prototype, ModalSubmitInteraction?.prototype]) {
@@ -381,8 +383,63 @@ function enableGlobalComponentsV2() {
         }
     }
 
+    MessagePayload.prototype.resolveFiles = async function patchedResolveFiles() {
+        if (Array.isArray(this._pendingVideoUrls) && this._pendingVideoUrls.length > 0) {
+            await Promise.all(
+                this._pendingVideoUrls.map(url =>
+                    ensureGifFromVideoUrl(url).catch(err => {
+                        console.error('[WebmToGif] Falha ao converter vídeo em GIF:', err.message);
+                    })
+                )
+            );
+        }
+        return originalResolveFiles.call(this);
+    };
+
     MessagePayload.prototype.resolveBody = function patchedResolveBody() {
         const alreadyResolved = Boolean(this.body);
+
+        // Interceptar URLs .webm / .mp4 nos embeds e substituir automaticamente por GIF animado sem botão de play
+        if (!alreadyResolved && Array.isArray(this.options?.embeds) && this.options.embeds.length > 0) {
+            const pendingVideos = [];
+            const extraFiles = Array.isArray(this.options.files) ? [...this.options.files] : [];
+
+            this.options.embeds = this.options.embeds.map(emb => {
+                if (!emb) return emb;
+                const raw = typeof emb.toJSON === 'function' ? { ...emb.toJSON() } : { ...emb };
+                let modified = false;
+
+                if (raw.image?.url && isVideoBannerUrl(raw.image.url)) {
+                    const videoUrl = raw.image.url.trim();
+                    const gifInfo = getGifCacheInfo(videoUrl);
+                    pendingVideos.push(videoUrl);
+                    raw.image = { ...raw.image, url: gifInfo.attachmentUrl };
+                    if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                        extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                    }
+                    modified = true;
+                }
+
+                if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url)) {
+                    const videoUrl = raw.thumbnail.url.trim();
+                    const gifInfo = getGifCacheInfo(videoUrl);
+                    pendingVideos.push(videoUrl);
+                    raw.thumbnail = { ...raw.thumbnail, url: gifInfo.attachmentUrl };
+                    if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                        extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                    }
+                    modified = true;
+                }
+
+                return modified ? raw : emb;
+            });
+
+            if (pendingVideos.length > 0) {
+                this._pendingVideoUrls = pendingVideos;
+                this.options.files = extraFiles;
+            }
+        }
+
         const result = originalResolveBody.call(this);
         if (alreadyResolved || !this.body) return result;
 

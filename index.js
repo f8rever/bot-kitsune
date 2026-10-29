@@ -4507,6 +4507,18 @@ client.on('interactionCreate', async interaction => {
                     } catch (e) {}
                     try { client.emit('reloadEmbeds'); } catch(e) {}
 
+                    if ((field === 'image' || field === 'thumbnail') && finalValue) {
+                        try {
+                            const { isVideoBannerUrl, ensureGifFromVideoUrl } = require('./utils/webmToGif.js');
+                            if (isVideoBannerUrl(finalValue)) {
+                                if (!interaction.deferred && !interaction.replied) {
+                                    await interaction.deferReply({ ephemeral: true }).catch(() => {});
+                                }
+                                await ensureGifFromVideoUrl(finalValue);
+                            }
+                        } catch (eGif) {}
+                    }
+
                     let previewEmbed = null;
                     try {
                         previewEmbed = buildCustomEmbed(embedId, interaction.client, interaction, {
@@ -4545,8 +4557,10 @@ client.on('interactionCreate', async interaction => {
                         respData.components = [buildNavButtonsPreviewRow()];
                     }
 
-                    if (interaction.replied || interaction.deferred) {
+                    if (interaction.replied) {
                         await interaction.followUp(respData).catch(() => {});
+                    } else if (interaction.deferred) {
+                        await interaction.editReply(respData).catch(() => {});
                     } else {
                         await interaction.reply(respData).catch(() => {});
                     }

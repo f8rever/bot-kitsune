@@ -7,27 +7,27 @@ const { buildCustomEmbed } = require('../../utils/customEmbeds.js');
 
 function formatTimerDetailed(friendsSince) {
     if (!friendsSince) return '🌍 **Global (Outra Região/Chat)**';
-    
+
     // Normalizar string de data ISO
     const cleanDateStr = friendsSince.includes('T') ? friendsSince : friendsSince.replace(' ', 'T') + 'Z';
     const sinceDate = new Date(cleanDateStr);
-    
+
     if (isNaN(sinceDate.getTime())) return '⏳ **Amizade Recente**';
-    
+
     const diffMs = Date.now() - sinceDate.getTime();
     const twentyFourHoursMs = 24 * 60 * 60 * 1000;
-    
+
     if (diffMs >= twentyFourHoursMs) {
         const totalSecs = Math.floor(diffMs / 1000);
         const days = Math.floor(totalSecs / 86400);
         const hours = Math.floor((totalSecs % 86400) / 3600);
         const mins = Math.floor((totalSecs % 3600) / 60);
-        
+
         let timeParts = [];
         if (days > 0) timeParts.push(`${days}d`);
         if (hours > 0) timeParts.push(`${hours}h`);
         if (mins > 0 || timeParts.length === 0) timeParts.push(`${mins}m`);
-        
+
         return `✅ **Elegível para Presentes** (Adicionado há ${timeParts.join(' ')})`;
     } else {
         const remainMs = twentyFourHoursMs - diffMs;
@@ -35,7 +35,7 @@ function formatTimerDetailed(friendsSince) {
         const remainHours = Math.floor(remainSecs / 3600);
         const remainMins = Math.floor((remainSecs % 3600) / 60);
         const remainSeconds = remainSecs % 60;
-        
+
         return `⏱️ **Aguardando 24h** (Faltam ${remainHours}h ${remainMins}m ${remainSeconds}s)`;
     }
 }
@@ -79,7 +79,7 @@ module.exports = {
         const accountsPath = path.join(__dirname, '../../config', 'riot_accounts.json');
         let accounts = {};
         if (fs.existsSync(accountsPath)) {
-            try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch (e) {}
+            try { accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf8')); } catch (e) { }
         }
 
         const availableAccounts = Object.keys(accounts);
@@ -118,9 +118,9 @@ module.exports = {
                     acc.accessToken = refreshed.accessToken;
                     if (refreshed.idToken) acc.idToken = refreshed.idToken;
                     accounts[accountName] = acc;
-                    try { fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2)); } catch (e) {}
+                    try { fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2)); } catch (e) { }
                 }
-            } catch (e) {}
+            } catch (e) { }
         }
 
         // Garantir credenciais de chat XMPP
@@ -131,7 +131,7 @@ module.exports = {
                 acc.chatDom = getChatDom(acc.affinity);
                 acc.chatUri = getChatUri(acc.region || 'BR1', acc.affinity);
                 accounts[accountName] = acc;
-                try { fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2)); } catch (e) {}
+                try { fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2)); } catch (e) { }
             } catch (e) {
                 console.error('[Friendlist] Erro ao obter tokens de chat:', e.message);
             }
@@ -152,7 +152,7 @@ module.exports = {
                         if (sf.puuid) storeFriendsMap.set(sf.puuid, sf);
                     }
                 }
-            } catch (e) {}
+            } catch (e) { }
 
             // Buscar amigos do XMPP (roster completo de todas as regiões)
             if (acc.chatUri && acc.chatDom && acc.geopasToken) {
@@ -162,7 +162,7 @@ module.exports = {
                     if (connected) {
                         const roster = await xmppClient.getFriendList();
                         const mutual = (roster || []).filter(r => r.status === 'both' || !r.status);
-                        
+
                         allFriends = mutual.map(f => {
                             const nameKey = (f.name || '').toLowerCase().trim();
                             const storeData = storeFriendsMap.get(nameKey) || (f.puuid ? storeFriendsMap.get(f.puuid) : null);
@@ -268,7 +268,7 @@ module.exports = {
                 collector.on('end', () => {
                     const finalPayload = buildPagePayload(page);
                     finalPayload.components = [];
-                    interaction.editReply(finalPayload).catch(() => {});
+                    interaction.editReply(finalPayload).catch(() => { });
                 });
             }
             return;
@@ -285,7 +285,7 @@ module.exports = {
         let ok = false;
         try {
             ok = await client.initializeChat(acc.accessToken, acc.geopasToken);
-        } catch (e) {}
+        } catch (e) { }
 
         if (!ok) {
             client.disconnect();
@@ -378,7 +378,7 @@ module.exports = {
                         try {
                             await client.acceptFriendRequest(req.puuid);
                             acceptedCount++;
-                        } catch (e) {}
+                        } catch (e) { }
                     }
                 }
                 client.disconnect();
