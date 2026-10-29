@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const {
     ContainerBuilder,
@@ -15,7 +16,7 @@ const {
     MessageComponentInteraction,
     ModalSubmitInteraction
 } = require('discord.js');
-const { isVideoBannerUrl, getGifCacheInfo, ensureGifFromVideoUrl } = require('./webmToGif.js');
+const { isVideoBannerUrl, getGifCacheInfo, isGifCached, ensureGifFromVideoUrl } = require('./webmToGif.js');
 
 const DEFAULT_ACCENT_COLOR = 0xF43F5E; // Kitsune Rose
 
@@ -386,12 +387,35 @@ function enableGlobalComponentsV2() {
     MessagePayload.prototype.resolveFiles = async function patchedResolveFiles() {
         if (Array.isArray(this._pendingVideoUrls) && this._pendingVideoUrls.length > 0) {
             await Promise.all(
-                this._pendingVideoUrls.map(url =>
-                    ensureGifFromVideoUrl(url).catch(err => {
+                this._pendingVideoUrls.map(item =>
+                    ensureGifFromVideoUrl(item.videoUrl).catch(err => {
                         console.error('[WebmToGif] Falha ao converter vídeo em GIF:', err.message);
                     })
                 )
             );
+
+            // Se algum vídeo falhou na conversão e o arquivo .gif não existe em disco,
+            // removemos do array `files` e restauramos a URL original para nunca causar ENOENT
+            const failedItems = this._pendingVideoUrls.filter(
+                item => !fs.existsSync(item.gifInfo.filePath)
+            );
+            if (failedItems.length > 0) {
+                const failedNames = new Set(failedItems.map(i => i.gifInfo.fileName));
+                if (Array.isArray(this.options?.files)) {
+                    this.options.files = this.options.files.filter(
+                        f => !f || !failedNames.has(f.name || path.basename(String(f.attachment || '')))
+                    );
+                }
+                if (this.body?.components) {
+                    let bodyJson = JSON.stringify(this.body.components);
+                    for (const item of failedItems) {
+                        bodyJson = bodyJson.split(item.gifInfo.attachmentUrl).join(item.videoUrl);
+                    }
+                    try {
+                        this.body.components = JSON.parse(bodyJson);
+                    } catch {}
+                }
+            }
         }
         return originalResolveFiles.call(this);
     };
@@ -403,6 +427,10 @@ function enableGlobalComponentsV2() {
         if (!alreadyResolved && Array.isArray(this.options?.embeds) && this.options.embeds.length > 0) {
             const pendingVideos = [];
             const extraFiles = Array.isArray(this.options.files) ? [...this.options.files] : [];
+            let filesAdded = false;
+
+            const isImmediateInteraction =
+                Boolean(this.target && typeof this.target.isRepliable === 'function' && !this.target.deferred && !this.target.replied);
 
             this.options.embeds = this.options.embeds.map(emb => {
                 if (!emb) return emb;
@@ -412,23 +440,48 @@ function enableGlobalComponentsV2() {
                 if (raw.image?.url && isVideoBannerUrl(raw.image.url)) {
                     const videoUrl = raw.image.url.trim();
                     const gifInfo = getGifCacheInfo(videoUrl);
-                    pendingVideos.push(videoUrl);
-                    raw.image = { ...raw.image, url: gifInfo.attachmentUrl };
-                    if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
-                        extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                    if (isGifCached(videoUrl)) {
+                        raw.image = { ...raw.image, url: gifInfo.attachmentUrl };
+                        if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                            extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                            filesAdded = true;
+                        }
+                        modified = true;
+                    } else if (isImmediateInteraction) {
+                        // Pré-converte em background para não estourar o limite de 3s de interações diretas
+                        ensureGifFromVideoUrl(videoUrl).catch(() => {});
+                    } else {
+                        pendingVideos.push({ videoUrl, gifInfo });
+                        raw.image = { ...raw.image, url: gifInfo.attachmentUrl };
+                        if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                            extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                            filesAdded = true;
+                        }
+                        modified = true;
                     }
-                    modified = true;
                 }
 
                 if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url)) {
                     const videoUrl = raw.thumbnail.url.trim();
                     const gifInfo = getGifCacheInfo(videoUrl);
-                    pendingVideos.push(videoUrl);
-                    raw.thumbnail = { ...raw.thumbnail, url: gifInfo.attachmentUrl };
-                    if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
-                        extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                    if (isGifCached(videoUrl)) {
+                        raw.thumbnail = { ...raw.thumbnail, url: gifInfo.attachmentUrl };
+                        if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                            extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                            filesAdded = true;
+                        }
+                        modified = true;
+                    } else if (isImmediateInteraction) {
+                        ensureGifFromVideoUrl(videoUrl).catch(() => {});
+                    } else {
+                        pendingVideos.push({ videoUrl, gifInfo });
+                        raw.thumbnail = { ...raw.thumbnail, url: gifInfo.attachmentUrl };
+                        if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
+                            extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
+                            filesAdded = true;
+                        }
+                        modified = true;
                     }
-                    modified = true;
                 }
 
                 return modified ? raw : emb;
@@ -436,6 +489,8 @@ function enableGlobalComponentsV2() {
 
             if (pendingVideos.length > 0) {
                 this._pendingVideoUrls = pendingVideos;
+            }
+            if (filesAdded) {
                 this.options.files = extraFiles;
             }
         }

@@ -345,6 +345,13 @@ let customEmbeds = {};
 function carregarEmbeds() {
     try {
         customEmbeds = JSON.parse(fs.readFileSync(path.join(__dirname, 'config', 'embeds.json'), 'utf8'));
+        const { isVideoBannerUrl, isGifCached, ensureGifFromVideoUrl } = require('./utils/webmToGif.js');
+        for (const cfg of Object.values(customEmbeds)) {
+            if (!cfg || typeof cfg !== 'object') continue;
+            for (const u of [cfg.image, cfg.thumbnail]) {
+                if (u && isVideoBannerUrl(u) && !isGifCached(u)) ensureGifFromVideoUrl(u).catch(() => {});
+            }
+        }
     } catch (e) {
         console.error("Erro ao carregar embeds.json", e);
     }
@@ -4509,12 +4516,37 @@ client.on('interactionCreate', async interaction => {
 
                     if ((field === 'image' || field === 'thumbnail') && finalValue) {
                         try {
-                            const { isVideoBannerUrl, ensureGifFromVideoUrl } = require('./utils/webmToGif.js');
+                            const { isVideoBannerUrl, isGifCached, renderProgressBar, ensureGifFromVideoUrl } = require('./utils/webmToGif.js');
                             if (isVideoBannerUrl(finalValue)) {
-                                if (!interaction.deferred && !interaction.replied) {
-                                    await interaction.deferReply({ ephemeral: true }).catch(() => {});
+                                if (!isGifCached(finalValue)) {
+                                    interaction._usedProgressCard = true;
+                                    await interaction.reply({
+                                        content: renderProgressBar(2, 'Conectando ao servidor de mídia (.webm)...'),
+                                        ephemeral: true
+                                    }).catch(() => {});
+
+                                    let lastUpdateAt = Date.now();
+                                    let lastRenderedPct = 2;
+                                    let editInFlight = false;
+
+                                    await ensureGifFromVideoUrl(finalValue, (pct, stage) => {
+                                        const now = Date.now();
+                                        if (editInFlight) return;
+                                        if (pct - lastRenderedPct < 6 && now - lastUpdateAt < 1000 && pct < 98) return;
+                                        lastUpdateAt = now;
+                                        lastRenderedPct = pct;
+                                        editInFlight = true;
+                                        interaction.editReply({
+                                            content: renderProgressBar(pct, stage)
+                                        }).catch(() => {}).finally(() => {
+                                            editInFlight = false;
+                                        });
+                                    });
+
+                                    await interaction.editReply({
+                                        content: renderProgressBar(100, 'Conversão concluída! Carregando prévia no Discord...')
+                                    }).catch(() => {});
                                 }
-                                await ensureGifFromVideoUrl(finalValue);
                             }
                         } catch (eGif) {}
                     }
@@ -4557,10 +4589,13 @@ client.on('interactionCreate', async interaction => {
                         respData.components = [buildNavButtonsPreviewRow()];
                     }
 
-                    if (interaction.replied) {
+                    if (interaction._usedProgressCard || interaction.deferred) {
+                        await interaction.editReply(respData).catch(async err => {
+                            console.error(err.message);
+                            await interaction.editReply({ content: successMsg, embeds: [], files: [] }).catch(() => {});
+                        });
+                    } else if (interaction.replied) {
                         await interaction.followUp(respData).catch(() => {});
-                    } else if (interaction.deferred) {
-                        await interaction.editReply(respData).catch(() => {});
                     } else {
                         await interaction.reply(respData).catch(() => {});
                     }
