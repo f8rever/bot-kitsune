@@ -729,11 +729,14 @@
     ]
   },
   "welcome_invite": {
-    "title": "👋 Bem-vindo(a) à Kitsune Store!",
-    "description": "<a:whitearrow:1555074441933758624> Olá {userMention}, seja muito bem-vindo(a) ao servidor!\n<a:whitearrow:1555074441933758624> Convidado por: {inviterMention}\n<a:whitearrow:1555074441933758624> Convites do Convidante: **{inviterTotal}** ({inviterRegular} válidos, {inviterLeft} saíram)\n<a:whitearrow:1555074441933758624> Agora somos **{memberCount}** membros na comunidade!",
+    "title": "<a:white_claim:1545847197445136386> **Bem-vindo(a) à Kitsune Store!**",
+    "description": "<a:51047animatedarrowwhite:1545491753002475591> Olá {userMention}, seja muito bem-vindo(a) ao servidor!\n<a:51047animatedarrowwhite:1545491753002475591> Convidado por: {inviterMention}\n<a:51047animatedarrowwhite:1545491753002475591> Convites do Convidante: **{inviterTotal}** ({inviterRegular} válidos, {inviterLeft} saíram)\n<a:51047animatedarrowwhite:1545491753002475591> Agora somos **{memberCount}** membros na comunidade!",
     "color": "#F43F5E",
     "thumbnail": "{userAvatar}",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg",
+    "buttonLabel": "Buy here",
+    "buttonEmoji": "<:dinheiro:1555074386732650527>",
+    "buttonStyle": "Secondary",
     "fields": []
   },
   "invites_profile": {

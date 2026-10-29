@@ -30,11 +30,28 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     if (!cfg) return embed;
 
     const fox = customEmojis?.utilidades?.fox || '🦊';
+    const ticketArrow = customEmojis?.utilidades?.arrow_white_right || '<a:51047animatedarrowwhite:1545491753002475591>';
     let title = cfg.title || '';
     let desc = cfg.description || '';
     
-    title = title.replace(/{fox}/g, fox).replace(/\\n/g, '\n');
-    desc = desc.replace(/{fox}/g, fox).replace(/\\n/g, '\n');
+    title = title.replace(/{fox}/g, fox).replace(/{arrow}/g, ticketArrow).replace(/\\n/g, '\n');
+    desc = desc.replace(/{fox}/g, fox).replace(/{arrow}/g, ticketArrow).replace(/\\n/g, '\n');
+
+    if (embedId === 'welcome_invite') {
+        desc = desc.replace(/<a:whitearrow:1555074441933758624>/g, ticketArrow);
+        title = title.replace(/^👋\s*/, '<a:white_claim:1545847197445136386> ');
+        const welcomeDefaults = {
+            userMention: extraVars.cliente || '@Membro',
+            inviterMention: '`Direto / Desconhecido`',
+            inviterTotal: '1',
+            inviterRegular: '1',
+            inviterLeft: '0',
+            memberCount: String(interactionOrUser?.guild?.memberCount || '68')
+        };
+        for (const [k, v] of Object.entries(welcomeDefaults)) {
+            if (extraVars[k] === undefined) extraVars[k] = v;
+        }
+    }
     
     // Auto-detectar mencao do cliente se fornecido via interactionOrUser
     if (!extraVars.cliente && interactionOrUser) {

@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { buildCustomEmbed } = require('../utils/customEmbeds.js');
@@ -75,7 +75,40 @@ module.exports = {
                     embed.setThumbnail(member.user.displayAvatarURL({ extension: 'png', dynamic: true }));
                 }
 
-                welcomeChannel.send({ embeds: [embed] }).catch(() => {});
+                let welcomeCfg = {};
+                try {
+                    const embedsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/embeds.json'), 'utf8'));
+                    welcomeCfg = embedsData.welcome_invite || {};
+                } catch {}
+
+                const styleMap = {
+                    Primary: ButtonStyle.Primary,
+                    Secondary: ButtonStyle.Secondary,
+                    Success: ButtonStyle.Success,
+                    Danger: ButtonStyle.Danger
+                };
+                const btnStyle = styleMap[welcomeCfg.buttonStyle] || ButtonStyle.Secondary;
+                const btnLabel = (welcomeCfg.buttonLabel || 'Buy here').trim();
+                const btnEmoji = (welcomeCfg.buttonEmoji || '<:dinheiro:1555074386732650527>').trim();
+
+                const storeBtn = new ButtonBuilder()
+                    .setCustomId('abrir_loja')
+                    .setLabel(btnLabel)
+                    .setStyle(btnStyle);
+                if (btnEmoji) {
+                    try { storeBtn.setEmoji(btnEmoji); } catch {}
+                }
+
+                const memberBadgeBtn = new ButtonBuilder()
+                    .setCustomId('welcome_member_badge')
+                    .setLabel(`Membro #${guild.memberCount}`)
+                    .setEmoji('👥')
+                    .setStyle(ButtonStyle.Secondary)
+                    .setDisabled(true);
+
+                const welcomeRow = new ActionRowBuilder().addComponents(storeBtn, memberBadgeBtn);
+
+                welcomeChannel.send({ embeds: [embed], components: [welcomeRow] }).catch(() => {});
             }
         } catch (e) {
             console.error('[GuildMemberAdd] Erro ao enviar mensagem de boas-vindas:', e.message);
