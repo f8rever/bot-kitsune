@@ -113,10 +113,12 @@ module.exports = {
             } else {
                 // Tentar ler das mensagens do canal
                 try {
+                    const { extractMessageData } = require('../../utils/componentsV2.js');
                     const messages = await interaction.channel.messages.fetch({ limit: 15 });
-                    const botMsg = messages.find(m => m.author.id === interaction.client.user.id && m.embeds.length > 0);
-                    if (botMsg && botMsg.embeds[0]) {
-                        const fields = botMsg.embeds[0].fields || [];
+                    const botMsg = messages.find(m => m.author.id === interaction.client.user.id && (m.embeds.length > 0 || m.components?.length > 0));
+                    const msgData = extractMessageData(botMsg);
+                    if (msgData.hasData) {
+                        const fields = msgData.fields || [];
                         const riotField = fields.find(f => f.name && (f.name.includes('Riot ID') || f.name.includes('Invocador')));
                         if (riotField) {
                             targetRiotId = riotField.value.replace(/[`*]/g, '').trim();

@@ -189,7 +189,7 @@ module.exports = {
 
         collector.on('end', (_, reason) => {
             if (reason === 'time') {
-                interaction.editReply({ components: [] }).catch(() => {});
+                interaction.editReply({ embeds: [embed], components: [] }).catch(() => {});
             }
         });
     }

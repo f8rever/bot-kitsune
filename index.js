@@ -43,6 +43,8 @@ const fs = require('fs');
 const path = require('path');
 const formatEmbed = require('./utils/embedFormat.js');
 const { buildCustomEmbed } = require("./utils/customEmbeds.js");
+const { enableGlobalComponentsV2, extractMessageData } = require("./utils/componentsV2.js");
+enableGlobalComponentsV2();
 
 const _catalogCacheRAM = {};
 function clearCatalogCacheRAM() {
@@ -1717,10 +1719,10 @@ async function atualizarEmbedTicket(channel, client) {
     if (!cart) {
         try {
             const messages = await channel.messages.fetch({ limit: 20 });
-            const botMsg = messages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
-            if (botMsg && botMsg.embeds.length > 0) {
-                const emb = botMsg.embeds[0];
-                const fields = emb.fields || [];
+            const botMsg = messages.find(m => m.author.id === client.user.id && (m.embeds.length > 0 || m.components?.length > 0));
+            const msgData = extractMessageData(botMsg);
+            if (msgData.hasData) {
+                const fields = msgData.fields || [];
                 const pField = fields.find(f => f.name && f.name.includes('Product'));
                 const regField = fields.find(f => f.name && (f.name.includes('Region') || f.name.includes('Região')));
                 const rField = fields.find(f => f.name && (f.name.includes('Riot ID') || f.name.includes('Invocador')));
@@ -1982,7 +1984,7 @@ async function atualizarEmbedTicket(channel, client) {
     );
 
     const messages = await channel.messages.fetch({ limit: 100 });
-    const botMsg = messages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
+    const botMsg = messages.find(m => m.author.id === client.user.id && (m.embeds.length > 0 || m.components?.length > 0));
     if (botMsg) {
         await botMsg.edit({ embeds: embedsArray, components: [row1, row2] });
     } else {
@@ -3657,9 +3659,9 @@ client.on('interactionCreate', async interaction => {
                         accountName = global.userStoreSessions.get(interaction.user.id).accountName;
                     }
 
-                    if (!accountName && interaction.message.embeds.length > 0) {
-                        const embed = interaction.message.embeds[0];
-                        const fullText = `${embed.title || ''} ${embed.description || ''} ${embed.footer?.text || ''}`;
+                    if (!accountName && interaction.message) {
+                        const msgData = extractMessageData(interaction.message);
+                        const fullText = msgData.fullText || '';
                         for (const name in accounts) {
                             if (fullText.includes(name)) {
                                 accountName = name;

@@ -266,7 +266,9 @@ module.exports = {
                 });
 
                 collector.on('end', () => {
-                    interaction.editReply({ components: [] }).catch(() => {});
+                    const finalPayload = buildPagePayload(page);
+                    finalPayload.components = [];
+                    interaction.editReply(finalPayload).catch(() => {});
                 });
             }
             return;
