@@ -13,30 +13,30 @@ if (!fs.existsSync(BANNERS_DIR)) {
 const activeConversions = new Map();
 
 const TARGET_DURATION_SEC = 3.2;
-const TARGET_FPS = 14;
+const TARGET_FPS = 16;
 const TOTAL_FRAMES = Math.round(TARGET_DURATION_SEC * TARGET_FPS);
 
 /**
- * Pool oficial de todas as 17 Splash Arts Animadas (.webm) do League of Legends (CommunityDragon)
+ * Pool oficial de todas as 17 Splash Arts Animadas Uncentered (.webm panorâmicas completas) do League of Legends
  */
 const ANIMATED_SPLASH_POOL = [
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ahri/skins/skin86/animatedsplash/ahri_skin86_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/morgana/skins/skin80/animatedsplash/morgana_skin80_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/kaisa/skins/skin71/animatedsplash/kaisa_skin71_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/jinx/skins/skin60/animatedsplash/jinx_skin60_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/viego/skins/skin43/animatedsplash/viego_skin43_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sett/skins/skin66/animatedsplash/sett_skin66_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/mordekaiser/skins/skin54/animatedsplash/mordekaiser_skin54_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/samira/skins/skin30/animatedsplash/samira_skin30_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/lux/skins/skin07/animatedsplash/lux_skin7_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin03/animatedsplash/seraphine_skin3_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin02/animatedsplash/seraphine_skin2_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin01/animatedsplash/seraphine_skin1_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/missfortune/skins/skin16/animatedsplash/missfortune_skin16_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sona/skins/skin06/animatedsplash/sona_skin6_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tristana/skins/skin80/animatedsplash/tristana_skin80_centered.hol_tristana.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/udyr/skins/skin03/animatedsplash/udyr_skin3_centered.webm',
-    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ezreal/skins/skin05/animatedsplash/ezreal_skin5_centered.webm'
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ahri/skins/skin86/animatedsplash/ahri_skin86_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/morgana/skins/skin80/animatedsplash/morgana_skin80_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/kaisa/skins/skin71/animatedsplash/kaisa_skin71_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/jinx/skins/skin60/animatedsplash/jinx_skin60_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/viego/skins/skin43/animatedsplash/viego_skin43_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sett/skins/skin66/animatedsplash/sett_skin66_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/mordekaiser/skins/skin54/animatedsplash/mordekaiser_skin54_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/samira/skins/skin30/animatedsplash/samira_skin30_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/lux/skins/skin07/animatedsplash/lux_skin7_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin03/animatedsplash/seraphine_skin3_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin02/animatedsplash/seraphine_skin2_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin01/animatedsplash/seraphine_skin1_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/missfortune/skins/skin16/animatedsplash/missfortune_skin16_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sona/skins/skin06/animatedsplash/sona_skin6_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tristana/skins/skin80/animatedsplash/tristana_skin80_uncentered.hol_tristana.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/udyr/skins/skin03/animatedsplash/udyr_skin3_uncentered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ezreal/skins/skin05/animatedsplash/ezreal_skin5_uncentered.webm'
 ];
 
 let _lastPickedUrl = null;
@@ -67,7 +67,7 @@ function getGifCacheInfo(url) {
     const baseMatch = path.basename(cleanUrl.split('?')[0], path.extname(cleanUrl.split('?')[0]))
         .replace(/[^a-zA-Z0-9_-]/g, '')
         .slice(0, 28);
-    const fileName = `live640_${baseMatch || 'banner'}_${hash}.gif`;
+    const fileName = `livehd_${baseMatch || 'banner'}_${hash}.gif`;
     const filePath = path.join(BANNERS_DIR, fileName);
     return {
         fileName,
@@ -264,32 +264,32 @@ async function ensureGifFromVideoUrl(url, onProgress = null) {
 
             notify(24, 'Extraindo paleta de cores HD (256 cores)...');
 
-            // Passo 1: Extração ultrarrápida da paleta de cores (sem bufferizar todos os frames em RAM)
+            // Passo 1: Extração da paleta de cores em alta resolução com Lanczos
             await runFfmpegWithProgress(
                 [
                     '-y',
                     '-t', String(TARGET_DURATION_SEC),
                     '-i', tempVideoPath,
-                    '-vf', 'fps=4,scale=320:-1:flags=bilinear,palettegen=max_colors=256:stats_mode=diff',
+                    '-vf', 'fps=8,scale=680:-1:flags=lanczos,palettegen=max_colors=256:stats_mode=full',
                     tempPalettePath
                 ],
                 ratio => {
                     const pct = 24 + Math.round(ratio * 12); // 24% -> 36%
-                    notify(pct, 'Mapeando paleta de cores HD...');
+                    notify(pct, 'Mapeando paleta de cores Ultra HD...');
                 },
-                45000
+                60000
             );
 
-            notify(38, 'Renderizando quadros do GIF animado em HD...');
+            notify(38, 'Renderizando quadros do GIF animado em Ultra HD...');
 
-            // Passo 2: Codificação frame a frame em tempo real com dither Bayer (rápido na CPU e leve em MB)
+            // Passo 2: Codificação Ultra HD com Lanczos + Floyd-Steinberg (zero quadriculado, nitidez máxima)
             await runFfmpegWithProgress(
                 [
                     '-y',
                     '-t', String(TARGET_DURATION_SEC),
                     '-i', tempVideoPath,
                     '-i', tempPalettePath,
-                    '-lavfi', `fps=${TARGET_FPS},scale=640:-1:flags=bicubic[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle`,
+                    '-lavfi', `fps=${TARGET_FPS},scale=680:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=floyd_steinberg:diff_mode=rectangle`,
                     '-loop', '0',
                     tempGifPath
                 ],
