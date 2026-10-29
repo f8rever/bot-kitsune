@@ -34,7 +34,7 @@ function getGifCacheInfo(url) {
     const baseMatch = path.basename(cleanUrl.split('?')[0], path.extname(cleanUrl.split('?')[0]))
         .replace(/[^a-zA-Z0-9_-]/g, '')
         .slice(0, 28);
-    const fileName = `live_${baseMatch || 'banner'}_${hash}.gif`;
+    const fileName = `live640_${baseMatch || 'banner'}_${hash}.gif`;
     const filePath = path.join(BANNERS_DIR, fileName);
     return {
         fileName,
@@ -256,7 +256,7 @@ async function ensureGifFromVideoUrl(url, onProgress = null) {
                     '-t', String(TARGET_DURATION_SEC),
                     '-i', tempVideoPath,
                     '-i', tempPalettePath,
-                    '-lavfi', `fps=${TARGET_FPS},scale=480:-1:flags=bicubic[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle`,
+                    '-lavfi', `fps=${TARGET_FPS},scale=640:-1:flags=bicubic[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle`,
                     '-loop', '0',
                     tempGifPath
                 ],
