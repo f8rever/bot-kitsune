@@ -964,6 +964,21 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
   - Adicionado suporte a comandos rápidos de texto (`!fechar`, `!close`, `-fechar`, `-close`) dentro de canais de ticket em [events/messageCreate.js](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/events/messageCreate.js).
   - Exportadas as funções `fecharCanalTicket` e `atualizarEmbedTicket` no `module.exports` de `index.js`.
 
+### Migração Universal para Discord Components V2 (Outubro 2026)
+- **Motor Universal Components V2 (`utils/componentsV2.js`):**
+  - Implementado interceptador global em `MessagePayload.prototype.resolveBody` ativado no boot do `index.js` (`enableGlobalComponentsV2()`).
+  - Todas as mensagens, respostas de comandos slash, painéis de loja, catálogos, tabelas de preços e tickets (`reply`, `editReply`, `update`, `followUp`, `channel.send`, `message.edit`) são convertidos automaticamente para **Discord Components V2** (`ContainerBuilder` + `MessageFlags.IsComponentsV2`).
+  - **Estrutura Visual V2:**
+    - `ContainerBuilder`: Moldura única com barra de cor lateral (`accent_color`) herdada do embed ou semântica (`#F43F5E` Kitsune Rose, `#10B981` Sucesso, `#EF4444` Erro, `#F59E0B` Alerta).
+    - `SectionBuilder` + `ThumbnailBuilder`: Ícones de skins, passes, orbes e avatares posicionados automaticamente na lateral direita do texto.
+    - `SeparatorBuilder`: Linhas divisórias nativas separando cabeçalho, campos (`fields`) e componentes interativos.
+    - `MediaGalleryBuilder` & `FileBuilder`: Banners, grades 5x2 (`riot_store_grid.png`), imagens de boas-vindas (`welcome.png`) e transcrições (`.txt`) integrados dentro do container.
+    - `ActionRowBuilder`: Todos os botões e menus dropdown ficam embutidos dentro do próprio card do Container V2.
+  - **Integração com `/embeds` e Leitura Híbrida (`extractMessageData`):**
+    - Qualquer edição feita no comando `/embeds` (`config/embeds.json`) altera diretamente o visual do Container V2.
+    - `utils/customEmbeds.js` injeta automaticamente todas as variáveis de preços e descontos de `config/loja.json` nas tabelas (`tabela_skins`, `tabela_loot`, `tabela_acessorios`).
+    - `extractMessageData` garante que a recuperação de pedidos em tickets (`index.js` e `commands/loja/checar-amizade.js`) funcione tanto em Containers V2 quanto em Embeds V1 legados.
+
 ### Emojis & Cosméticos (Opcional / Futuro)
 2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.
 3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
@@ -986,3 +1001,4 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 9. Não apagar informações históricas importantes.
 10. Se o contexto da conversa tiver sido perdido, reconstruir o contexto usando este arquivo e os arquivos do projeto.
 11. Sempre que fizer qualquer alteração ou update no código, realizar o git commit e git push para a branch main, permitindo o deploy contínuo no Render.
+12. REGRA OBRIGATÓRIA DE UI (Discord Components V2): Todo e qualquer comando, painel, resposta, ticket ou mensagem do bot DEVE utilizar Discord Components V2 (`ContainerBuilder` / `MessageFlags.IsComponentsV2` via `utils/componentsV2.js`). Nunca criar comandos fora do padrão V2 e garantir que todas as telas mantenham compatibilidade total com Containers V2 e com o gerenciador `/embeds`.
