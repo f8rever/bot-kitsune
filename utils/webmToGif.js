@@ -68,7 +68,7 @@ async function ensureGifFromVideoUrl(url) {
                     '-y',
                     '-t', '4',
                     '-i', tempVideoPath,
-                    '-vf', 'fps=15,scale=540:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128:stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle',
+                    '-vf', 'fps=16,scale=640:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=256:stats_mode=diff[p];[s1][p]paletteuse=dither=sierra2_4a:diff_mode=rectangle',
                     '-loop', '0',
                     tempGifPath
                 ];
@@ -102,3 +102,4 @@ module.exports = {
     getGifCacheInfo,
     ensureGifFromVideoUrl
 };
+
