@@ -2,6 +2,25 @@ const { EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const formatEmbed = require('./embedFormat.js');
+const { getRandomAnimatedBannerUrl } = require('./webmToGif.js');
+
+const RANDOM_BANNER_EMBEDS = new Set([
+    'ticket_welcome',
+    'store_authentication',
+    'store_sales_center',
+    'category_skins',
+    'category_loot',
+    'category_champions',
+    'category_accessories',
+    'category_highlights',
+    'hall_of_legends',
+    'ticket_payment_methods',
+    'welcome_invite',
+    'verify_panel',
+    'tabela_skins',
+    'tabela_loot',
+    'tabela_acessorios'
+]);
 
 // Cache em memória RAM com validação instantânea por mtimeMs para zero I/O bloqueante
 const _jsonCache = new Map();
@@ -26,14 +45,14 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
 
     const cfg = customEmbeds[embedId];
     const embed = formatEmbed(new EmbedBuilder(), client);
-    
+
     if (!cfg) return embed;
 
     const fox = customEmojis?.utilidades?.fox || '🦊';
     const ticketArrow = customEmojis?.utilidades?.arrow_white_right || '<a:51047animatedarrowwhite:1545491753002475591>';
     let title = cfg.title || '';
     let desc = cfg.description || '';
-    
+
     title = title.replace(/{fox}/g, fox).replace(/{arrow}/g, ticketArrow).replace(/\\n/g, '\n');
     desc = desc.replace(/{fox}/g, fox).replace(/{arrow}/g, ticketArrow).replace(/\\n/g, '\n');
 
@@ -52,7 +71,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
             if (extraVars[k] === undefined) extraVars[k] = v;
         }
     }
-    
+
     // Auto-detectar mencao do cliente se fornecido via interactionOrUser
     if (!extraVars.cliente && interactionOrUser) {
         const uId = interactionOrUser.user?.id || interactionOrUser.id;
@@ -115,9 +134,9 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
 
     // Limpeza de tags nao substituidas para evitar {cliente} ou {staffRoles} literais no embed
     desc = desc.replace(/{cliente}\s*\|\s*/g, extraVars.cliente ? `${extraVars.cliente} | ` : '')
-               .replace(/{cliente}/g, extraVars.cliente || '')
-               .replace(/\|\s*{staffRoles}/g, extraVars.staffRoles ? `| ${extraVars.staffRoles}` : '')
-               .replace(/{staffRoles}/g, extraVars.staffRoles || '');
+        .replace(/{cliente}/g, extraVars.cliente || '')
+        .replace(/\|\s*{staffRoles}/g, extraVars.staffRoles ? `| ${extraVars.staffRoles}` : '')
+        .replace(/{staffRoles}/g, extraVars.staffRoles || '');
 
     // Limpeza de barras soltas caso staffRoles ou cliente estejam vazios
     desc = desc.replace(/\s+\|\s*$/gm, '').replace(/^\s*\|\s*/gm, '').replace(/<a:whitearrow:1555074441933758624>\s*\|\s*/g, '<a:whitearrow:1555074441933758624> ');
@@ -126,13 +145,24 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     if (title && title.trim()) embed.setTitle(title.trim());
     if (desc && desc.trim()) embed.setDescription(desc.trim());
     if (cfg.color && cfg.color.trim()) {
-        try { embed.setColor(cfg.color.trim()); } catch(e){}
+        try { embed.setColor(cfg.color.trim()); } catch (e) { }
     }
-    
-    if (cfg.image && typeof cfg.image === 'string' && cfg.image.trim().startsWith('http')) {
-        try { embed.setImage(cfg.image.trim()); } catch(e){}
+
+    const isDirectImageEditModal = Boolean(
+        interactionOrUser?.customId &&
+        typeof interactionOrUser.customId === 'string' &&
+        interactionOrUser.customId === `modal_embed_${embedId}__image`
+    );
+
+    if (RANDOM_BANNER_EMBEDS.has(embedId) && !isDirectImageEditModal) {
+        const randomVideoUrl = getRandomAnimatedBannerUrl();
+        if (randomVideoUrl) {
+            try { embed.setImage(randomVideoUrl); } catch (e) { }
+        }
+    } else if (cfg.image && typeof cfg.image === 'string' && cfg.image.trim().startsWith('http')) {
+        try { embed.setImage(cfg.image.trim()); } catch (e) { }
     }
-    
+
     if (cfg.thumbnail === '{userAvatar}' && interactionOrUser) {
         let avatarUrl = null;
         if (interactionOrUser.user && typeof interactionOrUser.user.displayAvatarURL === 'function') {
@@ -142,7 +172,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
         }
         if (avatarUrl) embed.setThumbnail(avatarUrl);
     } else if (cfg.thumbnail && typeof cfg.thumbnail === 'string' && cfg.thumbnail.trim().startsWith('http')) {
-        try { embed.setThumbnail(cfg.thumbnail.trim()); } catch(e){}
+        try { embed.setThumbnail(cfg.thumbnail.trim()); } catch (e) { }
     }
 
     if (cfg.footerText !== undefined || cfg.footerIcon !== undefined) {
@@ -161,18 +191,18 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
         for (const f of cfg.fields) {
             let fName = f.name || '';
             let fValue = f.value || '';
-            
+
             fName = fName.replace(/{fox}/g, fox);
             fValue = fValue.replace(/{fox}/g, fox);
-            
+
             for (const [key, val] of Object.entries(extraVars)) {
                 // Ignore missing variables by not replacing them, or handle them based on usage
                 fName = fName.replace(new RegExp(`{${key}}`, 'g'), val);
                 fValue = fValue.replace(new RegExp(`{${key}}`, 'g'), val);
             }
-            
+
             if (fValue.trim() === '``' || fValue.trim() === '""' || fValue.trim() === '') continue;
-            
+
             if (fName.trim()) {
                 embed.addFields({ name: fName, value: fValue, inline: f.inline || false });
             }
@@ -186,7 +216,7 @@ function getLoadingEmbed(customText = 'Carregando dados da loja...') {
     let customEmojis = {};
     try {
         customEmojis = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/emojis.json'), 'utf8'));
-    } catch (e) {}
+    } catch (e) { }
     const loadingEmoji = (customEmojis?.status?.loading || '<a:loading:1555074450221961348>').trim();
 
     return new EmbedBuilder()
@@ -202,7 +232,7 @@ async function sendLoadingReply(interaction, customText = 'Carregando dados da l
         } else if (interaction.deferred) {
             await interaction.editReply({ embeds: [embed] });
         }
-    } catch (e) {}
+    } catch (e) { }
 }
 
 module.exports = { buildCustomEmbed, getLoadingEmbed, sendLoadingReply };

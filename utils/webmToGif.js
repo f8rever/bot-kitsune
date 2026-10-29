@@ -17,6 +17,39 @@ const TARGET_FPS = 14;
 const TOTAL_FRAMES = Math.round(TARGET_DURATION_SEC * TARGET_FPS);
 
 /**
+ * Pool oficial de todas as 17 Splash Arts Animadas (.webm) do League of Legends (CommunityDragon)
+ */
+const ANIMATED_SPLASH_POOL = [
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ahri/skins/skin86/animatedsplash/ahri_skin86_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/morgana/skins/skin80/animatedsplash/morgana_skin80_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/kaisa/skins/skin71/animatedsplash/kaisa_skin71_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/jinx/skins/skin60/animatedsplash/jinx_skin60_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/viego/skins/skin43/animatedsplash/viego_skin43_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sett/skins/skin66/animatedsplash/sett_skin66_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/mordekaiser/skins/skin54/animatedsplash/mordekaiser_skin54_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/samira/skins/skin30/animatedsplash/samira_skin30_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/lux/skins/skin07/animatedsplash/lux_skin7_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin03/animatedsplash/seraphine_skin3_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin02/animatedsplash/seraphine_skin2_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/seraphine/skins/skin01/animatedsplash/seraphine_skin1_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/missfortune/skins/skin16/animatedsplash/missfortune_skin16_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/sona/skins/skin06/animatedsplash/sona_skin6_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tristana/skins/skin80/animatedsplash/tristana_skin80_centered.hol_tristana.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/udyr/skins/skin03/animatedsplash/udyr_skin3_centered.webm',
+    'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ezreal/skins/skin05/animatedsplash/ezreal_skin5_centered.webm'
+];
+
+let _lastPickedUrl = null;
+function getRandomAnimatedBannerUrl() {
+    const cachedPool = ANIMATED_SPLASH_POOL.filter(u => isGifCached(u));
+    const pool = cachedPool.length > 0 ? cachedPool : ANIMATED_SPLASH_POOL;
+    const candidates = pool.length > 1 ? pool.filter(u => u !== _lastPickedUrl) : pool;
+    const picked = candidates[Math.floor(Math.random() * candidates.length)];
+    _lastPickedUrl = picked;
+    return picked;
+}
+
+/**
  * Verifica se uma URL aponta para um vídeo (.webm ou .mp4)
  */
 function isVideoBannerUrl(url) {
@@ -293,6 +326,8 @@ async function ensureGifFromVideoUrl(url, onProgress = null) {
 }
 
 module.exports = {
+    ANIMATED_SPLASH_POOL,
+    getRandomAnimatedBannerUrl,
     isVideoBannerUrl,
     getGifCacheInfo,
     isGifCached,

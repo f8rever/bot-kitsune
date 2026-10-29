@@ -549,6 +549,9 @@ function enableGlobalComponentsV2() {
 
             this.body.components = v2Components;
             this.body.flags = (this.body.flags || 0) | MessageFlags.IsComponentsV2;
+            if (hasFiles && !this.options?.attachments) {
+                this.body.attachments = [];
+            }
 
             // Verificar se estamos editando uma mensagem legada V1 que tinha content/embeds
             const targetMsg = this.isMessage ? this.target : (this.target?.message || this.options?._targetMessage);
