@@ -99,13 +99,12 @@ module.exports = {
             return interaction.reply({ content: '🚫 Apenas Administradores e Staff podem gerenciar sessões Riot.', ephemeral: true });
         }
 
-        await interaction.deferReply({ ephemeral: true });
 
         const { accountsPath, accounts } = loadAccountsFromDisk();
         const accountList = Object.keys(accounts);
 
         if (accountList.length === 0) {
-            return interaction.editReply({
+            return interaction.reply({ ephemeral: true,
                 content: '❌ Nenhuma conta Riot vinculada encontrada no bot. Use `/link` para cadastrar sua conta Riot primeiro!'
             });
         }
@@ -114,7 +113,7 @@ module.exports = {
 
         // Valor inválido do autocomplete (digitou algo que não existe)
         if (selectedInput === 'none') {
-            return interaction.editReply({
+            return interaction.reply({ ephemeral: true,
                 content: '❌ Nenhuma conta válida selecionada. Use `/link` para cadastrar sua conta Riot.'
             });
         }
@@ -133,7 +132,7 @@ module.exports = {
 
             if (!targetKey) {
                 const availableStr = accountList.map(a => `• **${a}**`).join('\n');
-                return interaction.editReply({
+                return interaction.reply({ ephemeral: true,
                     content: `❌ Conta **${selectedInput}** não encontrada.\n\n**Contas disponíveis:**\n${availableStr}`
                 });
             }
@@ -171,7 +170,7 @@ module.exports = {
             accountCount: String(accountList.length)
         });
 
-        const msg = await interaction.editReply({ embeds: [embed], components: [row] });
+        const msg = await interaction.reply({ embeds: [embed], components: [row], ephemeral: true, fetchReply: true });
 
         const collector = msg.createMessageComponentCollector({ time: 60000 });
 
@@ -197,6 +196,9 @@ module.exports = {
 
 // ── Função principal: autentica, sincroniza e exibe o painel ──────────────────
 async function activateAccountSession(targetInt, accountName, accData, accountsPath, allAccounts) {
+    if (!targetInt.deferred && !targetInt.replied) {
+        await targetInt.deferReply({ ephemeral: true }).catch(() => {});
+    }
     let accessToken = accData.accessToken;
     let entitlementsToken = accData.entitlementsToken;
     const region = accData.region || 'BR1';

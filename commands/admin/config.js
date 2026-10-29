@@ -72,8 +72,7 @@ module.exports = {
             return interaction.reply({ content: '🚫 Você precisa ser Administrador ou Staff para acessar as configurações do bot.', ephemeral: true });
         }
 
-        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
-        await sendLoadingReply(interaction, 'Carregando painel de configurações...', true);
+        // Resposta direta instantânea sem tela intermediária de carregamento
 
         const configPath = path.join(__dirname, '../../config/config.json');
         const dbPath = path.join(__dirname, '../../database/database.json');
@@ -170,7 +169,7 @@ module.exports = {
                 fs.writeFileSync(dbPath, JSON.stringify(dbData, null, 2), 'utf8');
             } catch (err) {
                 console.error('[Config Save Error]', err);
-                return interaction.editReply({ content: '❌ Erro interno ao salvar arquivos de configuração.' });
+                return interaction.reply({ content: '❌ Erro interno ao salvar arquivos de configuração.', ephemeral: true });
             }
 
             const successEmbed = new EmbedBuilder()
@@ -184,7 +183,7 @@ module.exports = {
                 .setFooter({ text: 'Kitsune Store • Configurações Globais', iconURL: interaction.client.user.displayAvatarURL() })
                 .setTimestamp();
 
-            return interaction.editReply({ embeds: [successEmbed] });
+            return interaction.reply({ embeds: [successEmbed], ephemeral: true });
         }
 
         // Se nenhum parâmetro foi passado, exibir Painel Geral de Configurações Ativas
@@ -215,6 +214,6 @@ module.exports = {
             .setFooter({ text: 'Kitsune Store • Para alterar, use /config com as opções desejadas', iconURL: interaction.client.user.displayAvatarURL() })
             .setTimestamp();
 
-        return interaction.editReply({ embeds: [infoEmbed] });
+        return interaction.reply({ embeds: [infoEmbed], ephemeral: true });
     }
 };

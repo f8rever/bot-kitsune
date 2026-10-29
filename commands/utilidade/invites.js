@@ -33,6 +33,6 @@ module.exports = {
             embed.setThumbnail(targetUser.displayAvatarURL({ extension: 'png', dynamic: true }));
         }
 
-        return interaction.editReply({ embeds: [embed] });
+        return (interaction.deferred || interaction.replied) ? interaction.editReply({ embeds: [embed] }) : interaction.reply({ embeds: [embed], ephemeral: true });
     }
 };

@@ -2238,20 +2238,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
             )
         );
 
-        if (!existingTicket) {
-            try {
-                const fetchedChannels = await interaction.guild.channels.fetch();
-                existingTicket = fetchedChannels.find(c =>
-                    c && c.type === ChannelType.GuildText &&
-                    (
-                        (c.topic && c.topic.includes(`Ticket-Owner: ${interaction.user.id}`)) ||
-                        (c.name.toLowerCase() === `🎫-${cleanUser}`) ||
-                        (c.name.toLowerCase() === cleanUser) ||
-                        (c.name.toLowerCase() === `-${cleanUser}`)
-                    )
-                );
-            } catch (e) {}
-        }
+
 
         if (existingTicket) {
             const row = new ActionRowBuilder().addComponents(
@@ -4041,7 +4028,6 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (interaction.customId === 'btn_notify_paid') {
-                await interaction.deferReply({ ephemeral: true });
 
                 const staffRolesArray = (process.env.STAFF_ROLE_IDS || '')
                     .split(',')
@@ -4059,8 +4045,11 @@ client.on('interactionCreate', async interaction => {
                     )
                     .setTimestamp();
 
-                await interaction.channel.send({ content: `${interaction.user} | ${staffMention}`, embeds: [notifyEmbed] });
-                return await interaction.editReply({ content: '✅ **Payment notified!** Please attach your payment screenshot in this channel.' });
+                await Promise.all([
+                    interaction.channel.send({ content: `${interaction.user} | ${staffMention}`, embeds: [notifyEmbed] }),
+                    interaction.reply({ content: '✅ **Payment notified!** Please attach your payment screenshot in this channel.', ephemeral: true })
+                ]);
+                return;
             }
 
             if (['adicionar_saldo', 'meu_perfil', 'backup'].includes(interaction.customId)) {
@@ -4068,9 +4057,6 @@ client.on('interactionCreate', async interaction => {
             }
             if (interaction.customId === 'abrir_loja') {
                 try {
-                    if (!interaction.deferred && !interaction.replied) {
-                        await interaction.deferReply({ ephemeral: true }).catch(() => {});
-                    }
 
                     if (!userStoreSessions.has(interaction.user.id)) {
                         userStoreSessions.set(interaction.user.id, { regiao: 'NA', riotId: 'Unknown' });
@@ -4115,7 +4101,11 @@ client.on('interactionCreate', async interaction => {
                             .addOptions(opcoesRegiao)
                     );
 
-                    await interaction.editReply({ content: '', embeds: [embed], components: [regiaoMenu] });
+                    if (interaction.deferred || interaction.replied) {
+                        await interaction.editReply({ content: '', embeds: [embed], components: [regiaoMenu] });
+                    } else {
+                        await interaction.reply({ content: '', embeds: [embed], components: [regiaoMenu], ephemeral: true });
+                    }
                 } catch (e) {
                     console.error("Erro ao enviar menu de regiões:", e);
                     try {
@@ -4723,30 +4713,27 @@ client.on('interactionCreate', async interaction => {
             }
 
             if (interaction.customId === 'modal_riot_id') {
-                try {
-                    if (!interaction.deferred && !interaction.replied) {
-                        await interaction.deferReply({ ephemeral: true });
-                    }
-                } catch (e) {
-                    if (e.code === 10062) return;
-                }
-
                 const riotId = interaction.fields.getTextInputValue('ticket_riot');
                 const session = userStoreSessions.get(interaction.user.id) || { regiao: 'BR' };
                 session.riotId = riotId;
                 userStoreSessions.set(interaction.user.id, session);
 
-                const loadEmj = (customEmojis?.utilidades?.carregando || '⏳').trim();
-                await interaction.editReply({ content: `${loadEmj} ${getLoadStr('sales')}` }).catch(() => { });
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
                 const menu = buildStoreMainMenu(customEmojis);
                 try {
-                    await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
+                    if (interaction.deferred || interaction.replied) {
+                        await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
+                    } else {
+                        await interaction.reply({ content: '', embeds: [embed], components: [menu], ephemeral: true });
+                    }
                 } catch (e) {
                     console.error("Erro ao enviar menu_vendas (verifique se os emojis em emojis.json são válidos e se o bot está no servidor deles!):", e.message);
-                    await interaction.editReply({ content: "❌ **Erro Interno:** Alguns emojis configurados em `emojis.json` são inválidos ou o bot não tem acesso a eles. Verifique o console." });
+                    const errMsg = "❌ **Erro Interno:** Alguns emojis configurados em `emojis.json` são inválidos ou o bot não tem acesso a eles. Verifique o console.";
+                    if (interaction.deferred || interaction.replied) {
+                        await interaction.editReply({ content: errMsg }).catch(() => {});
+                    } else {
+                        await interaction.reply({ content: errMsg, ephemeral: true }).catch(() => {});
+                    }
                 }
             }
 
@@ -4850,11 +4837,6 @@ function abrirModalBusca(interaction, id, titulo, label) {
 
 async function buscarEExibirItens(busca, interaction, cor, menuId, tipoFiltro = 'skins', pagina = 0, isUpdate = false) {
     const ITEMS_PER_PAGE = 25;
-    if (!isUpdate) {
-        if (!interaction.deferred && !interaction.replied) {
-            await interaction.deferReply({ ephemeral: true }).catch(() => {});
-        }
-    }
 
     const buscaLimpa = busca.trim().toLowerCase();
 

@@ -111,12 +111,12 @@ module.exports = {
 
         try {
             await targetChannel.send({ embeds: [embed], components: [row] });
-            return interaction.editReply({
+            return interaction.reply({ ephemeral: true,
                 content: `✅ Verification panel successfully sent to ${targetChannel}!`
             });
         } catch (err) {
             console.error('[Verify Panel Error]', err.message);
-            return interaction.editReply({
+            return interaction.reply({ ephemeral: true,
                 content: `❌ Failed to send verification panel to ${targetChannel}: \`${err.message}\``
             });
         }

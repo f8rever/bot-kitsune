@@ -118,8 +118,7 @@ module.exports = {
             });
         }
 
-        const { sendLoadingReply } = require('../../utils/customEmbeds.js');
-        await sendLoadingReply(interaction, 'Processando descontos da loja...', true);
+        // Resposta direta instantânea
 
         const acao = interaction.options.getString('acao') || (interaction.options.getNumber('porcentagem') !== null ? 'set' : 'ver');
         const pctInput = interaction.options.getNumber('porcentagem');
@@ -132,7 +131,7 @@ module.exports = {
             try {
                 loja = JSON.parse(fs.readFileSync(lojaPath, 'utf8'));
             } catch (e) {
-                return interaction.editReply({ content: '❌ Falha ao carregar o arquivo `loja.json`.' });
+                return interaction.reply({ ephemeral: true, content: '❌ Falha ao carregar o arquivo `loja.json`.' });
             }
         }
 
@@ -172,7 +171,7 @@ module.exports = {
             }
 
             embed.addFields(fields);
-            return interaction.editReply({ embeds: [embed] });
+            return interaction.reply({ ephemeral: true, embeds: [embed] });
         }
 
         // ── AÇÃO: RESETAR DESCONTOS ─────────────────────────────────────────
@@ -205,12 +204,12 @@ module.exports = {
                 .setFooter({ text: 'Kitsune Store • Configuração de Preços' })
                 .setTimestamp();
 
-            return interaction.editReply({ embeds: [embed] });
+            return interaction.reply({ ephemeral: true, embeds: [embed] });
         }
 
         // ── AÇÃO: DEFINIR DESCONTO (SET) ────────────────────────────────────
         if (pctInput === null || pctInput === undefined) {
-            return interaction.editReply({
+            return interaction.reply({ ephemeral: true,
                 content: '⚠️ Você precisa informar o valor da `porcentagem` (ex: 50 para 50% OFF) para usar a ação de definir desconto.'
             });
         }
@@ -245,7 +244,7 @@ module.exports = {
                 interaction.client.emit('reloadLoja');
             }
         } catch (e) {
-            return interaction.editReply({ content: '❌ Erro ao salvar alterações no arquivo `loja.json`.' });
+            return interaction.reply({ ephemeral: true, content: '❌ Erro ao salvar alterações no arquivo `loja.json`.' });
         }
 
         const embed = new EmbedBuilder()
@@ -261,6 +260,6 @@ module.exports = {
             .setFooter({ text: 'Kitsune Store • Sistema de Descontos' })
             .setTimestamp();
 
-        return interaction.editReply({ embeds: [embed] });
+        return interaction.reply({ ephemeral: true, embeds: [embed] });
     }
 };

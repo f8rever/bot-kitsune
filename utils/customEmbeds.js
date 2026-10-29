@@ -3,17 +3,26 @@ const fs = require('fs');
 const path = require('path');
 const formatEmbed = require('./embedFormat.js');
 
+// Cache em memória RAM com validação instantânea por mtimeMs para zero I/O bloqueante
+const _jsonCache = new Map();
+function getCachedJson(filePath) {
+    try {
+        const stat = fs.statSync(filePath);
+        const cached = _jsonCache.get(filePath);
+        if (cached && cached.mtimeMs === stat.mtimeMs) {
+            return cached.data;
+        }
+        const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        _jsonCache.set(filePath, { mtimeMs: stat.mtimeMs, data: parsed });
+        return parsed;
+    } catch {
+        return {};
+    }
+}
+
 function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars = {}) {
-    let customEmbeds = {};
-    let customEmojis = {};
-    
-    try {
-        customEmbeds = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/embeds.json'), 'utf8'));
-    } catch (e) {}
-    
-    try {
-        customEmojis = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/emojis.json'), 'utf8'));
-    } catch (e) {}
+    const customEmbeds = getCachedJson(path.join(__dirname, '../config/embeds.json'));
+    const customEmojis = getCachedJson(path.join(__dirname, '../config/emojis.json'));
 
     const cfg = customEmbeds[embedId];
     const embed = formatEmbed(new EmbedBuilder(), client);
@@ -37,10 +46,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
 
     // Injetar valores padrão das tabelas de preços caso seja um embed de tabela
     if (embedId && embedId.startsWith('tabela_')) {
-        let loja = {};
-        try {
-            loja = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/loja.json'), 'utf8'));
-        } catch (e) {}
+        const loja = getCachedJson(path.join(__dirname, '../config/loja.json'));
 
         const tableDefaults = {
             price_3250: loja.skins?.ultimate?.desconto || '10.49',
