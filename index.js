@@ -3,6 +3,7 @@ require('dotenv').config();
 // Web Server para manter o bot online no Render (Pings do UptimeRobot)
 const express = require('express');
 const app = express();
+app.use('/banners', express.static(require('path').join(__dirname, 'data', 'banners'), { maxAge: '365d', immutable: true }));
 app.get('/', (req, res) => res.send('Bot Kitsune está Online e rodando!'));
 app.get('/healthz', (req, res) => res.status(200).send('OK'));
 app.get('/status', (req, res) => {

@@ -80,6 +80,23 @@ const CDN_READY_BANNERS = new Set([
     'live8s_ahri_skin86_centered_88c4ab84e5c0.gif'
 ]);
 
+let _githubRawPublic = true;
+// Detecta automaticamente se o repositório GitHub foi colocado como Privado (404 no raw.githubusercontent)
+fetch(`${GITHUB_RAW_BASE}live8s_lux_skin7_uncentered_cb437e052207.gif`, { method: 'HEAD' })
+    .then(r => { if (!r.ok) _githubRawPublic = false; })
+    .catch(() => { _githubRawPublic = false; });
+
+function getBannerPublicCdnUrl(fileName) {
+    if (!CDN_READY_BANNERS.has(fileName)) return null;
+    if (process.env.RENDER_EXTERNAL_URL) {
+        return `${process.env.RENDER_EXTERNAL_URL.replace(/\/$/, '')}/banners/${fileName}`;
+    }
+    if (_githubRawPublic) {
+        return `${GITHUB_RAW_BASE}${fileName}`;
+    }
+    return null;
+}
+
 /**
  * Retorna o nome do arquivo .gif e o caminho em disco correspondente a uma URL .webm/.mp4
  */
@@ -95,7 +112,7 @@ function getGifCacheInfo(url) {
         fileName,
         filePath,
         attachmentUrl: `attachment://${fileName}`,
-        cdnUrl: CDN_READY_BANNERS.has(fileName) ? `${GITHUB_RAW_BASE}${fileName}` : null
+        cdnUrl: getBannerPublicCdnUrl(fileName)
     };
 }
 
