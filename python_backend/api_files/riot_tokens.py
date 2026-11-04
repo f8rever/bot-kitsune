@@ -262,6 +262,8 @@ class RiotAuth:
                 #ssid_token_expire = tokens_document.get('ssid_expire')
 
                 if self.lol_token:
+                    if not self.id_token and tokens_document:
+                        self.id_token = tokens_document.get('id_token')
                     lol_token_expire_timestamp = None
                     try:
                         lol_token_decoded = jwt.decode(self.lol_token, algorithms=['HS256'], options={"verify_signature": False})
@@ -270,9 +272,10 @@ class RiotAuth:
                         pass
                     document = {
                         'lol_token': self.lol_token,
-                        'id_token': self.id_token,
                         'lol_token_expire': lol_token_expire_timestamp,
-                        } 
+                        }
+                    if self.id_token:
+                        document['id_token'] = self.id_token
                     
                     result = account_tokens.update_one(
                         {'userpass': self.userpass_value},  # condição de busca
@@ -1394,21 +1397,43 @@ class RiotAuth:
 
             # Printando os valores e o resultado da verificação'''
         
+        cpid = getattr(self, 'region', None)
+        locale = "en_US"
+
         if self.lol_token:
             decoded_lol_token = jwt.decode(self.lol_token, algorithms=['HS256'], options={"verify_signature": False})
             self.my_puuid = decoded_lol_token.get("sub")
+            dat_info = decoded_lol_token.get("dat") or {}
+            if isinstance(dat_info, dict) and dat_info.get("r"):
+                cpid = dat_info.get("r")
 
         if self.id_token:
-            decoded_id_token = jwt.decode(self.id_token, algorithms=['HS256'], options={"verify_signature": False})
-            lol = decoded_id_token.get("lol", {})
+            try:
+                decoded_id_token = jwt.decode(self.id_token, algorithms=['HS256'], options={"verify_signature": False})
+                lol = decoded_id_token.get("lol", {})
+                if isinstance(lol, list) and lol:
+                    first_lol_entry = lol[0]
+                    cpid = first_lol_entry.get('cpid') or cpid
+                elif isinstance(lol, dict):
+                    cpid = lol.get('cpid') or cpid
+                locale = decoded_id_token.get("player_locale") or locale
+            except Exception:
+                pass
 
-            # Acessa o primeiro dicionário da lista
-            first_lol_entry = lol[0]
-            cpid = first_lol_entry.get('cpid')
-            locale = decoded_id_token.get("player_locale")
+        if not cpid and self.lol_token:
+            try:
+                async with self.session.get(
+                    "https://auth.riotgames.com/userinfo",
+                    headers={'Authorization': f'Bearer {self.lol_token}', 'Accept': 'application/json'}
+                ) as u_resp:
+                    if u_resp.status == 200:
+                        u_data = await u_resp.json()
+                        cpid = (u_data.get('lol') or {}).get('cpid') or cpid
+                        locale = (u_data.get('lol') or {}).get('ploc') or locale
+            except Exception:
+                pass
 
-        
-        self.region = cpid
+        self.region = cpid or "BR1"
         self.locale = self.get_full_locale(locale)
 
         #print(f"\n region: {cpid}   locale: {self.locale} ({locale})")
