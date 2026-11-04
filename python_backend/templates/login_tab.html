@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>League of Legends SENDER</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/style.css?v=12.0">
+    <link rel="stylesheet" href="/static/style.css?v=13.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23ffffff%22><path d=%22M13.458.86 0 7.093l3.353 12.761 2.552-.313-.701-8.024.838-.373 1.447 8.202 4.361-.535-.775-8.857.83-.37 1.591 9.025 4.412-.542-.849-9.708.84-.374 1.74 9.87L24 17.318V3.5Zm.316 19.356.222 1.256L24 23.14v-4.18l-10.22 1.256Z%22/></svg>">
     <script src="/static/api_hcaptcha.js" async defer></script>
     <style>
-        /* ==========================================================================
-           LIQUID CHROME, BRUSHED SILVER-TITANIUM & OBSIDIAN — LOGIN THEME (v11.0)
-           ========================================================================== */
         :root {
             --bg-color: #040406;
-            --primary-purple: #cbd5e1;
+            --card-bg: rgba(10, 11, 15, 0.88);
+            --primary-silver: #cbd5e1;
             --primary-light: #f8fafc;
             --white: #ffffff;
-            --gray-text: #cbd5e1;
-            --border-color: rgba(255, 255, 255, 0.45);
+            --gray-text: #94a3b8;
         }
 
-        @keyframes metallicRimSweep {
+        @keyframes rimLaserSweep {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
@@ -31,11 +28,6 @@
         @keyframes liquidChromeSheen {
             0% { transform: translateX(-150%) skewX(-22deg); }
             42%, 100% { transform: translateX(250%) skewX(-22deg); }
-        }
-
-        @keyframes panelLiquidSheen {
-            0% { transform: translateX(-150%) skewX(-22deg); }
-            48%, 100% { transform: translateX(250%) skewX(-22deg); }
         }
 
         body {
@@ -47,10 +39,9 @@
             min-height: 100vh;
             background-color: #040406;
             background-image:
-                radial-gradient(ellipse 85% 45% at 50% -5%, rgba(255, 255, 255, 0.18) 0%, rgba(148, 163, 184, 0.06) 48%, transparent 75%),
-                radial-gradient(circle at 15% 80%, rgba(226, 232, 240, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 20%, rgba(148, 163, 184, 0.08) 0%, transparent 45%),
-                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.008) 0px, rgba(255, 255, 255, 0.008) 1px, transparent 1px, transparent 3px);
+                radial-gradient(ellipse 80% 45% at 50% -10%, rgba(255, 255, 255, 0.12) 0%, rgba(148, 163, 184, 0.04) 48%, transparent 75%),
+                radial-gradient(circle at 15% 80%, rgba(226, 232, 240, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 20%, rgba(148, 163, 184, 0.06) 0%, transparent 45%);
             overflow: hidden;
             font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
             color: var(--white);
@@ -66,40 +57,15 @@
             pointer-events: none;
         }
 
-        /* BRUSHED SILVER-TITANIUM LOGIN PANEL WITH SWEEPING LIQUID CHROME ANIMATION */
         .monarch-login-card {
-            background:
-
-                linear-gradient(
-                    118deg,
-                    rgba(255, 255, 255, 0.30) 0%,
-                    rgba(226, 232, 240, 0.18) 24%,
-                    rgba(148, 163, 184, 0.08) 48%,
-                    rgba(10, 12, 16, 0.35) 68%,
-                    rgba(226, 232, 240, 0.24) 100%
-                ),
-                linear-gradient(
-                    180deg,
-                    #5c677a 0%,
-                    #343c4a 26%,
-                    #181c24 68%,
-                    #384152 100%
-                );
+            background: var(--card-bg);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border-radius: 22px;
-            border: 1px solid rgba(226, 232, 240, 0.6);
-            border-top: 1.5px solid #ffffff;
-            border-bottom: 2px solid #64748b;
             padding: 2px;
             width: 100%;
-            max-width: 430px;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.95),
-                0 0 35px rgba(226, 232, 240, 0.16),
-                inset 0 1px 0 #ffffff,
-                inset 0 3px 18px rgba(255, 255, 255, 0.28),
-                inset 0 -3px 10px rgba(148, 163, 184, 0.28);
+            max-width: 420px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.92), 0 0 30px rgba(255, 255, 255, 0.07);
             position: relative;
             overflow: hidden;
             z-index: 10;
@@ -109,11 +75,7 @@
 
         .monarch-login-card:hover {
             transform: translateY(-5px);
-            box-shadow:
-                0 30px 70px rgba(0, 0, 0, 0.98),
-                0 0 45px rgba(255, 255, 255, 0.25),
-                inset 0 1px 0 #ffffff,
-                inset 0 4px 22px rgba(255, 255, 255, 0.34);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 255, 255, 0.15);
         }
 
         .monarch-border-fx {
@@ -128,13 +90,12 @@
             z-index: 1;
         }
 
-        /* Dual Counter-Rotating Liquid Chrome Border Beams */
         .monarch-border-fx::before,
         .monarch-border-fx::after {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, #ffffff 0deg, #cbd5e1 18deg, transparent 45deg, transparent 315deg, #cbd5e1 342deg, #ffffff 360deg);
+            background: conic-gradient(from 0deg, #ffffff 0deg, #94a3b8 18deg, transparent 45deg, transparent 315deg, #94a3b8 342deg, #ffffff 360deg);
         }
 
         .monarch-border-fx::before {
@@ -171,7 +132,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.7rem;
             font-weight: 900;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 55%, #cbd5e1 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 2px;
@@ -179,7 +140,6 @@
             text-transform: uppercase;
             line-height: 1.15;
             white-space: nowrap;
-            filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.75));
         }
 
         .login-title span {
@@ -188,24 +148,19 @@
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: metallicRimSweep 4.5s linear infinite;
+            animation: rimLaserSweep 4.5s linear infinite;
             letter-spacing: 3.5px;
             display: inline-block;
         }
 
         .login-subtitle {
-            font-size: 0.78rem;
-            color: #050507;
-            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 48%, #94a3b8 100%);
-            border: 1px solid #ffffff;
-            border-radius: 999px;
-            padding: 4px 16px;
-            margin-top: 6px;
-            margin-bottom: 34px;
+            font-size: 0.82rem;
+            color: var(--gray-text);
+            margin-top: 4px;
+            margin-bottom: 36px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 14px rgba(255, 255, 255, 0.25), inset 0 1px 0 #ffffff;
+            letter-spacing: 2.5px;
+            font-weight: 600;
         }
 
         .input-group-custom {
@@ -218,12 +173,11 @@
         .input-group-custom label {
             display: block;
             font-size: 0.75rem;
-            font-weight: 800;
-            color: #f1f5f9;
+            font-weight: 700;
+            color: var(--gray-text);
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
         }
 
         .input-wrapper {
@@ -235,50 +189,45 @@
             left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: #cbd5e1;
+            color: var(--gray-text);
             font-size: 1.02rem;
             z-index: 2;
             transition: all 0.3s ease;
         }
 
-        /* Recessed Machined Obsidian Inputs */
         .input-wrapper input {
             width: 100%;
-            background: linear-gradient(180deg, #050608 0%, #0d0f14 100%) !important;
-            border: 1px solid rgba(226, 232, 240, 0.38) !important;
-            border-top: 1px solid rgba(0, 0, 0, 0.95) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
-            color: #ffffff !important;
+            background: rgba(5, 6, 9, 0.92) !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            color: var(--white) !important;
             border-radius: 12px !important;
             padding: 15px 20px 15px 48px !important;
             font-size: 0.95rem !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
             transition: all 0.25s ease !important;
             outline: none !important;
-            box-shadow: inset 0 3px 9px rgba(0, 0, 0, 0.95), 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.85) !important;
         }
 
         .input-wrapper input::placeholder {
-            color: #64748b !important;
+            color: #525b6c !important;
         }
 
         .input-wrapper input:focus {
             border-color: #ffffff !important;
-            background: #080a0e !important;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22), 0 0 22px rgba(255, 255, 255, 0.25), inset 0 3px 9px rgba(0, 0, 0, 0.95) !important;
+            background: rgba(10, 12, 16, 0.98) !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 0 18px rgba(255, 255, 255, 0.15) !important;
         }
 
         .input-wrapper input:focus + i, 
         .input-wrapper input:focus ~ i {
             color: #ffffff !important;
-            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
         }
 
-        /* 3D Liquid Chrome Submit Button (Identical to Send Gift Button) */
         .btn-login-submit {
             width: 100%;
-            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 48%, #94a3b8 100%) !important;
+            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%) !important;
             color: #050507 !important;
             border: 1px solid #ffffff !important;
             border-radius: 12px !important;
@@ -297,8 +246,7 @@
             gap: 10px !important;
             position: relative !important;
             overflow: hidden !important;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 255, 255, 0.28), inset 0 1px 0 #ffffff, inset 0 -2px 0 rgba(51, 65, 85, 0.55) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.22), inset 0 1px 0 #ffffff !important;
         }
 
         .btn-login-submit::after {
@@ -315,10 +263,10 @@
         }
 
         .btn-login-submit:hover {
-            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #cbd5e1 100%) !important;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 65%, #cbd5e1 100%) !important;
             color: #000000 !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 0 32px rgba(255, 255, 255, 0.65), 0 10px 26px rgba(0, 0, 0, 0.85), inset 0 1px 0 #ffffff !important;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.55), 0 10px 26px rgba(0, 0, 0, 0.8) !important;
         }
 
         .btn-login-submit:active {
@@ -327,7 +275,7 @@
 
         .error-message {
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
             font-size: 0.85rem;
             margin-top: 15px;
             min-height: 20px;
@@ -345,74 +293,70 @@
             font-weight: 600;
             font-size: 0.84rem;
             margin-top: 22px;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(8, 9, 13, 0.65);
-            border: 1px solid rgba(226, 232, 240, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.16);
             transition: all 0.25s ease;
         }
 
         .discord-login-btn i {
             color: #ffffff;
             font-size: 1.1rem;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
         }
 
         .discord-login-btn:hover {
             color: #050507;
             background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
             border-color: #ffffff;
-            box-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
             transform: translateY(-1px);
         }
 
         .discord-login-btn:hover i {
             color: #050507;
-            filter: none;
         }
     </style>
 </head>
 <body>
-    <!-- Fundo Animado com Partículas Diferentes -->
     <div id="tsparticles"></div>
 
-    <!-- LEAGUE OF LEGENDS SENDER LOGIN CARD -->
+    <!-- LEAGUE OF LEGENDS SENDER LOGIN CARD (ALWAYS ENGLISH) -->
     <div class="monarch-login-card">
         <div class="monarch-border-fx"></div>
 
         <div class="monarch-login-card-content">
             <h1 class="login-title">League of Legends<br><span>Sender</span></h1>
-            <div class="login-subtitle" id="login-subtitle">System Gifting</div>
+            <div class="login-subtitle">Gifting System</div>
 
             <form onsubmit="event.preventDefault(); login();" style="width: 100%;">
                 <div class="input-group-custom">
-                    <label id="login-label-user">Usuário</label>
+                    <label>Username</label>
                     <div class="input-wrapper">
-                        <input type="text" id="login_api" placeholder="Digite seu usuário" autocomplete="off" required>
+                        <input type="text" id="login_api" placeholder="Enter your username" autocomplete="off" required>
                         <i class="fa-solid fa-user"></i>
                     </div>
                 </div>
                 <div class="input-group-custom">
-                    <label id="login-label-key">Chave de Licença</label>
+                    <label>License Key</label>
                     <div class="input-wrapper">
-                        <input type="password" id="key_api" placeholder="Digite sua chave de licença" autocomplete="new-password" required>
+                        <input type="password" id="key_api" placeholder="Enter your license key" autocomplete="new-password" required>
                         <i class="fa-solid fa-key"></i>
                     </div>
                 </div>
                 <button type="button" class="btn-login-submit" id="btn-login-submit" onclick="login()">
-                    Entrar <i class="fa-solid fa-arrow-right"></i>
+                    Login <i class="fa-solid fa-arrow-right ms-1"></i>
                 </button>
             </form>
 
             <div class="error-message" id="error-message"></div>
 
-            <a href="https://discord.com/invite/zedstore" target="_blank" class="discord-login-btn" id="discord-login-btn">
-                <i class="fab fa-discord"></i> Entrar na comunidade do Discord
+            <a href="https://discord.gg/nQAk7jtWpG" target="_blank" class="discord-login-btn" id="discord-login-btn">
+                <i class="fab fa-discord"></i> Join our Discord community
             </a>
         </div>
     </div>
 
-    <!-- Bibliotecas de Partículas (tsParticles) -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
     <script>
         tsParticles.load("tsparticles", {
@@ -463,60 +407,10 @@
             detectRetina: true
         });
     </script>
-    <script src="../static/script.js?v=12.0"></script>
+    <script src="../static/script.js?v=13.0"></script>
     <script>
-        // Limpa tokens armazenados no navegador ao carregar a tela de login
         localStorage.removeItem('jwtToken');
         sessionStorage.clear();
-
-        const loginTranslations = {
-            pt: {
-                subtitle: "Sistema de Presentes",
-                label_user: "Usuário",
-                ph_user: "Digite seu usuário",
-                label_key: "Chave de Licença",
-                ph_key: "Digite sua chave de licença",
-                btn_login: 'Entrar <i class="fa-solid fa-arrow-right ms-1"></i>',
-                discord: '<i class="fab fa-discord"></i> Entrar na comunidade do Discord'
-            },
-            en: {
-                subtitle: "Gifting System",
-                label_user: "Username",
-                ph_user: "Enter your username",
-                label_key: "License Key",
-                ph_key: "Enter your license key",
-                btn_login: 'Login <i class="fa-solid fa-arrow-right ms-1"></i>',
-                discord: '<i class="fab fa-discord"></i> Join our Discord community'
-            }
-        };
-
-        function setLoginLanguage(lang) {
-            lang = lang || 'pt';
-            try { localStorage.setItem('lg_store_language', lang); } catch (e) {}
-            document.querySelectorAll('.login-lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.id === `login-lang-${lang}`);
-            });
-            const t = loginTranslations[lang] || loginTranslations.pt;
-            const subtitleEl = document.getElementById('login-subtitle');
-            if (subtitleEl) subtitleEl.textContent = t.subtitle;
-            const labelUserEl = document.getElementById('login-label-user');
-            if (labelUserEl) labelUserEl.textContent = t.label_user;
-            const inputUser = document.getElementById('login_api');
-            if (inputUser) inputUser.placeholder = t.ph_user;
-            const labelKeyEl = document.getElementById('login-label-key');
-            if (labelKeyEl) labelKeyEl.textContent = t.label_key;
-            const inputKey = document.getElementById('key_api');
-            if (inputKey) inputKey.placeholder = t.ph_key;
-            const btnSubmit = document.getElementById('btn-login-submit');
-            if (btnSubmit) btnSubmit.innerHTML = t.btn_login;
-            const discordBtn = document.getElementById('discord-login-btn');
-            if (discordBtn) discordBtn.innerHTML = t.discord;
-            document.documentElement.lang = (lang === 'en' ? 'en' : 'pt-br');
-        }
-
-        // Initialize language from localStorage or default to pt
-        const savedLoginLang = localStorage.getItem('lg_store_language') || 'pt';
-        setLoginLanguage(savedLoginLang);
     </script>
 </body>
 </html>
