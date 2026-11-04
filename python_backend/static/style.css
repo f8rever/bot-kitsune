@@ -4,30 +4,30 @@
    KITSUNE SENDER 3D — DESIGN SYSTEM & TOKENS
    ========================================================================== */
 :root {
-    --bg-dark: #07050d;
-    --bg-surface: rgba(13, 8, 22, 0.85);
-    --bg-surface-hover: rgba(20, 14, 34, 0.95);
-    --bg-card: rgba(14, 9, 26, 0.9);
-    --bg-card-hover: rgba(22, 14, 40, 0.98);
-    --bg-input: #090514;
+    --bg-dark: #050507;
+    --bg-surface: rgba(14, 16, 20, 0.9);
+    --bg-surface-hover: rgba(22, 25, 31, 0.96);
+    --bg-card: rgba(14, 16, 20, 0.94);
+    --bg-card-hover: rgba(24, 27, 34, 0.98);
+    --bg-input: #07080b;
     
-    /* Neon & Metallic Accent Colors - Monarch Cyber */
-    --purple-primary: #a855f7;
-    --purple-neon: #c084fc;
-    --purple-light: #d8b4fe;
-    --cyan-neon: #00f0ff;
-    --cyan-dim: #0284c7;
-    --gold-hextech: #f59e0b;
-    --gold-bright: #fbbf24;
-    --emerald-neon: #10b981;
-    --ruby-neon: #ef4444;
+    /* Realistic Metallic Silver, Chrome & Obsidian Accent Tokens */
+    --purple-primary: #cbd5e1;
+    --purple-neon: #e2e8f0;
+    --purple-light: #f8fafc;
+    --cyan-neon: #ffffff;
+    --cyan-dim: #94a3b8;
+    --gold-hextech: #e2d9c5;
+    --gold-bright: #f8fafc;
+    --emerald-neon: #e2e8f0;
+    --ruby-neon: #f43f5e;
     
-    /* 3D Glass & Border Tokens */
-    --border-glass: rgba(168, 85, 247, 0.22);
-    --border-glass-top: rgba(255, 255, 255, 0.15);
-    --border-cyan-glow: rgba(0, 240, 255, 0.45);
-    --border-gold-glow: rgba(245, 158, 11, 0.45);
-    --border-purple-glow: rgba(168, 85, 247, 0.5);
+    /* 3D Metallic Bevel & Border Tokens */
+    --border-glass: rgba(255, 255, 255, 0.12);
+    --border-glass-top: rgba(255, 255, 255, 0.26);
+    --border-cyan-glow: rgba(255, 255, 255, 0.45);
+    --border-gold-glow: rgba(226, 232, 240, 0.45);
+    --border-purple-glow: rgba(255, 255, 255, 0.4);
     
     /* 3D Shadows & Lighting */
     --shadow-3d-card: 0 16px 36px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
