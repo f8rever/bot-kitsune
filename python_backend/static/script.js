@@ -708,7 +708,7 @@ function initCatalogApp() {
                         splash_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_0.jpg`,
                         loading_url: `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champKey}_0.jpg`,
                         rarity_label: 'CAMPEÃO',
-                        rarity_color: '#c8aa6e'
+                        rarity_color: '#e2e8f0'
                     };
 
                     window.championsSkinsMap[champ] = {
@@ -1125,7 +1125,7 @@ function initCatalogApp() {
             champ.selectedChromaIndex = -1;
 
             const rarity = isBase 
-                ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
+                ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#e2e8f0', glowClass: 'rarity-glow-standard', rank: 0 }
                 : getItemRarityInfo(activeSkin.name, activeSkin.price_rp, 'Skin', activeSkin);
             const priceInfo = formatItemPrice(activeSkin.price_rp, currentSelectedRegion);
             const skinOpts = !isBase ? window.getSkinOptions(activeSkin.name) : { hasOptions: false, chromas: [], bundle: null };
@@ -1137,7 +1137,7 @@ function initCatalogApp() {
             card.setAttribute('data-rp', activeSkin.price_rp || '0');
 
             const headerBadge = isBase
-                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #c8aa6e; min-height: 16px; letter-spacing: 0.08em;">
+                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #e2e8f0; min-height: 16px; letter-spacing: 0.08em;">
                      ${isEn ? 'BASE CHAMPION' : 'CAMPEÃO'}
                    </p>`
                 : (rarity.iconWebp 
@@ -1222,7 +1222,7 @@ function initCatalogApp() {
                     <div id="champ_rarity_${champKey}">
                         ${headerBadge}
                     </div>
-                    <div class="item-card-name font-semibold" id="champ_name_${champKey}" style="color: #f0e6d2; font-size: 12px; margin-bottom: 6px; line-height: 1.3; min-height: 32px; max-height: 32px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${activeSkin.name}">
+                    <div class="item-card-name font-semibold" id="champ_name_${champKey}" style="color: #f8fafc; font-size: 12px; margin-bottom: 6px; line-height: 1.3; min-height: 32px; max-height: 32px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${activeSkin.name}">
                         ${activeSkin.name}
                     </div>
                     <div class="item-card-price-stack" id="champ_prices_${champKey}">
@@ -1267,7 +1267,7 @@ function initCatalogApp() {
         const skinOpts = !isBase ? window.getSkinOptions(newSkin.name) : { hasOptions: false, chromas: [], bundle: null };
 
         const rarity = isBase
-            ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#c8aa6e', glowClass: 'rarity-glow-standard', rank: 0 }
+            ? { label: isEn ? 'BASE CHAMPION' : 'CAMPEÃO', color: '#e2e8f0', glowClass: 'rarity-glow-standard', rank: 0 }
             : getItemRarityInfo(newSkin.name, newSkin.price_rp, 'Skin', newSkin);
         const priceInfo = formatItemPrice(newSkin.price_rp, currentSelectedRegion);
 
@@ -1318,7 +1318,7 @@ function initCatalogApp() {
         }
         if (rarityEl) {
             rarityEl.innerHTML = isBase
-                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #c8aa6e; min-height: 16px; letter-spacing: 0.08em;">
+                ? `<p class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider mb-1" style="color: #e2e8f0; min-height: 16px; letter-spacing: 0.08em;">
                      ${isEn ? 'BASE CHAMPION' : 'CAMPEÃO'}
                    </p>`
                 : (rarity.iconWebp 
@@ -1642,7 +1642,7 @@ function initCatalogApp() {
                 label: 'BUNDLE', 
                 class: 'rarity-bundle', 
                 glowClass: 'rarity-glow-bundle',
-                color: '#c8aa6e',
+                color: '#e2e8f0',
                 iconWebp: null, 
                 icon: 'fa-ticket',
                 rank: 2
@@ -1653,7 +1653,7 @@ function initCatalogApp() {
                 label: 'HEXTECH', 
                 class: 'rarity-hextech', 
                 glowClass: 'rarity-glow-mythic',
-                color: '#a855f7',
+                color: '#cbd5e1',
                 iconWebp: null, 
                 icon: 'fa-box-open',
                 rank: 2
@@ -1666,7 +1666,7 @@ function initCatalogApp() {
                     label: 'MYTHIC', 
                     class: 'rarity-mythic', 
                     glowClass: 'rarity-glow-mythic',
-                    color: '#a855f7',
+                    color: '#cbd5e1',
                     iconWebp: '/static/raridades/mythic.webp', 
                     icon: 'fa-gem',
                     rank: 5
@@ -1678,7 +1678,7 @@ function initCatalogApp() {
                     label: 'LEGENDARY', 
                     class: 'rarity-legendary', 
                     glowClass: 'rarity-glow-legendary',
-                    color: '#ff4655',
+                    color: '#f8fafc',
                     iconWebp: '/static/raridades/legendary.webp', 
                     icon: 'fa-dragon',
                     rank: 4
@@ -1688,7 +1688,7 @@ function initCatalogApp() {
                 label: 'CHROMA', 
                 class: 'rarity-chroma', 
                 glowClass: 'rarity-glow-chroma',
-                color: '#ec4899',
+                color: '#cbd5e1',
                 iconWebp: '/static/raridades/chroma.webp', 
                 icon: 'fa-palette',
                 rank: 1
@@ -1699,7 +1699,7 @@ function initCatalogApp() {
                 label: 'ETERNALS', 
                 class: 'rarity-deluxe', 
                 glowClass: 'rarity-glow-standard',
-                color: '#c8aa6e',
+                color: '#e2e8f0',
                 iconWebp: null, 
                 icon: 'fa-shield-halved',
                 rank: 2
@@ -1710,7 +1710,7 @@ function initCatalogApp() {
                 label: 'BOOST', 
                 class: 'rarity-deluxe', 
                 glowClass: 'rarity-glow-standard',
-                color: '#0ac8b9',
+                color: '#e2e8f0',
                 iconWebp: null, 
                 icon: 'fa-bolt',
                 rank: 0
@@ -1721,7 +1721,7 @@ function initCatalogApp() {
                 label: 'PEQUENA LENDA', 
                 class: 'rarity-deluxe', 
                 glowClass: 'rarity-glow-standard',
-                color: '#0ac8b9',
+                color: '#e2e8f0',
                 iconWebp: null, 
                 icon: 'fa-paw',
                 rank: 0
@@ -1742,7 +1742,7 @@ function initCatalogApp() {
                 label: 'ULTIMATE', 
                 class: 'rarity-ultimate', 
                 glowClass: 'rarity-glow-ultimate',
-                color: '#ff8200',
+                color: '#ffffff',
                 iconWebp: '/static/raridades/ultimate.webp', 
                 icon: 'fa-crown',
                 rank: 6
@@ -1753,7 +1753,7 @@ function initCatalogApp() {
                 label: 'MYTHIC', 
                 class: 'rarity-mythic', 
                 glowClass: 'rarity-glow-mythic',
-                color: '#c026d3',
+                color: '#e2e8f0',
                 iconWebp: '/static/raridades/mythic.webp', 
                 icon: 'fa-gem',
                 rank: 5
@@ -1764,7 +1764,7 @@ function initCatalogApp() {
                 label: 'LEGENDARY', 
                 class: 'rarity-legendary', 
                 glowClass: 'rarity-glow-legendary',
-                color: '#ef4444',
+                color: '#f1f5f9',
                 iconWebp: '/static/raridades/legendary.webp', 
                 icon: 'fa-dragon',
                 rank: 4
@@ -1775,7 +1775,7 @@ function initCatalogApp() {
                 label: 'EPIC', 
                 class: 'rarity-epic', 
                 glowClass: 'rarity-glow-epic',
-                color: '#00f0ff',
+                color: '#cbd5e1',
                 iconWebp: '/static/raridades/epic.webp', 
                 icon: 'fa-bolt',
                 rank: 3
@@ -1785,7 +1785,7 @@ function initCatalogApp() {
             label: 'DELUXE', 
             class: 'rarity-standard', 
             glowClass: 'rarity-glow-standard',
-            color: '#3b82f6',
+            color: '#94a3b8',
             iconWebp: null, 
             icon: 'fa-shield-halved',
             rank: 0
@@ -2127,7 +2127,7 @@ function initCatalogApp() {
                 thumbnailContent = `
                     <span class="rarity-beams" aria-hidden="true"></span>
                     <div class="eternal-card-thumbnail-box" id="thumb_box_${itemKey}">
-                        <span class="eternal-series-badge"><i class="fa-solid fa-gem me-1" style="color: #0ac8b9; font-size: 8px;"></i>${seriesLabel}</span>
+                        <span class="eternal-series-badge"><i class="fa-solid fa-gem me-1" style="color: #e2e8f0; font-size: 8px;"></i>${seriesLabel}</span>
                         <div class="eternal-stone-container">
                             <img src="${stoneImg}" alt="${seriesLabel}" class="eternal-stone-img" loading="lazy" decoding="async">
                         </div>
@@ -2155,18 +2155,18 @@ function initCatalogApp() {
                     const isHolPass = item.name && (item.name.includes('Hall of Legends') || item.name.includes('Lenda'));
                     const isPremium = item.name && (item.name.includes('Premium') || item.name.includes('Bundle'));
                     if (isHolPass) {
-                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #0ac8b9; color: #f0e6d2; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #0ac8b9;"></i> ${isEn ? 'PASS · 2026' : 'PASSE · 2026'}</span>`;
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #cbd5e1; color: #f8fafc; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #e2e8f0;"></i> ${isEn ? 'PASS · 2026' : 'PASSE · 2026'}</span>`;
                     } else if (isPremium) {
-                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #c8aa6e; color: #f0e6d2; background: rgba(15, 20, 30, 0.92);"><i class="fa-solid fa-gem" style="color: #c8aa6e;"></i> ${isEn ? 'PASS BUNDLE' : 'PACOTE PASSE'}</span>`;
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #e2e8f0; color: #f8fafc; background: rgba(15, 20, 30, 0.92);"><i class="fa-solid fa-gem" style="color: #e2e8f0;"></i> ${isEn ? 'PASS BUNDLE' : 'PACOTE PASSE'}</span>`;
                     } else {
-                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #0ac8b9; color: #f0e6d2; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #0ac8b9;"></i> ${isEn ? 'EVENT PASS' : 'PASSE DE EVENTO'}</span>`;
+                        bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #cbd5e1; color: #f8fafc; background: rgba(10, 25, 35, 0.92);"><i class="fa-solid fa-ticket" style="color: #e2e8f0;"></i> ${isEn ? 'EVENT PASS' : 'PASSE DE EVENTO'}</span>`;
                     }
                 } else if (isChromaBundle) {
                     bundleBadgeHtml = `<span class="bundle-chroma-badge"><i class="fa-solid fa-palette"></i> ${isEn ? 'Chroma Bundle' : 'Pacote Croma'}</span>`;
                 } else if (isSignatureCollection) {
-                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #f0e6d2; color: #f0e6d2; background: rgba(14, 25, 42, 0.92); box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);"><i class="fa-solid fa-signature" style="color: #c8aa6e;"></i> ${isEn ? 'FAKER SIGNATURE' : 'EDIÇÃO AUTOGRAFADA'}</span>`;
+                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #f8fafc; color: #f8fafc; background: rgba(14, 25, 42, 0.92); box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);"><i class="fa-solid fa-signature" style="color: #e2e8f0;"></i> ${isEn ? 'FAKER SIGNATURE' : 'EDIÇÃO AUTOGRAFADA'}</span>`;
                 } else if (isHolCollection) {
-                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #c8aa6e; color: #f0e6d2; background: rgba(10, 18, 30, 0.9);"><i class="fa-solid fa-crown" style="color: #c8aa6e;"></i> ${isEn ? 'COLLECTION' : 'COLEÇÃO OFICIAL'}</span>`;
+                    bundleBadgeHtml = `<span class="bundle-chroma-badge" style="border-color: #e2e8f0; color: #f8fafc; background: rgba(10, 18, 30, 0.9);"><i class="fa-solid fa-crown" style="color: #e2e8f0;"></i> ${isEn ? 'COLLECTION' : 'COLEÇÃO OFICIAL'}</span>`;
                 }
 
                 thumbnailContent = `
@@ -2203,7 +2203,7 @@ function initCatalogApp() {
                     <div class="item-card-header-row">
                         ${headerBadge}
                     </div>
-                    <div class="item-card-name font-semibold" style="color: #f0e6d2; font-size: 13px; margin-bottom: 6px; line-height: 1.3; min-height: 34px; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
+                    <div class="item-card-name font-semibold" style="color: #f8fafc; font-size: 13px; margin-bottom: 6px; line-height: 1.3; min-height: 34px; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" title="${item.name}">${item.name}</div>
                     <div class="item-card-price-stack" style="margin-top: 4px;">
                         <div class="item-card-price-rp text-gold font-bold" style="font-size: 13px; display: flex; align-items: center; gap: 6px;">
                             <img src="/static/images/icon-rp.png" alt="RP" class="rp-currency-icon" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle;">
@@ -2273,9 +2273,9 @@ function initCatalogApp() {
         if (pillEl) {
             const isEn = window.selectedLanguage === 'en';
             if (cur === 0) {
-                pillEl.innerHTML = `<i class="fa-solid fa-star me-1" style="color: #c8aa6e;"></i> ${isEn ? 'Base Skin' : 'Skin Base'} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(0/${stored.slides.length - 1})</span>`;
+                pillEl.innerHTML = `<i class="fa-solid fa-star me-1" style="color: #e2e8f0;"></i> ${isEn ? 'Base Skin' : 'Skin Base'} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(0/${stored.slides.length - 1})</span>`;
             } else {
-                pillEl.innerHTML = `<i class="fa-solid fa-palette me-1" style="color: #ec4899;"></i> ${slide.label} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(${cur}/${stored.slides.length - 1})</span>`;
+                pillEl.innerHTML = `<i class="fa-solid fa-palette me-1" style="color: #cbd5e1;"></i> ${slide.label} <span style="opacity: 0.75; font-size: 9px; margin-left: 4px;">(${cur}/${stored.slides.length - 1})</span>`;
             }
         }
     };
@@ -2340,7 +2340,7 @@ function initCatalogApp() {
             if (cur === 0) {
                 titleEl.textContent = (item.name || '').toUpperCase();
             } else {
-                titleEl.innerHTML = `${(item.name || '').toUpperCase()} <span style="color: #ec4899; font-size: 16px; margin-left: 8px;">· CROMA ${slide.label.toUpperCase()} (${cur}/${slides.length - 1})</span>`;
+                titleEl.innerHTML = `${(item.name || '').toUpperCase()} <span style="color: #cbd5e1; font-size: 16px; margin-left: 8px;">· CROMA ${slide.label.toUpperCase()} (${cur}/${slides.length - 1})</span>`;
             }
         }
 
@@ -2824,7 +2824,7 @@ function initCatalogApp() {
                             <div class="cart-item-title" title="${item.name}">${item.name}</div>
                             <div class="cart-item-rp">
                                 <span style="color: #00ffcc; font-weight: 700;">${itemMoney.money}</span>
-                                <span style="color: #c8aa6e; font-size: 10px; font-weight: 600;">(${itemTotal.toLocaleString('pt-BR')} RP)</span>
+                                <span style="color: #e2e8f0; font-size: 10px; font-weight: 600;">(${itemTotal.toLocaleString('pt-BR')} RP)</span>
                             </div>
                         </div>
                         <div class="cart-qty-stepper">
