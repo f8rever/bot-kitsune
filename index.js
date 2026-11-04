@@ -1142,7 +1142,7 @@ function obterDetalhesItem(nome, tipoFiltro, loja, precoPadrao, rawItem = null, 
         return formatarStr('Little Legend', cEmj || (customEmojis?.acessorios?.lendas || customEmojis?.utilidades?.lendas || '🐥').trim());
     }
     else if (tipoFiltro === 'tft_arena') {
-        return formatarStr('TFT Arena', (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim());
+        return formatarStr('TFT Arena', (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1567579329305509908>').trim());
     }
     else if (tipoFiltro === 'boosts') {
         return formatarStr('Boost', (customEmojis?.acessorios?.boosts || customEmojis?.utilidades?.boosts || '⚡').trim());
@@ -1429,7 +1429,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
                 return t === 'TFT_MAP_SKIN' || t === 'TFTARENA' || t === 'TFT_DAMAGE_SKIN';
             });
         }
-        const eArenaTitle = (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1544591074100645948>').trim();
+        const eArenaTitle = (customEmojis?.acessorios?.arenas || customEmojis?.utilidades?.arenas || '<:lol_tft_arena:1567579329305509908>').trim();
         titulo = lang === 'pt' ? `${eArenaTitle} ${results.length} Tabuleiros & Arenas TFT` : `${eArenaTitle} ${results.length} TFT Arenas`;
         customId = 'selecionar_arena_menu';
     } else if (tipoFiltro === 'boosts') {
@@ -1449,7 +1449,7 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             const t = (x.tipo || '').toUpperCase();
             return (t === 'STATSTONE' || t === 'STATSTONE_SERIES' || (x.nome && x.nome.toLowerCase().includes('statstone series')));
         });
-        const eEternoTitle = (customEmojis?.menu?.eternos || '<:1eternos:1544481988147290152>').trim();
+        const eEternoTitle = (customEmojis?.menu?.eternos || '<:1eternos:1567579284296438010>').trim();
         titulo = lang === 'pt' ? `${eEternoTitle} ${results.length} Eternos` : `${eEternoTitle} ${results.length} Eternals`;
         customId = 'selecionar_eterno_menu';
     } else if (tipoFiltro === 'misterio') {
@@ -2213,7 +2213,7 @@ async function fecharCanalTicket(channel, closedByUser, motivo, client, guild, i
 async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skins') {
     if (!global.activeTicketCreations) global.activeTicketCreations = new Set();
     if (global.activeTicketCreations.has(interaction.user.id)) {
-        if (!interaction.deferred && !interaction.replied) {
+        if (!interaction.deferred && !interaction.replied && !interaction._ackInFlight) {
             await interaction.reply({ content: '⏳ Seu ticket já está sendo gerado, aguarde um instante...', ephemeral: true }).catch(() => {});
         }
         return;
@@ -2505,7 +2505,7 @@ function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Ba
     if (cfg.buttonLabel && cfg.buttonLabel.trim()) {
         label = cfg.buttonLabel.trim();
     }
-    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim();
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1567579417365188818>').trim();
 
     let style = ButtonStyle.Secondary;
     if (cfg.buttonStyle) {
@@ -2535,7 +2535,7 @@ function buildStoreBackButton(customId = 'voltar_menu_modal', defaultLabel = 'Ba
 function buildStorePrevButton(customId = 'btn_prev', defaultLabel = 'Previous', disabled = false) {
     const cfg = customEmbeds?.['global_prev_button'] || {};
     const label = cfg.buttonLabel?.trim() || defaultLabel;
-    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim();
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1567579417365188818>').trim();
 
     let style = ButtonStyle.Primary;
     if (cfg.buttonStyle) {
@@ -2566,7 +2566,7 @@ function buildStorePrevButton(customId = 'btn_prev', defaultLabel = 'Previous', 
 function buildStoreNextButton(customId = 'btn_next', defaultLabel = 'Next', disabled = false) {
     const cfg = customEmbeds?.['global_next_button'] || {};
     const label = cfg.buttonLabel?.trim() || defaultLabel;
-    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '<a:51047animatedarrowwhite:1545491753002475591>').trim();
+    const emojiStr = (cfg.buttonEmoji || customEmojis?.utilidades?.arrow_white_right || customEmojis?.utilidades?.right || '<a:51047animatedarrowwhite:1567579425468457060>').trim();
 
     let style = ButtonStyle.Primary;
     if (cfg.buttonStyle) {
@@ -2604,8 +2604,8 @@ function buildNavButtonsPreviewRow() {
 async function exibirMenuCategoriaLoja(interaction, categoria) {
     const eMystery = (customEmojis?.skins?.mystery || customEmojis?.loot?.mystery || '<:mystery_skin:1560503288762339350>').trim();
     const eEmotes = (customEmojis?.acessorios?.emotes || '<:poro_emote:1560503291568201729>').trim();
-    const eWards = (customEmojis?.acessorios?.wards || '<:lol_star_ward:1544493299270680717>').trim();
-    const eIcones = (customEmojis?.acessorios?.icones || '<:22icone:1544482040206983241>').trim();
+    const eWards = (customEmojis?.acessorios?.wards || '<:lol_star_ward:1567579299387678921>').trim();
+    const eIcones = (customEmojis?.acessorios?.icones || '<:22icone:1567579306849476799>').trim();
 
     const btnRow = new ActionRowBuilder().addComponents(
         buildStoreBackButton('voltar_menu_modal')
@@ -2640,7 +2640,7 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
         const menu = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Champions option').addOptions([
                 { label: 'Champions', description: 'Search all League champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim() },
-                { label: 'Eternals', description: 'Series I & II Statstones', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '<:1eternos:1544481988147290152>').trim() }
+                { label: 'Eternals', description: 'Series I & II Statstones', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '<:1eternos:1567579284296438010>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2874,7 +2874,7 @@ client.on('interactionCreate', async interaction => {
                         .setCustomId('voltar_menu_emojis_categorias')
                         .setLabel('Voltar para Categorias')
                         .setStyle(ButtonStyle.Secondary)
-                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
+                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1567579417365188818>').trim())
                 );
 
                 await interaction.update({ embeds: [embed], components: [menu, btnVoltar] });
@@ -3190,12 +3190,12 @@ client.on('interactionCreate', async interaction => {
                             { label: 'Catálogo de Ícones de Invocador', description: 'Página de ícones de perfil', value: 'catalog_icones', emoji: '🖼️' },
                             { label: 'Catálogo de Boosts de XP', description: 'Página de bônus de XP/IP', value: 'catalog_boosts', emoji: '⚡' },
                             { label: 'Catálogo de Little Legends & Chibis', description: 'Página de Pequenas Lendas e Chibis TFT', value: 'catalog_little_legends', emoji: (customEmojis?.acessorios?.lendas || '🐥').trim() },
-                            { label: 'Catálogo de Arenas TFT', description: 'Página de mapas e arenas de batalha TFT', value: 'catalog_tft_arena', emoji: (customEmojis?.acessorios?.arenas || '<:lol_tft_arena:1544591074100645948>').trim() }
+                            { label: 'Catálogo de Arenas TFT', description: 'Página de mapas e arenas de batalha TFT', value: 'catalog_tft_arena', emoji: (customEmojis?.acessorios?.arenas || '<:lol_tft_arena:1567579329305509908>').trim() }
                         ];
                     } else if (subgroupId === 'highlights') {
                         subgroupTitle = '🌟 Featured & Ofertas Especiais';
                         subgroupOptions = [
-                            { label: 'Menu da Categoria (Featured)', description: 'Embed de apresentação com banner e descrição', value: 'category_highlights', emoji: (customEmojis?.menu_principal?.featured || '<:lol_bundle_set:1544591078622236763>').trim() },
+                            { label: 'Menu da Categoria (Featured)', description: 'Embed de apresentação com banner e descrição', value: 'category_highlights', emoji: (customEmojis?.menu_principal?.featured || '<:lol_bundle_set:1567579392899813438>').trim() },
                             { label: 'Catálogo de Featured & Pacotes', description: 'Página de bundles e ofertas em destaque', value: 'catalog_highlights', emoji: (customEmojis?.bundles?.bundle || '📦').trim() },
                             { label: 'Catálogo de Promoções Semanais', description: 'Página de skins em promoção (On Sale)', value: 'catalog_sales', emoji: '🏷️' },
                             { label: 'Catálogo de Mais Populares', description: 'Página de baús, passes e orbes mais populares', value: 'catalog_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<:lol_exclusive_pack:1544591088084590636>').trim() }
@@ -3222,7 +3222,7 @@ client.on('interactionCreate', async interaction => {
                             .setCustomId('voltar_menu_embeds_inicio')
                             .setLabel('Voltar para Todos os Embeds')
                             .setStyle(ButtonStyle.Secondary)
-                            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
+                            .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1567579417365188818>').trim())
                     );
 
                     return await interaction.update({ embeds: [subEmbed], components: [subMenu, btnBack] });
@@ -3293,7 +3293,7 @@ client.on('interactionCreate', async interaction => {
                         .setCustomId('voltar_menu_embeds_inicio')
                         .setLabel('Voltar para Todos os Embeds')
                         .setStyle(ButtonStyle.Secondary)
-                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1545877594170335304>').trim())
+                        .setEmoji((customEmojis?.utilidades?.arrow_white_left || customEmojis?.utilidades?.left || '<a:l_arrow_white:1567579417365188818>').trim())
                 );
 
                 let previewEmbed = null;
@@ -3378,7 +3378,7 @@ client.on('interactionCreate', async interaction => {
                     fieldPlaceholder = embedId === 'global_prev_button' ? 'Ex: Previous ou Anterior' : (embedId === 'global_next_button' ? 'Ex: Next ou Próxima' : 'Ex: Back to Menu ou Voltar');
                 } else if (field === 'buttonEmoji') {
                     fieldLabel = 'Emoji do Botão:';
-                    fieldPlaceholder = embedId === 'global_next_button' ? 'Ex: <a:51047animatedarrowwhite:1545491753002475591> ou ▶️' : 'Ex: <a:l_arrow_white:1545877594170335304> ou ⬅️';
+                    fieldPlaceholder = embedId === 'global_next_button' ? 'Ex: <a:51047animatedarrowwhite:1567579425468457060> ou ▶️' : 'Ex: <a:l_arrow_white:1567579417365188818> ou ⬅️';
                 } else if (field === 'buttonStyle') {
                     fieldLabel = 'Cor / Estilo do Botão:';
                     fieldPlaceholder = 'Secondary (Cinza), Primary (Azul), Danger, Success';
@@ -4770,18 +4770,26 @@ client.on('interactionCreate', async interaction => {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
                 const menu = buildStoreMainMenu(customEmojis);
                 try {
-                    if (interaction.deferred || interaction.replied) {
-                        await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
-                    } else {
-                        await interaction.reply({ content: '', embeds: [embed], components: [menu], ephemeral: true });
+                    if (!interaction.deferred && !interaction.replied) {
+                        await interaction.deferReply({ ephemeral: true });
                     }
+                    await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
                 } catch (e) {
-                    console.error("Erro ao enviar menu_vendas (verifique se os emojis em emojis.json são válidos e se o bot está no servidor deles!):", e.message);
-                    const errMsg = "❌ **Erro Interno:** Alguns emojis configurados em `emojis.json` são inválidos ou o bot não tem acesso a eles. Verifique o console.";
+                    if (e?.code === 10062 || e?.code === 40060) return;
+                    console.error('Erro ao enviar menu_vendas, usando fallback:', e.message);
+                    const fallbackMenu = buildStoreMainMenu({
+                        menu_principal: {
+                            featured: '🌟',
+                            skins_chromas: '🎨',
+                            loot_passes: '📦',
+                            champions_eternals: '⚔️',
+                            accessories: '👑'
+                        }
+                    });
                     if (interaction.deferred || interaction.replied) {
-                        await interaction.editReply({ content: errMsg }).catch(() => {});
+                        await interaction.editReply({ content: '', embeds: [embed], components: [fallbackMenu] }).catch(() => {});
                     } else {
-                        await interaction.reply({ content: errMsg, ephemeral: true }).catch(() => {});
+                        await interaction.reply({ content: '', embeds: [embed], components: [fallbackMenu], ephemeral: true }).catch(() => {});
                     }
                 }
             }

@@ -49,7 +49,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
     if (!cfg) return embed;
 
     const fox = customEmojis?.utilidades?.fox || '🦊';
-    const ticketArrow = customEmojis?.utilidades?.arrow_white_right || '<a:51047animatedarrowwhite:1545491753002475591>';
+    const ticketArrow = customEmojis?.utilidades?.arrow_white_right || '<a:51047animatedarrowwhite:1567579425468457060>';
     let title = cfg.title || '';
     let desc = cfg.description || '';
 
@@ -58,7 +58,7 @@ function buildCustomEmbed(embedId, client, interactionOrUser = null, extraVars =
 
     if (embedId === 'welcome_invite') {
         desc = desc.replace(/<a:whitearrow:1555074441933758624>/g, ticketArrow);
-        title = title.replace(/^👋\s*/, '<a:white_claim:1545847197445136386> ');
+        title = title.replace(/^👋\s*/, '<a:white_claim:1567579456422281246> ');
         const welcomeDefaults = {
             userMention: extraVars.cliente || '@Membro',
             inviterMention: '`Direto / Desconhecido`',

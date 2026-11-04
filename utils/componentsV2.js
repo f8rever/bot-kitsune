@@ -13,6 +13,8 @@ const {
     ActionRowBuilder,
     MessageFlags,
     MessagePayload,
+    CommandInteraction,
+    ChatInputCommandInteraction,
     MessageComponentInteraction,
     ModalSubmitInteraction
 } = require('discord.js');
@@ -371,9 +373,77 @@ function enableGlobalComponentsV2() {
     const originalResolveBody = MessagePayload.prototype.resolveBody;
     const originalResolveFiles = MessagePayload.prototype.resolveFiles;
 
-    // Preservar referência à mensagem original durante editReply após deferUpdate()
-    for (const InteractionProto of [MessageComponentInteraction?.prototype, ModalSubmitInteraction?.prototype]) {
-        if (InteractionProto && typeof InteractionProto.editReply === 'function') {
+    function payloadHasHeavyAttachment(options) {
+        if (!options || typeof options !== 'object') return false;
+        if (Array.isArray(options.files) && options.files.length > 0) return true;
+        if (Array.isArray(options.embeds)) {
+            for (const emb of options.embeds) {
+                if (!emb) continue;
+                const raw = typeof emb.toJSON === 'function' ? emb.toJSON() : emb;
+                if (raw.image?.url && isVideoBannerUrl(raw.image.url)) return true;
+                if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url)) return true;
+            }
+        }
+        return false;
+    }
+
+    // Preservar referência à mensagem original e auto-deferir uploads pesados (.gif / .webm) para nunca estourar os 3s do Discord
+    const protos = new Set([
+        CommandInteraction?.prototype,
+        ChatInputCommandInteraction?.prototype,
+        MessageComponentInteraction?.prototype,
+        ModalSubmitInteraction?.prototype
+    ].filter(Boolean));
+
+    for (const InteractionProto of protos) {
+        if (typeof InteractionProto.deferReply === 'function') {
+            const origDeferReply = InteractionProto.deferReply;
+            InteractionProto.deferReply = function patchedDeferReply(options) {
+                this._ackInFlight = true;
+                return origDeferReply.call(this, options);
+            };
+        }
+        if (typeof InteractionProto.deferUpdate === 'function') {
+            const origDeferUpdate = InteractionProto.deferUpdate;
+            InteractionProto.deferUpdate = function patchedDeferUpdate(options) {
+                this._ackInFlight = true;
+                return origDeferUpdate.call(this, options);
+            };
+        }
+        if (typeof InteractionProto.showModal === 'function') {
+            const origShowModal = InteractionProto.showModal;
+            InteractionProto.showModal = function patchedShowModal(modal, options) {
+                this._ackInFlight = true;
+                return origShowModal.call(this, modal, options);
+            };
+        }
+        if (typeof InteractionProto.reply === 'function') {
+            const origReply = InteractionProto.reply;
+            InteractionProto.reply = async function patchedReply(options) {
+                this._ackInFlight = true;
+                if (!this.deferred && !this.replied && payloadHasHeavyAttachment(options)) {
+                    const isEph = Boolean(
+                        options.ephemeral ||
+                        (typeof options.flags === 'number' && (options.flags & MessageFlags.Ephemeral))
+                    );
+                    await this.deferReply(isEph ? { ephemeral: true } : {});
+                    return this.editReply(options);
+                }
+                return origReply.call(this, options);
+            };
+        }
+        if (typeof InteractionProto.update === 'function') {
+            const origUpdate = InteractionProto.update;
+            InteractionProto.update = async function patchedUpdate(options) {
+                this._ackInFlight = true;
+                if (!this.deferred && !this.replied && payloadHasHeavyAttachment(options)) {
+                    await this.deferUpdate();
+                    return this.editReply(options);
+                }
+                return origUpdate.call(this, options);
+            };
+        }
+        if (typeof InteractionProto.editReply === 'function') {
             const origEditReply = InteractionProto.editReply;
             InteractionProto.editReply = function patchedEditReply(options) {
                 if (this.message && options && typeof options === 'object' && !(options instanceof MessagePayload)) {
