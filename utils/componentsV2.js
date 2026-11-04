@@ -162,11 +162,7 @@ function buildV2ComponentsFromPayload({ content, embeds, components, files }) {
         }
         if (emb.title) {
             const cleanTitle = emb.title.trim();
-            if (emb.url && sanitizeMediaUrl(emb.url)) {
-                textParts.push(`### [${cleanTitle}](${emb.url.trim()})`);
-            } else {
-                textParts.push(`### ${cleanTitle}`);
-            }
+            textParts.push(`### ${cleanTitle}`);
         }
         if (emb.description) {
             textParts.push(emb.description.trim());
