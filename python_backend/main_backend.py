@@ -998,7 +998,7 @@ async def gift_send():
                 if not gift_ok:
                     err_msg = "Falha ao enviar presente pela Riot."
                     if isinstance(gift_resp, dict):
-                        err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp, ensure_ascii=False)
+                        err_msg = f"{gift_resp.get('message')} [{gift_resp.get('errorCode')}]" if (gift_resp.get("message") and gift_resp.get("errorCode")) else (gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp, ensure_ascii=False))
                     elif isinstance(gift_resp, list) and gift_resp:
                         err_msg = ", ".join(str(x) for x in gift_resp)
                     elif isinstance(gift_resp, str) and gift_resp:

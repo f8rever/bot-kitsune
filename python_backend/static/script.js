@@ -3558,7 +3558,7 @@ function renderOrders(orders) {
         
         const cancelButton = document.createElement('button');
         cancelButton.className = 'cancel-button';
-        cancelButton.textContent = 'X';
+        cancelButton.innerHTML = '<i class="fa-solid fa-xmark"></i> Cancel';
 
 
         // Adiciona manipulador de eventos ao botão
@@ -3795,33 +3795,18 @@ function renderAccounts(accounts) {
         const actionsCell = document.createElement('td');
         actionsCell.className = 'actions-cell'; // Aplica a classe correta à célula
 
-        // Primeiro conjunto: Botão Checar (Check)
-        const checkContainer = document.createElement('div');
-        checkContainer.className = 'action-container';
         const checkButton = document.createElement('button');
         checkButton.className = 'check-button action-button';
-        checkButton.innerHTML = '✔'; // Símbolo de check dentro de um círculo
+        checkButton.innerHTML = '<i class="fa-solid fa-rotate"></i> Check';
         checkButton.addEventListener('click', () => checkAccount(account));
-        const checkText = document.createElement('span');
-        checkText.textContent = ' Check';
-        checkContainer.appendChild(checkButton);
-        checkContainer.appendChild(checkText);
 
-        // Segundo conjunto: Botão Cancelar (Remove)
         const cancelButton = document.createElement('button');
         cancelButton.className = 'cancel-button action-button';
-        cancelButton.innerHTML = '✖'; // Símbolo de cancel dentro de um círculo
+        cancelButton.innerHTML = '<i class="fa-solid fa-trash-can"></i> Remove';
         cancelButton.addEventListener('click', () => cancelAccount(account));
-        const cancelText = document.createElement('span');
-        cancelText.textContent = ' Remove';
-        const cancelContainer = document.createElement('div');
-        cancelContainer.className = 'action-container';
-        cancelContainer.appendChild(cancelButton);
-        cancelContainer.appendChild(cancelText);
 
-        // Adiciona os contêineres à célula de ações
-        actionsCell.appendChild(checkContainer);
-        actionsCell.appendChild(cancelContainer);
+        actionsCell.appendChild(checkButton);
+        actionsCell.appendChild(cancelButton);
 
         // Adiciona a célula de ações à linha
         row.appendChild(actionsCell);
@@ -4196,7 +4181,7 @@ function renderFriends(riots_info) {
         
         // Riot ID Cell
         const riotIdTd = document.createElement('td');
-        riotIdTd.innerHTML = `<span class="fw-bold text-primary"><i class="fa-solid fa-gamepad me-2 text-pink"></i>${key}</span>`;
+        riotIdTd.innerHTML = `<span class="fw-bold" style="color: #f8fafc;"><i class="fa-solid fa-gamepad me-2 text-purple"></i>${key}</span>`;
         row.appendChild(riotIdTd);
 
         // Status Badge Cell
