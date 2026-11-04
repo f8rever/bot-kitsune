@@ -376,8 +376,8 @@ function enableGlobalComponentsV2() {
             for (const emb of options.embeds) {
                 if (!emb) continue;
                 const raw = typeof emb.toJSON === 'function' ? emb.toJSON() : emb;
-                if (raw.image?.url && isVideoBannerUrl(raw.image.url)) return true;
-                if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url)) return true;
+                if (raw.image?.url && isVideoBannerUrl(raw.image.url) && !getGifCacheInfo(raw.image.url).cdnUrl) return true;
+                if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url) && !getGifCacheInfo(raw.thumbnail.url).cdnUrl) return true;
             }
         }
         return false;
@@ -506,7 +506,10 @@ function enableGlobalComponentsV2() {
                 if (raw.image?.url && isVideoBannerUrl(raw.image.url)) {
                     const videoUrl = raw.image.url.trim();
                     const gifInfo = getGifCacheInfo(videoUrl);
-                    if (isGifCached(videoUrl)) {
+                    if (gifInfo.cdnUrl) {
+                        raw.image = { ...raw.image, url: gifInfo.cdnUrl };
+                        modified = true;
+                    } else if (isGifCached(videoUrl)) {
                         raw.image = { ...raw.image, url: gifInfo.attachmentUrl };
                         if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
                             extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });
@@ -530,7 +533,10 @@ function enableGlobalComponentsV2() {
                 if (raw.thumbnail?.url && isVideoBannerUrl(raw.thumbnail.url)) {
                     const videoUrl = raw.thumbnail.url.trim();
                     const gifInfo = getGifCacheInfo(videoUrl);
-                    if (isGifCached(videoUrl)) {
+                    if (gifInfo.cdnUrl) {
+                        raw.thumbnail = { ...raw.thumbnail, url: gifInfo.cdnUrl };
+                        modified = true;
+                    } else if (isGifCached(videoUrl)) {
                         raw.thumbnail = { ...raw.thumbnail, url: gifInfo.attachmentUrl };
                         if (!extraFiles.some(f => f && f.name === gifInfo.fileName)) {
                             extraFiles.push({ attachment: gifInfo.filePath, name: gifInfo.fileName });

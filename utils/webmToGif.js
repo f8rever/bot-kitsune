@@ -41,9 +41,9 @@ const ANIMATED_SPLASH_POOL = [
 
 let _lastPickedUrl = null;
 function getRandomAnimatedBannerUrl() {
-    const cachedPool = ANIMATED_SPLASH_POOL.filter(u => isGifCached(u));
-    const pool = cachedPool.length > 0 ? cachedPool : ANIMATED_SPLASH_POOL;
-    const candidates = pool.length > 1 ? pool.filter(u => u !== _lastPickedUrl) : pool;
+    const candidates = ANIMATED_SPLASH_POOL.length > 1
+        ? ANIMATED_SPLASH_POOL.filter(u => u !== _lastPickedUrl)
+        : ANIMATED_SPLASH_POOL;
     const picked = candidates[Math.floor(Math.random() * candidates.length)];
     _lastPickedUrl = picked;
     return picked;
@@ -57,6 +57,28 @@ function isVideoBannerUrl(url) {
     const clean = url.trim().split('?')[0].toLowerCase();
     return clean.endsWith('.webm') || clean.endsWith('.mp4');
 }
+
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/f8rever/bot-kitsune/main/data/banners/';
+const CDN_READY_BANNERS = new Set([
+    'live8s_ahri_skin86_uncentered_fb228aff2070.gif',
+    'live8s_morgana_skin80_uncentered_8007e351f6b1.gif',
+    'live8s_kaisa_skin71_uncentered_c7a77e7eb447.gif',
+    'live8s_jinx_skin60_uncentered_586f83f8d0d1.gif',
+    'live8s_viego_skin43_uncentered_cadb6d2eb453.gif',
+    'live8s_sett_skin66_uncentered_2ac0660b23b2.gif',
+    'live8s_mordekaiser_skin54_uncentere_6d6761f08e12.gif',
+    'live8s_samira_skin30_uncentered_fa88e3aa91b3.gif',
+    'live8s_lux_skin7_uncentered_cb437e052207.gif',
+    'live8s_seraphine_skin3_uncentered_9edf507caaa7.gif',
+    'live8s_seraphine_skin2_uncentered_72775cc51d87.gif',
+    'live8s_seraphine_skin1_uncentered_3a39f15374ec.gif',
+    'live8s_missfortune_skin16_uncentere_9f46e9196415.gif',
+    'live8s_sona_skin6_uncentered_7b92d9005ffd.gif',
+    'live8s_tristana_skin80_uncenteredho_3ed308a3b1ae.gif',
+    'live8s_udyr_skin3_uncentered_f278aad5c99f.gif',
+    'live8s_ezreal_skin5_uncentered_6e3473a3b660.gif',
+    'live8s_ahri_skin86_centered_88c4ab84e5c0.gif'
+]);
 
 /**
  * Retorna o nome do arquivo .gif e o caminho em disco correspondente a uma URL .webm/.mp4
@@ -72,7 +94,8 @@ function getGifCacheInfo(url) {
     return {
         fileName,
         filePath,
-        attachmentUrl: `attachment://${fileName}`
+        attachmentUrl: `attachment://${fileName}`,
+        cdnUrl: CDN_READY_BANNERS.has(fileName) ? `${GITHUB_RAW_BASE}${fileName}` : null
     };
 }
 
@@ -82,6 +105,7 @@ function getGifCacheInfo(url) {
 function isGifCached(url) {
     if (!isVideoBannerUrl(url)) return false;
     const info = getGifCacheInfo(url);
+    if (info.cdnUrl) return true;
     try {
         return fs.existsSync(info.filePath) && fs.statSync(info.filePath).size > 1024;
     } catch {

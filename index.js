@@ -47,8 +47,24 @@ const { enableGlobalComponentsV2, extractMessageData } = require("./utils/compon
 enableGlobalComponentsV2();
 
 const _catalogCacheRAM = {};
+const _filteredCatalogCacheRAM = {};
+const _configJsonRAM = {};
 function clearCatalogCacheRAM() {
     for (const k in _catalogCacheRAM) delete _catalogCacheRAM[k];
+    for (const k in _filteredCatalogCacheRAM) delete _filteredCatalogCacheRAM[k];
+    for (const k in _configJsonRAM) delete _configJsonRAM[k];
+}
+function getCachedConfigFile(fileName, fallback = []) {
+    if (_configJsonRAM[fileName] !== undefined) return _configJsonRAM[fileName];
+    try {
+        const p = path.join(__dirname, 'config', fileName);
+        if (fs.existsSync(p)) {
+            _configJsonRAM[fileName] = JSON.parse(fs.readFileSync(p, 'utf8'));
+            return _configJsonRAM[fileName];
+        }
+    } catch (e) {}
+    _configJsonRAM[fileName] = fallback;
+    return fallback;
 }
 
 function loadFullRiotCatalog(lang = 'en') {
@@ -370,17 +386,19 @@ function carregarCosmeticEmojis() {
     }
 }
 carregarCosmeticEmojis();
+try { loadFullRiotCatalog('en'); } catch (e) {} // Pre-warm catalog in RAM
 
 function getCosmeticEmoji(type, itemId) {
     if (!itemId) return null;
     const key = `${type}_${itemId}`;
-    if (cosmeticEmojis[key]) return cosmeticEmojis[key];
+    if (key in cosmeticEmojis) return cosmeticEmojis[key];
     const found = client.emojis?.cache?.find(e => e.name === key) || client.application?.emojis?.cache?.find(e => e.name === key);
     if (found) {
         const tag = found.animated ? `<a:${found.name}:${found.id}>` : `<:${found.name}:${found.id}>`;
         cosmeticEmojis[key] = tag;
         return tag;
     }
+    cosmeticEmojis[key] = null;
     return null;
 }
 
@@ -680,25 +698,18 @@ function getItemRpValue(nome, tipoFiltro, rawItem = null) {
     }
 
     try {
-        const weeklySalesPath = path.join(__dirname, 'config', 'weekly_sales.json');
-        if (fs.existsSync(weeklySalesPath)) {
-            const saleList = JSON.parse(fs.readFileSync(weeklySalesPath, 'utf8'));
-            const nClean = (nome || '').toLowerCase().trim();
-            const foundSale = saleList.find(s => s.name.toLowerCase().trim() === nClean || nClean.includes(s.name.toLowerCase().trim()));
-            if (foundSale && foundSale.sale_rp > 0) {
-                return foundSale.sale_rp;
-            }
-        }
-    } catch (e) {}
+        const nClean = (nome || '').toLowerCase().trim();
+        const saleList = getCachedConfigFile('weekly_sales.json', []);
+        const foundSale = saleList.find(s => s.name && (s.name.toLowerCase().trim() === nClean || nClean.includes(s.name.toLowerCase().trim())));
+        if (foundSale && foundSale.sale_rp > 0) return foundSale.sale_rp;
 
-    try {
-        const featPath = path.join(__dirname, 'config', 'featured_bundles.json');
-        if (fs.existsSync(featPath)) {
-            const featList = JSON.parse(fs.readFileSync(featPath, 'utf8'));
-            const nClean = (nome || '').toLowerCase().trim();
-            const found = featList.find(f => f.name.toLowerCase().trim() === nClean || nClean.includes(f.name.toLowerCase().trim()));
-            if (found && found.price_rp > 0) return found.price_rp;
-        }
+        const featList = getCachedConfigFile('featured_bundles.json', []);
+        const foundFeat = featList.find(f => f.name && (f.name.toLowerCase().trim() === nClean || nClean.includes(f.name.toLowerCase().trim())));
+        if (foundFeat && foundFeat.price_rp > 0) return foundFeat.price_rp;
+
+        const arenaList = getCachedConfigFile('tft_arenas.json', []);
+        const foundArena = arenaList.find(a => a.name && (a.name.toLowerCase().trim() === nClean || nClean.includes(a.name.toLowerCase().trim())));
+        if (foundArena && foundArena.price_rp > 0) return foundArena.price_rp;
     } catch (e) {}
 
     try {
@@ -1225,6 +1236,11 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
         let customId = '';
         let featList = [];
 
+        if (_filteredCatalogCacheRAM[tipoFiltro]) {
+            results = _filteredCatalogCacheRAM[tipoFiltro].results;
+            titulo = _filteredCatalogCacheRAM[tipoFiltro].titulo;
+            customId = _filteredCatalogCacheRAM[tipoFiltro].customId;
+        } else {
         if (tipoFiltro === 'skins') {
             results = currentCatalog.filter(x => {
                 const t = (x.tipo || '').toUpperCase();
@@ -1556,6 +1572,8 @@ async function enviarPaginaCatalogo(interaction, tipoFiltro, pagina = 0, isUpdat
             return b.id - a.id;
         });
     }
+    _filteredCatalogCacheRAM[tipoFiltro] = { results, titulo, customId };
+    }
 
     const totalPages = Math.ceil(results.length / ITEMS_PER_PAGE) || 1;
     if (pagina < 0) pagina = 0;
@@ -1719,7 +1737,7 @@ function obterDetalhesCarrinho(cart, loja, lang = 'pt') {
     };
 }
 
-async function atualizarEmbedTicket(channel, client) {
+async function atualizarEmbedTicket(channel, client, isNewChannel = false) {
     if (!global.ticketCarts) global.ticketCarts = new Map();
     let cart = global.ticketCarts.get(channel.id);
 
@@ -1989,12 +2007,16 @@ async function atualizarEmbedTicket(channel, client) {
         new ButtonBuilder().setCustomId('btn_add_item_ticket').setLabel('Add Items').setStyle(ButtonStyle.Secondary).setEmoji('➕')
     );
 
-    const messages = await channel.messages.fetch({ limit: 100 });
-    const botMsg = messages.find(m => m.author.id === client.user.id && (m.embeds.length > 0 || m.components?.length > 0));
-    if (botMsg) {
-        await botMsg.edit({ embeds: embedsArray, components: [row1, row2] });
-    } else {
+    if (isNewChannel) {
         await channel.send({ embeds: embedsArray, components: [row1, row2] });
+    } else {
+        const messages = await channel.messages.fetch({ limit: 20 });
+        const botMsg = messages.find(m => m.author.id === client.user.id && (m.embeds.length > 0 || m.components?.length > 0));
+        if (botMsg) {
+            await botMsg.edit({ embeds: embedsArray, components: [row1, row2] });
+        } else {
+            await channel.send({ embeds: embedsArray, components: [row1, row2] });
+        }
     }
 }
 
@@ -2236,7 +2258,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         const { ChannelType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
         // 1. Verificação se o usuário já possui um ticket aberto no servidor
-        try { await interaction.guild.channels.fetch(); } catch (e) {}
+
         const cleanUser = interaction.user.username.toLowerCase().replace(/[^a-z0-9_-]/g, '');
         let existingTicket = interaction.guild.channels.cache.find(c =>
             c.type === ChannelType.GuildText &&
@@ -2421,8 +2443,6 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
             ]
         });
 
-        await atualizarEmbedTicket(canal, interaction.client);
-
         const isPt = (regiaoStr === 'BR' || regiaoStr === 'BR1');
         const goToTicketRow = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
@@ -2433,11 +2453,12 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
 
         const ticketSuccessMsg = isPt ? `✅ Seu ticket foi criado com sucesso em ${canal}!` : `✅ Your ticket has been created successfully in ${canal}!`;
 
-        if (interaction.deferred || interaction.replied) {
-            await interaction.editReply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow] }).catch(() => {});
-        } else {
-            await interaction.reply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow], ephemeral: true }).catch(() => {});
-        }
+        await Promise.all([
+            atualizarEmbedTicket(canal, interaction.client, true),
+            (interaction.deferred || interaction.replied)
+                ? interaction.editReply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow] }).catch(() => {})
+                : interaction.reply({ content: ticketSuccessMsg, embeds: [], components: [goToTicketRow], ephemeral: true }).catch(() => {})
+        ]);
     } catch (err) {
         console.error('[Ticket Create Fatal Error]:', err);
         if (interaction.deferred || interaction.replied) {
@@ -4773,10 +4794,11 @@ client.on('interactionCreate', async interaction => {
                 const embed = buildCustomEmbed('store_sales_center', interaction.client, interaction);
                 const menu = buildStoreMainMenu(customEmojis);
                 try {
-                    if (!interaction.deferred && !interaction.replied) {
-                        await interaction.deferReply({ ephemeral: true });
+                    if (interaction.deferred || interaction.replied) {
+                        await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
+                    } else {
+                        await interaction.reply({ content: '', embeds: [embed], components: [menu], ephemeral: true });
                     }
-                    await interaction.editReply({ content: '', embeds: [embed], components: [menu] });
                 } catch (e) {
                     if (e?.code === 10062 || e?.code === 40060) return;
                     console.error('Erro ao enviar menu_vendas, usando fallback:', e.message);
