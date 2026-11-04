@@ -1962,9 +1962,8 @@ async function atualizarEmbedTicket(channel, client) {
                     } else {
                         embed.setImage(ddragonUrl);
                     }
-                    embed.setURL('https://discord.com');
-                } else {
-                    const extraEmbed = new EmbedBuilder().setURL('https://discord.com');
+                    } else {
+                    const extraEmbed = new EmbedBuilder();
                     if (['emotes', 'icones', 'wards', 'little_legends'].includes(item.tipo)) {
                         extraEmbed.setThumbnail(ddragonUrl);
                     } else {
@@ -2224,7 +2223,10 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
     if (!interaction.deferred && !interaction.replied) {
         try {
             await interaction.deferReply({ ephemeral: true });
-        } catch (e) {}
+        } catch (e) {
+            global.activeTicketCreations.delete(interaction.user.id);
+            return;
+        }
     }
     if (interaction.deferred || interaction.replied) {
         await interaction.editReply({ content: `${loadEmj} ${getLoadStr('ticket')}` }).catch(() => {});
@@ -2234,6 +2236,7 @@ async function criarCanalTicket(interaction, itemSelecionado, tipoFiltro = 'skin
         const { ChannelType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
         // 1. Verificação se o usuário já possui um ticket aberto no servidor
+        try { await interaction.guild.channels.fetch(); } catch (e) {}
         const cleanUser = interaction.user.username.toLowerCase().replace(/[^a-z0-9_-]/g, '');
         let existingTicket = interaction.guild.channels.cache.find(c =>
             c.type === ChannelType.GuildText &&
