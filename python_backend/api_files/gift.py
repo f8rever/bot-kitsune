@@ -88,14 +88,54 @@ class Gift:
                 return False, gift_response
     
 
-    async def send_gift_v3(self, auth:RiotAuth , summoner_id, item_id, item_price,inventory_type , gift_message, Qtd = 1):
+    async def send_gift_v3(self, auth:RiotAuth, summoner_id, item_id, item_price, inventory_type, gift_message, Qtd=1, currency="RP"):
 
-        giftId = 0
-        giftId = self.get_gift_id(inventory_type, item_id)
+        inv_upper = str(inventory_type or "").strip().upper()
+        if inv_upper in ("CHROMA", "SKIN", "CHAMPION_SKIN"):
+            riot_inv_type = "CHAMPION_SKIN"
+        elif inv_upper == "CHAMPION":
+            riot_inv_type = "CHAMPION"
+        elif inv_upper in ("WARD", "WARD_SKIN"):
+            riot_inv_type = "WARD_SKIN"
+        elif inv_upper in ("ICON", "SUMMONER_ICON"):
+            riot_inv_type = "SUMMONER_ICON"
+        elif inv_upper in ("BUNDLE", "BUNDLES"):
+            riot_inv_type = "BUNDLES"
+        elif inv_upper in ("HEXTECH", "HEXTECH_CRAFTING", "LOOT"):
+            riot_inv_type = "HEXTECH_CRAFTING"
+        else:
+            riot_inv_type = str(inventory_type or "CHAMPION_SKIN")
+
+        try:
+            clean_item_id = int(item_id)
+        except Exception:
+            clean_item_id = item_id
+
+        try:
+            clean_summoner_id = int(summoner_id)
+        except Exception:
+            clean_summoner_id = summoner_id
+
+        try:
+            clean_account_id = int(auth.accountId)
+        except Exception:
+            clean_account_id = auth.accountId
+
+        try:
+            clean_price = int(item_price or 0)
+        except Exception:
+            clean_price = item_price or 0
+
+        try:
+            clean_qty = max(1, int(Qtd or 1))
+        except Exception:
+            clean_qty = 1
+
+        giftId = self.get_gift_id(riot_inv_type, clean_item_id)
 
         headers = {
             "Host": f"{auth.league_edge_url}",
-            "User-Agent": f"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) LeagueOfLegendsClient/{auth.lol_version} (CEF 91) Safari/537.36",
+            "User-Agent": f"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) LeagueOfLegendsClient/{getattr(auth, 'lol_version', '14.23.636.9832')} (CEF 91) Safari/537.36",
             "Accept-Encoding": "gzip, deflate, br",
             "Accept": "application/json",
             "Connection": "keep-alive",
@@ -110,74 +150,85 @@ class Gift:
             "Accept-Language": "en-US,en;q=0.9"
         }
 
-
+        is_ea = str(currency or "RP").strip().upper() == "EA"
+        ip_cost = clean_price if is_ea else 0
+        rp_cost = 0 if is_ea else clean_price
 
         gift_body = {
-            "customMessage": gift_message,
-            "receiverSummonerId": summoner_id,
+            "customMessage": str(gift_message or ""),
+            "receiverSummonerId": clean_summoner_id,
             "giftItemId": giftId,
-            "accountId": auth.accountId,
-            "items":[
+            "accountId": clean_account_id,
+            "items": [
                 {
-                    "inventoryType": inventory_type,
-                    "itemId":item_id,
-                    "ipCost": 0,
-                    "rpCost": item_price,
-                    "quantity":1,
+                    "inventoryType": riot_inv_type,
+                    "itemId": clean_item_id,
+                    "ipCost": ip_cost,
+                    "rpCost": rp_cost,
+                    "quantity": clean_qty,
                 }
-                   ]
+            ]
         }
-        
+
         post_args = {
             'url': f"https://{auth.league_edge_url}/storefront/v3/gift",
             'headers': headers,
             'json': gift_body
-
         }
 
-        print(f"\n {gift_body}")
+        print(f"\n[SEND_GIFT_V3 REQUEST] URL: {post_args['url']}")
+        print(f"[SEND_GIFT_V3 REQUEST] Body: {gift_body}")
         async with self.session.post(**post_args) as response:
-            gift_response = await response.json()
             gift_status = response.status
-            gift_response_json = json.dumps(gift_response, ensure_ascii=False)
-            print(f"\n {gift_status}")
-            print(f"\n {gift_response}")
+            try:
+                gift_response = await response.json()
+            except Exception:
+                gift_response = await response.text()
+            print(f"\n[SEND_GIFT_V3 RESPONSE] Status: {gift_status}")
+            print(f"[SEND_GIFT_V3 RESPONSE] Body: {gift_response}")
             print("\n Gift Finished (v3)")
-            if gift_response:
+            if gift_status in (200, 201, 202, 204):
                 self.status = True
-
-
-        return self.status
+                return True, gift_response
+            else:
+                self.status = False
+                return False, gift_response
     
     def get_gift_id(self, inventory_type, item_id):
-        # Verifica as condições especificadas e retorna o GiftId apropriado
-        if inventory_type == "CHAMPION":
+        inv = str(inventory_type or "").strip().upper()
+        try:
+            iid = int(item_id)
+        except Exception:
+            iid = item_id
+
+        if inv == "CHAMPION":
             return 1
-        elif inventory_type == "MYSTERY":
-            if item_id == 1:
+        elif inv == "MYSTERY":
+            if iid == 1:
                 return 3
-            elif item_id == 4:
+            elif iid == 4:
                 return 9
-            elif item_id == 3:
+            elif iid == 3:
                 return 4
-            elif item_id == 50:
+            elif iid == 50:
                 return 100
-            elif item_id == 60:
+            elif iid == 60:
                 return 110
-        elif inventory_type == "CHAMPION_SKIN":
+            return 3
+        elif inv in ("CHAMPION_SKIN", "CHROMA", "SKIN"):
             return 2
-        elif inventory_type == "WARD_SKIN":
+        elif inv in ("WARD_SKIN", "WARD"):
             return 8
-        elif inventory_type == "SUMMONER_ICON":
+        elif inv in ("SUMMONER_ICON", "ICON"):
             return 5
-        elif inventory_type in ["BUNDLES", "HEXTECH_CRAFTING"]:
+        elif inv in ("BUNDLES", "BUNDLE", "HEXTECH_CRAFTING", "HEXTECH", "EVENT_PASS", "PASS", "EMOTE", "STATSTONE", "COMPANION", "TFT_MAP_SKIN", "TFT_DAMAGE_SKIN"):
             return 1010
-        elif inventory_type == "SPELL_BOOK_PAGE":
+        elif inv == "SPELL_BOOK_PAGE":
             return 6
-        elif inventory_type == "RP":
+        elif inv == "RP":
             return 7
         else:
-            return 0
+            return 1010
         
 
     async def send_rp(self, receiver_puuid):

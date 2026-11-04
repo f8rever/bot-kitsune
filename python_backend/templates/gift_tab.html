@@ -189,11 +189,55 @@
         .kc-badge {
             display: flex !important;
             align-items: center !important;
+            gap: 12px !important;
             font-family: 'Outfit', sans-serif !important;
             font-size: 0.88rem !important;
             font-weight: 700 !important;
             color: #e2e8f0 !important;
             letter-spacing: 0.5px !important;
+            flex-wrap: wrap !important;
+        }
+
+        .kc-rp-balance-pill {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 119, 6, 0.26) 100%) !important;
+            border: 1px solid rgba(245, 158, 11, 0.45) !important;
+            border-radius: 999px !important;
+            padding: 4px 12px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.82rem !important;
+            color: #fde68a !important;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.18) !important;
+        }
+
+        .kc-rp-label {
+            font-weight: 700 !important;
+            color: #fbbf24 !important;
+            font-size: 0.74rem !important;
+            letter-spacing: 0.6px !important;
+        }
+
+        .kc-rp-value {
+            font-weight: 900 !important;
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.55) !important;
+        }
+
+        .kc-gifts-pill {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            background: rgba(168, 85, 247, 0.14) !important;
+            border: 1px solid rgba(168, 85, 247, 0.35) !important;
+            border-radius: 999px !important;
+            padding: 4px 11px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+            color: #e9d5ff !important;
         }
 
         .kc-toggles {
@@ -751,8 +795,16 @@
                 <div class="kc-inner-content">
                     <div class="kc-top-bar">
                         <div class="kc-badge">
-                            <i class="fa-solid fa-paper-plane text-cyan me-2"></i>
-                            <span data-i18n="quick_actions_title">Painel de Envio</span>
+                            <span><i class="fa-solid fa-paper-plane text-cyan me-2"></i><span data-i18n="quick_actions_title">Painel de Envio</span></span>
+                            <div class="kc-rp-balance-pill" title="Saldo de RP da Conta Enviadora">
+                                <img src="/static/images/icon-rp.png" alt="RP" class="kc-rp-icon">
+                                <span class="kc-rp-label">RP:</span>
+                                <span id="saldo-amount" class="kc-rp-value">--</span>
+                            </div>
+                            <div class="kc-gifts-pill" title="Presentes enviados nas últimas 24h">
+                                <i class="fa-solid fa-gift"></i>
+                                <span id="daily-gifts-counter" data-current="0">0 / 10</span>
+                            </div>
                         </div>
 
                         <div class="kc-toggles">

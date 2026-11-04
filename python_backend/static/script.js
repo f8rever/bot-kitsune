@@ -381,20 +381,19 @@ async function Api(task) {
     .then(response => response.json())
     .then(data => {
         var resultDiv = document.getElementById('result');
+        var saldoAmount = document.getElementById('saldo-amount');
+        if ('saldo' in data && data.saldo !== undefined && data.saldo !== null) {
+            console.log('Saldo:', data.saldo);
+            if (saldoAmount) saldoAmount.innerText = data.saldo;
+            const rpCardNum = document.querySelector('.metrics-cards-grid .metric-card:nth-child(1) .metric-number');
+            if (rpCardNum) rpCardNum.innerText = `${data.saldo} RP`;
+            const headerRpVal = document.getElementById('header-rp-val');
+            if (headerRpVal) headerRpVal.innerText = `${data.saldo}`;
+        }
         if (data.status === 'success'){
             resetQuantity()
             console.log('Success:', data);
-            var saldoAmount = document.getElementById('saldo-amount');
             resultDiv.innerText = data.message;
-
-            if ('saldo' in data) {
-                console.log('Saldo:', data.saldo);
-                if (saldoAmount) saldoAmount.innerText = data.saldo;
-                const rpCardNum = document.querySelector('.metrics-cards-grid .metric-card:nth-child(1) .metric-number');
-                if (rpCardNum) rpCardNum.innerText = `${data.saldo} RP`;
-                const headerRpVal = document.getElementById('header-rp-val');
-                if (headerRpVal) headerRpVal.innerText = `${data.saldo}`;
-            }
 
             if ('daily_gifts_count' in data) {
                 const sentCardNum = document.getElementById('daily-gifts-counter');

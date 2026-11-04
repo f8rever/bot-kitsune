@@ -931,10 +931,136 @@ async def gift_send():
                     "date_order": {"$gte": cutoff_24h}
                 })
                 
-                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region})", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url, "daily_gifts_count": daily_gifts_count }), 200
+                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region}) — Saldo: {auth.rp_amount} RP", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url, "daily_gifts_count": daily_gifts_count }), 200
 
 
             print(f"Authenticated as {username} ({auth.riotId})")
+
+            # Executa diretamente quando a task for "gift" (Gift Sender Bruto via Storefront V3)
+            if data.get("task") == "gift":
+                new_transaction["server"] = auth.region
+                new_transaction["username"] = auth.riotId
+
+                Giftobj = Gift(auth)
+                offer_id = data.get("offer_id")
+                gift_message = data.get("giftmessage") or ""
+                quantity = data.get("quantity") or 1
+                currencySelected = data.get("currency") or "RP"
+                item_id = data.get("item_id")
+                inventory_type = data.get("inventory_type")
+
+                if currencySelected == 'EA':
+                    item_price = data.get("price_ip") or data.get("price") or 0
+                else:
+                    item_price = data.get("price") or 0
+
+                gift_info = await auth.friendlist_gift_info()
+                receiver_summoner_id = get_summoner_id(gift_info, f"{name}#{tag}")
+
+                print(f"\n[GIFT V3] Sender: {username} ({auth.riotId}) | Saldo: {auth.rp_amount} RP | Receiver: {name}#{tag} (SummonerId: {receiver_summoner_id}) | Item: {data.get('item_name')} (ID: {item_id}, Type: {inventory_type}, Price: {item_price} {currencySelected}, Qty: {quantity})")
+
+                if receiver_summoner_id == "No Time":
+                    return jsonify({
+                        "status": "error",
+                        "message": f"O destinatário {name}#{tag} está em outra região ou ainda não possui tempo de amizade válido.",
+                        "saldo": auth.rp_amount
+                    }), 400
+
+                if not isinstance(receiver_summoner_id, int):
+                    xmpp_status = ""
+                    try:
+                        ChatXmpp = RiotChatClient(auth.chat_uri, auth.chat_dom, 5223, 1)
+                        xmpp_res = await ChatXmpp.Initialize_friend_request(
+                            name, tag, auth.lol_token, auth.chat_dom, auth.geopas_token,
+                            task='friend_request', id=None, id_list=None, message=None
+                        )
+                        xmpp_status = f" ({xmpp_res})" if xmpp_res else ""
+                    except Exception as xmpp_err:
+                        print(f"[GIFT V3] Aviso XMPP: {xmpp_err}")
+
+                    return jsonify({
+                        "status": "error",
+                        "message": f"Destinatário {name}#{tag} não está apto na lista de presentes da loja{xmpp_status}. Verifique se aceitou a amizade há mais de 24h e se está na região {auth.region}.",
+                        "saldo": auth.rp_amount
+                    }), 400
+
+                gift_ok, gift_resp = await Giftobj.send_gift_v3(
+                    auth,
+                    receiver_summoner_id,
+                    item_id,
+                    item_price,
+                    inventory_type,
+                    gift_message,
+                    Qtd=quantity,
+                    currency=currencySelected
+                )
+
+                if not gift_ok:
+                    err_msg = "Falha ao enviar presente pela Riot."
+                    if isinstance(gift_resp, dict):
+                        err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp, ensure_ascii=False)
+                    elif isinstance(gift_resp, list) and gift_resp:
+                        err_msg = ", ".join(str(x) for x in gift_resp)
+                    elif isinstance(gift_resp, str) and gift_resp:
+                        err_msg = gift_resp
+                    return jsonify({
+                        "status": "error",
+                        "message": f"Erro da Riot: {err_msg}",
+                        "saldo": auth.rp_amount
+                    }), 400
+
+                await asyncio.sleep(2)
+                try:
+                    new_saldo_rp, new_saldo_ip = await auth.get_saldo_rp()
+                except Exception:
+                    new_saldo_rp, new_saldo_ip = auth.rp_amount, getattr(auth, 'ip_amount', 0)
+
+                if currencySelected == 'EA':
+                    ip_spent = max(0, getattr(auth, 'ip_amount', 0) - new_saldo_ip) or (int(item_price or 0) * int(quantity or 1))
+                    new_transaction["status"] = "Completed"
+                    if new_transaction["user"] not in ['domas', 'elogator']:
+                        new_transaction.pop('sender_pass', None)
+                    new_transaction.pop('date_finished', None)
+                    new_transaction.pop('retry', None)
+                    gift_log.insert_one(new_transaction)
+                    logger.info(f"\n Gift EA bem sucedido | Sender: {username} ({auth.riotId}) | Receiver: {name}#{tag} | Item: {data.get('item_name')} | Spend: {ip_spent}, New RP: {new_saldo_rp}")
+                    return jsonify({
+                        "status": "success",
+                        "message": f"Gift sent successfully to {name}#{tag}! — Saldo: {new_saldo_rp} RP",
+                        "saldo": new_saldo_rp,
+                        "ip_spent": ip_spent
+                    }), 200
+                else:
+                    if new_saldo_rp < auth.rp_amount:
+                        rp_spent = auth.rp_amount - new_saldo_rp
+                    else:
+                        rp_spent = int(item_price or 0) * int(quantity or 1)
+                        new_saldo_rp = max(0, auth.rp_amount - rp_spent)
+
+                    try:
+                        user_accounts.update_many(
+                            {"user_pass": f"{username}:{password}"},
+                            {"$set": {"rp_balance": new_saldo_rp}}
+                        )
+                    except Exception:
+                        pass
+
+                    new_transaction["status"] = "Completed"
+                    if new_transaction["user"] not in ['domas', 'elogator']:
+                        new_transaction.pop('sender_pass', None)
+                    new_transaction.pop('date_finished', None)
+                    new_transaction.pop('retry', None)
+                    gift_log.insert_one(new_transaction)
+
+                    print("\nGift bem sucedido")
+                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get('item_name')} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
+                    return jsonify({
+                        "status": "success",
+                        "message": f"Gift sent successfully to {name}#{tag}! — Novo Saldo: {new_saldo_rp} RP",
+                        "saldo": new_saldo_rp,
+                        "rp_spent": rp_spent
+                    }), 200
+
             ChatXmpp = RiotChatClient(auth.chat_uri, auth.chat_dom, 5223, 1)
 
             friend_task = 'friend_request'
@@ -1534,20 +1660,29 @@ def format_time_difference(time_difference):
     return f"{days} days and {hours} hours"
 
 def get_summoner_id(gift_info, receiver_riotId):
+    if not isinstance(gift_info, dict) or 'friends' not in gift_info or not isinstance(gift_info['friends'], list):
+        return "Not giftable"
+
+    target = str(receiver_riotId or "").replace(" ", "").lower()
+    target_name_only = target.split("#")[0] if "#" in target else target
 
     for friend in gift_info['friends']:
-        
-        #print(f"\n Comparing {friend['nick']} with {new_transaction["receiver"]} ")
-        friend_key = friend['nick'].replace(" ", "").lower()
-
-        if friend_key == receiver_riotId.replace(" ", "").lower():
-            found_flag = True
-            if friend['friendsSince'] is None or friend['friendsSince'] == "":
+        friend_key = str(friend.get('nick') or "").replace(" ", "").lower()
+        if friend_key == target:
+            if not friend.get('friendsSince'):
                 return "No Time"
-            else:
-                summonerId = friend['summonerId']
-                return summonerId
-    
+            return int(friend['summonerId'])
+
+    matches = [
+        f for f in gift_info['friends']
+        if str(f.get('nick') or "").replace(" ", "").lower().split("#")[0] == target_name_only
+    ]
+    if len(matches) == 1:
+        friend = matches[0]
+        if not friend.get('friendsSince'):
+            return "No Time"
+        return int(friend['summonerId'])
+
     return "Not giftable"
 
 
@@ -1939,18 +2074,15 @@ async def send_gift_order(transaction):
 
 
 
-            if auth.region == 'ASDASDASDAS':
-                
-                gift_info = await auth.friendlist_gift_info()
-                receiver_summoner_id = get_summoner_id(gift_info, receiver)
-
-                await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price,inventory_type, gift_message) 
+            gift_info = await auth.friendlist_gift_info()
+            receiver_summoner_id = get_summoner_id(gift_info, receiver)
+            if isinstance(receiver_summoner_id, int):
+                await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price, inventory_type, gift_message)
             else:
                 await Giftobj.send_gift(auth, receiver_puuid, item_offerid, gift_message)
-            
 
             await asyncio.sleep(3)
-            new_saldo = await auth.get_saldo_rp()
+            new_saldo, _ = await auth.get_saldo_rp()
             
             if new_saldo<auth.rp_amount:
                 rp_spent = auth.rp_amount - new_saldo
