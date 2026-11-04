@@ -927,6 +927,29 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
                   - Remoção de todos os delays artificiais de 1500ms (`setTimeout(1500)`) na navegação de categorias (`menu_vendas` e `confirmar_regiao_store`).
                   - Transição direta via `enviarPaginaCatalogo(..., isUpdate=true)` em uma única requisição Discord sem flicker e sem telas intermediárias; tempo de resposta reduzido em mais de 95% (para menos de 50ms).
 
+            50. **Banners Animados de Splash Art Ultra HD (WebM -> GIF 680p sRGB Sem Tremor) & Boas-Vindas V2 (2026-10-29):**
+                - **Conversor WebM/MP4 -> GIF com Barra de Progresso em Tempo Real (`utils/webmToGif.js` & `commands/admin/embeds.js`):**
+                  - Implementado acompanhamento de progresso em tempo real (`0%` a `100%`) durante a conversão e upload de `.webm`/`.mp4` no comando `/embeds`.
+                  - Pipeline FFmpeg aprimorado para **680px de largura** (`100%` de preenchimento nos Containers V2 do Discord), **8 segundos de duração a 15fps (120 frames)**, conversão de matriz de cor **BT.709 -> sRGB** e dithering `bayer:bayer_scale=3` estático (sem tremor entre frames).
+                - **Rotação Aleatória de 17 Splash Arts Animadas Uncentered (`config/wallpapers.json` & `index.js`):**
+                  - Pré-renderizadas e hospedadas 17 splash arts animadas oficiais do LoL (versões uncentered) em `config/wallpapers.json`.
+                  - Cada aba da loja (`ticket_panel`, `store_region_select`, `store_main_menu`, `store_category_menu`, `store_catalog`) sorteia um banner animado diferente a cada abertura, mantendo fixo apenas o resumo final do pedido (`ticket_created`).
+                - **Card de Boas-Vindas V2 (`index.js` & `config/embeds.json`):**
+                  - Atualizado `welcome_member` com seta animada (`arrow2`) e botões interativos nativos no Container V2 (`Ir para a Loja` + indicador de `Membro #N`).
+
+            51. **Restauração do Gift Sender Bruto (Storefront V3 `/storefront/v3/gift`) e Exibição de Saldo RP na Web API (2026-11-04):**
+                - **Diagnóstico das 3 Causas Raiz na API Python (`main_backend.py`, `api_files/gift.py`, `api_files/riot_tokens.py`):**
+                  1. *Retorno Antecipado Indevido (`Transaction registered successfully`):* As linhas 807–808 de `main_backend.py` estavam descomentadas, fazendo com que qualquer chamada `task == "gift"` apenas inserisse o documento em `transactions_collection` e retornasse `"Transaction registered successfully"` antes de autenticar na Riot ou enviar o presente.
+                  2. *Bloqueio `403 RBAC: access denied` na Rota CAP Orders V2:* O endpoint `/services/cap/orders/orders-api/v2/products/.../orders` (`Gift.send_gift`) passou a ser bloqueado pelo Cloudflare/SGP da Riot com `403 Forbidden (RBAC: access denied)`. Já o endpoint oficial da loja **`POST /storefront/v3/gift` (`Gift.send_gift_v3`)** continua funcionando 100% sem bloqueio RBAC.
+                  3. *Erro `cpid` quando `id_token` ausente (`api_files/riot_tokens.py`):* Quando um `access_token` (`lol_token`) era enviado sem `id_token`, `get_user_info` falhava com `cannot access local variable 'cpid'`. Além disso, o redesign 3D de `templates/gift_tab.html` havia removido o elemento `#saldo-amount` do HTML.
+                - **Correções Aplicadas e Validadas em Produção:**
+                  - Comentado o bloco de retorno antecipado nas linhas 807–808 de `main_backend.py` (idêntico ao `endpoint lol.zip` original).
+                  - Em `main_backend.py` (`task == "gift"` e `send_gift_order`), o envio agora consulta `/storefront/v3/gift/friends` (`auth.friendlist_gift_info()`), obtém o `receiverSummonerId` via `get_summoner_id()` e dispara imediatamente via **`Giftobj.send_gift_v3`** (`/storefront/v3/gift`), atualizando o saldo de RP da conta e registrando o log em `gift_log`.
+                  - Em `api_files/gift.py`, `send_gift_v3` e `get_gift_id` foram blindados com conversão automática de `CHROMA`/`SKIN` para `CHAMPION_SKIN` (`giftItemId: 2`), suporte a todas as categorias (`CHAMPION`, `BUNDLES`, `HEXTECH_CRAFTING`, `EVENT_PASS`, `WARD_SKIN`, `SUMMONER_ICON`, `MYSTERY`, etc.), quantidade dinâmica e cast seguro para `int`.
+                  - Em `api_files/riot_tokens.py`, `get_user_info` agora extrai `cpid` (região) diretamente do payload `dat.r` do `lol_token` ou de `/userinfo` caso `id_token` não seja fornecido, sem sobrescrever `id_token` salvo no banco com `None`.
+                  - Em `templates/gift_tab.html` e `static/script.js`, restaurados os badges visuais **`RP: #saldo-amount`** e **`#daily-gifts-counter` (`0 / 10`)** na barra superior do `#kitsuneSendPanel`, exibindo o saldo em RP em todas as operações (`Check Balance` e `Send Gift`).
+                  - Sincronizados todos os arquivos entre `C:\Users\jeff\Documents\lol_giftapi-main`, `C:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend` e `C:\Users\jeff\Documents\lol_giftapi-main\python_backend`.
+
 ### Servidores do Bot:
 - `1128760372741034114` — Kitsune | Gifting Service
 - `1482818033838719201` — KITSUNE x GAMING v2
@@ -1002,3 +1025,4 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
 10. Se o contexto da conversa tiver sido perdido, reconstruir o contexto usando este arquivo e os arquivos do projeto.
 11. Sempre que fizer qualquer alteração ou update no código, realizar o git commit e git push para a branch main, permitindo o deploy contínuo no Render.
 12. REGRA OBRIGATÓRIA DE UI (Discord Components V2): Todo e qualquer comando, painel, resposta, ticket ou mensagem do bot DEVE utilizar Discord Components V2 (`ContainerBuilder` / `MessageFlags.IsComponentsV2` via `utils/componentsV2.js`). Nunca criar comandos fora do padrão V2 e garantir que todas as telas mantenham compatibilidade total com Containers V2 e com o gerenciador `/embeds`.
+13. REGRA OBRIGATÓRIA DA WEB API DE PRESENTES (`main_backend.py` & `api_files/gift.py`): Nunca descomentar o retorno antecipado `Transaction registered successfully` nas linhas 807-808 de `main_backend.py`. O envio de presentes (`task == "gift"`) deve sempre utilizar a rota direta Storefront V3 (`Giftobj.send_gift_v3` -> `POST /storefront/v3/gift` com `receiverSummonerId` obtido de `/storefront/v3/gift/friends`), pois a rota CAP Orders V2 retorna `403 RBAC: access denied`. Manter sempre sincronizados os diretórios `C:\Users\jeff\Documents\lol_giftapi-main` e `C:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend`.
