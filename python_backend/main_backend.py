@@ -804,8 +804,8 @@ async def gift_send():
             }
 
             # Insere o documento na coleção de transações
-            transactions_collection.insert_one(new_transaction)
-            return jsonify({"status": "success", "message": "Transaction registered successfully", "order_id": str(transaction_id)}), 200
+            # transactions_collection.insert_one(new_transaction)
+            # return jsonify({"status": "success", "message": "Transaction registered successfully", "order_id": str(transaction_id)}), 200
 
         
             
