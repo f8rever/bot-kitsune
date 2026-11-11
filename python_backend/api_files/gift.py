@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import asyncio
 import aiohttp
 from api_files.riot_tokens import RiotAuth
 
@@ -409,17 +410,20 @@ class Gift:
                     "rpCost": cat_rp_price,
                     "quantity": clean_qty,
                 }]))
-            candidate_bodies.append(_make_body(1010, [{
-                "inventoryType": riot_inv_type,
-                "itemId": clean_item_id,
-                "ipCost": clean_price if is_ea else None,
-                "rpCost": None if is_ea else clean_price,
-                "quantity": clean_qty,
-            }]))
+            # Só adiciona giftItemId=1010 com ipCost=None para HEXTECH_CRAFTING (nunca para CHAMPION_SKIN/CHAMPION/MYSTERY)
+            if riot_inv_type == "HEXTECH_CRAFTING":
+                candidate_bodies.append(_make_body(1010, [{
+                    "inventoryType": riot_inv_type,
+                    "itemId": clean_item_id,
+                    "ipCost": clean_price if is_ea else None,
+                    "rpCost": None if is_ea else clean_price,
+                    "quantity": clean_qty,
+                }]))
 
         url = f"https://{auth.league_edge_url}/storefront/v3/gift"
         last_status = 400
         last_response = None
+        self.auto_unlocked_champion = None
 
         non_retryable_markers = (
             "notenoughcurrency",
@@ -463,15 +467,96 @@ class Gift:
                 if any(m in resp_str for m in non_retryable_markers):
                     break
 
-        # Fallback final via CAP Orders V2 se disponível
-        if resolved_offer_id and receiver_puuid and not is_ea:
+        # Resolução Automática de Campeão Base quando o destinatário não possui o Campeão da Skin (itemTypeNotAvailable)
+        if riot_inv_type == "CHAMPION_SKIN" and not is_chroma and not is_ea and cat_entry:
             resp_str = json.dumps(last_response, ensure_ascii=False).lower() if not isinstance(last_response, str) else str(last_response).lower()
-            if "itemtypenotavailable" in resp_str or "unknowncurrency" in resp_str or "bad_path_parameter" in resp_str:
-                print(f"\n[SEND_GIFT_V3 -> CAP V2 FALLBACK] Tentando send_gift com offer_id={resolved_offer_id}...")
-                cap_ok, cap_resp = await self.send_gift(auth, receiver_puuid, resolved_offer_id, gift_message, clean_qty)
-                if cap_ok:
-                    self.status = True
-                    return True, cap_resp
+            if "itemtypenotavailable" in resp_str:
+                parent_champ_id = (cat_entry.get("parent") or {}).get("itemId")
+                if not parent_champ_id:
+                    for req in (cat_entry.get("itemRequirements") or []):
+                        if isinstance(req, dict) and str(req.get("inventoryType") or "").upper() == "CHAMPION":
+                            parent_champ_id = req.get("itemId")
+                            break
+
+                if parent_champ_id:
+                    try:
+                        parent_champ_id = int(parent_champ_id)
+                    except Exception:
+                        pass
+                    champ_entry = cat_idx.get("by_key", {}).get(("CHAMPION", parent_champ_id))
+                    if champ_entry:
+                        champ_name = ((champ_entry.get("localizations") or {}).get("pt_BR") or {}).get("name") or f"Campeão {parent_champ_id}"
+                        champ_rp = 0
+                        for sp in ((champ_entry.get("sale") or {}).get("prices") or []):
+                            if isinstance(sp, dict) and sp.get("currency") == "RP" and sp.get("cost"):
+                                champ_rp = int(sp["cost"])
+                                break
+                        if not champ_rp:
+                            for p in (champ_entry.get("prices") or []):
+                                if isinstance(p, dict) and p.get("currency") == "RP" and p.get("cost"):
+                                    champ_rp = int(p["cost"])
+                                    break
+
+                        sender_rp = int(getattr(auth, "rp_amount", 0) or 0)
+                        skin_rp = int(cat_rp_price or clean_price or 0)
+
+                        if champ_rp > 0 and sender_rp >= (skin_rp + champ_rp):
+                            print(f"\n[AUTO-UNLOCK CHAMPION] Destinatário não possui o campeão base {champ_name} (ID: {parent_champ_id}, {champ_rp} RP). Enviando campeão automaticamente antes da skin...")
+                            champ_body = _make_body(1, [{
+                                "inventoryType": "CHAMPION",
+                                "itemId": parent_champ_id,
+                                "ipCost": 0,
+                                "rpCost": champ_rp,
+                                "quantity": 1,
+                            }])
+                            async with self.session.post(url=url, headers=headers, json=champ_body) as c_resp:
+                                c_status = c_resp.status
+                                try:
+                                    c_json = await c_resp.json()
+                                except Exception:
+                                    c_json = await c_resp.text()
+                                print(f"[AUTO-UNLOCK CHAMPION RESPONSE] Status: {c_status} | Body: {c_json}")
+
+                                if c_status in (200, 201, 202, 204):
+                                    self.auto_unlocked_champion = {
+                                        "id": parent_champ_id,
+                                        "name": champ_name,
+                                        "rp": champ_rp,
+                                    }
+                                    await asyncio.sleep(1.8)
+                                    skin_retry_body = _make_body(2, [{
+                                        "inventoryType": "CHAMPION_SKIN",
+                                        "itemId": clean_item_id,
+                                        "ipCost": 0,
+                                        "rpCost": skin_rp,
+                                        "quantity": clean_qty,
+                                    }])
+                                    print(f"\n[AUTO-UNLOCK SKIN RETRY] Reenviando skin após desbloquear {champ_name}: {skin_retry_body}")
+                                    async with self.session.post(url=url, headers=headers, json=skin_retry_body) as s_resp:
+                                        s_status = s_resp.status
+                                        try:
+                                            s_json = await s_resp.json()
+                                        except Exception:
+                                            s_json = await s_resp.text()
+                                        print(f"[AUTO-UNLOCK SKIN RETRY RESPONSE] Status: {s_status} | Body: {s_json}")
+                                        if s_status in (200, 201, 202, 204):
+                                            self.status = True
+                                            return True, s_json
+                                        last_response = s_json
+                                else:
+                                    c_str = json.dumps(c_json, ensure_ascii=False).lower() if not isinstance(c_json, str) else str(c_json).lower()
+                                    if "itemtypenotavailable" in c_str or "alreadyowned" in c_str:
+                                        last_response = {
+                                            "errorCode": "ALREADY_OWNED",
+                                            "message": f"O destinatário já possui o campeão {champ_name} e já possui esta skin habilitada na conta (ou a skin está temporariamente indisponível para presente)."
+                                        }
+                                    elif "limit_reached" in c_str:
+                                        last_response = c_json
+                        elif champ_rp > 0:
+                            last_response = {
+                                "errorCode": "MISSING_CHAMPION",
+                                "message": f"O destinatário não possui o campeão {champ_name} ({champ_rp} RP). Para desbloquear o campeão + skin automaticamente são necessários {skin_rp + champ_rp} RP (saldo atual: {sender_rp} RP)."
+                            }
 
         print("\n Gift Finished (v3 - Failed)")
         self.status = False

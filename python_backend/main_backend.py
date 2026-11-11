@@ -1059,10 +1059,12 @@ async def gift_send():
                         "ip_spent": ip_spent
                     }), 200
                 else:
+                    auto_champ = getattr(Giftobj, "auto_unlocked_champion", None)
+                    extra_champ_rp = int(auto_champ.get("rp") or 0) if isinstance(auto_champ, dict) else 0
                     if new_saldo_rp < auth.rp_amount:
                         rp_spent = auth.rp_amount - new_saldo_rp
                     else:
-                        rp_spent = int(item_price or 0) * int(quantity or 1)
+                        rp_spent = (int(item_price or 0) * int(quantity or 1)) + extra_champ_rp
                         new_saldo_rp = max(0, auth.rp_amount - rp_spent)
 
                     try:
@@ -1080,11 +1082,12 @@ async def gift_send():
                     new_transaction.pop('retry', None)
                     gift_log.insert_one(new_transaction)
 
+                    champ_suffix = f" (+ Campeão base {auto_champ['name']} desbloqueado automaticamente)" if isinstance(auto_champ, dict) and auto_champ.get("name") else ""
                     print("\nGift bem sucedido")
-                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get('item_name')} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
+                    logger.info(f"\n Gift bem sucedido \n Sender: {username} ({auth.riotId}) \n Receiver: {name}#{tag} \n Item: {data.get('item_name')}{champ_suffix} \n Spend: {rp_spent}, New balance: {new_saldo_rp}")
                     return jsonify({
                         "status": "success",
-                        "message": f"Gift sent successfully to {name}#{tag}! — Novo Saldo: {new_saldo_rp} RP",
+                        "message": f"Gift sent successfully to {name}#{tag}!{champ_suffix} — Novo Saldo: {new_saldo_rp} RP",
                         "saldo": new_saldo_rp,
                         "rp_spent": rp_spent
                     }), 200
