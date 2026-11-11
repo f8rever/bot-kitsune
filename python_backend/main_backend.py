@@ -1010,6 +1010,12 @@ async def gift_send():
                         "saldo": auth.rp_amount
                     }), 400
 
+                receiver_puuid = None
+                try:
+                    receiver_puuid = await auth.get_puuid_player(name, tag)
+                except Exception:
+                    pass
+
                 gift_ok, gift_resp = await Giftobj.send_gift_v3(
                     auth,
                     receiver_summoner_id,
@@ -1019,20 +1025,15 @@ async def gift_send():
                     gift_message,
                     Qtd=quantity,
                     currency=currencySelected,
-                    offer_id=offer_id
+                    offer_id=offer_id,
+                    receiver_puuid=receiver_puuid
                 )
 
                 if not gift_ok:
-                    err_msg = "Falha ao enviar presente pela Riot."
-                    if isinstance(gift_resp, dict):
-                        err_msg = f"{gift_resp.get('message')} [{gift_resp.get('errorCode')}]" if (gift_resp.get("message") and gift_resp.get("errorCode")) else (gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp, ensure_ascii=False))
-                    elif isinstance(gift_resp, list) and gift_resp:
-                        err_msg = ", ".join(str(x) for x in gift_resp)
-                    elif isinstance(gift_resp, str) and gift_resp:
-                        err_msg = gift_resp
+                    formatted_err = format_riot_error(gift_resp)
                     return jsonify({
                         "status": "error",
-                        "message": f"Erro da Riot: {err_msg}",
+                        "message": f"Erro da Riot: {formatted_err}",
                         "saldo": auth.rp_amount
                     }), 400
 
@@ -1286,11 +1287,7 @@ async def gift_send():
                 else:
                     gift_ok, gift_resp = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
                     if not gift_ok:
-                        err_msg = "Falha ao enviar presente pela Riot."
-                        if isinstance(gift_resp, dict):
-                            err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp)
-                        elif isinstance(gift_resp, str) and gift_resp:
-                            err_msg = gift_resp
+                        err_msg = format_riot_error(gift_resp)
                         return jsonify({"status": "error", "message": f"Erro da Riot: {err_msg}"}), 400
                     
                     #gift_info = await auth.friendlist_gift_info()
@@ -1399,11 +1396,7 @@ async def gift_send():
                 else:
                     gift_ok, gift_resp = await Giftobj.send_gift(auth, ChatXmpp.receiver_puuid, offer_id, gift_message, quantity)
                     if not gift_ok:
-                        err_msg = "Falha ao enviar presente pela Riot."
-                        if isinstance(gift_resp, dict):
-                            err_msg = gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp)
-                        elif isinstance(gift_resp, str) and gift_resp:
-                            err_msg = gift_resp
+                        err_msg = format_riot_error(gift_resp)
                         return jsonify({"status": "error", "message": f"Erro da Riot: {err_msg}"}), 400
 
 
@@ -1641,6 +1634,32 @@ def calculate_time_difference(friend):
 
 
     return time_difference
+
+def format_riot_error(gift_resp):
+    if not gift_resp:
+        return "Falha desconhecida ao enviar presente pela Riot."
+    raw = ""
+    if isinstance(gift_resp, dict):
+        raw = f"{gift_resp.get('message')} [{gift_resp.get('errorCode')}]" if (gift_resp.get("message") and gift_resp.get("errorCode")) else (gift_resp.get("message") or gift_resp.get("errorCode") or json.dumps(gift_resp, ensure_ascii=False))
+    elif isinstance(gift_resp, list):
+        raw = ", ".join(str(x) for x in gift_resp)
+    elif isinstance(gift_resp, str):
+        raw = gift_resp
+
+    lower = raw.lower()
+    if "mystery_purchase_limit_reached" in lower or "limit_reached" in lower:
+        return f"Limite diário de presentes atingido nas últimas 24h (Riot Gifting Limit). O destinatário já recebeu o limite máximo de presentes hoje ou o remetente atingiu o limite de envios (máx 10 presentes/dia). A Riot utiliza uma janela móvel de 24h para liberar novos envios. Tente enviar para outro destinatário ou aguarde a janela de 24h. [{raw}]"
+    if "notenoughcurrency" in lower or "not_enough_currency" in lower:
+        return f"Saldo insuficiente de RP na conta remetente para concluir o presente. [{raw}]"
+    if "incorrectprice" in lower:
+        return f"Preço do item na Riot divergente do catálogo local. Atualize o catálogo. [{raw}]"
+    if "alreadyowned" in lower or "already_owned" in lower:
+        return f"O destinatário já possui este item em sua conta. [{raw}]"
+    if "itemtypenotavailable" in lower:
+        return f"Tipo de item indisponível para envio de presente nesta região ou categoria. [{raw}]"
+    if "notfriends" in lower or "friendssince" in lower:
+        return f"Tempo de amizade insuficiente (é necessário ter amizade aceita há mais de 24h). [{raw}]"
+    return raw
 
 def format_time_difference(time_difference):
     # Extrai dias e horas
