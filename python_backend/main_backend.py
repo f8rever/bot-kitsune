@@ -1018,7 +1018,8 @@ async def gift_send():
                     inventory_type,
                     gift_message,
                     Qtd=quantity,
-                    currency=currencySelected
+                    currency=currencySelected,
+                    offer_id=offer_id
                 )
 
                 if not gift_ok:
@@ -2067,7 +2068,7 @@ async def send_gift_order(transaction):
             gift_info = await auth.friendlist_gift_info()
             receiver_summoner_id = get_summoner_id(gift_info, receiver)
             if isinstance(receiver_summoner_id, int):
-                await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price, inventory_type, gift_message)
+                await Giftobj.send_gift_v3(auth, receiver_summoner_id, item_id, item_price, inventory_type, gift_message, offer_id=item_offerid, receiver_puuid=receiver_puuid)
             else:
                 await Giftobj.send_gift(auth, receiver_puuid, item_offerid, gift_message)
 

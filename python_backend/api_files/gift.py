@@ -1,7 +1,94 @@
+import os
 import json
 import uuid
 import aiohttp
 from api_files.riot_tokens import RiotAuth
+
+_CATALOG_INDEX_CACHE = {
+    "mtime": 0,
+    "path": None,
+    "by_key": {},
+    "by_id": {},
+    "by_offer": {},
+}
+
+_INV_PRIORITY = {
+    "BUNDLES": 1,
+    "CHAMPION_SKIN": 2,
+    "CHAMPION": 3,
+    "HEXTECH_CRAFTING": 4,
+    "EVENT_PASS": 5,
+    "WARD_SKIN": 6,
+    "SUMMONER_ICON": 7,
+    "EMOTE": 8,
+    "STATSTONE": 9,
+    "COMPANION": 10,
+    "TFT_MAP_SKIN": 11,
+    "TFT_DAMAGE_SKIN": 12,
+    "MYSTERY": 13,
+    "SPELL_BOOK_PAGE": 14,
+    "BOOST": 15,
+}
+
+
+def _get_catalog_index():
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    candidates = [
+        os.path.join(base_dir, "catalog.json"),
+        r"c:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend\catalog.json",
+        r"C:\Users\jeff\Documents\lol_giftapi-main\catalog.json",
+    ]
+    cat_path = next((p for p in candidates if os.path.exists(p)), None)
+    if not cat_path:
+        return _CATALOG_INDEX_CACHE
+
+    try:
+        mtime = os.path.getmtime(cat_path)
+        if _CATALOG_INDEX_CACHE["path"] == cat_path and _CATALOG_INDEX_CACHE["mtime"] == mtime and _CATALOG_INDEX_CACHE["by_key"]:
+            return _CATALOG_INDEX_CACHE
+
+        with open(cat_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+
+        by_key = {}
+        by_id = {}
+        by_offer = {}
+
+        if isinstance(raw, list):
+            for entry in raw:
+                if not isinstance(entry, dict):
+                    continue
+                inv = str(entry.get("inventoryType") or "").strip().upper()
+                iid = entry.get("itemId")
+                oid = entry.get("offerId") or entry.get("id")
+                try:
+                    iid_int = int(iid)
+                except Exception:
+                    iid_int = iid
+
+                if inv and iid_int is not None:
+                    by_key[(inv, iid_int)] = entry
+                    existing = by_id.get(iid_int)
+                    if not existing:
+                        by_id[iid_int] = entry
+                    else:
+                        old_inv = str(existing.get("inventoryType") or "").strip().upper()
+                        if _INV_PRIORITY.get(inv, 99) < _INV_PRIORITY.get(old_inv, 99):
+                            by_id[iid_int] = entry
+
+                if oid:
+                    by_offer[str(oid)] = entry
+
+        _CATALOG_INDEX_CACHE["mtime"] = mtime
+        _CATALOG_INDEX_CACHE["path"] = cat_path
+        _CATALOG_INDEX_CACHE["by_key"] = by_key
+        _CATALOG_INDEX_CACHE["by_id"] = by_id
+        _CATALOG_INDEX_CACHE["by_offer"] = by_offer
+    except Exception as e:
+        print(f"[GIFT CATALOG INDEX] Aviso ao indexar catalog.json: {e}")
+
+    return _CATALOG_INDEX_CACHE
+
 
 
 class Gift:
@@ -88,23 +175,41 @@ class Gift:
                 return False, gift_response
     
 
-    async def send_gift_v3(self, auth:RiotAuth, summoner_id, item_id, item_price, inventory_type, gift_message, Qtd=1, currency="RP"):
+    async def send_gift_v3(self, auth: RiotAuth, summoner_id, item_id, item_price, inventory_type, gift_message, Qtd=1, currency="RP", offer_id=None, receiver_puuid=None):
 
         inv_upper = str(inventory_type or "").strip().upper()
-        if inv_upper in ("CHROMA", "SKIN", "CHAMPION_SKIN"):
+        is_chroma = inv_upper in ("CHROMA", "CHROMAS")
+
+        if inv_upper in ("CHROMA", "CHROMAS", "SKIN", "SKINS", "CHAMPION_SKIN"):
             riot_inv_type = "CHAMPION_SKIN"
-        elif inv_upper == "CHAMPION":
+        elif inv_upper in ("CHAMPION", "CHAMPIONS"):
             riot_inv_type = "CHAMPION"
-        elif inv_upper in ("WARD", "WARD_SKIN"):
+        elif inv_upper in ("WARD", "WARDS", "WARD_SKIN", "SENTINELAS"):
             riot_inv_type = "WARD_SKIN"
-        elif inv_upper in ("ICON", "SUMMONER_ICON"):
+        elif inv_upper in ("ICON", "ICONS", "SUMMONER_ICON", "ÍCONES", "ICONES"):
             riot_inv_type = "SUMMONER_ICON"
-        elif inv_upper in ("BUNDLE", "BUNDLES"):
+        elif inv_upper in ("BUNDLE", "BUNDLES", "PASS", "PASSES", "EVENT_PASS", "PACOTES"):
             riot_inv_type = "BUNDLES"
-        elif inv_upper in ("HEXTECH", "HEXTECH_CRAFTING", "LOOT"):
+        elif inv_upper in ("HEXTECH", "HEXTECH_CRAFTING", "LOOT", "ESPÓLIOS", "ESPOLIOS"):
             riot_inv_type = "HEXTECH_CRAFTING"
+        elif inv_upper in ("EMOTE", "EMOTES"):
+            riot_inv_type = "EMOTE"
+        elif inv_upper in ("STATSTONE", "ETERNALS", "ETERNAL", "ETERNOS"):
+            riot_inv_type = "STATSTONE"
+        elif inv_upper in ("COMPANION", "LITTLELEGENDS", "LITTLE_LEGENDS"):
+            riot_inv_type = "COMPANION"
+        elif inv_upper in ("TFT_MAP_SKIN", "TFTARENA", "TFT_ARENA"):
+            riot_inv_type = "TFT_MAP_SKIN"
+        elif inv_upper == "TFT_DAMAGE_SKIN":
+            riot_inv_type = "TFT_DAMAGE_SKIN"
+        elif inv_upper in ("BOOST", "BOOSTS", "BÔNUS", "BONUS"):
+            riot_inv_type = "BOOST"
+        elif inv_upper == "MYSTERY":
+            riot_inv_type = "MYSTERY"
+        elif inv_upper == "SPELL_BOOK_PAGE":
+            riot_inv_type = "SPELL_BOOK_PAGE"
         else:
-            riot_inv_type = str(inventory_type or "CHAMPION_SKIN")
+            riot_inv_type = str(inventory_type or "CHAMPION_SKIN").strip().upper()
 
         try:
             clean_item_id = int(item_id)
@@ -131,7 +236,47 @@ class Gift:
         except Exception:
             clean_qty = 1
 
-        giftId = self.get_gift_id(riot_inv_type, clean_item_id)
+        if isinstance(clean_item_id, int) and clean_item_id >= 69900000 and riot_inv_type in ("HEXTECH_CRAFTING", "EVENT_PASS", "PASS", "PASSES", "LOOT"):
+            riot_inv_type = "BUNDLES"
+
+        # Consulta o índice do catalog.json oficial para validar inventoryType, subInventoryType, preço e itens empacotados
+        cat_idx = _get_catalog_index()
+        cat_entry = None
+        if offer_id and str(offer_id) in cat_idx.get("by_offer", {}):
+            cat_entry = cat_idx["by_offer"][str(offer_id)]
+        if not cat_entry and riot_inv_type != "MYSTERY":
+            cat_entry = cat_idx.get("by_key", {}).get((riot_inv_type, clean_item_id))
+            if not cat_entry:
+                cat_entry = cat_idx.get("by_id", {}).get(clean_item_id)
+
+        sub_inv = ""
+        cat_rp_price = None
+        resolved_offer_id = offer_id
+
+        if cat_entry and riot_inv_type != "MYSTERY":
+            cat_inv = str(cat_entry.get("inventoryType") or "").strip().upper()
+            if cat_inv in _INV_PRIORITY:
+                riot_inv_type = cat_inv
+            sub_inv = str(cat_entry.get("subInventoryType") or "").strip().upper()
+            if sub_inv == "RECOLOR":
+                is_chroma = True
+            if not resolved_offer_id:
+                resolved_offer_id = cat_entry.get("offerId") or cat_entry.get("id")
+
+            sale_prices = (cat_entry.get("sale") or {}).get("prices") or []
+            for p in sale_prices:
+                if isinstance(p, dict) and p.get("currency") == "RP" and p.get("cost"):
+                    cat_rp_price = int(p["cost"])
+                    break
+            if not cat_rp_price:
+                for p in (cat_entry.get("prices") or []):
+                    if isinstance(p, dict) and p.get("currency") == "RP" and p.get("cost"):
+                        cat_rp_price = int(p["cost"])
+                        break
+            if clean_price <= 0 and cat_rp_price and cat_rp_price > 0:
+                clean_price = cat_rp_price
+
+        giftId = self.get_gift_id(riot_inv_type, clean_item_id, is_chroma=is_chroma)
 
         headers = {
             "Host": f"{auth.league_edge_url}",
@@ -151,56 +296,196 @@ class Gift:
         }
 
         is_ea = str(currency or "RP").strip().upper() == "EA"
-        ip_cost = clean_price if is_ea else 0
-        rp_cost = 0 if is_ea else clean_price
+        cap_proxied_types = ("EMOTE", "STATSTONE", "COMPANION", "TFT_MAP_SKIN", "TFT_DAMAGE_SKIN", "BOOST")
 
-        gift_body = {
-            "customMessage": str(gift_message or ""),
-            "receiverSummonerId": clean_summoner_id,
-            "giftItemId": giftId,
-            "accountId": clean_account_id,
-            "items": [
-                {
+        def _make_body(gid, items_list):
+            return {
+                "customMessage": str(gift_message or ""),
+                "receiverSummonerId": clean_summoner_id,
+                "giftItemId": gid,
+                "accountId": clean_account_id,
+                "items": items_list,
+            }
+
+        def _extract_bundle_items(entry, ip_val):
+            if not entry or not isinstance(entry, dict):
+                return None
+            bundled_items = (entry.get("bundled") or {}).get("items") or []
+            extracted = []
+            for bi in bundled_items:
+                if not isinstance(bi, dict):
+                    continue
+                b_inv = str(bi.get("inventoryType") or "").strip().upper()
+                b_id = bi.get("itemId")
+                b_qty = max(1, int(bi.get("quantity") or 1)) * clean_qty
+                b_cost = 0
+                for dp in (bi.get("discountPrices") or []):
+                    if isinstance(dp, dict) and dp.get("currency") == "RP" and dp.get("cost") is not None:
+                        b_cost = int(dp["cost"])
+                        break
+                try:
+                    b_id = int(b_id)
+                except Exception:
+                    pass
+                extracted.append({
+                    "inventoryType": b_inv,
+                    "itemId": b_id,
+                    "ipCost": ip_val,
+                    "rpCost": b_cost,
+                    "quantity": b_qty,
+                })
+            return extracted if extracted else None
+
+        candidate_bodies = []
+
+        if riot_inv_type in cap_proxied_types or is_chroma:
+            # 1) CAP Proxy mode (giftItemId=1010, ipCost=None para RP)
+            candidate_bodies.append(_make_body(1010, [{
+                "inventoryType": riot_inv_type,
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else None,
+                "rpCost": None if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+            # 2) Legacy giftId com ipCost=0
+            candidate_bodies.append(_make_body(self.get_gift_id(riot_inv_type, clean_item_id, is_chroma=False), [{
+                "inventoryType": riot_inv_type,
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else 0,
+                "rpCost": 0 if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+            # 3) giftItemId=1010 com ipCost=0
+            candidate_bodies.append(_make_body(1010, [{
+                "inventoryType": riot_inv_type,
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else 0,
+                "rpCost": 0 if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+        elif riot_inv_type == "BUNDLES":
+            extracted_zero = _extract_bundle_items(cat_entry, 0)
+            extracted_null = _extract_bundle_items(cat_entry, None)
+            all_hextech_items = bool(extracted_zero) and all(x.get("inventoryType") == "HEXTECH_CRAFTING" for x in extracted_zero)
+
+            if sub_inv == "HEXTECH_BUNDLE" and all_hextech_items:
+                # Regra oficial da Riot: giftingExtractBundleItemsForSubInventoryTypes = ["HEXTECH_BUNDLE"] para Orbes/Baús
+                candidate_bodies.append(_make_body(1010, extracted_zero))
+                candidate_bodies.append(_make_body(1010, extracted_null))
+
+            # Envio direto como BUNDLES (funciona para Passes de Evento 69901080..69901082 e pacotes gerais)
+            candidate_bodies.append(_make_body(1010, [{
+                "inventoryType": "BUNDLES",
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else 0,
+                "rpCost": 0 if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+            candidate_bodies.append(_make_body(1010, [{
+                "inventoryType": "BUNDLES",
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else None,
+                "rpCost": None if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+
+            if extracted_zero and not (sub_inv == "HEXTECH_BUNDLE" and all_hextech_items):
+                candidate_bodies.append(_make_body(1010, extracted_zero))
+                candidate_bodies.append(_make_body(1010, extracted_null))
+        else:
+            # Padrão para CHAMPION_SKIN, CHAMPION, WARD_SKIN, SUMMONER_ICON, HEXTECH_CRAFTING, MYSTERY
+            candidate_bodies.append(_make_body(giftId, [{
+                "inventoryType": riot_inv_type,
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else 0,
+                "rpCost": 0 if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
+            if cat_rp_price and cat_rp_price != clean_price and not is_ea:
+                candidate_bodies.append(_make_body(giftId, [{
                     "inventoryType": riot_inv_type,
                     "itemId": clean_item_id,
-                    "ipCost": ip_cost,
-                    "rpCost": rp_cost,
+                    "ipCost": 0,
+                    "rpCost": cat_rp_price,
                     "quantity": clean_qty,
-                }
-            ]
-        }
+                }]))
+            candidate_bodies.append(_make_body(1010, [{
+                "inventoryType": riot_inv_type,
+                "itemId": clean_item_id,
+                "ipCost": clean_price if is_ea else None,
+                "rpCost": None if is_ea else clean_price,
+                "quantity": clean_qty,
+            }]))
 
-        post_args = {
-            'url': f"https://{auth.league_edge_url}/storefront/v3/gift",
-            'headers': headers,
-            'json': gift_body
-        }
+        url = f"https://{auth.league_edge_url}/storefront/v3/gift"
+        last_status = 400
+        last_response = None
 
-        print(f"\n[SEND_GIFT_V3 REQUEST] URL: {post_args['url']}")
-        print(f"[SEND_GIFT_V3 REQUEST] Body: {gift_body}")
-        async with self.session.post(**post_args) as response:
-            gift_status = response.status
-            try:
-                gift_response = await response.json()
-            except Exception:
-                gift_response = await response.text()
-            print(f"\n[SEND_GIFT_V3 RESPONSE] Status: {gift_status}")
-            print(f"[SEND_GIFT_V3 RESPONSE] Body: {gift_response}")
-            print("\n Gift Finished (v3)")
-            if gift_status in (200, 201, 202, 204):
-                self.status = True
-                return True, gift_response
-            else:
-                self.status = False
-                return False, gift_response
+        non_retryable_markers = (
+            "notenoughcurrency",
+            "alreadyowned",
+            "already_owned",
+            "maxgifts",
+            "limit_reached",
+            "friendssince",
+            "notfriends",
+            "recipient",
+        )
+
+        for idx, gift_body in enumerate(candidate_bodies, start=1):
+            post_args = {
+                "url": url,
+                "headers": headers,
+                "json": gift_body,
+            }
+            print(f"\n[SEND_GIFT_V3 REQUEST #{idx}] URL: {url}")
+            print(f"[SEND_GIFT_V3 REQUEST #{idx}] Body: {gift_body}")
+
+            async with self.session.post(**post_args) as response:
+                gift_status = response.status
+                try:
+                    gift_response = await response.json()
+                except Exception:
+                    gift_response = await response.text()
+
+                print(f"[SEND_GIFT_V3 RESPONSE #{idx}] Status: {gift_status}")
+                print(f"[SEND_GIFT_V3 RESPONSE #{idx}] Body: {gift_response}")
+
+                last_status = gift_status
+                last_response = gift_response
+
+                if gift_status in (200, 201, 202, 204):
+                    print("\n Gift Finished (v3)")
+                    self.status = True
+                    return True, gift_response
+
+                resp_str = json.dumps(gift_response, ensure_ascii=False).lower() if not isinstance(gift_response, str) else gift_response.lower()
+                if any(m in resp_str for m in non_retryable_markers):
+                    break
+
+        # Fallback final via CAP Orders V2 se disponível
+        if resolved_offer_id and receiver_puuid and not is_ea:
+            resp_str = json.dumps(last_response, ensure_ascii=False).lower() if not isinstance(last_response, str) else str(last_response).lower()
+            if "itemtypenotavailable" in resp_str or "unknowncurrency" in resp_str or "bad_path_parameter" in resp_str:
+                print(f"\n[SEND_GIFT_V3 -> CAP V2 FALLBACK] Tentando send_gift com offer_id={resolved_offer_id}...")
+                cap_ok, cap_resp = await self.send_gift(auth, receiver_puuid, resolved_offer_id, gift_message, clean_qty)
+                if cap_ok:
+                    self.status = True
+                    return True, cap_resp
+
+        print("\n Gift Finished (v3 - Failed)")
+        self.status = False
+        return False, last_response
     
-    def get_gift_id(self, inventory_type, item_id):
+    def get_gift_id(self, inventory_type, item_id, is_chroma=False):
         inv = str(inventory_type or "").strip().upper()
         try:
             iid = int(item_id)
         except Exception:
             iid = item_id
 
+        if is_chroma or inv in ("CHROMA", "CHROMAS"):
+            return 1010
         if inv == "CHAMPION":
             return 1
         elif inv == "MYSTERY":
@@ -215,13 +500,13 @@ class Gift:
             elif iid == 60:
                 return 110
             return 3
-        elif inv in ("CHAMPION_SKIN", "CHROMA", "SKIN"):
+        elif inv in ("CHAMPION_SKIN", "SKIN", "SKINS"):
             return 2
-        elif inv in ("WARD_SKIN", "WARD"):
+        elif inv in ("WARD_SKIN", "WARD", "WARDS"):
             return 8
-        elif inv in ("SUMMONER_ICON", "ICON"):
+        elif inv in ("SUMMONER_ICON", "ICON", "ICONS"):
             return 5
-        elif inv in ("BUNDLES", "BUNDLE", "HEXTECH_CRAFTING", "HEXTECH", "EVENT_PASS", "PASS", "EMOTE", "STATSTONE", "COMPANION", "TFT_MAP_SKIN", "TFT_DAMAGE_SKIN"):
+        elif inv in ("BUNDLES", "BUNDLE", "HEXTECH_CRAFTING", "HEXTECH", "LOOT", "EVENT_PASS", "PASS", "PASSES", "EMOTE", "EMOTES", "STATSTONE", "ETERNALS", "COMPANION", "LITTLELEGENDS", "TFT_MAP_SKIN", "TFTARENA", "TFT_DAMAGE_SKIN", "BOOST", "BOOSTS"):
             return 1010
         elif inv == "SPELL_BOOK_PAGE":
             return 6

@@ -11,6 +11,10 @@ files_to_sync = [
         r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\riot_tokens.py",
         r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\api_files\riot_tokens.py"
     ]),
+    ("python_backend/api_files/gift.py", [
+        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\gift.py",
+        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\api_files\gift.py"
+    ]),
     ("python_backend/templates/gift_tab.html", [
         r"C:\Users\jeff\Documents\lol_giftapi-main\templates\gift_tab.html",
         r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\templates\gift_tab.html"
