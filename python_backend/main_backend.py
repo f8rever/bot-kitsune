@@ -930,8 +930,34 @@ async def gift_send():
                     "$or": [{"sender": username}, {"username": auth.riotId}],
                     "date_order": {"$gte": cutoff_24h}
                 })
+
+                # Se a conta autenticada for uma conta de catálogo (ex: lucasgg112 ou Tuan8539), atualiza o catálogo automaticamente
+                catalog_msg_suffix = ""
+                try:
+                    cat_accs = {"lucasgg112", "tuan8539"}
+                    acc_file = os.path.join(current_dir, 'catalog_accounts.json')
+                    if os.path.exists(acc_file):
+                        with open(acc_file, 'r', encoding='utf-8') as cf:
+                            for _, c_acc in json.load(cf).items():
+                                if c_acc.get('username'):
+                                    cat_accs.add(str(c_acc['username']).strip().lower())
+                    if str(username or '').strip().lower() in cat_accs:
+                        print(f"\n[Catalog Auto-Update] Conta de catálogo detectada ({username}). Atualizando catálogo PT/EN...")
+                        await auth.get_catalog()
+                        sync_candidates = [
+                            os.path.abspath(os.path.join(current_dir, '..', 'scripts', 'sync_all_catalog.py')),
+                            r'c:\Users\jeff\Documents\KITSUNE V2 BOT\scripts\sync_all_catalog.py'
+                        ]
+                        for sync_script in sync_candidates:
+                            if os.path.exists(sync_script):
+                                subprocess.run([sys.executable, sync_script], check=False)
+                                break
+                        await load_catalog()
+                        catalog_msg_suffix = " — Catálogo Atualizado!"
+                except Exception as cat_err:
+                    print(f"[Catalog Auto-Update] Aviso: {cat_err}")
                 
-                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region}) — Saldo: {auth.rp_amount} RP", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url, "daily_gifts_count": daily_gifts_count }), 200
+                return jsonify({"status": "success", "message": f"Authenticated as {username} Lv {auth.summnerLevel} {auth.riotId} ({auth.region}) — Saldo: {auth.rp_amount} RP{catalog_msg_suffix}", "saldo": auth.rp_amount, "region": auth.region, "total_ordered": total_ordered, "rp_remaining": rp_remaining, "riot_id": auth.riotId, "avatar_url": avatar_url, "daily_gifts_count": daily_gifts_count, "catalog_updated": bool(catalog_msg_suffix) }), 200
 
 
             print(f"Authenticated as {username} ({auth.riotId})")
@@ -1442,19 +1468,6 @@ async def update_catalog_cache(username, password, file_name):
     userpass_value = f'{username}:{password}'
     
     cookies = aiohttp.CookieJar(unsafe=True)
-    
-    # Injetar os cookies de sessão ativos fornecidos
-    raw_cookies = {
-        'asid': '5QrCcKI2yxGFtzjEs8pAwn2xFZEQNNyGnmHb-aQ3vmI',
-        'csid': 'C7s8fqnRXSfsKyJpYa8YtQ.3CX0kXbX2v-BzK7AIZRXJw',
-        'ssid': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxYWZkZDM1Ni03NTAzLTViOWItOTRlMC05Y2MyZDQ5NzFhZjMiLCJzc2lkIjoiQzdzOGZxblJYU2ZzS3lKcFlhOFl0US4zQ1gwa1hiWDJ2LUJ6SzdBSVpSWEp3IiwiaWF0IjoxNzg1OTYwOTk4fQ.q0YGfjK2w7wYE2Rd72FZYLZ0KzLry7CtNE2fSteWoZ0',
-        'ccid': 'lol',
-        'clid': 'uw1',
-        'tdid': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk5MGViNmNlLWJhYjQtNDMwNC04NzhjLTBhNmI5NGM3ZjMyYSIsIm5vbmNlIjoiZ21VQ3JDeTZJTk09IiwiaWF0IjoxNzg1OTYwOTk3fQ.Hd7SFVtxYcXGJA2QuEwTux4AJqr9pw2JsQTclqx6Qv4'
-    }
-    
-    for c_name, c_val in raw_cookies.items():
-        cookies.update_cookies({c_name: c_val})
 
     tokens_document = None
     if 'account_tokens' in globals() and account_tokens is not None:
@@ -1466,26 +1479,18 @@ async def update_catalog_cache(username, password, file_name):
             cookies.update_cookies({cookie_name: value})
 
     try:
-        print(f"\n [Auth] Autenticando {username} via Cookies de Sessao...")
+        print(f"\n [Auth] Autenticando {username} via Sessao Salva...")
         auth = RiotAuth(username, password, cookies, None)
-        auth_res = await auth.initialize()
+        auth_res = await auth.initialize(catalog=True)
 
         if auth and getattr(auth, 'auth_result', False):
-            print(f"\n [Success] Sessao de {username} autenticada com sucesso! Baixando catalogo...")
-            await auth.set_lol_version()
-            await auth.get_catalog()
+            print(f"\n [Success] Sessao de {username} ({auth.region}) autenticada e catalogo baixado com sucesso!")
         else:
-            print(f"\n [Info] Sessao expirada para {username}. Resolvendo hCaptcha com 2Captcha ($290.79 USD)...")
-            captcha_token = await captcha_solver_login('299fbccc536b3a4591f1a71f2df8200e', userpass_value)
-            if captcha_token and not captcha_token.startswith('Exception'):
-                auth = RiotAuth(username, password, cookies, captcha_token)
-                auth_res = await auth.initialize()
-                if auth and getattr(auth, 'auth_result', False):
-                    print(f"\n [Success] Login via CapMonster bem-sucedido para {username}! Baixando catalogo...")
-                    await auth.set_lol_version()
-                    await auth.get_catalog()
+            print(f"\n [Info] Sessao expirada ou ausente para {username} ({auth_res}).")
+            return False
     except Exception as e:
-        print(f"\n Aviso na autenticação: {e}")
+        print(f"\n Aviso na autenticação de {username}: {e}")
+        return False
 
     finally:
         if auth is not None:
@@ -1493,61 +1498,43 @@ async def update_catalog_cache(username, password, file_name):
             except Exception: pass
 
     if auth and getattr(auth, 'catalog_map', None) is not None:
-        old_items = set()
-        if os.path.exists(file_name):
-            try:
-                with open(file_name, 'r', encoding='utf-8', errors='ignore') as f:
-                    old_data = json.load(f)
-                    if isinstance(old_data, dict):
-                        for cat, cat_items in old_data.items():
-                            if isinstance(cat_items, dict):
-                                for name in cat_items.keys():
-                                    old_items.add(name.lower().strip())
-            except Exception:
-                pass
-
-        with open(file_name, 'w', encoding='utf-8', errors='ignore') as f:
-            json.dump(auth.catalog_map, f)
-        print(f"\n🎉 Catálogo salvo com sucesso em {file_name}!")
-
-        new_items = []
-        total_current = 0
-        if isinstance(auth.catalog_map, dict):
-            for cat, cat_items in auth.catalog_map.items():
-                if isinstance(cat_items, dict):
-                    total_current += len(cat_items)
-                    for name, data in cat_items.items():
-                        if name.lower().strip() not in old_items:
-                            price = data.get('price_rp', 0) if isinstance(data, dict) else 0
-                            new_items.append((name, price, cat))
-
-        print(f"📊 [Diferença do Catálogo] Total Anterior: {len(old_items)} ➔ Novo Total: {total_current} (+{len(new_items)} novos itens)")
-        if new_items:
-            print(f"✨ Novas Skins e Itens Detectados ({len(new_items)}):")
-            for item_name, price, cat in new_items[:15]:
-                print(f"   • {item_name} ({price} RP) [{cat}]")
-            if len(new_items) > 15:
-                print(f"   ... e mais +{len(new_items) - 15} novos itens adicionados.")
-        else:
-            print("✨ O catálogo já estava 100% atualizado com todas as novidades.")
-
-        # Disparar pipeline automático de compilação, diff e atualização do Bot Discord
+        # Disparar pipeline automático de compilação Store-First, diff e atualização do Bot Discord
         try:
             print("\n🔄 [Auto-Sync] Disparando pipeline de compilação Store-First e atualização do Bot Discord...")
-            sync_script = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'sync_all_catalog.py'))
-            if os.path.exists(sync_script):
-                subprocess.run([sys.executable, sync_script], check=False)
+            sync_candidates = [
+                os.path.abspath(os.path.join(current_dir, '..', 'scripts', 'sync_all_catalog.py')),
+                r'c:\Users\jeff\Documents\KITSUNE V2 BOT\scripts\sync_all_catalog.py'
+            ]
+            for sync_script in sync_candidates:
+                if os.path.exists(sync_script):
+                    subprocess.run([sys.executable, sync_script], check=False)
+                    break
         except Exception as e:
             print(f"⚠️ Erro ao disparar sync_all_catalog: {e}")
 
+        await load_catalog()
+        return True
+
+    return False
+
 
 async def fetch_catalogs(lang=None):
-    accounts_file = 'catalog_accounts.json'
-    if os.path.exists(accounts_file):
+    accounts_candidates = [
+        os.path.join(current_dir, 'catalog_accounts.json'),
+        'catalog_accounts.json',
+        r'c:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend\catalog_accounts.json'
+    ]
+    accounts_file = next((p for p in accounts_candidates if os.path.exists(p)), None)
+
+    if accounts_file:
         with open(accounts_file, 'r', encoding='utf-8') as f:
             accounts_config = json.load(f)
 
-        for key, acc in accounts_config.items():
+        # Priorizar 'pt' primeiro (ou contas com token ativo) pois 1 conta ativa já baixa PT e EN completos
+        ordered_keys = sorted(accounts_config.keys(), key=lambda k: 0 if k == 'pt' else 1)
+
+        for key in ordered_keys:
+            acc = accounts_config[key]
             if lang and key != lang:
                 continue
             if not acc.get('enabled', True):
@@ -1563,12 +1550,15 @@ async def fetch_catalogs(lang=None):
                 continue
 
             print(f"\n Starting catalog fetch for {key} ({user})...\n")
-            await update_catalog_cache(user, pwd, out_file)
-            print(f"\n Catalog fetch for {key} completed\n")
-            await asyncio.sleep(2)
+            ok = await update_catalog_cache(user, pwd, out_file)
+            print(f"\n Catalog fetch for {key} completed (success={ok})\n")
+            if ok and not lang:
+                # Como get_catalog() já baixa pt_BR + en_US e sync_all_catalog.py compila ambos os idiomas, não precisa repetir
+                break
+            await asyncio.sleep(1)
     else:
-        print("\n Starting catalog fetch for EN (Tuan8539)\n")
-        await update_catalog_cache("Tuan8539", "cucudz001", 'catalog_cache_en.json')
+        print("\n Starting catalog fetch for PT (lucasgg112)\n")
+        await update_catalog_cache("lucasgg112", "lucas4002", 'catalog_cache_pt.json')
         print("\n Catalog fetch completed\n")
 
 
@@ -2820,7 +2810,7 @@ with app.app_context():
     #asyncio.run(update_version_document())
     asyncio.run(load_catalog())
     
-    #asyncio.run(fetch_catalogs())
+    asyncio.run(fetch_catalogs())
     #scheduler.add_job(func=lambda: run(check_pending_orders()), trigger='interval', minutes=3, id='orders_check_job')
     #scheduler.add_job(func=lambda: run(fetch_catalogs()), trigger='interval', minutes=15, id='catalog_fetch_job')
     

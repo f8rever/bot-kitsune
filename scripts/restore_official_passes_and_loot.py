@@ -102,7 +102,7 @@ PASSES_EN = {
 LOOT_PT = {
     # Worlds 2026
     "Orbe do Mundial 2026": {
-        "offer_id": "2ec59c23-48da-4cf6-ba97-7427289f81be",
+        "offer_id": "fed26417-5ad0-49bd-8df4-9c049a0a2145",
         "item_id": 69901083,
         "price_rp": 250,
         "regular_rp": 250,
@@ -114,7 +114,7 @@ LOOT_PT = {
         "status": "available"
     },
     "Pacote de Orbes Deluxe do Mundial 2026": {
-        "offer_id": "65cf331d-b586-4c74-98ae-36ff06f36306",
+        "offer_id": "3624d605-6fea-4167-af95-d9bb8fed2e44",
         "item_id": 69901084,
         "price_rp": 2500,
         "regular_rp": 2500,
@@ -126,7 +126,7 @@ LOOT_PT = {
         "status": "available"
     },
     "Pacote de Orbes Premium do Mundial 2026": {
-        "offer_id": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+        "offer_id": "894b8700-902b-4d43-80be-0200706beb15",
         "item_id": 69901085,
         "price_rp": 6250,
         "regular_rp": 6250,
@@ -138,7 +138,7 @@ LOOT_PT = {
         "status": "available"
     },
     "Pacote de Orbes Mega do Mundial 2026": {
-        "offer_id": "73854eb1-b0db-4299-8051-fb105658e3ca",
+        "offer_id": "2384885f-1815-4ae4-9797-9aa848d34125",
         "item_id": 69901086,
         "price_rp": 12500,
         "regular_rp": 12500,
@@ -159,55 +159,6 @@ LOOT_PT = {
         "discount_percent": None,
         "inventory_type": "BUNDLES",
         "icon_url": IMAGES[69901087],
-        "is_available": True,
-        "status": "available"
-    },
-    # Invocador
-    "Orbe do Invocador": {
-        "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
-        "item_id": 69901067,
-        "price_rp": 250,
-        "regular_rp": 250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901067],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Deluxe do Invocador": {
-        "offer_id": "95056487-39ef-447c-a513-97b9e4ce1f26",
-        "item_id": 69901068,
-        "price_rp": 2500,
-        "regular_rp": 2500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901068],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Premium do Invocador": {
-        "offer_id": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
-        "item_id": 69901069,
-        "price_rp": 6250,
-        "regular_rp": 6250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901069],
-        "is_available": True,
-        "status": "available"
-    },
-    "Pacote de Orbes Mega do Invocador": {
-        "offer_id": "7e1a069f-024d-45ae-851e-7a6d8444762c",
-        "item_id": 69901070,
-        "price_rp": 12500,
-        "regular_rp": 12500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901070],
         "is_available": True,
         "status": "available"
     },
@@ -281,7 +232,7 @@ LOOT_PT = {
 LOOT_EN = {
     # Worlds 2026
     "Worlds 2026 Orb": {
-        "offer_id": "2ec59c23-48da-4cf6-ba97-7427289f81be",
+        "offer_id": "fed26417-5ad0-49bd-8df4-9c049a0a2145",
         "item_id": 69901083,
         "price_rp": 250,
         "regular_rp": 250,
@@ -293,7 +244,7 @@ LOOT_EN = {
         "status": "available"
     },
     "Worlds 2026 Deluxe Orb Bundle": {
-        "offer_id": "65cf331d-b586-4c74-98ae-36ff06f36306",
+        "offer_id": "3624d605-6fea-4167-af95-d9bb8fed2e44",
         "item_id": 69901084,
         "price_rp": 2500,
         "regular_rp": 2500,
@@ -305,7 +256,7 @@ LOOT_EN = {
         "status": "available"
     },
     "Worlds 2026 Premium Orb Bundle": {
-        "offer_id": "179f854a-7bc9-42b4-82a8-0fe5eec2f854",
+        "offer_id": "894b8700-902b-4d43-80be-0200706beb15",
         "item_id": 69901085,
         "price_rp": 6250,
         "regular_rp": 6250,
@@ -317,7 +268,7 @@ LOOT_EN = {
         "status": "available"
     },
     "Worlds 2026 Mega Orb Bundle": {
-        "offer_id": "73854eb1-b0db-4299-8051-fb105658e3ca",
+        "offer_id": "2384885f-1815-4ae4-9797-9aa848d34125",
         "item_id": 69901086,
         "price_rp": 12500,
         "regular_rp": 12500,
@@ -338,55 +289,6 @@ LOOT_EN = {
         "discount_percent": None,
         "inventory_type": "BUNDLES",
         "icon_url": IMAGES[69901087],
-        "is_available": True,
-        "status": "available"
-    },
-    # Invocador
-    "Summoner's Orb": {
-        "offer_id": "71bc5ad9-abce-4dea-953e-cfb908475802",
-        "item_id": 69901067,
-        "price_rp": 250,
-        "regular_rp": 250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901067],
-        "is_available": True,
-        "status": "available"
-    },
-    "Summoner's Deluxe Orb Bundle": {
-        "offer_id": "95056487-39ef-447c-a513-97b9e4ce1f26",
-        "item_id": 69901068,
-        "price_rp": 2500,
-        "regular_rp": 2500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901068],
-        "is_available": True,
-        "status": "available"
-    },
-    "Summoner's Premium Orb Bundle": {
-        "offer_id": "a57e075b-f79b-4c1a-a74b-5a12bb64bb8d",
-        "item_id": 69901069,
-        "price_rp": 6250,
-        "regular_rp": 6250,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901069],
-        "is_available": True,
-        "status": "available"
-    },
-    "Summoner's Mega Orb Bundle": {
-        "offer_id": "7e1a069f-024d-45ae-851e-7a6d8444762c",
-        "item_id": 69901070,
-        "price_rp": 12500,
-        "regular_rp": 12500,
-        "sale_rp": None,
-        "discount_percent": None,
-        "inventory_type": "BUNDLES",
-        "icon_url": IMAGES[69901070],
         "is_available": True,
         "status": "available"
     },

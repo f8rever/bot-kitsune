@@ -88,24 +88,29 @@ async function buildFullCatalog() {
     console.log('[Catalog Builder] 🚀 Iniciando compilação 100% Store-First da Riot Games...');
     const startTime = Date.now();
 
-    // 1. Obter catálogo bruto da Storefront API
+    // 1. Obter catálogo bruto da Storefront API (sempre escolhendo o arquivo mais recente)
     let rawCatalog = [];
     const rawCatalogPaths = [
-        path.join(__dirname, '../lol_giftapi-main/catalog.json'),
+        path.join(__dirname, '../catalog.json'),
+        path.resolve(__dirname, '../../lol_giftapi-main/catalog.json'),
         path.join(__dirname, '../python_backend/catalog.json'),
-        path.join(__dirname, '../config/catalog.json')
-    ];
+        path.join(__dirname, '../config/catalog.json'),
+        path.resolve(__dirname, '../../lol_giftapi-main/python_backend/catalog.json')
+    ]
+        .filter(p => fs.existsSync(p))
+        .sort((a, b) => {
+            try { return fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs; } catch (e) { return 0; }
+        });
+
     for (const p of rawCatalogPaths) {
-        if (fs.existsSync(p)) {
-            try {
-                const parsed = JSON.parse(fs.readFileSync(p, 'utf8'));
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    rawCatalog = parsed;
-                    console.log(`[Catalog Builder] 📦 Carregado ${rawCatalog.length} ofertas de ${p}`);
-                    break;
-                }
-            } catch (e) {}
-        }
+        try {
+            const parsed = JSON.parse(fs.readFileSync(p, 'utf8'));
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                rawCatalog = parsed;
+                console.log(`[Catalog Builder] 📦 Carregado ${rawCatalog.length} ofertas de ${p}`);
+                break;
+            }
+        } catch (e) {}
     }
 
     if (rawCatalog.length === 0) {
@@ -685,21 +690,25 @@ async function buildFullCatalog() {
         });
     });
 
-    // Pacotes de lançamento e Hall of Legends 2026 (featured_bundles.json)
+    // Pacotes de lançamento ativos (featured_bundles.json) — filtrados apenas pelos IDs ativos na loja atual
+    const activeStoreItemIds = new Set(rawCatalog.map(x => Number(x.itemId)).filter(Boolean));
     const featBundlesPath = path.join(__dirname, '../config/featured_bundles.json');
     if (fs.existsSync(featBundlesPath)) {
         try {
             const featList = JSON.parse(fs.readFileSync(featBundlesPath, 'utf8'));
             featList.forEach(item => {
+                const targetItemId = Number(item.item_id || item.itemId || item.id);
+                if (!activeStoreItemIds.has(targetItemId)) return;
+
                 const bObj = {
-                    offer_id: item.offerId || item.id,
-                    item_id: item.itemId || item.id,
+                    offer_id: item.offer_id || item.offerId || item.id,
+                    item_id: targetItemId,
                     price_rp: item.price_rp,
                     regular_rp: item.price_rp,
                     sale_rp: null,
                     discount_percent: null,
                     inventory_type: item.inventoryType || 'BUNDLES',
-                    icon_url: item.iconUrl || null,
+                    icon_url: item.icon_url || item.iconUrl || null,
                     is_available: true,
                     status: 'available'
                 };
@@ -711,11 +720,78 @@ async function buildFullCatalog() {
                 const targetCategory = isPass ? 'Passes' : (isLoot ? 'Loot' : (isSkin ? 'Skins' : 'Bundles'));
 
                 const ptName = item.name_pt || item.name;
-                const enName = item.name || item.name_pt;
+                const enName = item.name_en || item.name || item.name_pt;
                 catalogPt[targetCategory][ptName] = bObj;
                 catalogEn[targetCategory][enName] = bObj;
             });
         } catch (e) {}
+    }
+
+    // 3.5. Extrair Promoções Semanais Ativas (weekly_sales.json) diretamente do rawCatalog
+    try {
+        const activeWeeklySales = [];
+        for (const item of rawCatalog) {
+            const sale = item.sale;
+            if (!sale || !Array.isArray(sale.prices) || sale.prices.length === 0) continue;
+            const invType = (item.inventoryType || '').toUpperCase();
+            if (invType !== 'CHAMPION_SKIN' && invType !== 'CHAMPION') continue;
+            if (item.subInventoryType === 'RECOLOR') continue;
+
+            const regularRp = item.prices?.find(p => p.currency === 'RP')?.cost;
+            const saleObj = sale.prices.find(p => p.currency === 'RP');
+            if (!regularRp || !saleObj || !saleObj.cost || saleObj.cost >= regularRp) continue;
+
+            const itemId = Number(item.itemId);
+            const saleRp = saleObj.cost;
+            const discountPercent = saleObj.discount
+                ? Math.round(saleObj.discount * 100)
+                : Math.round((1 - saleRp / regularRp) * 100);
+
+            let nameEn = '';
+            let namePt = '';
+            let iconUrl = null;
+
+            if (invType === 'CHAMPION') {
+                nameEn = champMap[itemId]?.nameEn || item.localizations?.en_US?.name || item.localizations?.pt_BR?.name || `Champion ${itemId}`;
+                namePt = item.localizations?.pt_BR?.name || nameEn;
+                const champKey = champMap[itemId]?.key;
+                iconUrl = champKey
+                    ? `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${champKey}.png`
+                    : `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/${itemId}.png`;
+            } else {
+                const cdPt = cdSkinsPt[itemId];
+                const cdEn = cdSkinsEn[itemId];
+                nameEn = cdEn?.name || item.localizations?.en_US?.name || enCatalogMap[item.offerId] || enCatalogMap[itemId] || item.localizations?.pt_BR?.name || `Skin ${itemId}`;
+                namePt = item.localizations?.pt_BR?.name || cdPt?.name || nameEn;
+                const champId = item.parent?.itemId || Math.floor(itemId / 1000);
+                const champKey = champMap[champId]?.key;
+                const skinNum = itemId % 1000;
+                iconUrl = champKey
+                    ? `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champKey}_${skinNum}.jpg`
+                    : (cdEn?.uncenteredSplashPath ? `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default${cdEn.uncenteredSplashPath.toLowerCase().replace('/lol-game-data/assets', '')}` : null);
+            }
+
+            activeWeeklySales.push({
+                id: itemId,
+                name: nameEn,
+                name_pt: namePt,
+                inventoryType: invType,
+                regular_rp: regularRp,
+                sale_rp: saleRp,
+                price_rp: saleRp,
+                discount_percent: discountPercent,
+                offer_id: item.offerId || null,
+                iconUrl: iconUrl
+            });
+        }
+
+        if (activeWeeklySales.length > 0) {
+            const wsPath = path.join(__dirname, '../config/weekly_sales.json');
+            fs.writeFileSync(wsPath, JSON.stringify(activeWeeklySales, null, 2), 'utf8');
+            console.log(`[Catalog Builder] 🔥 ${activeWeeklySales.length} promoções semanais ativas salvas em config/weekly_sales.json!`);
+        }
+    } catch (wsErr) {
+        console.warn('[Catalog Builder] ⚠️ Aviso ao atualizar weekly_sales.json:', wsErr.message);
     }
 
     // 4. Calcular Diferença / Diff de Itens Adicionados e Removidos

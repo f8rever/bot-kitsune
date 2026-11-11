@@ -3,6 +3,14 @@ import shutil
 import hashlib
 
 files_to_sync = [
+    ("python_backend/main_backend.py", [
+        r"C:\Users\jeff\Documents\lol_giftapi-main\main_backend.py",
+        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\main_backend.py"
+    ]),
+    ("python_backend/api_files/riot_tokens.py", [
+        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\riot_tokens.py",
+        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\api_files\riot_tokens.py"
+    ]),
     ("python_backend/templates/gift_tab.html", [
         r"C:\Users\jeff\Documents\lol_giftapi-main\templates\gift_tab.html",
         r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\templates\gift_tab.html"

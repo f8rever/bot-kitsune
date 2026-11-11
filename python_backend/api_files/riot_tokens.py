@@ -914,23 +914,43 @@ class RiotAuth:
 
         if self.region == 'BR1':
             catalog_locale='pt_BR'
+            secondary_locale='en_US'
         else:
             catalog_locale='en_US'
+            secondary_locale='pt_BR'
         
         post_args = {
             'url': f"https://{self.league_edge_url}/storefront/v1/catalog?region={self.region}&language={catalog_locale}",
             'headers': headers
         }
 
-        #?region=BR1&language=pt_BR
-        #?region=NA1&language=en_US
-
-        #if self.proxy:
-            #post_args['proxy'] = self.proxy_url
-
         async with self.session.get(**post_args) as response:
             catalog = await response.json()
 
+        # Também buscar o idioma secundário (en_US / pt_BR) na mesma sessão para que catalog.json tenha AMBOS os idiomas
+        try:
+            sec_args = {
+                'url': f"https://{self.league_edge_url}/storefront/v1/catalog?region={self.region}&language={secondary_locale}",
+                'headers': headers
+            }
+            async with self.session.get(**sec_args) as sec_resp:
+                if sec_resp.status == 200:
+                    sec_catalog = await sec_resp.json()
+                    sec_map = {}
+                    if isinstance(sec_catalog, list):
+                        for s_item in sec_catalog:
+                            oid = s_item.get("offerId")
+                            s_loc = (s_item.get("localizations") or {}).get(secondary_locale)
+                            if oid and s_loc:
+                                sec_map[oid] = s_loc
+                        for item in catalog:
+                            oid = item.get("offerId")
+                            if oid and oid in sec_map:
+                                if "localizations" not in item or not isinstance(item["localizations"], dict):
+                                    item["localizations"] = {}
+                                item["localizations"][secondary_locale] = sec_map[oid]
+        except Exception as sec_err:
+            print(f"[RiotAuth] Aviso ao buscar idioma secundário ({secondary_locale}): {sec_err}")
 
         self.catalog_map = {}
         self.catalog_title = {}
@@ -953,10 +973,10 @@ class RiotAuth:
             
 
             locs = item.get("localizations", {})
-            if self.locale and self.locale in locs and "name" in locs[self.locale]:
-                name = locs[self.locale]["name"]
-            elif catalog_locale in locs and "name" in locs[catalog_locale]:
+            if catalog_locale in locs and "name" in locs[catalog_locale]:
                 name = locs[catalog_locale]["name"]
+            elif self.locale and self.locale in locs and "name" in locs[self.locale]:
+                name = locs[self.locale]["name"]
             elif locs:
                 first_loc = next(iter(locs.values()))
                 if isinstance(first_loc, dict) and "name" in first_loc:
@@ -1001,23 +1021,24 @@ class RiotAuth:
 
             self.catalog_map[display_category][name] = item_data
 
-
-
-            
-
-            #print(f"Nome: {name}", file=my_file)
-            #print(f"Tipo de inventário: {inventory_type}", file=my_file)
-            #print(f"Preço em RP: {price_rp}", file=my_file)
-            #print(f"Offer ID: {offer_id}", file=my_file)
-            #print("\n", file=my_file)
-        
-        file_path = 'catalog.json'
-        with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
-            json.dump(catalog, f, indent=4)
-        #catalog_json = json.dumps(catalog, indent=4, ensure_ascii=False)
-            
-        #print(catalog_json, file=my_file)
-        #my_file.close()    
+        raw_catalog_targets = [
+            os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'catalog.json')),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'catalog.json')),
+            r'c:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend\catalog.json',
+            r'c:\Users\jeff\Documents\KITSUNE V2 BOT\config\catalog.json',
+            r'C:\Users\jeff\Documents\lol_giftapi-main\catalog.json',
+            r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\catalog.json'
+        ]
+        seen_paths = set()
+        for target_p in raw_catalog_targets:
+            try:
+                abs_p = os.path.abspath(target_p)
+                if abs_p not in seen_paths and os.path.exists(os.path.dirname(abs_p)):
+                    seen_paths.add(abs_p)
+                    with open(abs_p, 'w', encoding='utf-8', errors='ignore') as f:
+                        json.dump(catalog, f, indent=4)
+            except Exception:
+                pass
 
         return
 

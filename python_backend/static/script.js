@@ -403,6 +403,10 @@ async function Api(task) {
                 }
             }
 
+            if (data.catalog_updated && typeof window.fetchCatalog === 'function') {
+                window.fetchCatalog();
+            }
+
             if (task === 'gift' || 'rp_spent' in data) {
                 const sentCardNum = document.getElementById('daily-gifts-counter');
                 if (sentCardNum) {
