@@ -444,7 +444,7 @@ async function buildFullCatalog() {
             const skinObjPt = {
                 offer_id: offerId,
                 item_id: itemId,
-                parent_id: champId || null,
+                parent_id: champId || (itemId > 1000 ? Math.floor(itemId / 1000) : null),
                 price_rp: priceRp,
                 regular_rp: regularRp,
                 sale_rp: saleRp,
@@ -655,27 +655,6 @@ async function buildFullCatalog() {
         }
     });
 
-    // Tabuleiros TFT personalizados de configuração (se existirem)
-    const tftArenasPath = path.join(__dirname, '../config/tft_arenas.json');
-    if (fs.existsSync(tftArenasPath)) {
-        try {
-            const arenas = JSON.parse(fs.readFileSync(tftArenasPath, 'utf8'));
-            arenas.forEach(a => {
-                const aObj = {
-                    offer_id: a.id,
-                    item_id: a.id,
-                    price_rp: a.price_rp,
-                    inventory_type: 'TFT_MAP_SKIN',
-                    icon_url: a.iconUrl || null,
-                    is_available: true,
-                    status: 'available'
-                };
-                catalogPt.TFTArena[a.name] = aObj;
-                catalogEn.TFTArena[a.name] = aObj;
-            });
-        } catch (e) {}
-    }
-
     // Limpar entradas antigas ou duplicadas do Hall of Legends antes de inserir os pacotes oficiais
     ['Bundles', 'Passes'].forEach(cat => {
         [catalogPt, catalogEn].forEach(catObj => {
@@ -703,8 +682,9 @@ async function buildFullCatalog() {
                 const bObj = {
                     offer_id: item.offer_id || item.offerId || item.id,
                     item_id: targetItemId,
-                    price_rp: item.price_rp,
-                    regular_rp: item.price_rp,
+                    parent_id: item.parent_id || item.parentId || (targetItemId > 1000 ? Math.floor(targetItemId / 1000) : null),
+                    price_rp: item.price_rp || item.priceRp || item.price,
+                    regular_rp: item.price_rp || item.priceRp || item.price,
                     sale_rp: null,
                     discount_percent: null,
                     inventory_type: item.inventoryType || 'BUNDLES',

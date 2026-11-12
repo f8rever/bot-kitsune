@@ -50,7 +50,7 @@
   {
     "id": 69901085,
     "item_id": 69901085,
-    "offer_id": "69901085",
+    "offer_id": "894b8700-902b-4d43-80be-0200706beb15",
     "name": "Worlds 2026 Premium Orb Bundle",
     "name_pt": "Pacote Premium de Orbes Mundial 2026",
     "inventoryType": "BUNDLES",
@@ -74,7 +74,7 @@
   {
     "id": 69901083,
     "item_id": 69901083,
-    "offer_id": "69901083",
+    "offer_id": "fed26417-5ad0-49bd-8df4-9c049a0a2145",
     "name": "Worlds 2026 Orb",
     "name_pt": "Orbe do Mundial 2026",
     "inventoryType": "BUNDLES",
@@ -256,6 +256,8 @@
     "itemId": 147069,
     "offerId": "6e199f43-39c9-4709-97de-aadded6602c5",
     "name": "Heartsong Seraphine",
+    "name_pt": "Seraphine Hino ao Amor",
+    "parent_id": 147,
     "price_rp": 1820,
     "inventoryType": "CHAMPION_SKIN",
     "iconUrl": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg"

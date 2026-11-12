@@ -5222,10 +5222,7 @@
       "regular_rp": 1820,
       "sale_rp": null,
       "discount_percent": null,
-      "sale": null,
       "inventory_type": "CHAMPION_SKIN",
-      "rarity": "kLegendary",
-      "rarity_label": "Legendary",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
       "is_available": true,
       "status": "available"
@@ -23395,18 +23392,6 @@
       "rarity": "kEpic",
       "rarity_label": "Epic",
       "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_72.jpg",
-      "is_available": true,
-      "status": "available"
-    },
-    "Heartsong Seraphine": {
-      "offer_id": "6e199f43-39c9-4709-97de-aadded6602c5",
-      "item_id": 147069,
-      "price_rp": 1820,
-      "regular_rp": 1820,
-      "sale_rp": null,
-      "discount_percent": null,
-      "inventory_type": "CHAMPION_SKIN",
-      "icon_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Seraphine_69.jpg",
       "is_available": true,
       "status": "available"
     }
@@ -116317,6 +116302,7 @@
     "Pacote Croma Ezreal HEARTSTEEL Live My Life": {
       "offer_id": "5ef30a45-0b6a-48a4-a97c-b6665d9eaa95",
       "item_id": 79900921,
+      "parent_id": 79900,
       "price_rp": 3087,
       "regular_rp": 3087,
       "sale_rp": null,
@@ -116329,6 +116315,7 @@
     "Pacote Croma Kayn HEARTSTEEL Live My Life": {
       "offer_id": "396bb316-3ec0-41a6-aed7-88a470f68bf6",
       "item_id": 79900922,
+      "parent_id": 79900,
       "price_rp": 2620,
       "regular_rp": 2620,
       "sale_rp": null,
@@ -116341,6 +116328,7 @@
     "Pacote Croma Aphelios HEARTSTEEL Live My Life": {
       "offer_id": "38100ed5-0e70-452a-aa08-8595a639893a",
       "item_id": 79900923,
+      "parent_id": 79900,
       "price_rp": 3235,
       "regular_rp": 3235,
       "sale_rp": null,
@@ -116353,6 +116341,7 @@
     "Pacote Croma Yone HEARTSTEEL Live My Life": {
       "offer_id": "bd982ebe-d10a-4c25-8494-84f425d652dc",
       "item_id": 79900924,
+      "parent_id": 79900,
       "price_rp": 3190,
       "regular_rp": 3190,
       "sale_rp": null,
@@ -116365,6 +116354,7 @@
     "Pacote Croma K'Sante HEARTSTEEL Live My Life": {
       "offer_id": "5158f9cf-2fa7-4b8d-9076-26a985efe819",
       "item_id": 79900925,
+      "parent_id": 79900,
       "price_rp": 3235,
       "regular_rp": 3235,
       "sale_rp": null,
@@ -116629,6 +116619,7 @@
     "Conjunto Moldura Ezreal HEARTSTEEL Live My Life": {
       "offer_id": "1a816b24-04b7-4858-afc0-c824bacb4371",
       "item_id": 99901662,
+      "parent_id": 99901,
       "price_rp": 2542,
       "regular_rp": 2542,
       "sale_rp": null,
@@ -116641,6 +116632,7 @@
     "Conjunto Moldura Kayn HEARTSTEEL Live My Life": {
       "offer_id": "08f1bc02-21f9-4cb0-b13e-7a71dd75f9e1",
       "item_id": 99901663,
+      "parent_id": 99901,
       "price_rp": 2645,
       "regular_rp": 2645,
       "sale_rp": null,
@@ -116653,6 +116645,7 @@
     "Conjunto Moldura Aphelios HEARTSTEEL Live My Life": {
       "offer_id": "92cdf05a-00b4-4066-8164-6a302ce69cbc",
       "item_id": 99901664,
+      "parent_id": 99901,
       "price_rp": 2690,
       "regular_rp": 2690,
       "sale_rp": null,
@@ -116665,6 +116658,7 @@
     "Conjunto Moldura Yone HEARTSTEEL Live My Life": {
       "offer_id": "7ce82e5b-ff77-4b10-9db3-50c7b499f5f9",
       "item_id": 99901665,
+      "parent_id": 99901,
       "price_rp": 2645,
       "regular_rp": 2645,
       "sale_rp": null,
@@ -116677,6 +116671,7 @@
     "Conjunto Moldura K'Sante HEARTSTEEL Live My Life": {
       "offer_id": "93dcb807-f088-4fed-8b4e-8814bd3aaef5",
       "item_id": 99901666,
+      "parent_id": 99901,
       "price_rp": 2690,
       "regular_rp": 2690,
       "sale_rp": null,
@@ -116785,6 +116780,7 @@
     "Heartsong Seraphine Chroma Bundle": {
       "offer_id": "bba11048-c7c5-485c-911b-c2fd1fe86bdf",
       "item_id": 79900916,
+      "parent_id": 79900,
       "price_rp": 3035,
       "regular_rp": 3035,
       "sale_rp": null,
@@ -116797,6 +116793,7 @@
     "Ocean Song Soraka Chroma Bundle": {
       "offer_id": "4c88ef8b-c17a-4a38-ae16-7435558d58ce",
       "item_id": 79900914,
+      "parent_id": 79900,
       "price_rp": 2795,
       "regular_rp": 2795,
       "sale_rp": null,
@@ -116809,6 +116806,7 @@
     "Ocean Song Jinx Chroma Bundle": {
       "offer_id": "62981d1c-65df-4795-8fe3-46bdb7ef80e7",
       "item_id": 79900915,
+      "parent_id": 79900,
       "price_rp": 2795,
       "regular_rp": 2795,
       "sale_rp": null,
@@ -130692,204 +130690,6 @@
       "regular_rp": 1380,
       "sale_rp": null,
       "discount_percent": null,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_wintersclaw.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Avarosa Arena": {
-      "offer_id": 10,
-      "item_id": 10,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_avarosa.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Frostguard Arena": {
-      "offer_id": 11,
-      "item_id": 11,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_frostguard.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Black Hole Arena": {
-      "offer_id": 17,
-      "item_id": 17,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_blackhole.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Celestial Arena": {
-      "offer_id": 19,
-      "item_id": 19,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_celestial.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Runic Arena": {
-      "offer_id": 2,
-      "item_id": 2,
-      "price_rp": 450,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basea.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Supernova Arena": {
-      "offer_id": 20,
-      "item_id": 20,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_darkstar_supernova.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Odyssey Jinx Arena": {
-      "offer_id": 21,
-      "item_id": 21,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_jinx.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Odyssey Yasuo Arena": {
-      "offer_id": 22,
-      "item_id": 22,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_yasuo.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Odyssey Malphite Arena": {
-      "offer_id": 23,
-      "item_id": 23,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_odyssey_malphite.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Festival Arena": {
-      "offer_id": 28,
-      "item_id": 28,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_reality.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Kanmei Arena": {
-      "offer_id": 29,
-      "item_id": 29,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_kami.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Akana Arena": {
-      "offer_id": 30,
-      "item_id": 30,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_spiritblossom_yokai.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Arrowhead Arena": {
-      "offer_id": 4,
-      "item_id": 4,
-      "price_rp": 450,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basec.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Count Spatula Arena": {
-      "offer_id": 41,
-      "item_id": 41,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_countspatula.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Splash Party Arena": {
-      "offer_id": 42,
-      "item_id": 42,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_reckoning_splashparty.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Golden Bakery": {
-      "offer_id": 46,
-      "item_id": 46,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_dawnofheroes_goldenbakery.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "High Noon Saloon": {
-      "offer_id": 47,
-      "item_id": 47,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_dawnofheroes_highnoonsaloon.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Jinx's Explody-Fun-Land": {
-      "offer_id": 51,
-      "item_id": 51,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_gizmosandgadgets_jinxexplodyfunland.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Vi's Pummel Pit": {
-      "offer_id": 52,
-      "item_id": 52,
-      "price_rp": 1380,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_gizmosandgadgets_vipummelpit.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Hextech Battle Arena": {
-      "offer_id": 58,
-      "item_id": 58,
-      "price_rp": 1900,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_set6_5_hexbattle.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Verdant Arena": {
-      "offer_id": 6,
-      "item_id": 6,
-      "price_rp": 450,
-      "inventory_type": "TFT_MAP_SKIN",
-      "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_basee.png",
-      "is_available": true,
-      "status": "available"
-    },
-    "Winter's Claw Arena": {
-      "offer_id": 9,
-      "item_id": 9,
-      "price_rp": 1380,
       "inventory_type": "TFT_MAP_SKIN",
       "icon_url": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/tftmapskins/square_battlefield_lg_wintersclaw.png",
       "is_available": true,
