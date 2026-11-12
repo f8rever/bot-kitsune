@@ -1,1042 +1,274 @@
 # AI MEMORY — KITSUNE V2 BOT
 
-## PROJETO
-
-Nome: Kitsune V2 Bot
-
-Tipo: Discord Bot (Loja de Gifting de League of Legends)
-
-Objetivo:
-Bot de Discord para a "Kitsune Store" — uma loja automatizada de presentes (gifting) de League of Legends. O bot permite que um staff/admin vincule contas Riot ao sistema e, através de interações no Discord (botões, menus, modals), clientes possam navegar um catálogo completo de itens do LoL (skins, chromas, passes, orbes, etc.), selecionar produtos, e receber presentes in-game enviados via API da Riot. Preços são exibidos em Euros (€) com sistema de descontos configuráveis por categoria.
+> **Documento Central de Memória Técnica, Decisões de Arquitetura e Regras Operacionais do Projeto.**
+> *Última Organização Geral:* Novembro de 2026
 
 ---
 
-## ESTRUTURA DO PROJETO
-
-Principais diretórios:
-
-- `commands/admin/` — comandos administrativos (config, config-store, deploy, desconto, embeds)
-- `commands/loja/` — comandos da loja Riot (addfriend, friendlist, gift, link, login)
-- `commands/moderacao/` — comandos de moderação (clear, lock)
-- `commands/suporte/` — comandos de suporte (emojis, ticket)
-- `commands/utilidade/` — comandos utilitários (join, leave, table)
-- `config/` — configurações (config.json, loja.json, emojis.json, embeds.json, catalogs cache, riot_accounts.json)
-- `data/` — dados estáticos (catalogo.json, champion.json, championMap.json, skins_rarity.json)
-- `database/` — banco de dados local (database.json em JSON, catalogo.db em SQLite)
-- `events/` — event handlers do Discord (guildMemberAdd, messageCreate)
-- `python_backend/` — backend Python completo (Flask + MongoDB) — API REST de gifting e Dashboard Web Oficial
-- `scripts/` — scripts auxiliares (deploy.js, restore_all_dead_emojis.js, push_configs_to_mongo.js, restore_official_passes_and_loot.py, sync_mirrors.py, etc.)
-- `utils/` — módulos utilitários (riotAuth.js, riotXmpp.js, catalog.js, catalogSync.js, customEmbeds.js, embedFormat.js)
-- `pngs_catalogos/` — imagens PNG dos itens do catálogo organizadas por categoria (skins, cromas, passes, etc.)
-- `.agents/skills/lol-client/` — skill do Antigravity para detecção do LoL Client (LCU), extração de lockfile e sincronização ao vivo de catálogo, promoções e destaques.
-
-Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica principal do bot monolítica.
+## 📑 Índice Rápido
+1. [Visão Geral do Projeto](#-visão-geral-do-projeto)
+2. [Estrutura de Diretórios (Oficial e Limpa)](#-estrutura-de-diretórios)
+3. [Stack Tecnológica](#-stack-tecnológica)
+4. [Arquitetura & Regras de Negócio Críticas](#-arquitetura--regras-de-negócio-críticas)
+   - [4.1 Motor de Gifting da Riot Games (Storefront V3 & Auto-Unlock)](#41-motor-de-gifting-da-riot-games-storefront-v3--auto-unlock)
+   - [4.2 Interface Discord: Padrão Obrigatório Components V2](#42-interface-discord-padrão-obrigatório-components-v2)
+   - [4.3 Catálogo Store-First & Pipeline de Sincronização](#43-catálogo-store-first--pipeline-de-sincronização)
+   - [4.4 Persistência em Nuvem (MongoDB Atlas & Smart Merge)](#44-persistência-em-nuvem-mongodb-atlas--smart-merge)
+   - [4.5 Sistema de Emojis de Aplicação (Application Emojis)](#45-sistema-de-emojis-de-aplicação-application-emojis)
+   - [4.6 Fluxo de Loja e Atendimento em Tickets](#46-fluxo-de-loja-e-atendimento-em-tickets)
+5. [Comandos Slash Auditados (18 Comandos)](#-comandos-slash-auditados)
+6. [Histórico Consolidado de Marcos e Evolução](#-histórico-consolidado-de-marcos-e-evolução)
+7. [Próximos Passos & Roadmap](#-próximos-passos--roadmap)
+8. [Regras Obrigatórias para o Agente](#-regras-obrigatórias-para-o-agente)
 
 ---
 
-## TECNOLOGIAS
+## 🦊 Visão Geral do Projeto
 
-### Node.js (Bot Discord — Principal)
-- **discord.js** v14.27.0 — framework do bot Discord
-- **express** v5.2.1 — servidor web (health check para UptimeRobot/Render)
-- **axios** v1.18.1 — requisições HTTP para APIs da Riot
-- **puppeteer** v25.3.0 + plugins stealth — automação de browser (login Riot)
-- **sqlite3** v6.0.1 — banco de dados SQLite (catálogo)
-- **dotenv** v17.4.2 — variáveis de ambiente
-- **xml2js** v0.6.2 — parsing XML para XMPP
-- **@xmpp/client** v0.14.0 — cliente XMPP (chat Riot)
-- **@discordjs/voice** + opusscript + libsodium — áudio/voz (join/leave channels)
-
-### Python (Backend Legado/Auxiliar)
-- **Flask** 3.0.3 — API REST
-- **MongoDB** (pymongo 4.7.3) — banco de dados na nuvem (Atlas)
-- **Flask-JWT-Extended** — autenticação JWT
-- **Flask-APScheduler** — tarefas agendadas
-- **aiohttp** / **httpx** — requisições async para API Riot
-- **Celery** — fila de tarefas (configurado mas possivelmente não ativo)
-
-### Banco de Dados
-- **database.json** — banco local JSON (config, usuarios, warns, tickets, XP/nível/moedas)
-- **catalogo.db** — SQLite (catálogo de itens do LoL)
-- **MongoDB Atlas** — usado pelo backend Python (chaves de API, transações, contas, logs de gift)
-- **riot_accounts.json** — contas Riot vinculadas persistidas em JSON (tokens, sessões 24/7)
-
-### Hospedagem
-- Preparado para **Render** (web server Express na porta 3000 para pings do UptimeRobot)
-- Backend Python preparado para **Vercel** (vercel.json) e **Google Cloud** (app.yaml)
+* **Nome Oficial:** Kitsune V2 Bot
+* **Tipo:** Discord Bot & Painel Web de Gifting Automatizado de League of Legends (LoL Storefront API)
+* **Objetivo:** 
+  Fornecer uma experiência de loja e envio de presentes de League of Legends para a comunidade *Kitsune Store*. O sistema permite que administradores vinculem contas Riot mantidas online 24/7 com renovação automática de tokens via SSID. No Discord, clientes navegam pelo catálogo oficial da Riot Games, selecionam produtos (skins, cromas, passes, orbes, etc.) através de menus nativos modernos em **Discord Components V2** e realizam pedidos. Os presentes são enviados in-game automaticamente através do backend web em Python conectado diretamente aos endpoints da Riot Games.
+* **Preços e Conversão:** Exibidos em Euros (€) com sistema de descontos configuráveis por categoria em `config/loja.json`.
 
 ---
 
-## DECISÕES IMPORTANTES
+## 📁 Estrutura de Diretórios
 
-### Arquitetura
-- O bot é **monolítico** — toda a lógica de interação (loja, catálogo, ticket, gift, etc.) está concentrada no `index.js` (~3123 linhas)
-- Os comandos em `commands/` exportam apenas `name`, `description`, `options` e `execute()` — são carregados dinamicamente pelo index.js
-- A maior parte da lógica de catálogo, preços, filtros, raridade e fluxo de compra está dentro do index.js
-
-### Catálogo
-- Usa `catalog_cache_en.json` como catálogo principal (forçado inglês para evitar problemas de localização/raridade)
-- Fallback de múltiplos caminhos para encontrar o catálogo (config/, lol_giftapi-main/, python_backend/, data/)
-- Sistema de raridade baseado em `data/skins_rarity.json` com categorias: kTranscendent, kExalted, kUltimate, kMythic, kLegendary, kEpic, kRare
-- Detecção de chromas via nome, parent_id e subInventoryType
-- Catálogo suporta sincronização via Python backend ou direto pela Store API da Riot (catalogSync.js)
-
-### Autenticação Riot
-- Login via URL de redirecionamento (access_token na URL) — comando `/link`
-- Suporte a SSID cookie para renovação automática 24/7 sem expirar
-- Heartbeat automático a cada 60 segundos para manter sessões ativas (refreshAccountsTask)
-- Refresh automático de tokens: SSID → Username/Password → Entitlements → Balance → Geopas → Friendlist
-
-### Preços e Descontos
-- Preços em Euros (€) — público-alvo parece ser Portugal/Europa
-- Conversão RP → EUR via fórmula base: `rpCost * 0.0060`
-- O bot é **monolítico** (`index.js` com ~3817 linhas).
-- Sistema de catálogo atualizado com 10.242 itens.
-- **Configuração de Emojis:** 136 linhas, 12 categorias (`menu_principal`, `skins`, `loot`, `acessorios`, `bundles`, `ticket`, `loja_produtos`, `loja_status`, `utilidades`, `staff_e_suporte`, `lol_roles`, `lol_regions`).
-- Persistência via **MongoDB Atlas** para Contas Riot, Convites e Verificações.
-
----
-
-## FUNCIONALIDADES IMPLEMENTADAS
-
-### Loja / Gifting (Core)
-- [x] Painel fixo da loja no chat (`/ticket`)
-- [x] Central de vendas com 14 categorias presentes
-- [x] Catálogo paginado com 25 itens/página
-- [x] Envio de presente via API Riot (`/gift`) com logs de auditoria
-- [x] Ícone/imagem do item no catálogo (HD)
-
-### Administração
-- [x] Configuração centralizada (`/config`, `/desconto`, `/embeds`, `/emojis`)
-- [x] Gerenciamento de 12 categorias de emojis
-- [x] Deploy/re-deploy de comandos Slash
-
-### Moderação & Utilidades
-- [x] `/clear`, `/invites`, `/verify-panel`
-
----
-
-## ESTADO ATUAL (2026-10-24)
-
-**Estado funcional/operacional**:
-- **17 Comandos Slash Oficiais & Seguros (Auditados e Limpos)**:
-  - Comandos espúrios/legados do RestoreCord (`/ping`, `/setup`, `/bypass`, `/rep`, `/pull`, `/blacklist`, `/Member Info`, `/RC - Bypass`, `/syncroles`, `/feedback`, `/vouch`, `/RC - Blacklist`) foram 100% purgados da API global do Discord.
-  - Comandos desnecessários no repo (`/join`, `/leave`, `/table`, `/config-store`) foram completamente removidos.
-  - Comandos administrativos e de gifting agora possuem `default_member_permissions` (Administrator ou ManageMessages) e verificação estrita de Staff no `execute()`, impedindo que usuários comuns visualizem ou executem comandos sensíveis no `/` do Discord.
-  - O único comando público de membros é `/invites` (estatísticas de convites).
-- **Sistema de Verificação de Amizade & Elegibilidade de Gifting (`commands/loja/checar-amizade.js` & `utils/friendshipChecker.js`):**
-  - Acionamento direto pelo botão `⏱️ Checar Amizade & 24h` (`btn_check_friendship`) na embed do ticket ou via slash command `/checar-amizade`.
-  - Suporte a seleção de conta Riot (`alt`) com menu e autocomplete interativo com saldo de RP e status em tempo real.
-  - Renovação automática de tokens via `SSID` caso estejam perto de expirar.
-  - Consulta direta à API oficial de presentes da Riot (`storefront/v3/gift/friends`) com extração do timestamp exato de início de amizade (`friendsSince`).
-  - Cálculo automático de tempo decorrido de amizade e cálculo duplo de cooldown:
-    - **Regra 24 Horas (LoL Padrão):** Indica se já liberou ou quantas horas/minutos restam e a data/hora exata de liberação.
-    - **Regra 7 Dias (Eventos Especiais):** Indica se já liberou ou quantos dias/horas restam.
-  - Atualização em tempo real do campo `⏱️ Status de Gifting (24h)` na embed principal do canal do ticket.
-  - Caso o cliente não esteja adicionado: alerta explicativo e botão direto `➕ Enviar Pedido de Amizade` que dispara o envio pelo chat Riot XMPP.
-- **Sistema de Anúncio / Mass DM com Proteção Anti-Ban (`commands/admin/anuncio.js`):**
-  - Modal interativo para criação de título, descrição, banner, botões com link e cor.
-  - Prévia do visual com confirmação antes do envio.
-  - Delay seguro inteligente de 3 segundos por membro para evitar restrição ou quarentena da API do Discord.
-  - Tratamento automático para membros com DM fechada (erro 50007 ignorado sem travar).
-  - Suporte a disparo local (apenas no servidor atual) ou global (em todos os servidores onde o bot está).
-  - **Sistema de Blacklist / Exclusão de Membros (`commands/admin/anuncio-blacklist.js` & `utils/broadcastBlacklist.js`):**
-    - Blacklist permanente em `config/broadcast_blacklist.json` sincronizada no MongoDB Atlas (`bot_configurations -> broadcast_blacklist`).
-    - Opções no `/anuncio` para `ignorar_staff: true` (não envia para moderadores/admins) e `ignorar_ids` (IDs temporários extras).
-    - Comando `/anuncio-blacklist` com ações de adicionar, remover, listar e limpar.
-    - Exibe contagem de membros bloqueados/ignorados na prévia e no relatório final.
-- **Gerenciador de Embeds (/embeds):**
-  - Expandido para 3 menus estruturados cobrindo todos os 43+ embeds do bot (Loja, Pedidos, Catálogos, Tabelas, Verificação, Convites e Anúncios).
-  - Botão `voltar_menu_embeds_inicio` ("⬅️ Voltar para Todos os Embeds") corrigido no `index.js` para retornar sempre os 3 menus modernos sem regredir para 2.
-  - Todos os embeds para clientes em Inglês com descrições de comandos em Português.
-- **10.242 itens** no catálogo em PT e EN.
-- Python Backend — Python 3.12 funcional.
-- **Persistência 24/7 no MongoDB Atlas ativa:**
-  - Coleção `bot_configurations` armazena `embeds`, `emojis`, `loja`, `config` e `broadcast_blacklist` na nuvem em tempo real.
-  - Índices únicos automáticos criados e garantidos em todas as coleções: `bot_configurations` (`configType`), `riot_accounts` (`accountName`), `invites` (`guildId + userId`), `member_joins` (`guildId + memberId`), `verified_members` (`guildId + userId`), e `gift_logs` (`timestamp`).
-  - O bot sincroniza automaticamente no boot e persiste qualquer alteração feita via `/embeds`, `/emojis`, `/config-store`, `/desconto` diretamente no MongoDB Atlas.
-  - Edições personalizadas do usuário preservadas com sucesso: `store_authentication` (Irelia Florescer Espiritual) e `store_sales_center` (Catalog of Gifts).
-  - Script `scripts/pull_from_mongo.js` para sincronizar a nuvem com os arquivos locais a qualquer momento.
-  - Script `scripts/setup_mongo_indexes.js` para otimização e verificação dos índices do banco.
-- Solver 2Captcha ativo com fila ordenada de 11 chaves ativas ($373.21 USD no total, chave principal com $290.47 USD).
-- Pool e fila de fallback automática de Captcha (`utils/captchaManager.js`, `python_backend/captcha_manager.py` e `config/captcha_keys_pool.json`).
-- `config/emojis.json` com 136 linhas — 12 categorias totalmente modulares.
-- Emojis Oficiais da Riot em Alta Resolução enviados para `Zed Store` e `KITSUNE x GAMING v2`:
-  - 🎁 **Mystery Skin Box:** `<:lol_mystery_skin:1544591070204010598>`
-  - 😃 **Mystery Emote Box:** `<:lol_mystery_emote:1544591072485842964>`
-  - 🏟️ **TFT Arena Bilgewater:** `<:lol_tft_arena:1544591074100645948>`
-  - 🎶 **TFT Neon DJ Arena:** `<:lol_neon_arena:1544591076197793863>`
-  - 🌟 **Hextech Bundle Set (Highlights):** `<:lol_bundle_set:1544591078622236763>`
-  - 🛍️ **Chaos Grab Bag:** `<:lol_grab_bag:1544591084200534116>`
-  - 📦 **Order Exclusive Pack:** `<:lol_exclusive_pack:1544591088084590636>`
-  - 🥊 **Chibi Vi:** `<:lol_chibi_vi:1544493291205173358>`
-  - 🌸 **Chibi Ahri:** `<:lol_chibi_ahri:1544493294543704184>`
-  - ✂️ **Chibi Gwen:** `<:lol_chibi_gwen:1544495555370291273>`
-  - 🌌 **Dark Star Ao Shin:** `<:lol_dark_star:1544495563288871074>`
-  - 🦇 **Bat-o-lantern Ward:** `<:lol_bat_ward:1544495566149390336>`
-  - 🐝 **Bee Happy Poro:** `<:lol_bee_happy:1544495569274142741>`
-  - 🎫 **Passe Season 3:** `<:lol_pass_s3:1544493308015804429>`
-  - 🔮 **Orbe Season 3:** `<:lol_orb_s3:1544493304983322736>`
-  - 🎟️ **Clash Ticket:** `<:lol_clash_ticket:1544493301334278145>`
-- `index.js` com submenus de Loot, Acessórios e Highlights 100% integrados.
-- **Navegação Hierárquica da Loja & Editor `/embeds` (2026-09-04):**
-  - **Navegação Hierárquica do Botão Voltar (`⬅️ Menu`):**
-    - Corrigido o fluxo do botão `⬅️ Menu` em catálogos (`enviarPaginaCatalogo`) e telas de busca (`buscarEExibirItens`): agora volta para o menu intermediário da categoria (`voltar_cat_loot`, `voltar_cat_skins`, `voltar_cat_champions`, `voltar_cat_accessories`), em vez de saltar direto para a raiz `Catalog of Gifts`.
-    - Nos menus de categoria, o botão `⬅️ Back to Main Categories` (`voltar_menu_modal`) retorna com segurança à raiz.
-  - **Templates de Categoria Customizáveis via `/embeds`:**
-    - Cadastrados em `config/embeds.json` e sincronizados no MongoDB Atlas: `category_skins`, `category_loot`, `category_champions`, `category_accessories`, `category_highlights`.
-    - Menus da loja agora utilizam `buildCustomEmbed`, refletindo imediatamente qualquer alteração feita pela staff.
-  - **Seleção Agrupada por Categoria no `/embeds`:**
-    - O menu de catálogos no `/embeds` foi reorganizado em 5 subgrupos de categorias (`subgroup_skins`, `subgroup_loot`, `subgroup_champions`, `subgroup_accessories`, `subgroup_highlights`). Ao escolher uma categoria, o bot exibe o submenu com os embeds daquela categoria + botão de voltar.
-- **Seção Highlights & Bundles Alinhada com o Client Oficial do LoL (2026-09-04):**
-  - O menu da categoria **Highlights & Bundles** (`category_highlights`) foi atualizado para oferecer 3 opções temáticas:
-    1. 🌟 **Featured & Launch Bundles (`compra_highlights`):** Pacotes de lançamento e conjuntos especiais em destaque.
-    2. 🏷️ **Weekly Sales (On Sale) (`compra_sales`):** As 15 skins com desconto oficial da Riot da semana (-27% a -60%), configuradas em `config/weekly_sales.json`.
-    3. 🔥 **Most Popular (`compra_most_popular`):** Os 13 itens mais procurados e vendidos (Baús Hextech, Passes de Temporada e Orbes de Invocador).
-  - **Correção Crítica de Fluxo de Loja (Modal Riot ID):** A submissão do modal de Riot ID (`modal_riot_id`) enviava um menu plano obsoleto de 15 opções. Foi corrigido para chamar a função hierárquica `buildStoreMainMenu(customEmojis)`, exibindo as 5 categorias oficiais.
-  - **Categoria "Featured" e Emojis Oficiais:**
-    - Categoria 5 renomeada oficialmente para **`Featured`** (`Launch Bundles, Weekly Sales & Most Popular`) com o emoji `<:lol_bundle_set:1544591078622236763>`.
-    - Emojis integrados e sincronizados:
-      - **TFT Arenas:** `<:lol_tft_arena:1544591074100645948>` (em `acessorios.arenas`, `utilidades.arenas`, `utilidades.tabuleiros` e cabeçalhos).
-      - **Most Popular:** `<:lol_exclusive_pack:1544591088084590636>` (em `bundles.most_popular`, `bundles.exclusive_pack`, `formatarStr` e cabeçalhos).
-      - **Featured & Launch Bundles:** `<:lol_bundle_set:1544591078622236763>`.
-  - **Cálculo de Desconto Dinâmico no Checkout:** A função `getItemRpValue` verifica automaticamente se o item está em promoção semanal e aplica o `sale_rp` com a conversão proporcional em Euros (€).
-  - **Destaques & Pacotes de Lançamento (Featured & Launch Bundles):**
-    - Criado `config/featured_bundles.json` com os 14 pacotes e conjuntos de lançamento oficiais ativos na loja da Riot (Heartsong Seraphine Border Set, Chroma Bundles, Faerie Court Bel'Veth/Lulu, Ocean Song, etc.), eliminando os 210 pacotes legados de cromas de 2017 que poluíam a aba de destaques.
-    - A aba `Featured & Launch Bundles` (`compra_highlights`) exibe exclusivamente estes 14 pacotes de destaque, enquanto `Pacotes de Skins & Cromas` (`compra_bundles`) em `Skins & Chromas` mantém os mais de 800 pacotes legados de skins/cromas.
-  - **Tabuleiros & Arenas TFT (TFT Arenas) e Correção de Loading Infinito:**
-    - Criado `config/tft_arenas.json` com as 22 arenas oficiais compráveis do TFT com custos em RP, ícones CDragon e tipo `TFT_MAP_SKIN`.
-    - **Causa Raiz do Loading Infinito Resolvida:** Quando uma categoria vazia ou erro ocorria, `enviarPaginaCatalogo` chamava `interaction.reply()`, mas a interação já havia sido respondida/atualizada por `menu_vendas` com "⏳ Loading the catalog...", disparando o erro 40060 da API do Discord (`InteractionAlreadyReplied`) e deixando a mensagem travada no loading para sempre. Corrigido com verificação segura de `interaction.replied || interaction.deferred` chamando `interaction.editReply()`, protegido por bloco global `try/catch`.
-  - **Sincronização ao Vivo do Catálogo da Riot Games (2026-09-05):**
-    - **Autenticação e Sessões das Contas de Catálogo:**
-      - A conta internacional `Tuan8539` (RU) foi autenticada no painel web, gravando os cookies de sessão ativos no MongoDB Atlas (`account_tokens`).
-      - A conta brasileira `lucasgg112` (BR1) foi autenticada no painel web, gravando sua sessão ativa no MongoDB Atlas.
-      - Executado o fetch direto da Storefront API da Riot Games (`/storefront/v1/catalog`), atualizando o dump bruto `catalog.json` e os caches com dados em tempo real tanto para EN (RU) quanto para PT (BR1).
-    - **Compilação e UUIDs Oficiais da Riot:**
-      - O compilador `utils/buildFullCatalog.js` recompilou o catálogo unindo DDragon com a API oficial da loja.
-      - O total de itens subiu para **10.341 itens** ativos em PT e EN (**1.736 Skins**, **826 Pacotes**, **6.647 Cromas** e **173 Campeões**).
-      - **Heartsong Seraphine (`147069`):** Anteriormente possuía um placeholder provisório (`skin_147069`) que impedia o envio de presentes. Agora possui o UUID oficial real da Loja da Riot: `"offer_id": "6e199f43-39c9-4709-97de-aadded6602c5"`.
-      - Todos os pacotes e cromas da Heartsong Seraphine (*Heartsong Seraphine Border Set* `247c9f4f-eb89-453f-9725-68f0b190e7ce`, *Chroma Bundle* `bba11048-c7c5-485c-911b-c2fd1fe86bdf`) e skins recentes (*Panda Pal Lux*, *Faerie Court Lux*, etc.) receberam seus UUIDs reais da Riot.
-    - **Preservação de Metadados de Promoções no Catálogo:**
-      - `buildFullCatalog.js` armazena `regular_rp`, `sale_rp`, `discount_percent` e o objeto `sale` da Riot para cada item.
-      - No `index.js`, a categoria `compra_sales` agora detecta automaticamente as skins com promoção ativa da Riot direto do catálogo em tempo real, com fallback seguro para `config/weekly_sales.json`.
-    - **Inclusão de Tabuleiros TFT no Catálogo Compilado:**
-      - Adicionada a categoria `TFTArena` diretamente aos catálogos compilados `catalog_cache_en.json` e `catalog_cache_pt.json` a partir de `config/tft_arenas.json`, permitindo suporte nativo e consistente tanto no bot do Discord quanto no painel web.
-  - **Painel Web da API (Categorias do Catálogo corrigidas no Frontend):**
-    - Identificada a causa raiz de os itens aparecerem apenas em "Todos" e sumirem ao clicar em categorias individuais (`Skins`, `Chromas`, `Pacotes`, etc.): no HTML (`gift_tab.html`), os botões tinham valores no singular (`value="Skin"`, `value="Chroma"`, etc.), enquanto os catálogos JSON usavam chaves no plural (`"Skins"`, `"Chromas"`), fazendo a comparação direta `item.category === selectedCategory` falhar sempre.
-    - Implementada a função `matchesCategory(item, sel)` em `static/script.js` (tanto em `lol_giftapi-main` quanto em `python_backend`), mapeando com precisão todas as 14 categorias (Skins, Cromas, Pacotes, Passes, Campeões, Emotes, Ícones, Sentinelas, Pequenas Lendas, Tabuleiros TFT, Boosts, Eternos, Mistério e Hextec).
-    - O catálogo e lógica do bot do Discord permaneceram 100% isolados, intactos e sem qualquer impacto.
-  - **Persistência Cloud:** `emojis`, `embeds`, `weekly_sales`, `featured_bundles` e `tft_arenas` sincronizados com sucesso no MongoDB Atlas (`bot_configurations`).
-  - **Reconstrução Definitiva Store-First do Catálogo da Riot Games (2026-09-05):**
-    - **Causa Raiz do Problema Anterior Resolvida:**
-      - O catálogo anteriormente era gerado a partir da lista de assets estáticos do DDragon (`championFull.json`). No caso da Seraphine, o DDragon possui 3 modelos 3D internos (`Indie`, `Rising Star`, `Superstar`), gerando 3 entradas falsas no bot a 1820 RP cada com `offerId` falso (`skin_147001`, `skin_147002`, `skin_147003`). Na Loja da Riot, existe **apenas 1 item oficial** (*Seraphine K/DA ALL OUT*, itemId `147001`, offerId real UUID `795ac4dc-77ef-4d9b-8503-0dab9ae37b46`, preço real de 3250 RP - Ultimate).
-      - Além disso, `isUnpurchasableOrMythic` continha `n.includes('t1 ')`, o que excluía indevidamente a skin **T1 Seraphine** (que está 100% ativa na loja da Riot por 1350 RP).
-    - **Nova Arquitetura 100% Store-First (`utils/buildFullCatalog.js`):**
-      - A Loja da Riot (`catalog.json` bruto com 10.012 ofertas) agora é a **fonte primária e definitiva de verdade**.
-      - Itens são gerados diretamente do `catalog.json` e enriquecidos com metadados do CommunityDragon (`pt_br` e `default` para EN).
-      - Indexados mais de 7.000 nomes oficiais de cromas em PT e EN (`cdChromaMapPt` e `cdChromaMapEn`).
-      - Cada item agora possui: `item_id`, `offer_id` real, `parent_id` (ID do campeão pai), `price_rp`, `regular_rp`, `sale_rp`, `discount_percent`, `rarity` oficial (`kUltimate`, `kLegendary`, `kEpic`, `kRare`), `rarity_label`, `icon_url`, `is_available` (`true` se ativo e dentro da validade) e `status` (`'available'` ou `'off'`).
-    - **Verificação de Disponibilidade (Ativo vs Ausente/OFF):**
-      - Itens ativos na loja oficial são marcados como `is_available: true`, `status: 'available'`.
-      - Itens sem preço em RP (como prestígios exclusivos de ME) ou fora da loja são marcados como `is_available: false`, `status: 'off'`.
-      - Na busca e menus do Discord (`index.js` e `utils/catalog.js`):
-        - Itens ausentes/fora da loja recebem badge `[🔴 Ausente]`.
-        - A busca prioriza itens disponíveis, skins base e correspondências diretas de nome.
-        - Tentativas de adicionar ou presentear itens marcados como ausentes/off são bloqueadas preventivamente com mensagem clara para o usuário antes de bater na API da Riot.
-    - **Comparação e Superação do Concorrente:**
-      - A busca por `seraphine` no bot agora retorna **exatamente as 10 skins base reais ativas na Loja da Riot**:
-        1. Battle Dove Seraphine (1820 RP | Lendária)
-        2. Dumpling Darlings Seraphine (1350 RP | Épica)
-        3. Faerie Court Seraphine (1350 RP | Épica)
-        4. Firecracker Seraphine (1350 RP | Épica)
-        5. Graceful Phoenix Seraphine (1350 RP | Épica)
-        6. Heartsong Seraphine (1820 RP | Lendária)
-        7. K/DA ALL OUT Seraphine (3250 RP | Ultimate)
-        8. Ocean Song Seraphine (1350 RP | Épica)
-        9. Star Guardian Seraphine (1350 RP | Épica)
-        10. T1 Seraphine (1350 RP | Épica)
-      - Todas com UUIDs reais de compra da Riot, preços e raridades 100% corretos, tanto em inglês quanto em português.
-  - **Navegação:** O botão `⬅️ Menu` nas páginas de `sales` e `most_popular` retorna diretamente ao menu intermediário `voltar_cat_highlights`.
-  - **UX Clean & Unificado da Loja (2026-09-05):**
-    - A pedido do usuário, a tela principal `Catalog of Gifts` (`store_sales_center`) agora permanece **fixa** e intacta visualmente ao navegar pelas 5 categorias principais (`cat_skins`, `cat_loot`, `cat_champions`, `cat_accessories`, `cat_highlights`).
-    - Em vez de substituir o embed por telas intermediárias pesadas com imagens diferentes (`category_skins`, etc.), a função `exibirMenuCategoriaLoja` mantém o embed `store_sales_center` e altera **apenas os componentes**:
-      1. Substitui o Select Menu principal pelo Select Menu específico da subcategoria selecionada (`Select a Skins option`, `Select a Loot option`, etc.).
-      2. Adiciona o botão `⬅️ Back to Main Categories` (`voltar_menu_modal`).
-    - Ao clicar em `⬅️ Back to Main Categories`, o menu volta imediatamente para o Select Menu raiz das 5 categorias (`buildStoreMainMenu`), mantendo o embed `Catalog of Gifts` perfeitamente estável e limpo.
-  - **Correção Crítica de `isChroma` & Busca Dinâmica com Embed Persistente (2026-09-05):**
-    - **Causa Raiz de "No items found in this category" Identificada:** A função `isChroma(x)` em `index.js` possuía uma condição errônea `if (x.parent_id || raw.parent_id) { if (t === 'CHAMPION_SKIN') return true; }`. Como TODAS as skins de campeões possuem `parent_id` (o ID do campeão pai), todas as 1.314 skins eram incorretamente classificadas como croma e filtradas fora da busca e do catálogo de skins.
-    - **Correção:** Removida a checagem incorreta de `parent_id` para skins. A detecção de cromas agora baseia-se exclusivamente em `t === 'CHROMA'`, `sub === 'RECOLOR'` e marcações oficiais da Riot. Validado que exatamente 1.314 skins e 5.532 cromas são devidamente reconhecidos.
-    - **Modal de Busca para Skins & Cromas (`abrirModalBusca`):** Ao escolher "Champion Skins" ou "Chromas" no menu, o bot agora abre o modal oficial de busca para digitar o nome do campeão (ex: "Seraphine" ou "Ahri"), permitindo encontrar diretamente as skins desejadas.
-    - **Embed `Catalog of Gifts` 100% Persistente em Todas as Telas:** Tanto em `buscarEExibirItens` quanto em `enviarPaginaCatalogo`, o embed na tela permanece fixo como `store_sales_center` ("Catalog of Gifts"), trocando apenas os Select Menus e os botões de navegação, e mantendo o botão de voltar caso alguma categoria esteja vazia. Ao selecionar um item, prossegue diretamente para a finalização / abertura do ticket.
-  - **Setas Animadas Brancas para TODOS os Botões de Back / Next (2026-09-05):**
-    - Configuradas as setas brancas animadas (`<a:l_arrow_white:1545877594170335304>` e `<a:51047animatedarrowwhite:1545491753002475591>`) em **absolutamente todos** os botões de retorno e avanço do bot:
-      1. `Back to Main Categories` (`voltar_menu_modal`) nas 5 subcategorias;
-      2. `Menu` / `Back to Menu` nos catálogos e buscas;
-      3. `Previous` / `Next` na paginação do catálogo e das buscas;
-      4. `Voltar para Categorias` e `Voltar para Todos os Embeds` nos menus de configuração;
-      5. `Anterior` / `Próxima` na lista de amigos de contas Riot.
-  - **Botões de Navegação Globais (Back, Previous, Next) Totalmente Editáveis no /embeds (2026-09-06):**
-    - Criados os templates independentes no `config/embeds.json` e MongoDB Atlas:
-      1. `"global_back_button"` / `"store_back_button"`: Botão Voltar Global (`Back to Menu`, `Back to Main Categories`, `Menu`) aplicado a todas as telas e subcategorias.
-      2. `"global_prev_button"`: Botão Anterior Global (`Previous`, `Anterior`) aplicado a todas as paginações e catálogos.
-      3. `"global_next_button"`: Botão Próximo Global (`Next`, `Próxima`) aplicado a todas as paginações e catálogos.
-    - Adicionados os 3 itens dedicados nos Menus 1 e 2 do `/embeds`.
-    - No `/embeds`, ao selecionar qualquer um deles, o bot renderiza uma prévia ao vivo com a fileira completa dos 3 botões: `[Back to Menu] [Previous] [Next]`.
-    - Implementadas as funções universais `buildStoreBackButton`, `buildStorePrevButton`, `buildStoreNextButton` e `buildNavButtonsPreviewRow` em `index.js`.
-    - MongoDB Atlas e `config/emojis.json` sincronizados com as setas brancas animadas (`<a:l_arrow_white:1545877594170335304>` e `<a:51047animatedarrowwhite:1545491753002475591>`).
-  - **Remoção Temporária de "Skin & Chroma Bundles" (`compra_bundles`) (2026-09-06):**
-    - **Motivo:** O usuário solicitou a remoção temporária da opção de Pacotes de Skins & Cromas do menu da loja do Discord devido a problemas recorrentes com bundles (preços flexíveis da Riot baseados em itens já possuídos, incompatibilidade do endpoint de envio de presentes para determinados pacotes legados e erros no checkout).
-    - **Alterações Realizadas:**
-      1. `index.js` (`exibirMenuCategoriaLoja`): Removida a opção `{ label: 'Skin & Chroma Bundles', value: 'compra_bundles', ... }` do Select Menu de `cat_skins`. A categoria `Skins & Chromas` agora exibe de forma limpa apenas `Champion Skins` e `Chromas`.
-      2. `index.js` (`buildStoreMainMenu`): Ajustada a descrição de `cat_skins` no menu principal de `'Champion Skins, Chromas & Skin Bundles'` para `'Champion Skins & Chromas'`.
-      3. `config/embeds.json`: Atualizado o embed `category_skins`, removendo a linha de texto de pacotes.
-      4. MongoDB Atlas: Sincronizada a coleção `bot_configurations` (`embeds`) para garantir que os deploys no Render mantenham o texto atualizado sem pacotes.
-    - **Observação Futura:** A lógica interna do backend foi mantida intacta caso se decida reativar no futuro após resolver os problemas de gifting de bundles na API da Riot.
-  - **Catálogo 100% em Inglês e Resolução Completa dos Eternos (2026-09-06):**
-    - **Demanda do Usuário:** O usuário relatou que os Eternos não estavam encontrando o campeão digitado e pediu para que todo o catálogo do bot fosse padronizado em inglês (já que havia muitos itens aparecendo em português).
-    - **Causa Raiz 1 (Eternos não encontravam o campeão):**
-      1. No compilador `utils/buildFullCatalog.js`, itens do tipo `STATSTONE` eram completamente ignorados e a chave `Eternals: {}` não existia nas estruturas de catálogo.
-      2. O bot não possuía nenhum Eterno real no catálogo compilado, restando apenas skins/cromas que continham a palavra "Eterno" em português ("Diana Aspecto Eterno", etc.), fazendo a busca falhar ou retornar itens inexistentes/incorretos.
-    - **Causa Raiz 2 (Itens aparecendo em português no bot):**
-      1. As sessões do Discord (`userStoreSessions`) e canais de ticket usavam como fallback a região `BR`, forçando `lang = (userRegiao === 'BR') ? 'pt' : 'en'`, fazendo o bot carregar o cache `catalog_cache_pt.json`.
-      2. O `buildFullCatalog.js` carregava preferencialmente `lol_giftapi-main/catalog.json` (extraído por conta brasileira com `pt_BR`), e por não cruzar com os dados em inglês do `python_backend/catalog.json`, os pacotes, passes, ícones e sentinelas no `catalog_cache_en.json` acabavam herdando nomes em português.
-    - **Soluções Implementadas:**
-      1. **Transição 100% Inglês:**
-         - Em `index.js`, todas as rotinas de catálogo (`enviarPaginaCatalogo`, `obterDetalhesCarrinho`, `interactionCreate`, `buscarEExibirItens`) e `utils/catalog.js` foram travadas com `lang = 'en'` por padrão.
-         - `utils/buildFullCatalog.js` agora indexa os mais de 18.000 nomes oficiais em inglês a partir de `python_backend/catalog.json` (`enCatalogMap`) e traduz resíduos de sentinelas e ícones, zerando completamente termos em português no `catalog_cache_en.json`.
-      2. **Suporte Completo a Eternos (`STATSTONE`):**
-         - Adicionada a categoria `Eternals` ao catálogo com todos os **522 Statstones oficiais da Riot Games** compilados.
-         - Cada Eterno possui seu UUID de compra oficial (`offer_id`), preço oficial (600 RP para Série 1 e 2, 225 RP para Série Inicial), `parent_id` do campeão pai e ícone oficial do campeão extraído do DDragon.
-         - Nomenclatura oficial em inglês padronizada: `{Champion} - Series 1`, `{Champion} - Series 2`, `{Champion} - Starter Series`.
-         - Aprimorada a busca em `buscarEExibirItens` com normalização de texto (`buscaNorm`), localizando campeões mesmo com digitação sem pontuação (ex: "khazix", "mundo", "kaisa", "dr mundo", "nunu") e listando instantaneamente suas 3 séries de Eternos ordenadas.
-  - **Emojis Oficiais em Cosméticos (Sentinelas, Emotes e Ícones) + Busca Rápida + Prévia HD (2026-09-06):**
-    - **Demanda do Usuário:** Cada item de sentinela, emote e ícone possuir seu próprio emoji oficial da Riot no select menu para identificação rápida, além de busca e prévia em alta resolução.
-    - **Solução Implementada:**
-      1. **Upload Automático de Emojis:**
-         - Criado `scripts/upload_cosmetics_emojis.js` que indexa os slots de Application Emojis (50 slots) e servidores do bot (`Zed Store` e `KITSUNE x GAMING v2`).
-         - **100% de todas as 68 Sentinelas** da Riot Games hospedadas com emojis personalizados próprios (`ward_${id}`).
-         - Emotes oficiais mapeados com emojis dedicados (`emote_${id}`).
-         - Salvamento automático em `config/cosmetic_emojis.json` e persistência na nuvem via MongoDB Atlas (`bot_configurations`).
-      2. **Integração no Bot (`index.js`):**
-         - Carregamento na inicialização e sincronização contínua com `client.application.emojis` e `client.emojis.cache`.
-         - Em `obterDetalhesItem`, `tipoFiltro === 'wards'`, `emotes` e `icones` agora consultam `getCosmeticEmoji()`, equipando o select menu de páginas (`enviarPaginaCatalogo`) e de busca (`buscarEExibirItens`) com o ícone exato de cada item.
-         - Fallback automático para o emoji padrão da categoria caso não haja emoji customizado disponível.
-      3. **Busca Rápida Normalizada (`btn_search_cat_`):**
-         - Botão `🔍 Search` habilitado em Sentinelas, Emotes, Ícones, TFT Arenas e Little Legends abrindo modal de texto.
-         - Suporte a busca fuzzy sem acentos (`buscaNorm`), localizando itens por qualquer fragmento de texto.
-      4. **Prévia Visual em HD (`atualizarEmbedTicket`):**
-         - Ícones oficiais em alta resolução extraídos diretamente da CDN da Riot Games (CommunityDragon e DDragon) via `buildFullCatalog.js`.
-         - Exibição de arte oficial em HD como thumbnail (`setThumbnail`) para Little Legends, Chibis, Wards, Emotes e Ícones.
-         - Exibição panorâmica do campo de batalha (`setImage`) para TFT Arenas nos embeds de ticket e carrinho de compras.
-      5. **Remoção de Arenas e Lendas dos Emojis (Solicitação do Usuário):**
-         - Conforme solicitado pelo usuário ("remova essas arenas do discord e as lendas dos emojis, pq ta td preto"), todos os 64 emojis animados criados (`arena_` e `legend_`) foram 100% deletados das guilds do Discord (`Kitsune Service`, `Gaming v2`, `Zed Store`).
-         - O arquivo [`config/cosmetic_emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) foi limpo (mantendo apenas as 68 Wards e 43 Emotes nítidos) e sincronizado com o MongoDB Atlas (`bot_configurations`).
-         - Em [`index.js`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/index.js), `tft_arena` voltou ao emoji limpo padrão oficial (`<:lol_tft_arena:1544591074100645948>`), e `little_legends` utiliza os mascotes nítidos (`chibi_ahri`, `chibi_vi`, `chibi_gwen`, `poro` ou `🐥`).
-       6. **Restauração e Blindagem do Painel Customizado `/ticket` (ticket_welcome) (2026-09-06):**
-          - **Problema Relatado:** O painel `/ticket` deu rollback e voltou para a versão antiga da Ahri Flor Espiritual (`#FFC0CB`), sobrepondo a personalização feita pelo usuário com a Zeri Winterblessed (`#FFFFFF`).
-          - **Causa Raiz:** No startup do bot (`utils/mongoStorage.js:syncAllBotConfigs`), as configurações de `bot_configurations` no MongoDB Atlas eram baixadas e sobrescreviam `config/embeds.json`. Como no MongoDB Atlas a chave `ticket_welcome` ainda guardava a versão anterior com Ahri de um commit antigo, ao reiniciar o bot a versão da Ahri era restaurada em disco.
-          - **Solução Implementada:**
-            1. Os dados exatos do painel customizado pelo usuário foram resgatados do Discord (`🛒・buy-here`):
-               - Título: `<a:white_claim:1545847197445136386> **Buy skins & loots quickly and easily!**`
-               - Descrição: `Welcome to **Kitsune Bot**!\n<a:51047animatedarrowwhite:1545491753002475591> At our store, we offer several options for you to purchase skins and loot easily and reliably. Check out our options\n<a:51047animatedarrowwhite:1545491753002475591> (The menu will only appear for you!)`
-               - Cor: `#FFFFFF`
-               - Imagem: Banner Zeri Winterblessed
-               - Botão: `Buy here` com estilo Secondary e emoji `<:dinheiro:1527368514057408713>`
-               - Rodapé: `© Kitsune - Copyright 2026`
-            2. Atualizado [`config/embeds.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com a configuração recuperada.
-            3. Sincronizado imediatamente no MongoDB Atlas (`bot_configurations -> embeds`), garantindo que qualquer reinício ou deploy preserve a personalização da Zeri sem risco de rollback.
-       7. **Atualização dos Emojis Oficiais de Orbes e Pacotes (Summoner's Orbs) (2026-09-07):**
-          - **Demanda do Usuário:** Substituir os ícones/emojis antigos de orbes (`Summoner's Mega Orb Bundle`, `Premium Orb Bundle`, `Deluxe Orb Bundle`, `Summoner's Orb`) pelos novos ícones oficiais da loja da Riot Games, adicionando-os ao servidor e deletando os antigos em seguida.
-          - **Execução:**
-            1. Baixados os 4 ícones oficiais em alta resolução diretamente da CDN da Riot Games (`d392eissrffsyf.cloudfront.net/storeImages/bundles/`).
-            2. Redimensionados para 128x128 PNG (~18-27 KB) com interpolação bilinear nítida e otimizada para Discord.
-            3. Criados os novos emojis estáticos na guild **Zed Store | Cheap Gifiting Service** (`1540159601817817168`):
-               - `lol_megaorb` (`<:lol_megaorb:1546370593983697108>`) para Mega Orb Bundle (12500 RP).
-               - `lol_premium_orb` (`<:lol_premium_orb:1546370596789682307>`) para Premium Orb Bundle (6250 RP).
-               - `lol_deluxe_orb` (`<:lol_deluxe_orb:1546370599054737478>`) para Deluxe Orb Bundle (2500 RP).
-               - `lol_summoner_orb` (`<:lol_summoner_orb:1546370600652771459>`) para Summoner's Orb individual (250 RP).
-            4. Atualizado [`config/emojis.json`](file:///c:/Users/irwin/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
-            5. Deletados com sucesso os emojis antigos do servidor Zed Store (`lol_orb_s3`) e Kitsune Service (`megaorb`, `premium`, `deluxe`, `orb`, `orb10x`, `orb25x`, `orb50x`, `orb1`).
-       8. **Restauração Completa do Ambiente Pós-Formatação (2026-09-09):**
-          - **Situação:** Computador recém-formatado pelo usuário, sem Node.js, Python ou ferramentas no PATH.
-          - **Ações Realizadas:**
-            1. **Node.js LTS:** Instalado **v22.14.0 LTS** (npm v10.9.2) em `%LOCALAPPDATA%\Programs\nodejs` e registrado de forma persistente no PATH do usuário.
-            2. **Python:** Instalado **Python 3.12.8** de 64-bits com `pip 24.3.1` em `%LOCALAPPDATA%\Programs\Python\Python312` e registrado no PATH do usuário.
-            3. **Puppeteer:** Configurado e baixado o binário oficial do navegador Chrome (`win64-150.0.7871.24`) para viabilizar as automações e login Riot.
-            4. **PowerShell:** Configurada política de execução `RemoteSigned` no escopo `CurrentUser` para permitir execução de scripts npm e venv sem restrições.
-            5. **Python Backend & lol_giftapi-main:** Instaladas 100% das dependências de `requirements.txt` tanto globalmente no Python 3.12 quanto no ambiente virtual `python_backend/venv` (Flask 3.0.3, pymongo 4.7.3, aiohttp 3.9.5, httpx 0.27.0, APScheduler 3.10.4, celery, etc.), permitindo executar `main_backend.py` diretamente de qualquer pasta (`lol_giftapi-main` ou `python_backend`).
-            6. **Validação:** Módulos nativos (`sqlite3`, `discord.js`, `mongodb`) validados com sucesso; sintaxe do `index.js` íntegra; conexão com o MongoDB Atlas testada e operando normalmente.
-            7. **Atualização de Emojis:** Configurado o emoji `search` como `<:lupaazul:1547287331030171818>` em `config/emojis.json` (categoria `utilidades`), integrado dinamicamente no botão de busca do catálogo em `index.js` e sincronizado na coleção `bot_configurations` do MongoDB Atlas.
-            8. **Texto de Carregamento da Busca:** Alterado o texto de loading da busca (`getLoadStr('search')`) de `"Fetching data from the void..."` para `"loading catalog..."`.
-            9. **Ajuste de Categoria de Skins:** Alterado o label da opção no select menu da categoria `cat_skins` de `"Champion Skins"` para apenas `"Skins"`, com descrição `"Browse all giftable skins"`.
-            10. **Migração Total para Application Emojis (647 Cosméticos):**
-                - Identificado que o Discord liberou **2.000 slots** para Application Emojis (removendo o gargalo antigo de 50).
-                - Removidas com sucesso as 18 wards do servidor `Zed Store` (deixando todos os servidores 100% limpos de emojis auxiliares).
-                - Enviados diretamente para o **Application Emojis** do bot: **68 Wards** (`ward_${id}`), **170 Emotes** (`emote_${id}`) e **409 Ícones** (`icon_${id}`), totalizando **647 emojis oficiais da Riot Games** criados na aplicação.
-                - Atualizado [`config/cosmetic_emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/cosmetic_emojis.json) e sincronizado na coleção `bot_configurations` do **MongoDB Atlas**.
-                - Bot reiniciado com sucesso carregando o cache de 647 Application Emojis diretamente no Discord.
-            11. **Remoção de Itens Não-Presenteáveis de TFT e XP Boosts do Catálogo (2026-09-09):**
-                - **Motivo / Verificação na API da Riot:** O endpoint oficial de gifting da Riot Games (`/storefront/v3/gift`) rejeita presentes com `inventoryType: 'COMPANION'` (Little Legends / Chibis) e `'TFT_MAP_SKIN'` (Arenas do TFT) com erro `400 Bad Request` / `NOT_GIFTABLE`. O TFT não possui suporte a presentes no League of Legends. Além disso, boosts de XP (duração/vitórias) não possuem endpoints de gifting.
-                - **Ação Realizada:** Removidas as opções `Little Legends & Chibis`, `TFT Arenas` e `XP Boosts` do Select Menu de Acessórios (`cat_accessories`) e do embed de descrição (`category_accessories` em `config/embeds.json`).
-                - **Sincronização:** `embeds.json` sincronizado com o **MongoDB Atlas** (`bot_configurations -> embeds`) e atualizado na interface do bot para exibir apenas os 3 tipos 100% presenteáveis e com cobertura total de emojis oficiais: **Emotes**, **Ward Skins** e **Summoner Icons**.
-            12. **Sistema 100% Automático de "Most Popular" e "Weekly Sales" da Riot Games (2026-09-09):**
-                - **Estrutura Idêntica ao Cliente do LoL:** A vitrine **Most Popular** no cliente oficial do LoL é composta por exatamente 25 itens: os 5 consumíveis Hextech fixos (Baú, Chave, 1x, 5x, 10x) + as 15 skins com promoção ativa da semana (`item.sale`) + os 5 campeões em promoção da semana.
-                - **Módulo Automatizado:** Criado [`utils/syncWeeklySales.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/utils/syncWeeklySales.js) com:
-                  - `syncWeeklySalesFromRiot(accessToken, region)`: consulta a Storefront API da Riot Games (`/storefront/v1/catalog`), extrai os itens com a tag `sale` ativa, salva em `config/weekly_sales.json` e sincroniza automaticamente com o **MongoDB Atlas** (`bot_configurations -> weekly_sales`).
-                  - `getLoLMostPopularItems(currentCatalog)`: gera os 25 itens dinamicamente direto dos dados da Riot.
-                - **Gatilhos Automáticos:**
-                  - Conectado em `refreshAccountsTask` para rodar a cada 6 horas no background sempre que uma conta Riot estiver ativa.
-                  - Conectado no comando `/link` para rodar imediatamente ao vincular uma nova conta.
-                - **Menu do Discord:** Atualizados os filtros `sales` (mostra as 15 skins em promoção) e `most_popular` (mostra os 25 itens idênticos ao cliente oficial do jogo) em `index.js`.
-            13. **Ajuste Exclusivo da Vitrine "Featured & Launch Bundles" (2026-09-09):**
-                - **Alinhamento 100% com a aba Featured do Cliente do LoL:** Removidos todos os pacotes antigos e mantidos **apenas** os itens em destaque na loja da Riot:
-                  1. `Heartsong Seraphine` (1820 RP, Skin Lendária)
-                  2. `Heartsong Seraphine Border Set` (2720 RP)
-                  3. `Heartsong Seraphine Chroma Bundle` (3035 RP)
-                  4. `Ocean Song Soraka Chroma Bundle` (2795 RP)
-                  5. `Ocean Song Jinx Chroma Bundle` (2795 RP)
-                - **Sincronização:** Atualizado [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> featured_bundles`), além de atualizar o embed `category_highlights` em `config/embeds.json` e o select menu em `index.js`.
-            14. **Novos Emojis Oficiais do LoL para o Menu Principal (2026-09-09):**
-                - **Accessories:** Atualizado de `19bau` para `<:lol_poro_emote:1544493296879935489>` (Poro Emote oficial da Riot).
-                - **Featured:** Atualizado de `lol_bundle_set` para `<:lol_exclusive_pack:1544591088084590636>` (Exclusive Pack VIP dourado oficial da Riot).
-                - **Sincronização:** Atualizado [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
-            15. **Diferenciação e Melhoria dos Emojis do Submenu Featured / Destaques (2026-09-09):**
-                - O submenu `cat_highlights` apresentava duplicidade (opção 1 e opção 3 usando o mesmo emoji `lol_exclusive_pack`) e a opção 2 com o emoji genérico `🏷️`.
-                - **Featured & Launch Bundles:** Mantido `<:lol_exclusive_pack:1544591088084590636>` (Pacote Exclusivo do LoL).
-                - **Weekly Sales (On Sale):** Criado e registrado no Discord Application Emojis o emoji oficial `<:lol_sale:1547388458488823868>` (badge vermelho de desconto estilo `-50%` do LoL).
-                - **Most Popular:** Atualizado para `<a:pr_fire01:1527367612168802374>` (fogo animado Hot/Trending).
-                - **Consistência do Catálogo:** Atualizados os títulos de páginas do catálogo (`enviarPaginaCatalogo`) e os itens do select menu (`obterDetalhesItem`) em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para usarem os novos emojis.
-                - **Sincronização:** Salvo em [`config/emojis.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/emojis.json) e sincronizado com o **MongoDB Atlas** (`bot_configurations -> emojis`).
-            16. **Correção de Duplicidade de Itens no Catálogo Most Popular (2026-09-09):**
-                - **Erro:** `COMPONENT_OPTION_VALUE_DUPLICATED: The specified option value is already used` ao carregar o catálogo de `most_popular`.
-                - **Causa:** A busca por `Hextech Chest` usava `.includes()` e capturava `1 Hextech Chest and Key Bundle`, duplicando o item do pacote.
-                - **Correção:** Priorizado match exato de nome em [`utils/syncWeeklySales.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/utils/syncWeeklySales.js), identificando corretamente o Baú individual (`id: 1`) e a Chave (`id: 3`).
-                - **Proteção Extra:** Adicionada deduplicação preventiva via `Set` em `opcoesMenu` dentro de `enviarPaginaCatalogo` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) contra qualquer valor repetido.
-            17. **Exibição Dinâmica de Raridade para Skins em Destaques e Mais Populares (2026-09-09):**
-                - Em `cat_highlights` (`Featured & Launch Bundles`), skins individuais como *Heartsong Seraphine* antes exibiam o prefixo genérico `Highlight` e o emoji de sacola.
-                - Agora, qualquer skin avulsa nos Destaques ou no *Most Popular* identifica sua raridade oficial do LoL (`Legendary`, `Epic`, `Ultimate`, etc.) e exibe o cristal correspondente (`<:legendary:...>`, etc.).
-                - Ajustado o mapeamento de `featured_bundles.json` em [`index.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/index.js) para preservar o `inventoryType` real (`CHAMPION_SKIN`) em vez de forçar como `BUNDLES`.
-                - No catálogo *Most Popular*, itens Hextech exibem `Hextech Loot` com ícone de baú/chave, campeões exibem `Champion` e skins exibem sua raridade oficial.
-            18. **Remoção de Checagem de Amizade 24h & Adição do Botão Refresh no Ticket (2026-09-09):**
-                - Removido o campo `⏱️ Status de Gifting (24h)` do embed de pedido do ticket (`ticket_order_received` em [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) e sincronizado com o MongoDB Atlas).
-                - Removido o botão de checagem de amizade (`btn_check_friendship`).
-                - Adicionado o botão **`Refresh`** (`btn_refresh_ticket`) com emoji `🔄` na primeira linha de botões do ticket (`Close Ticket`, `Payment Methods`, `Refresh`).
-                - Implementada recuperação automática de carrinho (`global.ticketCarts`) a partir das mensagens do canal caso o bot tenha sido reiniciado, garantindo que o botão `Refresh` funcione sem falhas mesmo após reinicialização.
-                - O botão `Refresh` recalcula preços, restaura imagens e atualiza o embed do ticket em tempo real.
-            19. **Correção de Criação de Tickets Duplicados no Catálogo (2026-09-09):**
-                - **Problema:** Ao selecionar um item para finalizar o pedido no catálogo, o bot criava 2 canais de tickets simultaneamente (~300ms a 500ms de diferença).
-                - **Causa Raiz Identificada:**
-                  1. **Instâncias Duplicadas do Bot (Render + Local):** O bot já está hospedado e rodando 24/7 no Render (conectado ao GitHub `main`). Quando uma instância local era mantida ativa em background no PC de desenvolvimento, ambas as instâncias recebiam o mesmo evento de interação da Discord Gateway e disparavam a criação de canal em paralelo.
-                  2. **Sanitização de Nomes de Canal no Discord:** O regex `/[^a-z0-9_-]/g` removia o emoji `🎫` de `🎫-${username}`, resultando em `-${username}`, e a API do Discord removia o hífen inicial, gerando apenas `${username}` (ex: `monarchjeff`). A verificação anterior comparava apenas contra `🎫-${username}`, não detectando o canal já aberto.
-                - **Solução Implementada:**
-                  1. Mutex de criação ativa (`global.activeTicketCreations`) que bloqueia chamadas concorrentes para o mesmo usuário enquanto o ticket está sendo gerado.
-                  2. Verificação prévia e robusta de ticket ativo (`existingTicket` por tópico `Ticket-Owner: ID` e compatibilidade com múltiplos formatos de nome: `🎫-user`, `user`, `-user`), redirecionando o usuário com link direto caso já possua um canal aberto.
-                  3. Mutex de criação de categorias por região (`global.creatingCategories`) para impedir criação concorrente de categorias idênticas.
-                  4. Tratamento seguro de respostas (`interaction.deferred || interaction.replied`) para prevenir exceções `40060` e `InteractionNotReplied`.
-                  5. **Regra Operacional:** Não manter processo `node index.js` rodando localmente enquanto o deploy de produção no Render estiver ativo.
-            20. **Remoção do Botão Não-Solicitado no Embed de Formas de Pagamento (2026-09-09):**
-                - **Problema:** Ao clicar em `Payment Methods` no ticket, o bot anexava automaticamente um botão verde `[ 📩 I Have Paid / Notificar Pagamento ]` que não foi configurado pelo usuário no template do embed.
-                - **Solução Implementada:**
-                  1. Removido o botão fixo hardcoded em `btn_payment_methods`. Agora, o bot exibe estritamente o embed configurado pelo usuário, e só anexa botão caso o usuário tenha explicitamente preenchido `buttonLabel` no template do `/embeds`.
-                  2. Sincronizado [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com o conteúdo real salvo pelo usuário no MongoDB Atlas (título `Payment Methods`, chaves de pagamento de PayPal, Revolut, Crypto USDT e splash art do Viktor).
-            21. **Painel Exclusivo Hall of Legends 2026 (Caps - 3ª Edição) 100% em Inglês & Customizável (2026-09-10):**
-                - **Novo Comando `/halloflegends`:** Criado em [`commands/suporte/halloflegends.js`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/commands/suporte/halloflegends.js), similar ao `/ticket`, permitindo enviar um painel fixo de venda para qualquer canal de texto (`canal` opcional, restrito a Staff/Admin).
-                - **100% em Inglês:** Textos do comando, embed, select menu, placeholders, modals e mensagens efêmeras de confirmação totalmente em inglês, alinhados com o padrão internacional da Kitsune Store.
-                - **Embed Separada & Customizável:** Registrado `hall_of_legends` em [`config/embeds.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/embeds.json) com todos os detalhes e preços oficiais do evento em RP, personalizável separadamente no comando `/embeds` (disponível tanto no menu principal quanto na subcategoria *Featured & Special Offers*), sincronizado com o MongoDB Atlas.
-                - **Select Menu de Compra Imediata (`menu_hall_of_legends_select`):**
-                  1. `Hall of Legends 2026 Pass (Caps)` (1,950 RP) — Risen Legend Orianna + 100 levels + 125 ME + 11 Orbs.
-                  2. `Risen Legend Tristana Collection` (5,035 RP) — Pass + Risen Legend Tristana + Border + Icon + Emote.
-                  3. `Immortalized Legend Tristana Collection` (32,035 RP) — Risen Collection + Immortalized Legend Tristana (3 forms) + custom voicelines + finisher.
-                  4. `Signature Immortalized Tristana Collection` (58,865 RP) — Complete collection + 100 levels instant unlock + Caps Signature on Nexus/Splash + Holographic border + "Claps" title.
-                - **Fluxo de Abertura Inteligente:**
-                  - Se o usuário já possuir um ticket aberto, o bot bloqueia duplicidade e fornece o botão direto `[Go to Ticket]`.
-                  - Se selecionado dentro do ticket, o pacote é adicionado ao carrinho com recálculo automático de preço.
-                  - Fora do ticket, exibe modal rápido em inglês (`🏆 Hall of Legends 2026 - Order`) para confirmação de Riot ID e Região (com pré-preenchimento automático se já houver sessão) e cria o ticket instantaneamente com botão de acesso direto.
-                - **Splash Arts Oficiais em HD (Data Dragon):**
-                  - Banner (`image`): Splash art oficial da **Immortalized Legend Tristana / Signature Edition** em alta resolução (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tristana_80.jpg`).
-                  - Thumbnail (`thumbnail`): Splash art oficial da **Risen Legend Orianna** (`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Orianna_40.jpg`).
-                  - Ícones dos pacotes em [`config/featured_bundles.json`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/config/featured_bundles.json) atualizados para suas respectivas artes em HD (`Orianna_40.jpg`, `Tristana_79.jpg`, `Tristana_80.jpg`), sincronizados no MongoDB Atlas.
-            22. **Correção do Catálogo no Painel Web / Dashboard da API Python (`/api_frontend`) (2026-09-10):**
-                - **Problema:** No painel web (`http://127.0.0.1:5000/api_frontend`), a lista de itens do catálogo ficava totalmente vazia.
-                - **Causa Raiz:**
-                  1. A rota `/get-catalog` possuía a anotação `@jwt_required()`. Quando o frontend tentava buscar os itens via `fetch('/get-catalog?lang=pt')`, a API interceptava e retornava um redirecionamento HTTP 302 para a raiz (`/`), entregando o HTML de login em vez de JSON, causando SyntaxError silencioso no JavaScript.
-                  2. A função `load_catalog()` tentava abrir os arquivos usando nomes relativos (`'catalog_cache_pt.json'`). Quando o processo era iniciado a partir da pasta raiz do bot, o arquivo não existia no CWD, gerando `FileNotFoundError` e deixando o cache em memória vazio.
-                - **Solução Implementada:**
-                  1. Removido `@jwt_required()` da rota `/get-catalog` e adicionado fallback de leitura automática do disco em caso de cache em memória descarregado.
-                  2. Criada a função `get_catalog_file_path()` com resolução robusta de caminhos absolutos (`current_dir`, `config/`, CWD).
-                  3. Testado com sucesso: endpoint agora responde HTTP 200 com 8.745 itens em PT e 8.725 itens em EN instantaneamente.
-            23. **Unificação dos Pacotes Hall of Legends & Bloqueio Amigável de Presente para Bundles (2026-09-13):**
-                - **Problema de Envio de Presente:** O envio de presentes para itens do tipo `BUNDLES` (como a Coleção Lenda Ascendida de 5035 RP) gerava `Internal Server Error` porque a Riot Games não permite presentear pacotes (apenas itens avulsos) e porque amizades com menos de 24h são recusadas.
-                - **Problema do Catálogo / Busca:** Ao buscar `hall of legends`, o catálogo exibia itens duplicados, nomes misturados com "Tristana", faltava a coleção de 32.035 RP com o padrão unificado, e a campeã Orianna (880 RP) e pacotes de cromas da Tristana apareciam indevidamente na busca.
-                - **Solução Implementada:**
-                  1. Unificados os 4 pacotes do Hall of Legends em `featured_bundles.json`, `buildFullCatalog.js`, `halloflegends.js` e `embeds.json`: Passe (1.950 RP), Coleção Lenda Ascendida (5.035 RP), Coleção Lenda Imortalizada (32.035 RP) e Coleção Assinatura Lenda Imortalizada (58.865 RP).
-                  2. Recompilado todo o catálogo (`buildFullCatalog.js`), removendo duplicatas e sincronizando os arquivos `catalog_cache_pt.json` e `catalog_cache_en.json`.
-                  3. Corrigida a indexação de busca em `script.js` (removida a injeção cega de keywords por palavras como "Tristana/Orianna").
-                  4. Adicionada validação de `inventory_type in ['BUNDLES', 'BUNDLE']` em `main_backend.py` com mensagem explicativa em vez de estourar 500.
-
-            24. **Correção Definitiva do Gifting de Passes e Coleções (Hall of Legends) & Resolução de JWT / `key_balance` (2026-09-13):**
-                - **Problemas Encontrados:**
-                  1. **Erro `cannot access local variable 'key_balance'`**: No endpoint `/run-script`, `get_jwt_identity()` retornava a string JSON `'["user", "key", "session_id"]'`. O código pegava `key = current_identity[1]` (o caractere `"`). A consulta no MongoDB retornava `None`, e a variável `key_balance` nunca era criada antes da comparação com o preço, causando `UnboundLocalError`.
-                  2. **Bloqueio Indevido de Bundles/Passes**: Passes e coleções (como Faker / Hall of Legends) possuem classificação técnica `inventory_type: "BUNDLES"` no catálogo interno. Havia uma trava artificial bloqueando `inv_type in ['BUNDLES', 'BUNDLE']`. A API CAP da Riot (`/services/cap/orders/...`) **aceita perfeitamente** esses itens via `offer_id`.
-                  3. **Erro `Bad Request (400)` ao Enviar Passes/Coleções**:
-                     - *Causa:* Os pacotes do Hall of Legends em `config/featured_bundles.json` estavam com IDs numéricos fictícios (`offer_id: 99901664` etc.) em vez dos UUIDs oficiais da loja da Riot. A API CAP da Riot recusava com 400 ("Offer not found").
-                     - *Causa 2:* O arquivo `api_files/gift.py` continha um ID de pedido estático antigo (`"id": "ed4a64fc-4b08-411e-a2cc-7a91a6d7d834"`), campos legados desnecessários (`waitForRMS`, `label: proxied`), e `raise_for_status=True` que ocultava o JSON real de erro da Riot.
-                  4. **Inconsistência entre Pastas**: `c:\Users\jeff\Documents\KITSUNE V2 BOT\lol_giftapi-main` e `C:\Users\jeff\Documents\lol_giftapi-main` são diretórios físicos separados no disco e não sincronizam automaticamente pelo Windows.
-                - **Soluções Implementadas:**
-                  1. **Wrapper Global de JWT:** Implementado wrapper `get_jwt_identity()` em `main_backend.py` chamando `parse_identity()`, garantindo que a lista `[user, key, session_id]` seja sempre extraída em todos os endpoints, com blindagem contra valores nulos de `key_balance` e `price`.
-                  2. **Desbloqueio de Passes e Bundles:** Removido o bloqueio artificial de `BUNDLES` em `main_backend.py`, permitindo envio direto de qualquer item ativo na loja.
-                  3. **UUIDs Oficiais Restaurados da Loja:** Extraídos os `offerId`s UUID reais diretamente de `catalog.json` para todos os passes e coleções em `config/featured_bundles.json`:
-                     - Passe Hall of Legends 2026: `1a335511-a661-4d91-8522-abd3bc4f466c`
-                     - Coleção Lenda Ascendida (2026): `73d68c09-ff8b-4793-a380-b198438c21ab`
-                     - Coleção Lenda Imortalizada (2026): `70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb`
-                     - Coleção Assinatura Lenda Imortalizada (2026): `33f48406-8d1c-4c77-87f4-e47b39796cc6`
-                     - Recompilado todo o catálogo via `buildFullCatalog.js`, gerando os caches com UUIDs válidos.
-                  4. **Atualização do Payload de Gifting em `gift.py`:**
-                     - Adequado ao padrão oficial da Riot: `"id": ""`, `"customMessage": gift_message`, `User-Agent` oficial do LoL Client.
-                     - Removido `raise_for_status=True` e implementado retorno explícito `(success, gift_response)` com repasse do detalhe de erro exato da Riot para o frontend.
-                  5. **Sincronização Completa:** Sincronizados todos os arquivos para `python_backend/` e `C:\Users\jeff\Documents\lol_giftapi-main`.
-                  6. **Validação:** Testado em conta real com sucesso total (`Gift sent successfully`), saldo debitado e verificado no cliente do League of Legends.
-            25. **Auditoria e Checkout Completo de Todas as Categorias do Catálogo (Passes, Bundles, Eternos, Orbes, Hextech, Skins, Cromas) (2026-09-13):**
-                - **Problemas Relatados:** Clientes reclamando que passes e itens no catálogo do bot estavam totalmente errados.
-                - **Causas Raízes Descobertas na Auditoria:**
-                  1. *Poluição da categoria Passes por Eternos:* Em `index.js` (linha 1224), o filtro de `passes` capturava qualquer item com `passe` no nome. Isso fazia `Passe dos Eternos: Série 1`, `Passe dos Eternos: Série Inicial` e `Passe dos Eternos: Série 2` (STATSTONE, 5850/1350/6400 RP) aparecerem dentro da categoria Passes de Temporada!
-                  2. *Duplicação de Passes e Bundles em `loadFullRiotCatalog`:* Em `featured_bundles.json`, itens eram injetados com `offerId` (camelCase) enquanto `mergedMap` checava `rawItem?.offer_id` (snake_case). Sem a chave única bater, `Hall of Legends 2026 Pass`, `Signature Immortalized Legend Collection`, `Heartsong Seraphine Chroma Bundle`, `Ocean Song Soraka Chroma Bundle` e `Ocean Song Jinx Chroma Bundle` ficavam duplicados.
-                  3. *Preço Errado em `getItemRpValue`:* `getItemRpValue` retornava 1650 RP para `Season 3: Act I Pass Bundle` e `Pacote Passe da 3ª Temporada – Ato I` (deveria ser 2650 RP) porque só checava a palavra `upgraded`. E para os passes de Eternos (5850/6400/1350 RP), caía na regra de passes e cobrava apenas 1650 RP!
-                  4. *Imagens Forçadas / Erradas:* Em `index.js`, imagens eram forçadas por regex de substring: qualquer item com "pass" ou "passe" recebia `69901071.png` (Passe Season 3), fazendo o Passe Hall of Legends e passes em português exibirem a thumbnail errada em vez de suas artes oficiais (`69901079_1.png`, etc.).
-                  5. *Filtro agressivo de Míticas em `isPrestigeOrMythic`:* Bloqueava coleções do Hall of Legends por conterem termos como `immortalized` e `risen legend`.
-                - **Soluções Implementadas e Validadas:**
-                  1. *Filtro Estrito de Passes:* A categoria `passes` agora exclui categoricamente `STATSTONE`, `eterno`, `eternal`, `SUMMONER_ICON`, `EMOTE`, `WARD`, `CHAMPION`, `SKIN`, `CHROMA`, `BOOST`, `TFT` e boosts de progressão (`fan pass`, `token bank`, `level-up`), exibindo exatamente os 4 passes ativos da Riot Store (`Hall of Legends 2026 Pass` 1950 RP, `Season 3: Act I Pass` 1650 RP, `Season 3: Act I Pass Bundle` 2650 RP, `Season 3: Act I Premium Pass Bundle` 3650 RP).
-                  2. *Deduplicação Completa em `loadFullRiotCatalog`:* A chave única de mesclagem agora checa `offer_id || rawItem?.offer_id || rawItem?.offerId || id`. Duplicatas zeradas em todas as categorias.
-                  3. *Resolução Perfeita de Preço em `getItemRpValue`:* A função agora consulta o catálogo oficial primeiro (`findCatalogItem`), garantindo o valor exato de RP da Riot Store para todos os itens, e possui fallbacks precisos para pacotes, passes e séries de Eternos (6400, 5850, 1350 RP).
-                  4. *Resolução Oficial de Imagens:* `index.js` agora prioriza o `iconUrl` oficial do catálogo antes de qualquer fallback, garantindo que o Hall of Legends exiba `69901079_1.png`, pacotes exibam suas thumbnails oficiais da Riot CDN e orbes exibam suas artes exclusivas.
-                  5. *Adição de `pass_hol` em `loja.json`:* Configurado preço oficial para passes de 1950 RP no arquivo de configuração da loja.
-                  6. *Recompilação e Sincronização:* Reconstruído o catálogo via `buildFullCatalog.js` e sincronizados os arquivos `catalog_cache_*.json`, `featured_bundles.json` e `loja.json` para `lol_giftapi-main/`, `python_backend/` e `C:\Users\jeff\Documents\lol_giftapi-main/`.
-                  7. *Checkout Geral de Todas as Categorias (EN e PT):*
-                     - Skins: 1316 itens | 0 duplicatas | 0 preço zero
-                     - Cromas: 5727 itens | 0 duplicatas | 0 preço zero
-                     - Passes: 4 itens | 0 duplicatas | 0 preço zero
-                     - Orbes: 8 itens | 0 duplicatas | 0 preço zero
-                     - Hextech: 5 itens | 0 duplicatas | 0 preço zero
-                     - Mistério: 3-4 itens | 0 duplicatas | 0 preço zero
-                     - Emotes: 170 itens | 0 duplicatas | 0 preço zero
-                     - Ícones: 409 itens | 0 duplicatas | 0 preço zero
-                     - Sentinelas: 68 itens | 0 duplicatas | 0 preço zero
-                     - Pequenas Lendas / Chibis: 268 itens | 0 duplicatas | 0 preço zero
-                     - Boosts: 8 itens | 0 duplicatas | 0 preço zero
-                     - Campeões: 173 itens | 0 duplicatas | 0 preço zero
-                     - Eternos: 522 itens | 0 duplicatas | 0 preço zero
-
-            25. **Criação e Integração dos Emojis de Aplicação do Hall of Legends 2026 (Bot-Level) (2026-09-15):**
-                - **Solicitação do Usuário:** Criar e configurar os novos emojis do Hall of Legends (Passe e Orbes) diretamente na aplicação do bot (Application Emojis do Discord) e NÃO no servidor/guilda, para não consumir slots dos servidores e funcionar globalmente em todas as guildas onde o bot está presente.
-                - **Assets Oficiais da Riot CDN Baixados e Otimizados:**
-                  - `lol_pass_hol` (Passe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901079_1.png` (redimensionado para 128x128 RGBA, 29 KB).
-                  - `lol_orb_hol` (Orbe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901075.png` (128x128 RGBA, 15 KB).
-                  - `lol_deluxe_hol` (Pacote Deluxe 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901076.png` (128x128 RGBA, 25 KB).
-                  - `lol_premium_hol` (Pacote Premium 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901077.png` (128x128 RGBA, 25 KB).
-                  - `lol_megaorb_hol` (Pacote Mega 2026): `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/69901078.png` (128x128 RGBA, 29 KB).
-                - **Emojis Criados via `client.application.emojis.create()`:**
-                  - `<:lol_pass_hol:1549297894220369991>`
-                  - `<:lol_orb_hol:1549297901841424524>`
-                  - `<:lol_deluxe_hol:1549297909218942999>`
-                  - `<:lol_premium_hol:1549297917351821345>`
-                  - `<:lol_megaorb_hol:1549297925363077240>`
-                - **Configurações & Sincronização:**
-                  - Registrados em `config/emojis.json` (seção `loot`) e `config/cosmetic_emojis.json`.
-                  - Atualizado `config/embeds.json` (`hall_of_legends`) para usar o emoji do passe.
-                  - Atualizado `commands/suporte/halloflegends.js` no select menu.
-                  - Sincronizados com o **MongoDB Atlas** (`bot_configurations -> emojis, cosmetic_emojis, embeds`) para persistência garantida entre reinicializações.
-                  - Integrado no resolvedor visual `obterDetalhesItem()` em `index.js` (passes, orbes, highlights e most_popular), além de fallbacks de imagens CDN em `cart.items.forEach`.
-
-            26. **Revisão Completa, Reorganização e Checkout Perfeito da Categoria Espólios (`cat_loot`) (2026-09-15):**
-                - **Problemas Identificados:**
-                  1. *Passes Duplicados:* O passe `Hall of Legends 2026 Pass` estava sendo inserido tanto na categoria `Passes` quanto em `Bundles` em `buildFullCatalog.js`, resultando em itens duplicados ao listar passes.
-                  2. *Nomes em Português no Catálogo EN:* Os orbes do Hall of Legends estavam salvos como `Orbe Hall of Legends 2026` e `Pacote de Orbes Deluxe/Premium/Mega...` no cache em inglês (`catalog_cache_en.json`).
-                  3. *Emojis e Descrições Desatualizadas no Menu:* O menu de `cat_loot` ainda mencionava apenas `Season 3: Act I Pass` e `Summoner's Orb`, sem citar o Passe Hall of Legends nem os novos orbes, e utilizava emojis antigos.
-                  4. *Ordenação Desorganizada:* Os itens em `passes`, `orbes`, `hextech` e `misterio` eram ordenados apenas por data de lançamento decrescente, misturando tamanhos de pacotes e eventos.
-                - **Soluções Implementadas:**
-                  1. *Deduplicação Definitiva:*
-                     - Removida a injeção duplicada de passes em `Bundles` em `utils/buildFullCatalog.js`.
-                     - Adicionado `seenCatalogItems` com deduplicação por `${itemId}_${itemName}` em `loadFullRiotCatalog()` em `index.js`.
-                  2. *Traduções e Recompilação Completa:*
-                     - Mapeados `Hall of Legends 2026 Orb`, `Hall of Legends 2026 Deluxe Orb Bundle`, `Hall of Legends 2026 Premium Orb Bundle` e `Hall of Legends 2026 Mega Orb Bundle` em `ptToEnMap`.
-                     - Recompilados todos os caches de catálogo (`buildFullCatalog.js`). Total de passes limpo para exatamente 4 (Passe Hall of Legends 2026 + 3 passes da Temporada 3).
-                  3. *Menu de Seleção e Embed Atualizados:*
-                     - `Orbs & Capsules`: emoji atualizado para `<:lol_orb_hol:1549297901841424524>`, descrição `Hall of Legends & Summoner's Orbs (250 - 12,500 RP)`.
-                     - `Season Event Passes`: emoji atualizado para `<:lol_pass_hol:1549297894220369991>`, descrição `Hall of Legends Pass (1950 RP) & Season Event Passes`.
-                     - Atualizados títulos dos menus em `enviarPaginaCatalogo` com os novos emojis oficiais.
-                     - `category_loot` em `config/embeds.json` atualizado e sincronizado no MongoDB Atlas.
-                  4. *Ordenação Inteligente e Intuitiva:*
-                     - `passes`: Passe Hall of Legends 2026 (1.950 RP) sempre no topo, seguido pelos passes da Temporada 3 em ordem crescente de preço (1.650 RP -> 2.650 RP -> 3.650 RP).
-                     - `orbes`: 4 Orbes do Hall of Legends primeiro (250 -> 2.500 -> 6.250 -> 12.500 RP), seguidos pelos 4 Orbes do Invocador (250 -> 2.500 -> 6.250 -> 12.500 RP).
-                     - `hextech` e `misterio`: ordenados estritamente por preço RP crescente.
-                  5. *Validação 100% de Checkout:* Testados todos os 21 itens da categoria com resolução de `itemId`, `offer_id` (UUID CAP Gifting) e preços com 100% de sucesso.
-
-            27. **Revisão Completa, Reorganização e Checkout Perfeito da Categoria Skins & Cromas (`cat_skins`) (2026-09-15):**
-                - **Problemas Críticos Identificados e Resolvidos:**
-                  1. *Bug Crítico de Paginação de Cromas (`selecionar_croma_menu`):*
-                     - No botão de avançar página (`pag_`), a lógica usava `tipoFiltro.slice(0, -1)`, gerando `selecionar_croma_menu` (sem 'h'), mas o handler de interações em `index.js` só escutava `selecionar_chroma_menu`.
-                     - Consequência: Qualquer cliente que mudasse para a página 2 de cromas (campeões com mais de 25 cromas como Ahri com 53, Lux com 49, Yasuo com 50, Seraphine com 63) ficava com o select menu totalmente quebrado sem conseguir selecionar nenhum croma.
-                     - Solução: Implementado mapeamento explícito com `selectMenuMap['cromas'] = 'selecionar_chroma_menu'` e adicionado `selecionar_croma_menu` como fallback aceito no handler de interações.
-                  2. *Infiltração de Pacotes de Cromas (3.000+ RP) e Itens Inválidos:*
-                     - Como `isChroma(x)` continha `if (name.includes('chroma')) return true`, mais de 202 `Chroma Bundles` (como `HEARTSTEEL Ezreal Chroma Bundle` de 3.087 RP), emotes/ícones (`Emberclaw Sett Chroma Icon`) e cromas de prestígio (`Prestige Magma Chamber Veigar`) vazavam para a listagem de cromas individuais de 290 RP.
-                     - Solução: Implementada a validação estrita `isIndividualChampChroma` que bloqueia bundles/packs, emotes, ícones e itens sem custo exato de 290 RP, garantindo que 100% dos 5.531 cromas individuais sejam oferecidos corretamente a 290 RP e com UUID `offer_id` CAP válido.
-                  3. *Ordenação Premium e Organizada de Skins e Cromas:*
-                     - **Skins:** Em vez de uma ordem caótica por ID decrescente onde skins de 750, 1350 e 1820 RP se misturavam, agora as skins são ordenadas estritamente por Prestígio/Tier: Ultimate (3250 RP) -> Míticas presentes -> Lendárias (1820 RP) -> Épicas (1350 RP) -> Clássicas/Comuns (975 / 750 / 520 RP), mantendo no topo as skins mais valiosas e com seus respectivos ícones de gemas (`<:ultimate:...>`, `<:legendary:...>`, `<:epic:...>`, `<:11default:...>`).
-                     - **Cromas:** Ordenados e agrupados alfabeticamente pela skin base (ex: todos os cromas de Arcana Ahri juntos, todos de Spirit Blossom Ahri juntos), tornando a navegação intuitiva e profissional.
-                  4. *Abreviações e Apelidos de Campeões:*
-                     - Adicionado dicionário de abreviações (`mf` -> Miss Fortune, `j4` -> Jarvan IV, `asol` -> Aurelion Sol, `tf` -> Twisted Fate, `monkey king` -> Wukong, `ww` -> Warwick, `gp` -> Gangplank, `blitz` -> Blitzcrank, `cait` -> Caitlyn, `eve` -> Evelynn, `fiddle` -> Fiddlesticks, `heca` -> Hecarim, `kass` -> Kassadin, `kat` -> Katarina, `malph` -> Malphite, `morg` -> Morgana, `naut` -> Nautilus, `noc` -> Nocturne, `panth` -> Pantheon, `sej` -> Sejuani, `trynd` -> Tryndamere, `vlad` -> Vladimir, `voli` -> Volibear).
-                  5. *Busca Inteligente Direta por Tema ou Skin:*
-                     - Permite ao usuário buscar tanto pelo campeão quanto pelo tema ou nome específico da skin (ex: busca por `PROJECT` retorna as 28 skins PROJECT de múltiplos campeões; busca por `Spirit Blossom Ahri` prioriza a skin exata no topo).
-                  6. *Embed `category_skins`, `loja.json` e Persistência no MongoDB Atlas:*
-                     - Atualizado `category_skins` em `config/embeds.json` com os novos emojis oficiais `<:legendary:1342089845559791650>` e `<:15croma:1527527027043729561>`.
-                     - Adicionado `croma` em `loja.skins` em `config/loja.json` (€1.99 / €1.39 com desconto).
-                     - Sincronizados `embeds` e `loja` com o cluster de produção do **MongoDB Atlas**.
-            28. **Auditoria Completa, Aperfeiçoamento e Checkout das 3 Categorias Finais (`cat_champions`, `cat_accessories`, `cat_highlights`) (2026-09-15):**
-                - **Problemas Identificados e Otimizações Implementadas:**
-                  1. *Fatal ReferenceError corrigido em `obterDetalhesItem` (linha 1048):*
-                     - Correção da variável `nomeItem` indefinida para `nome` na avaliação de `tipoFiltro === 'little_legends'`.
-                  2. *Descrições Desatualizadas no Menu Principal:*
-                     - Atualizada a descrição de `cat_highlights` de `'Heartsong Seraphine skin, border set & chroma bundles'` para `'Hall of Legends 2026 Collections, Border Sets & Launch Bundles'`.
-                  3. *Harmonização de Emojis e Embeds das 3 Categorias em `config/embeds.json`:*
-                     - `category_champions`: Adicionados emojis oficiais `<:mchamp:1342089827071561728>` (Champions) e `<:1eternos:1544481988147290152>` (Eternals).
-                     - `category_accessories`: Adicionados `<:lol_poro_emote:1544493296879935489>` (Emotes), `<:lol_star_ward:1544493299270680717>` (Wards) e `<:22icone:1544482040206983241>` (Summoner Icons).
-                     - `category_highlights`: Adicionados `<:lol_exclusive_pack:1544591088084590636>` (Exclusive Packs), `<:lol_sale:1547388458488823868>` (Weekly Sales) e `<a:pr_fire01:1527367612168802374>` (Most Popular).
-                  4. *Busca Inteligente e Ordenação Superior:*
-                     - **Champions (`cat_champions`):** Suporte a busca aberta (`all`, `todos`, `*`, ou vazio) exibindo todos os 173 campeões. Ordenação alfabética estrita A a Z (Aatrox -> Zyra) com correspondência exata priorizada no topo.
-                     - **Eternals:** Ordenação por hierarquia de série (Série 1 -> Série 2 -> Série Inicial).
-                     - **Weekly Sales:** Suporte a exibição tanto de skins quanto de campeões em promoção (20 itens ativos). Ordenados decrescentemente pela maior porcentagem de desconto (60% OFF -> 27% OFF).
-                     - **Highlights:** Coleções do Hall of Legends 2026 (Signature, Immortalized, Risen Legend, Event Pass) fixadas no topo por valor/tier, seguidas de pacotes de lançamento e conjuntos de borda.
-                  5. *Suporte a Desconto Específico de Campeões (`desconto_champions`):*
-                     - Adicionado `"desconto_champions": 50` em `config/loja.json`.
-                     - Integrada a chave `desconto_champions` em `converterRPParaEUR` em `index.js`.
-                     - Adicionado suporte a `champions` nas opções e recálculo do comando administrativo `/desconto`.
-                  6. *Verificação de Integridade de Catálogo e Checkout Completo:*
-                     - 173 Champions, 522 Eternais, 170 Emotes, 68 Wards, 409 Ícones, 268 Little Legends, 8 Boosts, 20 Promoções da Semana e 13 Pacotes de Destaque testados. 100% possuem UUID `offer_id` CAP válido para envio de presentes.
-                  7. *Persistência no MongoDB Atlas:*
-                     - Sincronizados com sucesso os arquivos `embeds` e `loja` com a nuvem do MongoDB Atlas (`saveBotConfigToMongo`).
-            29. **Correção de Duplicata de Passes e Adição do Passe Coleção (`passes`) (2026-09-15):**
-                - **Problemas Identificados e Resolvidos:**
-                  1. *Passe Duplicado no Menu de Passes:*
-                     - O documento legado de `featured_bundles` no MongoDB Atlas continha `"Hall of Legends 2026 Pass - Caps"` sem `offerId`, gerando conflito com o item oficial `Hall of Legends 2026 Pass` do catálogo. Ambos apareciam no select menu.
-                     - Implementada deduplicação por nome normalizado (`replace(/\s*-\s*caps/g, '').trim()`) e unificação de chaves em `loadFullRiotCatalog()` em `index.js`.
-                  2. *Inclusão do Passe Coleção (5.035 RP):*
-                     - O item `Risen Legend Collection Pass (2026)` (5.035 RP) / `Passe Coleção Lenda Ascendida` não aparecia na categoria de Passes porque seu nome não continha a palavra "Pass" e estava apenas em Highlights.
-                     - Atualizado o filtro de `passes` em `index.js` para incluir explicitamente o Passe Coleção e as coleções do Hall of Legends, posicionando-os no topo ordenados por preço:
-                       1. `Hall of Legends 2026 Pass` (1.950 RP)
-                       2. `Risen Legend Collection Pass (2026)` (5.035 RP — Passe Coleção)
-                       3. `Immortalized Legend Collection (2026)` (32.035 RP)
-                       4. `Signature Immortalized Legend Collection (2026)` (58.865 RP)
-                       5. `Season 3: Act I Pass` (1.650 RP)
-                       6. `Season 3: Act I Pass Bundle` (2.650 RP)
-                       7. `Season 3: Act I Premium Pass Bundle` (3.650 RP)
-                  3. *Sincronização com MongoDB Atlas:*
-                     - Sincronizado o arquivo `featured_bundles` limpo e `loja` com o cluster do MongoDB Atlas via `saveBotConfigToMongo`.
-            30. **Auditoria Geral, Blindagem e Sincronização Inteligente do MongoDB Atlas (2026-09-15):**
-                - **Problema Crítico e Causa Raiz Identificada:**
-                  - Em `utils/mongoStorage.js:syncAllBotConfigs`, ao iniciar o bot (tanto local quanto no Render), o bot buscava o JSON do MongoDB Atlas e, se existisse, sobrescrevia cegamente o arquivo em disco (`fs.writeFileSync`).
-                  - Isso causava rollbacks indesejados: se o código local/git adicionava um novo produto (ex: `pass_hol_collection` em `loja.json` ou pacotes com `offerId` em `featured_bundles.json`), a inicialização no Render recuperava a versão desatualizada do MongoDB e apagava as novidades do disco, ressuscitando dados legados (como o passe duplicado `- Caps`).
-                - **Solução Arquitetural Implementada (Smart-Merge & Auto-Heal):**
-                  1. *Merge Profundo de Objetos (`deepMergeConfigs`):*
-                     - Para configurações baseadas em objetos (`loja`, `embeds`, `emojis`, `config`, `broadcast_blacklist`, `cosmetic_emojis`), o disco e o MongoDB são combinados com merge recursivo. Novas propriedades introduzidas no git são preservadas e enviadas ao MongoDB, enquanto customizações feitas via comandos do Discord são mantidas em disco.
-                  2. *Deduplicação de Arrays (`mergeFeaturedBundles`):*
-                     - Para arrays de pacotes (`featured_bundles`), a mesclagem prioriza itens com `offerId` UUID válido e deduplica por nome normalizado (ignorando `- Caps`).
-                  3. *Inclusão de Todas as Configurações Restantes:*
-                     - Adicionados `captcha_keys` (`captcha_keys_pool.json`) e `wallpapers` (`wallpapers.json`) à lista de arquivos gerenciados e persistidos no MongoDB Atlas.
-                  4. *Export de `getConfiguration`:*
-                     - Exportado o alias `getConfiguration = loadBotConfigFromMongo` em `mongoStorage.js` para resolver a chamada silenciosa em `index.js:383`.
-                  5. *Sanitização Executada:*
-                     - Todos os 11 arquivos de configuração sincronizados e consolidados com 100% de integridade com o cluster do MongoDB Atlas. Índices e coleções validados com 0 pendências.
-            31. **Redesign do Dashboard Web: Loja Oficial do Client do LoL (`lol_giftapi-main`) (2026-09-16):**
-                - **Solicitação do Usuário:**
-                  - Transformar a interface web (`/api_frontend`) em uma réplica autêntica da Loja Oficial do Client do League of Legends.
-                  - Preservar 100% intacta a lógica de envio de presentes e tokens da Riot Games (`api_files/gift.py`, `riot_tokens.py`, etc.).
-                  - Criado previamente o backup congelado `C:\Users\jeff\Documents\endpoint lol.zip`.
-                - **Implementação Visual Realizada:**
-                  1. *Navegação Superior LoL Client:* Botão `JOGAR`, submodos (`LOL`, `CLASSIC`, `TFT`), abas de loja com tipografia e bordas douradas ativas (`DESTAQUES`, `CAMPEÕES`, `SKINS`, `ESPÓLIOS`, `ACESSÓRIOS`).
-                  2. *Top Right Status:* Botão `COMPRE RP`, saldos com ícones oficiais de RP dourado e Essência Azul, botão `🎁` de acesso ao Centro de Presentes, avatar do invocador com insígnia de nível e status online.
-                  3. *Destaques (Hall of Legends 2026):*
-                     - Hero Banner (60%): Arte oficial do Passe Hall of Legends 2026 (Orianna / Caps), descrição, paginação `[ 1 ] [ 2 ] [ 3 ]`, chips de recompensa (125 ME, 11 Orbes) e preço de 1950 RP.
-                     - Grid de 4 Cards (40%): Coleção Autografada (58865 RP), Coleção Imortalizada (32035 RP), Coleção Ascendida (5035 RP) e Passe HoL 2026 (1950 RP), com badges de tempo `⏱️ 4sem`. Barra do Game Pass removida conforme solicitado.
-                  4. *Cards de Catálogo em Grid:* Cada item do catálogo agora renderiza como Card oficial com thumbnail da Riot CDN, borda hextech metálica, tag de preço RP e selo de raridade.
-            32. **Redesign 3D Simplificado e Funcional do Dashboard Web da API (2026-09-22):**
-                - **Solicitação do Usuário:**
-                  - Deixar a API site simples e funcional, no estilo da **V1**, eliminando os templates mockados pesados de carrosséis e vitrines (reservados para quando for criado um site dedicado completo no futuro), tornando o dashboard extremamente bonito, moderno e em **3D**, com **0 erros**.
-                - **Implementação Visual e Estrutural:**
-                  1. *Arquitetura Direta V1 com 4 Abas:* Restaurada a navegação horizontal em abas diretas (Loja & Catálogo, Histórico de Pedidos, Cofre de Contas, Rede de Amigos), com seletor de moedas/regiões (BR, NA, EUW, etc.), botão de carrinho 3D com contador em tempo real e perfil de usuário.
-                  2. *Estética 3D & Profundidade de Perspectiva:* Implementada inclinação e elevação nos cards (`perspective: 1000px`, `rotateX(2deg)`, `scale(1.02)`), sombras multicamadas com glow neon ciano/dourado/violeta, botões 3D táteis com clique em relevo e superfícies translúcidas em glassmorphism (`backdrop-filter: blur(20px)`).
-                  3. *Eliminação de Erros de JS (Zero Errors):*
-                     - Proteção completa contra referências nulas nos listeners de `slider`, `numberInput`, `languageSelect`, `upload-riot-id-list` e navegação de abas.
-                     - Inclusão de Favicon SVG nativo evitando requisições 404 em `/favicon.ico`.
-                     - Sintaxe validada e auditada com `node --check`.
-                  4. *Fluxo de Carrinho e Regras de Negócio:*
-                     - Manutenção estrita da exclusão de skins Míticas/Prestígio (`isMythicSkin`).
-                     - Gaveta de carrinho deslizante com aviso destacado das 24 horas de amizade exigidas pela Riot Games, campos para Riot ID (`Nome#TAG`) e disparo para a fila (`/run-script`).
-                  5. *Verificação Automatizada via Puppeteer:*
-                     - Navegação real executada localmente, autenticando com sucesso, carregando os itens do catálogo, abrindo o carrinho, alternando abas e confirmando **0 erros** no console do navegador.
-
-
-
-            33. **Redesign dos Cards de Catálogo, Paginação Bounded & Cleanup do Projeto Web (`python_backend`) (2026-09-29 / 2026-09-30):**
-                - **Refatoração Completa da Interface:**
-                  - Cards de catálogo simplificados: remoção do botão confuso "Add to cart" e de carrosséis desnecessários; cada card agora exibe apenas seu preço em RP oficial e badge/glow de raridade animado com hover refinado.
-                  - Adição de ícones oficiais em alta resolução do RP Hextech (`icon-rp.png` e `icon-rp-72.png`) no botão de checar saldo e nos cards de produtos.
-                  - Paginação limitada com botão dinâmico "Carregar Mais" ("Load More") e remoção do botão de zoom obsoleto (`v=9.2`).
-                  - Substituição do logotipo superior pelo Punho oficial da Riot Games, eliminação de badges 3D infladas e refinamento das abas de navegação.
-                  - Painel de envio direto redesenhado com tipografia limpa, posicionamento simplificado e terminologia direta.
-                - **Cleanup Estrutural do Repositório (`de1429c`):**
-                  - Removida por completo a pasta redundante `lol_giftapi-main/`, centralizando 100% da API e do frontend web na pasta `python_backend/`.
-                  - Limpeza de artefatos obsoletos (`app.yaml`, `vercel.json`, `test_mongo.py`, workflow legado).
-                  - Adicionado script de sincronização e espelhamento `scripts/sync_mirrors.py` e validador `scripts/verify_dashboard.js`.
-
-            34. **Restauração e Atualização de Passes de Batalha, Orbes e Espólios Oficiais (2026-09-30):**
-                - **Atualização do Catálogo de Passes:**
-                  - Atualizados passes para as temporadas ativas da Riot Games (Worlds 2024 e Season 3: Ato I), expurgando coleções expiradas do Hall of Legends do catálogo regular e mantendo apenas pacotes válidos e orbes.
-                  - Imagens e resoluções dos passes e pacotes de orbes restauradas com artes oficiais da CDN da Riot Games (`d392eissrffsyf.cloudfront.net`).
-                - **Scripts de Manutenção e Validação:**
-                  - Criado `scripts/update_passes_and_loot.py` e `scripts/restore_official_passes_and_loot.py` para sincronização automatizada dos caches `catalog_cache_en.json` e `catalog_cache_pt.json` tanto no bot Discord (`config/`) quanto na API (`python_backend/`).
-                  - Criado `scripts/verify_passes_and_bundles.js` para auditoria rápida de integridade dos itens.
-
-            35. **Restauração em Massa de Emojis Mortos & Blindagem de Application Emojis (2026-10-01):**
-                - **Problema:** Emojis antigos hospedados em guilds/servidores de terceiros foram deletados ou ficaram inacessíveis, gerando textos quebrados como `:nome_emoji:` em dezenas de embeds e menus.
-                - **Solução Automatizada com `restore_all_dead_emojis.js`:**
-                  - Varredura de todos os arquivos de configuração (`config/emojis.json`, `config/embeds.json`, `python_backend/embeds.json`).
-                  - Download automático dos assets de imagens e GIFs diretamente do CDN do Discord e upload instantâneo para os **Application Emojis** do bot (escopo global sem limite de slots por guilda).
-                  - Substituição em massa de todos os IDs antigos em arquivos de comandos (`config.js`, `desconto.js`, `clear.js`, `ticket.js`, `join.js`, `leave.js`), `index.js` e embeds.
-                  - Criados novos Application Emojis como `<a:planeta:1555074358903308340>`, `<a:whitearrow:1555074441933758624>`, cristais de raridade (`ultimate`, `mythic`, `legendary`, `epic`, `common`, `transcendent`, `exalted`), espólios hextech e baús.
-                - **Sincronização e Prioridade do Disco no MongoDB Atlas:**
-                  - Criado `scripts/push_configs_to_mongo.js` para forçar atualização no MongoDB Atlas.
-                  - Em `utils/mongoStorage.js`, ajustada a rotina de boot para priorizar configurações atualizadas do disco local sobre dados legados ou desatualizados do MongoDB.
-
-            36. **Suporte a Menção do Cliente no Canal do Ticket & Formatação Inteligente (2026-10-03):**
-                - **Atualização do Template `ticket_order_received`:**
-                  - Atualizada a embed em `config/embeds.json` e `python_backend/embeds.json` para exibir explicitamente `{cliente} | {staffRoles}` na mensagem de aguardo de atendimento.
-                - **Blindagem em `utils/customEmbeds.js`:**
-                  - Implementado fallback inteligente para garantir que mesmo se o banco tiver templates legados apenas com `{staffRoles}`, a menção do cliente seja anexada com segurança.
-                  - Limpeza automática de pipes ou espaços vazios caso `staffRoles` ou `cliente` não estejam definidos.
-
-
-            37. **Atualização Oficial do Catálogo da Riot Games & Sincronização Geral de UUIDs (2026-10-07):**
-                - **Autenticação e Fetch Direto na Storefront API:**
-                  - As contas de catálogo (Tuan8539 RU para EN e lucasgg112 BR1 para PT) foram autenticadas com sucesso no LoL client token flow.
-                  - Baixadas 10.291 ofertas oficiais ativas da Storefront API da Riot Games, gerando o dump bruto catalog.json (19.4 MB).
-                  - O catálogo em inglês saltou para 9.638 itens (+1.545 novos itens) e em português para 10.205 itens (+3.501 novos itens).
-                - **Compilação Store-First & Enriquecimento CDragon (utils/buildFullCatalog.js):**
-                  - Recompilado todo o catálogo unindo os dados oficiais com CommunityDragon e DDragon.
-                  - Total de itens compilados: 1.399 Skins, 5.618 Cromas, 173 Campeões, 522 Eternos, 249 Pacotes, 4 Passes e 13 Espólios.
-                  - Garantidos 100% dos UUIDs oficiais (offer_id) da Riot Store para envio de presentes via CAP Gifting em todas as categorias.
-                  - Preservação estrita das artes em alta resolução da Riot CDN para passes, orbes e pacotes especiais (restore_official_passes_and_loot.py).
-                - **Sincronização Completa entre Módulos:**
-                  - Sincronizados com integridade de hash SHA-256 os arquivos catalog_cache_en.json, catalog_cache_pt.json, catalog.json e featured_bundles.json entre config/, python_backend/, python_backend/api_files/ e C:\Users\jeff\Documents\lol_giftapi-main.
-                  - Validado o carregamento e as buscas de skins, passes e espólios no Bot Discord com 100% de sucesso.
-                - **Correção da Identificação do Cliente e Remoção de Ping Externo no Ticket:**
-                  - Removida a mensagem de texto separada enviada fora da embed (`canal.send({ content: initialMention })`) na criação do canal de ticket.
-                  - As menções do comprador e da equipe de suporte agora ficam exclusivamente formatadas dentro da embed (`ticket_order_received`).
-                  - Corrigido o envio da variável `cliente` (`<@userId>`) tanto na criação do ticket quanto em `atualizarEmbedTicket` (resolvido via `cart.ownerId`, `channel.topic` ou `permissionOverwrites`).
-                  - Aprimorado `buildCustomEmbed` em `utils/customEmbeds.js` para auto-detectar o cliente a partir de `interactionOrUser` e limpar quaisquer tags órfãs `{cliente}` ou barras (`|`) soltas caso alguma variável esteja ausente.
-                - **Implementação do Menu Plano Direto (Opção 2 - Sem Submenus) com Emojis Oficiais do LoL:**
-                  - Substituídas as categorias genéricas intermediárias por 10 opções de ação direta no `buildStoreMainMenu`: Champion Skins (`compra_skins`), Chromas (`compra_chromas`), Weekly Sales (`compra_sales`), Season Event Passes (`compra_passes`), Orbs & Capsules (`compra_orbes`), Hextech Chests & Keys (`compra_hextech`), Featured & Launch Bundles (`compra_highlights`), Champions (`compra_champions`), Mystery Gifts (`compra_misterio`) e Accessories (`cat_accessories`).
-                  - Cada opção conta com emoji personalizado oficial do League of Legends (`legendary`, `15croma`, `lol_sale`, `lol_pass_hol`, `lol_orb_hol`, `hextech`, `lol_exclusive_pack`, `mchamp`, `lol_mystery_skin`, `lol_poro_emote`).
-                  - Ao selecionar qualquer item, o bot dispara diretamente o modal de busca ou abre o catálogo instantaneamente, sem telas ou submenus intermediários.
-                  - Simplificado o botão global "Back to Menu" para retornar sempre ao menu principal plano.
-
-            38. **Atualização Completa de Imagens Oficiais dos Catálogos do Bot e da API Python (2026-10-10):**
-                - **Correção de Imagens Oficiais de Passes e Pacotes:**
-                  - Substituídas todas as imagens genéricas (splash arts de campeões como Leblanc_55 e Viego_37) em `featured_bundles.json` e nos catálogos pelas URLs oficiais em alta resolução do CDN da Riot Storefront Cloudfront (`https://d392eissrffsyf.cloudfront.net/storeImages/bundles/...`).
-                  - Validadas todas as URLs com HTTP 200 (Passes Hall of Legends 2026, Passe do Mundial 2024, Orbes e Pacotes de Baús Hextech).
-                - **Recompilação Completa e Enriquecimento Multi-Catálogo:**
-                  - Recompilado todo o catálogo unificado com `utils/buildFullCatalog.js` e `scripts/restore_official_passes_and_loot.py`.
-                  - Injetadas as novas artes oficiais em `config/catalog_cache_en.json`, `config/catalog_cache_pt.json` e `config/featured_bundles.json`.
-                - **Sincronização Total com os Módulos da API Python:**
-                  - Propagados todos os catálogos atualizados para `python_backend/catalog_cache_*.json`, `python_backend/api_files/` e para a pasta externa `C:\Users\jeff\Documents\lol_giftapi-main\`.
-                - **Persistência no MongoDB Atlas:**
-                  - Executado `scripts/push_configs_to_mongo.js` para garantir que o banco em nuvem receba e sincronize todas as configurações, coleções e embeds mais recentes.
-
-            39. **Auditoria Completa & Restauração dos Passes Ativos do LoL (Mundial 2026 & Hall of Legends) (2026-10-10):**
-                - **Descoberta da Causa Raiz:**
-                  - Uma análise profunda do dump oficial da Riot Store (`catalog.json`, 10.291 itens) revelou que os itens de passe do Mundial/Temporada anteriores (`69901071`, `69901072`, `69901073` - Ato I / Mundial 2024) estavam expirados e foram retirados da loja pela Riot.
-                  - Os passes oficiais atualmente ativos na Riot Storefront são da Temporada 3: Mundial 2026: `69901080` (Passe 1650 RP), `69901081` (Pacote 2650 RP) e `69901082` (Pacote Premium 3650 RP), junto do Hall of Legends 2026 (`69901079`, `99901658`, `99901659`, `99901660`).
-                  - Os novos passes não apareciam porque `scripts/restore_official_passes_and_loot.py` estava com um dicionário hardcoded contendo apenas os IDs antigos (`69901071`..`69901073`) e sobrescrevia `cat['Passes'] = passes` após a compilação, eliminando os passes reais.
-                  - Além disso, `config/featured_bundles.json` também apontava para os IDs obsoletos de 2024.
-                - **Correção e Atualização de Todos os Passes Ativos:**
-                  - Injetados os passes ativos com UUIDs reais e artes Cloudfront verificadas com HTTP 200:
-                    - `69901080` / `c5ebe5a5-a967-4d05-b82b-63600c1d9e1a`: *Passe da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Pass* (1650 RP)
-                    - `69901081` / `8b82c6ad-94be-4611-b82e-a0e7401bb232`: *Pacote Passe da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Pass Bundle* (2650 RP)
-                    - `69901082` / `c4179766-1310-423e-a62e-522aa4219ae9`: *Pacote Passe Premium da Temporada 3: Mundial 2026* / *Season 3: Worlds 2026 Premium Pass Bundle* (3650 RP)
-                    - `69901079` / `1a335511-a661-4d91-8522-abd3bc4f466c`: *Passe Hall of Legends 2026* / *Hall of Legends 2026 Pass* (1950 RP)
-                    - `99901658` / `73d68c09-ff8b-4793-a380-b198438c21ab`: *Passe Coleção Lenda Ascendida (2026)* (5035 RP)
-                    - `99901659` / `70d0f4a3-b387-4d3f-9fe4-5f62c6b428cb`: *Coleção Lenda Imortalizada (2026)* (32035 RP)
-                    - `99901660` / `33f48406-8d1c-4c77-87f4-e47b39796cc6`: *Coleção Assinatura Lenda Imortalizada (2026)* (58865 RP)
-                    - Orbes e Pacotes do Mundial 2026 (`69901083`..`69901086`).
-                - **Sincronização & Recompilação Multi-Arquitetura:**
-                  - Atualizados `featured_bundles.json`, `buildFullCatalog.js`, `restore_official_passes_and_loot.py` e replicados para `python_backend/` e `lol_giftapi-main/`.
-                  - Executado `push_configs_to_mongo.js` para atualizar o Atlas.
-
-            40. **Remoção Total do Hall of Legends / Faker, Motor de Rastreamento de Diffs e Pipeline Automático de Sincronização (2026-10-10):**
-                - **Remoção e Purga Definitiva do Faker / Hall of Legends:**
-                  - Expurgados todos os 8 blocos estáticos do Hall of Legends (`69901079`, `99901658`, `99901659`, `99901660`) de `config/featured_bundles.json` e `python_backend/featured_bundles.json`.
-                  - Removidos passes e orbes do Hall of Legends (`69901075`..`69901078`) de `scripts/restore_official_passes_and_loot.py`.
-                  - Em `utils/buildFullCatalog.js`, eliminado o bypass da linha 29 em `isRestrictedOrNonRP` e adicionado bloqueio explícito de `hall of legends` e `faker` no parser para evitar que qualquer oferta expirada seja injetada.
-                  - Categoria de Passes limpa e reduzida para estritamente os 3 passes oficiais ativos da Temporada 3: Mundial 2026 (`69901080`, `69901081`, `69901082`).
-                - **Sistema de Rastreamento de Diffs (Adicionados e Removidos):**
-                  - Implementado comparador delta em `utils/buildFullCatalog.js` que avalia o catálogo anterior (`catalog_cache_en.json`) contra o novo compilado.
-                  - Registra detalhadamente itens adicionados e removidos por categoria (Skins, Cromas, Pacotes, Passes, Campeões, Espólios, etc.) e salva o relatório estruturado em `config/catalog_last_diff.json`.
-                  - Exibe no terminal um relatório visual ASCII formatado com o saldo de alterações sempre que o catálogo é compilado.
-                - **Pipeline Unificado de Sincronização (`scripts/sync_all_catalog.py`):**
-                  - Criado orquestrador automatizado que executa sequencialmente:
-                    1. Recompilação do catálogo completo e geração de diffs (`utils/buildFullCatalog.js`).
-                    2. Injeção e validação de passes e espólios oficiais ativos (`scripts/restore_official_passes_and_loot.py`).
-                    3. Replicação com integridade SHA-256 para `python_backend/`, `api_files/` e `C:\Users\jeff\Documents\lol_giftapi-main\` (`scripts/sync_mirrors.py`).
-                    4. Persistência de configurações e embeds no MongoDB Atlas (`scripts/push_configs_to_mongo.js`).
-                  - Resolvido travamento do Node.js em `scripts/push_configs_to_mongo.js` adicionando `process.exit(0)`.
-                  - Corrigida codificação de saída em ambientes Windows (UTF-8 no `sys.stdout`).
-                - **Hook Automático no Backend Python (`python_backend/main_backend.py`):**
-                  - Injetada chamada automática a `scripts/sync_all_catalog.py` no término da rota/função `update_catalog_cache()`.
-                  - Agora, sempre que o usuário acionar a atualização de catálogo pelo painel web ou API Python, todo o ecossistema do Bot Discord, caches locais, espelhos e MongoDB Atlas são automaticamente atualizados e sincronizados em ~20 segundos sem intervenção manual.
-
-            41. **Limpeza Geral de Arquivos Obsoletos, Dumps Duplicados e Otimização do Projeto (2026-10-16):**
-                - **Remoção de Arquivos Mortos e Duplicados (+21 MB liberados):**
-                  - `data/catalogo.json` (19.4 MB): dump duplicado eliminado (o bot agora aponta diretamente para `config/catalog.json`).
-                  - `data/champion.json` (153 KB): arquivo estático legado não referenciado removido.
-                  - `database/catalogo.db` (795 KB): banco local SQLite obsoleto de julho/2026 removido (substituído integralmente pelo MongoDB Atlas).
-                  - `python_backend/catalog_cache.json` (906 KB): cache legado de 2024 removido.
-                  - `python_backend/cap_keys.txt`, `generate_en.py`, `create_key.py`: scripts e arquivos temporários antigos removidos.
-                  - `commands/suporte/halloflegends.js`: comando slash legado `/halloflegends` removido (evento HoL expirado).
-                  - `scripts/checkSchema.js`, `check_db.js`, `importBundles.js`, `update_passes_and_loot.py`, `prepare_hol_emojis.py`, `upload_hol_emojis.js`, `verify_dashboard.js`, `verify_passes_and_bundles.js`: scripts antigos e de teste excluídos.
-                  - `scratch/` e `scripts/`: screenshots antigas de teste removidas (`screenshot_dashboard_*.png`, `bundles_screenshot.png`, `passes_screenshot.png`).
-                - **Refinamento do Código:**
-                  - Em `index.js`, ajustada a rota de fallback em `loadFullRiotCatalog` para `config/catalog.json` e removida a opção legada de Hall of Legends do submenu de Featured.
-                  - Em `commands/admin/embeds.js`, removida a opção de edição de embed do Hall of Legends.
-                  - Sincronizado `python_backend/api_files/featured_bundles.json` com os pacotes ativos limpos.
-                - **Validação:** Verificada a integridade e sintaxe de todo o projeto (`node --check index.js` e `python -m py_compile main_backend.py`) com 100% de sucesso.
-
-            42. **Atualização Completa da Temática de Passes/Orbes (Mundial 2026 Season 3) & Criação da Skill LCU (2026-10-16):**
-                - **Correção da Temática da Loja no Bot:**
-                  - Identificado que `index.js` ainda continha textos, descrições e emojis legados apontando para "Hall of Legends Pass" e "Hall of Legends & Summoner's Orbs".
-                  - Atualizadas todas as descrições nos menus (`buildStoreMainMenu`, `cat_loot`, `cat_highlights`) para a temática ativa: **Temporada 3: Mundial 2026 (Worlds 2026)**.
-                  - Atualizados os emojis oficiais padrão em `config/emojis.json` e `index.js`: Passe Season 3 (`<:lol_pass_s3:1544493308015804429>`) e Orbe Season 3 (`<:lol_orb_s3:1544493304983322736>`). Removidas as chaves residuais `_hol`.
-                  - Limpo o filtro de busca e a ordenação de passes/orbes em `enviarPaginaCatalogo`, eliminando a priorização do HoL e ordenando estritamente por preço e disponibilidade.
-                - **Criação da Skill Antigravity `lol-client` (.agents/skills/lol-client):**
-                  - Criada a skill oficial com `SKILL.md` (e espelho global em `~/.gemini/config/skills/lol-client`).
-                  - Implementado `detect_lcu.py`: detecta automaticamente processos `LeagueClientUx` / `LeagueClient`, extrai porta, lockfile e credenciais de autenticação básica (`riot:<token>`), e obtém o perfil do invocador logado (`É o Jeff#Babys`, Nível 476).
-                  - Implementado `sync_live_catalog.py`: conecta diretamente na API interna do cliente do LoL (`/lol-store/v1/catalog`), extrai 10.332 ofertas ativas em tempo real e dispara a esteira de sincronização completa (`sync_all_catalog.py`).
-                - **Persistência e Deploy:**
-                  - Emojis e configurações persistidos no MongoDB Atlas via `push_configs_to_mongo.js`.
-                  - Commit e push realizados para `main`, disparando deploy no Render.
-
-            43. **Sincronização Total da Loja Oficial via Client (LCU) — Destaques, Campeões, Skins, Espólios & Acessórios (2026-10-16):**
-                - **Extração 100% ao Vivo do Client do LoL Conectado:**
-                  - Extraídas 10.332 ofertas da loja oficial em tempo real através da API `/lol-store/v1/catalog`, `/lol-store/v1/catalog/sales` e `/lol-store/v1/featured-page`.
-                  - **Promoções Oficiais da Semana (`weekly_sales.json`):** Capturadas e formatadas com metadados do CDragon as 20 ofertas ativas com desconto (-27% a -60% off): Viktor, Seraphine Fênix Graciosa, Kai'Sa, Kindred, Super Kennen, Illaoi, Renekton, Mordekaiser Deus Antigo, Ahri Estrela do Pop, Kai'Sa Tinta Sombria, Ekko Tempestade de Areia, Qiyana Chefona, Amumu Festa Surpresa, Udyr Faixa Preta, Blitzcrank Nocaute, Nocturne Saqueador, Yone Florescer Espiritual, Pantheon Couraça de Aço, Sett Lutador Espiritual e Smolder Escamas Celestiais.
-                  - **Aba Destaques & Pacotes de Lançamento (`featured_bundles.json`):**
-                    - Adicionados os 5 Novos Conjuntos de Moldura **HEARTSTEEL: Live My Life** (Ezreal 2542 RP, Kayn 2645 RP, Aphelios 2690 RP, Yone 2645 RP, K'Sante 2690 RP) com UUIDs oficiais e ícones de alta resolução.
-                    - Adicionados os 5 Pacotes Croma **HEARTSTEEL: Live My Life** (Ezreal 3087 RP, Kayn 2620 RP, Aphelios 3235 RP, Yone 3190 RP, K'Sante 3235 RP).
-                    - Inserido o novo **Baú de Skin Misteriosa de Ápice do Entretenimento** (850 RP, itemId `69901087`, offerId `b8040c86-79c5-46f5-8ef7-a78a5277b62a`).
-                    - Inseridos os 3 Passes da Temporada 3: Mundial 2026 (1650, 2650 e 3650 RP) e os 3 Pacotes de Orbes do Mundial 2026 (Deluxe 2500 RP, Premium 6250 RP, Mega 12500 RP).
-                    - Inseridos os 3 Pacotes Hextec de Destaque (195 RP, 975 RP e 1950 RP).
-                  - **Espólios (Loot & Passes):**
-                    - Adicionado `69901087` a `scripts/restore_official_passes_and_loot.py` em `LOOT_PT` e `LOOT_EN` com a arte oficial Cloudfront (`820.png`).
-                    - Sincronizados todos os 10 arquivos `catalog_cache_*.json` locais e nos espelhos externos (`lol_giftapi-main`).
-                  - **Correção Estrutural de Filtros e Categorias no Bot:**
-                    - Em `utils/buildFullCatalog.js`, removido o bloqueio rígido legado de IDs (`99901657..99901667`) que estava descartando os novos conjuntos HEARTSTEEL (99901662-99901666).
-                    - Em `index.js`, removida a filtragem residual de IDs (`99901660..99901667`) em `loadFullRiotCatalog` e `enviarPaginaCatalogo`, garantindo que todos os pacotes em destaque sejam exibidos sem omissões tanto em inglês quanto em português.
-                    - Ajustada a ordenação de `highlights` para manter a ordem curada de `featured_bundles.json` (HEARTSTEEL no topo).
-                - **Sincronização e Deploy:**
-                  - Executado o pipeline completo `sync_all_catalog.py` (buildFullCatalog -> restore_official_passes_and_loot -> sync_mirrors -> push_configs_to_mongo).
-                  - Promoções da semana atualizadas com sucesso no MongoDB Atlas (`kitsune_bot.bot_configurations`).
-                  - Commit e push realizados para `origin main` disparando deploy automático no Render.
-
-            44. **Correção Definitiva de Emojis do Menu Principal da Loja (Application Emojis) (2026-10-16):**
-                - **Diagnóstico do Erro 10014 (Unknown Emoji):**
-                  - Ao abrir o catálogo de vendas após o modal de Riot ID (`modal_riot_id`), o bot retornava `Erro Interno: Alguns emojis configurados em emojis.json são inválidos ou o bot não tem acesso a eles`.
-                  - A auditoria revelou que os emojis de orbe (`lol_orb_s3:1544493304983322736`) e passe (`lol_pass_s3:1544493308015804429`) apontavam para IDs de servidores antigos que não estavam mais disponíveis para o bot em select menus.
-                - **Resolução e Migração para Application Emojis:**
-                  - Feito upload via API do Discord (`client.application.emojis.create`) tornando todos os 10 itens do menu principal em Application Emojis permanentes:
-                    - Passe Season 3: `<:lol_pass_s3:1560503114253996042>`
-                    - Orbe Season 3: `<:lol_orb_s3:1555074434048725083>`
-                    - Pacote Exclusivo / Destaques: `<:exclusive_pack:1560503285977190460>`
-                    - Presente Misterioso: `<:mystery_skin:1560503288762339350>`
-                    - Acessórios / Emote: `<:poro_emote:1560503291568201729>`
-                  - Atualizados `config/emojis.json` e todos os fallbacks em `index.js` (`buildStoreMainMenu`, `exibirMenuCategoriaLoja`).
-                  - Emojis atualizados persistidos no MongoDB Atlas e enviados para produção no Render.
-
-            45. **Resolução Completa de Imagens Oficiais e Posicionamento Preciso de Emojis de Aplicação nos Menus e Tickets (2026-10-16):**
-                - **Imagens Oficiais dos Passes e Orbes do Mundial 2026 & Destaques:**
-                  - Passes de Temporada (Worlds 2026 Season 3): `69901080.png` (1650 RP), `69901081.png` (2650 RP), `69901082.png` (3650 RP) apontando diretamente para `https://d392eissrffsyf.cloudfront.net/storeImages/bundles/...`
-                  - Orbes do Mundial 2026: `69901083.png` (250 RP), `69901084.png` (2500 RP), `69901085.png` (6250 RP), `69901086.png` (12500 RP).
-                  - Baú de Skin Misteriosa de Ápice do Entretenimento (`69901087`): `https://d392eissrffsyf.cloudfront.net/storeImages/hextechCrafting/820.png`.
-                  - Conjuntos Moldura HEARTSTEEL Live My Life (`99901662` a `99901666`): `99901662.png` a `99901666.png`.
-                  - Pacotes de Croma HEARTSTEEL (`79900921` a `79900925`): `79900921.jpg` a `79900925.jpg`.
-                  - Pacotes Hextec: `69900003`, `69900002`, `69900001` e ícones oficiais de Baús e Chaves.
-                - **Limpeza de Resíduos e Aplicação de Emojis em Todo o Bot:**
-                  - `obterDetalhesItem` em `index.js`:
-                    - Passes vinculados ao emoji verificado `<:lol_pass_s3:1560503114253996042>`.
-                    - Orbes (Padrão, Deluxe, Premium, Mega) vinculados ao emoji verificado `<:lol_orb_s3:1555074434048725083>`.
-                    - Baú de Skin Misteriosa / Presentes Misteriosos vinculados a `<:mystery_skin:1560503288762339350>`.
-                    - Conjuntos de Moldura e Destaques vinculados a `<:exclusive_pack:1560503285977190460>`.
-                    - Itens Hextec (Baú, Chave, Baú+Chave) vinculados a `<:hextech:1555074299000524932>`, `<:key1:1555074307275759667>`, `<:chestkey:1555074316591439935>`.
-                  - `atualizarEmbedTicket`: Prioridade absoluta para `iconUrl` oficial do catálogo Cloudfront, com fallbacks estritos mapeando todos os IDs do Mundial 2026, HEARTSTEEL e Hextec diretamente para artes em alta definição.
-                  - Menus e Embeds: `config/embeds.json` atualizado com as descrições oficiais do Mundial 2026 e HEARTSTEEL.
-                  - Correção de Escopo: `featList` movido para escopo de função em `enviarPaginaCatalogo`, corrigindo erro `featList is not defined`.
-                  - Sincronização MongoDB Atlas & Espelhos: Executados `push_configs_to_mongo.js` e `sync_all_catalog.py` com sucesso.
-            46. **Simplificação e Aperfeiçoamento da Estrutura do Catálogo da Loja & Alinhamento com o Raio-X do LoL Client (2026-10-16):**
-                - **Estruturação Limpa em 5 Categorias Oficiais do Cliente:**
-                  - Substituído o menu desordenado de 10 opções soltas em `buildStoreMainMenu` pelas **5 abas centrais e padronizadas** do cliente oficial de League of Legends:
-                    1. 🌟 **Featured & Offers (`cat_highlights`):** Passes do Mundial 2026, Pacotes HEARTSTEEL Live My Life, Orbes e as 20 Promoções da Semana da Riot com emoji `<:exclusive_pack:1560503285977190460>`.
-                    2. 👕 **Champion Skins & Chromas (`cat_skins`):** Busca e seleção de todas as skins de campeões e cromas (290 RP) com emoji `<:legendary:1555074221338665080>`.
-                    3. 📦 **Loot, Passes & Chests (`cat_loot`):** Passes Mundial 2026, Orbes, Baús Hextec & Presentes Misteriosos com emoji `<:lol_orb_s3:1555074434048725083>`.
-                    4. ⚔️ **Champions & Eternals (`cat_champions`):** Todos os 173 Campeões e Séries de Estatísticas Eternos com emoji `<:mchamp:1555074230050095114>`.
-                    5. 🎭 **Summoner Accessories (`cat_accessories`):** Emotes (350 RP), Sentinelas (640 RP) e Ícones de Invocador (250 RP) com emoji `<:poro_emote:1560503291568201729>`.
-                - **Organização e Curadoria de Destaques (`featured_bundles.json`):**
-                  - Reordenados os itens com os Passes do Mundial 2026 e Orbes no topo absoluto da lista, adicionando o Orbe avulso (`Worlds 2026 Orb` - 250 RP, ID `69901083`) e mantendo o Baú do Ápice do Entretenimento (`Peak Entertainment Mystery Skin Chest` - 850 RP) e todos os Conjuntos de Moldura e Cromas HEARTSTEEL Live My Life.
-                - **Integração Completa de `selecionar_sale_menu`:**
-                  - Em `enviarPaginaCatalogo`, a categoria `sales` agora gera select menus com `customId = 'selecionar_sale_menu'`, registrado e processado nativamente no `interactionCreate` de `index.js`.
-                  - Em `getActualItemType`, preservado `tipoFiltro === 'sales'` para garantir que o cálculo de preço e a variação no ticket apliquem o preço promocional com desconto (-27% a -60%) e o emoji oficial `<:lol_sale:1547388458488823868>`.
-                - **URLs dos Ícones das Promoções Semanais:**
-                  - Atualizados todos os 20 itens de `config/weekly_sales.json` com URLs diretas do Data Dragon oficial (splashes e ícones), corrigindo links quebrados.
-                - **Sincronização & Persistência:**
-                  - Sincronizados `config/weekly_sales.json` e `config/featured_bundles.json` com `python_backend/` e com a coleção `bot_configurations` no MongoDB Atlas via `scripts/push_configs_to_mongo.js`.
-            47. **Diagnóstico e Restauração de Disponibilidade do Bot (2026-10-19):**
-                - **Causa Raiz Identificada:**
-                  - O processo do bot não estava ativo devido ao desligamento da máquina após a queda de energia relatada pelo usuário, combinado com a suspensão/inatividade do serviço no Render.
-                - **Resiliência do Servidor Express (`index.js`):**
-                  - Configurado bind explícito em `0.0.0.0` na porta definida por `process.env.PORT` para aceitar conexões IPv4/IPv6 em ambientes Linux (Render).
-                  - Adicionada rota de healthcheck `/healthz` (200 OK) e blindada a rota `/status` com `try/catch` e verificações seguras contra `ReferenceError` antes do cliente Discord estar completamente autenticado.
-                - **Scripts de Inicialização e Resiliência Local:**
-                  - Criado `iniciar_bot.bat` com loop infinito de auto-reinício (reinicia o node em 5 segundos caso caia por qualquer motivo).
-                  - Criado `iniciar_bot_oculto.vbs` para execução 100% invisível em segundo plano sem janela aberta no Windows.
-                  - Realizado commit e push para `origin main` (`3417e7f`) com catálogo de destaques e scripts sincronizados.
-            48. **Otimização de Interação da Loja & Resposta Imediata (2026-10-19):**
-                - **Simplificação de Descrições do Catálogo (`buildStoreMainMenu` & `exibirMenuCategoriaLoja`):**
-                  - Descrições do select menu principal limpas e diretas: `Featured & Offers` (`Bundles, passes and weekly sales`), `Champion Skins & Chromas` (`Skins and chromas`), `Loot, Passes & Chests` (`Passes, orbs and chests`), `Champions & Eternals` (`Champions and Eternals`), `Summoner Accessories` (`Emotes, ward skins and icons`).
-                  - Eliminados valores em RP redundantes e textos poluídos dos submenus.
-                - **Blindagem do Botão "Buy here" (`abrir_loja`):**
-                  - Substituído o delay artificial de 2500ms (`setTimeout(2500)`) por `interaction.deferReply({ ephemeral: true })` imediato (<30ms).
-                  - Eliminado o risco de timeout de 3 segundos do Discord (`kitsune não respondeu a tempo`), garantindo resposta instantânea e proteção com `try/catch`.
-                  - Executado via `iniciar_bot.bat` para garantir que o processo se mantenha online e resiliente.
-            49. **Ícones Oficiais de Passes/Orbes (Worlds 2026 & Invocador), Skill `loot-sync` e Otimização Máxima de Resposta (2026-10-20):**
-                - **Ícones Oficiais do Evento Ativo (Worlds 2026 & Invocador):**
-                  - Baixadas imagens em alta definição da CDN oficial da Riot Games e redimensionadas para 128x128 PNG com LANCZOS.
-                  - Criados 9 Application Emojis oficiais: `lol_worlds_orb` (`1562218010633048178`), `lol_worlds_deluxe` (`1562218019068059658`), `lol_worlds_premium` (`1562218026961735883`), `lol_worlds_mega` (`1562218035018993758`), `lol_worlds_pass` (`1562218043835158568`), `lol_summoner_orb` (`1562218052764827739`), `lol_summoner_deluxe` (`1562218060574629979`), `lol_summoner_premium` (`1562218068640399390`), `lol_summoner_mega` (`1562218076458721300`).
-                  - Atualizados `config/emojis.json`, persistidos no MongoDB Atlas (`bot_configurations`) e mapeados dinamicamente em `obterDetalhesItem` de `index.js`.
-                - **Criação da Skill `loot-sync` (`.agents/skills/loot-sync/`):**
-                  - Criada a skill oficial com `SKILL.md` e script de automação `sync_loot_asset.py`.
-                  - Fixada a regra obrigatória: **todo e qualquer novo passe ou orbe deve ter seu ícone oficial baixado, redimensionado para 128x128 PNG, enviado como Application Emoji e vinculado no catálogo**. Proibido o uso de ícones legados genéricos.
-                - **Otimização Extrema de Velocidade de Resposta (Limite Máximo):**
-                  - Cache em memória RAM (`_catalogCacheRAM`): eliminada leitura síncrona de arquivos JSON de 5 MB a cada clique; tempo de consulta reduzido para <0.01ms.
-                  - Cache em memória RAM (`_lojaDataCache`): eliminadas 25 leituras de disco de `loja.json` por página renderizada.
-                  - Remoção de todos os delays artificiais de 1500ms (`setTimeout(1500)`) na navegação de categorias (`menu_vendas` e `confirmar_regiao_store`).
-                  - Transição direta via `enviarPaginaCatalogo(..., isUpdate=true)` em uma única requisição Discord sem flicker e sem telas intermediárias; tempo de resposta reduzido em mais de 95% (para menos de 50ms).
-
-            50. **Banners Animados de Splash Art Ultra HD (WebM -> GIF 680p sRGB Sem Tremor) & Boas-Vindas V2 (2026-10-29):**
-                - **Conversor WebM/MP4 -> GIF com Barra de Progresso em Tempo Real (`utils/webmToGif.js` & `commands/admin/embeds.js`):**
-                  - Implementado acompanhamento de progresso em tempo real (`0%` a `100%`) durante a conversão e upload de `.webm`/`.mp4` no comando `/embeds`.
-                  - Pipeline FFmpeg aprimorado para **680px de largura** (`100%` de preenchimento nos Containers V2 do Discord), **8 segundos de duração a 15fps (120 frames)**, conversão de matriz de cor **BT.709 -> sRGB** e dithering `bayer:bayer_scale=3` estático (sem tremor entre frames).
-                - **Rotação Aleatória de 17 Splash Arts Animadas Uncentered (`config/wallpapers.json` & `index.js`):**
-                  - Pré-renderizadas e hospedadas 17 splash arts animadas oficiais do LoL (versões uncentered) em `config/wallpapers.json`.
-                  - Cada aba da loja (`ticket_panel`, `store_region_select`, `store_main_menu`, `store_category_menu`, `store_catalog`) sorteia um banner animado diferente a cada abertura, mantendo fixo apenas o resumo final do pedido (`ticket_created`).
-                - **Card de Boas-Vindas V2 (`index.js` & `config/embeds.json`):**
-                  - Atualizado `welcome_member` com seta animada (`arrow2`) e botões interativos nativos no Container V2 (`Ir para a Loja` + indicador de `Membro #N`).
-
-            51. **Restauração do Gift Sender Bruto (Storefront V3 `/storefront/v3/gift`) e Exibição de Saldo RP na Web API (2026-11-04):**
-                - **Diagnóstico das 3 Causas Raiz na API Python (`main_backend.py`, `api_files/gift.py`, `api_files/riot_tokens.py`):**
-                  1. *Retorno Antecipado Indevido (`Transaction registered successfully`):* As linhas 807–808 de `main_backend.py` estavam descomentadas, fazendo com que qualquer chamada `task == "gift"` apenas inserisse o documento em `transactions_collection` e retornasse `"Transaction registered successfully"` antes de autenticar na Riot ou enviar o presente.
-                  2. *Bloqueio `403 RBAC: access denied` na Rota CAP Orders V2:* O endpoint `/services/cap/orders/orders-api/v2/products/.../orders` (`Gift.send_gift`) passou a ser bloqueado pelo Cloudflare/SGP da Riot com `403 Forbidden (RBAC: access denied)`. Já o endpoint oficial da loja **`POST /storefront/v3/gift` (`Gift.send_gift_v3`)** continua funcionando 100% sem bloqueio RBAC.
-                  3. *Erro `cpid` quando `id_token` ausente (`api_files/riot_tokens.py`):* Quando um `access_token` (`lol_token`) era enviado sem `id_token`, `get_user_info` falhava com `cannot access local variable 'cpid'`. Além disso, o redesign 3D de `templates/gift_tab.html` havia removido o elemento `#saldo-amount` do HTML.
-                - **Correções Aplicadas e Validadas em Produção:**
-                  - Comentado o bloco de retorno antecipado nas linhas 807–808 de `main_backend.py` (idêntico ao `endpoint lol.zip` original).
-                  - Em `main_backend.py` (`task == "gift"` e `send_gift_order`), o envio agora consulta `/storefront/v3/gift/friends` (`auth.friendlist_gift_info()`), obtém o `receiverSummonerId` via `get_summoner_id()` e dispara imediatamente via **`Giftobj.send_gift_v3`** (`/storefront/v3/gift`), atualizando o saldo de RP da conta e registrando o log em `gift_log`.
-                  - Em `api_files/gift.py`, `send_gift_v3` e `get_gift_id` foram blindados com conversão automática de `CHROMA`/`SKIN` para `CHAMPION_SKIN` (`giftItemId: 2`), suporte a todas as categorias (`CHAMPION`, `BUNDLES`, `HEXTECH_CRAFTING`, `EVENT_PASS`, `WARD_SKIN`, `SUMMONER_ICON`, `MYSTERY`, etc.), quantidade dinâmica e cast seguro para `int`.
-                  - Em `api_files/riot_tokens.py`, `get_user_info` agora extrai `cpid` (região) diretamente do payload `dat.r` do `lol_token` ou de `/userinfo` caso `id_token` não seja fornecido, sem sobrescrever `id_token` salvo no banco com `None`.
-                  - Em `templates/gift_tab.html` e `static/script.js`, restaurados os badges visuais **`RP: #saldo-amount`** e **`#daily-gifts-counter` (`0 / 10`)** na barra superior do `#kitsuneSendPanel`, exibindo o saldo em RP em todas as operações (`Check Balance` e `Send Gift`).
-                  - Sincronizados todos os arquivos entre `C:\Users\jeff\Documents\lol_giftapi-main`, `C:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend` e `C:\Users\jeff\Documents\lol_giftapi-main\python_backend`.
-
-### Servidores do Bot:
-- `1128760372741034114` — Kitsune | Gifting Service
-- `1482818033838719201` — KITSUNE x GAMING v2
-- `1540159601817817168` — Zed Store | Cheap Gifiting Service
+```
+KITSUNE V2 BOT/
+├── .agents/                    # Habilidades e agentes Antigravity (lol-client, loot-sync)
+│   ├── skills/lol-client/      # Detecção de LCU, extração de lockfile e sync ao vivo
+│   └── skills/loot-sync/       # Padronização e upload obrigatório de ícones oficiais de passes/orbes
+├── commands/                   # Comandos Slash modulares do Discord
+│   ├── admin/                  # anuncio, anuncio-blacklist, config, deploy, desconto, embeds, emojis, verify-panel
+│   ├── loja/                   # addfriend, checar-amizade, friendlist, gift, link, login
+│   ├── moderacao/              # clear
+│   ├── suporte/                # fechar, ticket
+│   └── utilidade/              # invites
+├── config/                     # Configurações ativas do bot e catálogos mestres
+│   ├── catalog.json            # Catálogo bruto da LoL Storefront API (10.600+ ofertas)
+│   ├── catalog_cache_pt.json   # Catálogo formatado em Português
+│   ├── catalog_cache_en.json   # Catálogo formatado em Inglês
+│   ├── emojis.json             # Mapeamento oficial de emojis do bot
+│   ├── embeds.json             # 43+ templates de mensagens editáveis via /embeds
+│   ├── loja.json               # Configurações de margens, preços e descontos
+│   ├── weekly_sales.json       # Promoções ativas da semana da Riot Games
+│   ├── featured_bundles.json   # Pacotes e destaques curados
+│   ├── cosmetic_emojis.json    # Mapeamento de wards, emotes e ícones
+│   ├── wallpapers.json         # Banners animados e splash arts oficiais
+│   ├── broadcast_blacklist.json# Lista de exclusão de membros para Mass DM
+│   ├── captcha_config.json     # Configuração de solvers de captcha
+│   ├── captcha_keys_pool.json  # Pool de chaves 2Captcha ativas
+│   └── riot_accounts.json      # Sessões e tokens de contas Riot persistidos (gitignored)
+├── data/                       # Dados persistentes locais do bot
+│   ├── banners/                # Cache de GIFs animados sRGB 680p pré-renderizados
+│   ├── championMap.json        # Mapeamento de IDs para nomes de campeões
+│   └── skins_rarity.json       # Tabela de raridades oficiais da Riot
+├── database/                   # Banco local de fallback
+│   └── database.json           # Configurações locais, usuários, XP e moedas
+├── events/                     # Manipuladores de eventos Discord (guildMemberAdd, etc.)
+├── python_backend/             # Servidor Web & API de Presentes (Flask - Porta 5000)
+│   ├── api_files/              # Apenas módulos Python (gift.py, riot_tokens.py, xmpp.py)
+│   ├── static/                 # Estilos dark-glass (style.css), script.js e ícones oficiais
+│   ├── templates/              # Páginas Jinja2 (gift_tab.html, login_tab.html)
+│   ├── main_backend.py         # Servidor principal Flask (Gifting, Auth, Catalog)
+│   ├── proxy_file.json         # Configurações de proxy de rede
+│   └── requirements.txt        # Dependências Python
+├── scripts/                    # Scripts de manutenção e esteiras de sincronização
+│   ├── sync_all_catalog.py     # Pipeline mestre de sincronização do catálogo
+│   ├── sync_mirrors.py         # Sincronizador de espelhos entre diretórios
+│   ├── restore_official_passes_and_loot.py # Injeção de passes e artes da CDN
+│   ├── push_configs_to_mongo.js# Atualização forçada de configs no MongoDB Atlas
+│   ├── pull_from_mongo.js      # Resgate de dados do MongoDB Atlas para o disco
+│   ├── deploy.js               # Registro global de comandos slash na API Discord
+│   └── upload_cosmetics_emojis.js # Upload de cosméticos para Application Emojis
+├── utils/                      # Módulos utilitários do Bot Discord
+│   ├── componentsV2.js         # Motor Universal de Discord Components V2
+│   ├── buildFullCatalog.js     # Compilador Store-First do catálogo Riot
+│   ├── friendshipChecker.js    # Verificador de amizade e tempo de elegibilidade
+│   ├── mongoStorage.js         # Gerenciador de conexão e Smart-Merge do MongoDB Atlas
+│   ├── riotAuth.js             # Autenticação TLS, refresh e sessões Riot (Node.js)
+│   ├── riotXmpp.js             # Conexão e chat Riot XMPP
+│   ├── syncWeeklySales.js      # Sincronizador de promoções da semana
+│   └── webmToGif.js            # Conversor FFmpeg WebM/MP4 -> GIF sRGB 680p
+├── index.js                    # Ponto de entrada monolítico do Bot Discord
+├── iniciar_bot.bat             # Inicializador do Bot do Discord (com auto-restarter)
+├── iniciar_bot_oculto.vbs      # Inicializador invisível em segundo plano do Bot
+├── iniciar_painel.bat          # Inicializador do Painel Web / API Flask (com auto-restarter)
+├── package.json                # Dependências Node.js
+└── AI_MEMORY.md                # Este documento de memória persistente
+```
 
 ---
 
-## PRÓXIMOS PASSOS
+## 🛠️ Stack Tecnológica
 
-### Bundles & Pacotes
-1. [x] Solucionado problema com gifting de passes e coleções (Hall of Legends / Faker) via API CAP Orders com UUIDs reais e desbloqueio de tipo BUNDLES.
+### Node.js (Bot do Discord — Principal)
+* **Runtime:** Node.js v22.14.0 LTS
+* **discord.js** v14.27.0 — framework oficial de interação com o Discord.
+* **express** v5.2.1 — servidor web leve para health check do UptimeRobot e bind no Render (`0.0.0.0:$PORT`).
+* **mongodb** v7.6.0 — driver nativo do MongoDB Atlas.
+* **axios** v1.18.1 — requisições HTTP seguras para APIs da Riot Games.
+* **puppeteer** v25.3.0 + stealth plugins — automação de login Riot com Chrome nativo.
+* **@xmpp/client** v0.14.0 & **xml2js** v0.6.2 — comunicação em tempo real via chat XMPP da Riot.
+* **ffmpeg-static**, **gif-encoder-2**, **pngjs** — geração e otimização de banners animados em alta definição.
 
-### Auditoria e Correção Geral dos Comandos Slash (Outubro 2026)
-- **Diagnóstico do Comando com Erro:** `/checar-amizade`
-  - *Causa Raiz:* `utils/friendshipChecker.js` importava e chamava `getFriendlistGiftInfo(acc.accessToken, region)` de `utils/riotAuth.js`. No entanto, a função `getFriendlistGiftInfo` (definida na linha 246 de `riotAuth.js`) **não estava incluída no `module.exports`**.
-  - *Impacto:* Toda vez que o comando `/checar-amizade` era disparado com uma conta selecionada (ou via botão de checagem em tickets), o Node.js lançava `TypeError: getFriendlistGiftInfo is not a function`.
-  - *Correção:* Exportada a função `getFriendlistGiftInfo` e o alias `riotLogin: loginWithRiotCredentials` em `utils/riotAuth.js`.
-- **Melhorias e Blindagens Adicionais em Comandos:**
-  - `commands/moderacao/clear.js`: Tratamento defensivo para `messagesToDelete.size === 1`, utilizando `singleMsg.delete()` em vez de `channel.bulkDelete(...)`, evitando o erro 50016 da API do Discord.
-  - `commands/loja/gift.js`: Substituição de `interaction.followUp(...)` por `interaction.editReply(...)` após o `deferReply()`, evitando mensagens de "pensando..." pendentes.
-  - `commands/admin/verify-panel.js`, `commands/loja/checar-amizade.js`, `commands/loja/login.js`: Sanitização resiliente de `focusedValue` nos manipuladores de autocomplete para garantir que tipos objeto/indefinidos nunca quebrem o `.toLowerCase()`.
-  - **Status:** Todos os 18 comandos ativos auditados e com 100% de aprovação em testes de estrutura e execução.
+### Python (Backend Web & API de Presentes)
+* **Runtime:** Python 3.12.8 (64-bit)
+* **Flask** v3.0.3 & **Flask-JWT-Extended** — servidor web REST e autenticação por tokens.
+* **Flask-PyMongo** & **pymongo** v4.7.3 — conexão com o MongoDB Atlas.
+* **aiohttp** v3.9.5 & **httpx** v0.27.0 — requisições assíncronas TLS personalizadas com ciphers da Riot.
+* **Flask-APScheduler** — execução agendada de rotinas de manutenção.
 
-### Correção Completa do Fechamento de Tickets (Outubro 2026)
-- **Diagnóstico das Falhas ao Fechar Tickets:**
-  1. *Quebra por Newline no Cabeçalho HTTP:* O input de motivo do modal usava `TextInputStyle.Paragraph` com `setRequired(true)`. Ao digitar com quebras de linha (`\n`), a chamada `ch.delete(reason)` enviava o cabeçalho `X-Audit-Log-Reason` com quebra de linha, fazendo o cliente HTTP do Node (`undici`) quebrar com `TypeError [ERR_INVALID_CHAR]: Invalid character in header content ["X-Audit-Log-Reason"]`. Como o fallback repetia o mesmo motivo com quebra de linha, a deleção falhava fatalmente e o canal nunca era excluído.
-  2. *Erro 40060 no Modal Submit:* Se o timer de segurança de 2.2s deferisse a submissão do modal, `interaction.reply` lançava erro 40060 e o código ignorava silenciosamente sem responder ao Discord, travando o modal em "Esta interação falhou".
-  3. *Falta de Retorno e Bloqueio de Usuários:* O modal exigia preenchimento obrigatório e não encerrava a execução com `return;`.
-- **Solução Implementada:**
-  - Criada a função unificada e resiliente `fecharCanalTicket(channel, closedByUser, motivo, client, guild, interaction)` em `index.js`.
-  - Motivo de fechamento agora é sanitizado removendo qualquer `\r`, `\n` ou caractere inválido para o cabeçalho de auditoria do Discord.
-  - Implementado fallback de deleção sem reason caso a API do Discord recuse o motivo, e alerta de permissão caso falte `ManageChannels`.
-  - Modal agora usa `TextInputStyle.Short` com `setRequired(false)` e placeholder claro, permitindo fechar com 1 clique.
-  - Criado comando slash oficial `/fechar` em [commands/suporte/fechar.js](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/commands/suporte/fechar.js) com suporte para clientes e staff.
-  - Adicionado suporte a comandos rápidos de texto (`!fechar`, `!close`, `-fechar`, `-close`) dentro de canais de ticket em [events/messageCreate.js](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/events/messageCreate.js).
-  - Exportadas as funções `fecharCanalTicket` e `atualizarEmbedTicket` no `module.exports` de `index.js`.
-
-### Migração Universal para Discord Components V2 (Outubro 2026)
-- **Motor Universal Components V2 (`utils/componentsV2.js`):**
-  - Implementado interceptador global em `MessagePayload.prototype.resolveBody` ativado no boot do `index.js` (`enableGlobalComponentsV2()`).
-  - Todas as mensagens, respostas de comandos slash, painéis de loja, catálogos, tabelas de preços e tickets (`reply`, `editReply`, `update`, `followUp`, `channel.send`, `message.edit`) são convertidos automaticamente para **Discord Components V2** (`ContainerBuilder` + `MessageFlags.IsComponentsV2`).
-  - **Estrutura Visual V2:**
-    - `ContainerBuilder`: Moldura única com barra de cor lateral (`accent_color`) herdada do embed ou semântica (`#F43F5E` Kitsune Rose, `#10B981` Sucesso, `#EF4444` Erro, `#F59E0B` Alerta).
-    - `SectionBuilder` + `ThumbnailBuilder`: Ícones de skins, passes, orbes e avatares posicionados automaticamente na lateral direita do texto.
-    - `SeparatorBuilder`: Linhas divisórias nativas separando cabeçalho, campos (`fields`) e componentes interativos.
-    - `MediaGalleryBuilder` & `FileBuilder`: Banners, grades 5x2 (`riot_store_grid.png`), imagens de boas-vindas (`welcome.png`) e transcrições (`.txt`) integrados dentro do container.
-    - `ActionRowBuilder`: Todos os botões e menus dropdown ficam embutidos dentro do próprio card do Container V2.
-  - **Integração com `/embeds` e Leitura Híbrida (`extractMessageData`):**
-    - Qualquer edição feita no comando `/embeds` (`config/embeds.json`) altera diretamente o visual do Container V2.
-    - `utils/customEmbeds.js` injeta automaticamente todas as variáveis de preços e descontos de `config/loja.json` nas tabelas (`tabela_skins`, `tabela_loot`, `tabela_acessorios`).
-    - `extractMessageData` garante que a recuperação de pedidos em tickets (`index.js` e `commands/loja/checar-amizade.js`) funcione tanto em Containers V2 quanto em Embeds V1 legados.
-
-### Limpeza e Organização Estrutural do Repositório (Novembro 2026)
-- **Eliminação de ~35 MB de Arquivos Obsoletos e Duplicatas:**
-  - `python_backend/api_files/`: Removidas cópias defasadas de `catalog.json` (19.4 MB), `catalog_cache_*.json` (8.8 MB), `catalog_last_diff.json`, `featured_bundles.json` e `proxy_file.json`. A pasta `api_files/` agora é estritamente reservada a código Python puro (`gift.py`, `riot_tokens.py`, `xmpp.py`).
-  - `python_backend/`: Removidos arquivos duplicados desnecessários (`embeds.json`, `loja.json`, `featured_bundles.json`), que pertencem exclusivamente ao bot do Discord em `config/`.
-  - `python_backend/static/`: Removido arquivo compactado redundante `bootstrap-5.3.3-dist.zip` (1.5 MB, cujos arquivos já estão extraídos em `static/bootstrap/`) e imagens legadas de testes (`hisokablack*.jpg`, `bullock*.png`).
-  - Raiz: Removido dump de depuração `scratch_featured.json` e diretório temporário `scratch/`.
-- **Prevenção no Pipeline de Catálogos:**
-  - `utils/buildFullCatalog.js`: Removido `python_backend/api_files` de `targetDirs` para que o gerador salve apenas nos diretórios ativos (`config/`, `python_backend/`, `lol_giftapi-main/`).
-  - `scripts/restore_official_passes_and_loot.py`: Removidos caminhos de `api_files/`.
-  - `.gitignore`: Atualizado para ignorar explicitamente `venv/`, `python_backend/venv/`, `*.zip`, `*.tar.gz`, e dumps `scratch_*.json`.
-- **Facilidade Operacional:**
-  - Criado o inicializador `iniciar_painel.bat` na raiz, permitindo iniciar o servidor Flask (`main_backend.py`) com auto-restart em caso de queda, espelhando o funcionamento de `iniciar_bot.bat`.
-  - Reescrevemos `python_backend/README.md` com arquitetura completa, mapeamento de arquivos e instruções de execução.
-
-### Emojis & Cosméticos (Opcional / Futuro)
-2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.
-3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.
-
-### Venda White-Label (Futuro)
-4. [ ] Sistema de provisionamento de instâncias brancas do bot quando o usuário for vender para terceiros.
+### Persistência & Hospedagem
+* **MongoDB Atlas (Cluster0):** Coleções `bot_configurations`, `riot_accounts`, `invites`, `member_joins`, `verified_members`, `transactions_collection`, `account_tokens` e `gift_logs`.
+* **Render (Nuvem 24/7):** Hospeda o Bot Node.js conectado à branch `main` do GitHub.
+* **Localhost (Porta 5000):** Painel Web e API de presentes rodando localmente no PC da loja.
 
 ---
 
-## REGRAS PARA O AGENTE
+## 🧠 Arquitetura & Regras de Negócio Críticas
 
-1. Sempre ler este arquivo antes de trabalhar no projeto.
-2. Não assumir que o histórico da conversa ainda está disponível.
-3. Usar os arquivos atuais do projeto como fonte da verdade.
-4. Não desfazer decisões registradas aqui sem explicar o motivo.
-5. Ao terminar uma sessão importante, atualizar este arquivo.
-6. Registrar alterações importantes.
-7. Registrar problemas encontrados.
-8. Registrar o próximo passo.
-9. Não apagar informações históricas importantes.
-10. Se o contexto da conversa tiver sido perdido, reconstruir o contexto usando este arquivo e os arquivos do projeto.
-11. Sempre que fizer qualquer alteração ou update no código, realizar o git commit e git push para a branch main, permitindo o deploy contínuo no Render.
-12. REGRA OBRIGATÓRIA DE UI (Discord Components V2): Todo e qualquer comando, painel, resposta, ticket ou mensagem do bot DEVE utilizar Discord Components V2 (`ContainerBuilder` / `MessageFlags.IsComponentsV2` via `utils/componentsV2.js`). Nunca criar comandos fora do padrão V2 e garantir que todas as telas mantenham compatibilidade total com Containers V2 e com o gerenciador `/embeds`.
-13. REGRA OBRIGATÓRIA DA WEB API DE PRESENTES (`main_backend.py` & `api_files/gift.py`): Nunca descomentar o retorno antecipado `Transaction registered successfully` nas linhas 807-808 de `main_backend.py`. O envio de presentes (`task == "gift"`) deve sempre utilizar a rota direta Storefront V3 (`Giftobj.send_gift_v3` -> `POST /storefront/v3/gift` com `receiverSummonerId` obtido de `/storefront/v3/gift/friends`), pois a rota CAP Orders V2 retorna `403 RBAC: access denied`. Manter sempre sincronizados os diretórios `C:\Users\jeff\Documents\lol_giftapi-main` e `C:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend`.
+### 4.1 Motor de Gifting da Riot Games (Storefront V3 & Auto-Unlock)
+
+1. **Rota Direta Storefront V3 Obrigatória:**
+   - O envio de presentes (`task == "gift"` e `send_gift_order`) utiliza **estritamente** `POST /storefront/v3/gift` implementado em `Gift.send_gift_v3` ([`python_backend/api_files/gift.py`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/python_backend/api_files/gift.py)).
+   - **NUNCA** reverter para a rota legada CAP Orders V2 (`/services/cap/orders/...`), pois ela é rejeitada pelo Cloudflare da Riot com `403 Forbidden (RBAC: access denied)`.
+   - **NUNCA** descomentar o retorno antecipado `"Transaction registered successfully"` nas linhas 807-808 de `main_backend.py`.
+2. **Mapeamento de `giftItemId` por Categoria:**
+   - Campeão base: `giftItemId: 1` (`inventoryType: "CHAMPION"`, `ipCost: 0`).
+   - Skins normais: `giftItemId: 2` (`inventoryType: "CHAMPION_SKIN"`, `ipCost: 0`). **Nunca usar fallback `1010` em skins normais**, pois a Riot retorna falso erro de `MYSTERY_PURCHASE_LIMIT_REACHED`.
+   - Passes, Orbes, Pacotes, Emotes e Cromas: `giftItemId: 1010` (`ipCost: None`).
+3. **Desbloqueio Automático do Campeão Base (Auto-Unlock Inteligente):**
+   - Se o destinatário não possui o campeão base de uma skin presenteada, a Riot rejeita com `["exchange.items.itemTypeNotAvailable"] [BAD_PATH_PARAMETER]`.
+   - O sistema detecta automaticamente o ID do campeão pai no catálogo oficial (`itemRequirements` / `parent.itemId`).
+   - Se o remetente possuir saldo para ambos (`saldo >= skin_rp + champ_rp`), o sistema **presenteia o campeão base primeiro** (`giftItemId: 1`), aguarda `1.8s` para registrar no inventário da Riot e **reenvia a skin imediatamente** (`giftItemId: 2`) em um único clique.
+   - O painel exibe o aviso claro: `(+ Campeão base {Nome} desbloqueado automaticamente)`.
+
+---
+
+### 4.2 Interface Discord: Padrão Obrigatório Components V2
+
+1. **Ativação Global:**
+   - Toda a interface do bot utiliza a biblioteca de **Discord Components V2** (`utils/componentsV2.js`), ativada no boot do bot via `enableGlobalComponentsV2()`.
+   - Toda resposta de comando, painel, catálogo e ticket é renderizada através de `ContainerBuilder` com a flag `MessageFlags.IsComponentsV2`.
+2. **Componentes Estruturais:**
+   - Barras laterais coloridas dinâmicas (`accent_color`), separadores nativos (`SeparatorBuilder`), seções com thumbnails embutidas à direita (`SectionBuilder` + `ThumbnailBuilder`) e galerias de mídia/banners (`MediaGalleryBuilder`).
+   - **Integração Total com `/embeds`:** Todas as cores, títulos e descrições editados no comando `/embeds` (`config/embeds.json`) refletem instantaneamente nos Containers V2.
+
+---
+
+### 4.3 Catálogo Store-First & Pipeline de Sincronização
+
+1. **Filosofia Store-First:**
+   - A Loja da Riot Games (`catalog.json` bruto com mais de 10.600 ofertas obtidas via `/storefront/v1/catalog`) é a fonte primária e absoluta de verdade. Dados estáticos de DDragon/CDragon servem apenas para enriquecer nomes e imagens.
+   - Todo item possui `offer_id` UUID real da Riot para envio de presentes, preço oficial em RP e status de disponibilidade (`available` ou `off`).
+2. **Pipeline Automatizado (`scripts/sync_all_catalog.py`):**
+   - Roda sequencialmente:
+     1. `node utils/buildFullCatalog.js` (recompila catálogo PT/EN e gera delta em `catalog_last_diff.json`).
+     2. `python scripts/restore_official_passes_and_loot.py` (injeta passes ativos e URLs oficiais da CDN).
+     3. `python scripts/sync_mirrors.py` (sincroniza arquivos com integridade SHA-256).
+     4. `node scripts/push_configs_to_mongo.js` (persiste as configurações no MongoDB Atlas).
+
+---
+
+### 4.4 Persistência em Nuvem (MongoDB Atlas & Smart Merge)
+
+1. **Prevenção de Rollbacks (Smart-Merge):**
+   - No startup (`utils/mongoStorage.js`), o bot realiza um *deep merge* recursivo entre o disco local e o MongoDB Atlas. Novas chaves ou produtos adicionados ao código local nunca são sobrescritos por versões antigas da nuvem.
+2. **Sincronização em Tempo Real:**
+   - Qualquer modificação efetuada nos comandos `/embeds`, `/emojis`, `/desconto` ou `/anuncio-blacklist` é gravada simultaneamente no disco e no MongoDB Atlas na coleção `bot_configurations`.
+
+---
+
+### 4.5 Sistema de Emojis de Aplicação (Application Emojis)
+
+1. **Uso de Application Emojis em vez de Guild Emojis:**
+   - Todos os 720+ emojis oficiais do bot (skins, orbes, passes, raridades, cosméticos, setas e botões) são cadastrados como **Application Emojis** diretamente na aplicação do bot no Discord.
+   - Isso elimina limites de slots de servidores (50 slots por guilda) e garante que os emojis nunca quebrem ou fiquem com a tag vazia `:nome_emoji:`.
+2. **Regra Obrigatória da Skill `loot-sync`:**
+   - **MANDATÓRIO:** Todo e qualquer novo passe, orbe ou cápsula adicionado à loja DEVE ter sua arte oficial baixada, redimensionada para 128x128 PNG com interpolação Lanczos, enviada para Application Emojis e mapeada em `config/emojis.json`. É proibido usar ícones genéricos ou reutilizar artes de eventos antigos.
+
+---
+
+### 4.6 Fluxo de Loja e Atendimento em Tickets
+
+1. **Estrutura das 5 Categorias Oficiais do Cliente do LoL:**
+   - 🌟 **Featured & Offers (`cat_highlights`):** Passes do evento ativo, Pacotes especiais, Orbes e as 20 Promoções da Semana da Riot (-27% a -60% OFF).
+   - 👕 **Champion Skins & Chromas (`cat_skins`):** Catálogo de todas as skins e cromas de 290 RP com busca por campeão.
+   - 📦 **Loot, Passes & Chests (`cat_loot`):** Passes do evento ativo, Orbes, Baús Hextec e Presentes Misteriosos.
+   - ⚔️ **Champions & Eternals (`cat_champions`):** Todos os 173 Campeões e Séries de Estatísticas Eternos.
+   - 🎭 **Summoner Accessories (`cat_accessories`):** Emotes (350 RP), Sentinelas (640 RP) e Ícones de Invocador (250 RP).
+2. **UX de Tela Fixa:**
+   - A tela principal `Catalog of Gifts` permanece fixa ao navegar entre categorias. Apenas os Select Menus e a fileira de botões são alternados, evitando transições pesadas e recarregamentos visuais.
+3. **Resiliência de Tickets:**
+   - Criação protegida por mutex (`global.activeTicketCreations`) impedindo abertura de canais duplicados.
+   - Botão `Refresh` (`🔄`) com restauração do carrinho diretamente do histórico do canal, mesmo que o bot tenha sido reiniciado.
+   - Fechamento seguro (`/fechar`, botão ou comandos de texto `!close`) com sanitização de quebras de linha para auditoria do Discord.
+
+---
+
+## ⚡ Comandos Slash Auditados
+
+Todos os 18 comandos abaixo possuem permissões estritas de Staff (`Administrator` ou `ManageMessages`), exceto `/invites`:
+
+| Comando | Categoria | Descrição |
+|---|---|---|
+| `/anuncio` | Admin | Disparo de comunicados e novidades com delay seguro anti-ban e prévia ao vivo |
+| `/anuncio-blacklist` | Admin | Gerenciamento da lista de membros que não devem receber anúncios |
+| `/config` | Admin | Configuração do cargo verificado e staff do servidor |
+| `/deploy` | Admin | Registro e deploy forçado dos comandos slash na API global do Discord |
+| `/desconto` | Admin | Ajuste dinâmico de margens de desconto (%) por categoria de produto |
+| `/embeds` | Admin | Editor visual dos 43+ templates de mensagens com prévia e seletor agrupado |
+| `/emojis` | Admin | Gerenciador e visualizador de mapeamento de emojis do sistema |
+| `/verify-panel` | Admin | Envio do painel fixo de verificação de membros |
+| `/addfriend` | Loja | Envio automatizado de solicitação de amizade Riot via chat XMPP |
+| `/checar-amizade` | Loja | Consulta oficial na Riot Store do tempo de amizade e contagem regressiva de 24h |
+| `/friendlist` | Loja | Listagem paginada de amigos adicionados em contas Riot vinculadas |
+| `/gift` | Loja | Disparo manual de presentes via API com logs de auditoria |
+| `/link` | Loja | Vinculação segura de contas Riot via token ou cookies de sessão 24/7 |
+| `/login` | Loja | Autenticação direta de contas Riot com suporte a 2FA e Captcha |
+| `/clear` | Moderação | Limpeza em massa segura de mensagens no canal |
+| `/fechar` | Suporte | Encerramento seguro de canais de atendimento e tickets |
+| `/ticket` | Suporte | Envio do painel oficial fixo da loja no canal de vendas (`Buy here`) |
+| `/invites` | Utilidade | Estatísticas detalhadas de convites e membros convidados pelo usuário |
+
+---
+
+## 📜 Histórico Consolidado de Marcos e Evolução
+
+* **Fase 1 (Estruturação e Base do Bot):** Migração do bot para modelo monolítico no `index.js`, integração do express para pings do Render e UptimeRobot, conexão inicial com o cluster MongoDB Atlas e suporte básico a comandos slash.
+* **Fase 2 (Catálogo Store-First & Purga de Itens Expirados):** Abandono de listas estáticas de DDragon em prol da leitura direta da Storefront API da Riot Games. Implementação do rastreamento de deltas (`catalog_last_diff.json`), normalização de UUIDs reais de compra e eliminação de eventos e passes encerrados (como Hall of Legends 2026/Faker e passes de 2024).
+* **Fase 3 (Migração para Application Emojis):** Migração massiva de todos os emojis do servidor para os Application Emojis da aplicação Discord (mais de 720 emojis oficiais em alta definição), blindando o sistema contra quebras de ícones e liberando espaço nos servidores.
+* **Fase 4 (Resiliência do Gifting & Restauração da Storefront V3):** Descoberta do bloqueio RBAC 403 na rota CAP Orders V2 e restauração definitiva do endpoint direto `POST /storefront/v3/gift`. Correção do fluxo de saldo RP e exibição de contadores em tempo real.
+* **Fase 5 (Discord Components V2):** Transformação estética universal de todos os comandos, painéis, tabelas de preços e tickets para **Discord Components V2** (`ContainerBuilder`), integrando banners animados sRGB em 680p e layout moderno.
+* **Fase 6 (Sincronização Multi-Idioma & Auto-Unlock de Campeões):** Implementação da esteira de catálogo PT-BR e EN-US a partir de uma única conta autenticada. Criação do sistema inteligente de auto-unlock de campeões base ao enviar skins para destinatários que ainda não possuem o personagem.
+* **Fase 7 (Limpeza Estrutural e Higienização):** Eliminação de mais de 35 MB de dados obsoletos e arquivos duplicados em `python_backend/api_files/` e na raiz. Criação do inicializador `iniciar_painel.bat` com auto-restarter e atualização das políticas de `.gitignore`.
+
+---
+
+## 🎯 Próximos Passos & Roadmap
+
+- [x] Sincronização automatizada da Loja Riot em tempo real via LCU (`lol-client`).
+- [x] Resolução automática de campeões base faltantes em compras de skins (Auto-Unlock).
+- [x] Migração universal de comandos e embeds para Discord Components V2.
+- [x] Otimização e limpeza estrutural de diretórios e espelhos.
+- [ ] **Essências e Saldos Avançados (Opcional):** Exibição de saldos adicionais (Essência Mítica e Essência Azul) no painel web para contas de catálogo.
+- [ ] **Painel de Controle White-Label (Futuro):** Provisionamento de instâncias e personalização dinâmica de bot para revenda comercial.
+
+---
+
+## 📌 Regras Obrigatórias para o Agente
+
+1. **Fonte da Verdade:** Sempre ler este arquivo antes de iniciar qualquer trabalho. Usar os arquivos atuais do projeto e a base de código real como fonte da verdade, sem assumir estados que não estão documentados aqui.
+2. **Deploy Contínuo no Render:** Sempre que realizar alterações no código, executar `git commit` e `git push origin main` para acionar a esteira de deploy automático do bot em produção no Render.
+3. **Regra de Concorrência (Render vs Local):** Não manter o processo `node index.js` rodando localmente enquanto o deploy de produção no Render estiver ativo, para evitar duplicidade de instâncias respondendo à Discord Gateway.
+4. **PADRÃO OBRIGATÓRIO DE UI (Discord Components V2):** Todo e qualquer comando, painel, resposta, ticket ou mensagem do bot DEVE utilizar Discord Components V2 (`ContainerBuilder` / `MessageFlags.IsComponentsV2` via `utils/componentsV2.js`). Nunca criar telas fora do padrão V2.
+5. **PADRÃO OBRIGATÓRIO DA WEB API DE PRESENTES (`main_backend.py` & `api_files/gift.py`):**
+   - Nunca descomentar o retorno antecipado `Transaction registered successfully` nas linhas 807-808 de `main_backend.py`.
+   - O envio de presentes (`task == "gift"`) deve sempre utilizar a rota direta Storefront V3 (`Giftobj.send_gift_v3` -> `POST /storefront/v3/gift`).
+   - Manter sempre sincronizados os diretórios `C:\Users\jeff\Documents\lol_giftapi-main` e `c:\Users\jeff\Documents\KITSUNE V2 BOT\python_backend` utilizando `scripts/sync_mirrors.py`.
+6. **REGRA OBRIGATÓRIA DA SKILL `loot-sync`:** Todo novo passe ou orbe adicionado à loja DEVE ter seu ícone oficial da Riot CDN baixado, redimensionado para 128x128 PNG com interpolação Lanczos, enviado para os Application Emojis da aplicação Discord e registrado em `config/emojis.json`. É estritamente proibido o uso de artes genéricas ou placeholders.
+7. **REGRA DO AUTO-UNLOCK DE CAMPEÕES BASE:** Ao enviar uma skin de campeão (`CHAMPION_SKIN`), nunca utilizar o fallback com `giftItemId: 1010`. Em caso de erro de campeão ausente no destinatário (`itemTypeNotAvailable`), disparar primeiro o presente do campeão base (`giftItemId: 1`) e, após `1.8s`, enviar a skin (`giftItemId: 2`).
+8. **Preservação de Integridade:** Não apagar informações históricas importantes e registrar todas as alterações estruturais neste documento ao final de cada intervenção relevante.

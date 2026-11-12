@@ -14,3 +14,4 @@ echo [AVISO] O servidor do painel foi encerrado!
 echo Reiniciando automaticamente em 5 segundos... (Pressione Ctrl+C para encerrar)
 timeout /t 5 /nobreak >nul
 goto loop
+
