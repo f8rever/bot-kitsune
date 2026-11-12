@@ -477,6 +477,8 @@ class Gift:
                         if isinstance(req, dict) and str(req.get("inventoryType") or "").upper() == "CHAMPION":
                             parent_champ_id = req.get("itemId")
                             break
+                if not parent_champ_id and isinstance(clean_item_id, int) and clean_item_id > 1000:
+                    parent_champ_id = clean_item_id // 1000
 
                 if parent_champ_id:
                     try:

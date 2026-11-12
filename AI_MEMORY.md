@@ -136,9 +136,10 @@ KITSUNE V2 BOT/
    - O envio de presentes (`task == "gift"` e `send_gift_order`) utiliza **estritamente** `POST /storefront/v3/gift` implementado em `Gift.send_gift_v3` ([`python_backend/api_files/gift.py`](file:///c:/Users/jeff/Documents/KITSUNE%20V2%20BOT/python_backend/api_files/gift.py)).
    - **NUNCA** reverter para a rota legada CAP Orders V2 (`/services/cap/orders/...`), pois ela é rejeitada pelo Cloudflare da Riot com `403 Forbidden (RBAC: access denied)`.
    - **NUNCA** descomentar o retorno antecipado `"Transaction registered successfully"` nas linhas 807-808 de `main_backend.py`.
-2. **Mapeamento de `giftItemId` por Categoria:**
+2. **Mapeamento de `giftItemId` por Categoria & Prevenção de Colisão com TFT:**
    - Campeão base: `giftItemId: 1` (`inventoryType: "CHAMPION"`, `ipCost: 0`).
-   - Skins normais: `giftItemId: 2` (`inventoryType: "CHAMPION_SKIN"`, `ipCost: 0`). **Nunca usar fallback `1010` em skins normais**, pois a Riot retorna falso erro de `MYSTERY_PURCHASE_LIMIT_REACHED`.
+   - Skins normais: `giftItemId: 2` (`inventoryType: "CHAMPION_SKIN"`, `ipCost: 0`).
+   - **REGRA CRÍTICA DE COLISÃO COM TFT:** A Riot Games reaproveita os mesmos números de `itemId` para Skins e itens de TFT (Arenas `TFT_MAP_SKIN` e Little Legends `COMPANION`). **NUNCA usar fallback `1010` em skins normais**, pois se o código `1010` for enviado com o ID de uma skin, o servidor da Riot interpreta o ID na tabela de TFT e entrega itens de TFT (Arenas/Pequenas Lendas) no lugar da skin, consumindo RP e estourando o limite diário da conta! Skins usam estritamente `giftItemId: 2` com seu `offer_id` (UUID oficial do catálogo).
    - Passes, Orbes, Pacotes, Emotes e Cromas: `giftItemId: 1010` (`ipCost: None`).
 3. **Desbloqueio Automático do Campeão Base (Auto-Unlock Inteligente):**
    - Se o destinatário não possui o campeão base de uma skin presenteada, a Riot rejeita com `["exchange.items.itemTypeNotAvailable"] [BAD_PATH_PARAMETER]`.
