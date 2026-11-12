@@ -1002,6 +1002,20 @@ Arquivo principal: `index.js` (~3123 linhas, 171KB) — contém TODA a lógica p
     - `utils/customEmbeds.js` injeta automaticamente todas as variáveis de preços e descontos de `config/loja.json` nas tabelas (`tabela_skins`, `tabela_loot`, `tabela_acessorios`).
     - `extractMessageData` garante que a recuperação de pedidos em tickets (`index.js` e `commands/loja/checar-amizade.js`) funcione tanto em Containers V2 quanto em Embeds V1 legados.
 
+### Limpeza e Organização Estrutural do Repositório (Novembro 2026)
+- **Eliminação de ~35 MB de Arquivos Obsoletos e Duplicatas:**
+  - `python_backend/api_files/`: Removidas cópias defasadas de `catalog.json` (19.4 MB), `catalog_cache_*.json` (8.8 MB), `catalog_last_diff.json`, `featured_bundles.json` e `proxy_file.json`. A pasta `api_files/` agora é estritamente reservada a código Python puro (`gift.py`, `riot_tokens.py`, `xmpp.py`).
+  - `python_backend/`: Removidos arquivos duplicados desnecessários (`embeds.json`, `loja.json`, `featured_bundles.json`), que pertencem exclusivamente ao bot do Discord em `config/`.
+  - `python_backend/static/`: Removido arquivo compactado redundante `bootstrap-5.3.3-dist.zip` (1.5 MB, cujos arquivos já estão extraídos em `static/bootstrap/`) e imagens legadas de testes (`hisokablack*.jpg`, `bullock*.png`).
+  - Raiz: Removido dump de depuração `scratch_featured.json` e diretório temporário `scratch/`.
+- **Prevenção no Pipeline de Catálogos:**
+  - `utils/buildFullCatalog.js`: Removido `python_backend/api_files` de `targetDirs` para que o gerador salve apenas nos diretórios ativos (`config/`, `python_backend/`, `lol_giftapi-main/`).
+  - `scripts/restore_official_passes_and_loot.py`: Removidos caminhos de `api_files/`.
+  - `.gitignore`: Atualizado para ignorar explicitamente `venv/`, `python_backend/venv/`, `*.zip`, `*.tar.gz`, e dumps `scratch_*.json`.
+- **Facilidade Operacional:**
+  - Criado o inicializador `iniciar_painel.bat` na raiz, permitindo iniciar o servidor Flask (`main_backend.py`) com auto-restart em caso de queda, espelhando o funcionamento de `iniciar_bot.bat`.
+  - Reescrevemos `python_backend/README.md` com arquitetura completa, mapeamento de arquivos e instruções de execução.
+
 ### Emojis & Cosméticos (Opcional / Futuro)
 2. [x] Cristais de Raridade (Ultimate, Lendária, Épica, Comum, Transcendente, Exaltada) — restaurados e migrados com sucesso para Application Emojis da aplicação Discord.
 3. [ ] Essências (Azul, Laranja, Mítica) caso deseje customizar além dos emojis de cor.

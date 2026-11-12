@@ -364,8 +364,6 @@ paths_to_update = [
     ('config/catalog_cache_en.json', PASSES_EN, LOOT_EN),
     ('python_backend/catalog_cache_pt.json', PASSES_PT, LOOT_PT),
     ('python_backend/catalog_cache_en.json', PASSES_EN, LOOT_EN),
-    ('python_backend/api_files/catalog_cache_pt.json', PASSES_PT, LOOT_PT),
-    ('python_backend/api_files/catalog_cache_en.json', PASSES_EN, LOOT_EN),
     (r'C:\Users\jeff\Documents\lol_giftapi-main\catalog_cache_pt.json', PASSES_PT, LOOT_PT),
     (r'C:\Users\jeff\Documents\lol_giftapi-main\catalog_cache_en.json', PASSES_EN, LOOT_EN),
     (r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\catalog_cache_pt.json', PASSES_PT, LOOT_PT),

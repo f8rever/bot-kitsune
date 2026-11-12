@@ -10,10 +10,16 @@ npm-debug.log*
 
 # Python Environments & Cache
 .venv/
+venv/
 python_backend/.venv/
+python_backend/venv/
 __pycache__/
 */__pycache__/
 *.pyc
+
+# Archives & Packages
+*.zip
+*.tar.gz
 
 # Temporary & Debug Files
 scratch/
