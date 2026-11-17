@@ -1,9 +1,9 @@
 /**
- * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v2.5)
+ * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v3.0)
  * 1. Zero Hub Repelling Dot-Matrix Canvas
  * 2. Zero Hub Smooth Scroll Glide Momentum Engine
- * 3. 3D Scroll Reveal with Staggered Delays
- * 4. Interactive Card Parallax with Lateral Art Drift (--art-x, --tilt-x, --light-x)
+ * 3. 3D Scroll Reveal with Staggered Rising Panels
+ * 4. Zero Hub 3D Container Tilt & Lateral Pull (--zero-tilt-x, --zero-tilt-y)
  * 5. High-performance Batch Catalog Renderer for 9,290 items
  * 6. Offcanvas Cart Drawer with Riot ID validation
  */
@@ -36,7 +36,6 @@
             return;
         }
 
-        // Zero Hub exponential ease curve
         window.scrollTo({ top: current + delta * (1 - Math.exp(-dt / 90)), behavior: 'instant' });
         frame = requestAnimationFrame(tick);
     }
@@ -47,7 +46,6 @@
             return;
         }
 
-        // Avoid overriding scroll inside cart drawer
         const inDrawer = e.target.closest('#cartDrawer');
         if (inDrawer) return;
 
@@ -223,7 +221,7 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL OBSERVER (SMOOTH 3D ASCENT)
+// 3. ZERO HUB SCROLL REVEAL OBSERVER (3D ASCENT)
 // ==========================================================================
 function initScrollReveal() {
     const observer = new IntersectionObserver((entries) => {
@@ -240,62 +238,47 @@ function initScrollReveal() {
 }
 
 // ==========================================================================
-// 4. ZERO HUB INTERACTIVE CARD PARALLAX & ARTWORK DRIFT
+// 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
 // ==========================================================================
-function setupCardParallax() {
-    const grid = document.getElementById('productsGrid');
-    if (!grid) return;
+function attachCardTiltMotion() {
+    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
+    if (!desktop.matches) return;
 
-    let hoverTarget = null;
-    let hoverFrame = 0;
-    let pointerX = 0, pointerY = 0;
+    document.querySelectorAll('.zero-motion-card:not([data-motion-bound])').forEach(card => {
+        card.setAttribute('data-motion-bound', 'true');
+        let frame = 0, x = 0, y = 0;
 
-    function resetTilt(card) {
-        if (!card) return;
-        card.classList.remove('is-pointer-active');
-        ['--tilt-x', '--tilt-y', '--art-x', '--art-y', '--light-x', '--light-y'].forEach(prop => card.style.removeProperty(prop));
-    }
+        card.addEventListener('pointermove', event => {
+            x = event.clientX;
+            y = event.clientY;
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                const rect = card.getBoundingClientRect();
+                if (!rect.width || !rect.height) return;
 
-    grid.addEventListener('pointermove', (e) => {
-        const next = e.target.closest('.product-card');
-        if (next !== hoverTarget) {
-            resetTilt(hoverTarget);
-            hoverTarget = next;
-        }
-        if (!hoverTarget) return;
+                const px = Math.max(-1, Math.min(1, (x - rect.left) / rect.width * 2 - 1));
+                const py = Math.max(-1, Math.min(1, (y - rect.top) / rect.height * 2 - 1));
 
-        hoverTarget.classList.add('is-pointer-active');
-        pointerX = e.clientX;
-        pointerY = e.clientY;
+                card.classList.add('zero-pointer');
+                // Exact Zero Hub container tilt values
+                card.style.setProperty('--zero-tilt-x', `${(-py * 7).toFixed(2)}deg`);
+                card.style.setProperty('--zero-tilt-y', `${(px * 8).toFixed(2)}deg`);
+                card.style.setProperty('--light-x', `${(x - rect.left).toFixed(1)}px`);
+                card.style.setProperty('--light-y', `${(y - rect.top).toFixed(1)}px`);
+            });
+        }, { passive: true });
 
-        if (hoverFrame) return;
-        hoverFrame = requestAnimationFrame(() => {
-            hoverFrame = 0;
-            if (!hoverTarget || !hoverTarget.isConnected) return;
-            const rect = hoverTarget.getBoundingClientRect();
-            const lightX = pointerX - rect.left;
-            const lightY = pointerY - rect.top;
-
-            hoverTarget.style.setProperty('--light-x', `${lightX}px`);
-            hoverTarget.style.setProperty('--light-y', `${lightY}px`);
-
-            const x = Math.max(-1, Math.min(1, (lightX / rect.width) * 2 - 1));
-            const y = Math.max(-1, Math.min(1, (lightY / rect.height) * 2 - 1));
-
-            // Opposite pull: Card tilts forward, image drifts laterally
-            hoverTarget.style.setProperty('--tilt-x', `${(-y * 6).toFixed(2)}deg`);
-            hoverTarget.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
-            hoverTarget.style.setProperty('--art-x', `${(-x * 8).toFixed(2)}px`);
-            hoverTarget.style.setProperty('--art-y', `${(-y * 6).toFixed(2)}px`);
-        });
-    }, { passive: true });
-
-    grid.addEventListener('pointerleave', () => {
-        resetTilt(hoverTarget);
-        hoverTarget = null;
-        if (hoverFrame) cancelAnimationFrame(hoverFrame);
-        hoverFrame = 0;
-    }, { passive: true });
+        card.addEventListener('pointerleave', () => {
+            if (frame) cancelAnimationFrame(frame);
+            frame = 0;
+            card.classList.remove('zero-pointer');
+            card.style.removeProperty('--zero-tilt-x');
+            card.style.removeProperty('--zero-tilt-y');
+            card.style.removeProperty('--light-x');
+            card.style.removeProperty('--light-y');
+        }, { passive: true });
+    });
 }
 
 // ==========================================================================
@@ -363,7 +346,7 @@ function normalizeStr(str) {
 async function initStorefront() {
     loadCartFromStorage();
     setupEventListeners();
-    setupCardParallax();
+    attachCardTiltMotion();
     initScrollReveal();
 
     const loader = document.getElementById('catalogLoadingIndicator');
@@ -489,8 +472,9 @@ function renderCatalog() {
     const itemsToRender = StoreState.filteredItems.slice(0, StoreState.currentPage * StoreState.pageSize);
     grid.innerHTML = itemsToRender.map(item => createProductCardHTML(item)).join('');
 
-    // Trigger smooth 3D scroll reveal on the newly rendered cards
+    // Trigger smooth 3D scroll reveal and container tilt
     initScrollReveal();
+    attachCardTiltMotion();
 
     if (loadMoreBtn) {
         if (itemsToRender.length < StoreState.filteredItems.length) {
@@ -521,7 +505,7 @@ function createProductCardHTML(item) {
     }));
 
     return `
-    <div class="product-card zero-motion-item">
+    <div class="product-card zero-motion-item zero-motion-card">
         <div class="card-glare"></div>
         <div class="card-media-wrap">
             <span class="card-badge-rarity ${rarityClass}">

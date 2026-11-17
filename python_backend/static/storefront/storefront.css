@@ -1,9 +1,9 @@
 /* ==========================================================================
-   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v2.5)
-   - Zero Hub Scroll Glide Momentum Engine
-   - 3D Scroll Reveal with Staggered Delays
-   - Interactive Card 3D Parallax & Ambient Artwork Drift
-   - Radiant Obsidian Black (#000), Hextech Gold, Arcane Cyan
+   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v3.0)
+   - Zero Hub 3D Container Tilt & Lateral Pull on Hover
+   - Zero Hub Smooth Scroll Momentum Glide
+   - 3D Scroll Reveal with Staggered Rising Panels
+   - Pure Obsidian Black (#000), Hextech Gold, Arcane Cyan
    ========================================================================== */
 
 @property --glow-angle {
@@ -16,7 +16,7 @@
     /* Pure Zero Hub Black Canvas */
     --bg: #000000;
     --bg-surface: rgba(18, 18, 22, 0.55);
-    --bg-surface-hover: rgba(26, 26, 32, 0.78);
+    --bg-surface-hover: rgba(26, 26, 32, 0.8);
     --bg-surface-elevated: rgba(14, 14, 18, 0.92);
 
     /* Ultra-crisp thin borders */
@@ -44,7 +44,7 @@
     --text-muted: #64748b;
     --text-dim: #475569;
 
-    /* Spring easing curve */
+    /* Spring easing curves */
     --motion-out: cubic-bezier(0.22, 1, 0.36, 1);
     --motion-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -116,23 +116,44 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE COM 3D PERSPECTIVE)
+   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE)
    ========================================================================== */
 .zero-motion-item {
     opacity: 0;
-    transform: perspective(850px) translate3d(0, 52px, 0) rotateX(7deg) scale(0.95);
+    transform: perspective(850px) translate3d(0, 48px, 0) rotateX(6deg) scale(0.96);
     transform-origin: center bottom;
-    transition: opacity 0.75s var(--motion-out) var(--zero-delay, 0ms),
-                transform 0.95s var(--motion-out) var(--zero-delay, 0ms),
-                translate 0.6s var(--motion-out),
-                scale 0.6s var(--motion-out);
+    transition: opacity 0.8s var(--motion-out) var(--zero-delay, 0ms),
+                transform 0.95s var(--motion-out) var(--zero-delay, 0ms);
     backface-visibility: hidden;
     will-change: opacity, transform;
 }
 
 .zero-motion-item.zero-in-view {
     opacity: 1;
-    transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
+    transform: perspective(850px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
+}
+
+/* ==========================================================================
+   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO DE LEVE)
+   ========================================================================== */
+.zero-motion-card {
+    transform-style: preserve-3d;
+    transform: perspective(850px) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg));
+    transition: transform 0.5s var(--motion-out), translate 0.5s var(--motion-out), scale 0.5s var(--motion-out), border-color 0.35s ease, box-shadow 0.4s ease;
+    will-change: transform, translate;
+}
+
+.zero-motion-card.zero-pointer {
+    transition: transform 0.14s ease-out, translate 0.5s var(--motion-out), scale 0.5s var(--motion-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .zero-motion-card:hover {
+        translate: 0 -8px;
+        scale: 1.014;
+        border-color: rgba(200, 170, 110, 0.4);
+        box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 30px rgba(200, 170, 110, 0.22);
+    }
 }
 
 /* ==========================================================================
@@ -152,19 +173,6 @@ body {
         opacity: 1;
         filter: blur(0);
         transform: translateY(0) scale(1);
-    }
-}
-
-/* Zero Hub Artwork Ambient Lateral Drift (Puxando a lateral de leve) */
-@keyframes zero-art-drift {
-    0% {
-        transform: scale(1.03) translate3d(0, 0, 0);
-    }
-    50% {
-        transform: scale(1.07) translate3d(-1.8%, -0.8%, 0);
-    }
-    100% {
-        transform: scale(1.04) translate3d(1.2%, 0.6%, 0);
     }
 }
 
@@ -507,7 +515,7 @@ body {
 }
 
 /* ==========================================================================
-   STEPS SECTION: "DO PEDIDO AO PRESENTE"
+   STEPS SECTION: "DO PEDIDO AO PRESENTE" (CONTAINERS COM 3D TILT LATERAL)
    ========================================================================== */
 .steps-section {
     padding: 56px 0 68px;
@@ -540,6 +548,7 @@ body {
     gap: 18px;
 }
 
+/* Zero Hub Step Card (Container com física 3D que puxa a lateral) */
 .step-card {
     position: relative;
     padding: 30px 24px;
@@ -547,9 +556,9 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     backdrop-filter: blur(16px);
-    transition: all 0.35s var(--motion-out);
     overflow: hidden;
     isolation: isolate;
+    cursor: default;
 }
 
 .step-card::before {
@@ -571,12 +580,6 @@ body {
     border-radius: var(--radius-md);
     background: #06070a;
     z-index: -1;
-}
-
-.step-card:hover {
-    transform: translateY(-4px);
-    border-color: transparent;
-    box-shadow: 0 14px 36px -10px rgba(0, 0, 0, 0.9), 0 0 24px rgba(200, 170, 110, 0.2);
 }
 
 .step-card:hover::before {
@@ -614,7 +617,7 @@ body {
 }
 
 /* ==========================================================================
-   CATALOG CONTROLS & FILTER TABS (ZERO HUB #GAMES STYLE)
+   CATALOG CONTROLS & FILTER TABS
    ========================================================================== */
 .catalog-section {
     padding: 40px 0 90px;
@@ -645,7 +648,7 @@ body {
     font-weight: 800;
 }
 
-/* Category Filter Tabs (Zero Hub Pill Tabs) */
+/* Category Filter Pills (Zero Hub Pill Tabs) */
 .filter-tabs-bar {
     display: flex;
     align-items: center;
@@ -742,7 +745,7 @@ body {
 }
 
 /* ==========================================================================
-   PRODUCT GRID & CARDS (ZERO HUB PARALLAX + ART DRIFT + BORDER GLOW)
+   PRODUCT GRID & CARDS (ZERO HUB CONTAINER 3D TILT & LIGHT TRACKING)
    ========================================================================== */
 .products-grid {
     display: grid;
@@ -759,14 +762,8 @@ body {
     backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
-    transform: perspective(850px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-    transition: transform 0.55s var(--motion-out), box-shadow 0.4s ease, border-color 0.3s ease;
     isolation: isolate;
     cursor: pointer;
-}
-
-.product-card.is-pointer-active {
-    transition: transform 0.15s ease-out, box-shadow 0.4s ease, border-color 0.3s ease;
 }
 
 .product-card::before {
@@ -790,11 +787,6 @@ body {
     z-index: -1;
 }
 
-.product-card:hover {
-    border-color: transparent;
-    box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.9), 0 0 28px rgba(200, 170, 110, 0.22);
-}
-
 .product-card:hover::before {
     opacity: 1;
 }
@@ -804,17 +796,17 @@ body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle 240px at var(--light-x, 50%) var(--light-y, 50%), rgba(200, 170, 110, 0.15), transparent 80%);
+    background: radial-gradient(circle 240px at var(--light-x, 50%) var(--light-y, 50%), rgba(200, 170, 110, 0.16), transparent 75%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 2;
 }
 
-.product-card.is-pointer-active .card-glare {
+.product-card.zero-pointer .card-glare {
     opacity: 1;
 }
 
-/* Thumbnail Art with Zero Hub Drift (Puxando a lateral pro lado) */
+/* Thumbnail Art */
 .card-media-wrap {
     position: relative;
     width: 100%;
@@ -828,13 +820,11 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    animation: zero-art-drift 10s ease-in-out infinite alternate;
-    translate: var(--art-x, 0px) var(--art-y, 0px);
-    transition: translate 0.55s var(--motion-out), scale 0.7s var(--motion-out);
+    transition: transform 0.6s var(--motion-smooth);
 }
 
 .product-card:hover .card-media-img {
-    scale: 1.05;
+    transform: scale(1.05);
 }
 
 /* Badges */
