@@ -1746,6 +1746,11 @@ async def update_catalog():
 
 catalog_mtimes = {'pt': 0.0, 'en': 0.0}
 
+@app.route('/loja')
+@app.route('/storefront')
+def public_storefront():
+    return render_template('storefront.html')
+
 @app.route('/get-catalog')
 def get_catalog():
     global catalog_cache_en, catalog_cache_pt, catalog_mtimes

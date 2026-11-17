@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Kitsune Gifting — Loja de Skins & Passes via Presente</title>
+    <meta name="description" content="Compre skins, passes, orbes e pacotes de League of Legends com até 50% de desconto. Entrega 100% segura e oficial via presente no seu Riot ID.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Storefront CSS -->
+    <link rel="stylesheet" href="/static/storefront/storefront.css?v=1.0">
+    <link rel="icon" href="/static/images/rp_gold_emblem.svg" type="image/svg+xml">
+</head>
+<body>
+
+    <!-- Interactive Dot Matrix Canvas (Zero Hub Physics) -->
+    <canvas id="dotCanvas"></canvas>
+    <div class="ambient-glow-top"></div>
+
+    <div class="site-wrapper">
+
+        <!-- Top Navigation -->
+        <header class="navbar">
+            <div class="container">
+                <div class="nav-inner">
+                    <!-- Brand -->
+                    <a href="/loja" class="brand-wrap">
+                        <div class="brand-emblem">
+                            <i class="fa-solid fa-gem" style="color: var(--gold-bright); font-size: 1.1rem;"></i>
+                        </div>
+                        <div>
+                            <span class="brand-title">Kitsune</span>
+                            <span class="brand-badge">Gifting</span>
+                        </div>
+                    </a>
+
+                    <!-- Live Search -->
+                    <div class="nav-search-wrap">
+                        <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+                        <input type="text" id="navSearchInput" class="nav-search-input" placeholder="Buscar skin, passe, campeão ou pacote...">
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="nav-actions">
+                        <a href="https://discord.gg/" target="_blank" class="btn-nav-discord">
+                            <i class="fa-brands fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+
+                        <button id="btnCartTrigger" class="btn-cart-trigger" aria-label="Abrir Carrinho">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Presentes</span>
+                            <span class="cart-counter-badge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="container">
+                    <div class="hero-pill">
+                        <span class="hero-pill-dot"></span>
+                        <span>+9.290 Itens Oficiais da Riot • Entrega Automática</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Skins & Passes com entrega <br>
+                        <span class="hero-title-highlight">direto no seu Riot ID</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Economize até 50% em skins lendárias, passes de evento, orbes e pacotes.
+                        O presente é enviado de forma 100% oficial e segura através do próprio cliente do League of Legends.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#catalogo" class="btn-primary-hex">
+                            <i class="fa-solid fa-store"></i> Explorar Catálogo
+                        </a>
+                        <a href="#como-funciona" class="btn-secondary-glass">
+                            <i class="fa-solid fa-circle-question"></i> Como Funciona
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Steps Section: "Do Pedido ao Presente" -->
+            <section id="como-funciona" class="steps-section">
+                <div class="container">
+                    <div class="section-head">
+                        <div class="section-subtitle">Processo Transparente</div>
+                        <h2 class="section-title">Do Pedido ao Presente na sua Conta</h2>
+                    </div>
+
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-badge">01</div>
+                            <h3 class="step-title">Escolha o Item</h3>
+                            <p class="step-desc">Selecione qualquer skin, passe de evento, baú ou pacote do nosso catálogo oficial com super descontos.</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-badge">02</div>
+                            <h3 class="step-title">Informe seu Riot ID</h3>
+                            <p class="step-desc">Digite o seu Nick e TAG do LoL (Ex: <code>Faker#BR1</code>). Não pedimos senha nem nenhum dado sigiloso.</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-badge">03</div>
+                            <h3 class="step-title">Aceite a Amizade</h3>
+                            <p class="step-desc">Uma das nossas contas automatizadas envia solicitação de amizade no LoL. Basta abrir seu cliente e aceitar.</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-badge">04</div>
+                            <h3 class="step-title">Receba o Presente</h3>
+                            <p class="step-desc">A entrega é disparada de forma 100% oficial pela Riot Store. O item entra permanentemente no seu inventário!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Catalog Section -->
+            <section id="catalogo" class="catalog-section">
+                <div class="container">
+                    <div class="catalog-header-bar">
+                        <!-- Top Bar with Stats & Mobile Search -->
+                        <div class="catalog-bar-top">
+                            <div class="catalog-stats">
+                                Mostrando <span id="catalogTotalCount">...</span> itens disponíveis para envio
+                            </div>
+
+                            <div style="flex: 1; max-width: 380px; position: relative;">
+                                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gold-primary);"></i>
+                                <input type="text" id="catalogSearchInput" class="nav-search-input" placeholder="Filtrar nesta página..." style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Category Filter Pills -->
+                        <div class="filter-tabs-wrapper">
+                            <button class="filter-tab active" data-cat="Skins">
+                                <i class="fa-solid fa-mask"></i> Skins <span class="tab-count">1.453</span>
+                            </button>
+                            <button class="filter-tab" data-cat="Passes">
+                                <i class="fa-solid fa-ticket"></i> Passes de Evento <span class="tab-count">3</span>
+                            </button>
+                            <button class="filter-tab" data-cat="Loot">
+                                <i class="fa-solid fa-box-open"></i> Orbes & Baús <span class="tab-count">10</span>
+                            </button>
+                            <button class="filter-tab" data-cat="Bundles">
+                                <i class="fa-solid fa-layer-group"></i> Pacotes <span class="tab-count">256</span>
+                            </button>
+                            <button class="filter-tab" data-cat="Chromas">
+                                <i class="fa-solid fa-palette"></i> Cromas <span class="tab-count">5.819</span>
+                            </button>
+                            <button class="filter-tab" data-cat="all">
+                                <i class="fa-solid fa-border-all"></i> Ver Todos <span class="tab-count">9.290</span>
+                            </button>
+                        </div>
+
+                        <!-- Sub-bar with Rarity & Sorting -->
+                        <div class="catalog-bar-sub">
+                            <div class="rarity-chips">
+                                <span class="rarity-chip active" data-rarity="all">Todas Raridades</span>
+                                <span class="rarity-chip" data-rarity="ultimate">Ultimate</span>
+                                <span class="rarity-chip" data-rarity="mythic">Mítica</span>
+                                <span class="rarity-chip" data-rarity="legendary">Lendária</span>
+                                <span class="rarity-chip" data-rarity="epic">Épica</span>
+                                <span class="rarity-chip" data-rarity="common">Padrão</span>
+                            </div>
+
+                            <select id="catalogSortSelect" class="sort-select" aria-label="Ordenar itens">
+                                <option value="featured">Destaques da Loja</option>
+                                <option value="price-asc">Menor Preço (RP)</option>
+                                <option value="price-desc">Maior Preço (RP)</option>
+                                <option value="name-asc">Nome (A - Z)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div id="catalogLoadingIndicator" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 16px;">
+                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--gold-primary);"></i>
+                        <p style="color: var(--text-muted); font-weight: 600;">Carregando os 9.290 itens oficiais do catálogo...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="catalogEmptyState" style="display: none; text-align: center; padding: 80px 20px;">
+                        <i class="fa-solid fa-ghost" style="font-size: 3rem; color: var(--gold-dark); margin-bottom: 16px;"></i>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Nenhum item encontrado</h3>
+                        <p style="color: var(--text-muted);">Tente buscar por outro nome ou selecione outra categoria acima.</p>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div id="productsGrid" class="products-grid"></div>
+
+                    <!-- Load More Button -->
+                    <div style="text-align: center; margin-top: 48px;">
+                        <button id="btnLoadMore" class="btn-secondary-glass" style="display: none; padding: 14px 32px; font-size: 0.95rem;">
+                            <i class="fa-solid fa-angles-down"></i> Carregar Mais Itens <span class="remaining-count"></span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Slide-in Checkout Drawer (Offcanvas Cart) -->
+        <div id="cartOverlay" class="cart-overlay"></div>
+        <aside id="cartDrawer" class="cart-drawer">
+            <div class="cart-drawer-header">
+                <div class="cart-drawer-title">
+                    <i class="fa-solid fa-gift" style="color: var(--gold-primary);"></i>
+                    <span>Carrinho de Presentes</span>
+                </div>
+                <button id="btnCloseDrawer" class="btn-close-drawer" aria-label="Fechar Carrinho">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Items List -->
+            <div id="cartItemsList" class="cart-items-list"></div>
+
+            <!-- Empty Cart Placeholder -->
+            <div id="cartEmptyState" class="cart-empty-state">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h4 style="font-size: 1.1rem; color: var(--text-white); margin-bottom: 6px;">Seu carrinho está vazio</h4>
+                <p style="font-size: 0.85rem;">Escolha qualquer skin, passe ou item no catálogo e clique em "Presentear".</p>
+            </div>
+
+            <!-- Checkout Footer -->
+            <div class="cart-drawer-footer">
+                <div class="cart-riotid-input-wrap">
+                    <label for="cartRiotIdInput">Seu Riot ID (Nick#TAG):</label>
+                    <input type="text" id="cartRiotIdInput" class="cart-riotid-input" placeholder="Ex: Faker#BR1" autocomplete="off">
+                </div>
+
+                <div class="cart-total-row">
+                    <span class="cart-total-label">Valor Total:</span>
+                    <span id="cartTotalValue" class="cart-total-value">R$ 0,00</span>
+                </div>
+
+                <button id="btnCheckoutPix" class="btn-checkout-pix" disabled>
+                    <i class="fa-brands fa-pix"></i> Finalizar Pedido com Pix
+                </button>
+
+                <p style="font-size: 0.72rem; color: var(--text-dim); text-align: center; line-height: 1.4;">
+                    🔒 Entrega 100% segura e oficial. Uma das nossas contas enviará pedido de amizade no LoL para entregar seu presente.
+                </p>
+            </div>
+        </aside>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="footer-copy">© 2026 Kitsune Gifting Bot. Todos os direitos reservados.</p>
+                <p class="footer-disclaimer">
+                    League of Legends e Riot Games são marcas registradas da Riot Games, Inc. Este serviço independente realiza o envio de presentes através do sistema oficial de presentes do jogo.
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Storefront Logic -->
+    <script src="/static/storefront/storefront.js?v=1.0"></script>
+</body>
+</html>
