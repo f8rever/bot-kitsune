@@ -116,27 +116,24 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE E BLUR)
+   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE)
    ========================================================================== */
 .reveal,
 .zero-motion-item {
     opacity: 0;
-    filter: blur(8px);
-    transform: perspective(850px) translate3d(0, 56px, 0) rotateX(7deg) scale(0.95);
+    transform: perspective(850px) translate3d(0, 48px, 0) rotateX(6deg) scale(0.96);
     transform-origin: center bottom;
-    transition: opacity 0.8s var(--motion-out) var(--zero-delay, 0ms),
-                transform 1s var(--motion-out) var(--zero-delay, 0ms),
-                filter 0.8s var(--motion-out) var(--zero-delay, 0ms),
+    transition: opacity 0.7s var(--motion-out) var(--zero-delay, 0ms),
+                transform 0.85s var(--motion-out) var(--zero-delay, 0ms),
                 translate 0.5s var(--motion-out),
                 scale 0.5s var(--motion-out);
     backface-visibility: hidden;
-    will-change: opacity, transform, filter;
+    will-change: opacity, transform;
 }
 
 .reveal.visible,
 .zero-motion-item.zero-in-view {
     opacity: 1;
-    filter: blur(0);
     transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
 }
 
@@ -145,33 +142,35 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
+   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO SUAVE)
    ========================================================================== */
 .zero-motion-card {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     cursor: pointer;
     transition: opacity 0.75s var(--motion-out),
-                transform 0.55s var(--motion-out),
-                translate 0.5s var(--motion-out),
-                scale 0.5s var(--motion-out),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                translate 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                scale 0.55s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.45s ease,
                 border-color 0.35s ease;
-    will-change: transform, translate, scale;
 }
 
 .zero-motion-card.zero-pointer {
-    transition: transform 0.12s ease-out,
-                translate 0.5s var(--motion-out),
-                scale 0.5s var(--motion-out),
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                translate 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                scale 0.45s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.45s ease,
                 border-color 0.35s ease !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
+    .zero-motion-card:hover {
+        will-change: transform;
+    }
     .zero-motion-card.zero-in-view:hover {
-        translate: 0 -10px;
-        scale: 1.015;
+        translate: 0 -8px;
+        scale: 1.012;
         border-color: rgba(200, 170, 110, 0.45) !important;
         box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
     }
@@ -807,7 +806,7 @@ body {
     object-fit: cover;
     object-position: center top;
     translate: var(--art-x, 0px) var(--art-y, 0px);
-    transition: transform 0.6s var(--motion-smooth), translate 0.16s ease-out;
+    transition: transform 0.6s var(--motion-smooth), translate 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card:hover .card-media-img {

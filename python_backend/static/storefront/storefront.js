@@ -228,7 +228,7 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL OBSERVER (3D ASCENT & BLUR)
+// 3. ZERO HUB SCROLL REVEAL OBSERVER (SUBIDA SUAVE EM FILEIRA)
 // ==========================================================================
 let _globalScrollObserver = null;
 
@@ -241,17 +241,42 @@ function initScrollReveal() {
 
     if (!_globalScrollObserver) {
         _globalScrollObserver = new IntersectionObserver((entries) => {
-            let stagger = 0;
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 85, 340)}ms`);
-                    entry.target.classList.add('visible', 'zero-in-view');
-                } else if (!entry.target.contains(document.activeElement)) {
-                    entry.target.classList.remove('visible', 'zero-in-view');
-                    entry.target.style.setProperty('--zero-delay', '0ms');
+            const visible = entries.filter(e => e.isIntersecting && !e.target.classList.contains('zero-in-view'));
+            if (!visible.length) return;
+
+            // Ordena os itens: de cima para baixo, e da esquerda para a direita (em fileira)
+            visible.sort((a, b) => {
+                const rA = a.target.getBoundingClientRect();
+                const rB = b.target.getBoundingClientRect();
+                if (Math.abs(rA.top - rB.top) > 50) {
+                    return rA.top - rB.top;
                 }
+                return rA.left - rB.left;
             });
-        }, { threshold: 0.04, rootMargin: '0px 0px -25px 0px' });
+
+            // Agrupa em fileiras com delay progressivo suave
+            let currentRowTop = -9999;
+            let colIndex = 0;
+            let rowIndex = 0;
+
+            visible.forEach(entry => {
+                const el = entry.target;
+                const rect = el.getBoundingClientRect();
+
+                if (Math.abs(rect.top - currentRowTop) > 50) {
+                    currentRowTop = rect.top;
+                    colIndex = 0;
+                    rowIndex++;
+                } else {
+                    colIndex++;
+                }
+
+                // Fileira: da esquerda para a direita (0ms, 80ms, 160ms, 240ms...)
+                const delay = Math.min((colIndex * 80) + (rowIndex > 1 ? 40 : 0), 450);
+                el.style.setProperty('--zero-delay', `${delay}ms`);
+                el.classList.add('visible', 'zero-in-view');
+            });
+        }, { threshold: 0.01, rootMargin: '0px 0px 140px 0px' });
     }
 
     items.forEach(el => {
@@ -261,11 +286,11 @@ function initScrollReveal() {
         }
     });
 
-    // Check items already in viewport on load
+    // Revela itens que já estão no viewport ao carregar a página
     requestAnimationFrame(() => {
         items.forEach(el => {
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 20 && rect.bottom > 20) {
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
                 el.classList.add('visible', 'zero-in-view');
             }
         });
@@ -273,15 +298,20 @@ function initScrollReveal() {
 }
 
 // ==========================================================================
-// 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
+// 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (TODOS OS CONTAINERS)
 // ==========================================================================
 function attachCardTiltMotion() {
     const fine = matchMedia('(hover: hover) and (pointer: fine)');
     if (!fine.matches) return;
 
-    document.querySelectorAll('.zero-motion-card').forEach(card => {
+    // Aplica o efeito 3D em TODOS os containers (passos, skins, painel de busca/filtros, etc.)
+    const selector = '.zero-motion-card, .step-card, .product-card, .catalog-nav-panel, .hero-pill';
+    const containers = document.querySelectorAll(selector);
+
+    containers.forEach(card => {
         if (card.dataset.tiltBound === 'true') return;
         card.dataset.tiltBound = 'true';
+        card.classList.add('zero-motion-card');
 
         let frame = 0;
         let clientX = 0, clientY = 0;
@@ -296,24 +326,20 @@ function attachCardTiltMotion() {
                 const rect = card.getBoundingClientRect();
                 if (!rect.width || !rect.height) return;
 
-                // Relative coordinates: -1 (left / top) to +1 (right / bottom)
+                // Coordenadas relativas entre -1 (esquerda/topo) e +1 (direita/base)
                 const px = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
                 const py = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
 
                 card.classList.add('zero-pointer');
 
-                // Zero Hub 3D tilt formula:
-                // px > 0 (cursor right) => tiltY positive, pulling right edge towards camera!
-                // px < 0 (cursor left)  => tiltY negative, pulling left edge towards camera!
-                // py > 0 (cursor bottom)=> tiltX negative, pulling bottom edge towards camera!
-                // py < 0 (cursor top)   => tiltX positive, pulling top edge towards camera!
-                const tiltX = -py * 8.5;
-                const tiltY = px * 10.5;
+                // Física 3D suave com amortecimento físico
+                const tiltX = -py * 7.5;
+                const tiltY = px * 9.0;
 
                 card.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
                 card.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
-                card.style.setProperty('--art-x', `${(-px * 8).toFixed(1)}px`);
-                card.style.setProperty('--art-y', `${(-py * 6).toFixed(1)}px`);
+                card.style.setProperty('--art-x', `${(-px * 6).toFixed(1)}px`);
+                card.style.setProperty('--art-y', `${(-py * 4).toFixed(1)}px`);
                 card.style.setProperty('--light-x', `${(clientX - rect.left).toFixed(1)}px`);
                 card.style.setProperty('--light-y', `${(clientY - rect.top).toFixed(1)}px`);
             });
