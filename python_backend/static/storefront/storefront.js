@@ -1,5 +1,5 @@
 /**
- * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v3.5)
+ * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v4.0)
  * 1. Zero Hub Repelling Dot-Matrix Canvas
  * 2. Zero Hub Smooth Scroll Glide Momentum Engine
  * 3. 3D Scroll Reveal with Staggered Rising Panels
@@ -12,45 +12,64 @@
 // 1. ZERO HUB SMOOTH WHEEL GLIDE ENGINE (MOMENTUM SCROLLING)
 // ==========================================================================
 (function initZeroHubSmoothScroll() {
-    let currentY = window.scrollY;
-    let targetY = window.scrollY;
-    let isRunning = false;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
+    let frame = 0, target = 0, lastTime = 0;
 
-    function step() {
-        currentY += (targetY - currentY) * 0.12;
-        if (Math.abs(targetY - currentY) < 0.5) {
-            currentY = targetY;
-            window.scrollTo(0, currentY);
-            isRunning = false;
-            return;
-        }
-        window.scrollTo(0, currentY);
-        requestAnimationFrame(step);
+    const maximum = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const clamp = value => Math.max(0, Math.min(maximum(), value));
+
+    function stop() {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        lastTime = 0;
     }
 
-    window.addEventListener('wheel', (e) => {
-        // Do not intercept scroll inside drawers or interactive elements
-        if (e.target.closest('#cartDrawer') || e.target.closest('.cart-items-list')) return;
+    function tick(time) {
+        const dt = lastTime ? Math.min(time - lastTime, 40) : 16.67;
+        lastTime = time;
+        target = clamp(target);
+        const current = window.scrollY;
+        const delta = target - current;
 
-        e.preventDefault();
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        targetY = Math.max(0, Math.min(max, targetY + e.deltaY * 1.15));
-
-        if (!isRunning) {
-            isRunning = true;
-            currentY = window.scrollY;
-            requestAnimationFrame(step);
+        if (Math.abs(delta) < 0.75) {
+            window.scrollTo({ top: target, behavior: 'instant' });
+            stop();
+            return;
         }
+
+        window.scrollTo({ top: current + delta * (1 - Math.exp(-dt / 90)), behavior: 'instant' });
+        frame = requestAnimationFrame(tick);
+    }
+
+    function nestedScroll(node, delta) {
+        for (let el = node instanceof Element ? node : node?.parentElement; el && el !== document.body; el = el.parentElement) {
+            const style = getComputedStyle(el);
+            if (/auto|scroll/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 1) {
+                if (style.overscrollBehaviorY === 'contain' || style.overscrollBehaviorY === 'none' || (delta < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1)) return true;
+            }
+            if (el.getAttribute('role') === 'dialog' || el.tagName === 'DIALOG' || el.id === 'cartDrawer' || (el.closest && el.closest('#cartDrawer'))) return true;
+        }
+        return false;
+    }
+
+    window.addEventListener('wheel', event => {
+        if (event.defaultPrevented || !event.cancelable || reduced.matches || !desktop.matches || event.ctrlKey || event.metaKey || event.shiftKey || event.deltaX || getComputedStyle(document.body).overflowY === 'hidden' || nestedScroll(event.target, event.deltaY)) {
+            stop();
+            return;
+        }
+
+        const delta = event.deltaY * (event.deltaMode === 1 ? 28 : event.deltaMode === 2 ? window.innerHeight : 1);
+        const next = clamp((frame ? target : window.scrollY) + Math.max(-480, Math.min(480, delta)));
+
+        if (next === window.scrollY && !frame) return;
+
+        event.preventDefault();
+        target = next;
+        if (!frame) frame = requestAnimationFrame(tick);
     }, { passive: false });
 
-    // Sync scroll position on anchor navigation or key scroll
-    ['keydown', 'touchmove', 'pointerdown'].forEach(evt => {
-        window.addEventListener(evt, () => {
-            targetY = window.scrollY;
-            currentY = window.scrollY;
-            isRunning = false;
-        }, { passive: true });
-    });
+    ['pointerdown', 'touchstart', 'keydown', 'blur'].forEach(name => window.addEventListener(name, stop, { passive: true }));
 })();
 
 // ==========================================================================
@@ -209,36 +228,45 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL OBSERVER (3D ASCENT)
+// 3. ZERO HUB SCROLL REVEAL OBSERVER (3D ASCENT & BLUR)
 // ==========================================================================
+let _globalScrollObserver = null;
+
 function initScrollReveal() {
-    const items = document.querySelectorAll('.zero-motion-item');
+    const items = document.querySelectorAll('.reveal, .zero-motion-item');
     if (!('IntersectionObserver' in window)) {
-        items.forEach(el => el.classList.add('zero-in-view'));
+        items.forEach(el => el.classList.add('visible', 'zero-in-view'));
         return;
     }
 
-    const observer = new IntersectionObserver((entries) => {
-        let stagger = 0;
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 85, 340)}ms`);
-                entry.target.classList.add('zero-in-view');
-            } else if (!entry.target.contains(document.activeElement)) {
-                entry.target.classList.remove('zero-in-view');
-                entry.target.style.setProperty('--zero-delay', '0ms');
-            }
-        });
-    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    if (!_globalScrollObserver) {
+        _globalScrollObserver = new IntersectionObserver((entries) => {
+            let stagger = 0;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 85, 340)}ms`);
+                    entry.target.classList.add('visible', 'zero-in-view');
+                } else if (!entry.target.contains(document.activeElement)) {
+                    entry.target.classList.remove('visible', 'zero-in-view');
+                    entry.target.style.setProperty('--zero-delay', '0ms');
+                }
+            });
+        }, { threshold: 0.04, rootMargin: '0px 0px -25px 0px' });
+    }
 
-    items.forEach(el => observer.observe(el));
+    items.forEach(el => {
+        if (!el.dataset.revealBound) {
+            el.dataset.revealBound = 'true';
+            _globalScrollObserver.observe(el);
+        }
+    });
 
-    // Force check items already in viewport on load
+    // Check items already in viewport on load
     requestAnimationFrame(() => {
         items.forEach(el => {
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.classList.add('zero-in-view');
+            if (rect.top < window.innerHeight - 20 && rect.bottom > 20) {
+                el.classList.add('visible', 'zero-in-view');
             }
         });
     });
@@ -248,6 +276,9 @@ function initScrollReveal() {
 // 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
 // ==========================================================================
 function attachCardTiltMotion() {
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    if (!fine.matches) return;
+
     document.querySelectorAll('.zero-motion-card').forEach(card => {
         if (card.dataset.tiltBound === 'true') return;
         card.dataset.tiltBound = 'true';
@@ -265,19 +296,24 @@ function attachCardTiltMotion() {
                 const rect = card.getBoundingClientRect();
                 if (!rect.width || !rect.height) return;
 
+                // Relative coordinates: -1 (left / top) to +1 (right / bottom)
                 const px = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
                 const py = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
 
                 card.classList.add('zero-pointer');
 
-                // Tilts the container in 3D:
-                // Cursor to right => px > 0 => tilt-y positive, pulling right edge towards camera!
-                // Cursor to left  => px < 0 => tilt-y negative, pulling left edge towards camera!
-                const tiltX = -py * 8;
-                const tiltY = px * 10;
+                // Zero Hub 3D tilt formula:
+                // px > 0 (cursor right) => tiltY positive, pulling right edge towards camera!
+                // px < 0 (cursor left)  => tiltY negative, pulling left edge towards camera!
+                // py > 0 (cursor bottom)=> tiltX negative, pulling bottom edge towards camera!
+                // py < 0 (cursor top)   => tiltX positive, pulling top edge towards camera!
+                const tiltX = -py * 8.5;
+                const tiltY = px * 10.5;
 
                 card.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
                 card.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
+                card.style.setProperty('--art-x', `${(-px * 8).toFixed(1)}px`);
+                card.style.setProperty('--art-y', `${(-py * 6).toFixed(1)}px`);
                 card.style.setProperty('--light-x', `${(clientX - rect.left).toFixed(1)}px`);
                 card.style.setProperty('--light-y', `${(clientY - rect.top).toFixed(1)}px`);
             });
@@ -289,6 +325,8 @@ function attachCardTiltMotion() {
             card.classList.remove('zero-pointer');
             card.style.removeProperty('--zero-tilt-x');
             card.style.removeProperty('--zero-tilt-y');
+            card.style.removeProperty('--art-x');
+            card.style.removeProperty('--art-y');
             card.style.removeProperty('--light-x');
             card.style.removeProperty('--light-y');
         }, { passive: true });

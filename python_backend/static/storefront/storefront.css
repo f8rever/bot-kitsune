@@ -1,8 +1,8 @@
 /* ==========================================================================
-   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v3.5)
+   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v4.0)
    - Zero Hub 3D Container Tilt & Lateral Pull on Hover
    - Zero Hub Buttery-Smooth Scroll Momentum Glide
-   - 3D Scroll Reveal with Staggered Rising Panels
+   - 3D Scroll Reveal with Staggered Rising Panels & Blur Reveal
    - Pure Obsidian Black (#000), Hextech Gold, Arcane Cyan
    ========================================================================== */
 
@@ -116,21 +116,32 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE)
+   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE E BLUR)
    ========================================================================== */
+.reveal,
 .zero-motion-item {
     opacity: 0;
-    transform: perspective(850px) translate3d(0, 60px, 0) rotateX(8deg) scale(0.94);
+    filter: blur(8px);
+    transform: perspective(850px) translate3d(0, 56px, 0) rotateX(7deg) scale(0.95);
     transform-origin: center bottom;
-    transition: opacity 0.75s var(--motion-out) var(--zero-delay, 0ms),
-                transform 0.95s var(--motion-out) var(--zero-delay, 0ms);
+    transition: opacity 0.8s var(--motion-out) var(--zero-delay, 0ms),
+                transform 1s var(--motion-out) var(--zero-delay, 0ms),
+                filter 0.8s var(--motion-out) var(--zero-delay, 0ms),
+                translate 0.5s var(--motion-out),
+                scale 0.5s var(--motion-out);
     backface-visibility: hidden;
-    will-change: opacity, transform;
+    will-change: opacity, transform, filter;
 }
 
+.reveal.visible,
 .zero-motion-item.zero-in-view {
     opacity: 1;
+    filter: blur(0);
     transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
+}
+
+.zero-motion-item:focus-within {
+    opacity: 1;
 }
 
 /* ==========================================================================
@@ -138,25 +149,29 @@ body {
    ========================================================================== */
 .zero-motion-card {
     transform-style: preserve-3d;
+    backface-visibility: hidden;
+    cursor: pointer;
     transition: opacity 0.75s var(--motion-out),
-                transform 0.45s var(--motion-out),
-                translate 0.45s var(--motion-out),
+                transform 0.55s var(--motion-out),
+                translate 0.5s var(--motion-out),
+                scale 0.5s var(--motion-out),
                 box-shadow 0.45s ease,
                 border-color 0.35s ease;
-    will-change: transform, translate;
+    will-change: transform, translate, scale;
 }
 
 .zero-motion-card.zero-pointer {
-    transition: opacity 0.75s var(--motion-out),
-                transform 0.12s ease-out,
-                translate 0.45s var(--motion-out),
+    transition: transform 0.12s ease-out,
+                translate 0.5s var(--motion-out),
+                scale 0.5s var(--motion-out),
                 box-shadow 0.45s ease,
-                border-color 0.35s ease;
+                border-color 0.35s ease !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .zero-motion-card:hover {
-        translate: 0 -8px;
+    .zero-motion-card.zero-in-view:hover {
+        translate: 0 -10px;
+        scale: 1.015;
         border-color: rgba(200, 170, 110, 0.45) !important;
         box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
     }
@@ -552,44 +567,26 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
 }
 
 /* Zero Hub Step Card (Container com física 3D que puxa a lateral) */
 .step-card {
     position: relative;
     padding: 30px 24px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
+    background: rgba(18, 18, 22, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
-    backdrop-filter: blur(16px);
-    overflow: hidden;
-    isolation: isolate;
-    cursor: default;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: border-color 0.35s ease, box-shadow 0.45s ease;
 }
 
-.step-card::before {
-    content: "";
-    position: absolute;
-    inset: -1.5px;
-    border-radius: calc(var(--radius-md) + 1.5px);
-    background: conic-gradient(from var(--glow-angle), rgba(200, 170, 110, 0.05), rgba(200, 170, 110, 0.35), rgba(10, 200, 185, 0.4), rgba(200, 170, 110, 0.05));
-    animation: borderSpin 4s linear infinite;
-    z-index: -2;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.step-card::after {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border-radius: var(--radius-md);
-    background: #06070a;
-    z-index: -1;
-}
-
-.step-card:hover::before {
-    opacity: 1;
+.step-card:hover {
+    border-color: rgba(200, 170, 110, 0.45) !important;
+    box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
 }
 
 .step-number {
@@ -757,44 +754,26 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
 }
 
 .product-card {
     position: relative;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
+    background: rgba(18, 18, 22, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
-    overflow: hidden;
-    backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
-    isolation: isolate;
     cursor: pointer;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: border-color 0.35s ease, box-shadow 0.45s ease;
 }
 
-.product-card::before {
-    content: "";
-    position: absolute;
-    inset: -1.5px;
-    border-radius: calc(var(--radius-md) + 1.5px);
-    background: conic-gradient(from var(--glow-angle), rgba(200, 170, 110, 0.08), rgba(200, 170, 110, 0.45), rgba(10, 200, 185, 0.5), rgba(200, 170, 110, 0.08));
-    animation: borderSpin 4s linear infinite;
-    z-index: -2;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.product-card::after {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border-radius: var(--radius-md);
-    background: #080a0e;
-    z-index: -1;
-}
-
-.product-card:hover::before {
-    opacity: 1;
+.product-card:hover {
+    border-color: rgba(200, 170, 110, 0.45) !important;
+    box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
 }
 
 /* Dynamic Radial Light following cursor inside card */
@@ -818,6 +797,7 @@ body {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    border-radius: calc(var(--radius-md) - 1px) calc(var(--radius-md) - 1px) 0 0;
     background: #020305;
 }
 
@@ -826,7 +806,8 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.6s var(--motion-smooth);
+    translate: var(--art-x, 0px) var(--art-y, 0px);
+    transition: transform 0.6s var(--motion-smooth), translate 0.16s ease-out;
 }
 
 .product-card:hover .card-media-img {
