@@ -61,8 +61,11 @@
 }
 
 html {
-    scroll-behavior: smooth;
     background-color: var(--bg);
+}
+
+html:has(:target) {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -120,17 +123,16 @@ body {
    ========================================================================== */
 .zero-motion-item {
     opacity: 0;
-    transform: perspective(850px) translate3d(0, 46px, 0) rotateX(6deg) scale(0.96);
-    transform-origin: center bottom;
-    transition: opacity 0.65s var(--motion-out) var(--zero-delay, 0ms),
-                transform 0.8s var(--motion-out) var(--zero-delay, 0ms);
+    transform: translate3d(0, 38px, 0) scale(0.96);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms),
+                transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms);
     backface-visibility: hidden;
     will-change: opacity, transform;
 }
 
 .zero-motion-item.zero-in-view {
     opacity: 1;
-    transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 .zero-motion-item:focus-within {
@@ -138,25 +140,35 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO SUAVE)
+   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (SUPERFÍCIE 3D ESTÁVEL)
    ========================================================================== */
 .zero-motion-card {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
+    position: relative;
     cursor: pointer;
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.4s ease,
-                border-color 0.3s ease;
+    transform-style: flat;
 }
 
-.zero-motion-card.zero-pointer {
-    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s ease,
-                border-color 0.3s ease !important;
+.card-surface {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: perspective(900px) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg));
+    transform-origin: center center;
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.35s ease,
+                box-shadow 0.45s ease;
+}
+
+.zero-motion-card.zero-pointer-active .card-surface {
+    transition: transform 0.16s ease-out,
+                border-color 0.35s ease,
+                box-shadow 0.45s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .zero-motion-card.zero-in-view:hover {
+    .zero-motion-card:hover .card-surface {
         border-color: rgba(200, 170, 110, 0.45) !important;
         box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
     }
@@ -559,17 +571,25 @@ body {
 /* Zero Hub Step Card (Container com física 3D que puxa a lateral) */
 .step-card {
     position: relative;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transform-style: flat;
+}
+
+.step-card .card-surface {
+    position: relative;
     padding: 30px 24px;
     background: rgba(18, 18, 22, 0.65);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    transition: border-color 0.35s ease, box-shadow 0.45s ease;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
 }
 
-.step-card:hover {
+.step-card:hover .card-surface {
     border-color: rgba(200, 170, 110, 0.45) !important;
     box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
 }
@@ -745,19 +765,25 @@ body {
 
 .product-card {
     position: relative;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transform-style: flat;
+}
+
+.product-card .card-surface {
+    position: relative;
     background: rgba(18, 18, 22, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-md);
+    border-radius: inherit;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    transition: border-color 0.35s ease, box-shadow 0.45s ease;
 }
 
-.product-card:hover {
+.product-card:hover .card-surface {
     border-color: rgba(200, 170, 110, 0.45) !important;
     box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
 }

@@ -228,12 +228,45 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL OBSERVER (SUBIDA SUAVE EM FILEIRA)
+// 3. ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES EM FILEIRA)
 // ==========================================================================
 let _globalScrollObserver = null;
 
+function revealElementInView(el) {
+    if (!el || el.classList.contains('zero-in-view')) return;
+
+    // Calcula a coluna na fileira para escalonar a subida (0ms, 85ms, 170ms, 255ms...)
+    const parent = el.parentElement;
+    let col = 0;
+    if (parent) {
+        const siblings = Array.from(parent.children).filter(c => c.classList.contains('zero-motion-item'));
+        const idx = siblings.indexOf(el);
+        col = idx >= 0 ? (idx % 4) : 0;
+    }
+
+    const delay = col * 85;
+    el.style.setProperty('--zero-delay', `${delay}ms`);
+    el.classList.add('visible', 'zero-in-view');
+
+    setTimeout(() => {
+        el.style.removeProperty('--zero-delay');
+    }, delay + 900);
+}
+
+function revealViewportItems() {
+    const h = window.innerHeight;
+    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < h + 40 && rect.bottom > 0) {
+            revealElementInView(el);
+        }
+    });
+}
+
 function initScrollReveal() {
-    const items = document.querySelectorAll('.zero-motion-item');
+    const items = document.querySelectorAll('.zero-motion-item:not(.zero-in-view)');
+    if (!items.length) return;
+
     if (!('IntersectionObserver' in window)) {
         items.forEach(el => el.classList.add('visible', 'zero-in-view'));
         return;
@@ -241,122 +274,106 @@ function initScrollReveal() {
 
     if (!_globalScrollObserver) {
         _globalScrollObserver = new IntersectionObserver((entries) => {
-            // Apenas itens que estão entrando no campo de visão e ainda não foram revelados
-            const entering = entries.filter(e => e.isIntersecting && !e.target.classList.contains('zero-in-view'));
-            if (!entering.length) return;
-
-            // Ordena os itens da fileira: de cima para baixo, e da esquerda para a direita
-            entering.sort((a, b) => {
-                const rA = a.boundingClientRect;
-                const rB = b.boundingClientRect;
-                if (Math.abs(rA.top - rB.top) > 40) {
-                    return rA.top - rB.top;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    revealElementInView(entry.target);
+                    _globalScrollObserver.unobserve(entry.target);
                 }
-                return rA.left - rB.left;
             });
-
-            // Agrupa e distribui o delay em fileira (0ms, 80ms, 160ms, 240ms...)
-            let currentRowTop = -9999;
-            let colIndex = 0;
-
-            entering.forEach(entry => {
-                const el = entry.target;
-                const rect = entry.boundingClientRect;
-
-                if (Math.abs(rect.top - currentRowTop) > 40) {
-                    currentRowTop = rect.top;
-                    colIndex = 0;
-                } else {
-                    colIndex++;
-                }
-
-                const delay = Math.min(colIndex * 85, 360);
-                el.style.setProperty('--zero-delay', `${delay}ms`);
-                el.classList.add('visible', 'zero-in-view');
-
-                // Remove o delay da transição após a subida terminar para o hover responder sem atraso!
-                setTimeout(() => {
-                    el.style.removeProperty('--zero-delay');
-                }, delay + 850);
-            });
-        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px 80px 0px' // Dispara 80px antes de entrar para subida fluida sem travamento
+        });
     }
 
-    items.forEach(el => {
-        if (!el.dataset.revealBound) {
-            el.dataset.revealBound = 'true';
-            _globalScrollObserver.observe(el);
-        }
-    });
+    items.forEach(el => _globalScrollObserver.observe(el));
+    revealViewportItems();
 }
 
 // ==========================================================================
 // 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (FÍSICA 3D ESTÁVEL E SUAVE)
 // ==========================================================================
+let _hoverTarget = null;
+let _hoverFrame = 0;
+let _pointerX = 0, _pointerY = 0;
+
+function resetTilt(el) {
+    if (!el) return;
+    el.classList.remove('zero-pointer-active');
+    el.style.removeProperty('--zero-tilt-x');
+    el.style.removeProperty('--zero-tilt-y');
+    el.style.removeProperty('--art-x');
+    el.style.removeProperty('--art-y');
+    el.style.removeProperty('--light-x');
+    el.style.removeProperty('--light-y');
+}
+
+function ensureCardSurfaces() {
+    document.querySelectorAll('.zero-motion-card').forEach(card => {
+        if (!card.querySelector('.card-surface')) {
+            const surface = document.createElement('div');
+            surface.className = 'card-surface';
+            while (card.firstChild) surface.appendChild(card.firstChild);
+            card.appendChild(surface);
+        }
+    });
+}
+
 function attachCardTiltMotion() {
-    const fine = matchMedia('(hover: hover) and (pointer: fine)');
-    if (!fine.matches) return;
+    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
+    if (!desktop.matches) return;
 
-    // Aplica o efeito 3D nos blocos de passos e cards de skins
-    const selector = '.step-card, .product-card';
-    const containers = document.querySelectorAll(selector);
+    ensureCardSurfaces();
 
-    containers.forEach(card => {
-        if (card.dataset.tiltBound === 'true') return;
-        card.dataset.tiltBound = 'true';
-        card.classList.add('zero-motion-card');
+    if (window._tiltMotionInitialized) return;
+    window._tiltMotionInitialized = true;
 
-        let frame = 0;
-        let rect = null;
+    // Rastreamento delegado: o hit box externo nunca gira, eliminando resets indesejados
+    document.addEventListener('pointermove', event => {
+        const next = event.target.closest('.zero-motion-card');
 
-        // Cacheia as dimensões na entrada para evitar oscilação de coordenadas durante a rotação 3D
-        card.addEventListener('pointerenter', () => {
-            rect = card.getBoundingClientRect();
-            card.classList.add('zero-pointer');
-        }, { passive: true });
+        if (next !== _hoverTarget) {
+            resetTilt(_hoverTarget);
+            _hoverTarget = next;
+        }
 
-        card.addEventListener('pointermove', event => {
-            if (!rect) rect = card.getBoundingClientRect();
+        if (!_hoverTarget) return;
+
+        _hoverTarget.classList.add('zero-pointer-active');
+        _pointerX = event.clientX;
+        _pointerY = event.clientY;
+
+        if (_hoverFrame) return;
+        _hoverFrame = requestAnimationFrame(() => {
+            _hoverFrame = 0;
+            if (!_hoverTarget) return;
+
+            const rect = _hoverTarget.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
 
-            const clientX = event.clientX;
-            const clientY = event.clientY;
+            // Coordenadas normalizadas estáveis de -1 a +1
+            const px = Math.max(-1, Math.min(1, ((_pointerX - rect.left) / rect.width) * 2 - 1));
+            const py = Math.max(-1, Math.min(1, ((_pointerY - rect.top) / rect.height) * 2 - 1));
 
-            if (frame) return;
-            frame = requestAnimationFrame(() => {
-                frame = 0;
-                if (!rect) return;
+            // Ângulos suaves e amortecidos: puxa a lateral com elegância sem oscilação
+            const tiltX = -py * 5.0; // inclinação vertical suave
+            const tiltY = px * 6.5;  // puxada lateral sutil
 
-                // Coordenadas relativas de -1 a +1
-                const px = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
-                const py = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
+            _hoverTarget.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
+            _hoverTarget.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
+            _hoverTarget.style.setProperty('--art-x', `${(-px * 4).toFixed(1)}px`);
+            _hoverTarget.style.setProperty('--art-y', `${(-py * 3).toFixed(1)}px`);
+            _hoverTarget.style.setProperty('--light-x', `${(_pointerX - rect.left).toFixed(1)}px`);
+            _hoverTarget.style.setProperty('--light-y', `${(_pointerY - rect.top).toFixed(1)}px`);
+        });
+    }, { passive: true });
 
-                // Ângulos suaves e proporcionais
-                const tiltX = -py * 6.5;
-                const tiltY = px * 8.0;
-
-                card.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
-                card.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
-                card.style.setProperty('--art-x', `${(-px * 5).toFixed(1)}px`);
-                card.style.setProperty('--art-y', `${(-py * 3).toFixed(1)}px`);
-                card.style.setProperty('--light-x', `${(clientX - rect.left).toFixed(1)}px`);
-                card.style.setProperty('--light-y', `${(clientY - rect.top).toFixed(1)}px`);
-            });
-        }, { passive: true });
-
-        card.addEventListener('pointerleave', () => {
-            if (frame) cancelAnimationFrame(frame);
-            frame = 0;
-            rect = null;
-            card.classList.remove('zero-pointer');
-            card.style.removeProperty('--zero-tilt-x');
-            card.style.removeProperty('--zero-tilt-y');
-            card.style.removeProperty('--art-x');
-            card.style.removeProperty('--art-y');
-            card.style.removeProperty('--light-x');
-            card.style.removeProperty('--light-y');
-        }, { passive: true });
-    });
+    document.addEventListener('pointerleave', () => {
+        resetTilt(_hoverTarget);
+        _hoverTarget = null;
+        if (_hoverFrame) cancelAnimationFrame(_hoverFrame);
+        _hoverFrame = 0;
+    }, { passive: true });
 }
 
 // ==========================================================================
@@ -381,10 +398,10 @@ function calculatePriceBRL(item) {
     if (rp === 3250) return { original: '20.99', final: '10.49', discount: 50 };
     if (rp === 1820) return { original: '11.49', final: '5.75', discount: 50 };
     if (rp === 1350) return { original: '8.49', final: '4.25', discount: 50 };
-    if (rp === 975)  return { original: '6.49', final: '3.25', discount: 50 };
-    if (rp === 750)  return { original: '6.49', final: '3.25', discount: 50 };
-    if (rp === 520)  return { original: '3.49', final: '1.75', discount: 50 };
-    if (rp === 290)  return { original: '1.99', final: '1.39', discount: 30 };
+    if (rp === 975) return { original: '6.49', final: '3.25', discount: 50 };
+    if (rp === 750) return { original: '6.49', final: '3.25', discount: 50 };
+    if (rp === 520) return { original: '3.49', final: '1.75', discount: 50 };
+    if (rp === 290) return { original: '1.99', final: '1.39', discount: 30 };
     if (rp === 1650) return { original: '10.79', final: '5.39', discount: 50 };
     if (rp === 2650) return { original: '17.29', final: '8.64', discount: 50 };
 
@@ -426,6 +443,7 @@ async function initStorefront() {
     setupEventListeners();
     attachCardTiltMotion();
     initScrollReveal();
+    revealViewportItems();
 
     const loader = document.getElementById('catalogLoadingIndicator');
     if (loader) loader.style.display = 'flex';
@@ -553,6 +571,7 @@ function renderCatalog() {
     // Trigger smooth 3D scroll reveal and container tilt
     initScrollReveal();
     attachCardTiltMotion();
+    revealViewportItems();
 
     if (loadMoreBtn) {
         if (itemsToRender.length < StoreState.filteredItems.length) {
@@ -584,29 +603,31 @@ function createProductCardHTML(item) {
 
     return `
     <div class="product-card zero-motion-item zero-motion-card">
-        <div class="card-glare"></div>
-        <div class="card-media-wrap">
-            <span class="card-badge-rarity ${rarityClass}">
-                <i class="fa-solid fa-gem"></i> ${rarityLabel}
-            </span>
-            <span class="card-badge-discount">-${pricing.discount}% OFF</span>
-            <img class="card-media-img" src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg'">
-        </div>
-        <div class="card-body">
-            <div class="card-title" title="${item.name}">${item.name}</div>
-            <div class="card-price-container">
-                <div class="card-rp-tag">
-                    <img src="/static/images/icon-rp.png" width="14" height="14" alt="RP" onerror="this.style.display='none'">
-                    <span>${rpPrice.toLocaleString('pt-BR')} RP</span>
-                </div>
-                <div class="card-brl-price">
-                    <span class="cur">R$</span>
-                    <span class="val">${pricing.final}</span>
-                </div>
+        <div class="card-surface">
+            <div class="card-glare"></div>
+            <div class="card-media-wrap">
+                <span class="card-badge-rarity ${rarityClass}">
+                    <i class="fa-solid fa-gem"></i> ${rarityLabel}
+                </span>
+                <span class="card-badge-discount">-${pricing.discount}% OFF</span>
+                <img class="card-media-img" src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg'">
             </div>
-            <button class="btn-card-gift" onclick="handleAddToCart('${safeData}')">
-                <i class="fa-solid fa-gift"></i> Presentear
-            </button>
+            <div class="card-body">
+                <div class="card-title" title="${item.name}">${item.name}</div>
+                <div class="card-price-container">
+                    <div class="card-rp-tag">
+                        <img src="/static/images/icon-rp.png" width="14" height="14" alt="RP" onerror="this.style.display='none'">
+                        <span>${rpPrice.toLocaleString('pt-BR')} RP</span>
+                    </div>
+                    <div class="card-brl-price">
+                        <span class="cur">R$</span>
+                        <span class="val">${pricing.final}</span>
+                    </div>
+                </div>
+                <button class="btn-card-gift" onclick="handleAddToCart('${safeData}')">
+                    <i class="fa-solid fa-gift"></i> Presentear
+                </button>
+            </div>
         </div>
     </div>
     `;
@@ -628,7 +649,7 @@ function loadCartFromStorage() {
 function saveCartToStorage() {
     try {
         localStorage.setItem('kitsune_store_cart', JSON.stringify(StoreState.cart));
-    } catch (e) {}
+    } catch (e) { }
     updateCartUI();
 }
 
@@ -838,6 +859,20 @@ function setupEventListeners() {
 
     const submitBtn = document.getElementById('btnSubmitOrder');
     if (submitBtn) submitBtn.addEventListener('click', handleCheckout);
+
+    // Suporte fluido para navegação por âncoras (#catalogo, #como-funciona)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                const top = target.getBoundingClientRect().top + window.scrollY - 75;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initStorefront);
