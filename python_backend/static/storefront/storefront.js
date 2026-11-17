@@ -228,109 +228,96 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES E FILEIRAS)
+// 3. AUTHENTIC ZERO HUB SCROLL ASCENSION (SUBIDA EM ESCADA / FILEIRAS)
 // ==========================================================================
 let _sectionObserver = null;
 let _cardObserver = null;
-let _scrollRaf = 0;
 
-function revealElementInView(el) {
-    if (!el || el.classList.contains('zero-in-view')) return;
+function initSectionReveal() {
+    const sections = document.querySelectorAll('.reveal');
+    if (!sections.length) return;
 
-    // Calcula a coluna na fileira para escalonar a subida (0ms, 90ms, 180ms, 270ms...)
-    const parent = el.parentElement;
-    let col = 0;
-    if (parent) {
-        const siblings = Array.from(parent.children).filter(c => c.classList.contains('zero-motion-item'));
-        const idx = siblings.indexOf(el);
-        col = idx >= 0 ? (idx % 4) : 0;
+    if (!('IntersectionObserver' in window)) {
+        sections.forEach(s => s.classList.add('visible'));
+        return;
     }
 
-    const delay = col * 90;
-    el.style.setProperty('--zero-delay', `${delay}ms`);
-    el.classList.add('visible', 'zero-in-view');
+    if (_sectionObserver) _sectionObserver.disconnect();
 
-    setTimeout(() => {
-        el.style.removeProperty('--zero-delay');
-    }, delay + 950);
+    _sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                _sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px'
+    });
+
+    sections.forEach(s => _sectionObserver.observe(s));
 }
 
-function checkScrollVisibility() {
-    const h = window.innerHeight;
+function initCardMotion() {
+    const cards = Array.from(document.querySelectorAll('.step-card, .product-card'));
+    if (!cards.length) return;
 
-    // 1. Revela seções completas que estão entrando na tela (.reveal)
-    document.querySelectorAll('.reveal:not(.visible)').forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top < h - 40 && rect.bottom > 0) {
-            sec.classList.add('visible');
-        }
+    cards.forEach(card => card.classList.add('motion-ready'));
+
+    if (!('IntersectionObserver' in window)) {
+        cards.forEach(c => c.classList.add('is-in-view'));
+        return;
+    }
+
+    if (_cardObserver) {
+        _cardObserver.disconnect();
+    }
+
+    _cardObserver = new IntersectionObserver((entries) => {
+        let stagger = 0;
+
+        // 1. Quando o card sai da tela, remove is-in-view para que suba em escada novamente ao rolar para baixo
+        entries.forEach(entry => {
+            const card = entry.target;
+            if (!entry.isIntersecting && !card.contains(document.activeElement)) {
+                card.classList.remove('is-in-view');
+                card.style.setProperty('--reveal-delay', '0ms');
+            }
+        });
+
+        // 2. Ordena os cards que estão entrando: de cima para baixo, e estritamente da esquerda para a direita
+        const entering = entries.filter(e => e.isIntersecting);
+        entering.sort((a, b) => {
+            const rA = a.boundingClientRect;
+            const rB = b.boundingClientRect;
+            if (Math.abs(rA.top - rB.top) > 50) {
+                return rA.top - rB.top;
+            }
+            return rA.left - rB.left;
+        });
+
+        // 3. Aplica o atraso escalonado característico do Zero Hub (0ms, 110ms, 220ms, 330ms)
+        entering.forEach(entry => {
+            const delay = Math.min(stagger++ * 110, 360);
+            entry.target.style.setProperty('--reveal-delay', `${delay}ms`);
+            entry.target.classList.add('is-in-view');
+        });
+    }, {
+        threshold: 0.04,
+        rootMargin: '0px 0px -15px 0px'
     });
 
-    // 2. Revela cards em fileiras (.zero-motion-item)
-    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(card => {
-        const rect = card.getBoundingClientRect();
-        if (rect.top < h + 20 && rect.bottom > 0) {
-            revealElementInView(card);
-        }
-    });
-}
-
-function handleScrollTrigger() {
-    if (_scrollRaf) return;
-    _scrollRaf = requestAnimationFrame(() => {
-        _scrollRaf = 0;
-        checkScrollVisibility();
-    });
+    cards.forEach(card => _cardObserver.observe(card));
 }
 
 function initScrollReveal() {
-    // 1. Observador para seções inteiras com blur e subida suave
-    const sections = document.querySelectorAll('.reveal:not(.visible)');
-    if (sections.length && 'IntersectionObserver' in window) {
-        if (!_sectionObserver) {
-            _sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        _sectionObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
-        }
-        sections.forEach(s => _sectionObserver.observe(s));
-    } else {
-        sections.forEach(s => s.classList.add('visible'));
-    }
-
-    // 2. Observador para cards individuais em fileiras
-    const cards = document.querySelectorAll('.zero-motion-item:not(.zero-in-view)');
-    if (cards.length && 'IntersectionObserver' in window) {
-        if (!_cardObserver) {
-            _cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        revealElementInView(entry.target);
-                        _cardObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.04, rootMargin: '0px 0px 40px 0px' });
-        }
-        cards.forEach(c => _cardObserver.observe(c));
-    } else {
-        cards.forEach(c => c.classList.add('visible', 'zero-in-view'));
-    }
-
-    // 3. Listener passivo de scroll para resposta imediata
-    if (!window._scrollRevealBound) {
-        window._scrollRevealBound = true;
-        window.addEventListener('scroll', handleScrollTrigger, { passive: true });
-    }
-
-    checkScrollVisibility();
+    initSectionReveal();
+    initCardMotion();
 }
 
 function revealViewportItems() {
-    checkScrollVisibility();
+    initCardMotion();
 }
 
 // ==========================================================================
