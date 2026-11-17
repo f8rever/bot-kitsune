@@ -1,21 +1,80 @@
 /**
- * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE
- * - Authentic Zero Hub Dot Canvas (Repelling physics, spring-back & Hextech/Arcane radiance)
- * - 3D Card Tilt on Cursor Proximity
- * - High-performance Batch Renderer for 9,290 items
- * - Instant Live Search & Filter Tabs
- * - Offcanvas Cart Drawer with Riot ID validation
+ * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v2.5)
+ * 1. Zero Hub Repelling Dot-Matrix Canvas
+ * 2. Zero Hub Smooth Scroll Glide Momentum Engine
+ * 3. 3D Scroll Reveal with Staggered Delays
+ * 4. Interactive Card Parallax with Lateral Art Drift (--art-x, --tilt-x, --light-x)
+ * 5. High-performance Batch Catalog Renderer for 9,290 items
+ * 6. Offcanvas Cart Drawer with Riot ID validation
  */
 
 // ==========================================================================
-// 1. AUTHENTIC ZERO HUB DOT CANVAS (REPELLING PARTICLES + RADIANT GLOW)
+// 1. ZERO HUB SMOOTH WHEEL GLIDE ENGINE (MOMENTUM SCROLLING)
+// ==========================================================================
+(function initZeroHubSmoothScroll() {
+    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
+    let frame = 0, target = 0, lastTime = 0;
+    const maxScroll = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const clamp = val => Math.max(0, Math.min(maxScroll(), val));
+
+    function stop() {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        lastTime = 0;
+    }
+
+    function tick(time) {
+        const dt = lastTime ? Math.min(time - lastTime, 40) : 16.67;
+        lastTime = time;
+        target = clamp(target);
+        const current = window.scrollY;
+        const delta = target - current;
+
+        if (Math.abs(delta) < 0.75) {
+            window.scrollTo({ top: target, behavior: 'instant' });
+            stop();
+            return;
+        }
+
+        // Zero Hub exponential ease curve
+        window.scrollTo({ top: current + delta * (1 - Math.exp(-dt / 90)), behavior: 'instant' });
+        frame = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('wheel', (e) => {
+        if (e.defaultPrevented || !e.cancelable || !desktop.matches || e.ctrlKey || e.metaKey || e.shiftKey || e.deltaX) {
+            stop();
+            return;
+        }
+
+        // Avoid overriding scroll inside cart drawer
+        const inDrawer = e.target.closest('#cartDrawer');
+        if (inDrawer) return;
+
+        const coarse = e.deltaMode !== 0 || (Number.isInteger(e.deltaY) && Math.abs(e.deltaY) >= 80);
+        if (!coarse) { stop(); return; }
+
+        const delta = e.deltaY * (e.deltaMode === 1 ? 28 : e.deltaMode === 2 ? window.innerHeight : 1);
+        const next = clamp((frame ? target : window.scrollY) + Math.max(-480, Math.min(480, delta)));
+
+        if (next === window.scrollY && !frame) return;
+
+        e.preventDefault();
+        target = next;
+        if (!frame) frame = requestAnimationFrame(tick);
+    }, { passive: false });
+
+    ['pointerdown', 'touchstart', 'keydown', 'blur'].forEach(ev => window.addEventListener(ev, stop, { passive: true }));
+})();
+
+// ==========================================================================
+// 2. AUTHENTIC ZERO HUB DOT CANVAS (REPELLING PARTICLES + RADIANT GLOW)
 // ==========================================================================
 (function initZeroHubCanvas() {
     const canvas = document.getElementById('dotCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // Tunables (Zero Hub exact physics)
     const SPACING = 16;
     const DOT_R = 0.85;
     const RADIUS = 80;
@@ -43,7 +102,6 @@
 
         for (let y = 0; y <= H; y += SPACING) {
             for (let x = 0; x <= W; x += SPACING) {
-                // Diagonal ambient fade
                 const fade = 1 - (x / (W * 1.1) + y / (H * 1.1)) * 0.7;
                 if (fade <= 0.04) continue;
                 const a = fade * 0.35;
@@ -62,7 +120,6 @@
     function draw() {
         ctx.clearRect(0, 0, W, H);
 
-        // Resting dots: batched paths for 60fps performance
         for (let bi = 0; bi < LEVELS; bi++) {
             const arr = buckets[bi];
             if (!arr.length) continue;
@@ -75,14 +132,12 @@
                 any = true;
             }
             if (any) {
-                // Subtle Hextech slate gold ambient dot
                 const opacity = (((bi + 0.5) / LEVELS) * 0.35).toFixed(3);
                 ctx.fillStyle = `rgba(180, 160, 120, ${opacity})`;
                 ctx.fill();
             }
         }
 
-        // Active dots near cursor: push away, glow and scale
         for (let i = 0; i < dots.length; i++) {
             const d = dots[i];
             if (d.b <= 0.01) continue;
@@ -91,15 +146,11 @@
             const radius = DOT_R + d.b * 1.5;
             ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
 
-            // Radiant blend: Hextech Gold to Arcane Cyan
             if (d.b > 0.6) {
-                // Hot core gold
                 ctx.fillStyle = `rgba(240, 230, 210, ${Math.min(1, d.a + d.b * 0.8)})`;
             } else if (d.b > 0.3) {
-                // Hextech Amber
                 ctx.fillStyle = `rgba(200, 170, 110, ${Math.min(1, d.a + d.b * 0.7)})`;
             } else {
-                // Arcane Cyan
                 ctx.fillStyle = `rgba(10, 200, 185, ${Math.min(1, d.a + d.b * 0.6)})`;
             }
             ctx.fill();
@@ -118,7 +169,6 @@
             const dy = d.oy - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            // Repel from cursor
             if (dist < RADIUS && dist > 0.001) {
                 const force = (1 - dist / RADIUS);
                 const pushDist = force * PUSH;
@@ -173,7 +223,83 @@
 })();
 
 // ==========================================================================
-// 2. STOREFRONT ENGINE & STATE MANAGEMENT
+// 3. ZERO HUB SCROLL REVEAL OBSERVER (SMOOTH 3D ASCENT)
+// ==========================================================================
+function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        let stagger = 0;
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 80, 320)}ms`);
+                entry.target.classList.add('zero-in-view');
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(el => observer.observe(el));
+}
+
+// ==========================================================================
+// 4. ZERO HUB INTERACTIVE CARD PARALLAX & ARTWORK DRIFT
+// ==========================================================================
+function setupCardParallax() {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+
+    let hoverTarget = null;
+    let hoverFrame = 0;
+    let pointerX = 0, pointerY = 0;
+
+    function resetTilt(card) {
+        if (!card) return;
+        card.classList.remove('is-pointer-active');
+        ['--tilt-x', '--tilt-y', '--art-x', '--art-y', '--light-x', '--light-y'].forEach(prop => card.style.removeProperty(prop));
+    }
+
+    grid.addEventListener('pointermove', (e) => {
+        const next = e.target.closest('.product-card');
+        if (next !== hoverTarget) {
+            resetTilt(hoverTarget);
+            hoverTarget = next;
+        }
+        if (!hoverTarget) return;
+
+        hoverTarget.classList.add('is-pointer-active');
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+
+        if (hoverFrame) return;
+        hoverFrame = requestAnimationFrame(() => {
+            hoverFrame = 0;
+            if (!hoverTarget || !hoverTarget.isConnected) return;
+            const rect = hoverTarget.getBoundingClientRect();
+            const lightX = pointerX - rect.left;
+            const lightY = pointerY - rect.top;
+
+            hoverTarget.style.setProperty('--light-x', `${lightX}px`);
+            hoverTarget.style.setProperty('--light-y', `${lightY}px`);
+
+            const x = Math.max(-1, Math.min(1, (lightX / rect.width) * 2 - 1));
+            const y = Math.max(-1, Math.min(1, (lightY / rect.height) * 2 - 1));
+
+            // Opposite pull: Card tilts forward, image drifts laterally
+            hoverTarget.style.setProperty('--tilt-x', `${(-y * 6).toFixed(2)}deg`);
+            hoverTarget.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
+            hoverTarget.style.setProperty('--art-x', `${(-x * 8).toFixed(2)}px`);
+            hoverTarget.style.setProperty('--art-y', `${(-y * 6).toFixed(2)}px`);
+        });
+    }, { passive: true });
+
+    grid.addEventListener('pointerleave', () => {
+        resetTilt(hoverTarget);
+        hoverTarget = null;
+        if (hoverFrame) cancelAnimationFrame(hoverFrame);
+        hoverFrame = 0;
+    }, { passive: true });
+}
+
+// ==========================================================================
+// 5. STORE STATE & CATALOG MANAGEMENT
 // ==========================================================================
 const StoreState = {
     allCatalog: {},
@@ -188,7 +314,6 @@ const StoreState = {
     cart: []
 };
 
-// Calculates dynamic LoL Gifting prices with discounts
 function calculatePriceBRL(item) {
     const rp = item.price_rp || item.regular_rp || 1350;
 
@@ -235,12 +360,11 @@ function normalizeStr(str) {
         .replace(/[\u0300-\u036f]/g, '');
 }
 
-// ==========================================================================
-// 3. CATALOG INITIALIZATION & DATA PARSER
-// ==========================================================================
 async function initStorefront() {
     loadCartFromStorage();
     setupEventListeners();
+    setupCardParallax();
+    initScrollReveal();
 
     const loader = document.getElementById('catalogLoadingIndicator');
     if (loader) loader.style.display = 'flex';
@@ -293,7 +417,6 @@ function processCatalog() {
 
     StoreState.flattenedItems = flattened;
 
-    // Update filter tabs counters
     document.querySelectorAll('.filter-tab').forEach(tab => {
         const cat = tab.getAttribute('data-cat');
         const countSpan = tab.querySelector('.pill-count');
@@ -309,24 +432,18 @@ function processCatalog() {
     applyFilters();
 }
 
-// ==========================================================================
-// 4. FILTERING & SORTING ENGINE
-// ==========================================================================
 function applyFilters() {
     let result = StoreState.flattenedItems;
 
-    // Category
     if (StoreState.currentCategory !== 'all') {
         result = result.filter(item => item.category === StoreState.currentCategory);
     }
 
-    // Search query
     if (StoreState.searchQuery.trim()) {
         const q = normalizeStr(StoreState.searchQuery.trim());
         result = result.filter(item => normalizeStr(item.name).includes(q));
     }
 
-    // Rarity
     if (StoreState.currentRarity !== 'all') {
         result = result.filter(item => {
             const rClass = getRarityClass(item.rarity, item.rarity_label);
@@ -334,7 +451,6 @@ function applyFilters() {
         });
     }
 
-    // Sort
     if (StoreState.sortBy === 'price-asc') {
         result.sort((a, b) => (a.price_rp || 0) - (b.price_rp || 0));
     } else if (StoreState.sortBy === 'price-desc') {
@@ -349,9 +465,6 @@ function applyFilters() {
     renderCatalog();
 }
 
-// ==========================================================================
-// 5. CATALOG RENDERING & 3D TILT EFFECT
-// ==========================================================================
 function renderCatalog() {
     const grid = document.getElementById('productsGrid');
     const statsEl = document.getElementById('catalogTotalCount');
@@ -376,10 +489,9 @@ function renderCatalog() {
     const itemsToRender = StoreState.filteredItems.slice(0, StoreState.currentPage * StoreState.pageSize);
     grid.innerHTML = itemsToRender.map(item => createProductCardHTML(item)).join('');
 
-    // Attach 3D tilt interaction to rendered cards
-    attachCardTiltEffect();
+    // Trigger smooth 3D scroll reveal on the newly rendered cards
+    initScrollReveal();
 
-    // Load More visibility
     if (loadMoreBtn) {
         if (itemsToRender.length < StoreState.filteredItems.length) {
             loadMoreBtn.style.display = 'inline-flex';
@@ -409,7 +521,8 @@ function createProductCardHTML(item) {
     }));
 
     return `
-    <div class="product-card" data-tilt="true">
+    <div class="product-card zero-motion-item">
+        <div class="card-glare"></div>
         <div class="card-media-wrap">
             <span class="card-badge-rarity ${rarityClass}">
                 <i class="fa-solid fa-gem"></i> ${rarityLabel}
@@ -435,30 +548,6 @@ function createProductCardHTML(item) {
         </div>
     </div>
     `;
-}
-
-// 3D Card Tilt Interaction (Smooth perspective rotation)
-function attachCardTiltEffect() {
-    document.querySelectorAll('.product-card[data-tilt="true"]').forEach(card => {
-        card.removeAttribute('data-tilt');
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -6; // max 6 deg
-            const rotateY = ((x - centerX) / centerX) * 6;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-        });
-    });
 }
 
 // ==========================================================================
@@ -622,7 +711,6 @@ function showToast(message, isError = false) {
 // 7. EVENT LISTENERS
 // ==========================================================================
 function setupEventListeners() {
-    // Search
     const searchInputs = [
         document.getElementById('navSearchInput'),
         document.getElementById('catalogSearchInput')
@@ -643,7 +731,6 @@ function setupEventListeners() {
         });
     });
 
-    // Filter Tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -653,7 +740,6 @@ function setupEventListeners() {
         });
     });
 
-    // Rarity Chips
     document.querySelectorAll('.rarity-chip').forEach(chip => {
         chip.addEventListener('click', () => {
             document.querySelectorAll('.rarity-chip').forEach(c => c.classList.remove('active'));
@@ -663,7 +749,6 @@ function setupEventListeners() {
         });
     });
 
-    // Sort Dropdown
     const sortSelect = document.getElementById('catalogSortSelect');
     if (sortSelect) {
         sortSelect.addEventListener('change', (e) => {
@@ -672,7 +757,6 @@ function setupEventListeners() {
         });
     }
 
-    // Load More
     const loadMoreBtn = document.getElementById('btnLoadMore');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
@@ -681,7 +765,6 @@ function setupEventListeners() {
         });
     }
 
-    // Drawer triggers
     const trigger = document.getElementById('btnCartTrigger');
     if (trigger) trigger.addEventListener('click', openCartDrawer);
 

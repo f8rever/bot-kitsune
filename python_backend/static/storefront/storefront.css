@@ -1,6 +1,9 @@
 /* ==========================================================================
-   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v2.0)
-   True Obsidian Black (#000), Radiant Hextech Gold, Arcane Cyan, Spring Physics
+   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v2.5)
+   - Zero Hub Scroll Glide Momentum Engine
+   - 3D Scroll Reveal with Staggered Delays
+   - Interactive Card 3D Parallax & Ambient Artwork Drift
+   - Radiant Obsidian Black (#000), Hextech Gold, Arcane Cyan
    ========================================================================== */
 
 @property --glow-angle {
@@ -10,15 +13,15 @@
 }
 
 :root {
-    /* Pure Zero Hub Black Base */
+    /* Pure Zero Hub Black Canvas */
     --bg: #000000;
     --bg-surface: rgba(18, 18, 22, 0.55);
-    --bg-surface-hover: rgba(26, 26, 32, 0.75);
-    --bg-surface-elevated: rgba(14, 14, 18, 0.88);
+    --bg-surface-hover: rgba(26, 26, 32, 0.78);
+    --bg-surface-elevated: rgba(14, 14, 18, 0.92);
 
     /* Ultra-crisp thin borders */
     --border: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(200, 170, 110, 0.4);
+    --border-hover: rgba(200, 170, 110, 0.45);
     --border-gold: rgba(200, 170, 110, 0.22);
     --border-cyan: rgba(10, 200, 185, 0.3);
 
@@ -34,7 +37,7 @@
     --cyan-bright: #5dfbf0;
     --cyan-ambient: rgba(10, 200, 185, 0.18);
 
-    /* Neutral Typography (Zero Hub clean scale) */
+    /* Neutral Typography */
     --text-white: #ffffff;
     --text-silver: #e2e8f0;
     --text-gray: #a3a3a3;
@@ -75,7 +78,7 @@ body {
 }
 
 /* ==========================================================================
-   DOT GRID BG (Canvas — Dots repel from cursor with elastic spring back)
+   DOT GRID BG (Canvas — Repelling & Elastic Spring Physics)
    ========================================================================== */
 #dotCanvas {
     position: fixed;
@@ -87,7 +90,6 @@ body {
     z-index: 0;
 }
 
-/* Atmospheric Ambient Lights */
 .ambient-glow-top {
     position: fixed;
     top: -180px;
@@ -114,7 +116,27 @@ body {
 }
 
 /* ==========================================================================
-   KEYFRAME ANIMATIONS (ZERO HUB REPLICA)
+   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE COM 3D PERSPECTIVE)
+   ========================================================================== */
+.zero-motion-item {
+    opacity: 0;
+    transform: perspective(850px) translate3d(0, 52px, 0) rotateX(7deg) scale(0.95);
+    transform-origin: center bottom;
+    transition: opacity 0.75s var(--motion-out) var(--zero-delay, 0ms),
+                transform 0.95s var(--motion-out) var(--zero-delay, 0ms),
+                translate 0.6s var(--motion-out),
+                scale 0.6s var(--motion-out);
+    backface-visibility: hidden;
+    will-change: opacity, transform;
+}
+
+.zero-motion-item.zero-in-view {
+    opacity: 1;
+    transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
    ========================================================================== */
 @keyframes borderSpin {
     to { --glow-angle: 360deg; }
@@ -133,14 +155,16 @@ body {
     }
 }
 
-@keyframes zero-original-panel-in {
-    from {
-        opacity: 0;
-        transform: perspective(1400px) translate3d(0, 48px, 0) rotateX(6deg) scale(0.95);
+/* Zero Hub Artwork Ambient Lateral Drift (Puxando a lateral de leve) */
+@keyframes zero-art-drift {
+    0% {
+        transform: scale(1.03) translate3d(0, 0, 0);
     }
-    to {
-        opacity: 1;
-        transform: perspective(1400px) translate3d(0, 0, 0) rotateX(0) scale(1);
+    50% {
+        transform: scale(1.07) translate3d(-1.8%, -0.8%, 0);
+    }
+    100% {
+        transform: scale(1.04) translate3d(1.2%, 0.6%, 0);
     }
 }
 
@@ -173,7 +197,7 @@ body {
 }
 
 /* ==========================================================================
-   NAVBAR (MINIMALIST GLASS)
+   NAVBAR
    ========================================================================== */
 .navbar {
     position: sticky;
@@ -483,7 +507,7 @@ body {
 }
 
 /* ==========================================================================
-   STEPS SECTION: "DO PEDIDO AO PRESENTE" (LOL GIFTING + ZERO HUB CARDS)
+   STEPS SECTION: "DO PEDIDO AO PRESENTE"
    ========================================================================== */
 .steps-section {
     padding: 56px 0 68px;
@@ -516,7 +540,6 @@ body {
     gap: 18px;
 }
 
-/* Zero Hub Card with Glow Angle */
 .step-card {
     position: relative;
     padding: 30px 24px;
@@ -719,7 +742,7 @@ body {
 }
 
 /* ==========================================================================
-   PRODUCT GRID & CARDS (ZERO HUB + 3D TILT + BORDER GLOW)
+   PRODUCT GRID & CARDS (ZERO HUB PARALLAX + ART DRIFT + BORDER GLOW)
    ========================================================================== */
 .products-grid {
     display: grid;
@@ -736,9 +759,14 @@ body {
     backdrop-filter: blur(16px);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s var(--motion-out), box-shadow 0.3s var(--motion-out), border-color 0.3s ease;
+    transform: perspective(850px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 0.55s var(--motion-out), box-shadow 0.4s ease, border-color 0.3s ease;
     isolation: isolate;
     cursor: pointer;
+}
+
+.product-card.is-pointer-active {
+    transition: transform 0.15s ease-out, box-shadow 0.4s ease, border-color 0.3s ease;
 }
 
 .product-card::before {
@@ -763,7 +791,6 @@ body {
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
     border-color: transparent;
     box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.9), 0 0 28px rgba(200, 170, 110, 0.22);
 }
@@ -772,7 +799,22 @@ body {
     opacity: 1;
 }
 
-/* Thumbnail Art */
+/* Dynamic Radial Light following cursor inside card */
+.card-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle 240px at var(--light-x, 50%) var(--light-y, 50%), rgba(200, 170, 110, 0.15), transparent 80%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.product-card.is-pointer-active .card-glare {
+    opacity: 1;
+}
+
+/* Thumbnail Art with Zero Hub Drift (Puxando a lateral pro lado) */
 .card-media-wrap {
     position: relative;
     width: 100%;
@@ -786,11 +828,13 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.6s var(--motion-smooth);
+    animation: zero-art-drift 10s ease-in-out infinite alternate;
+    translate: var(--art-x, 0px) var(--art-y, 0px);
+    transition: translate 0.55s var(--motion-out), scale 0.7s var(--motion-out);
 }
 
 .product-card:hover .card-media-img {
-    transform: scale(1.08);
+    scale: 1.05;
 }
 
 /* Badges */
@@ -810,7 +854,7 @@ body {
     align-items: center;
     gap: 5px;
     text-transform: uppercase;
-    z-index: 1;
+    z-index: 3;
 }
 
 .card-badge-rarity.ultimate { border-color: #f59e0b; color: #fbbf24; }
@@ -832,7 +876,7 @@ body {
     font-weight: 900;
     letter-spacing: 0.02em;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-    z-index: 1;
+    z-index: 3;
 }
 
 /* Card Body */
@@ -842,6 +886,8 @@ body {
     flex-direction: column;
     flex: 1;
     justify-content: space-between;
+    position: relative;
+    z-index: 3;
 }
 
 .card-title {
@@ -921,7 +967,7 @@ body {
 }
 
 /* ==========================================================================
-   CART & CHECKOUT DRAWER (ZERO HUB MODAL MOTION)
+   CART & CHECKOUT DRAWER
    ========================================================================== */
 .cart-overlay {
     position: fixed;
