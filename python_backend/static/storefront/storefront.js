@@ -233,7 +233,7 @@
 let _globalScrollObserver = null;
 
 function initScrollReveal() {
-    const items = document.querySelectorAll('.reveal, .zero-motion-item');
+    const items = document.querySelectorAll('.zero-motion-item');
     if (!('IntersectionObserver' in window)) {
         items.forEach(el => el.classList.add('visible', 'zero-in-view'));
         return;
@@ -241,42 +241,45 @@ function initScrollReveal() {
 
     if (!_globalScrollObserver) {
         _globalScrollObserver = new IntersectionObserver((entries) => {
-            const visible = entries.filter(e => e.isIntersecting && !e.target.classList.contains('zero-in-view'));
-            if (!visible.length) return;
+            // Apenas itens que estão entrando no campo de visão e ainda não foram revelados
+            const entering = entries.filter(e => e.isIntersecting && !e.target.classList.contains('zero-in-view'));
+            if (!entering.length) return;
 
-            // Ordena os itens: de cima para baixo, e da esquerda para a direita (em fileira)
-            visible.sort((a, b) => {
-                const rA = a.target.getBoundingClientRect();
-                const rB = b.target.getBoundingClientRect();
-                if (Math.abs(rA.top - rB.top) > 50) {
+            // Ordena os itens da fileira: de cima para baixo, e da esquerda para a direita
+            entering.sort((a, b) => {
+                const rA = a.boundingClientRect;
+                const rB = b.boundingClientRect;
+                if (Math.abs(rA.top - rB.top) > 40) {
                     return rA.top - rB.top;
                 }
                 return rA.left - rB.left;
             });
 
-            // Agrupa em fileiras com delay progressivo suave
+            // Agrupa e distribui o delay em fileira (0ms, 80ms, 160ms, 240ms...)
             let currentRowTop = -9999;
             let colIndex = 0;
-            let rowIndex = 0;
 
-            visible.forEach(entry => {
+            entering.forEach(entry => {
                 const el = entry.target;
-                const rect = el.getBoundingClientRect();
+                const rect = entry.boundingClientRect;
 
-                if (Math.abs(rect.top - currentRowTop) > 50) {
+                if (Math.abs(rect.top - currentRowTop) > 40) {
                     currentRowTop = rect.top;
                     colIndex = 0;
-                    rowIndex++;
                 } else {
                     colIndex++;
                 }
 
-                // Fileira: da esquerda para a direita (0ms, 80ms, 160ms, 240ms...)
-                const delay = Math.min((colIndex * 80) + (rowIndex > 1 ? 40 : 0), 450);
+                const delay = Math.min(colIndex * 85, 360);
                 el.style.setProperty('--zero-delay', `${delay}ms`);
                 el.classList.add('visible', 'zero-in-view');
+
+                // Remove o delay da transição após a subida terminar para o hover responder sem atraso!
+                setTimeout(() => {
+                    el.style.removeProperty('--zero-delay');
+                }, delay + 850);
             });
-        }, { threshold: 0.01, rootMargin: '0px 0px 140px 0px' });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
     }
 
     items.forEach(el => {
@@ -285,27 +288,17 @@ function initScrollReveal() {
             _globalScrollObserver.observe(el);
         }
     });
-
-    // Revela itens que já estão no viewport ao carregar a página
-    requestAnimationFrame(() => {
-        items.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.classList.add('visible', 'zero-in-view');
-            }
-        });
-    });
 }
 
 // ==========================================================================
-// 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (TODOS OS CONTAINERS)
+// 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (FÍSICA 3D ESTÁVEL E SUAVE)
 // ==========================================================================
 function attachCardTiltMotion() {
     const fine = matchMedia('(hover: hover) and (pointer: fine)');
     if (!fine.matches) return;
 
-    // Aplica o efeito 3D em TODOS os containers (passos, skins, painel de busca/filtros, etc.)
-    const selector = '.zero-motion-card, .step-card, .product-card, .catalog-nav-panel, .hero-pill';
+    // Aplica o efeito 3D nos blocos de passos e cards de skins
+    const selector = '.step-card, .product-card';
     const containers = document.querySelectorAll(selector);
 
     containers.forEach(card => {
@@ -314,32 +307,38 @@ function attachCardTiltMotion() {
         card.classList.add('zero-motion-card');
 
         let frame = 0;
-        let clientX = 0, clientY = 0;
+        let rect = null;
+
+        // Cacheia as dimensões na entrada para evitar oscilação de coordenadas durante a rotação 3D
+        card.addEventListener('pointerenter', () => {
+            rect = card.getBoundingClientRect();
+            card.classList.add('zero-pointer');
+        }, { passive: true });
 
         card.addEventListener('pointermove', event => {
-            clientX = event.clientX;
-            clientY = event.clientY;
+            if (!rect) rect = card.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const clientX = event.clientX;
+            const clientY = event.clientY;
 
             if (frame) return;
             frame = requestAnimationFrame(() => {
                 frame = 0;
-                const rect = card.getBoundingClientRect();
-                if (!rect.width || !rect.height) return;
+                if (!rect) return;
 
-                // Coordenadas relativas entre -1 (esquerda/topo) e +1 (direita/base)
+                // Coordenadas relativas de -1 a +1
                 const px = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
                 const py = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
 
-                card.classList.add('zero-pointer');
-
-                // Física 3D suave com amortecimento físico
-                const tiltX = -py * 7.5;
-                const tiltY = px * 9.0;
+                // Ângulos suaves e proporcionais
+                const tiltX = -py * 6.5;
+                const tiltY = px * 8.0;
 
                 card.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
                 card.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
-                card.style.setProperty('--art-x', `${(-px * 6).toFixed(1)}px`);
-                card.style.setProperty('--art-y', `${(-py * 4).toFixed(1)}px`);
+                card.style.setProperty('--art-x', `${(-px * 5).toFixed(1)}px`);
+                card.style.setProperty('--art-y', `${(-py * 3).toFixed(1)}px`);
                 card.style.setProperty('--light-x', `${(clientX - rect.left).toFixed(1)}px`);
                 card.style.setProperty('--light-y', `${(clientY - rect.top).toFixed(1)}px`);
             });
@@ -348,6 +347,7 @@ function attachCardTiltMotion() {
         card.addEventListener('pointerleave', () => {
             if (frame) cancelAnimationFrame(frame);
             frame = 0;
+            rect = null;
             card.classList.remove('zero-pointer');
             card.style.removeProperty('--zero-tilt-x');
             card.style.removeProperty('--zero-tilt-y');

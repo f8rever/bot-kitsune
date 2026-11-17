@@ -118,20 +118,16 @@ body {
 /* ==========================================================================
    ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE)
    ========================================================================== */
-.reveal,
 .zero-motion-item {
     opacity: 0;
-    transform: perspective(850px) translate3d(0, 48px, 0) rotateX(6deg) scale(0.96);
+    transform: perspective(850px) translate3d(0, 46px, 0) rotateX(6deg) scale(0.96);
     transform-origin: center bottom;
-    transition: opacity 0.7s var(--motion-out) var(--zero-delay, 0ms),
-                transform 0.85s var(--motion-out) var(--zero-delay, 0ms),
-                translate 0.5s var(--motion-out),
-                scale 0.5s var(--motion-out);
+    transition: opacity 0.65s var(--motion-out) var(--zero-delay, 0ms),
+                transform 0.8s var(--motion-out) var(--zero-delay, 0ms);
     backface-visibility: hidden;
     will-change: opacity, transform;
 }
 
-.reveal.visible,
 .zero-motion-item.zero-in-view {
     opacity: 1;
     transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
@@ -148,29 +144,19 @@ body {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     cursor: pointer;
-    transition: opacity 0.75s var(--motion-out),
-                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                translate 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                scale 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.45s ease,
-                border-color 0.35s ease;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
 }
 
 .zero-motion-card.zero-pointer {
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                translate 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                scale 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.45s ease,
-                border-color 0.35s ease !important;
+                box-shadow 0.4s ease,
+                border-color 0.3s ease !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .zero-motion-card:hover {
-        will-change: transform;
-    }
     .zero-motion-card.zero-in-view:hover {
-        translate: 0 -8px;
-        scale: 1.012;
         border-color: rgba(200, 170, 110, 0.45) !important;
         box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
     }
@@ -762,6 +748,7 @@ body {
     background: rgba(18, 18, 22, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -786,7 +773,7 @@ body {
     z-index: 2;
 }
 
-.product-card.zero-pointer .card-glare {
+.product-card:hover .card-glare {
     opacity: 1;
 }
 
