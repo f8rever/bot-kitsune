@@ -1,5 +1,5 @@
 /**
- * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v3.0)
+ * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE (v3.5)
  * 1. Zero Hub Repelling Dot-Matrix Canvas
  * 2. Zero Hub Smooth Scroll Glide Momentum Engine
  * 3. 3D Scroll Reveal with Staggered Rising Panels
@@ -12,57 +12,45 @@
 // 1. ZERO HUB SMOOTH WHEEL GLIDE ENGINE (MOMENTUM SCROLLING)
 // ==========================================================================
 (function initZeroHubSmoothScroll() {
-    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
-    let frame = 0, target = 0, lastTime = 0;
-    const maxScroll = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const clamp = val => Math.max(0, Math.min(maxScroll(), val));
+    let currentY = window.scrollY;
+    let targetY = window.scrollY;
+    let isRunning = false;
 
-    function stop() {
-        if (frame) cancelAnimationFrame(frame);
-        frame = 0;
-        lastTime = 0;
-    }
-
-    function tick(time) {
-        const dt = lastTime ? Math.min(time - lastTime, 40) : 16.67;
-        lastTime = time;
-        target = clamp(target);
-        const current = window.scrollY;
-        const delta = target - current;
-
-        if (Math.abs(delta) < 0.75) {
-            window.scrollTo({ top: target, behavior: 'instant' });
-            stop();
+    function step() {
+        currentY += (targetY - currentY) * 0.12;
+        if (Math.abs(targetY - currentY) < 0.5) {
+            currentY = targetY;
+            window.scrollTo(0, currentY);
+            isRunning = false;
             return;
         }
-
-        window.scrollTo({ top: current + delta * (1 - Math.exp(-dt / 90)), behavior: 'instant' });
-        frame = requestAnimationFrame(tick);
+        window.scrollTo(0, currentY);
+        requestAnimationFrame(step);
     }
 
     window.addEventListener('wheel', (e) => {
-        if (e.defaultPrevented || !e.cancelable || !desktop.matches || e.ctrlKey || e.metaKey || e.shiftKey || e.deltaX) {
-            stop();
-            return;
-        }
-
-        const inDrawer = e.target.closest('#cartDrawer');
-        if (inDrawer) return;
-
-        const coarse = e.deltaMode !== 0 || (Number.isInteger(e.deltaY) && Math.abs(e.deltaY) >= 80);
-        if (!coarse) { stop(); return; }
-
-        const delta = e.deltaY * (e.deltaMode === 1 ? 28 : e.deltaMode === 2 ? window.innerHeight : 1);
-        const next = clamp((frame ? target : window.scrollY) + Math.max(-480, Math.min(480, delta)));
-
-        if (next === window.scrollY && !frame) return;
+        // Do not intercept scroll inside drawers or interactive elements
+        if (e.target.closest('#cartDrawer') || e.target.closest('.cart-items-list')) return;
 
         e.preventDefault();
-        target = next;
-        if (!frame) frame = requestAnimationFrame(tick);
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        targetY = Math.max(0, Math.min(max, targetY + e.deltaY * 1.15));
+
+        if (!isRunning) {
+            isRunning = true;
+            currentY = window.scrollY;
+            requestAnimationFrame(step);
+        }
     }, { passive: false });
 
-    ['pointerdown', 'touchstart', 'keydown', 'blur'].forEach(ev => window.addEventListener(ev, stop, { passive: true }));
+    // Sync scroll position on anchor navigation or key scroll
+    ['keydown', 'touchmove', 'pointerdown'].forEach(evt => {
+        window.addEventListener(evt, () => {
+            targetY = window.scrollY;
+            currentY = window.scrollY;
+            isRunning = false;
+        }, { passive: true });
+    });
 })();
 
 // ==========================================================================
@@ -75,8 +63,8 @@
 
     const SPACING = 16;
     const DOT_R = 0.85;
-    const RADIUS = 80;
-    const PUSH = 14;
+    const RADIUS = 85;
+    const PUSH = 15;
     const EASE = 0.08;
     const LEVELS = 10;
     const EPS = 0.05;
@@ -224,48 +212,74 @@
 // 3. ZERO HUB SCROLL REVEAL OBSERVER (3D ASCENT)
 // ==========================================================================
 function initScrollReveal() {
+    const items = document.querySelectorAll('.zero-motion-item');
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('zero-in-view'));
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         let stagger = 0;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 80, 320)}ms`);
+                entry.target.style.setProperty('--zero-delay', `${Math.min(stagger++ * 85, 340)}ms`);
                 entry.target.classList.add('zero-in-view');
+            } else if (!entry.target.contains(document.activeElement)) {
+                entry.target.classList.remove('zero-in-view');
+                entry.target.style.setProperty('--zero-delay', '0ms');
             }
         });
     }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(el => observer.observe(el));
+    items.forEach(el => observer.observe(el));
+
+    // Force check items already in viewport on load
+    requestAnimationFrame(() => {
+        items.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('zero-in-view');
+            }
+        });
+    });
 }
 
 // ==========================================================================
 // 4. ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
 // ==========================================================================
 function attachCardTiltMotion() {
-    const desktop = matchMedia('(hover: hover) and (pointer: fine)');
-    if (!desktop.matches) return;
+    document.querySelectorAll('.zero-motion-card').forEach(card => {
+        if (card.dataset.tiltBound === 'true') return;
+        card.dataset.tiltBound = 'true';
 
-    document.querySelectorAll('.zero-motion-card:not([data-motion-bound])').forEach(card => {
-        card.setAttribute('data-motion-bound', 'true');
-        let frame = 0, x = 0, y = 0;
+        let frame = 0;
+        let clientX = 0, clientY = 0;
 
         card.addEventListener('pointermove', event => {
-            x = event.clientX;
-            y = event.clientY;
+            clientX = event.clientX;
+            clientY = event.clientY;
+
             if (frame) return;
             frame = requestAnimationFrame(() => {
                 frame = 0;
                 const rect = card.getBoundingClientRect();
                 if (!rect.width || !rect.height) return;
 
-                const px = Math.max(-1, Math.min(1, (x - rect.left) / rect.width * 2 - 1));
-                const py = Math.max(-1, Math.min(1, (y - rect.top) / rect.height * 2 - 1));
+                const px = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
+                const py = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
 
                 card.classList.add('zero-pointer');
-                // Exact Zero Hub container tilt values
-                card.style.setProperty('--zero-tilt-x', `${(-py * 7).toFixed(2)}deg`);
-                card.style.setProperty('--zero-tilt-y', `${(px * 8).toFixed(2)}deg`);
-                card.style.setProperty('--light-x', `${(x - rect.left).toFixed(1)}px`);
-                card.style.setProperty('--light-y', `${(y - rect.top).toFixed(1)}px`);
+
+                // Tilts the container in 3D:
+                // Cursor to right => px > 0 => tilt-y positive, pulling right edge towards camera!
+                // Cursor to left  => px < 0 => tilt-y negative, pulling left edge towards camera!
+                const tiltX = -py * 8;
+                const tiltY = px * 10;
+
+                card.style.setProperty('--zero-tilt-x', `${tiltX.toFixed(2)}deg`);
+                card.style.setProperty('--zero-tilt-y', `${tiltY.toFixed(2)}deg`);
+                card.style.setProperty('--light-x', `${(clientX - rect.left).toFixed(1)}px`);
+                card.style.setProperty('--light-y', `${(clientY - rect.top).toFixed(1)}px`);
             });
         }, { passive: true });
 

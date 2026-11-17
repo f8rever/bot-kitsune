@@ -1,7 +1,7 @@
 /* ==========================================================================
-   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v3.0)
+   KITSUNE GIFTING — ZERO HUB AESTHETIC ENGINE & MOTION SYSTEM (v3.5)
    - Zero Hub 3D Container Tilt & Lateral Pull on Hover
-   - Zero Hub Smooth Scroll Momentum Glide
+   - Zero Hub Buttery-Smooth Scroll Momentum Glide
    - 3D Scroll Reveal with Staggered Rising Panels
    - Pure Obsidian Black (#000), Hextech Gold, Arcane Cyan
    ========================================================================== */
@@ -16,8 +16,8 @@
     /* Pure Zero Hub Black Canvas */
     --bg: #000000;
     --bg-surface: rgba(18, 18, 22, 0.55);
-    --bg-surface-hover: rgba(26, 26, 32, 0.8);
-    --bg-surface-elevated: rgba(14, 14, 18, 0.92);
+    --bg-surface-hover: rgba(26, 26, 32, 0.82);
+    --bg-surface-elevated: rgba(14, 14, 18, 0.95);
 
     /* Ultra-crisp thin borders */
     --border: rgba(255, 255, 255, 0.08);
@@ -120,9 +120,9 @@ body {
    ========================================================================== */
 .zero-motion-item {
     opacity: 0;
-    transform: perspective(850px) translate3d(0, 48px, 0) rotateX(6deg) scale(0.96);
+    transform: perspective(850px) translate3d(0, 60px, 0) rotateX(8deg) scale(0.94);
     transform-origin: center bottom;
-    transition: opacity 0.8s var(--motion-out) var(--zero-delay, 0ms),
+    transition: opacity 0.75s var(--motion-out) var(--zero-delay, 0ms),
                 transform 0.95s var(--motion-out) var(--zero-delay, 0ms);
     backface-visibility: hidden;
     will-change: opacity, transform;
@@ -130,29 +130,35 @@ body {
 
 .zero-motion-item.zero-in-view {
     opacity: 1;
-    transform: perspective(850px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
+    transform: perspective(850px) translate3d(0, 0, 0) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg)) scale(1);
 }
 
 /* ==========================================================================
-   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO DE LEVE)
+   ZERO HUB 3D CONTAINER TILT & LATERAL PULL (PAINEL/BLOCO PUXANDO)
    ========================================================================== */
 .zero-motion-card {
     transform-style: preserve-3d;
-    transform: perspective(850px) rotateX(var(--zero-tilt-x, 0deg)) rotateY(var(--zero-tilt-y, 0deg));
-    transition: transform 0.5s var(--motion-out), translate 0.5s var(--motion-out), scale 0.5s var(--motion-out), border-color 0.35s ease, box-shadow 0.4s ease;
+    transition: opacity 0.75s var(--motion-out),
+                transform 0.45s var(--motion-out),
+                translate 0.45s var(--motion-out),
+                box-shadow 0.45s ease,
+                border-color 0.35s ease;
     will-change: transform, translate;
 }
 
 .zero-motion-card.zero-pointer {
-    transition: transform 0.14s ease-out, translate 0.5s var(--motion-out), scale 0.5s var(--motion-out);
+    transition: opacity 0.75s var(--motion-out),
+                transform 0.12s ease-out,
+                translate 0.45s var(--motion-out),
+                box-shadow 0.45s ease,
+                border-color 0.35s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .zero-motion-card:hover {
         translate: 0 -8px;
-        scale: 1.014;
-        border-color: rgba(200, 170, 110, 0.4);
-        box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 30px rgba(200, 170, 110, 0.22);
+        border-color: rgba(200, 170, 110, 0.45) !important;
+        box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.95), 0 0 28px rgba(200, 170, 110, 0.25) !important;
     }
 }
 
