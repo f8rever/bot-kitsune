@@ -228,14 +228,16 @@
 })();
 
 // ==========================================================================
-// 3. ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES EM FILEIRA)
+// 3. ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES E FILEIRAS)
 // ==========================================================================
-let _globalScrollObserver = null;
+let _sectionObserver = null;
+let _cardObserver = null;
+let _scrollRaf = 0;
 
 function revealElementInView(el) {
     if (!el || el.classList.contains('zero-in-view')) return;
 
-    // Calcula a coluna na fileira para escalonar a subida (0ms, 85ms, 170ms, 255ms...)
+    // Calcula a coluna na fileira para escalonar a subida (0ms, 90ms, 180ms, 270ms...)
     const parent = el.parentElement;
     let col = 0;
     if (parent) {
@@ -244,50 +246,91 @@ function revealElementInView(el) {
         col = idx >= 0 ? (idx % 4) : 0;
     }
 
-    const delay = col * 85;
+    const delay = col * 90;
     el.style.setProperty('--zero-delay', `${delay}ms`);
     el.classList.add('visible', 'zero-in-view');
 
     setTimeout(() => {
         el.style.removeProperty('--zero-delay');
-    }, delay + 900);
+    }, delay + 950);
 }
 
-function revealViewportItems() {
+function checkScrollVisibility() {
     const h = window.innerHeight;
-    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < h + 40 && rect.bottom > 0) {
-            revealElementInView(el);
+
+    // 1. Revela seções completas que estão entrando na tela (.reveal)
+    document.querySelectorAll('.reveal:not(.visible)').forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < h - 40 && rect.bottom > 0) {
+            sec.classList.add('visible');
+        }
+    });
+
+    // 2. Revela cards em fileiras (.zero-motion-item)
+    document.querySelectorAll('.zero-motion-item:not(.zero-in-view)').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < h + 20 && rect.bottom > 0) {
+            revealElementInView(card);
         }
     });
 }
 
+function handleScrollTrigger() {
+    if (_scrollRaf) return;
+    _scrollRaf = requestAnimationFrame(() => {
+        _scrollRaf = 0;
+        checkScrollVisibility();
+    });
+}
+
 function initScrollReveal() {
-    const items = document.querySelectorAll('.zero-motion-item:not(.zero-in-view)');
-    if (!items.length) return;
-
-    if (!('IntersectionObserver' in window)) {
-        items.forEach(el => el.classList.add('visible', 'zero-in-view'));
-        return;
+    // 1. Observador para seções inteiras com blur e subida suave
+    const sections = document.querySelectorAll('.reveal:not(.visible)');
+    if (sections.length && 'IntersectionObserver' in window) {
+        if (!_sectionObserver) {
+            _sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        _sectionObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
+        }
+        sections.forEach(s => _sectionObserver.observe(s));
+    } else {
+        sections.forEach(s => s.classList.add('visible'));
     }
 
-    if (!_globalScrollObserver) {
-        _globalScrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    revealElementInView(entry.target);
-                    _globalScrollObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.05,
-            rootMargin: '0px 0px 80px 0px' // Dispara 80px antes de entrar para subida fluida sem travamento
-        });
+    // 2. Observador para cards individuais em fileiras
+    const cards = document.querySelectorAll('.zero-motion-item:not(.zero-in-view)');
+    if (cards.length && 'IntersectionObserver' in window) {
+        if (!_cardObserver) {
+            _cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        revealElementInView(entry.target);
+                        _cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.04, rootMargin: '0px 0px 40px 0px' });
+        }
+        cards.forEach(c => _cardObserver.observe(c));
+    } else {
+        cards.forEach(c => c.classList.add('visible', 'zero-in-view'));
     }
 
-    items.forEach(el => _globalScrollObserver.observe(el));
-    revealViewportItems();
+    // 3. Listener passivo de scroll para resposta imediata
+    if (!window._scrollRevealBound) {
+        window._scrollRevealBound = true;
+        window.addEventListener('scroll', handleScrollTrigger, { passive: true });
+    }
+
+    checkScrollVisibility();
+}
+
+function revealViewportItems() {
+    checkScrollVisibility();
 }
 
 // ==========================================================================

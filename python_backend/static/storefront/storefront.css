@@ -119,13 +119,33 @@ body {
 }
 
 /* ==========================================================================
-   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DAS SEÇÕES COM 3D PERSPECTIVE)
+   ZERO HUB SECTION REVEAL (SUBIDA SUAVE DAS PRÓXIMAS SEÇÕES COM BLUR)
+   ========================================================================== */
+.reveal {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 42px, 0);
+    transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
+    backface-visibility: hidden;
+}
+
+.reveal.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+}
+
+/* ==========================================================================
+   ZERO HUB SCROLL REVEAL (SUBIDA SUAVE DOS CARDS EM FILEIRAS)
    ========================================================================== */
 .zero-motion-item {
     opacity: 0;
-    transform: translate3d(0, 38px, 0) scale(0.96);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms),
-                transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms);
+    transform: translate3d(0, 46px, 0) scale(0.96);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms),
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--zero-delay, 0ms);
     backface-visibility: hidden;
     will-change: opacity, transform;
 }
@@ -409,7 +429,12 @@ body {
    HERO SECTION
    ========================================================================== */
 .hero-section {
-    padding: 72px 0 54px;
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0 60px;
     text-align: center;
     position: relative;
     animation: heroFadeIn 0.9s var(--motion-out) both;
