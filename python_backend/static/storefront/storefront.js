@@ -1,132 +1,179 @@
 /**
- * KITSUNE GIFTING STOREFRONT — CLIENT LOGIC & ANIMATIONS
- * - Interactive Dot-Matrix Canvas (Zero Hub Replica with Hextech & Arcane Colors)
- * - Real-time Catalog Search & Filter Engine (9,290 items)
- * - Infinite Batch Renderer (Ultra smooth 60fps)
- * - Slide-in Checkout Drawer & Cart Manager
+ * KITSUNE GIFTING STOREFRONT — ADVANCED ZERO HUB MOTION & PARTICLES ENGINE
+ * - Authentic Zero Hub Dot Canvas (Repelling physics, spring-back & Hextech/Arcane radiance)
+ * - 3D Card Tilt on Cursor Proximity
+ * - High-performance Batch Renderer for 9,290 items
+ * - Instant Live Search & Filter Tabs
+ * - Offcanvas Cart Drawer with Riot ID validation
  */
 
 // ==========================================================================
-// 1. INTERACTIVE DOT-MATRIX CANVAS (ZERO HUB ENGINE)
+// 1. AUTHENTIC ZERO HUB DOT CANVAS (REPELLING PARTICLES + RADIANT GLOW)
 // ==========================================================================
-class DotMatrixCanvas {
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
-        this.dots = [];
-        this.spacing = 30; // Grid spacing in px
-        this.baseRadius = 1.2;
-        this.mouseRadius = 160;
+(function initZeroHubCanvas() {
+    const canvas = document.getElementById('dotCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-        this.mouse = {
-            x: -1000,
-            y: -1000,
-            targetX: -1000,
-            targetY: -1000,
-            active: false
-        };
+    // Tunables (Zero Hub exact physics)
+    const SPACING = 16;
+    const DOT_R = 0.85;
+    const RADIUS = 80;
+    const PUSH = 14;
+    const EASE = 0.08;
+    const LEVELS = 10;
+    const EPS = 0.05;
 
-        this.time = 0;
-        this.init();
-    }
+    let W, H, dpr, dots = [], buckets = [], running = false;
+    const mouse = { x: -9999, y: -9999 };
 
-    init() {
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.targetX = e.clientX;
-            this.mouse.targetY = e.clientY;
-            this.mouse.active = true;
-        });
+    function build() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.floor(W * dpr);
+        canvas.height = Math.floor(H * dpr);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        window.addEventListener('mouseleave', () => {
-            this.mouse.active = false;
-        });
+        dots = [];
+        buckets = [];
+        for (let i = 0; i < LEVELS; i++) buckets.push([]);
 
-        this.animate();
-    }
+        for (let y = 0; y <= H; y += SPACING) {
+            for (let x = 0; x <= W; x += SPACING) {
+                // Diagonal ambient fade
+                const fade = 1 - (x / (W * 1.1) + y / (H * 1.1)) * 0.7;
+                if (fade <= 0.04) continue;
+                const a = fade * 0.35;
+                let bi = Math.floor((a / 0.35) * LEVELS);
+                if (bi >= LEVELS) bi = LEVELS - 1;
+                if (bi < 0) bi = 0;
 
-    resize() {
-        this.width = this.canvas.width = window.innerWidth;
-        this.height = this.canvas.height = window.innerHeight;
-        this.createDots();
-    }
-
-    createDots() {
-        this.dots = [];
-        const cols = Math.ceil(this.width / this.spacing) + 1;
-        const rows = Math.ceil(this.height / this.spacing) + 1;
-
-        for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < cols; x++) {
-                this.dots.push({
-                    x: x * this.spacing,
-                    y: y * this.spacing,
-                    baseX: x * this.spacing,
-                    baseY: y * this.spacing,
-                    radius: this.baseRadius,
-                    alpha: 0.12,
-                    color: '#463714'
-                });
+                const d = { ox: x, oy: y, x: x, y: y, b: 0, a: a };
+                dots.push(d);
+                if (buckets[bi]) buckets[bi].push(d);
             }
         }
+        draw();
     }
 
-    animate() {
-        this.time += 0.02;
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
 
-        // Smooth mouse lerp
-        if (this.mouse.active) {
-            this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.15;
-            this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.15;
-        } else {
-            this.mouse.x += (-1000 - this.mouse.x) * 0.05;
-            this.mouse.y += (-1000 - this.mouse.y) * 0.05;
+        // Resting dots: batched paths for 60fps performance
+        for (let bi = 0; bi < LEVELS; bi++) {
+            const arr = buckets[bi];
+            if (!arr.length) continue;
+            let any = false;
+            ctx.beginPath();
+            for (let i = 0; i < arr.length; i++) {
+                const d = arr[i];
+                if (d.b > 0.01) continue;
+                ctx.rect(d.x - DOT_R, d.y - DOT_R, DOT_R * 2, DOT_R * 2);
+                any = true;
+            }
+            if (any) {
+                // Subtle Hextech slate gold ambient dot
+                const opacity = (((bi + 0.5) / LEVELS) * 0.35).toFixed(3);
+                ctx.fillStyle = `rgba(180, 160, 120, ${opacity})`;
+                ctx.fill();
+            }
         }
 
-        this.ctx.clearRect(0, 0, this.width, this.height);
+        // Active dots near cursor: push away, glow and scale
+        for (let i = 0; i < dots.length; i++) {
+            const d = dots[i];
+            if (d.b <= 0.01) continue;
 
-        for (let i = 0; i < this.dots.length; i++) {
-            const dot = this.dots[i];
-            const dx = this.mouse.x - dot.x;
-            const dy = this.mouse.y - dot.y;
+            ctx.beginPath();
+            const radius = DOT_R + d.b * 1.5;
+            ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
+
+            // Radiant blend: Hextech Gold to Arcane Cyan
+            if (d.b > 0.6) {
+                // Hot core gold
+                ctx.fillStyle = `rgba(240, 230, 210, ${Math.min(1, d.a + d.b * 0.8)})`;
+            } else if (d.b > 0.3) {
+                // Hextech Amber
+                ctx.fillStyle = `rgba(200, 170, 110, ${Math.min(1, d.a + d.b * 0.7)})`;
+            } else {
+                // Arcane Cyan
+                ctx.fillStyle = `rgba(10, 200, 185, ${Math.min(1, d.a + d.b * 0.6)})`;
+            }
+            ctx.fill();
+        }
+    }
+
+    function tick() {
+        let moved = false;
+        for (let i = 0; i < dots.length; i++) {
+            const d = dots[i];
+            let tx = d.ox;
+            let ty = d.oy;
+            let boost = 0;
+
+            const dx = d.ox - mouse.x;
+            const dy = d.oy - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            // Ambient gentle wave
-            const wave = Math.sin(this.time + (dot.baseX * 0.01) + (dot.baseY * 0.01)) * 0.3;
-
-            if (dist < this.mouseRadius) {
-                const norm = 1 - (dist / this.mouseRadius);
-                const ease = Math.pow(norm, 2);
-
-                dot.radius = this.baseRadius + (ease * 2.8);
-                dot.alpha = 0.2 + (ease * 0.7);
-
-                // Blend between Hextech Gold and Arcane Cyan based on distance
-                if (norm > 0.6) {
-                    dot.color = `rgba(200, 170, 110, ${dot.alpha})`; // Hextech Gold
-                } else {
-                    dot.color = `rgba(10, 200, 185, ${dot.alpha})`; // Arcane Cyan
-                }
-            } else {
-                dot.radius = Math.max(0.8, this.baseRadius + wave * 0.4);
-                dot.alpha = Math.max(0.06, 0.1 + wave * 0.05);
-                dot.color = `rgba(200, 170, 110, ${dot.alpha})`;
+            // Repel from cursor
+            if (dist < RADIUS && dist > 0.001) {
+                const force = (1 - dist / RADIUS);
+                const pushDist = force * PUSH;
+                tx = d.ox + (dx / dist) * pushDist;
+                ty = d.oy + (dy / dist) * pushDist;
+                boost = force;
             }
 
-            this.ctx.beginPath();
-            this.ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = dot.color;
-            this.ctx.fill();
+            const stepX = (tx - d.x) * EASE;
+            const stepY = (ty - d.y) * EASE;
+            const stepB = (boost - d.b) * EASE;
+
+            d.x += stepX;
+            d.y += stepY;
+            d.b += stepB;
+
+            if (Math.abs(stepX) > EPS || Math.abs(stepY) > EPS || Math.abs(stepB) > 0.005) {
+                moved = true;
+            }
         }
 
-        requestAnimationFrame(() => this.animate());
+        draw();
+
+        if (moved) {
+            requestAnimationFrame(tick);
+        } else {
+            running = false;
+        }
     }
-}
+
+    function wake() {
+        if (!running) {
+            running = true;
+            requestAnimationFrame(tick);
+        }
+    }
+
+    window.addEventListener('resize', build);
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        wake();
+    });
+
+    window.addEventListener('mouseleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+        wake();
+    });
+
+    build();
+})();
 
 // ==========================================================================
-// 2. STOREFRONT ENGINE & STATE
+// 2. STOREFRONT ENGINE & STATE MANAGEMENT
 // ==========================================================================
 const StoreState = {
     allCatalog: {},
@@ -137,16 +184,14 @@ const StoreState = {
     searchQuery: '',
     sortBy: 'featured',
     currentPage: 1,
-    pageSize: 36,
-    cart: [],
-    pricingRules: null
+    pageSize: 32,
+    cart: []
 };
 
-// Standard LoL pricing lookup table
+// Calculates dynamic LoL Gifting prices with discounts
 function calculatePriceBRL(item) {
     const rp = item.price_rp || item.regular_rp || 1350;
 
-    // Fixed discount price mapping for popular RP tiers
     if (rp === 3250) return { original: '20.99', final: '10.49', discount: 50 };
     if (rp === 1820) return { original: '11.49', final: '5.75', discount: 50 };
     if (rp === 1350) return { original: '8.49', final: '4.25', discount: 50 };
@@ -157,25 +202,18 @@ function calculatePriceBRL(item) {
     if (rp === 1650) return { original: '10.79', final: '5.39', discount: 50 };
     if (rp === 2650) return { original: '17.29', final: '8.64', discount: 50 };
 
-    // Dynamic formula for other values (bundles, loot, etc.)
-    const estimatedOriginal = (rp * 0.00628).toFixed(2);
-    const estimatedFinal = (rp * 0.00314).toFixed(2);
+    const estOriginal = (rp * 0.00628).toFixed(2);
+    const estFinal = (rp * 0.00314).toFixed(2);
     return {
-        original: estimatedOriginal,
-        final: Math.max(1.0, parseFloat(estimatedFinal)).toFixed(2),
+        original: estOriginal,
+        final: Math.max(1.0, parseFloat(estFinal)).toFixed(2),
         discount: 50
     };
 }
 
-// Fallback high-res image helper
 function getItemImage(item) {
-    if (item.icon_url && item.icon_url.startsWith('http')) {
-        return item.icon_url;
-    }
-    if (item.image_url && item.image_url.startsWith('http')) {
-        return item.image_url;
-    }
-    // Default fallback
+    if (item.icon_url && item.icon_url.startsWith('http')) return item.icon_url;
+    if (item.image_url && item.image_url.startsWith('http')) return item.image_url;
     return 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg';
 }
 
@@ -198,10 +236,9 @@ function normalizeStr(str) {
 }
 
 // ==========================================================================
-// 3. CATALOG FETCHING & INDEXING
+// 3. CATALOG INITIALIZATION & DATA PARSER
 // ==========================================================================
 async function initStorefront() {
-    new DotMatrixCanvas('dotCanvas');
     loadCartFromStorage();
     setupEventListeners();
 
@@ -213,16 +250,16 @@ async function initStorefront() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         StoreState.allCatalog = data;
-        processCatalogData();
+        processCatalog();
     } catch (err) {
-        console.error('Erro ao carregar catálogo oficial:', err);
-        showToast('Erro ao carregar itens da loja. Tentando recarregar...', true);
+        console.error('Erro ao obter catálogo:', err);
+        showToast('Erro ao carregar catálogo. Recarregando...', true);
     } finally {
         if (loader) loader.style.display = 'none';
     }
 }
 
-function processCatalogData() {
+function processCatalog() {
     const flattened = [];
     const catCounts = {
         Skins: 0,
@@ -236,33 +273,36 @@ function processCatalogData() {
     for (const [catName, itemsMap] of Object.entries(StoreState.allCatalog)) {
         if (!itemsMap || typeof itemsMap !== 'object') continue;
 
-        let mappedCategory = 'Others';
-        if (catName === 'Skins') mappedCategory = 'Skins';
-        else if (catName === 'Passes') mappedCategory = 'Passes';
-        else if (catName === 'Loot') mappedCategory = 'Loot';
-        else if (catName === 'Bundles') mappedCategory = 'Bundles';
-        else if (catName === 'Chromas') mappedCategory = 'Chromas';
+        let mapped = 'Others';
+        if (catName === 'Skins') mapped = 'Skins';
+        else if (catName === 'Passes') mapped = 'Passes';
+        else if (catName === 'Loot') mapped = 'Loot';
+        else if (catName === 'Bundles') mapped = 'Bundles';
+        else if (catName === 'Chromas') mapped = 'Chromas';
 
         for (const [itemName, itemData] of Object.entries(itemsMap)) {
-            const itemObj = {
+            flattened.push({
                 ...itemData,
                 name: itemName,
-                category: mappedCategory,
+                category: mapped,
                 rawCategory: catName
-            };
-            flattened.push(itemObj);
-            catCounts[mappedCategory] = (catCounts[mappedCategory] || 0) + 1;
+            });
+            catCounts[mapped] = (catCounts[mapped] || 0) + 1;
         }
     }
 
     StoreState.flattenedItems = flattened;
 
-    // Update Tab Counters in UI
+    // Update filter tabs counters
     document.querySelectorAll('.filter-tab').forEach(tab => {
         const cat = tab.getAttribute('data-cat');
-        const countSpan = tab.querySelector('.tab-count');
-        if (countSpan && catCounts[cat] !== undefined) {
-            countSpan.textContent = catCounts[cat].toLocaleString('pt-BR');
+        const countSpan = tab.querySelector('.pill-count');
+        if (countSpan) {
+            if (cat === 'all') {
+                countSpan.textContent = flattened.length.toLocaleString('pt-BR');
+            } else if (catCounts[cat] !== undefined) {
+                countSpan.textContent = catCounts[cat].toLocaleString('pt-BR');
+            }
         }
     });
 
@@ -270,26 +310,23 @@ function processCatalogData() {
 }
 
 // ==========================================================================
-// 4. FILTERING & SORTING LOGIC
+// 4. FILTERING & SORTING ENGINE
 // ==========================================================================
 function applyFilters() {
     let result = StoreState.flattenedItems;
 
-    // 1. Category Filter
+    // Category
     if (StoreState.currentCategory !== 'all') {
         result = result.filter(item => item.category === StoreState.currentCategory);
     }
 
-    // 2. Search Query Filter
+    // Search query
     if (StoreState.searchQuery.trim()) {
         const q = normalizeStr(StoreState.searchQuery.trim());
-        result = result.filter(item => {
-            const nameNorm = normalizeStr(item.name);
-            return nameNorm.includes(q);
-        });
+        result = result.filter(item => normalizeStr(item.name).includes(q));
     }
 
-    // 3. Rarity Filter
+    // Rarity
     if (StoreState.currentRarity !== 'all') {
         result = result.filter(item => {
             const rClass = getRarityClass(item.rarity, item.rarity_label);
@@ -297,7 +334,7 @@ function applyFilters() {
         });
     }
 
-    // 4. Sort
+    // Sort
     if (StoreState.sortBy === 'price-asc') {
         result.sort((a, b) => (a.price_rp || 0) - (b.price_rp || 0));
     } else if (StoreState.sortBy === 'price-desc') {
@@ -313,7 +350,7 @@ function applyFilters() {
 }
 
 // ==========================================================================
-// 5. CATALOG RENDERING & PAGINATION
+// 5. CATALOG RENDERING & 3D TILT EFFECT
 // ==========================================================================
 function renderCatalog() {
     const grid = document.getElementById('productsGrid');
@@ -337,15 +374,18 @@ function renderCatalog() {
     if (emptyState) emptyState.style.display = 'none';
 
     const itemsToRender = StoreState.filteredItems.slice(0, StoreState.currentPage * StoreState.pageSize);
-
     grid.innerHTML = itemsToRender.map(item => createProductCardHTML(item)).join('');
 
-    // Handle Load More Button
+    // Attach 3D tilt interaction to rendered cards
+    attachCardTiltEffect();
+
+    // Load More visibility
     if (loadMoreBtn) {
         if (itemsToRender.length < StoreState.filteredItems.length) {
             loadMoreBtn.style.display = 'inline-flex';
-            loadMoreBtn.querySelector('.remaining-count').textContent =
-                `(${(StoreState.filteredItems.length - itemsToRender.length).toLocaleString('pt-BR')} restantes)`;
+            const remaining = StoreState.filteredItems.length - itemsToRender.length;
+            const countEl = loadMoreBtn.querySelector('.remaining-count');
+            if (countEl) countEl.textContent = `(${remaining.toLocaleString('pt-BR')} restantes)`;
         } else {
             loadMoreBtn.style.display = 'none';
         }
@@ -359,8 +399,7 @@ function createProductCardHTML(item) {
     const rarityLabel = item.rarity_label || rarityClass.toUpperCase();
     const rpPrice = item.price_rp || item.regular_rp || 1350;
 
-    // Escaped string for data attributes
-    const safeItemData = encodeURIComponent(JSON.stringify({
+    const safeData = encodeURIComponent(JSON.stringify({
         id: item.item_id || item.offer_id,
         name: item.name,
         price_brl: pricing.final,
@@ -370,27 +409,27 @@ function createProductCardHTML(item) {
     }));
 
     return `
-    <div class="product-card" data-item-id="${item.item_id || item.offer_id}">
-        <div class="card-thumb-wrap">
-            <span class="card-rarity-badge ${rarityClass}">
+    <div class="product-card" data-tilt="true">
+        <div class="card-media-wrap">
+            <span class="card-badge-rarity ${rarityClass}">
                 <i class="fa-solid fa-gem"></i> ${rarityLabel}
             </span>
-            <span class="card-discount-tag">-${pricing.discount}% OFF</span>
-            <img class="card-thumb" src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg'">
+            <span class="card-badge-discount">-${pricing.discount}% OFF</span>
+            <img class="card-media-img" src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg'">
         </div>
-        <div class="card-content">
-            <div class="card-item-title" title="${item.name}">${item.name}</div>
-            <div class="card-pricing-row">
-                <div class="card-rp-original">
+        <div class="card-body">
+            <div class="card-title" title="${item.name}">${item.name}</div>
+            <div class="card-price-container">
+                <div class="card-rp-tag">
                     <img src="/static/images/icon-rp.png" width="14" height="14" alt="RP" onerror="this.style.display='none'">
                     <span>${rpPrice.toLocaleString('pt-BR')} RP</span>
                 </div>
-                <div class="card-price-brl">
-                    <span class="symbol">R$</span>
-                    <span class="value">${pricing.final}</span>
+                <div class="card-brl-price">
+                    <span class="cur">R$</span>
+                    <span class="val">${pricing.final}</span>
                 </div>
             </div>
-            <button class="btn-card-add" onclick="handleAddToCart('${safeItemData}')">
+            <button class="btn-card-gift" onclick="handleAddToCart('${safeData}')">
                 <i class="fa-solid fa-gift"></i> Presentear
             </button>
         </div>
@@ -398,15 +437,37 @@ function createProductCardHTML(item) {
     `;
 }
 
+// 3D Card Tilt Interaction (Smooth perspective rotation)
+function attachCardTiltEffect() {
+    document.querySelectorAll('.product-card[data-tilt="true"]').forEach(card => {
+        card.removeAttribute('data-tilt');
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -6; // max 6 deg
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+    });
+}
+
 // ==========================================================================
-// 6. CART & DRAWER MANAGEMENT
+// 6. CART & CHECKOUT DRAWER
 // ==========================================================================
 function loadCartFromStorage() {
     try {
         const saved = localStorage.getItem('kitsune_store_cart');
-        if (saved) {
-            StoreState.cart = JSON.parse(saved);
-        }
+        if (saved) StoreState.cart = JSON.parse(saved);
     } catch (e) {
         StoreState.cart = [];
     }
@@ -425,7 +486,7 @@ function handleAddToCart(encodedData) {
     const exists = StoreState.cart.find(c => c.id === item.id);
 
     if (exists) {
-        showToast(`"${item.name}" já está no seu carrinho!`);
+        showToast(`"${item.name}" já está no carrinho!`);
     } else {
         StoreState.cart.push(item);
         saveCartToStorage();
@@ -440,13 +501,12 @@ function handleRemoveFromCart(id) {
 }
 
 function updateCartUI() {
-    const counterBadges = document.querySelectorAll('.cart-counter-badge');
-    counterBadges.forEach(b => b.textContent = StoreState.cart.length);
+    document.querySelectorAll('.cart-badge-count').forEach(b => b.textContent = StoreState.cart.length);
 
     const listEl = document.getElementById('cartItemsList');
     const emptyEl = document.getElementById('cartEmptyState');
     const totalEl = document.getElementById('cartTotalValue');
-    const checkoutBtn = document.getElementById('btnCheckoutPix');
+    const submitBtn = document.getElementById('btnSubmitOrder');
 
     if (!listEl) return;
 
@@ -454,12 +514,12 @@ function updateCartUI() {
         listEl.innerHTML = '';
         if (emptyEl) emptyEl.style.display = 'block';
         if (totalEl) totalEl.textContent = 'R$ 0,00';
-        if (checkoutBtn) checkoutBtn.disabled = true;
+        if (submitBtn) submitBtn.disabled = true;
         return;
     }
 
     if (emptyEl) emptyEl.style.display = 'none';
-    if (checkoutBtn) checkoutBtn.disabled = false;
+    if (submitBtn) submitBtn.disabled = false;
 
     let total = 0;
     listEl.innerHTML = StoreState.cart.map(item => {
@@ -472,7 +532,7 @@ function updateCartUI() {
                 <div class="cart-item-name" title="${item.name}">${item.name}</div>
                 <div class="cart-item-price">R$ ${item.price_brl}</div>
             </div>
-            <button class="btn-item-remove" onclick="handleRemoveFromCart('${item.id}')" title="Remover item">
+            <button class="btn-remove-item" onclick="handleRemoveFromCart('${item.id}')" title="Remover item">
                 <i class="fa-solid fa-trash-can"></i>
             </button>
         </div>
@@ -500,22 +560,19 @@ function closeCartDrawer() {
     document.body.style.overflow = '';
 }
 
-// ==========================================================================
-// 7. CHECKOUT SUBMISSION & TOASTS
-// ==========================================================================
 function handleCheckout() {
-    const riotIdInput = document.getElementById('cartRiotIdInput');
-    const riotId = riotIdInput ? riotIdInput.value.trim() : '';
+    const riotInput = document.getElementById('cartRiotIdInput');
+    const riotId = riotInput ? riotInput.value.trim() : '';
 
     if (!riotId) {
-        showToast('Por favor, informe seu Riot ID (Ex: Nome#BR1)', true);
-        if (riotIdInput) riotIdInput.focus();
+        showToast('Por favor, informe seu Riot ID (Ex: Nick#TAG)', true);
+        if (riotInput) riotInput.focus();
         return;
     }
 
     if (!riotId.includes('#')) {
-        showToast('Riot ID inválido! Não esqueça da #TAG (Ex: Faker#BR1)', true);
-        if (riotIdInput) riotIdInput.focus();
+        showToast('Riot ID inválido! Lembre-se da #TAG (Ex: Faker#BR1)', true);
+        if (riotInput) riotInput.focus();
         return;
     }
 
@@ -524,13 +581,11 @@ function handleCheckout() {
         return;
     }
 
-    // Build order summary modal / prompt
     const total = StoreState.cart.reduce((acc, it) => acc + parseFloat(it.price_brl || 0), 0);
     const itemNames = StoreState.cart.map(it => it.name).join(', ');
 
-    alert(`🎉 Pedido Gerado com Sucesso!\n\nDestinatário: ${riotId}\nItens: ${itemNames}\nTotal: R$ ${total.toFixed(2)}\n\nO bot enviará um pedido de amizade no League of Legends para ${riotId} para a entrega do presente!`);
-    
-    // Clear cart
+    alert(`🎉 Pedido Gerado com Sucesso!\n\nDestinatário: ${riotId}\nItens: ${itemNames}\nTotal: R$ ${total.toFixed(2)}\n\nO bot da Kitsune enviará um pedido de amizade no League of Legends para ${riotId} para a entrega do presente!`);
+
     StoreState.cart = [];
     saveCartToStorage();
     closeCartDrawer();
@@ -564,23 +619,22 @@ function showToast(message, isError = false) {
 }
 
 // ==========================================================================
-// 8. EVENT LISTENERS SETUP
+// 7. EVENT LISTENERS
 // ==========================================================================
 function setupEventListeners() {
-    // Search Inputs (Navbar + Catalog)
+    // Search
     const searchInputs = [
         document.getElementById('navSearchInput'),
         document.getElementById('catalogSearchInput')
     ];
 
-    let searchDebounceTimer = null;
+    let timer = null;
     searchInputs.forEach(input => {
         if (!input) return;
         input.addEventListener('input', (e) => {
-            clearTimeout(searchDebounceTimer);
-            searchDebounceTimer = setTimeout(() => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
                 StoreState.searchQuery = e.target.value;
-                // Sync both inputs
                 searchInputs.forEach(other => {
                     if (other && other !== input) other.value = e.target.value;
                 });
@@ -589,7 +643,7 @@ function setupEventListeners() {
         });
     });
 
-    // Category Tabs
+    // Filter Tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -609,7 +663,7 @@ function setupEventListeners() {
         });
     });
 
-    // Sort Select
+    // Sort Dropdown
     const sortSelect = document.getElementById('catalogSortSelect');
     if (sortSelect) {
         sortSelect.addEventListener('change', (e) => {
@@ -618,7 +672,7 @@ function setupEventListeners() {
         });
     }
 
-    // Load More Button
+    // Load More
     const loadMoreBtn = document.getElementById('btnLoadMore');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
@@ -627,27 +681,18 @@ function setupEventListeners() {
         });
     }
 
-    // Cart Drawer triggers
-    const cartTrigger = document.getElementById('btnCartTrigger');
-    if (cartTrigger) {
-        cartTrigger.addEventListener('click', openCartDrawer);
-    }
+    // Drawer triggers
+    const trigger = document.getElementById('btnCartTrigger');
+    if (trigger) trigger.addEventListener('click', openCartDrawer);
 
     const closeBtn = document.getElementById('btnCloseDrawer');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeCartDrawer);
-    }
+    if (closeBtn) closeBtn.addEventListener('click', closeCartDrawer);
 
     const overlay = document.getElementById('cartOverlay');
-    if (overlay) {
-        overlay.addEventListener('click', closeCartDrawer);
-    }
+    if (overlay) overlay.addEventListener('click', closeCartDrawer);
 
-    const checkoutBtn = document.getElementById('btnCheckoutPix');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', handleCheckout);
-    }
+    const submitBtn = document.getElementById('btnSubmitOrder');
+    if (submitBtn) submitBtn.addEventListener('click', handleCheckout);
 }
 
-// Start on DOM ready
 document.addEventListener('DOMContentLoaded', initStorefront);
