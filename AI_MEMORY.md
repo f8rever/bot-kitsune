@@ -246,6 +246,10 @@ Todos os 18 comandos abaixo possuem permissões estritas de Staff (`Administrato
 * **Fase 5 (Discord Components V2):** Transformação estética universal de todos os comandos, painéis, tabelas de preços e tickets para **Discord Components V2** (`ContainerBuilder`), integrando banners animados sRGB em 680p e layout moderno.
 * **Fase 6 (Sincronização Multi-Idioma & Auto-Unlock de Campeões):** Implementação da esteira de catálogo PT-BR e EN-US a partir de uma única conta autenticada. Criação do sistema inteligente de auto-unlock de campeões base ao enviar skins para destinatários que ainda não possuem o personagem.
 * **Fase 7 (Limpeza Estrutural e Higienização):** Eliminação de mais de 35 MB de dados obsoletos e arquivos duplicados em `python_backend/api_files/` e na raiz. Criação do inicializador `iniciar_painel.bat` com auto-restarter e atualização das políticas de `.gitignore`.
+* **Fase 8 (Ultra HD Wallpapers, Correção de Imagens no Voltar & Inglês Universal):**
+  - **46 Splash Arts Ultra HD Verificadas:** Curadoria e validação de 46 URLs de splash arts oficiais sem cortes (uncentered widescreen) em alta resolução da CommunityDragon para as skins mais novas do catálogo (Ambessa, Mel, Aurora, Smolder, Hwei, skins de Arcane, HEARTSTEEL Live My Life, Chosen of the Wolf).
+  - **Resolução do Erro ao Voltar:** Correção do bug de imagens quebradas/ausentes ao clicar em 'Back to Menu' (oltar_menu_modal e oltar_cat_*), através da injeção de iles: [] nos updates de interação e substituição definitiva de links expirados do Discord por links CDN permanentes em config/embeds.json.
+  - **Inglês Universal (English):** Restauração do menu principal da loja, submenus por categoria, modais de busca, botões de paginação e embeds fixos para inglês puro conforme especificação oficial do bot.
 
 ---
 
