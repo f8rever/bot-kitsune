@@ -2489,34 +2489,34 @@ function buildStoreMainMenu(customEmojis) {
     const eAccessories = (customEmojis?.menu_principal?.accessories || customEmojis?.acessorios?.emotes || '<:poro_emote:1560503291568201729>').trim();
 
     return new ActionRowBuilder().addComponents(
-        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Choose what you wish to purchase...').addOptions([
+        new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Navegar pela Loja do LoL...').addOptions([
             {
-                label: 'Featured & Offers',
-                description: 'Bundles, passes and weekly sales',
+                label: 'Destaques',
+                description: 'Novidades, pacotes e promoções da semana',
                 value: 'cat_highlights',
                 emoji: eFeatured
             },
             {
-                label: 'Champion Skins & Chromas',
-                description: 'Skins and chromas',
+                label: 'Skins',
+                description: 'Skins de campeão e cromas',
                 value: 'cat_skins',
                 emoji: eSkin
             },
             {
-                label: 'Loot, Passes & Chests',
-                description: 'Passes, orbs and chests',
+                label: 'Espólios',
+                description: 'Passes de evento, orbes e baús hextec',
                 value: 'cat_loot',
                 emoji: eLoot
             },
             {
-                label: 'Champions & Eternals',
-                description: 'Champions and Eternals',
+                label: 'Campeões',
+                description: 'Campeões e eternos',
                 value: 'cat_champions',
                 emoji: eChamp
             },
             {
-                label: 'Summoner Accessories',
-                description: 'Emotes, ward skins and icons',
+                label: 'Acessórios',
+                description: 'Emotes, ícones e sentinelas',
                 value: 'cat_accessories',
                 emoji: eAccessories
             }
@@ -2641,9 +2641,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 
     if (categoria === 'cat_skins') {
         const menu = new ActionRowBuilder().addComponents(
-            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Skins option').addOptions([
-                { label: 'Skins', description: 'Browse all champion skins', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim() },
-                { label: 'Chromas', description: 'Browse all champion chromas', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim() }
+            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Skins').addOptions([
+                { label: 'Skins', description: 'Ver todas as skins de campeão', value: 'compra_skins', emoji: (customEmojis?.skins?.legendary || '<:legendary:1555074221338665080>').trim() },
+                { label: 'Cromas', description: 'Ver todos os cromas de skins', value: 'compra_chromas', emoji: (customEmojis?.skins?.croma || '<:15croma:1555074272614154270>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2651,11 +2651,11 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 
     if (categoria === 'cat_loot') {
         const menu = new ActionRowBuilder().addComponents(
-            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Loot option').addOptions([
-                { label: 'Orbs & Capsules', description: 'Orbs and capsules', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim() },
-                { label: 'Season Event Passes', description: 'Season event passes', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim() },
-                { label: 'Hextech Chests & Keys', description: 'Chests, keys and bundles', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim() },
-                { label: 'Mystery Gifts', description: 'Mystery skins and chests', value: 'compra_misterio', emoji: eMystery }
+            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Espólios').addOptions([
+                { label: 'Orbes e Cápsulas', description: 'Orbes, cápsulas e pacotes de evento', value: 'compra_orbes', emoji: (customEmojis?.loot?.orb || customEmojis?.loot?.orb_s3 || '<:lol_orb_s3:1555074434048725083>').trim() },
+                { label: 'Passes de Evento', description: 'Passes de temporada da Riot', value: 'compra_passes', emoji: (customEmojis?.loot?.pass || customEmojis?.loot?.pass_s3 || '<:lol_pass_s3:1560503114253996042>').trim() },
+                { label: 'Baús Hextec e Chaves', description: 'Baús, chaves e combos', value: 'compra_hextech', emoji: (customEmojis?.loot?.chest || '<:hextech:1555074299000524932>').trim() },
+                { label: 'Presentes Misteriosos', description: 'Skins e baús misteriosos', value: 'compra_misterio', emoji: eMystery }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2663,9 +2663,9 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 
     if (categoria === 'cat_champions') {
         const menu = new ActionRowBuilder().addComponents(
-            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Champions option').addOptions([
-                { label: 'Champions', description: 'Search all League champions', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim() },
-                { label: 'Eternals', description: 'Series I & II Statstones', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '<:1eternos:1567579284296438010>').trim() }
+            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Campeões').addOptions([
+                { label: 'Campeões', description: 'Buscar todos os campeões do LoL', value: 'compra_champions', emoji: (customEmojis?.skins?.champion || '<:mchamp:1555074230050095114>').trim() },
+                { label: 'Eternos', description: 'Estatísticas das Séries I e II', value: 'compra_eternos', emoji: (customEmojis?.skins?.eternos || '<:1eternos:1567579284296438010>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2673,10 +2673,10 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 
     if (categoria === 'cat_accessories') {
         const menu = new ActionRowBuilder().addComponents(
-            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select an Accessories option').addOptions([
-                { label: 'Emotes', description: 'All emotes', value: 'compra_emotes', emoji: eEmotes },
-                { label: 'Ward Skins', description: 'All ward skins', value: 'compra_wards', emoji: eWards },
-                { label: 'Summoner Icons', description: 'All summoner icons', value: 'compra_icones', emoji: eIcones }
+            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Acessórios').addOptions([
+                { label: 'Emotes', description: 'Todos os emotes da loja', value: 'compra_emotes', emoji: eEmotes },
+                { label: 'Sentinelas', description: 'Skins de sentinela', value: 'compra_wards', emoji: eWards },
+                { label: 'Ícones de Invocador', description: 'Todos os ícones da loja', value: 'compra_icones', emoji: eIcones }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2684,10 +2684,10 @@ async function exibirMenuCategoriaLoja(interaction, categoria) {
 
     if (categoria === 'cat_highlights') {
         const menu = new ActionRowBuilder().addComponents(
-            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Select a Featured option').addOptions([
-                { label: 'Weekly Sales (On Sale)', description: 'Discounted skins and champions', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
-                { label: 'Featured & Launch Bundles', description: 'Featured event bundles and passes', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim() },
-                { label: 'Most Popular', description: 'Most popular items', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
+            new StringSelectMenuBuilder().setCustomId('menu_vendas').setPlaceholder('Selecione uma opção de Destaques').addOptions([
+                { label: 'Promoções Semanais', description: 'Skins e campeões com desconto', value: 'compra_sales', emoji: (customEmojis?.bundles?.sale || '<:lol_sale:1547388458488823868>').trim() },
+                { label: 'Pacotes e Lançamentos', description: 'Pacotes em destaque e passes', value: 'compra_highlights', emoji: (customEmojis?.bundles?.bundle || '<:exclusive_pack:1560503285977190460>').trim() },
+                { label: 'Mais Populares', description: 'Itens mais vendidos da loja', value: 'compra_most_popular', emoji: (customEmojis?.bundles?.most_popular || '<a:pr_fire01:1555074334391799834>').trim() }
             ])
         );
         return await interaction.update({ content: '', embeds: [embed], components: [menu, btnRow] });
@@ -2941,17 +2941,17 @@ client.on('interactionCreate', async interaction => {
                 } else if (opcao === 'compra_most_popular') {
                     return await enviarPaginaCatalogo(interaction, 'most_popular', 0, true);
                 } else if (opcao === 'compra_skins') {
-                    abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
+                    abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Buscar Skins', 'Digite o nome do campeão:');
                 } else if (opcao === 'compra_chromas') {
-                    abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🎨 Search Chromas', 'Enter the champion\'s name:');
+                    abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🎨 Buscar Cromas', 'Digite o nome do campeão:');
                 } else if (opcao === 'compra_champions') {
-                    abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
+                    abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Comprar Campeão', 'Digite o nome do campeão:');
                 } else if (opcao === 'compra_passes') {
                     return await enviarPaginaCatalogo(interaction, 'passes', 0, true);
                 } else if (opcao === 'compra_bundles') {
                     return await enviarPaginaCatalogo(interaction, 'bundles', 0, true);
                 } else if (opcao === 'compra_eternos') {
-                    abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
+                    abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Buscar Eternos', 'Qual campeão deseja ver os Eternos?');
                 } else if (opcao === 'compra_misterio') {
                     return await enviarPaginaCatalogo(interaction, 'misterio', 0, true);
                 } else if (opcao === 'compra_hextech') {
@@ -4273,16 +4273,16 @@ client.on('interactionCreate', async interaction => {
                 return;
             }
             else if (interaction.customId === 'tentar_novamente_skins') {
-                abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Search Skins', 'Enter the champion\'s name:');
+                abrirModalBusca(interaction, 'buscar_campeao_modal', '🔍 Buscar Skins', 'Digite o nome do campeão:');
             }
             else if (interaction.customId === 'tentar_novamente_cromas') {
                 abrirModalBusca(interaction, 'buscar_campeao_chromas_modal', '🔍 Search Chromas', 'Enter the champion\'s name:');
             }
             else if (interaction.customId === 'tentar_novamente_eternos') {
-                abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Search Eternals', 'Which champion\'s Eternals do you want to see?');
+                abrirModalBusca(interaction, 'buscar_campeao_eternos_modal', '🏆 Buscar Eternos', 'Qual campeão deseja ver os Eternos?');
             }
             else if (interaction.customId === 'tentar_novamente_campeao') {
-                abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Purchase Champion', 'Enter the champion\'s name:');
+                abrirModalBusca(interaction, 'buscar_compra_campeao_modal', '⚔️ Comprar Campeão', 'Digite o nome do campeão:');
             }
             else if (interaction.customId === 'btn_member_verify') {
                 try {

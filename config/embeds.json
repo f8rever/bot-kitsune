@@ -30,7 +30,7 @@
     "title": "🔘 Botão Global de Voltar (Back / Menu)",
     "description": "Configure aqui o texto, emoji e cor de TODOS os botões de voltar (Back to Menu, Back to Main Categories, Menu) em toda a loja.",
     "color": "#F43F5E",
-    "buttonLabel": "Back to Menu",
+    "buttonLabel": "Voltar ao Menu",
     "buttonEmoji": "<a:l_arrow_white:1567579417365188818>",
     "buttonStyle": "Secondary",
     "footerText": "© Kitsune - Copyright 2026"
@@ -63,36 +63,36 @@
     "footerText": "© Kitsune - Copyright 2026"
   },
   "category_skins": {
-    "title": "🎨 Kitsune Store | Skins & Chromas",
-    "description": "<a:whitearrow:1555074441933758624> **Select a Skins category below:**\n\n> <:legendary:1555074221338665080> **Skins:** Legendary (1820 RP), Epic (1350 RP), Classic & Ultimate (3250 RP)\n> <:15croma:1555074272614154270> **Chromas:** All official champion chromas (290 RP)",
+    "title": "🎨 Kitsune Store | Skins",
+    "description": "<a:whitearrow:1555074441933758624> **Selecione uma opção de Skins abaixo:**\n\n> <:legendary:1555074221338665080> **Skins:** Lendárias (1820 RP), Épicas (1350 RP), Clássicas e Ultimates (3250 RP)\n> <:15croma:1555074272614154270> **Cromas:** Todos os cromas oficiais de skins (290 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_27.jpg"
   },
   "category_loot": {
-    "title": "📦 Kitsune Store | Loot, Passes & Chests",
-    "description": "<a:whitearrow:1555074441933758624> **Select a Loot category below:**\n\n> <:lol_orb_s3:1555074434048725083> **Orbs & Capsules:** Worlds 2026 Orbs (250 RP) & Bundles (Deluxe, Premium & Mega)\n> <:lol_pass_s3:1560503114253996042> **Season Event Passes:** Worlds 2026 Season 3 Passes (1650, 2650 & 3650 RP)\n> <:hextech:1555074299000524932> **Hextech Chests & Keys:** Hextech Chest (125 RP), Key (125 RP), 1x (195 RP), 5x (975 RP), 10x (1950 RP) Bundles\n> <:mystery_skin:1560503288762339350> **Mystery Gifts:** Peak Entertainment Mystery Chest (850 RP), Mystery Skin (490 RP), Mystery Champion (490 RP), Mystery Chest (790 RP)",
+    "title": "📦 Kitsune Store | Espólios",
+    "description": "<a:whitearrow:1555074441933758624> **Selecione uma opção de Espólios abaixo:**\n\n> <:lol_orb_s3:1555074434048725083> **Orbes e Cápsulas:** Orbes de evento (250 RP) e Pacotes (Deluxe, Premium e Mega)\n> <:lol_pass_s3:1560503114253996042> **Passes de Evento:** Passes de temporada oficiais (1650, 2650 e 3650 RP)\n> <:hextech:1555074299000524932> **Baús Hextec e Chaves:** Baú (125 RP), Chave (125 RP), Combos 1x (195 RP), 5x (975 RP), 10x (1950 RP)\n> <:mystery_skin:1560503288762339350> **Presentes Misteriosos:** Skin Misteriosa (490 RP), Campeão Misterioso (490 RP), Baú Misterioso (790 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Samira_10.jpg"
   },
   "category_champions": {
-    "title": "<:mchamp:1555074230050095114> Kitsune Store | Champions & Eternals",
-    "description": "<a:whitearrow:1555074441933758624> **Select what you wish to purchase below:**\n\n> <:mchamp:1555074230050095114> **Champions:** Search and gift any of the 173 League of Legends Champions\n> <:1eternos:1567579284296438010> **Eternals:** Statstone Series I and II for all champions (600 RP)",
+    "title": "<:mchamp:1555074230050095114> Kitsune Store | Campeões",
+    "description": "<a:whitearrow:1555074441933758624> **Selecione o que deseja comprar abaixo:**\n\n> <:mchamp:1555074230050095114> **Campeões:** Buscar e presentear qualquer um dos 173 Campeões do League of Legends\n> <:1eternos:1567579284296438010> **Eternos:** Estatísticas Série I e II para todos os campeões (600 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
   },
   "category_accessories": {
-    "title": "<:poro_emote:1560503291568201729> Kitsune Store | Summoner Accessories",
-    "description": "<a:whitearrow:1555074441933758624> **Select the Accessories category below:**\n\n> <:poro_emote:1560503291568201729> **Emotes:** All official giftable emotes (350 RP)\n> <:lol_star_ward:1567579299387678921> **Ward Skins:** Cosmetic ward skins (640 RP)\n> <:22icone:1567579306849476799> **Summoner Icons:** Official summoner icons (250 RP)",
+    "title": "<:poro_emote:1560503291568201729> Kitsune Store | Acessórios",
+    "description": "<a:whitearrow:1555074441933758624> **Selecione a categoria de Acessórios abaixo:**\n\n> <:poro_emote:1560503291568201729> **Emotes:** Todos os emotes presenteáveis oficiais (350 RP)\n> <:lol_star_ward:1567579299387678921> **Sentinelas:** Skins cosméticas de sentinela (640 RP)\n> <:22icone:1567579306849476799> **Ícones de Invocador:** Ícones de perfil oficiais (250 RP)",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_7.jpg"
   },
   "category_highlights": {
-    "title": "<:exclusive_pack:1560503285977190460> Kitsune Store | Featured",
-    "description": "<a:whitearrow:1555074441933758624> **Featured Store Offers & Launch Content:**\n\n> <:exclusive_pack:1560503285977190460> **Featured & Launch Bundles:** Worlds 2026 Season 3 Passes, HEARTSTEEL Live My Life Border Sets & Chroma Bundles\n> <:lol_sale:1547388458488823868> **Weekly Sales (On Sale):** Official weekly discounted skins directly from the client store (-27% to -60% off)\n> <a:pr_fire01:1555074334391799834> **Most Popular:** Best-selling Worlds 2026 passes, orbs & skins on sale",
+    "title": "<:exclusive_pack:1560503285977190460> Kitsune Store | Destaques",
+    "description": "<a:whitearrow:1555074441933758624> **Ofertas em Destaque e Lançamentos da Loja:**\n\n> <:exclusive_pack:1560503285977190460> **Pacotes e Lançamentos:** Passes de temporada, bordas e pacotes especiais\n> <:lol_sale:1547388458488823868> **Promoções Semanais:** Skins e campeões com desconto oficial direto do LoL (-27% a -60% off)\n> <a:pr_fire01:1555074334391799834> **Mais Populares:** Os itens mais vendidos e procurados da loja",
     "color": "#F43F5E",
     "thumbnail": "",
     "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kaisa_14.jpg"
