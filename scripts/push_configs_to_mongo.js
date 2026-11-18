@@ -43,6 +43,17 @@ async function push() {
         console.log(`✅ Updated ${sales.length} weekly_sales in MongoDB Atlas kitsune_bot.bot_configurations!`);
     }
 
+    const wallpapersPath = path.join(__dirname, '..', 'config', 'wallpapers.json');
+    if (fs.existsSync(wallpapersPath)) {
+        const wallpapers = JSON.parse(fs.readFileSync(wallpapersPath, 'utf8'));
+        await col.updateOne(
+            { configType: 'wallpapers' },
+            { $set: { data: wallpapers, updatedAt: new Date() } },
+            { upsert: true }
+        );
+        console.log(`✅ Updated ${wallpapers.length} wallpapers in MongoDB Atlas kitsune_bot.bot_configurations!`);
+    }
+
     // Verification
     const emCheck = await col.findOne({ configType: 'emojis' });
     console.log('New Mongo emojis.ticket.regiao:', emCheck.data?.ticket?.regiao);

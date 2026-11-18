@@ -39,11 +39,26 @@ const ANIMATED_SPLASH_POOL = [
     'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/ezreal/skins/skin05/animatedsplash/ezreal_skin5_uncentered.webm'
 ];
 
+const WALLPAPERS_PATH = path.join(__dirname, '../config/wallpapers.json');
+
+function getActiveWallpaperPool() {
+    try {
+        if (fs.existsSync(WALLPAPERS_PATH)) {
+            const data = JSON.parse(fs.readFileSync(WALLPAPERS_PATH, 'utf8'));
+            if (Array.isArray(data) && data.length > 0) {
+                return data;
+            }
+        }
+    } catch (e) {}
+    return ANIMATED_SPLASH_POOL;
+}
+
 let _lastPickedUrl = null;
 function getRandomAnimatedBannerUrl() {
-    const candidates = ANIMATED_SPLASH_POOL.length > 1
-        ? ANIMATED_SPLASH_POOL.filter(u => u !== _lastPickedUrl)
-        : ANIMATED_SPLASH_POOL;
+    const pool = getActiveWallpaperPool();
+    const candidates = pool.length > 1
+        ? pool.filter(u => u !== _lastPickedUrl)
+        : pool;
     const picked = candidates[Math.floor(Math.random() * candidates.length)];
     _lastPickedUrl = picked;
     return picked;
@@ -368,6 +383,7 @@ async function ensureGifFromVideoUrl(url, onProgress = null) {
 
 module.exports = {
     ANIMATED_SPLASH_POOL,
+    getActiveWallpaperPool,
     getRandomAnimatedBannerUrl,
     isVideoBannerUrl,
     getGifCacheInfo,

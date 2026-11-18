@@ -17,9 +17,10 @@ __pycache__/
 */__pycache__/
 *.pyc
 
-# Archives & Packages
+# Archives, Packages & Backups
 *.zip
 *.tar.gz
+backups/
 
 # Temporary & Debug Files
 scratch/
