@@ -1641,6 +1641,28 @@
                         </div>
                     </div>
 
+                    <!-- LCU / GAME CLIENT INTEGRATION BAR (V1 BRUTA) -->
+                    <div class="lcu-status-bar" id="lcuStatusBar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 10px 16px; margin: 12px 0; backdrop-filter: blur(10px);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div id="lcu-indicator-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #64748b; box-shadow: 0 0 8px rgba(100, 116, 139, 0.5); flex-shrink: 0;"></div>
+                            <div>
+                                <span id="lcu-status-text" style="font-size: 0.88rem; font-weight: 700; color: #cbd5e1;">Detectando League of Legends...</span>
+                                <span id="lcu-meta-text" style="display: none; font-size: 0.78rem; margin-left: 8px;"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="kc-btn" id="btnSyncLCUCatalog" onclick="syncCatalogViaLCU()" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; font-size: 0.78rem; padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" title="Baixar catálogo oficial (10.600+ itens) ao vivo direto do LoL aberto">
+                                <i class="fa-solid fa-arrows-rotate" id="lcu-sync-spinner"></i> Atualizar Catálogo via LoL
+                            </button>
+                            <button type="button" class="kc-btn" id="btnLoadLCUFriends" onclick="loadLCUFriends()" style="background: rgba(30, 41, 59, 0.8); color: #cbd5e1; font-size: 0.78rem; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(148,163,184,0.2); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" title="Puxar amigos conectados do jogo">
+                                <i class="fa-solid fa-user-group text-cyan"></i> Amigos do Client
+                            </button>
+                            <button type="button" class="kc-btn" id="btnUseLCUSender" onclick="useLCUSenderAccount()" style="background: rgba(16, 185, 129, 0.15); color: #10b981; font-size: 0.78rem; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.3); font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" title="Usar a conta logada no LoL como enviadora">
+                                <i class="fa-solid fa-bolt"></i> Usar Conta do LoL
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="kc-main-grid">
                         <div class="kc-field">
                             <label><i class="fa-solid fa-user me-1 text-purple"></i> <span data-i18n="label_sender_acc">Conta Enviadora</span></label>
@@ -2282,6 +2304,145 @@
                 if (btn) btn.classList.toggle('active', isHidden);
             }
         }
+
+        // =====================================================================
+        // LCU / CLIENT LOCAL ENGINE (V1 BRUTA)
+        // =====================================================================
+        let currentLCUStatus = { connected: false };
+        let lcuFriendsList = [];
+
+        async function checkLCUStatus() {
+            try {
+                const res = await fetch('/api/lcu/status');
+                if (!res.ok) return;
+                const data = await res.json();
+                currentLCUStatus = data;
+
+                const dot = document.getElementById('lcu-indicator-dot');
+                const text = document.getElementById('lcu-status-text');
+                const meta = document.getElementById('lcu-meta-text');
+                const saldoEl = document.getElementById('saldo-amount');
+
+                if (data.connected) {
+                    if (dot) {
+                        dot.style.background = '#10b981';
+                        dot.style.boxShadow = '0 0 10px #10b981';
+                    }
+                    if (text) {
+                        text.innerHTML = `<span style="color: #10b981;"><i class="fa-solid fa-circle-check me-1"></i>LoL Conectado:</span> <strong>${data.riot_id}</strong> (Nv. ${data.level})`;
+                    }
+                    if (meta) {
+                        meta.style.display = 'inline';
+                        meta.innerHTML = `<span style="color: #fbbf24; font-weight: 700;"><i class="fa-solid fa-coins me-1"></i>${Number(data.rp).toLocaleString()} RP</span> <span style="color: #64748b; margin: 0 4px;">|</span> <span style="color: #60a5fa;">${Number(data.blue_essence).toLocaleString()} EA</span>`;
+                    }
+                    if (saldoEl && (saldoEl.innerText === '--' || saldoEl.innerText === '0')) {
+                        saldoEl.innerText = Number(data.rp).toLocaleString();
+                    }
+                } else {
+                    if (dot) {
+                        dot.style.background = '#64748b';
+                        dot.style.boxShadow = '0 0 8px rgba(100, 116, 139, 0.5)';
+                    }
+                    if (text) {
+                        text.innerHTML = `<span style="color: #94a3b8;"><i class="fa-solid fa-gamepad me-1"></i>LoL Fechado</span> <span style="font-size: 0.78rem; font-weight: 400; color: #64748b;">(abra o jogo no PC para modo direto)</span>`;
+                    }
+                    if (meta) meta.style.display = 'none';
+                }
+            } catch (e) {
+                // Silencioso em caso de falha de rede temporária
+            }
+        }
+
+        async function syncCatalogViaLCU() {
+            const btn = document.getElementById('btnSyncLCUCatalog');
+            const spinner = document.getElementById('lcu-sync-spinner');
+            if (spinner) spinner.classList.add('fa-spin');
+            if (btn) btn.disabled = true;
+
+            const origText = btn ? btn.innerHTML : '';
+            if (btn) btn.innerHTML = '<i class="fa-solid fa-arrows-rotate fa-spin"></i> Baixando Catálogo...';
+
+            try {
+                const res = await fetch('/api/lcu/sync-catalog', { method: 'POST' });
+                const json = await res.json();
+                if (res.ok && json.status === 'success') {
+                    alert('🎉 Sucesso!\n\n' + json.message);
+                    location.reload();
+                } else {
+                    alert('⚠️ Falha ao atualizar catálogo:\n\n' + (json.message || 'Verifique se o LoL está aberto e logado em uma conta.'));
+                }
+            } catch (err) {
+                alert('❌ Erro de conexão com o servidor da API: ' + err.message);
+            } finally {
+                if (spinner) spinner.classList.remove('fa-spin');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = origText;
+                }
+            }
+        }
+
+        async function loadLCUFriends() {
+            try {
+                const res = await fetch('/api/lcu/friends');
+                const data = await res.json();
+                const friends = data.friends || [];
+                lcuFriendsList = friends;
+
+                if (!friends.length) {
+                    alert('⚠️ Nenhum amigo encontrado. Verifique se o LoL está aberto e logado!');
+                    return;
+                }
+
+                let dl = document.getElementById('lcu-friends-datalist');
+                if (!dl) {
+                    dl = document.createElement('datalist');
+                    dl.id = 'lcu-friends-datalist';
+                    document.body.appendChild(dl);
+                    const input = document.getElementById('nickname-tag');
+                    if (input) input.setAttribute('list', 'lcu-friends-datalist');
+                }
+                dl.innerHTML = '';
+                friends.forEach(f => {
+                    const opt = document.createElement('option');
+                    opt.value = f.name;
+                    opt.setAttribute('data-summoner-id', f.summonerId);
+                    opt.label = `${f.availability === 'chat' ? '🟢 Online' : '⚪ Offline'}`;
+                    dl.appendChild(opt);
+                });
+
+                const nickInput = document.getElementById('nickname-tag');
+                if (nickInput) {
+                    nickInput.focus();
+                    nickInput.setAttribute('placeholder', `Selecione entre ${friends.length} amigos carregados...`);
+                }
+
+                alert(`👥 Sucesso!\n\n${friends.length} amigos in-game foram carregados diretamente do seu LoL!\nBasta digitar ou clicar no campo 'Destinatário' para escolher.`);
+            } catch (err) {
+                alert('❌ Erro ao buscar amigos do client: ' + err.message);
+            }
+        }
+
+        function useLCUSenderAccount() {
+            if (!currentLCUStatus || !currentLCUStatus.connected) {
+                alert('⚠️ O LoL Client não está aberto ou ainda não foi detectado.\nInicie o LoL no seu PC e aguarde o status ficar verde!');
+                return;
+            }
+            const senderInput = document.getElementById('username-password');
+            if (senderInput) {
+                senderInput.value = `[LoL Client: ${currentLCUStatus.riot_id}]`;
+                senderInput.setAttribute('data-lcu-mode', 'true');
+            }
+            const saldoEl = document.getElementById('saldo-amount');
+            if (saldoEl) {
+                saldoEl.innerText = Number(currentLCUStatus.rp).toLocaleString();
+            }
+            alert(`⚡ Modo LoL Client Ativo!\n\nConta conectada: ${currentLCUStatus.riot_id}\nSaldo: ${Number(currentLCUStatus.rp).toLocaleString()} RP\n\nAgora você não precisa de senha nem resolver captcha: a API usará a sessão ativa do jogo!`);
+        }
+
+        // Inicia verificação automática do LoL a cada 4 segundos
+        setInterval(checkLCUStatus, 4000);
+        setTimeout(checkLCUStatus, 1000);
     </script>
 </body>
 </html>
