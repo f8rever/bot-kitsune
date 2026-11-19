@@ -2,7 +2,13 @@ import json
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CONFIG_DIR = os.path.join(BASE_DIR, '..', 'config')
+# Suporta tanto lol_giftapi-main/config quanto python_backend/../config
+_candidate_dirs = [
+    os.path.join(BASE_DIR, 'config'),
+    os.path.join(BASE_DIR, '..', 'config'),
+    r'c:\Users\jeff\Documents\KITSUNE V2 BOT\config'
+]
+CONFIG_DIR = next((d for d in _candidate_dirs if os.path.isdir(d)), os.path.join(BASE_DIR, 'config'))
 POOL_PATH = os.path.join(CONFIG_DIR, 'captcha_keys_pool.json')
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'captcha_config.json')
 

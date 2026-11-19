@@ -4,32 +4,25 @@ import hashlib
 
 files_to_sync = [
     ("python_backend/main_backend.py", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\main_backend.py",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\main_backend.py"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\main_backend.py"
     ]),
     ("python_backend/api_files/riot_tokens.py", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\riot_tokens.py",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\api_files\riot_tokens.py"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\riot_tokens.py"
     ]),
     ("python_backend/api_files/gift.py", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\gift.py",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\api_files\gift.py"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\api_files\gift.py"
     ]),
     ("python_backend/templates/gift_tab.html", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\templates\gift_tab.html",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\templates\gift_tab.html"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\templates\gift_tab.html"
     ]),
     ("python_backend/static/style.css", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\static\style.css",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\static\style.css"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\static\style.css"
     ]),
     ("python_backend/static/script.js", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\static\script.js",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\static\script.js"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\static\script.js"
     ]),
     ("python_backend/templates/login_tab.html", [
-        r"C:\Users\jeff\Documents\lol_giftapi-main\templates\login_tab.html",
-        r"C:\Users\jeff\Documents\lol_giftapi-main\python_backend\templates\login_tab.html"
+        r"C:\Users\jeff\Documents\lol_giftapi-main\templates\login_tab.html"
     ])
 ]
 

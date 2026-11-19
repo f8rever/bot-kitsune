@@ -94,8 +94,7 @@ async function buildFullCatalog() {
         path.join(__dirname, '../catalog.json'),
         path.resolve(__dirname, '../../lol_giftapi-main/catalog.json'),
         path.join(__dirname, '../python_backend/catalog.json'),
-        path.join(__dirname, '../config/catalog.json'),
-        path.resolve(__dirname, '../../lol_giftapi-main/python_backend/catalog.json')
+        path.join(__dirname, '../config/catalog.json')
     ]
         .filter(p => fs.existsSync(p))
         .sort((a, b) => {

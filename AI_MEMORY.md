@@ -251,6 +251,8 @@ Todos os 18 comandos abaixo possuem permissões estritas de Staff (`Administrato
   - **Resolução do Erro ao Voltar:** Correção do bug de imagens quebradas/ausentes ao clicar em 'Back to Menu' (oltar_menu_modal e oltar_cat_*), através da injeção de iles: [] nos updates de interação e substituição definitiva de links expirados do Discord por links CDN permanentes em config/embeds.json.
   - **Inglês Universal (English):** Restauração do menu principal da loja, submenus por categoria, modais de busca, botões de paginação e embeds fixos para inglês puro conforme especificação oficial do bot.
 
+* **Fase 9 (Organização Modular da API em lol_giftapi-main):** Quarentena da pasta interna duplicada `python_backend/`, purga de lixo npm acidental (`node_modules`), unificação dos espelhos de sincronização (`sync_mirrors.py`, `restore_official_passes_and_loot.py`, `buildFullCatalog.js`), criação de `scripts/` dedicado para ferramentas e testes, implementação do inicializador rápido `iniciar_api.bat` e documentação técnica atualizada no `README.md`.
+
 ---
 
 ## 🎯 Próximos Passos & Roadmap

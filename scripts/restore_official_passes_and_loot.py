@@ -365,9 +365,7 @@ paths_to_update = [
     ('python_backend/catalog_cache_pt.json', PASSES_PT, LOOT_PT),
     ('python_backend/catalog_cache_en.json', PASSES_EN, LOOT_EN),
     (r'C:\Users\jeff\Documents\lol_giftapi-main\catalog_cache_pt.json', PASSES_PT, LOOT_PT),
-    (r'C:\Users\jeff\Documents\lol_giftapi-main\catalog_cache_en.json', PASSES_EN, LOOT_EN),
-    (r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\catalog_cache_pt.json', PASSES_PT, LOOT_PT),
-    (r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\catalog_cache_en.json', PASSES_EN, LOOT_EN)
+    (r'C:\Users\jeff\Documents\lol_giftapi-main\catalog_cache_en.json', PASSES_EN, LOOT_EN)
 ]
 
 for p, passes, loot in paths_to_update:
@@ -385,14 +383,12 @@ json_syncs = [
     ('config/featured_bundles.json', [
         'python_backend/featured_bundles.json',
         r'C:\Users\jeff\Documents\lol_giftapi-main\featured_bundles.json',
-        r'C:\Users\jeff\Documents\lol_giftapi-main\config\featured_bundles.json',
-        r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\featured_bundles.json'
+        r'C:\Users\jeff\Documents\lol_giftapi-main\config\featured_bundles.json'
     ]),
     ('config/weekly_sales.json', [
         'python_backend/weekly_sales.json',
         r'C:\Users\jeff\Documents\lol_giftapi-main\weekly_sales.json',
-        r'C:\Users\jeff\Documents\lol_giftapi-main\config\weekly_sales.json',
-        r'C:\Users\jeff\Documents\lol_giftapi-main\python_backend\weekly_sales.json'
+        r'C:\Users\jeff\Documents\lol_giftapi-main\config\weekly_sales.json'
     ])
 ]
 
