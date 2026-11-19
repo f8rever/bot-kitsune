@@ -23,7 +23,6 @@ import datetime as dt
 from api_files.riot_tokens import RiotAuth
 from api_files.xmpp import RiotChatClient
 from api_files.gift import Gift
-from api_files.lcu import lcu_instance
 from aiohttp import ClientResponseError
 from bson import ObjectId
 import uuid
@@ -1743,114 +1742,6 @@ async def update_catalog():
 
     await fetch_catalogs(lang=lang)
     return jsonify({"message": "Catalog updated successfully"}), 200
-
-
-# ==============================================================================
-# LCU / CLIENT LOCAL ENGINE (V1 BRUTA - DIRECT GAME CLIENT INTEGRATION)
-# ==============================================================================
-
-@app.route('/api/lcu/status', methods=['GET'])
-def api_lcu_status():
-    """Retorna o status do League of Legends local e dados da conta ativa."""
-    return jsonify(lcu_instance.get_status())
-
-@app.route('/api/lcu/friends', methods=['GET'])
-def api_lcu_friends():
-    """Retorna a lista completa de amigos in-game do LoL aberto."""
-    friends = lcu_instance.get_friends()
-    return jsonify({"friends": friends, "count": len(friends)})
-
-@app.route('/api/lcu/sync-catalog', methods=['POST'])
-async def api_lcu_sync_catalog():
-    """Baixa o catálogo completo (10.600+ itens) ao vivo do LoL aberto e recompila os caches."""
-    ok, msg = lcu_instance.sync_catalog(current_dir)
-    if ok:
-        await load_catalog()
-        return jsonify({"status": "success", "message": msg}), 200
-    else:
-        return jsonify({"status": "error", "message": msg}), 400
-
-@app.route('/api/lcu/send-gift', methods=['POST'])
-async def api_lcu_send_gift():
-    """
-    Envia presente utilizando a sessão autenticada ativa do LoL Client (Storefront V3).
-    Suporta auto-unlock de campeões base e seleção direta de amigos.
-    """
-    data = request.json or {}
-    receiver_summoner_id = data.get("receiver_summoner_id")
-    receiver_name = data.get("receiver_name", "Amigo")
-    item_id = data.get("item_id")
-    inventory_type = data.get("inventory_type", "CHAMPION_SKIN")
-    offer_id = data.get("offer_id")
-    price = data.get("price", 0)
-    gift_message = data.get("message", "")
-    quantity = data.get("quantity", 1)
-
-    if not receiver_summoner_id:
-        return jsonify({"status": "error", "message": "Invocador destinatário é obrigatório."}), 400
-
-    token = lcu_instance.get_access_token()
-    if not token:
-        return jsonify({"status": "error", "message": "Não foi possível obter o token ativo do LoL Client. Verifique se o jogo está aberto e logado."}), 400
-
-    status = lcu_instance.get_status()
-    if not status.get("connected"):
-        return jsonify({"status": "error", "message": "LoL Client desconectado."}), 400
-
-    account_id = status.get("account_id")
-    my_puuid = status.get("puuid")
-    username = status.get("riot_id")
-
-    # Adaptador de autenticação LCU compatível com a classe Gift
-    class LCUAuthAdapter:
-        def __init__(self, t, acc_id, puuid_val):
-            self.lol_token = t
-            self.user_token = t
-            self.accountId = acc_id
-            self.my_puuid = puuid_val
-            self.region = "BR1"
-            self.league_edge_url = "br-red.lol.sgp.pvp.net"
-            self.aws_prod = "BR1"
-            self.lol_version = "14.23.636.9832"
-            self._auth_ssl_ctx = None
-
-    adapter = LCUAuthAdapter(token, account_id, my_puuid)
-    gift_obj = Gift(adapter)
-
-    try:
-        gift_status, gift_resp = await gift_obj.send_gift_v3(
-            auth=adapter,
-            summoner_id=receiver_summoner_id,
-            item_id=item_id,
-            inventory_type=inventory_type,
-            item_price=price,
-            offer_id=offer_id,
-            gift_message=gift_message,
-            Qtd=quantity
-        )
-
-        auto_unlock_note = ""
-        if getattr(gift_obj, "auto_unlocked_champion", None):
-            auto_unlock_note = f" (+ Campeão base {gift_obj.auto_unlocked_champion} desbloqueado automaticamente)"
-
-        if gift_status in (200, 204):
-            return jsonify({
-                "status": "success",
-                "message": f"Presente enviado com sucesso via LoL Client para {receiver_name}!{auto_unlock_note}",
-                "account": username,
-                "gift_response": gift_resp
-            }), 200
-        else:
-            return jsonify({
-                "status": "error",
-                "message": f"Erro retornado pela Riot Store ({gift_status}): {gift_resp}",
-                "account": username
-            }), 400
-    except Exception as e:
-        return jsonify({"status": "error", "message": f"Falha no envio via LCU: {str(e)}"}), 500
-    finally:
-        await gift_obj.session.close()
-
 
 
 catalog_mtimes = {'pt': 0.0, 'en': 0.0}
